@@ -104,7 +104,10 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 	 * - Vamos alternando empezando por jumping y siguiendo por agility, omitiendo los
 	 *   perros que no esten clasificados
 	 *
+	 * @param {string} catmode categorias que hay que ordenar en la manga (X,L,M,S,T)
+	 * @param {string} range ( rango de perros a ordenar. No usado aqui )
 	 * @return {string} nuevo orden de salida; null on error
+	 * @throws Exception on invalid journey
 	 */
 	function orderByResults($catmode,$range) {
 		$this->myLogger->enter();
@@ -124,64 +127,82 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 		// invertimos el resultado para la manga de agility
         $magility=$clasa = json_decode(json_encode($mpadre[0]));
         $mjumping=$clasa = json_decode(json_encode($mpadre[1]));
+        $heights=intval($this->federation->get('Heights'));
 		switch($this->manga->Recorrido) {
 			case 0: // Large,medium,small (3-heighs) Large,medium,small,tiny (4-heights)
 
 				// agility
-				$this->invierteResultados($magility,0,$catmode);
-				$this->invierteResultados($magility,1,$catmode);
-				$this->invierteResultados($magility,2,$catmode);
-				if ($this->federation->get('Heights')==4)
-					$this->invierteResultados($magility,5,$catmode);
+				$this->invierteResultados($magility,0,$catmode); // L
+				$this->invierteResultados($magility,1,$catmode); // M
+				$this->invierteResultados($magility,2,$catmode); // S
+				if ($heights!=3) $this->invierteResultados($magility,5,$catmode); // T
+				if ($heights==5) $this->invierteResultados($magility,9,$catmode); // X
                 $orden_agility=$this->getOrden();
 
                 // jumping
-                $this->invierteResultados($mjumping,0,$catmode);
-                $this->invierteResultados($mjumping,1,$catmode);
-                $this->invierteResultados($mjumping,2,$catmode);
-                if ($this->federation->get('Heights')==4)
-                    $this->invierteResultados($mjumping,5,$catmode);
+                $this->invierteResultados($mjumping,0,$catmode); // L
+                $this->invierteResultados($mjumping,1,$catmode); // M
+                $this->invierteResultados($mjumping,2,$catmode); // S
+				if ($heights!=3) $this->invierteResultados($mjumping,5,$catmode); // T
+				if ($heights==5) $this->invierteResultados($mjumping,9,$catmode); // X
                 $orden_jumping=$this->getOrden();
 				break;
-			case 1: // Large,medium+small (3heights) Large+medium,Small+tiny (4heights)
-
-				// agility
-				if ($this->federation->get('Heights')==3) {
-					$this->invierteResultados($magility,0,$catmode);
-					$this->invierteResultados($magility,3,$catmode);
-				} else {
-					$this->invierteResultados($magility,6,$catmode);
-					$this->invierteResultados($magility,7,$catmode);
+			case 1: // Large,medium+small (3heights) Large+medium,Small+tiny (4heights) XL,MST (5heights)
+				if ($heights==3) {
+					$this->invierteResultados($magility,0,$catmode); // L
+					$this->invierteResultados($magility,3,$catmode); // MS
+					$orden_agility=$this->getOrden();
+					$this->invierteResultados($mjumping,0,$catmode); // L
+					$this->invierteResultados($mjumping,3,$catmode); // MS
+					$orden_jumping=$this->getOrden();
 				}
-                $orden_agility=$this->getOrden();
-
-				// jumping
-                if ($this->federation->get('Heights')==3) {
-                    $this->invierteResultados($mjumping,0,$catmode);
-                    $this->invierteResultados($mjumping,3,$catmode);
-                } else {
-                    $this->invierteResultados($mjumping,6,$catmode);
-                    $this->invierteResultados($mjumping,7,$catmode);
-                }
-                $orden_jumping=$this->getOrden();
+				if ($heights==4) {
+					$this->invierteResultados($magility,6,$catmode); // LM
+					$this->invierteResultados($magility,7,$catmode); // ST
+					$orden_agility=$this->getOrden();
+					$this->invierteResultados($mjumping,6,$catmode); // LM
+					$this->invierteResultados($mjumping,7,$catmode); // ST
+					$orden_jumping=$this->getOrden();
+				}
+				if ($heights==5) {
+					$this->invierteResultados($magility,10,$catmode); // XL
+					$this->invierteResultados($magility,11,$catmode); // MST
+					$orden_agility=$this->getOrden();
+					$this->invierteResultados($mjumping,10,$catmode); // XL
+					$this->invierteResultados($mjumping,11,$catmode); // MST
+					$orden_jumping=$this->getOrden();
+				}
 				break;
-			case 2: // conjunta L+M+S (3 heights) L+M+S+T (4heights)
-
-				// agility
-				if ($this->federation->get('Heights')==3) {
-					$this->invierteResultados($magility,4,$catmode);
-				} else  {
-					$this->invierteResultados($magility,8,$catmode);
+			case 2: // conjunta L+M+S (3 heights) L+M+S+T (4heights) X+L+M+S+T (5heights)
+				if ($heights==3) {
+					$this->invierteResultados($magility,4,$catmode); // LMS
+					$orden_agility=$this->getOrden();
+					$this->invierteResultados($mjumping,4,$catmode);
+					$orden_jumping=$this->getOrden();
 				}
-                $orden_agility=$this->getOrden();
+				if ($heights==4) {
+					$this->invierteResultados($magility,8,$catmode); // LMST
+					$orden_agility=$this->getOrden();
+					$this->invierteResultados($mjumping,8,$catmode);
+					$orden_jumping=$this->getOrden();
+				}
+				if ($heights==5) {
+					$this->invierteResultados($magility,12,$catmode); // XLMST
+					$orden_agility=$this->getOrden();
+					$this->invierteResultados($mjumping,12,$catmode);
+					$orden_jumping=$this->getOrden();
 
-				// jumping
-                if ($this->federation->get('Heights')==3) {
-                    $this->invierteResultados($mjumping,4,$catmode);
-                } else  {
-                    $this->invierteResultados($mjumping,8,$catmode);
-                }
-                $orden_jumping=$this->getOrden();
+				}
+				break;
+			case 3: // 3 groups XL,M,ST 5heights
+				$this->invierteResultados($magility,10,$catmode); // XL
+				$this->invierteResultados($magility,1,$catmode); // M
+				$this->invierteResultados($magility,7,$catmode); // ST
+				$orden_agility=$this->getOrden();
+				$this->invierteResultados($mjumping,10,$catmode); // XL
+				$this->invierteResultados($mjumping,1,$catmode); // M
+				$this->invierteResultados($mjumping,7,$catmode); // ST
+				$orden_jumping=$this->getOrden();
 				break;
 		}
 

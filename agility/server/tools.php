@@ -656,7 +656,8 @@ function category_match($from,$to="-LMSTX") {
             case 8: $to='LMST'; break;
             case 9: $to='X'; break;
             case 10: $to='XL'; break;
-            case 11: $to='XLMST'; break;
+            case 11: $to='MST'; break;
+            case 12: $to='XLMST'; break;
             default: $to='-LMSTX'; break;
         }
     }
@@ -681,7 +682,8 @@ function sqlFilterCategoryByMode($mode,$prefix=""){
         case 8: /* L+M+S+T */   return "AND ( {$prefix}Categoria IN ('L','M','S','T') ) "; break;
         case 9: /* XtraLarge */ return "AND ( {$prefix}Categoria='X' ) "; break;
         case 10: /* XL + L */   return "AND ( {$prefix}Categoria IN ('X','L') ) "; break;
-        case 11: /* L+M+S+T */  return "AND ( {$prefix}Categoria IN ('X','L','M','S','T') ) "; break;
+        case 11: /* L+M+S+T */  return "AND ( {$prefix}Categoria IN ('M','S','T') ) "; break;
+        case 12: /* L+M+S+T */  return "AND ( {$prefix}Categoria IN ('X','L','M','S','T') ) "; break;
         default: return null;
     }
 }
@@ -699,7 +701,8 @@ function mode_match($cat,$mode) {
 		case 8: return category_match($cat,"LMST");
         case 9: return category_match($cat,"X");
         case 10: return category_match($cat,"XL");
-        case 11: return category_match($cat,"XLMST");
+        case 11: return category_match($cat,"MST");
+        case 12: return category_match($cat,"XLMST");
 	}
 	return false; // invalid mode
 }

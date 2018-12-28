@@ -80,7 +80,7 @@ class NAT3 extends Federations {
                 array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid","Invalid"),
                 array(/* 3 grupos */ "Invalid", "Medium", "Small+Toy", "Invalid","XL+Large")
             ),
-            'IndexedModes' => array ( // modes 5 to 11 are invalid in this federation
+            'IndexedModes' => array ( // modes 5 to 12 are invalid in this federation
                 "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",
                 "Extra Large","Large + XL","Med+Small+Tiny","Common X/L/M/S/T"
             ),

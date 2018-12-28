@@ -89,18 +89,49 @@ class PrintCommon extends FPDF {
         // si estamos aqui, tenemos mangas de equipos conjunta.
         if ($manga['Recorrido']==2) return false; // recorrido conjunto. No hay cambio de pagina, pues todos salen juntos
         if ($manga['Recorrido']==0) return ($from!==$to); // recorridos separados cambia pagina si cambia categoria
-		// llegando aqui tenemos recorridos mixtos. si no manga equipos conjunta compara categorias
+		// llegando aqui tenemos recorridos mixtos ( 1:2grupos 3:3grupos).
+		// si no manga equipos conjunta compara categorias
         // en recorrido mixto y equipos conjunta discriminamos por alturas
-		$alturas=$this->federation->get('Heights');
+		$heights=$this->federation->get('Heights');
 		switch ($from) {
-			case '-': $result= false; break;// cualquier categoria es valida: no cambia pagina
-            case 'L': $result= category_match($to,($alturas==3)?'L':'LM'); break;
-            case 'M': $result= category_match($to,($alturas==3)?'MS':'LM'); break;
-            case 'S': $result= category_match($to,($alturas==3)?'MS':'ST'); break;
-            case 'T': $result= category_match($to,($alturas==3)?'ST':'ST'); break;// 'T' no existe en tres alturas
+			case '-':
+				$result= false;// cualquier categoria es valida: no cambia pagina
+				break;
+			case 'X': // implica 5 alturas en recorrido mixto. Salen juntas L y X
+				if ($heights!=5) {
+					$this->myLogger->warn("evalNewPage(): Invalid Category 'X' in non 5-heights contest");
+					$result=false;
+					break;
+				}
+				$result=category_match($to,'XL');
+				break;
+			case 'L':
+				if ($heights==3)  $result= category_match($to,'L');
+				if ($heights==4)  $result= category_match($to,'LM');
+				if ($heights==5)  $result= category_match($to,'XL'); // XL tanto en dos como en tres grupos (rec=1,3)
+				break;
+			case 'M':
+				if ($heights==3)  $result= category_match($to,'MS'); // solo hay recorrido 1 MS salen juntas
+				if ($heights==4)  $result= category_match($to,'LM'); // solo hay recorrido 1 LM salen juntas
+				if ($heights==5)  $result= category_match($to,($manga['Recorrido']==1)?'MST':'M'); // 2 o tres grupos
+				break;
+			case 'S':
+				if ($heights==3)  $result= category_match($to,'MS'); // rec==1 1: MS salen juntas
+				if ($heights==4)  $result= category_match($to,'ST'); // rec==1 1: ST salen juntas
+				if ($heights==5)  $result= category_match($to,($manga['Recorrido']==1)?'MST':'ST'); // rec==1,3 (2 o 3 grupos)
+				break;
+			case 'T':
+				if ($heights==3) {
+					$this->myLogger->warn("evalNewPage(): Invalid Category 'T' in 3-heights contest");
+					$result=false;
+					break;
+				}
+				if ($heights==4)  $result= category_match($to,'ST');
+				if ($heights==5)  $result= category_match($to,($manga['Recorrido']==1)?'MST':'ST'); // rec==1,3 (2 o 3 grupos)
+				break;
 			default:
-                $this->myLogger->notice("invalid category to evaluate newPage $from - $to");
-                $result= false; // should not arrive here. notify error
+				$this->myLogger->notice("evalNewPage() unknown Category $from - $to");
+				$result= false; // should not arrive here. notify error
 				break;
 		}
         $this->myLogger->leave();

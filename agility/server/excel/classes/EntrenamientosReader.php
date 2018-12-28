@@ -68,14 +68,17 @@ class EntrenamientosReader extends DogReader {
             'Value3' =>     array (  -15,  -1, "i", "Value3",    " `Value3` int(4) NOT NULL DEFAULT 0, "), // optional
             'Key4' =>       array (  -16,  -1, "s", "Key4",      " `Key4` varchar(32) DEFAULT 'T', "), // 4th ring is optional in 3 height
             'Value4' =>     array (  -17,  -1, "i", "Value4",    " `Value4` int(4) NOT NULL DEFAULT 0, "), // 4th ring is optional in 3 height
+            'Key5' =>       array (  -18,  -1, "s", "Key5",      " `Key5` varchar(32) DEFAULT 'X', "), // (optional) data for X-large ring
+            'Value5' =>     array (  -19,  -1, "i", "Value5",    " `Value5` int(4) NOT NULL DEFAULT 0, "), //(optional) data for X-large ring
             // comentarios
-            'Comments' =>   array (  -18,  -1, "s", "Observaciones", " `Observaciones` varchar(255) DEFAULT '', "),  // optional
+            'Comments' =>   array (  -20,  -1, "s", "Observaciones", " `Observaciones` varchar(255) DEFAULT '', "),  // optional
             // Estado: default -1
         );
         // fix fields according contest type
         $fedobj=Federations::getFederation($this->federation);
         if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=0; $this->fieldList['Country'][1]=1; } // country/club
-        if ($fedobj->get('Heights')==4) { $this->fieldList['Key4'][1]=1; $this->fieldList['Value4'][1]=1; } // required on 4 heights
+        if ($fedobj->get('Heights')!=3) { $this->fieldList['Key4'][1]=1; $this->fieldList['Value4'][1]=1; } // required on 4 heights
+        if ($fedobj->get('Heights')==5) { $this->fieldList['Key5'][1]=1; $this->fieldList['Value5'][1]=1; } // required on 5 heights
         $this->validPageNames=array("Results","Resultados");
     }
 
@@ -201,7 +204,7 @@ class EntrenamientosReader extends DogReader {
         /* limit */   "",
         /* group by*/"Categoria"
         );
-        $res= array( 'L' => 0, 'M' => 0, 'S'=>0, 'T' => 0, '-' => 0, 'Total' => 0);
+        $res= array( 'L' => 0, 'M' => 0, 'S'=>0, 'T' => 0, 'X' => 0, '-' => 0, 'Total' => 0);
         foreach($list['rows'] as $item) {
             $res[$item['Categoria']] += $item['Numero'];
             $res['Total']+=$item['Numero'];
@@ -266,16 +269,18 @@ class EntrenamientosReader extends DogReader {
             // si no nos dan duracion la evaluamos
             $data['Duracion']=$row['Duracion'];
             if ($row['Duracion']==0)
-                $data['Duracion']=($mode==0)? $items['Total']*$dtime : max($items['L'],$items['M'],$items['S'],$items['T'])*$dtime;
+                $data['Duracion']=($mode==0)? $items['Total']*$dtime : max($items['L'],$items['M'],$items['S'],$items['T'],$items['X'])*$dtime;
 
             $data['Key1']=$row['Key1'];
             $data['Key2']=$row['Key2'];
             $data['Key3']=$row['Key3'];
             $data['Key4']=$row['Key4'];
+            $data['Key5']=$row['Key5'];
             $data['Value1']=($row['Value1']==0)?$items['L']:$row['Value1'];
             $data['Value2']=($row['Value2']==0)?$items['M']:$row['Value2'];
             $data['Value3']=($row['Value3']==0)?$items['S']:$row['Value3'];
             $data['Value4']=($row['Value4']==0)?$items['T']:$row['Value4'];
+            $data['Value5']=($row['Value5']==0)?$items['X']:$row['Value5'];
             $data['Observaciones']=$row['Observaciones'];
             $this->saveStatus("Importing training data session for entry: '{$row['NombreClub']}'");
             $res=$trobj->insert($data);

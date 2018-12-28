@@ -416,7 +416,7 @@ class OrdenSalida extends DBObject {
 	 * @param {integer} catmode categorias a tener en cuenta en el listado que hay que presentar
 	 * @param {array} rs lista de resultados a presentar. Se utiliza para reordenar resultados en funcion del orden de salida
 	 */
-	function getData($teamView=false,$catmode=11,$rs=null,$range="0-99999") {
+	function getData($teamView=false,$catmode=12,$rs=null,$range="0-99999") {
 		$this->myLogger->enter();
 		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
 		if (!$rs) $rs= $this->__select(
@@ -798,28 +798,44 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->trace("El orden de salida original para manga:{$this->manga->ID} ".
                                     "jornada:{$this->jornada->ID} es:\n{$hermanas[0]->Orden_Salida}");
 		// En funcion del tipo de recorrido tendremos que leer diversos conjuntos de Resultados
+		$heights=intval($this->federation->get('Heights'));
 		switch($hermanas[0]->Recorrido) {
-			case 0: // Large,medium,small (3-heighs) Large,medium,small,tiny (4-heights)
-				$this->invierteResultados($hermanas[1],0,$catmode);
-				$this->invierteResultados($hermanas[1],1,$catmode);
-				$this->invierteResultados($hermanas[1],2,$catmode);
-				if ($this->federation->get('Heights')==4) $this->invierteResultados($hermanas[1],5,$catmode);
+			case 0: // Large,medium,small (3-heighs) Large,medium,small,tiny (4-heights) X,L,M,S,T (5-heigths)
+				$this->invierteResultados($hermanas[1],0,$catmode); // L
+				$this->invierteResultados($hermanas[1],1,$catmode); // M
+				$this->invierteResultados($hermanas[1],2,$catmode); // S
+				if ($heights!=3) $this->invierteResultados($hermanas[1],5,$catmode); // T
+				if ($heights==5) $this->invierteResultados($hermanas[1],9,$catmode); // X
 				break;
-			case 1: // Large,medium+small (3heights) Large+medium,Small+tiny (4heights)
-				if ($this->federation->get('Heights')==3) {
-					$this->invierteResultados($hermanas[1],0,$catmode);
-					$this->invierteResultados($hermanas[1],3,$catmode);
-				} else {
-					$this->invierteResultados($hermanas[1],6,$catmode);
-					$this->invierteResultados($hermanas[1],7,$catmode);
+			case 1: // Large,medium+small (3heights) Large+medium,Small+tiny (4heights) XLarge+Large,medium,+small+toy (5heights)
+				if ($heights==3) {
+					$this->invierteResultados($hermanas[1],0,$catmode); // L
+					$this->invierteResultados($hermanas[1],3,$catmode); // MS
+				}
+				if ($heights==4)  {
+					$this->invierteResultados($hermanas[1],6,$catmode); // LM
+					$this->invierteResultados($hermanas[1],7,$catmode); // ST
+				}
+				if ($heights==5)  {
+					$this->invierteResultados($hermanas[1],10,$catmode); // XL
+					$this->invierteResultados($hermanas[1],11,$catmode); // MST
 				}
 				break;
 			case 2: // conjunta L+M+S (3 heights) L+M+S+T (4heights)
-				if ($this->federation->get('Heights')==3) {
-					$this->invierteResultados($hermanas[1],4,$catmode);
-				} else  {
-					$this->invierteResultados($hermanas[1],8,$catmode);
+				if ($heights==3) {
+					$this->invierteResultados($hermanas[1],4,$catmode); // LMS
 				}
+				if ($heights==4)  {
+					$this->invierteResultados($hermanas[1],8,$catmode); // LMST
+				}
+				if ($heights==5)  {
+					$this->invierteResultados($hermanas[1],12,$catmode); // XLMST
+				}
+				break;
+			case 3: // 5-heigts 3 groups mode (XL+L, M,  S+T)
+				$this->invierteResultados($hermanas[1],10,$catmode);
+				$this->invierteResultados($hermanas[1],1,$catmode);
+				$this->invierteResultados($hermanas[1],7,$catmode);
 				break;
 		}
 		$nuevo=$this->getOrden();

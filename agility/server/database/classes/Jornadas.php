@@ -928,11 +928,10 @@ class Jornadas extends DBObject {
 				array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],0,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // large
 				array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],1,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // medium
 				array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],2,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // small
-                if($heights==4) {
+                if($heights!=3) {
                     array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],5,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // tiny
                 }
                 if($heights==5) {
-                    array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],5,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // tiny
                     array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],9,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // XtraLarge
                 }
 				break;
@@ -962,7 +961,7 @@ class Jornadas extends DBObject {
                 }
 				break;
             case 3: // 3 grupos ( implica $heights==5 )
-                array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],9,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // x+l
+                array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],10,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // x+l
                 array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],1,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // m
                 array_push($data,Jornadas::__composeArray($prueba,$jornada,$tiporonda,$m1['Recorrido'],7,$m1,$m2,$m3,$m4,$m5,$m6,$m7,$m8)); // s+t
                 break;

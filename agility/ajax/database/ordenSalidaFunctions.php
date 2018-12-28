@@ -47,7 +47,7 @@ try {
     $method= http_request("SortMethod","s","results");
 	$catmode=11;
 	switch ($cats) {
-		case "-": $catmode=11; break; // use 11 cause includes 4(LMS) and 8 (LMST)
+		case "-": $catmode=12; break; // use 12 cause includes 4(LMS) and 8 (LMST)
         case "X": $catmode=9; break;
         case "L": $catmode=0; break;
 		case "M": $catmode=1; break;
