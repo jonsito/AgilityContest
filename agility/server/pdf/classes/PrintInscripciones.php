@@ -283,43 +283,29 @@ class PrintEstadisticas extends PrintCommon {
 	function evalData() {
 		$est=array();
 		// datos globales
-		$est['Prueba']=array();
-		$est['Prueba']['G']=array();
-		$est['Prueba']['G']['C']=0;$est['Prueba']['G']['L']=0;$est['Prueba']['G']['M']=0;$est['Prueba']['G']['S']=0;$est['Prueba']['G']['T']=0;
-        $est['Prueba']['Jr']=array();
-        $est['Prueba']['Jr']['C']=0;$est['Prueba']['Jr']['L']=0;$est['Prueba']['Jr']['M']=0;$est['Prueba']['Jr']['S']=0;$est['Prueba']['Jr']['T']=0;
-        $est['Prueba']['Sr']=array();
-        $est['Prueba']['Sr']['C']=0;$est['Prueba']['Sr']['L']=0;$est['Prueba']['Sr']['M']=0;$est['Prueba']['Sr']['S']=0;$est['Prueba']['Sr']['T']=0;
-		$est['Prueba']['P.A.']=array();
-		$est['Prueba']['P.A.']['C']=0;$est['Prueba']['P.A.']['L']=0;$est['Prueba']['P.A.']['M']=0;$est['Prueba']['P.A.']['S']=0;$est['Prueba']['P.A.']['T']=0;	
-		$est['Prueba']['GI']=array();
-		$est['Prueba']['GI']['C']=0;$est['Prueba']['GI']['L']=0;$est['Prueba']['GI']['M']=0;$est['Prueba']['GI']['S']=0;$est['Prueba']['GI']['T']=0;	
-		$est['Prueba']['GII']=array();
-		$est['Prueba']['GII']['C']=0;$est['Prueba']['GII']['L']=0;$est['Prueba']['GII']['M']=0;$est['Prueba']['GII']['S']=0;$est['Prueba']['GII']['T']=0;	
-		$est['Prueba']['GIII']=array();
-		$est['Prueba']['GIII']['C']=0;$est['Prueba']['GIII']['L']=0;$est['Prueba']['GIII']['M']=0;$est['Prueba']['GIII']['S']=0;$est['Prueba']['GIII']['T']=0;
-		$est['Prueba']['-']=array();
-        $est['Prueba']['-']['C']=0;$est['Prueba']['-']['L']=0;$est['Prueba']['-']['M']=0;$est['Prueba']['-']['S']=0;$est['Prueba']['-']['T']=0;
-
-		foreach (array('1','2','3','4','5','6','7','8') as $j) { // creamos arrays para las ocho posibles jornadas
+		$est['Prueba']=array(
+			'G' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'Jr' =>  array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'Sr' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'P.A.' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'GI' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'GII' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'GIII' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0)
+		);
+		// creamos arrays para las ocho posibles jornadas
+		foreach (array('1','2','3','4','5','6','7','8') as $j) {
             // Jornada 1
-            $est['J'.$j]=array();
-            $est['J'.$j]['G']=array();
-            $est['J'.$j]['G']['C']=0;$est['J'.$j]['G']['L']=0;$est['J'.$j]['G']['M']=0;$est['J'.$j]['G']['S']=0;$est['J'.$j]['G']['T']=0;
-            $est['J'.$j]['Jr']=array();
-            $est['J'.$j]['Jr']['C']=0;$est['J'.$j]['Jr']['L']=0;$est['J'.$j]['Jr']['M']=0;$est['J'.$j]['Jr']['S']=0;$est['J'.$j]['Jr']['T']=0;
-            $est['J'.$j]['Sr']=array();
-            $est['J'.$j]['Sr']['C']=0;$est['J'.$j]['Sr']['L']=0;$est['J'.$j]['Sr']['M']=0;$est['J'.$j]['Sr']['S']=0;$est['J'.$j]['Sr']['T']=0;
-            $est['J'.$j]['P.A.']=array();
-            $est['J'.$j]['P.A.']['C']=0;$est['J'.$j]['P.A.']['L']=0;$est['J'.$j]['P.A.']['M']=0;$est['J'.$j]['P.A.']['S']=0;$est['J'.$j]['P.A.']['T']=0;
-            $est['J'.$j]['GI']=array();
-            $est['J'.$j]['GI']['C']=0;$est['J'.$j]['GI']['L']=0;$est['J'.$j]['GI']['M']=0;$est['J'.$j]['GI']['S']=0;$est['J'.$j]['GI']['T']=0;
-            $est['J'.$j]['GII']=array();
-            $est['J'.$j]['GII']['C']=0;$est['J'.$j]['GII']['L']=0;$est['J'.$j]['GII']['M']=0;$est['J'.$j]['GII']['S']=0;$est['J'.$j]['GII']['T']=0;
-            $est['J'.$j]['GIII']=array();
-            $est['J'.$j]['GIII']['C']=0;$est['J'.$j]['GIII']['L']=0;$est['J'.$j]['GIII']['M']=0;$est['J'.$j]['GIII']['S']=0;$est['J'.$j]['GIII']['T']=0;
-            $est['J'.$j]['-']=array();
-            $est['J'.$j]['-']['C']=0;$est['J'.$j]['-']['L']=0;$est['J'.$j]['-']['M']=0;$est['J'.$j]['-']['S']=0;$est['J'.$j]['-']['T']=0;
+            $est['J'.$j]=array(
+				'G' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'Jr' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'Sr' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'P.A.' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'GI' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'GII' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'GIII' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'-' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0)
+			);
         }
 
 		foreach($this->inscritos as $item){
@@ -346,55 +332,63 @@ class PrintEstadisticas extends PrintCommon {
 	}
 
     // $this->cell( width, height, data, borders, where, align, fill)
-	function printTableData($data,$name,$alturas) {
+	function printTableData($data,$name,$heights) {
 		$this->ac_header(2,9);
 		$this->SetX(10);
-
+		$width=($heights==5)?25:($heights==4)?30:35;
 		// Pintamos la cabecera de la tabla
         $this->SetFont($this->getFontName(),'B',9);
         $this->cell(35,6,'','LRB',0,'L',true);
-        $this->cell(30,6,$this->federation->getCategory('L'),'TRB',0,'C',true);
-        $this->cell(30,6,$this->federation->getCategory('M'),'TRB',0,'C',true);
-        $this->cell(30,6,$this->federation->getCategory('S'),'TRB',0,'C',true);
-        if ($alturas==4)
-            $this->cell(30,6,$this->federation->getCategory('T'),'TRB',0,'C',true);
-        $this->cell(30,6,'Total','TRB',0,'C',true);
+		if ($heights==5)
+			$this->cell($width,6,$this->federation->getCategory('X'),'TRB',0,'C',true);
+        $this->cell($width,6,$this->federation->getCategory('L'),'TRB',0,'C',true);
+        $this->cell($width,6,$this->federation->getCategory('M'),'TRB',0,'C',true);
+        $this->cell($width,6,$this->federation->getCategory('S'),'TRB',0,'C',true);
+        if ($heights!=3)
+            $this->cell($width,6,$this->federation->getCategory('T'),'TRB',0,'C',true);
+        $this->cell($width,6,'Total','TRB',0,'C',true);
         $this->Ln(6);
 
 		// Pre Agility
         $this->ac_header(2,9); // pre-agility
         $this->cell(35,6,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
         $this->ac_row(0,9);
-        $this->cell(30,6,$data[$name]['P.A.']['L'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['P.A.']['M'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['P.A.']['S'],'RB',0,'C',true);
-        if ($alturas==4)
-        	$this->cell(30,6,$data[$name]['P.A.']['T'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['P.A.']['C'],'RB',0,'C',true);
+		if ($heights==5)
+			$this->cell($width,6,$data[$name]['P.A.']['X'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['P.A.']['L'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['P.A.']['M'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['P.A.']['S'],'RB',0,'C',true);
+        if ($heights!=3)
+        	$this->cell($width,6,$data[$name]['P.A.']['T'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['P.A.']['C'],'RB',0,'C',true);
         $this->Ln(6);
 
         // grado 1
         $this->ac_header(2,9);
         $this->cell(35,6,$this->federation->getGrade('GI'),'LRB',0,'L',true);
         $this->ac_row(1,9);
-        $this->cell(30,6,$data[$name]['GI']['L'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['GI']['M'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['GI']['S'],'RB',0,'C',true);
-        if ($alturas==4)
-        	$this->cell(30,6,$data[$name]['GI']['T'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['GI']['C'],'RB',0,'C',true);
+		if ($heights==5)
+			$this->cell($width,6,$data[$name]['GI']['X'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['GI']['L'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['GI']['M'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['GI']['S'],'RB',0,'C',true);
+        if ($heights!=3)
+        	$this->cell($width,6,$data[$name]['GI']['T'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['GI']['C'],'RB',0,'C',true);
         $this->Ln(6);
 
         // grado II
         $this->ac_header(2,9);
         $this->cell(35,6,$this->federation->getGrade('GII'),'LRB',0,'L',true);
         $this->ac_row(2,9);
-        $this->cell(30,6,$data[$name]['GII']['L'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['GII']['M'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['GII']['S'],'RB',0,'C',true);
-        if ($alturas==4)
-        	$this->cell(30,6,$data[$name]['GII']['T'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['GII']['C'],'RB',0,'C',true);
+		if ($heights==5)
+			$this->cell($width,6,$data[$name]['GII']['X'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['GII']['L'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['GII']['M'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['GII']['S'],'RB',0,'C',true);
+        if ($heights!=3)
+        	$this->cell($width,6,$data[$name]['GII']['T'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['GII']['C'],'RB',0,'C',true);
         $this->Ln(6);
 
 
@@ -402,12 +396,14 @@ class PrintEstadisticas extends PrintCommon {
             $this->ac_header(2,9); // grado III
             $this->cell(35,6,$this->federation->getGrade('GIII'),'LRB',0,'L',true);
             $this->ac_row(3,9);
-            $this->cell(30,6,$data[$name]['GIII']['L'],'RB',0,'C',true);
-            $this->cell(30,6,$data[$name]['GIII']['M'],'RB',0,'C',true);
-            $this->cell(30,6,$data[$name]['GIII']['S'],'RB',0,'C',true);
-            if ($alturas==4)
-            	$this->cell(30,6,$data[$name]['GIII']['T'],'RB',0,'C',true);
-            $this->cell(30,6,$data[$name]['GIII']['C'],'RB',0,'C',true);
+			if ($heights==5)
+				$this->cell($width,6,$data[$name]['GIII']['X'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['GIII']['L'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['GIII']['M'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['GIII']['S'],'RB',0,'C',true);
+            if ($heights!=3)
+            	$this->cell($width,6,$data[$name]['GIII']['T'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['GIII']['C'],'RB',0,'C',true);
             $this->Ln(6);
 		}
 
@@ -416,12 +412,14 @@ class PrintEstadisticas extends PrintCommon {
             $this->ac_header(2,9);
             $this->cell(35,6,$this->federation->getGrade('Jr'),'LRB',0,'L',true);
             $this->ac_row(0,9);
-            $this->cell(30,6,$data[$name]['Jr']['L'],'RB',0,'C',true);
-            $this->cell(30,6,$data[$name]['Jr']['M'],'RB',0,'C',true);
-            $this->cell(30,6,$data[$name]['Jr']['S'],'RB',0,'C',true);
-            if($alturas==4)
-            	$this->cell(30,6,$data[$name]['Jr']['T'],'RB',0,'C',true);
-            $this->cell(30,6,$data[$name]['Jr']['C'],'RB',0,'C',true);
+			if($heights==5)
+				$this->cell($width,6,$data[$name]['Jr']['X'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['Jr']['L'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['Jr']['M'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['Jr']['S'],'RB',0,'C',true);
+            if($heights!=3)
+            	$this->cell($width,6,$data[$name]['Jr']['T'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['Jr']['C'],'RB',0,'C',true);
             $this->Ln(6);
         }
 
@@ -430,12 +428,14 @@ class PrintEstadisticas extends PrintCommon {
             $this->ac_header(2,9);
             $this->cell(35,6,$this->federation->getGrade('Sr'),'LRB',0,'L',true);
             $this->ac_row(0,9);
-            $this->cell(30,6,$data[$name]['Sr']['L'],'RB',0,'C',true);
-            $this->cell(30,6,$data[$name]['Sr']['M'],'RB',0,'C',true);
-            $this->cell(30,6,$data[$name]['Sr']['S'],'RB',0,'C',true);
-            if($alturas==4)
-                $this->cell(30,6,$data[$name]['Sr']['T'],'RB',0,'C',true);
-            $this->cell(30,6,$data[$name]['Sr']['C'],'RB',0,'C',true);
+			if($heights==5)
+				$this->cell($width,6,$data[$name]['Sr']['X'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['Sr']['L'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['Sr']['M'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['Sr']['S'],'RB',0,'C',true);
+            if($heights!=3)
+                $this->cell($width,6,$data[$name]['Sr']['T'],'RB',0,'C',true);
+            $this->cell($width,6,$data[$name]['Sr']['C'],'RB',0,'C',true);
             $this->Ln(6);
 		}
 
@@ -443,52 +443,59 @@ class PrintEstadisticas extends PrintCommon {
         $this->ac_header(2,9);
         $this->cell(35,6,_('Total'),'LRB',0,'L',true);
         $this->ac_row(4,9);
-        $this->cell(30,6,$data[$name]['G']['L'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['G']['M'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['G']['S'],'RB',0,'C',true);
-        if ($alturas==4)
-        	$this->cell(30,6,$data[$name]['G']['T'],'RB',0,'C',true);
-        $this->cell(30,6,$data[$name]['G']['C'],'RB',0,'C',true);
+		if ($heights==5)
+			$this->cell($width,6,$data[$name]['G']['X'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['G']['L'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['G']['M'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['G']['S'],'RB',0,'C',true);
+        if ($heights!=3)
+        	$this->cell($width,6,$data[$name]['G']['T'],'RB',0,'C',true);
+        $this->cell($width,6,$data[$name]['G']['C'],'RB',0,'C',true);
         $this->Ln(8);
 	}
 
 	/**
 	 * En mangas especiales ( ko,games, equipos, etc ) no hay categorias. solo globales
 	 */
-	function printTableDataSpecial($data,$name,$alturas,$flag) {
+	function printTableDataSpecial($data,$name,$heights,$flag) {
 		$this->ac_header(2,9);
 		$this->SetX(10);
+		$width=($heights==5)?25:($heights==4)?30:35;
 
 		$this->SetFont($this->getFontName(),'B',9);
 		// $this->cell( width, height, data, borders, where, align, fill)
-		$this->cell(30,6,'','LRB',0,'L',true);
-		$this->cell(30,6,$this->federation->getCategory('L'),'TRB',0,'C',true);
-		$this->cell(30,6,$this->federation->getCategory('M'),'TRB',0,'C',true);
-		$this->cell(30,6,$this->federation->getCategory('S'),'TRB',0,'C',true);
-		if ($alturas==4)
-			$this->cell(30,6,$this->federation->getCategory('T'),'TRB',0,'C',true);
-		$this->cell(30,6,_('Total'),'TRB',0,'C',true);
+		$this->cell(35,6,'','LRB',0,'L',true);
+		if ($heights==5)
+			$this->cell($width,6,$this->federation->getCategory('X'),'TRB',0,'C',true);
+		$this->cell($width,6,$this->federation->getCategory('L'),'TRB',0,'C',true);
+		$this->cell($width,6,$this->federation->getCategory('M'),'TRB',0,'C',true);
+		$this->cell($width,6,$this->federation->getCategory('S'),'TRB',0,'C',true);
+		if ($heights!=3)
+			$this->cell($width,6,$this->federation->getCategory('T'),'TRB',0,'C',true);
+		$this->cell($width,6,_('Total'),'TRB',0,'C',true);
 		$this->Ln(6);
 
 		$this->ac_header(0,9); // Special round==total
-		$this->cell(30,6,$flag,'LRB',0,'L',true);
+		$this->cell(35,6,$flag,'LRB',0,'L',true);
 		$this->ac_row(0,9);
-		$this->cell(30,6,$data[$name]['G']['L'],'RB',0,'C',true);
-		$this->cell(30,6,$data[$name]['G']['M'],'RB',0,'C',true);
-		$this->cell(30,6,$data[$name]['G']['S'],'RB',0,'C',true);
-		if ($alturas==4)
-			$this->cell(30,6,$data[$name]['G']['T'],'RB',0,'C',true);
-		$this->cell(30,6,$data[$name]['G']['C'],'RB',0,'C',true);
+		if ($heights==5)
+			$this->cell($width,6,$data[$name]['G']['X'],'RB',0,'C',true);
+		$this->cell($width,6,$data[$name]['G']['L'],'RB',0,'C',true);
+		$this->cell($width,6,$data[$name]['G']['M'],'RB',0,'C',true);
+		$this->cell($width,6,$data[$name]['G']['S'],'RB',0,'C',true);
+		if ($heights!=3)
+			$this->cell($width,6,$data[$name]['G']['T'],'RB',0,'C',true);
+		$this->cell($width,6,$data[$name]['G']['C'],'RB',0,'C',true);
 		$this->Ln(8);
 	}
 
 	function composeTable() {
-		$alturas=$this->federation->get('Heights');
+		$heights=$this->federation->get('Heights');
 		$est=$this->evalData();
 		$this->AddPage();
 		$count=0;
 		$this->printTableHeader($est,'Prueba',_('Participation global data'));
-		$this->printTableData($est,'Prueba',$alturas);
+		$this->printTableData($est,'Prueba',$heights);
 		$count+=2;
 		foreach($this->jornadas as $jornada) {
 			if ($jornada['Nombre']==='-- Sin asignar --') continue;
@@ -518,10 +525,10 @@ class PrintEstadisticas extends PrintCommon {
                 if ($jornada['Tipo_Competicion']==3) $flag=_("Games");
             }
 			if ($flag===""){
-                $this->printTableData($est,$name,$alturas);
+                $this->printTableData($est,$name,$heights);
                 $count+=2;
 			} else {
-                $this->printTableDataSpecial($est,$name,$alturas,$flag);
+                $this->printTableDataSpecial($est,$name,$heights,$flag);
                 $count++;
 			}
 			if ($count>8) {

@@ -816,15 +816,13 @@ class Jornadas extends DBObject {
 					array_push($rows,$m);
 					$s	=array_merge( array('ID'=>$mid.',2','Mode'=>2,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(2,0,$fed)),$item);
 					array_push($rows,$s);
-                    if($heights==4) {
+                    if($heights!=3) {
                         $t=array_merge( array('ID'=>$mid.',5','Mode'=>5,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(5,0,$fed)),$item);
                         array_push($rows,$t);
                     }
                     if($heights==5) {
                         $x=array_merge( array('ID'=>$mid.',9','Mode'=>9,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(9,0,$fed)),$item);
                         array_push($rows,$x);
-                        $t=array_merge( array('ID'=>$mid.',5','Mode'=>5,'Nombre'=>_(Mangas::getTipoManga($manga['Tipo'],1,$fed))." - ".Mangas::getMangaMode(5,0,$fed)),$item);
-                        array_push($rows,$t);
                     }
 					break;
 				case 1: // 2 grupos (l+ms) (lm+st) (xl+mst)
