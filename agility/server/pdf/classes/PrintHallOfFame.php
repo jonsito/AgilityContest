@@ -235,7 +235,8 @@ class PrintHallOfFame extends PrintCommon {
 	function composeTable() {
 		$this->myLogger->enter();
         $this->AddPage();
-		if ($this->federation->get('Heights')==3) {
+        $heights=intval($this->federation->get('Heights'));
+		if ($heights==3) {
             $this->writeBlock(3,3,array('GI'),array('L'));
             $this->writeBlock(3,2,array('GI'),array('M'));
             $this->writeBlock(3,1,array('GI'),array('S'));
@@ -252,7 +253,8 @@ class PrintHallOfFame extends PrintCommon {
             $this->writeBlock(0,2,array('GI','GII','GIII'),array('M'));
             $this->writeBlock(0,1,array('GI','GII','GIII'),array('S'));
             $this->writeBlock(0,0,array('GI','GII','GIII'),array('L','M','S'));
-        } else {
+        }
+        if ($heights==4) {
             $this->writeBlock(3,4,array('Jr'),array('L'));
             $this->writeBlock(3,3,array('Jr'),array('M'));
             $this->writeBlock(3,2,array('Jr'),array('S'));
@@ -273,6 +275,32 @@ class PrintHallOfFame extends PrintCommon {
             $this->writeBlock(0,2,array('Jr','GI','GII'),array('S'));
             $this->writeBlock(0,1,array('Jr','GI','GII'),array('T'));
             $this->writeBlock(0,0,array('Jr','GI','GII'),array('L','M','S','T'));
+        }
+        if ($heights==5) {
+            $this->writeBlock(3,5,array('GI'),array('X'));
+            $this->writeBlock(3,4,array('GI'),array('L'));
+            $this->writeBlock(3,3,array('GI'),array('M'));
+            $this->writeBlock(3,2,array('GI'),array('S'));
+            $this->writeBlock(3,1,array('GI'),array('T'));
+            $this->writeBlock(3,0,array('GI'),array('X','L','M','S','T'));
+            $this->writeBlock(2,5,array('GII'),array('X'));
+            $this->writeBlock(2,4,array('GII'),array('L'));
+            $this->writeBlock(2,3,array('GII'),array('M'));
+            $this->writeBlock(2,2,array('GII'),array('S'));
+            $this->writeBlock(2,1,array('GII'),array('T'));
+            $this->writeBlock(2,0,array('GII'),array('X','L','M','S','T'));
+            $this->writeBlock(1,5,array('GIII'),array('X'));
+            $this->writeBlock(1,4,array('GIII'),array('L'));
+            $this->writeBlock(1,3,array('GIII'),array('M'));
+            $this->writeBlock(1,2,array('GIII'),array('S'));
+            $this->writeBlock(1,1,array('GIII'),array('T'));
+            $this->writeBlock(1,0,array('GIII'),array('X','L','M','S','T'));
+            $this->writeBlock(0,5,array('GI','GII','GIII'),array('X'));
+            $this->writeBlock(0,4,array('GI','GII','GIII'),array('L'));
+            $this->writeBlock(0,3,array('GI','GII','GIII'),array('M'));
+            $this->writeBlock(0,2,array('GI','GII','GIII'),array('S'));
+            $this->writeBlock(0,1,array('GI','GII','GIII'),array('T'));
+            $this->writeBlock(0,0,array('GI','GII','GIII'),array('X','L','M','S','T'));
         }
 
 		$this->myLogger->leave();

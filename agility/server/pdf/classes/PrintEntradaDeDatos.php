@@ -98,19 +98,57 @@ class PrintEntradaDeDatos extends PrintCommon {
             $cat=$this->categoria;
 			// en pruebas por equipos conjuntas mixtas no se pone la categoria individual
 			// sino la asociada al tipo de recorrido
-			// NOTA: se supone que existen hojas especiales para equipos conjunta
-			// pero esto se pone por si acaso el usuario quiere imprimir las hojas "de toda la vida"
-			if ( ($this->manga->Recorrido==1 ) && in_array($this->manga->Tipo,array(9,14)) ) {
-                $alturas=$this->federation->get('Heights');
-                switch ($cat) {
-                    case '-': $cat= ""; break;// cualquier categoria es valida: no cambia pagina
-                    case 'L': $cat=($alturas==3)?'L':'LM'; break;
-                    case 'M': $cat=($alturas==3)?'MS':'LM'; break;
-                    case 'S': $cat=($alturas==3)?'MS':'ST'; break;
-                    case 'T': $cat=($alturas==3)?'ST':'ST'; break;// 'T' no existe en tres alturas
-                    default: $cat=$this->categoria; break; // should not happen
+            if (in_array($this->manga->Tipo,array(9,14))) {
+                $heights=$this->federation->get('Heights');
+                if ($this->manga->Recorrido==1) {
+                    if ($heights==3) { // L+MS
+                        switch ($cat) {
+                            case '-': $cat= ""; break;// cualquier categoria es valida: no cambia pagina
+                            // 'X' no existe en tres alturas
+                            case 'L': $cat='L'; break;
+                            case 'M': $cat='MS'; break;
+                            case 'S': $cat='MS'; break;
+                            // 'T' no existe en tres alturas
+                            default: $cat=$this->categoria; break; // should not happen
+                        }
+                    }
+                    if ($heights==4) { // LM+ST
+                        switch ($cat) {
+                            case '-': $cat= ""; break;// cualquier categoria es valida: no cambia pagina
+                            // 'X' no existe en tres alturas
+                            case 'L': $cat='LM'; break;
+                            case 'M': $cat='LM'; break;
+                            case 'S': $cat='ST'; break;
+                            case 'T': $cat='ST'; break;
+                            default: $cat=$this->categoria; break; // should not happen
+                        }
+                    }
+                    if ($heights==5) { // XL+MST
+                        switch ($cat) {
+                            case '-': $cat= ""; break;// cualquier categoria es valida: no cambia pagina
+                            case 'X': $cat='XL'; break;
+                            case 'L': $cat='XL'; break;
+                            case 'M': $cat='MST'; break;
+                            case 'S': $cat='MST'; break;
+                            case 'T': $cat='MST'; break;
+                            default: $cat=$this->categoria; break; // should not happen
+                        }
+                    }
                 }
-			}
+                if ($this->manga->Recorrido==3) { // implica cinco alturas XL+M+ST
+                    switch ($cat) {
+                        case '-': $cat= ""; break;// cualquier categoria es valida: no cambia pagina
+                        case 'X': $cat='XL'; break;
+                        case 'L': $cat='XL'; break;
+                        case 'M': $cat='M'; break;
+                        case 'S': $cat='ST'; break;
+                        case 'T': $cat='ST'; break;
+                        default: $cat=$this->categoria; break; // should not happen
+                    }
+
+                }
+                // recorridos tipo 0 ( comun ) y 2 ( separados ) no necesitan agrupamiento de categorias
+            }
 			$this->print_identificacionManga($this->manga,$this->getCatString($cat));
 		} else {
 			// modo extendido: pinta solo identificacion de la jornada

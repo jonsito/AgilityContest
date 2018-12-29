@@ -654,14 +654,14 @@ class Tandas extends DBObject {
     // tipomanga: manga type:
     // oper: false:remove true:insert
 	private function insert_remove($fed,$tipomanga,$oper) {
-		$alturas=intval($fed->get('Heights'));
+		$heights=intval($fed->get('Heights'));
 		$grados=intval($fed->get('Grades'));
 		// obtenemos las tandas cuyo tipo de manga coincide con el indicado
         $tandas=$this->getTandasInfo('TipoManga',$tipomanga);
 		foreach( $tandas as $item) {
             // hacemos limpieza de la lista de tandas obtenidas, eliminando las que no nos interesan
             $tipo=$item['Tipo'];
-			if( ($alturas==3) && ($item['Categoria']==='T') ) {
+			if( ($heights==3) && ($item['Categoria']==='T') ) {
 				// remove every "tiny" tandas on RSCE contests
 				$this->removeFromList($tipo);
 				continue;
@@ -685,12 +685,12 @@ class Tandas extends DBObject {
             // pues las tandas van com L-MS (3 alturas) o bien LM-ST (4 alturas)
             if( in_array($tipomanga,array(9,14)) ) {
 			    // en RSCE eliminanos todas las tandas con tipomanga 9(Ag) 14(Jp) relacionadas con RFEC
-                if ( ($alturas==3) && (in_array($tipo,array(45,47,48,52,53,54))) ) { // Ag (T,LM,ST) Jp (T,LM,ST)
+                if ( ($heights==3) && (in_array($tipo,array(45,47,48,52,53,54))) ) { // Ag (T,LM,ST) Jp (T,LM,ST)
                     $this->removeFromList($tipo);
                     continue;
                 }
                 // en RFEC eliminanos todas las tandas con tipomanga 9(Ag) 14(Jp) relacionadas con RSCE
-                if ( ($alturas==4) && (in_array($tipo,array(21,22,35,36))) ) { // Ag (L,MS) Jp (L,MS)
+                if ( ($heights==4) && (in_array($tipo,array(21,22,35,36))) ) { // Ag (L,MS) Jp (L,MS)
                     $this->removeFromList($tipo);
                     continue;
                 }
