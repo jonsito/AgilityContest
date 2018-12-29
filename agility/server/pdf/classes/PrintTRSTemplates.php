@@ -128,69 +128,80 @@ class PrintTRSTemplates extends PrintCommon {
         $mng=new Mangas("printFormularioTRS",$this->jornada->ID);
         // obtenemos la lista de mangas de la jornada
         $mangas=$mng->selectByJornada()['rows'];
+        $heights=intval($this->federation->get('Heights'));
         for($count=0;$count<count($mangas);$count++) {
             if ($count%8==0){
                 $this->AddPage();
-                $this->Ln(15);
+                $this->Ln(10);
             }
             $manga1=$mangas[$count];
             $manga2=null;
             if (array_key_exists($count+1,$mangas)) $manga2=$mangas[$count+1];
             // cabecera
             $this->ac_header(2,12);
-            $this->Cell(90,10,$manga1['Descripcion'],'LTBR',0,'L',true);
+            $this->Cell(90,8,$manga1['Descripcion'],'LTBR',0,'L',true);
             if ($manga2!==null) {
-                $this->Cell(10,10,"",0,0,0,false);
-                $this->Cell(90,10,$manga2['Descripcion'],'LTBR',0,'L',true);
+                $this->Cell(10,8,"",0,0,0,false);
+                $this->Cell(90,8,$manga2['Descripcion'],'LTBR',0,'L',true);
             }
             $this->Ln();
             // columnas
             $this->ac_row(1,10);
-            $this->Cell(20,10,$cols[0],'LRB',0,'C',true);
-            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,$cols[$n],"RB",0,"C",true);
+            $this->Cell(20,8,$cols[0],'LRB',0,'C',true);
+            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,$cols[$n],"RB",0,"C",true);
             if ($manga2!==null) {
-                $this->Cell(10,10,"",0,0,0,false);
-                $this->Cell(20,10,$cols[0],'LRB',0,'C',true);
-                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,$cols[$n],"RB",0,"C",true);
+                $this->Cell(10,8,"",0,0,0,false);
+                $this->Cell(20,8,$cols[0],'LRB',0,'C',true);
+                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,$cols[$n],"RB",0,"C",true);
             }
             $this->Ln();
             // datos
             $this->ac_row(0,10);
-            $this->Cell(20,10,$this->federation->getCategory('L'),'LRB',0,'C',true);
-            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
-            if ($manga2!==null) {
-                $this->Cell(10,10,"",0,0,0,false);
-                $this->Cell(20,10,$this->federation->getCategory('L'),'LRB',0,'C',true);
-                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
-            }
-            $this->Ln();
-            $this->Cell(20,10,$this->federation->getCategory('M'),'LRB',0,'C',true);
-            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
-            if ($manga2!==null) {
-                $this->Cell(10,10,"",0,0,0,false);
-                $this->Cell(20,10,$this->federation->getCategory('M'),'LRB',0,'C',true);
-                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
-            }
-            $this->Ln();
-            $this->Cell(20,10,$this->federation->getCategory('S'),'LRB',0,'C',true);
-            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
-            if ($manga2!==null) {
-                $this->Cell(10,10,"",0,0,0,false);
-                $this->Cell(20,10,$this->federation->getCategory('S'),'LRB',0,'C',true);
-                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
-            }
-            $this->Ln();
-            if(intval($this->federation->get('Heights'))==4) {
-                $this->Cell(20,10,$this->federation->getCategory('T'),'LRB',0,'C',true);
-                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
+            if($heights==5) {
+                $this->Cell(20,8,$this->federation->getCategory('X'),'LRB',0,'C',true);
+                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,"","RB",0,"C",true);
                 if ($manga2!==null) {
-                    $this->Cell(10,10,"",0,0,0,false);
-                    $this->Cell(20,10,$this->federation->getCategory('T'),'LRB',0,'C',true);
-                    for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
+                    $this->Cell(10,8,"",0,0,0,false);
+                    $this->Cell(20,8,$this->federation->getCategory('X'),'LRB',0,'C',true);
+                    for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,"","RB",0,"C",true);
                 }
                 $this->Ln();
             }
-            $this->Ln(5);
+            $this->Cell(20,8,$this->federation->getCategory('L'),'LRB',0,'C',true);
+            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,"","RB",0,"C",true);
+            if ($manga2!==null) {
+                $this->Cell(10,8,"",0,0,0,false);
+                $this->Cell(20,8,$this->federation->getCategory('L'),'LRB',0,'C',true);
+                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,"","RB",0,"C",true);
+            }
+            $this->Ln();
+            $this->Cell(20,8,$this->federation->getCategory('M'),'LRB',0,'C',true);
+            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,"","RB",0,"C",true);
+            if ($manga2!==null) {
+                $this->Cell(10,8,"",0,0,0,false);
+                $this->Cell(20,8,$this->federation->getCategory('M'),'LRB',0,'C',true);
+                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,"","RB",0,"C",true);
+            }
+            $this->Ln();
+            $this->Cell(20,8,$this->federation->getCategory('S'),'LRB',0,'C',true);
+            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,"","RB",0,"C",true);
+            if ($manga2!==null) {
+                $this->Cell(10,8,"",0,0,0,false);
+                $this->Cell(20,8,$this->federation->getCategory('S'),'LRB',0,'C',true);
+                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,"","RB",0,"C",true);
+            }
+            $this->Ln();
+            if($heights!=3) {
+                $this->Cell(20,8,$this->federation->getCategory('T'),'LRB',0,'C',true);
+                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,"","RB",0,"C",true);
+                if ($manga2!==null) {
+                    $this->Cell(10,8,"",0,0,0,false);
+                    $this->Cell(20,8,$this->federation->getCategory('T'),'LRB',0,'C',true);
+                    for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],8,"","RB",0,"C",true);
+                }
+                $this->Ln();
+            }
+            $this->Ln(2);
             $count++;
         }
     }
