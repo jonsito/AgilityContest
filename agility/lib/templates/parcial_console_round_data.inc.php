@@ -9,7 +9,7 @@ $config =Config::getInstance();
         <tr><th colspan="6"><?php _e('Technical data on selected round'); ?>:</th></tr>
         <tr id="resultadosmanga-XLargeRow">
             <td><input type="radio" name="rRecorrido" id="resultadosmanga-XLargeBtn" value="0" onclick="consoleReloadParcial(4,true)"></td>
-            <th id="resultadosmanga-XLargeLbl" style="width:150px">Large</th>
+            <th id="resultadosmanga-XLargeLbl" style="width:150px">X-Large</th>
             <td><?php _e('Distance'); ?> <input type="text" size="4" class="easyui-textbox trstrm" readonly="readonly" id="rm_DIST_X"></td>
             <td><?php _e('Obstacles'); ?> <input type="text" size="4" class="easyui-textbox trstrm" readonly="readonly" id="rm_OBST_X"></td>
             <td><?php _e('SCT'); ?> <input type="text" size="4" class="easyui-textbox trstrm" readonly="readonly" id="rm_TRS_X"></td>

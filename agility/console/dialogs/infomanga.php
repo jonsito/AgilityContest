@@ -39,16 +39,16 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td colspan="10">&nbsp;</td>
 		</tr>
 		<tr> <!-- fila 0: datos de los jueces -->
-			<td colspan="4">
+			<td colspan="3">
 				<label for="dmanga_Juez1"><span style="text-align:right"><?php _e('Judge'); ?> 1:</span></label>
-				<select id="dmanga_Juez1" name="Juez1" style="width:175px"></select>
+				<select id="dmanga_Juez1" name="Juez1" style="width:165px"></select>
 			</td>
-			<td colspan="4">
+			<td colspan="3">
 				<label for="dmanga_Juez2"><span style="text-align:right"><?php _e('Judge'); ?> 2:</span></label>
-				<select id="dmanga_Juez2" name="Juez2" style="width:175px"></select>
+				<select id="dmanga_Juez2" name="Juez2" style="width:165px"></select>
 			</td>
 			<td>&nbsp;</td>
-			<td colspan="2">
+			<td colspan="2" align="left">
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-whistle'" 
 					id="dmanga_SameJuez" onclick="dmanga_shareJuez();"><?php _e('Replicate'); ?></a>
 			</td>
@@ -553,13 +553,25 @@ $('#competicion-formdatosmanga').form({
 //tooltips
 addTooltip($('#dmanga_Juez1').combogrid('textbox'),'<?php _e("Main judge data"); ?>');
 addTooltip($('#dmanga_Juez2').combogrid('textbox'),'<?php _e("Auxiliar/Practice judge data"); ?>');
+<?php
+    $ttr1="";
+    $ttr3="";
+    $heights=$fed->get('Heights');
+    if ($heights==3) {
+        $ttr1=_("Separate courses Standard and Midi/mini");
+    }
+    if ($heights==4) {
+        $ttr1=_("Separate courses Standard/Medium and Small/Tiny");
+    }
+    if ($heights==5) {
+        $ttr1=_("2 courses: XLarge/Large and Medium/Small/Toy");
+        $ttr3=_("3 courses: XLarge/Large, Medium and Small/Toy");
+    }
+?>
 addTooltip($('#dmanga_Recorrido_0'),'<?php _e("Same course for every categories"); ?>');
-<?php if (intval($fed->get('Heights'))==3) {?>
-addTooltip($('#dmanga_Recorrido_1'),'<?php _e("Separate courses Standard and Midi/mini"); ?>');
-<?php } else { ?>
-addTooltip($('#dmanga_Recorrido_1'),'<?php _e("Separate courses Standard/Medium and Small/Tiny"); ?>');
-<?php } ?>
+addTooltip($('#dmanga_Recorrido_1'),'<?php echo $ttr1; ?>');
 addTooltip($('#dmanga_Recorrido_2'),'<?php _e("Independent courses for all categories"); ?>');
+addTooltip($('#dmanga_Recorrido_3'),'<?php echo $ttr3; ?>');
 addTooltip($('#dmanga_Restaurar').linkbutton(),'<?php _e("Restore original round info from database"); ?>');
 addTooltip($('#dmanga_Templates').linkbutton(),'<?php _e("Open print form selection dialog"); ?>');
 addTooltip($('#dmanga_Clasificaciones').linkbutton(),'<?php _e("Jump to Result and Scores window"); ?>');

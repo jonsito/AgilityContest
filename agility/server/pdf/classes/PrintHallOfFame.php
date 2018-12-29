@@ -173,57 +173,59 @@ class PrintHallOfFame extends PrintCommon {
         // get 3 best of requested cat/grad
         $items= $this->tresMejores($cats,$grads);
 
+        $heights=intval($this->federation->get('Heights'));
+
         // REMINDER: $this->cell( width, height, data, borders, newline, align, fill)
         // paint box
         if ( ($x==0) && ($y==0)) {
             $this->myLogger->trace($hdrstr);
             // cabecera
-            $this->SetXY(12,40);
+            $this->SetXY(12,36);
             $this->ac_header(1,13);
             $this->SetFont($this->getFontName(),'BI',13); // default font
-            $this->Cell(80,11,$hdrstr,'TBLR',0,'C',true);
+            $this->Cell(80,8,$hdrstr,'TBLR',0,'C',true);
             $this->ac_row(1,11);
             // tres mejores absolutos
             for($n=0;$n<3;$n++) {
                 $this->myLogger->trace("Entry {$n}:".json_encode($items[$n]));
                 $penal=number_format2($items[$n]['Penal'],$this->timeResolution);
                 $tiempo=number_format2($items[$n]['Tiempo'],$this->timeResolution);
-                $this->SetXY(12,51+9*$n);
+                $this->SetXY(12,44+7*$n);
                 $this->SetFont($this->getFontName(),'B',10);
-                $this->Cell(15,9,$items[$n]['Nombre'],'L',0,'L',false);
+                $this->Cell(15,7.5,$items[$n]['Nombre'],'L',0,'L',false);
                 $this->SetFont($this->getFontName(),'',9);
-                $this->Cell(25,9,$items[$n]['NombreGuia'],'C',0,'L',false);
-                $this->Cell(20,9,$items[$n]['NombreClub'],'R',0,'R',false);
-                $this->Cell(10,9,$tiempo,'R',0,'R',false);
-                $this->Cell(10,9,$penal,'R',0,'R',false);
+                $this->Cell(25,7.5,$items[$n]['NombreGuia'],'C',0,'L',false);
+                $this->Cell(20,7.5,$items[$n]['NombreClub'],'R',0,'R',false);
+                $this->Cell(10,7.5,$tiempo,'R',0,'R',false);
+                $this->Cell(10,7.5,$penal,'R',0,'R',false);
             }
             // linea de cierre
-            $this->Line(12,78,92,78);
+            $this->Line(12,66,92,66);
         } else {
             // cuadro para datos "normales"
             $this->myLogger->trace($hdrstr);
             // cabecera
-            $this->SetXY(30+65*$x,50+30*$y);
+            $this->SetXY(30+65*$x,45+24*$y);
             $this->ac_header(1,12);
             $this->SetFont($this->getFontName(),'BI',11); // default font
-            $this->Cell(63,7,$hdrstr,'TBLR',0,'C',true);
+            $this->Cell(63,5.5,$hdrstr,'TBLR',0,'C',true);
             $this->ac_row(1,10);
             // tres mejores de la categoria/grado
             for($n=0;$n<3;$n++) {
                 $this->myLogger->trace("Entry {$n}:".json_encode($items[$n]));
                 $penal=number_format2($items[$n]['Penal'],$this->timeResolution);
                 $tiempo=number_format2($items[$n]['Tiempo'],$this->timeResolution);
-                $this->SetXY(30+65*$x,50+30*$y+7*($n+1));
+                $this->SetXY(30+65*$x,45+24*$y+5.5*($n+1));
                 $this->SetFont($this->getFontName(),'B',7);
-                $this->Cell(11,7,$items[$n]['Nombre'],'L',0,'L',false);
+                $this->Cell(11,5.5,$items[$n]['Nombre'],'L',0,'L',false);
                 $this->SetFont($this->getFontName(),'',7);
-                $this->Cell(20,7,$items[$n]['NombreGuia'],'C',0,'L',false);
-                $this->Cell(14,7,$items[$n]['NombreClub'],'R',0,'R',false);
-                $this->Cell(9,7,$tiempo,'R',0,'R',false);
-                $this->Cell(9,7,$penal,'R',0,'R',false);
+                $this->Cell(20,5.5,$items[$n]['NombreGuia'],'C',0,'L',false);
+                $this->Cell(14,5.5,$items[$n]['NombreClub'],'R',0,'R',false);
+                $this->Cell(9,5.5,$tiempo,'R',0,'R',false);
+                $this->Cell(9,5.5,$penal,'R',0,'R',false);
             }
             // linea de cierre
-            $this->Line(30+65*$x,78+30*$y,93+65*$x,78+30*$y);
+            $this->Line(30+65*$x,67+24*$y,93+65*$x,67+24*$y);
         }
     }
 
