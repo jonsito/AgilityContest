@@ -94,8 +94,8 @@ class Tandas extends DBObject {
 			45	=> array('Tipo'=>45,	'TipoManga'=> 7,	'Nombre'=>'Agility Tiny',			'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'-'), //  Individual-Open
 			46	=> array('Tipo'=>46,	'TipoManga'=> 8,	'Nombre'=>'Agility team Tiny',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'-'), // team best
 			// en equipos4  cuatro alturas  agrupamos por LM y ST
-			47	=> array('Tipo'=>47,	'TipoManga'=> 9,	'Nombre'=>'Ag. teams Large/Medium', 'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'LM',	'Grado'=>'-'), // team combined
-			48	=> array('Tipo'=>48,	'TipoManga'=> 9,	'Nombre'=>'Ag. teams Small/Tiny',	'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'ST',	'Grado'=>'-'), // team combined
+			47	=> array('Tipo'=>47,	'TipoManga'=> 9,	'Nombre'=>'Ag. team Large/Medium', 'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'LM',	'Grado'=>'-'), // team combined
+			48	=> array('Tipo'=>48,	'TipoManga'=> 9,	'Nombre'=>'Ag. team Small/Tiny',	'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'ST',	'Grado'=>'-'), // team combined
 			49	=> array('Tipo'=>49,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Tiny',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GII'),
 			50	=> array('Tipo'=>50,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Tiny',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GIII'), // no existe
 			51	=> array('Tipo'=>51,	'TipoManga'=> 12,	'Nombre'=>'Jumping Tiny',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'-'), //  Individual-Open
@@ -161,7 +161,29 @@ class Tandas extends DBObject {
             107	=> array('Tipo'=>107,	'TipoManga'=> 35,	'Nombre'=>'Senior 2 Large',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'Sr'),
             108 => array('Tipo'=>108,	'TipoManga'=> 35,	'Nombre'=>'Senior 2 Medium',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'Sr'),
             109	=> array('Tipo'=>109,	'TipoManga'=> 35,	'Nombre'=>'Senior 2 Small',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'Sr'),
-            110	=> array('Tipo'=>110,	'TipoManga'=> 35,	'Nombre'=>'Senior 2 Toy',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Sr')
+         110	=> array('Tipo'=>110,	'TipoManga'=> 35,	'Nombre'=>'Senior 2 Toy',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Sr'),
+         // tandas para cinco alturas (X-Large
+         111	=> array('Tipo'=>111,	'TipoManga'=> 35,	'Nombre'=>'Junior 1 XLarge',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Jr'),
+         112	=> array('Tipo'=>112,	'TipoManga'=> 35,	'Nombre'=>'Junior 2 XLarge',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Jr'),
+         113	=> array('Tipo'=>113,	'TipoManga'=> 34,	'Nombre'=>'Senior 1 XLarge',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Sr'),
+         114	=> array('Tipo'=>114,	'TipoManga'=> 34,	'Nombre'=>'Senior 2 XLarge',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Sr'),
+         115	=> array('Tipo'=>115,	'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI XLarge','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'GI'),
+         116	=> array('Tipo'=>116,	'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI XLarge','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'GI'),
+         117	=> array('Tipo'=>117,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI XLarge','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'GI'),
+         118	=> array('Tipo'=>118,	'TipoManga'=> 5,	'Nombre'=>'Agility GII XLarge', 'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'GII'),
+         119	=> array('Tipo'=>119,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII XLarge', 'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'GII'),
+         120	=> array('Tipo'=>120,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII XLarge','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'GIII'),
+         121	=> array('Tipo'=>121,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII XLarge','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'GIII'),
+         122	=> array('Tipo'=>122,	'TipoManga'=> 7,	'Nombre'=>'Agility XLarge',     'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'-'),
+         123	=> array('Tipo'=>123,	'TipoManga'=> 12,	'Nombre'=>'Jumping XLarge',     'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'-'),
+         124	=> array('Tipo'=>124,	'TipoManga'=> 8,	'Nombre'=>'Agility Team XLarge','isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'X','Grado'=>'-'),
+         125	=> array('Tipo'=>125,	'TipoManga'=> 13,	'Nombre'=>'Jumping Team XLarge','isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'X','Grado'=>'-'),
+         126	=> array('Tipo'=>126,	'TipoManga'=> 16,	'Nombre'=>'Special Round XLarge','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'-'),
+         // jornadas team mixtas extras para cinco alturas
+         127	=> array('Tipo'=>127,	'TipoManga'=> 9,	'Nombre'=>'Ag. team XLarge/Large', 'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'XL',	'Grado'=>'-'), // team combined
+         128	=> array('Tipo'=>128,	'TipoManga'=> 14,	'Nombre'=>'Jp. team XLarge/Large', 'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'XL',	'Grado'=>'-'), // team combined
+         129	=> array('Tipo'=>129,	'TipoManga'=> 9,	'Nombre'=>'Ag. team Med/Small/Toy', 'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'MST','Grado'=>'-'), // team combined
+         130	=> array('Tipo'=>130,	'TipoManga'=> 14,	'Nombre'=>'Jp. team Med/Small/Toy', 'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'MST','Grado'=>'-'), // team combined
      );
 
     /**
@@ -450,7 +472,7 @@ class Tandas extends DBObject {
 	function swapXLMST() {
         $p=$this->prueba->ID;
         $j=$this->jornada->ID;
-	    $l="( 3,  6,   9, 12, 15, 18, 23, 26, 29, 32, 38, 56, 95,  99 )";
+        $l="( 3,  6,   9, 12, 15, 18, 23, 26, 29, 32, 38, 56, 95,  99 )";
 	    $m="( 4,  7,  10, 13, 16, 19, 24, 27, 30, 33, 39, 57, 96, 100 )";
 	    $s="( 5,  8,  11, 14, 17, 20, 25, 28, 31, 34, 40, 58, 97, 101 )";
 	    $t="( 41, 42, 43, 44, 45, 46, 49, 50, 51, 52, 55, 59, 98, 102 )";
@@ -684,15 +706,19 @@ class Tandas extends DBObject {
             // si estamos en equipos conjunta, hay que tener en cuenta las alturas
             // pues las tandas van com L-MS (3 alturas) o bien LM-ST (4 alturas)
             if( in_array($tipomanga,array(9,14)) ) {
-			    // en RSCE eliminanos todas las tandas con tipomanga 9(Ag) 14(Jp) relacionadas con RFEC
-                if ( ($heights==3) && (in_array($tipo,array(45,47,48,52,53,54))) ) { // Ag (T,LM,ST) Jp (T,LM,ST)
+			    // en RSCE eliminanos todas las tandas con tipomanga 9(Ag) 14(Jp) relacionadas con RFEC y 5heights
+                if ( ($heights==3) && (in_array($tipo,array(45,47,48,52,53,54))) ) { // Ag (T,LM,ST,XL,MST) Jp (T,LM,ST,XL,MST)
                     $this->removeFromList($tipo);
                     continue;
                 }
-                // en RFEC eliminanos todas las tandas con tipomanga 9(Ag) 14(Jp) relacionadas con RSCE
-                if ( ($heights==4) && (in_array($tipo,array(21,22,35,36))) ) { // Ag (L,MS) Jp (L,MS)
+                // en RFEC eliminanos todas las tandas con tipomanga 9(Ag) 14(Jp) relacionadas con RSCE y 5heights
+                if ( ($heights==4) && (in_array($tipo,array(21,22,35,36))) ) { // Ag (L,MS,XL,MST) Jp (L,MS,XL,MST)
                     $this->removeFromList($tipo);
                     continue;
+                }
+                // en cinco alturas eliminamos las tandas relacionadas con rfec y rsce (L LM MS)
+                if ( ($heights==5) && (in_array($tipo,array()))) {
+
                 }
             }
             // explicit remove requested
