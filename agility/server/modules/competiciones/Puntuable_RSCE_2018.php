@@ -97,7 +97,9 @@ class Puntuable_RSCE_2018 extends Competitions {
         if ($tipo==6) $flag=true; // agility G3
         if ($tipo==10) $flag=true;// jumping G2
         if ($tipo==11) $flag=true;// jumping G3
-        if (!$flag) return parent::evalPartialCalification($m,$perro,$puestocat);
+        if (!$flag) {
+            parent::evalPartialCalification($m,$perro,$puestocat); return;
+        }
 
         // si estamos en preagility, grado 1 o no tiene cero puntos de penalizacion, utiliza la puntuacion estandard
         if ($perro['Grado']==="P.A.") {
