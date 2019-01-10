@@ -225,8 +225,12 @@ class Tandas extends DBObject {
     // usado para evaluar el orden de las categorias segun el programa de la jornada
     static function getTandasByTipoManga($tipo){
         $res=array();
-        foreach(Tandas::$tipo_tanda as $key => $value) {
-            if ($value['TipoManga']==$tipo) array_push($res,$key);
+        // ordenamos segun la categoria conforme a la secuencia xlmst-
+        foreach( array('X','L','M','S','T','-') as $cat) {
+            foreach (Tandas::$tipo_tanda as $key => $value) {
+                if (($value['TipoManga'] == $tipo) && ($value['Categoria'] == $cat))
+                    array_push($res, $key);
+            }
         }
         return $res;
     }
@@ -245,9 +249,13 @@ class Tandas extends DBObject {
 		    do_log("Invalid search key for Tandas array:$key");
 		    return $res;
         }
-		foreach(Tandas::$tipo_tanda as $item) {
-			if ($item[$key]==$value) array_push($res,$item);
-		}
+        // ordenamos segun la categoria conforme a la secuencia xlmst-
+        foreach( array('X','L','M','S','T','-') as $cat) {
+            foreach (Tandas::$tipo_tanda as $item) {
+                if ( ($item[$key]==$value) && ($item['Categoria']==$cat) )
+                    array_push($res, $item);
+            }
+        }
 		return $res;
 	}
 	
