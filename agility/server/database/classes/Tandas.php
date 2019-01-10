@@ -579,6 +579,7 @@ class Tandas extends DBObject {
 	 *     $t>0; mira SOLO los perros de la tanda
 	 *     $t<0; mira todos los perros A PARTIR DE la tanda (-$t)
 	 * @param {number} $pendientes Pendientes $p==0 -> muestra todos los perros; else muestra los $p primeros pendientes de salir
+     * @throws Exception on invalid federation
 	 */
 	private function getListaPerros($s=0,$t=0,$pendientes=0){
 		$count=$pendientes;	// contador de perros pendientes de listar
@@ -706,19 +707,21 @@ class Tandas extends DBObject {
             // si estamos en equipos conjunta, hay que tener en cuenta las alturas
             // pues las tandas van com L-MS (3 alturas) o bien LM-ST (4 alturas)
             if( in_array($tipomanga,array(9,14)) ) {
-			    // en RSCE eliminanos todas las tandas con tipomanga 9(Ag) 14(Jp) relacionadas con RFEC y 5heights
-                if ( ($heights==3) && (in_array($tipo,array(45,47,48,52,53,54))) ) { // Ag (T,LM,ST,XL,MST) Jp (T,LM,ST,XL,MST)
+			    // en RSCE eliminanos todas las tandas imposibles con tipomanga 9(Ag) 14(Jp) relacionadas con RFEC y 5heights
+                if ( ($heights==3) && (in_array($tipo,array(46,47,48,127,129,52,53,54,128,130))) ) { // Ag (T,LM,ST,XL,MST) Jp (T,LM,ST,XL,MST)
                     $this->removeFromList($tipo);
                     continue;
                 }
                 // en RFEC eliminanos todas las tandas con tipomanga 9(Ag) 14(Jp) relacionadas con RSCE y 5heights
-                if ( ($heights==4) && (in_array($tipo,array(21,22,35,36))) ) { // Ag (L,MS,XL,MST) Jp (L,MS,XL,MST)
+                // y que no pueden existir
+                if ( ($heights==4) && (in_array($tipo,array(22,127,129,36,128,130))) ) { // Ag (MS,XL,MST) Jp (MS,XL,MST)
                     $this->removeFromList($tipo);
                     continue;
                 }
-                // en cinco alturas eliminamos las tandas relacionadas con rfec y rsce (L LM MS)
-                if ( ($heights==5) && (in_array($tipo,array()))) {
-
+                // en cinco alturas eliminamos las tandas mixtas de equipos conjunta que no pueden existir Ag(LM,MS,) Jp(LM,MS)
+                if ( ($heights==5) && (in_array($tipo,array(47,22,53,36)))) {
+                    $this->removeFromList($tipo);
+                    continue;
                 }
             }
             // explicit remove requested
