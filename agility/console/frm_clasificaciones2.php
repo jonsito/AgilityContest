@@ -75,7 +75,7 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
             <div id="resultados-toolbar" style="width:100%;display:none"> <!-- hide until datagrid gets loaded -->
                 <table style="width:100%;padding:2px;">
                     <tr>
-                        <td><?php _e('Category');?></td>
+                        <td><label for="resultados-selectCategoria"><?php _e('Category');?></label></td>
                         <td>
                             <input id="resultados-selectCategoria" name="Categoria">
                         </td>

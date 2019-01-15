@@ -179,7 +179,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <div id="seltablet-Buttons" style="text-align:right;padding:5px;">
    	<a id="seltablet-okBtn" href="#" class="easyui-linkbutton" 
-   	   	data-options="iconCls:'icon-ok'" onclick="tablet_acceptSelectJornada()">Aceptar</a>
+   	   	data-options="iconCls:'icon-ok'" onclick="tablet_acceptSelectJornada()"><?php _e('Accept'); ?></a>
 </div>	<!-- botones -->
 
 <script type="text/javascript">
@@ -371,6 +371,8 @@ function tablet_acceptSelectJornada() {
 		'Tanda'   : 0,
 		'Perro'   : 0
 	};
+	// de-activate accept button during ajax call
+    $('#seltablet-okBtn').linkbutton('disable');
 	$.ajax({
 		type: 'POST',
         url: '../ajax/database/userFunctions.php',
@@ -429,6 +431,10 @@ function tablet_acceptSelectJornada() {
     	}, // success function
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             alert("tablet_acceptSelectJornada() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
+        },
+        // after ajax call re-enable "Accept" button
+        complete: function(data) {
+            $('#seltablet-okBtn').linkbutton('enable');
         }
 	}); // ajax call
 }

@@ -1611,7 +1611,11 @@ function resultados_doSelectRonda(row) {
         if (mode < 0) continue;
         if (mode==last) continue;
         last=mode;
-        rondas[count]={'mode':mode,'text':fedinfo.ModeStrings[rec][n]};
+        if (n==4) { // dirty hack: X category comes in first place
+            rondas.splice(0,0,{'mode':mode,'text':fedinfo.ModeStrings[rec][n]});
+        } else {
+            rondas[count]={'mode':mode,'text':fedinfo.ModeStrings[rec][n]};
+        }
         count++;
     }
     $('#resultados-selectCategoria').combobox('loadData',rondas);
@@ -1640,11 +1644,11 @@ function resultados_doSelectRonda(row) {
             $('#dm'+nmanga+'_Juez2').textbox('setValue',row['Juez'+nmanga+'2']);
             // datos evaluados de TRS y TRM de segunda manga
             // si fedinfo.Modes[rec][i] resultados_fillForm no hace nada
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][4]); // X
             resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][0]); // L
             resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][1]); // M
             resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][2]); // S
             resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][3]); // T
-            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][4]); // X
         }
     }
 
