@@ -209,6 +209,9 @@ function saveClub(){
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
             $.messager.alert("Save Club","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+        },
+        complete: function(data) { // not sure why, but then() is not invoked on sucess, but errorMsg
+            $('#clubes-okBtn').linkbutton('enable');
         }
     }).then(function(){
         $('#clubes-okBtn').linkbutton('enable');

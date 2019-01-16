@@ -59,16 +59,17 @@ class Clubes extends DBObject {
         $twitter	= http_request('Twitter',"s",null,false);
         $observaciones = http_request('Observaciones',"s",null,false);
         $baja		= http_request('Baja',"i",0);
+        $logo       = $this->composeLogoName($nombre);
         // no permitimos insert/update cuando el club no se asigna a ninguna federacion
         if ($federations==0) return $this->error("Clubes::insert(): Federations field cannot be empty");
 		// componemos un prepared statement
 		$sql ="INSERT INTO clubes (Nombre,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,
-				Web,Email,Federations,Facebook,Google,Twitter,Observaciones,Baja)
-			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				Web,Email,Federations,Facebook,Google,Twitter,Observaciones,Baja,Logo)
+			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sssssssssssissssi',$nombre,$direccion1,$direccion2,$provincia,$pais,$contacto1,$contacto2,$contacto3,$gps,
-				$web,$email,$federations,$facebook,$google,$twitter,$observaciones,$baja);
+		$res=$stmt->bind_param('sssssssssssissssis',$nombre,$direccion1,$direccion2,$provincia,$pais,$contacto1,$contacto2,$contacto3,$gps,
+				$web,$email,$federations,$facebook,$google,$twitter,$observaciones,$baja,$logo);
 		if (!$res)  return $this->error($stmt->error);
 		
 
@@ -256,6 +257,19 @@ class Clubes extends DBObject {
 		return ($c==0)?$result:$result['rows']; // in combo mode just result rows
 	}
 
+    // compose logo file name based in club name, instead (old) club ID
+	private function composeLogoName($name) {
+        // Remove all (back)slashes from name
+        $logo = str_replace('\\', '', $name);
+        $logo = str_replace('/', '', $logo);
+        // Remove all characters that are not the separator, a-z, 0-9, or whitespace
+        $logo = preg_replace('![^'.preg_quote('-').'a-z0-_9\s]+!', '', strtolower($logo));
+        // Replace all separator characters and whitespace by a single separator
+        $logo = preg_replace('!['.preg_quote('-').'\s]+!u', '_', $logo);
+        $logo="$logo.png";
+        return $logo;
+    }
+
     /**
      * Retorna el logo asociado al club de id indicado
      * NOTA: esto no retorna una respuesta json, sino una imagen
@@ -363,16 +377,7 @@ class Clubes extends DBObject {
 		// 4- si es igual al default, generamos un nuevo nombre para el logo basado en el nombre del club
 		// 	y actualizamos el nombre en la bbdd
 		if (Federations::logoMatches($logo)) {
-			// compose logo file name based in club name, instead (old) club ID
-			// Remove all (back)slashes from name
-			$logo = str_replace('\\', '', $name);
-			$logo = str_replace('/', '', $logo);
-			// Remove all characters that are not the separator, a-z, 0-9, or whitespace
-			$logo = preg_replace('![^'.preg_quote('-').'a-z0-_9\s]+!', '', strtolower($logo));
-			// Replace all separator characters and whitespace by a single separator
-			$logo = preg_replace('!['.preg_quote('-').'\s]+!u', '_', $logo);
-			$logo="$logo.png";
-			
+		    $logo=$this->composeLogoName($logo);
 			$sql="UPDATE clubes SET Logo='$logo' WHERE (ID=$id)";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error);
