@@ -317,6 +317,8 @@ function ls_accept() {
 		$.messager.alert("Error",'<?php _e("You should select a valid session"); ?>',"error");
 		return;
 	}
+	// disable ok to avoid pressing twice
+    $('#selvw-okBtn').linkbutton('disable');
 	// load video(1) or chroma(0) mode
 	ac_config.vw_combined=$('input[name=Livestream_Mode]:checked').val();
 	var combinedstr=(ac_config.vw_combined===0)?"chroma":"video";

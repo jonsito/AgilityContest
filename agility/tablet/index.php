@@ -430,7 +430,14 @@ function tablet_acceptSelectJornada() {
         	} // if no ajax error
     	}, // success function
         error: function(XMLHttpRequest,textStatus,errorThrown) {
-            alert("tablet_acceptSelectJornada() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
+            // connection error: show an slide message error at bottom of the screen
+            $.messager.show({
+                title:"<?php _e('Error');?>",
+                msg: "<?php _e('Error');?>: acceptSelectJornada(): "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,
+                timeout: 5000,
+                showType: 'slide',
+                height:200
+            });
         },
         // after ajax call re-enable "Accept" button
         complete: function(data) {

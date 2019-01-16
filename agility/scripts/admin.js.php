@@ -588,7 +588,7 @@ function synchronizeDatabase(warnifnotallowed) {
             // connection error: show an slide message error at bottom of the screen
             $.messager.show({
                 title:"<?php _e('Error');?>",
-                msg: "<?php _e('Error');?>: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,
+                msg: "<?php _e('Error');?>: synchronizeDatabase() "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,
                 timeout: 5000,
                 showType: 'slide',
                 height:200

@@ -210,6 +210,8 @@ function chrono_accept() {
 		$.messager.alert("Error","<?php _e('You should select a valid session/ring');?>","error");
 		return;
 	}
+    // disable ok to avoid pressing twice
+	$('#chrono-okBtn').linkbutton('disable');
 	// store selected data into global structure
 	initWorkingData(sid,chrono_eventManager);
 	var page='../chrono/chrono.inc.php';

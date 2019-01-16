@@ -357,6 +357,7 @@ function vw_accept() {
 		$.messager.alert("Error",'<?php _e("You should select a valid session"); ?>',"error");
 		return;
 	}
+    $('#selvw-okBtn').linkbutton('disable');
     requestFullScreen(document.body);
 	// store selected data into global structure
 	workingData.sesion=s.ID;
@@ -377,6 +378,7 @@ function vw_accept() {
 			if (res.errorMsg) {
 				$.messager.alert('License error','<?php _e("Current license has no permission to handle training sessions"); ?>',"error");
 				page=null;
+                $('#selvw-okBtn').linkbutton('enable');
 				return;
 			}
 			page="../videowall/vw_entrenamientos.php";
@@ -419,6 +421,7 @@ function vw_accept() {
 			if (res.errorMsg) {
 				$.messager.alert('License error','<?php _e("Current license has no permission to handle training sessions"); ?>',"error");
 				page=null;
+                $('#selvw-okBtn').linkbutton('enable');
 				return false;
 			}
 			page="../videowall/vws_entrenamientos.php";

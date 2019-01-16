@@ -98,6 +98,8 @@ function acceptLogin() {
         return;
     }
 	setFederation(fed);
+    // disable accept button to avoid pressing twice
+    $('#login-okBtn').linkbutton('disable');
 	$.ajax({
 		type: 'POST',
   		url: '../ajax/database/userFunctions.php',
@@ -172,7 +174,19 @@ function acceptLogin() {
                 if (ce!=0) startEventMgr();
        		} 
        	},
-   		error: function() { alert("error");	}
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            // connection error: show an slide message error at bottom of the screen
+            $.messager.show({
+                title:"<?php _e('Error');?>",
+                msg: "<?php _e('Error');?>: acceptLogin() "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,
+                timeout: 5000,
+                showType: 'slide',
+                height:200
+            });
+        },
+        complete: function(data) {
+            $('#login-okBtn').linkbutton('enable');
+        }
 	});
 	$('#login-window').window('close');
 }
