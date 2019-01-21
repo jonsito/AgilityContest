@@ -485,14 +485,20 @@ class Resultados extends DBObject {
         // ponemos en las observaciones del resto de las mangas de la jornada
         // que este perro no se ha presentado, para que se muestre en los listados
         // ojo, que el campo pendiente se usa en las mangas KO para otra cosa, por lo que lo obviamos
-        if ($nopresentado==1 && $pendiente==0 && !isMangaKO($this->dmanga->Tipo)) {
+        if ( ($pendiente==0) && !isMangaKO($this->dmanga->Tipo)) {
             $str=Mangas::getTipoManga($this->dmanga->Tipo,6,$this->getFederation()). " "._('Not Present');
-            $sql="UPDATE resultados
+            if ($nopresentado==1) { // pon no presentado en los comentarios
+                $sql="UPDATE resultados
                   SET Observaciones='{$str}' 
                   WHERE (Perro={$idperro}) AND (Jornada=${idjornada}) AND (Pendiente=1)";
+            } else { // borra el posible "no presentado" si existiera
+                $sql="UPDATE resultados
+                  SET Observaciones='' 
+                  WHERE (Perro={$idperro}) AND (Jornada=${idjornada}) AND (Pendiente=1) AND (Observaciones='{$str}')";
+            }
+            $rs=$this->query($sql);
+            if (!$rs) return $this->error($this->conn->error);
         }
-        $rs=$this->query($sql);
-        if (!$rs) return $this->error($this->conn->error);
 
         // also propagate results in every rounds on subordinate journeys in a recursive way
         $mobj= new Mangas("Resultados::update()",$this->IDJornada);
