@@ -7,7 +7,7 @@
  * Time: 16:20
 EntrenamientosReader.php
 
-Copyright  2013-2018 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms
 of the GNU General Public License as published by the Free Software Foundation;

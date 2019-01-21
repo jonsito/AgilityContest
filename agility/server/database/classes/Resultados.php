@@ -491,7 +491,7 @@ class Resultados extends DBObject {
                 $sql="UPDATE resultados
                   SET Observaciones='{$str}' 
                   WHERE (Perro={$idperro}) AND (Jornada=${idjornada}) AND (Pendiente=1)";
-            } else { // borra el posible "no presentado" si existiera
+            } else { // borra el posible "no presentado" si existiera, pero sin borrar otras observaciones
                 $sql="UPDATE resultados
                   SET Observaciones='' 
                   WHERE (Perro={$idperro}) AND (Jornada=${idjornada}) AND (Pendiente=1) AND (Observaciones='{$str}')";

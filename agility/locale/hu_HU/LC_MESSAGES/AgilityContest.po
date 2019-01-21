@@ -2180,7 +2180,7 @@ msgstr "Fordulók listájának frissítése ebben a versenyben"
 
 #: console/frm_registration.php:33
 msgid "is Copyright &copy; 2013-2015 by"
-msgstr "is Copyright &copy; 2013-2018 by"
+msgstr "is Copyright &copy; 2013-2019 by"
 
 #: console/frm_registration.php:36
 msgid "Source code is available at"
