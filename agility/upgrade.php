@@ -122,6 +122,7 @@ Class AgilityContestUpdater {
         $fp = fopen ($local, 'w+');
         curl_setopt($ch, CURLOPT_URL, $remote);
         curl_setopt($ch, CURLOPT_TIMEOUT, 300);
+        curl_setopt($ch,CURLOPT_CONNECTTIMEOUT, 5); // wait 5 secs to attemp connect
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // tell curl to allow redirects up to 5 jumps
         curl_setopt($ch, CURLOPT_ENCODING, "");

@@ -113,7 +113,8 @@ class AuthManager {
         //set the content type to application/json
         curl_setopt($curl,CURLOPT_RETURNTRANSFER, 1);  //return response instead of outputting
         curl_setopt($curl,CURLOPT_FOLLOWLOCATION, 1); // allow server redirection
-        curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, 0); // verify peer https
+		curl_setopt($curl,CURLOPT_SSL_VERIFYPEER, 0); // verify peer https
+		curl_setopt($curl,CURLOPT_CONNECTTIMEOUT, 5); // wait 5 secs to attemp connect
 
         // $this->myLogger->trace("AuthManager::RetrieveBlackListFromServer() sent {$payload}");
         $json_response = @curl_exec($curl); // supress stdout warning

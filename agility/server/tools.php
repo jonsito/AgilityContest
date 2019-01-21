@@ -774,6 +774,51 @@ class networkInterfaces {
 		$this->osName = strtoupper(PHP_OS);
 	}
 
+    /**
+     * Ping to requested host with provided ( or defaulted ) parameters
+     * @return int Latency, in ms.
+     */
+	function ping_address($host,$ttl=64,$timeout=1) {
+        $latency = false;
+	    // this is to protect data injection in "exec" command
+        $ttl = escapeshellcmd($ttl);
+        $timeout = escapeshellcmd($timeout);
+        $host = escapeshellcmd($host);
+        // prepare ping command depending on OS
+        switch ($this->osName) {
+            case 'WINDOWS':
+            case 'WIN32':
+            case 'WINNT':
+                // -n = number of pings; -i = ttl; -w = timeout (in milliseconds).
+                $exec_string = 'ping -n 1 -i ' . $ttl . ' -w ' . ($timeout * 1000) . ' ' . $host;
+                break;
+            case 'LINUX':
+                // -n = numeric output; -c = number of pings; -t = ttl; -W = timeout
+                $exec_string = 'ping -n -c 1 -t ' . $ttl . ' -W ' . $timeout . ' ' . $host . ' 2>&1';
+                break;
+            case 'DARWIN':
+                // -n = numeric output; -c = number of pings; -m = ttl; -t = timeout.
+                $exec_string = 'ping -n -c 1 -m ' . $ttl . ' -t ' . $timeout . ' ' . $host;
+                break;
+            default     : break;
+        }
+        exec($exec_string, $output, $return);
+        // Strip empty lines and reorder the indexes from 0 (to make results more
+        // uniform across OS versions).
+        $this->commandOutput = implode($output, '');
+        $output = array_values(array_filter($output));
+        // If the result line in the output is not empty, parse it.
+        if (!empty($output[1])) {
+            // Search for a 'time' value in the result line.
+            $response = preg_match("/time(?:=|<)(?<time>[\.0-9]+)(?:|\s)ms/", $output[1], $matches);
+            // If there's a result and it's greater than 0, return the latency.
+            if ($response > 0 && isset($matches['time'])) {
+                $latency = round($matches['time']);
+            }
+        }
+        return $latency;
+    }
+
 	function get_interfaces() {
 		if ($this->interfaces){
 			return $this->interfaces;

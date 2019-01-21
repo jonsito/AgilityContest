@@ -141,6 +141,7 @@ class Uploader {
         curl_setopt($curl, CURLOPT_POSTREDIR, 1); // do not change from post to get on "301 redirect"
         curl_setopt($curl, CURLOPT_POSTFIELDS, $pdata );
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $checkcert); // set to false when using "localhost" url
+        curl_setopt($curl,CURLOPT_CONNECTTIMEOUT, 5); // wait 5 secs to attemp connect
 
         // retrieve response and check status
         // $this->myLogger->trace("Uploader::sendJSONRequest() sending ".json_encode($pdata));
