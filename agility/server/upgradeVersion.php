@@ -587,6 +587,8 @@ class Updater {
           `Value3` int(4) NOT NULL DEFAULT 0,
           `Key4` varchar(32) DEFAULT '',
           `Value4` int(4) NOT NULL DEFAULT 0,
+          `Key5` varchar(32) DEFAULT '',
+          `Value5` int(4) NOT NULL DEFAULT 0,
           `Observaciones` varchar(255) DEFAULT '',
           `Estado` int(4) NOT NULL DEFAULT -1,
           PRIMARY KEY (`ID`),
@@ -868,6 +870,9 @@ try {
     $upg->upgradeTeams();
     $upg->setTRStoFloat();
     $upg->createTrainingTable();
+    // after 3.9 5-heights come up
+    $upg->addColumnUnlessExists("entrenamientos", "Key5", "varchar(32)", "");
+    $upg->addColumnUnlessExists("entrenamientos", "Value5", "int(4)", "0");
     $upg->createUserInfoTable();
     $upg->createLeagueTable();
     $upg->populateTeamMembers();

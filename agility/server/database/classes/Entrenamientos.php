@@ -85,6 +85,7 @@ class Entrenamientos extends DBObject {
                     'Salida'    => '',
                     'Duracion'  => '', // tiempo en ring
                     'Total'     => 0,  // tiempo total si se contabiliza por perros
+                    'X'         => 0,
                     'L'         => 0,
                     'M'         => 0,
                     'S'         => 0,
@@ -105,7 +106,7 @@ class Entrenamientos extends DBObject {
         $dtime=intval($this->myConfig->getEnv("training_time"));
         $gtime=intval($this->myConfig->getEnv("training_grace"));
         foreach($clubes as &$club) {
-            $duration=($mode==0)? $club['Total']*$dtime : max($club['L'],$club['M'],$club['S'],$club['T'])*$dtime;
+            $duration=($mode==0)? $club['Total']*$dtime : max($club['X'],$club['L'],$club['M'],$club['S'],$club['T'])*$dtime;
             $club['Firma']=date('Y-m-d H:i',$nextTime);
             $club['Veterinario']=date('Y-m-d H:i',$nextTime+120); // 2 minutes later
             $club['Comienzo']=date('Y-m-d H:i:s',$nextTime+3600); // 1 hour later
@@ -115,6 +116,7 @@ class Entrenamientos extends DBObject {
         }
         // ok. next comes clear and populate Training database table
         // retrieve default key names from i18nt'd category names
+        $xlarge=$this->fedObj->getCategory('X');
         $large=$this->fedObj->getCategory('L');
         $medium=$this->fedObj->getCategory('M');
         $small=$this->fedObj->getCategory('S');
@@ -123,14 +125,14 @@ class Entrenamientos extends DBObject {
         $this->clear();
         // to speedup, use prepared statements
         // componemos un prepared statement (para evitar sql injection)
-        $sql ="INSERT INTO entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,Observaciones,Estado)
-			   VALUES({$this->pruebaID},?,?,?,?,?,?,?,'{$large}',?,'{$medium}',?,'{$small}',?,'{$toy}',?,?,?)";
+        $sql ="INSERT INTO entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,key5,Value5,Observaciones,Estado)
+			   VALUES({$this->pruebaID},?,?,?,?,?,?,?,'{$large}',?,'{$medium}',?,'{$small}',?,'{$toy}','{xlarge}',?,?,?,?)";
         $this->myLogger->trace("SQL: $sql");
         $this->myLogger->trace("SQL: before prepare");
         $stmt=$this->conn->prepare($sql);
         if (!$stmt) return $this->error($this->conn->error);
         $this->myLogger->trace("SQL: before bind");
-        $res=$stmt->bind_param('iissssiiiiisi',$idx,$clb,$fecha,$firma,$vet,$ent,$dur,$l,$m,$s,$t,$obs,$st);
+        $res=$stmt->bind_param('iissssiiiiiisi',$idx,$clb,$fecha,$firma,$vet,$ent,$dur,$l,$m,$s,$t,$x,$obs,$st);
         if (!$res) return $this->error($stmt->error);
         foreach($clubes as $elem) {
             $idx=$elem['Orden'];
@@ -140,6 +142,7 @@ class Entrenamientos extends DBObject {
             $vet=$elem['Veterinario'];
             $ent=$elem['Comienzo'];
             $dur=$elem['Duracion'];
+            $x=$elem['X'];
             $l=$elem['L'];
             $m=$elem['M'];
             $s=$elem['S'];
@@ -172,17 +175,19 @@ class Entrenamientos extends DBObject {
         $v=$data['Veterinario'];
         $s=$data['Comienzo'];
         $t=$data['Duracion'];
-        $k1=$data['Key1'];
-        $k2=$data['Key2'];
-        $k3=$data['Key3'];
-        $k4=$data['Key4'];
+        $k1=$data['Key1']; // L
+        $k2=$data['Key2']; // M
+        $k3=$data['Key3']; // S
+        $k4=$data['Key4']; // T
+        $k5=$data['Key5']; // X
         $v1=$data['Value1'];
         $v2=$data['Value2'];
         $v3=$data['Value3'];
         $v4=$data['Value4'];
+        $v5=$data['Value5'];
         $obs=$data['Observaciones'];
-        $sql ="INSERT INTO entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,Observaciones,Estado)
-			   VALUES($p,$o,$c,'$d','$f','$v','$s',$t,'$k1',$v1,'$k2',$v2,'$k3',$v3,'$k4',$v4,'$obs',-1)";
+        $sql ="INSERT INTO entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,key5,Value5,Observaciones,Estado)
+			   VALUES($p,$o,$c,'$d','$f','$v','$s',$t,'$k1',$v1,'$k2',$v2,'$k3',$v3,'$k4',$v4,'$k5',$v5,'$obs',-1)";
         $res=$this->query($sql);
         if (!$res) return $this->conn->error;
 		$this->myLogger->leave();
@@ -284,14 +289,16 @@ class Entrenamientos extends DBObject {
             'Comienzo'   =>date('Y-m-d H:i:s',$nextTime+3600), // 1 hour later
             'Duracion'  => 0,
             'Total'     => 0, // not used (number total of dogs)
-            'Key1'         => "", // $this->fedObj->getCategory('M'),
+            'Key1'         => "", // $this->fedObj->getCategory('L'),
             'Key2'         => "", // $this->fedObj->getCategory('M'),
             'Key3'         => "", // $this->fedObj->getCategory('S'),
             'Key4'         => "", // $this->fedObj->getCategory('T'),
+            'Key5'         => "", // $this->fedObj->getCategory('X'),
             'Value1'         => 0,
             'Value2'         => 0,
             'Value3'         => 0,
             'Value4'         => 0,
+            'Value5'         => 0,
             'Observaciones' => '',
             'Estado'    => -1 // -1:pending 0:running 1:done
         );
