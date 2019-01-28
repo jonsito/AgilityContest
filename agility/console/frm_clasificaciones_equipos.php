@@ -125,12 +125,23 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 </div>
 
 <div id="resultados-printDialog" class="easyui-dialog" 
-	data-options="title:'<?php _e('Select format'); ?>',closable:true,closed:true,width:'450px',height:'250px'">
+	data-options="title:'<?php _e('Select format'); ?>',modal:true,closable:true,closed:true,width:'450px',height:'260px'">
 	<form style="padding:10px" id="resultados-printForm">
         <input type="radio" name="r_prformat" value="0" onclick="r_selectOption(0);"/><?php _e('Podium'); ?> (PDF)<br />
         <input type="radio" name="r_prformat" value="1" onclick="r_selectOption(1);"/><?php _e('Text export'); ?> (CSV)<br />
         <input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/><?php _e('R.S.C.E. Report'); ?> (Excel)<br />
-        <input type="radio" name="r_prformat" value="4" checked="checked" onclick="r_selectOption(4);"/><?php _e('Scores'); ?> (PDF)<br />
+
+        <span  style="display:inline-block;width:100%">
+		    <span style="float:left">
+	            <input type="radio" id="r_prformat4" name="r_prformat" value="4" checked="checked" onclick="r_selectOption(4);"/>
+                <label for="r_prformat4"><?php _e('Scores'); ?> (PDF)</label>
+		    </span>
+		        <span style="float:right">
+			    <label id="r_prstatslbl" for="r_prstats"><?php _e('Include Statistics'); ?>:</label>
+                <input id="r_prstats" style="width:78px" name="r_prstats" class="easyui-checkbox" type="checkbox" value="1"/>
+		    </span>
+	    </span>
+        <br />
 	    <span  style="display:inline-block;width:100%">
 		    <span style="float:left">
 			    <input type="radio" name="r_prformat" value="2" onclick="r_selectOption(2);"/><?php _e('Label sheets'); ?> (PDF). <br/>
@@ -144,7 +155,7 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 			    <input id="r_prlist" style="width:85px" name="list" class="easyui-textbox" data-options="value:'',disabled:true"/><br />
 		    </span>
 	    </span>
-	    &nbsp;<br />
+        &nbsp;<br />
 	    <span  style="display:inline-block;width:100%">
 		    <a id="resultados-printDlgBtn" href="#" class="easyui-linkbutton" style="float:right"
                data-options="iconCls:'icon-print'" onclick="clasificaciones_doPrint();"><?php _e('Print'); ?></a>

@@ -686,11 +686,14 @@ function clasificaciones_printHallOfFame() {
  * Imprime los resultados finales de la ronda seleccionada en formato pdf
  * @return false
  */
-function clasificaciones_printClasificacion() {
+function clasificaciones_printClasificacion(stats) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='../ajax/pdf/print_clasificacion.php';
     if (isJornadaEqMejores()) url='../ajax/pdf/print_clasificacion_equipos.php';
-    if (isJornadaEqConjunta()) url='../ajax/pdf/print_clasificacion_equipos.php';
+    if (isJornadaEqConjunta()) {
+        stats=0; // no sense in equipos conjunta
+        url='../ajax/pdf/print_clasificacion_equipos.php';
+    }
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	if (ronda==null) {
         $.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
@@ -712,7 +715,8 @@ function clasificaciones_printClasificacion() {
                 Manga7:ronda.Manga7,
                 Manga8:ronda.Manga8,
 				Rondas: ronda.Rondas,
-				Mode: mode
+				Mode: mode,
+                Stats: stats
 			},
 	        preparingMessageHtml: '(scores) <?php _e("We are preparing your report, please wait"); ?> ...',
 	        failMessageHtml:'(scores) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -743,14 +747,15 @@ function r_selectOption(val) {
 function clasificaciones_doPrint() {
 	var r=$('input:radio[name="r_prformat"]:checked').val();
 	var line=$('#r_prfirst').numberspinner('getValue');
-	var list=$('#r_prlist').textbox('getValue');
+    var list=$('#r_prlist').textbox('getValue');
+    var prstats=$('#r_prstats').prop('checked');
 	$('#resultados-printDialog').dialog('close');
 	switch(parseInt(r)) {
 		case 0: clasificaciones_printPodium(); break;
 		case 1: clasificaciones_printEtiquetas(0,line,''); break; // csv
         case 3: clasificaciones_printCanina(); break;
         case 6: clasificaciones_printHallOfFame(); break;
-		case 4: clasificaciones_printClasificacion(); break;
+		case 4: clasificaciones_printClasificacion((prstats)?1:0); break;
 		case 5: clasificaciones_printEtiquetas(1,line,list); break;
 		case 2: clasificaciones_printEtiquetas(1,line,''); break;
 	}
