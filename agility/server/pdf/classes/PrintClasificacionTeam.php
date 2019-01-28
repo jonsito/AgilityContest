@@ -41,6 +41,7 @@ class PrintClasificacionTeam extends PrintCommon {
 	protected $resultados;
 	protected $trs1;
 	protected $trs2;
+	protected $doStats;
 	protected $categoria;
     protected $equipos;
     protected $headerTitle;
@@ -108,6 +109,10 @@ class PrintClasificacionTeam extends PrintCommon {
 	function __construct($prueba,$jornada) {
 		parent::__construct('Landscape',"print_clasificacion_teams",$prueba,$jornada);
 	}
+
+    function print_stats() {
+        $this->Cell(80,6,_('statistics').": {$this->jornada->Nombre}",0,0,'',false);
+    }
 
     function print_datosMangas() {
 

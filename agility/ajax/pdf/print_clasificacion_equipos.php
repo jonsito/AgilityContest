@@ -43,14 +43,19 @@ try {
 	$mangas[7]=http_request("Manga8","i",0);
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
+    $stats=http_request("Stats","i","0");
 	$c= Competitions::getClasificacionesInstance("print_clasificacion_pdf",$jornada);
-	$cfinal=$c->clasificacionFinalEquipos($rondas,$mangas,$mode);
+	$cfinal=$c->clasificacionFinalEquipos($rondas,$mangas,$mode,$stats);
 
 	// Creamos generador de documento
 	$pdf = new PrintClasificacionTeam($prueba,$jornada);
 	$pdf->pct_setParameters($mangas,$cfinal,$mode,_("Final scores")." "._("Teams"));
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
+	if($stats==1) {
+	    $pdf->AddPage();
+	    $pdf->print_stats();
+    }
     $suffix=$c->getName($mangas,$mode);
     $pdf->Output("FinalScores_{$suffix}.pdf","D"); // "D" means output to web client (download)
 } catch (Exception $e) {

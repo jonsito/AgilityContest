@@ -70,7 +70,11 @@ class PrintClasificacion extends PrintCommon {
             $this->icon2=getIconPath($this->federation->get('Name'),"null.png");
         }
 	}
-	
+
+	function print_stats() {
+        $this->Cell(80,6,_('statistics').": {$this->jornada->Nombre}",0,0,'',false);
+    }
+
 	function print_datosMangas() {
 
 	    // objeto para buscar jueces
