@@ -69,11 +69,9 @@ class PrintClasificacion extends PrintCommon {
 		if (in_array($this->manga1->Tipo,array(0,1,2,15,16,18,19,20,21,22,23,24,))) {
             $this->icon2=getIconPath($this->federation->get('Name'),"null.png");
         }
+		$this->title=_("Final scores");
 	}
 
-	function print_stats() {
-        $this->Cell(80,6,_('statistics').": {$this->jornada->Nombre}",0,0,'',false);
-    }
 
 	function print_datosMangas() {
 
@@ -179,14 +177,25 @@ class PrintClasificacion extends PrintCommon {
 	}
 
 	function Header() {
-		$this->print_commonHeader(_("Final scores"));
+		$this->print_commonHeader($this->title);
 	}
 	
 	// Pie de página: tampoco cabe
 	function Footer() {
 		$this->print_commonFooter();
 	}
-	
+
+    function print_stats() {
+	    $this->title=_("Statistics");
+	    $this->AddPage();
+	    $this->print_datosMangas();
+        $tm1=($this->manga1!==null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)):"";
+        $tm2=($this->manga2!==null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)):"";
+        $tm3=($this->manga3!==null)?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)):"";
+	    $this->myStats->print_statsHeader(array($tm1,$tm2,$tm3,"","","","",""));
+	    $this->myStats->print_statsData();
+    }
+
 	function writeTableHeader() {
 		$wide=$this->federation->get('WideLicense'); // some federations need extra space to show license id
         $tm1=($this->manga1!==null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)):"";

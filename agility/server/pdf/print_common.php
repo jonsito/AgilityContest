@@ -22,10 +22,11 @@ require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__ . '/../modules/Federations.php');
+require_once(__DIR__.'/../modules/Federations.php');
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Jornadas.php');
 require_once(__DIR__.'/../database/classes/Mangas.php');
+require_once(__DIR__.'/classes/PrintEstadisticas.php');
 
 class PrintCommon extends FPDF {
 
@@ -45,6 +46,7 @@ class PrintCommon extends FPDF {
 	protected $regInfo; // registration info from current license
 	protected $timeResolution; // number of decimal numbers to show in time results
 	protected $angle; // current text rotation angle ( for FPDF::Rotate() function )
+	protected $myStats; // pointer to statistics composer class
 
 	protected $centro;
 	protected $useUTF8=false;
@@ -312,6 +314,7 @@ class PrintCommon extends FPDF {
 		$this->timeResolution=($this->config->getEnv('crono_milliseconds')=="0")?2:3;
 		// $this->myLogger->trace("Time resolution is ".$this->timeResolution);
 		$this->comments=$comentarios;
+		$this->myStats=new PrintEstadisticas($this);
 	}
 
 	// return the minimum and maximum nomber of dogs for team on this journey

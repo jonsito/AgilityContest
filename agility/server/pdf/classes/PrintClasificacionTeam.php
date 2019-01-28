@@ -110,10 +110,6 @@ class PrintClasificacionTeam extends PrintCommon {
 		parent::__construct('Landscape',"print_clasificacion_teams",$prueba,$jornada);
 	}
 
-    function print_stats() {
-        $this->Cell(80,6,_('statistics').": {$this->jornada->Nombre}",0,0,'',false);
-    }
-
     function print_datosMangas() {
 
         // objeto para buscar jueces
@@ -200,8 +196,11 @@ class PrintClasificacionTeam extends PrintCommon {
 
 	function Header() {
 		$this->print_commonHeader($this->headerTitle);
+		// si primera pagina, podium o estadisticas imprimimos datos de la manga
         if ($this->PageNo()==1) { $this->print_datosMangas(); return; }
         if ( strstr($this->headerTitle,_("Podium"))!==FALSE ) { $this->print_datosMangas(); return; }
+        if ( strstr($this->headerTitle,_("Statistics"))!==FALSE ) { $this->print_datosMangas(); return; }
+        // si no, solo ponemos una cabecera simple
         $this->print_datosMangas2();
 	}
 	
@@ -209,6 +208,16 @@ class PrintClasificacionTeam extends PrintCommon {
 	function Footer() {
 		$this->print_commonFooter();
 	}
+
+    function print_stats() {
+	    $this->headerTitle=_("Statistics");
+	    $this->AddPage(); // inner call to print_datosMangas()
+        $this->Ln(10);
+        $tm1=($this->manga1!==null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)):"";
+        $tm2=($this->manga2!==null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)):"";
+        $this->myStats->print_statsHeader(array($tm1,$tm2,"","","","","",""));
+        $this->myStats->print_statsData();
+    }
 
     function printTeamInformation($teamcount,$team) {
         // evaluate logos

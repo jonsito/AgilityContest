@@ -54,10 +54,7 @@ try {
 	else $pdf = new PrintClasificacion($prueba,$jornada,$mangas,$result,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-    if($stats==1) {
-        $pdf->AddPage();
-        $pdf->print_stats();
-    }
+    if($stats==1) $pdf->print_stats();
 	$suffix=$c->getName($mangas,$mode);
 	$pdf->Output("FinalScores_{$suffix}.pdf","D"); // "D" means output to web client (download)
 } catch (Exception $e) {
