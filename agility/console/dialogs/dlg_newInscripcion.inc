@@ -30,10 +30,10 @@ $config =Config::getInstance();
 <!-- barra de tareas del dialogo -->
 <div id="new_inscripcion-datagrid-tools" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
-	   	<label for="Buscar"><?php _e('Search'); ?>: </label>
-		<input name="Buscar" type="text" class="easyui-textbox" id="new_inscripcion-datagrid-search" style="width:150px" value="<?php _e('-- Search --'); ?>"
-			class="search_textfield" onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"
-			   onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos',false);"/>
+	   	<label id="nids" for="new_inscripcion-datagrid-search"><?php _e('Search'); ?>: </label>
+		<input name="Buscar" type="text" class="easyui-textbox search_textfield" id="new_inscripcion-datagrid-search" style="width:150px" value="<?php _e('-- Search --'); ?>"
+			onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"
+            onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos',false);"/>
 	</span>
 	<span style="float:right;padding:5px">
 		<a id="new_inscripcion-reloadBtn" href="#" class="easyui-linkbutton"
@@ -85,9 +85,12 @@ $config =Config::getInstance();
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 <div id="new_inscripcion-buttons" style="width:100%;display:inline-block">
    	<span style="float:left">
-   		<a id="new_inscripcion-dogBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-dog'"
-   			onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-datagrid-search').val())"><?php _e('New dog'); ?></a>
+   		<a id="new_inscripcion-newdogBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-dog'"
+           onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-datagrid-search').val())"><?php _e('New dog'); ?></a>
+   		<a id="new_inscripcion-editdogBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-edit'"
+           onclick="editDog('#new_inscripcion-datagrid')"><?php _e('Edit dog'); ?></a>
    	</span>
    	<span style="float:right">
 		<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
@@ -108,9 +111,10 @@ $config =Config::getInstance();
 
 // ajustamos el valor de la jornada en funcion de la seleccion
 function evalJornadas(obj) {
-	var val=$('#new_inscripcion-Jornadas').val();
-	if (obj.checked) $('#new_inscripcion-Jornadas').val(val | obj.value);
-	else $('#new_inscripcion-Jornadas').val(val & ~obj.value);
+    var ij=$('#new_inscripcion-Jornadas');
+	var val=ij.val();
+	if (obj.checked) ij.val(val | obj.value);
+	else ij.val(val & ~obj.value);
 }
 	
 //TODO: estudiar por qué el "closed:true" en el data-options no funciona
@@ -152,6 +156,13 @@ $('#new_inscripcion-datagrid').datagrid({
 		{field:'Guia',hidden:'true'},
 		{field:'Club',hidden:'true'},
         {field:'Nombre', sortable:true, title:'<?php _e('Dog'); ?>',width:20,align:'right',formatter:formatBold},
+        {field:'NombreLargo',hidden:'true'},
+        {field:'Chip',hidden:'true'},
+        {field:'Baja',hidden:'true'},
+        {field:'Genero',hidden:'true'},
+        {field:'Raza',hidden:'true'},
+        {field:'LOE_RRC',hidden:'true'},
+        {field:'Operation',hidden:'true'},
         {field:'Licencia', sortable:true, title:'<?php _e('Lic'); ?>.',width:10,align:'right'},
 		{field:'Categoria', sortable:true, title:'<?php _e('Cat'); ?>.',width:5,align:'center',formatter:formatCategoria},
 		{field:'Grado', title:'<?php _e('Grade'); ?>', width:5,align:'center',formatter:formatGrado},
@@ -247,7 +258,8 @@ addSimpleKeyHandler('#new_inscripcion-datagrid','');
 addTooltip($('#new_inscripcion-okBtn').linkbutton(),'<?php _e("Inscribe selected dog(s) into contest"); ?>');
 addTooltip($('#new_inscripcion-doneBtn').linkbutton(),'<?php _e("Close window"); ?>'+"<br />"+'<?php _e("Return to inscription handling form"); ?>');
 addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),'<?php _e("Clear selection. Refresh list"); ?>');
-addTooltip($('#new_inscripcion-dogBtn').linkbutton(),'<?php _e("Insert new dog into database"); ?>');
+addTooltip($('#new_inscripcion-newdogBtn').linkbutton(),'<?php _e("Insert new dog into database"); ?>');
+addTooltip($('#new_inscripcion-editdogBtn').linkbutton(),'<?php _e("Modify data on selected dog"); ?>');
 
 
 

@@ -50,16 +50,22 @@ function newDog(dg,def){
  * @param {string} dg datagrid ID de donde se obtiene el perro
  */
 function editDog(dg){
-	if ($('#perros-datagrid-search').is(":focus")) return; // on enter key in search input ignore
-    var row = $(dg).datagrid('getSelected');
-    if (!row) {
+    if ($('#perros-datagrid-search').is(":focus")) return; // on enter key in search input ignore
+    if ($('#new_inscription-datagrid-search').is(":focus")) return; // on enter key in search input ignore
+    var rows = $(dg).datagrid('getSelections');
+    if (rows.length==0) {
     	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no selected dog"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
+    if (rows.length>1) {
+        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("Too many selected dogs"); ?>',"warning");
+        return; // no way to know which dog is selected
+    }
+    $(dg).datagrid('clearSelections');
     $('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('Modify data on dog'); ?>'+' - '+fedName(workingData.federation));
     // add extra required data to form dialog
-    row.Operation='update';
-    $('#perros-form').form('load',row);// load form with row data
+    rows[0].Operation='update';
+    $('#perros-form').form('load',rows[0]);// load form with row data
     $("#perros-Baja").css('display','inline'); // make sure "retired" option is visible
 	$('#perros-warning').css('visibility','visible');
 	$('#perros-okBtn').one('click',function() {reload_perrosDatagrid(dg);});
