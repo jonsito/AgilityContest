@@ -318,7 +318,16 @@ class PrintClasificacion extends PrintCommon {
             $t3= ($row['P3']>=200)?"-":number_format2($row['T3'],$this->timeResolution);
             $p3=number_format2($row['P3'],$this->timeResolution);
         } else { $v3="";$t3="";$p3=""; }
-		
+
+        // evaluamos estadisticas
+        $this->myStats->addItem(
+            array (
+                array('T'=>$t1,'V'=>$v1,'P'=>$p1),array('T'=>$t2,'V'=>$v2,'P'=>$p2),
+                array('T'=>$t3,'V'=>$v3,'P'=>$p3),array('T'=>"",'V'=>"",'P'=>""),
+                array('T'=>"",'V'=>"",'P'=>""),array('T'=>"",'V'=>"",'P'=>""),
+                array('T'=>"",'V'=>"",'P'=>""),array('T'=>"",'V'=>"",'P'=>"")
+            )
+        );
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 
 		$this->SetFont($this->getFontName(),'',8); // default font
