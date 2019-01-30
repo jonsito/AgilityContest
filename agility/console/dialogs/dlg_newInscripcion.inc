@@ -30,10 +30,10 @@ $config =Config::getInstance();
 <!-- barra de tareas del dialogo -->
 <div id="new_inscripcion-datagrid-tools" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
-	   	<label for="Buscar"><?php _e('Search'); ?>: </label>
-		<input name="Buscar" type="text" class="easyui-textbox" id="new_inscripcion-datagrid-search" style="width:150px" value="<?php _e('-- Search --'); ?>"
-			class="search_textfield" onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"
-			   onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos',false);"/>
+	   	<label id="nids" for="new_inscripcion-datagrid-search"><?php _e('Search'); ?>: </label>
+		<input name="Buscar" type="text" class="easyui-textbox search_textfield" id="new_inscripcion-datagrid-search" style="width:150px" value="<?php _e('-- Search --'); ?>"
+			onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"
+            onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos',false);"/>
 	</span>
 	<span style="float:right;padding:5px">
 		<a id="new_inscripcion-reloadBtn" href="#" class="easyui-linkbutton"
@@ -111,9 +111,10 @@ $config =Config::getInstance();
 
 // ajustamos el valor de la jornada en funcion de la seleccion
 function evalJornadas(obj) {
-	var val=$('#new_inscripcion-Jornadas').val();
-	if (obj.checked) $('#new_inscripcion-Jornadas').val(val | obj.value);
-	else $('#new_inscripcion-Jornadas').val(val & ~obj.value);
+    var ij=$('#new_inscripcion-Jornadas');
+	var val=ij.val();
+	if (obj.checked) ij.val(val | obj.value);
+	else ij.val(val & ~obj.value);
 }
 	
 //TODO: estudiar por qué el "closed:true" en el data-options no funciona
