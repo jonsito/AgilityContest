@@ -86,8 +86,9 @@ class PrintEstadisticas {
     }
 
     function print_statsHeader($nmangas) {
+        // primera parte de la cabecera: nombre de las mangas
         $this->pdf->ac_header(1,12);
-		$this->pdf->Cell(90,8,_("Calification"),'LRTB',0,'C',true);
+		$this->pdf->Cell(90,8,_("Calification"),'LRT',0,'C',true);
 		for ($n=0;$n<8;$n++) {
 		    $nombre=$nmangas[$n];
 		    if ($nombre==="") continue;
@@ -95,6 +96,17 @@ class PrintEstadisticas {
             $this->pdf->Cell(60,8,$nombre,'LRTB',0,'C',true);
         }
 		$this->pdf->Ln(8);
+		// segunda parte: datos de las estadisticas
+        $this->pdf->ac_header(1,8);
+        $this->pdf->Cell(90,5,"",'LRB',0,'C',true);
+        for ($n=0;$n<8;$n++) {
+            if ($nmangas[$n]==="") continue;
+            $this->pdf->Cell(15,5,_("Dogs"),'LRB',0,'C',true);
+            $this->pdf->Cell(15,5,_("Percent"),'LRB',0,'C',true);
+            $this->pdf->Cell(15,5,_("S med"),'LRB',0,'C',true);
+            $this->pdf->Cell(15,5,_("T med"),'LRB',0,'C',true);
+        }
+        $this->pdf->Ln(5);
     }
 
     function print_statsData() {
@@ -108,22 +120,34 @@ class PrintEstadisticas {
             _('Not Present'),
             _('Total')
             );
-        $count=0;
+        $line=0;
         foreach($data as $item) {
             $b=($item===_('Total'))?'B':'';
-            $this->pdf->ac_row($count,10);
+            $this->pdf->ac_row($line,9);
             $this->pdf->Cell(90,7,$item,"LR$b",0,'L',true);
+            $this->pdf->ac_row($line,8);
             for ($n=0;$n<8;$n++) { // PENDING: EVAL HOW MANY ROUNDS
                 if ($this->stats[$n]['Nombre']==="") continue;
                 $count=$this->stats[$n][$item]['C'];
                 $total=$this->stats[$n][_('Total')]['C']; // prevent divide by zero
                 $percent="-";
                 if ($total!=0) $percent=intval(100*$count/$total)."%";
-                $this->pdf->Cell(30,7,$count,"LR$b",0,'R',true);
-                $this->pdf->Cell(30,7,$percent,"R$b",0,'R',true);
+                // numero y porcentaje
+                $this->pdf->Cell(15,7,$count,"LR$b",0,'R',true);
+                $this->pdf->Cell(15,7,$percent,"R$b",0,'R',true);
+                // medias de tiempo y velocidad por categoria
+                if ( ($count==0) || in_array($item, array(_("Eliminated"),_("Not Present"),_("Total")) ) ) {
+                    $tmed="-";
+                    $smed="-";
+                } else {
+                    $smed=number_format2($this->stats[$n][$item]['V']/$count,2) . " m/s";
+                    $tmed=number_format2($this->stats[$n][$item]['T']/$count,2) . " seg";
+                }
+                $this->pdf->Cell(15,7,$smed,"LR$b",0,'R',true);
+                $this->pdf->Cell(15,7,$tmed,"R$b",0,'R',true);
             }
             $this->pdf->Ln(7);
-            $count++;
+            $line++;
         }
     }
 }
