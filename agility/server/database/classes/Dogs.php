@@ -226,7 +226,6 @@ class Dogs extends DBObject {
             if ($g!=="-" ) $where=$grad;
             if ($c!=="-" ) $where=$cat;
         }
-		if ($search!=="")
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "perroguiaclub",
