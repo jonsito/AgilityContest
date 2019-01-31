@@ -265,10 +265,18 @@ class Inscripciones extends DBObject {
 		$search =  http_request("where","s","");
 		$extra = "AND (perroguiaclub.Baja=0) AND (perroguiaclub.Grado<>'Baja') AND (perroguiaclub.Grado<>'Ret.') " ;
 		$extra .= "AND ( Guia>1 ) AND (Club>1) "; // exclude dogs wihtout handler or handlers w/o club
-		if ($search!=='') {
-		    $extra .= " AND ( (perroguiaclub.Nombre LIKE '%$search%') ";
-		    $extra .= " OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ";
-		    $extra .= " OR ( perroguiaclub.NombreLargo LIKE '%$search%') OR ( perroguiaclub.Licencia LIKE '%$search%') ) ";
+
+        // trick to allow search also by category or grade
+        if ($search !=="" ) {
+            $e="
+		        AND ( (perroguiaclub.Nombre LIKE '%$search%') OR ( perroguiaclub.NombreLargo LIKE '%$search%') 
+		        OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') 
+		        OR ( NombreClub LIKE '%$search%') )";
+            $g=parseGrade($search); $grad=($g==="-")? "":" AND ( Grado='{$g}' ) ";
+            $c=parseCategory($search); $cat=($c==="-")? "":" AND ( Categoria='{$c}' ) ";
+            if ($g!=="-" ) $extra.=$grad;
+            else if ($c!=="-" ) $extra.=$cat;
+            else $extra.=$e;
         }
 
 		$page=http_request("page","i",0);
@@ -379,10 +387,20 @@ class Inscripciones extends DBObject {
 		// evaluate offset and row count for query
 		$id = $this->pruebaID;
 		$search =  ($useHttp)?http_request("where","s",""):"";
-		// $extra= a single ')' or name search criterion
-		$extra = '';
-		if ($search!=='') $extra=" AND ( (perroguiaclub.Nombre LIKE '%$search%') 
-				OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ) ";
+
+		// trick to allow search also by category or grade
+        $extra = '';
+        if ($search !=="" ) {
+            $extra="
+		        AND ( (perroguiaclub.Nombre LIKE '%$search%') OR ( perroguiaclub.NombreLargo LIKE '%$search%') 
+		        OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') 
+		        OR ( NombreClub LIKE '%$search%') )";
+            $g=parseGrade($search); $grad=($g==="-")? "":" AND ( Grado='{$g}' ) ";
+            $c=parseCategory($search); $cat=($c==="-")? "":" AND ( Categoria='{$c}' ) ";
+            if ($g!=="-" ) $extra=$grad;
+            if ($c!=="-" ) $extra=$cat;
+        }
+
 		$page=($useHttp)?http_request("page","i",1):0;
 		$rows=($useHttp)?http_request("rows","i",50):0;
 		$limit="";

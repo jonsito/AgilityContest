@@ -216,7 +216,17 @@ class Dogs extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		if ($search!=="") $where="( (Nombre LIKE '%$search%') OR ( NombreLargo LIKE '%$search%')OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') OR ( NombreClub LIKE '%$search%') )";
+		if ($search !=="" ) {
+		    $where="( 
+		        (Nombre LIKE '%$search%') OR ( NombreLargo LIKE '%$search%') 
+		        OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') 
+		        OR ( NombreClub LIKE '%$search%') )";
+            $g=parseGrade($search); $grad=($g==="-")? "":" ( Grado='{$g}' ) ";
+            $c=parseCategory($search); $cat=($c==="-")? "":" ( Categoria='{$c}' ) ";
+            if ($g!=="-" ) $where=$grad;
+            if ($c!=="-" ) $where=$cat;
+        }
+		if ($search!=="")
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "perroguiaclub",

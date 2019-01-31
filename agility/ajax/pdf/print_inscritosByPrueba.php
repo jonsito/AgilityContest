@@ -51,7 +51,7 @@ try {
 			$pdf=new PrintCatalogo($pruebaid,$inscritos,$jornadas);
 			break;
 		case 2: // imprimir estadisticas
-			$pdf=new PrintEstadisticas($pruebaid,$inscritos,$jornadas);
+			$pdf=new PrintEstadisticasInscripciones($pruebaid,$inscritos,$jornadas);
 			break;
 		case 3: // inscripciones de una jornada
 			$pdf=new PrintInscritosByJornada($pruebaid,$inscritos,$jornadas,$jornadaid);

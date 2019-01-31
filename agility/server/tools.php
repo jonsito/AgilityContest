@@ -303,71 +303,62 @@ function parseGender($gender) {
  * @return {string} L,M,S,T,- detected category
  */
 function parseCategory($cat) {
-    static $x = array('x','extra','xlarge','xl');
-    static $l = array('l','large','standard','estandar','std','600','60','6');
-	static $m = array('m','medium','midi','mid','med','500','50','5');
-	static $s = array('s','small','mini','min','400','40','4');
-	static $t = array('t','enano','tiny','toy','300','30','3','20','2'); // include junior as toy
+    $cats= array (
+        'X' => array('x','extra','xlarge','xl',"extra-large"),
+        'L' => array('l','large','standard','estandar','std','600','60','6'),
+	    'M' => array('m','medium','midi','mid','med','500','50','5'),
+	    'S' => array('s','small','mini','min','400','40','4'),
+	    'T' => array('t','enano','tiny','toy','300','30','3','20','2'), // include junior as toy
+    );
 	if (is_null($cat)) return '-';
-	$cat=strtolower(trim(utf8_decode($cat)));
-	if ($cat==="") return '-';
-	$cat = preg_replace('/\D+(\d+)/i','${1}',$cat); // try to resolve RFEC patterns
-    if (in_array($cat,$x)) return 'X';
-    if (in_array($cat,$l)) return 'L';
-	if (in_array($cat,$m)) return 'M';
-	if (in_array($cat,$s)) return 'S';
-	if (in_array($cat,$t)) return 'T';
+    $str = preg_replace("/[^A-Za-z0-9]/u", '', strtolower(utf8_decode($cat)));
+    $str = preg_replace('/\D+(\d+)/i','${1}',$str); // try to resolve "Clase XX" RFEC patterns
+    foreach ( $cats as $key => $values) {
+        if (in_array($str, $values)) return $key;
+    }
 	return '-';
 }
 
+
 /**
- * Try to deduce grade based on provided string
- * @param {string} $grad provided user string
- * @return string found grade or '-' if cannot decide
+ * same as parse grade but look for exact match, not just strpos
+ * this is used for search in database selecting by grade
+ * @param {string} $str provided user string
+ * @return string found grade or '' if not found
  */
 function parseGrade($grad) {
-	if (is_null($grad)) return '-';
-	$grad=strtolower(trim(utf8_decode($grad)));
-	if ($grad==="") return '-';
-    if (strpos($grad,'ret')!==false) return 'Ret.';
-    if (strpos($grad,'out')!==false) return 'Baja';
-    if (strpos($grad,'baj')!==false) return 'Baja';
-    if (strpos($grad,'jr')!==false) return 'Jr';
-	if (strpos($grad,'sr')!==false) return 'Sr';
-	if (strpos($grad,'jun')!==false) return 'Jr';
-	if (strpos($grad,'sen')!==false) return 'Sr';
-    if (strpos($grad,'ini')!==false) return 'P.A.';
-    if (strpos($grad,'pre')!==false) return 'P.A.';
-	if (strpos($grad,'pa')!==false) return 'P.A.';
-	if (strpos($grad,'p.a')!==false) return 'P.A.';
-	if (strpos($grad,'0')!==false) return 'P.A.';
-	if (strpos($grad,'iii')!==false) return 'GIII'; // cuidado con el orden de estas comparaciones
-	if (strpos($grad,'ii')!==false) return 'GII';
-	if (strpos($grad,'i')!==false) return 'GI';
-	if (strpos($grad,'3')!==false) return 'GIII'; // cuidado con el orden de estas comparaciones
-	if (strpos($grad,'2')!==false) return 'GII';
-    if (strpos($grad,'1')!==false) return 'GI';
-    if (strpos($grad,'pro')!==false) return 'GI'; // promocion
-    if (strpos($grad,'com')!==false) return 'GII'; // competicion
-	return '-';
+    $grados = array (
+        'Baja' => array("out","baj","baja"),
+        'Ret'  => array("ret","retired","retirado"),
+        'Jr'   => array("j","jr","jun","junior"),
+        'Sr'   => array("s","sr","sen","senior"),
+        'P.A.' => array("p","pa","pre","preagility","0","g0","grado0","grade0","a0","ini","inic","iniciacion"),
+        'GI'   => array("g1","grado1","grade1","1","i","a1","ai","gi","gradoi","gradei","pro","promo","promocion"),
+        'GII'  => array("g2","grado2","grade2","2","ii","a2","aii","gii","gradoii","gradeii","com","comp","competicion"),
+        'GIII'  =>array("g3","grado3","grade3","3","iii","a3","aiii","giii","gradoiii","gradeiii")
+    );
+    if (is_null($grad)) return '-';
+    $str=preg_replace("/[^A-Za-z0-9]/u", '', strtolower(utf8_decode($grad)));
+    foreach ( $grados as $key => $values) {
+        if (in_array($str,$values)) return $key;
+    }
+    return '-';
 }
 
 function parseHandlerCat($cat) {
-    static $i = array('i','child','children','infantil','infantiles');
-    static $j = array('j','junior','juvenil','juveniles');
-    static $a = array('a','adult','adults','adulto','adultos','absolut','absoluta');
-    static $s = array('s','senior','seniors','veterans','veterano','veteranos');
-    static $r = array('r','retired','retirado','retirados','baja');
-    static $p = array('p','para-agility');
+    $cats =array(
+    'I' => array('i','child','children','infantil','infantiles'),
+    'J' => array('j','jr','junior','juvenil','juveniles'),
+    'A' => array('a','adult','adults','adulto','adultos','absolut','absoluta'),
+    'S' => array('s','sr','senior','seniors','veterans','veterano','veteranos'),
+    'R' => array('r','ret','retired','retirado','retirados','baja'),
+    'P' => array('p','pa','para-agility')
+    );
     if (is_null($cat)) return '-';
-    $cat=strtolower(trim(utf8_decode($cat)));
-    if ($cat==="") return '-';
-    if (in_array($cat,$i)) return 'I';
-    if (in_array($cat,$j)) return 'J';
-    if (in_array($cat,$a)) return 'A';
-    if (in_array($cat,$s)) return 'S';
-    if (in_array($cat,$r)) return 'R';
-    if (in_array($cat,$p)) return 'P';
+    $str=preg_replace("/[^A-Za-z0-9]/u", '', strtolower(utf8_decode($cat)));
+    foreach ( $cats as $key => $values) {
+        if (in_array($str,$values)) return $key;
+    }
     return '-';
 }
 

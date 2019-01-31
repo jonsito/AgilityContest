@@ -231,7 +231,7 @@ class PrintCatalogo extends PrintCommon {
 	}
 }
 
-class PrintEstadisticas extends PrintCommon {
+class PrintEstadisticasInscripciones extends PrintCommon {
 	protected $inscritos;
 	protected $jornadas;
 	
