@@ -289,7 +289,7 @@ function parseGender($gender) {
 	static $female = array('h','f','hembra','perra','female','bitch','chienne','gossa','cadela','cagna','hundin');
 	static $male = array('m','macho','male','dog','chien','gos','cao','cane','hund');
 	if (is_null($gender)) return '-';
-	$gender=strtolower(trim(utf8_decode($gender)));
+	$gender=strtolower(trim(iconv('UTF-8','ASCII//TRANSLIT',$gender)));
 	if ($gender==="") return '-';
 	if (in_array($gender,$female)) return 'F';
 	if (in_array($gender,$male)) return 'M';
@@ -311,14 +311,13 @@ function parseCategory($cat) {
 	    'T' => array('t','enano','tiny','toy','300','30','3','20','2'), // include junior as toy
     );
 	if (is_null($cat)) return '-';
-    $str = preg_replace("/[^A-Za-z0-9]/u", '', strtolower(utf8_decode($cat)));
+    $str = preg_replace("/[^A-Za-z0-9]/u", '', strtolower(iconv('UTF-8','ASCII//TRANSLIT',$cat)));
     $str = preg_replace('/\D+(\d+)/i','${1}',$str); // try to resolve "Clase XX" RFEC patterns
     foreach ( $cats as $key => $values) {
         if (in_array($str, $values)) return $key;
     }
 	return '-';
 }
-
 
 /**
  * same as parse grade but look for exact match, not just strpos
@@ -338,7 +337,7 @@ function parseGrade($grad) {
         'GIII'  =>array("g3","grado3","grade3","3","iii","a3","aiii","giii","gradoiii","gradeiii")
     );
     if (is_null($grad)) return '-';
-    $str=preg_replace("/[^A-Za-z0-9]/u", '', strtolower(utf8_decode($grad)));
+    $str=preg_replace("/[^A-Za-z0-9]/u", '', strtolower(iconv('UTF-8','ASCII//TRANSLIT',$grad)));
     foreach ( $grados as $key => $values) {
         if (in_array($str,$values)) return $key;
     }
@@ -355,7 +354,7 @@ function parseHandlerCat($cat) {
     'P' => array('p','pa','para-agility')
     );
     if (is_null($cat)) return '-';
-    $str=preg_replace("/[^A-Za-z0-9]/u", '', strtolower(utf8_decode($cat)));
+    $str=preg_replace("/[^A-Za-z0-9]/u", '', strtolower(iconv('UTF-8','ASCII/TRANSLIT',$cat)));
     foreach ( $cats as $key => $values) {
         if (in_array($str,$values)) return $key;
     }
