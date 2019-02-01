@@ -33,7 +33,7 @@ require_once(__DIR__.'/../../database/classes/Resultados.php');
 require_once(__DIR__.'/../../database/classes/Clasificaciones.php');
 require_once(__DIR__."/../print_common.php");
 
-class PrintEtiquetas_PDF extends PrintCommon {
+class PrintEtiquetasRSCE extends PrintCommon {
 	
 	protected $manga1;
 	protected $manga2;

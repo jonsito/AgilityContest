@@ -28,7 +28,7 @@ require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/logging.php");
 require_once(__DIR__ . '/../../server/modules/Competitions.php');
 require_once(__DIR__ . '/../../server/database/classes/DBObject.php');
-require_once(__DIR__ . '/../../server/pdf/classes/PrintEtiquetas_PDF.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintEtiquetasRSCE.php');
 
 try {
 	$mangas=array();
@@ -65,7 +65,7 @@ try {
 	usort($res,function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
 	
 	// Creamos generador de documento
-	$pdf = new PrintEtiquetas_PDF($prueba,$jornada,$mangas);
+	$pdf = new PrintEtiquetasRSCE($prueba,$jornada,$mangas);
 	$pdf->AddPage();
 	// mandamos a imprimir
 	$pdf->resultados=$res;
