@@ -37,12 +37,12 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         'Obstaculos1'       => array ( 0.43,    0.45, 'Obst'),
         'TRS1'              => array ( 0.50,    0.45, 'TRS'),
         'TRM1'              => array ( 0.54,    0.45, 'TRM'),
-        'T1'                => array ( 0.58,    0.45, 'Tiempo'),
+        'T1'                => array ( 0.59,    0.45, 'Tiempo'),
         'V1'                => array ( 0.65,    0.45, 'Veloc'),
         'PTiempo1'          => array ( 0.71,    0.45, 'P.Tiem'),
         'PRecorrido1'       => array ( 0.78,    0.45, 'P.Rec'),
         'P1'                => array ( 0.84,    0.45, 'Penal'),
-        'Puesto1'           => array ( 0.90,    0.45, 'Puesto'),
+        'Puesto1'           => array ( 0.91,    0.45, 'Puesto'),
         'C1'                => array ( 0.95,    0.45, 'Calif'),
         // datos de la segunda manga
         'Juez21'            => array ( 0.10,    0.62, 'Juez1 Jumping'),
@@ -52,12 +52,12 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         'Obstaculos2'       => array ( 0.43,    0.63, 'Obst'),
         'TRS2'              => array ( 0.50,    0.63, 'TRS'),
         'TRM2'              => array ( 0.54,    0.63, 'TRM'),
-        'T2'                => array ( 0.58,    0.63, 'Tiempo'),
+        'T2'                => array ( 0.59,    0.63, 'Tiempo'),
         'V2'                => array ( 0.65,    0.63, 'Veloc'),
         'PTiempo2'          => array ( 0.71,    0.63, 'P.Tiem'),
         'PRecorrido2'       => array ( 0.78,    0.63, 'P.Rec'),
         'P2'                => array ( 0.84,    0.63, 'Penal'),
-        'Puesto2'           => array ( 0.90,    0.63, 'Puesto'),
+        'Puesto2'           => array ( 0.91,    0.63, 'Puesto'),
         'C2'                => array ( 0.95,    0.63, 'Calif')
     );
 
@@ -91,7 +91,8 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         $white=imagecolorallocate($img, 255,255, 255);
 
         $font = __DIR__."/../../arial.ttf";
-        foreach ( $this->data as $item) {
+        foreach ( $this->data as $key =>$item) {
+            $this->myLogger->trace("Parsing item: ".$key);
             // A4 page is 210*295
             // image size is 1007x715, so scale properly
             $x= intval ( 1003*$item[0]);
@@ -102,12 +103,49 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
     }
 
     function writeCell($rowcount,$row) {
-        // set row parameters
+        // datos de la manga
+
+        // datos del participante
+        $this->data['Name'][2] = "{$row['Nombre']} - {$row['NombreLargo']}";
+        $this->data['License'][2] = $row['Licencia'];
+        $this->data['LOE_RRC'][2] = $row['LOE_RRC'];
+        $this->data['Handler'][2] = $row['NombreGuia'];
+        $this->data['Club'][2] = $row['NombreClub'];
+        $this->data['Category'][2] = $row['Categoria'];
+        $this->data['Grade'][2] = $row['Grado'];
+        $this->data['Dorsal'][2] = $row['Dorsal'];
+
+        // datos del recorrido del participante
+        if ($row['P1']>=100) {
+            $this->data['PRecorrido1'][2]="-";
+            $this->data['PTiempo1'][2]="-";
+        } else {
+            $this->data['PRecorrido1'][2]=5*($row['F1']+$row['R1']);
+            $this->data['PTiempo1'][2]=number_format2($row['P1']-$this->data['PRecorrido1'][2],2);
+        }
+        if ($row['P2']>=100) {
+            $this->data['PRecorrido2'][2]="-";
+            $this->data['PTiempo2'][2]="-";
+        } else {
+            $this->data['PRecorrido2'][2]=5*($row['F2']+$row['R2']);
+            $this->data['PTiempo2'][2]=number_format2($row['P2']-$this->data['PRecorrido2'][2],2);
+        }
+        $this->data['C1'][2]=$row['C1'];
+        $this->data['C2'][2]=$row['C2'];
+        $this->data['T1'][2]=number_format2($row['T1'],2);
+        $this->data['T2'][2]=number_format2($row['T2'],2);
+        $this->data['V1'][2]=number_format2($row['V1'],2);
+        $this->data['V2'][2]=number_format2($row['V2'],2);
+        $this->data['P1'][2]=number_format2($row['P1'],2);
+        $this->data['P2'][2]=number_format2($row['P2'],2);
+        $this->data['Puesto1'][2]=$row['Puesto1'];
+        $this->data['Puesto2'][2]=$row['Puesto2'];
+
         $img=$this->getImage();
         $tmpfile=tempnam_sfx(__DIR__."/../../../../logs","cneac_","png");
         imagepng($img,$tmpfile);
         $this->SetX(10);
-        $this->SetY(10);
+        $this->SetY(($rowcount==0)?10:150);
         $this->Image($tmpfile,$this->getX(),$this->getY(),190);
         imagedestroy($img);
         @unlink($tmpfile);
@@ -115,8 +153,10 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
 
     function composeTable($resultados,$rowcount=0,$listadorsales="") {
         $this->myLogger->enter();
-        // set global parameters
+        // set template global data
 
+        $this->data['Organizer'][2] = $this->club->Nombre;
+        $this->data['Date'][2] = $this->jornada->Fecha;
         // iterate on available data
         foreach($resultados as $row) {
             if ($listadorsales!=="") {
@@ -127,7 +167,7 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
                 // on double "not present" do not print label
                 if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) ) continue;
                 // on double "eliminated", ( or eliminated+notpresent ) handle printing label accordind to configuration
-                if ( ($this->config->getEnv('pdf_skipnpel')!=0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
+                if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
             }
             if ( ($rowcount%2)==0) $this->AddPage(); // 16/13 etiquetas por pagina
             $this->writeCell($rowcount%2,$row);

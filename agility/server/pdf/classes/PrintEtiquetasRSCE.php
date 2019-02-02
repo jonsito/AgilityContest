@@ -219,7 +219,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
 				// on double "not present" do not print label
                 if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) ) continue;
                 // on double "eliminated", ( or eliminated+notpresent ) handle printing label accordind to configuration
-				if ( ($this->config->getEnv('pdf_skipnpel')!=0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
+				if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
 			}
 			if ( (($rowcount%$labels)==0) && ($rowcount!=0)) $this->AddPage(); // 16/13 etiquetas por pagina
 			$this->writeCell($rowcount%$labels,$row);

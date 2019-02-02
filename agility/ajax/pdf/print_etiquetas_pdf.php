@@ -75,6 +75,7 @@ try {
 		$pdf = new PrintEtiquetasCNEAC($prueba,$jornada,$mangas);
 	}
 	// mandamos a imprimir
+    $pdf->AliasNbPages();
 	$pdf->composeTable($res,$rowcount,$listadorsales);
 
 	// mandamos a la salida el documento. Notese que no usamos el metodo pdf get_FileName
