@@ -29,6 +29,7 @@ require_once(__DIR__ . "/../../server/logging.php");
 require_once(__DIR__ . '/../../server/modules/Competitions.php');
 require_once(__DIR__ . '/../../server/database/classes/DBObject.php');
 require_once(__DIR__ . '/../../server/pdf/classes/PrintEtiquetasRSCE.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintEtiquetasCNEAC.php');
 
 try {
 	$mangas=array();
@@ -49,6 +50,7 @@ try {
 	$mode=http_request("Mode","i",0); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
 	$rowcount=http_request("Start","i",0); // offset to first label in page
 	$listadorsales=http_request("List","s",""); // CSV Dorsal List
+	$prmode=http_request("PrintMode","i","1"); // 1:RSCE 2:CNEAC
 	
 	// buscamos los recorridos asociados a la mangas
 	$dbobj=new DBObject("print_etiquetas_csv");
@@ -65,11 +67,15 @@ try {
 	usort($res,function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
 	
 	// Creamos generador de documento
-	$pdf = new PrintEtiquetasRSCE($prueba,$jornada,$mangas);
-	$pdf->AddPage();
+	if ($prmode===1) {
+		$pdf = new PrintEtiquetasRSCE($prueba,$jornada,$mangas);
+		$pdf->AddPage();
+	} else {
+		$rowcount=0;
+		$pdf = new PrintEtiquetasCNEAC($prueba,$jornada,$mangas);
+	}
 	// mandamos a imprimir
-	$pdf->resultados=$res;
-	$pdf->composeTable($rowcount,$listadorsales);
+	$pdf->composeTable($res,$rowcount,$listadorsales);
 
 	// mandamos a la salida el documento. Notese que no usamos el metodo pdf get_FileName
     $suffix=$c->getName($mangas,$mode);

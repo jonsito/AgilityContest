@@ -649,7 +649,8 @@ function clasificaciones_printEtiquetas(flag,start,list) {
 				Rondas: ronda.Rondas,
 				Mode: mode,
 				Start: strt,
-				List: list
+				List: list,
+                PrintMode: flag /* 0:csv 1:rsce label 2:cneac forms */
 			},
 	        preparingMessageHtml: '(labels) <?php _e("We are preparing your report, please wait"); ?> ...',
 	        failMessageHtml: '(labels) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -732,12 +733,15 @@ function r_selectOption(val) {
     var prfirst= $('#r_prfirst');
     var prlist=$('#r_prlist');
 	switch (parseInt(val)) {
-	case 0:
-	case 1:
-	case 3:
-	case 4: prfirst.numberspinner('disable'); prlist.numberspinner('disable'); break;
-	case 2: prfirst.numberspinner('enable'); prlist.numberspinner('disable'); break;
-	case 5: prfirst.numberspinner('enable'); prlist.numberspinner('enable'); break;
+	case 0: // podium
+	case 1: // csv
+	case 3: // excel
+	case 4: // pdf
+        prfirst.numberspinner('disable'); prlist.textbox('disable'); break;
+	case 2: // etiquetas rsce
+	    prfirst.numberspinner('enable'); prlist.textbox('enable'); break;
+	case 5: // etiquetas cneac
+	    prfirst.numberspinner('disable'); prlist.textbox('enable'); break;
 	}
 }
 
@@ -751,13 +755,13 @@ function clasificaciones_doPrint() {
     var prstats=$('#r_prstats').prop('checked');
 	$('#resultados-printDialog').dialog('close');
 	switch(parseInt(r)) {
-		case 0: clasificaciones_printPodium(); break;
-		case 1: clasificaciones_printEtiquetas(0,line,''); break; // csv
-        case 3: clasificaciones_printCanina(); break;
-        case 6: clasificaciones_printHallOfFame(); break;
-		case 4: clasificaciones_printClasificacion((prstats)?1:0); break;
-		case 5: clasificaciones_printEtiquetas(1,line,list); break;
-		case 2: clasificaciones_printEtiquetas(1,line,''); break;
+		case 0: /* podium */ clasificaciones_printPodium(); break;
+		case 1: /* csv */ clasificaciones_printEtiquetas(0,line,''); break; // csv
+        case 3: /* excel */ clasificaciones_printCanina(); break;
+        case 6: /* mejores prueba */ clasificaciones_printHallOfFame(); break;
+		case 4: /* pdf */ clasificaciones_printClasificacion((prstats)?1:0); break;
+		case 5: /* forms cneac */ clasificaciones_printEtiquetas(2,line,list); break;
+		case 2: /* labels rsce */ clasificaciones_printEtiquetas(1,line,list); break;
 	}
 	return false; //this is critical to stop the click event which will trigger a normal file download!
 }

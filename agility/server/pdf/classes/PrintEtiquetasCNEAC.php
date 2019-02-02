@@ -8,6 +8,11 @@
 
 class PrintEtiquetasCNEAC extends PrintCommon  {
 
+    protected $manga1;
+    protected $manga2;
+    protected $juez1;
+    protected $juez2;
+
     protected $data = array(
         // datos generales
         'Organizer' => array ( 0.15,    0.17, "Organizador"),
@@ -63,7 +68,7 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
      * @param {integer} $m Print mode. 0:Trs/Trm evaluation calc sheet 1:Trsdata template to enter data
      * @throws Exception
      */
-    function __construct($prueba,$jornada) {
+    function __construct($prueba,$jornada,$mangas) {
         date_default_timezone_set('Europe/Madrid');
         parent::__construct('Portrait',"print_cneac",$prueba,$jornada);
         if ( ($prueba<=0) || ($jornada<=0) ) {
@@ -96,11 +101,9 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         return $img;
     }
 
-    function composeTable() {
-        $this->myLogger->enter();
-        $this->AddPage();
+    function writeCell($rowcount,$row) {
+        // set row parameters
         $img=$this->getImage();
-
         $tmpfile=tempnam_sfx(__DIR__."/../../../../logs","cneac_","png");
         imagepng($img,$tmpfile);
         $this->SetX(10);
@@ -108,6 +111,28 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         $this->Image($tmpfile,$this->getX(),$this->getY(),190);
         imagedestroy($img);
         @unlink($tmpfile);
+    }
+
+    function composeTable($resultados,$rowcount=0,$listadorsales="") {
+        $this->myLogger->enter();
+        // set global parameters
+
+        // iterate on available data
+        foreach($resultados as $row) {
+            if ($listadorsales!=="") {
+                $aguja=",{$row['Dorsal']},";
+                $pajar=",$listadorsales,";
+                if (strpos($pajar,$aguja)===FALSE) continue; // Dorsal not in list
+            } else {
+                // on double "not present" do not print label
+                if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) ) continue;
+                // on double "eliminated", ( or eliminated+notpresent ) handle printing label accordind to configuration
+                if ( ($this->config->getEnv('pdf_skipnpel')!=0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
+            }
+            if ( ($rowcount%2)==0) $this->AddPage(); // 16/13 etiquetas por pagina
+            $this->writeCell($rowcount%2,$row);
+            $rowcount++;
+        }
         $this->myLogger->leave();
     }
 }

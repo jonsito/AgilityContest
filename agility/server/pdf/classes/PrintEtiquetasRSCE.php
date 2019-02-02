@@ -39,12 +39,10 @@ class PrintEtiquetasRSCE extends PrintCommon {
 	protected $manga2;
 	protected $juez1;
 	protected $juez2;
-	public $resultados;
 	protected $serialno;
 	
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
-	 * @param {obj} $resultados resultados asociados a la manga/categoria pedidas
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas) {
@@ -199,7 +197,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
         $this->Cell(29,7,$this->juez2['Nombre'],'',0,'L',false);
 	}
 	
-	function composeTable($rowcount=0,$listadorsales="") {
+	function composeTable($resultados,$rowcount=0,$listadorsales="") {
 		$this->myLogger->enter();
 		$this->SetFillColor(224,235,255); // azul merle
 		$this->SetTextColor(0,0,0); // negro
@@ -212,7 +210,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		$this->SetMargins(10,$this->config->getEnv('pdf_topmargin'),10); // left top right
 		$this->SetAutoPageBreak(true,10);
 
-		foreach($this->resultados as $row) {
+		foreach($resultados as $row) {
 			if ($listadorsales!=="") {
 				$aguja=",{$row['Dorsal']},";
 				$pajar=",$listadorsales,";

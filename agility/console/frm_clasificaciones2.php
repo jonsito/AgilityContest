@@ -115,12 +115,14 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 
 
 <div id="resultados-printDialog" class="easyui-dialog" 
-	data-options="title:'<?php _e('Select format'); ?>',modal:true,closable:true,closed:true,width:'450px',height:'260px'">
+	data-options="title:'<?php _e('Select format'); ?>',modal:true,closable:true,closed:true,width:'475px',height:'360px'">
+
 	<form style="padding:10px" id="resultados-printForm">
 	<input type="radio" name="r_prformat" value="0" onclick="r_selectOption(0);"/><?php _e('Podium'); ?> (PDF)<br />
-	<input type="radio" name="r_prformat" value="1" onclick="r_selectOption(1);"/><?php _e('Text export'); ?> (CSV)<br />
-    <input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/><?php _e('R.S.C.E. Report'); ?> (Excel)<br />
-    <input type="radio" name="r_prformat" value="6" onclick="r_selectOption(6);"/><?php _e('Contest Hall Of Fame'); ?> (PDF)<br />
+        <input type="radio" name="r_prformat" value="6" onclick="r_selectOption(6);"/><?php _e('Contest Hall Of Fame'); ?> (PDF)
+    <br />&nbsp;<hr/><br/>
+	<input type="radio" name="r_prformat" value="1" onclick="r_selectOption(1);"/><?php _e('Export in text format'); ?> (CSV)<br />
+    <input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/><?php _e('Export as spreadsheet'); ?> (Excel)<br />
     <span  style="display:inline-block;width:100%">
 		<span style="float:left">
 	        <input type="radio" id="r_prformat4" name="r_prformat" value="4" checked="checked" onclick="r_selectOption(4);"/>
@@ -131,24 +133,27 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
             <input id="r_prstats" style="width:78px" name="r_prstats" class="easyui-checkbox" type="checkbox" value="1" checked="checked"/>
 		</span>
 	</span>
-    <br />
+    <br />&nbsp;<hr /><br/>
 	<span  style="display:inline-block;width:100%">
 		<span style="float:left">
-			<input type="radio" name="r_prformat" value="2" onclick="r_selectOption(2);"/><?php _e('Label sheets'); ?> (PDF). <br/>
-			<input type="radio" name="r_prformat" value="5" onclick="r_selectOption(5);"/><?php _e('Isolated labels'); ?> (PDF)
+			<input type="radio" name="r_prformat" value="5" onclick="r_selectOption(5);"/><?php _e('CNEAC Qualification forms'); ?>&nbsp;<br/>
+			<input type="radio" name="r_prformat" value="2" onclick="r_selectOption(2);"/><?php _e('RSCE Label sheets'); ?>&nbsp; <br/>
+			&nbsp;<br />
 		</span>
 		<span style="float:right">
-			<label id="r_prfirstLbl" for="first"><?php _e('Initial label'); ?>:</label>
-			<input id="r_prfirst" style="width:45px" name="first" class="easyui-numberspinner"
-				data-options="value:1,min:1,max:16,disabled:true"/><br />
 			<label id="r_prlistLbl" for="list"><?php _e('Dorsal list'); ?>:</label>
-			<input id="r_prlist" style="width:85px" name="list" class="easyui-textbox" data-options="value:'',disabled:true"/><br />
+			<input id="r_prlist" style="width:85px" name="list" class="easyui-textbox" data-options="value:'',disabled:true"/>
+            <br />
+            <label id="r_prfirstLbl" for="first"><?php _e('Initial label'); ?>:&nbsp;</label>
+			<input id="r_prfirst" style="width:45px" name="first" class="easyui-numberspinner"
+                   data-options="value:1,min:1,max:16,disabled:true"/><br />
 		</span>
 	</span>
-	&nbsp;<br />
 	<span  style="display:inline-block;width:100%">
+		<a id="resultados-cancelDlgBtn" href="#" class="easyui-linkbutton" style="float:left"
+           data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('close');"><?php _e('Cancel'); ?></a>
 		<a id="resultados-printDlgBtn" href="#" class="easyui-linkbutton" style="float:right"
-   			data-options="iconCls:'icon-print'" onclick="clasificaciones_doPrint();"><?php _e('Print'); ?></a>
+           data-options="iconCls:'icon-print'" onclick="clasificaciones_doPrint();"><?php _e('Print'); ?></a>
 	</span>
 	</form>
 </div>
@@ -218,6 +223,7 @@ addTooltip($('#resultados-verifyBtn').linkbutton(),'<?php _e("Check for dogs wit
 addTooltip($('#resultados-printBtn').linkbutton(),'<?php _e("Print scores on current round"); ?>');
 addTooltip($('#resultados-emailBtn').linkbutton(),'<?php _e("Share results and scores by electronic mail"); ?>');
 addTooltip($('#resultados-printDlgBtn').linkbutton(),'<?php _e("Print data in selected format"); ?>');
+addTooltip($('#resultados-cancelDlgBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels sheet"); ?>');
 addTooltip($('#r_prlistLbl'),'<?php _e("Comma separated list of dorsals to be printed"); ?>');
 
