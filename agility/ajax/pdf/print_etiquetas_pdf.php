@@ -71,8 +71,9 @@ try {
 		$pdf = new PrintEtiquetasRSCE($prueba,$jornada,$mangas);
 		$pdf->AddPage();
 	} else {
-		$rowcount=0;
 		$pdf = new PrintEtiquetasCNEAC($prueba,$jornada,$mangas);
+        $pdf->setRoundData($r);
+        $rowcount=0;
 	}
 	// mandamos a imprimir
     $pdf->AliasNbPages();
