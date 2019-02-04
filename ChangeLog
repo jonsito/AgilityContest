@@ -1,3 +1,14 @@
+Version 3.9.0 20190204_1210
+    - Support for 5Height contests
+    - New Module: RSCE temporada 2019
+    - New Module: Selectiva AWC and European Open 2019
+    - Add result statistics
+    - Add CNEAC Qualification forms
+    - Several bugs fixed: games entry data form, "not present" in starting order, round cleaning, club's logo handling
+    - Direct access to edit dog from "new inscriptions"
+    - Allow search for category / grade
+    - New gadget "Su turno" to see wich dog is running now
+    - Database updates
 Version 3.8.3 20181214_1214
     - Show "Not present" in starting order for second round
     - Fix StartingOrder import bugfixes

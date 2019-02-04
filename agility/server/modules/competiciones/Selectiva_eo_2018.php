@@ -31,8 +31,8 @@ class Selectiva_eo_2018 extends Selectiva_awc_2018 {
     En cristiano: es una jornada subordinada de la selectiva, en la que participan todos los perros de grado III
      */
 
-    function __construct() {
-        parent::__construct("Selectiva European Open 2018");
+    function __construct($name="Selectiva European Open 2018") {
+        parent::__construct($name);
         $this->myDBObject=new DBObject("EuropeanOpen::construct");
         $this->countries=array(); // array ( nombreclub => pais
         $this->federationID=0;
