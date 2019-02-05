@@ -1,3 +1,6 @@
 .htaccess export-ignore
 .gitignore export-ignore
 .gitattributes export-ignore
+build export-ignore
+applications export-ignore
+web export-ignore
