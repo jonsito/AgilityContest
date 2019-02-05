@@ -4,7 +4,12 @@ Version 3.9.0 20190204_1210
     - New Module: Selectiva AWC and European Open 2019
     - Add result statistics
     - Add CNEAC Qualification forms
-    - Several bugs fixed: games entry data form, "not present" in starting order, round cleaning, club's logo handling
+    - Several bugs fixed:
+      * games entry data form,
+      * "not present" in starting order,
+      * round cleaning,
+      * club's logo handling
+      * update handling of system.ini and .htaccess
     - Direct access to edit dog from "new inscriptions"
     - Allow search for category / grade
     - New gadget "Su turno" to see wich dog is running now
