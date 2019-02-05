@@ -159,7 +159,8 @@ Class AgilityContestUpdater {
         $this->temp_file=TEMP_FILE . $this->version_date . ".zip";
         $this->user_files = array (
             "config.ini" => __DIR__."/../config/config.ini",
-            "system.ini" => __DIR__."/../config/system.ini", // > 3.8.X also need to preserve system.ini for db info
+            // > 3.8.X also need to preserve system.ini for db info. After restore must update version info
+            "system.ini" => __DIR__."/../config/system.ini",
             "registration.info" => __DIR__."/../config/registration.info",
             "supporters.csv" => __DIR__."/images/supporters/supporters.csv"
         );
@@ -193,9 +194,9 @@ Class AgilityContestUpdater {
         set_time_limit(ini_get('max_execution_time'));
         $res=true;
         foreach ($this->user_files as $temp => $file) {
-            $from = ($oper == true) ? $file : TEMP_DIR . $temp;
-            $to = ($oper == true) ? TEMP_DIR . $temp : $file;
-            $str = ($oper == true) ? "BACKUP: " : "RESTORE: ";
+            $from = ($oper === true) ? $file : TEMP_DIR . $temp;
+            $to = ($oper === true) ? TEMP_DIR . $temp : $file;
+            $str = ($oper === true) ? "BACKUP: " : "RESTORE: ";
             // if $from doesn't exist notify and continue
             if (!file_exists($from)) {
                 $this->logProgress("SKIP $str $temp");
@@ -209,6 +210,17 @@ Class AgilityContestUpdater {
                 continue;
             }
             $this->logProgress($str.$temp);
+        }
+        // on restore system.ini take care on update version and revision number
+        if ($oper==false) {
+            $sysini=file(__DIR__."/../config/system.ini",FILE_IGNORE_NEW_LINES);
+            $version='version_name = "'.$this->version_name.'"';
+            $date='version_date = "'.$this->version_date.'"';
+            for ($n=0; $n<count($sysini);$n++) {
+                if (strpos($sysini[$n],"version_name")!==FALSE) $sysini[$n]=$version;
+                if (strpos($sysini[$n],"version_date")!==FALSE) $sysini[$n]=$date;
+            }
+            file_put_contents(__DIR__."/../config/system.ini", implode(PHP_EOL, $sysini));
         }
         return $res;
     }
@@ -405,7 +417,7 @@ echo '
 
             function restart() {
                 // document.location.href="https://localhost/agility/console/index.php";
-                document.location.href="index.php";
+                document.location.href="console/index.php";
             }
 
         </script>
