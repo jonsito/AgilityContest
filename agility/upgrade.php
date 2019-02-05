@@ -233,6 +233,8 @@ Class AgilityContestUpdater {
             $dir_name = dirname($file_name);
             // skip directories in zip file
             if ( substr($file_name,-1,1) == '/') continue; // not a file
+            // skip htaccess as already configured
+            if (strstr($file_name,"htaccess")) continue;
             if ( strstr($file_name,"jquery-easyui")) {
                 // only update library files on file change
                 if (file_exists($root.$file_name)) {
