@@ -166,12 +166,10 @@ function excelTimeToSeconds($exceldate) {
 }
 
 function normalize_license($license) {
-    // remove special chars
-    $license=str_replace(" ","",$license);
-    $license=str_replace("-","",$license);
-    $license=str_replace("_","",$license);
+    // remove every non alphanumeric chars
+    $lic=preg_replace("/[^A-Za-z0-9 ]/", '', $license);
     // PENDING convert [0ABCD]xx to proper format (3 digits)
-    return strtoupper($license);
+    return strtoupper($lic);
 }
 
 function normalize_filename($fname) {

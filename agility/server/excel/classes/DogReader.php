@@ -785,8 +785,10 @@ class DogReader {
             // escapamos todos los textos para evitar problemas con las operaciones de la base de datos
             $tnombre=$this->myDBObject->conn->real_escape_string($obj->Nombre); // nombre del perro en tabla temporal
             $nombre=$this->myDBObject->conn->real_escape_string($dbobj->Nombre); // nombre del perro
-            $nlargo=$this->myDBObject->conn->real_escape_string($dbobj->NombreLargo); // nombre largo
-            $raza=$this->myDBObject->conn->real_escape_string($dbobj->Raza); // raza
+            $tnlargo=$this->myDBObject->conn->real_escape_string($obj->NombreLargo); // nombre largo en tabla
+            $nlargo=$this->myDBObject->conn->real_escape_string($dbobj->NombreLargo); // nombre largo en db
+            $raza=$this->myDBObject->conn->real_escape_string($dbobj->Raza); // raza - db
+            $traza=$this->myDBObject->conn->real_escape_string($obj->Raza); // raza - tabla
             $lic=$this->myDBObject->conn->real_escape_string($dbobj->Licencia); // licencia
             $chip=$this->myDBObject->conn->real_escape_string($dbobj->Chip); // licencia
             $loe=$this->myDBObject->conn->real_escape_string($dbobj->LOE_RRC); // LOE /RRC
@@ -797,11 +799,11 @@ class DogReader {
             // evaluamos todos los parametros en funcion de los modos de imporatacion
 
             // handle name according excelname rules
-            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$obj->Nombre;
+            $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$tnombre;
             if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
             // remaining  data are handler according import rules
-            $nlargo=$this->import_mixData($nlargo,isset($obj->NombreLargo)?$obj->NombreLargo:"");
-            $raza=$this->import_mixData($raza,isset($obj->Raza)?$obj->Raza:"");
+            $nlargo=$this->import_mixData($nlargo,isset($obj->NombreLargo)?$tnlargo:"");
+            $raza=$this->import_mixData($raza,isset($obj->Raza)?$traza:"");
             $lic=$this->import_mixData($lic,isset($obj->Licencia)?$obj->Licencia:"",false);
             $lic=normalize_license($lic);
             $chip=$this->import_mixData($chip,isset($obj->Chip)?$obj->Chip:"",false);
@@ -815,7 +817,7 @@ class DogReader {
                 "Licencia='$lic',Chip='$chip',LOE_RRC='$loe', Categoria='$cat', Grado='$grad' ".
                 "WHERE (Nombre = '{$tnombre}')  AND (HandlerID={$obj->HandlerID})";
             $res=$this->myDBObject->query($str);
-            if (!$res) return "UpdateEntry(): update dog '{obj->Nombre}' Set Dog Data error:".$this->myDBObject->conn->error;
+            if (!$res) return "UpdateEntry(): update dog '{$obj->Nombre}' Set Dog Data error:".$this->myDBObject->conn->error;
             // notice that no need to update data in database, this is done in "import" phase
         }
         else {
