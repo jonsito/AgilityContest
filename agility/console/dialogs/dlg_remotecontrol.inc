@@ -179,7 +179,7 @@ $am=AuthManager::getInstance("Chrono");
 
                 <div style="display:<?php echo $am->allowed(ENABLE_LIVESTREAM)?'none':'inherit';?>">
                     <p><?php _e('Current license permissions does not allow live stream operations');?></p>
-                    <img src="../images/sad_dog.png" alt="triste"/>
+                    <img src="../../images/sad_dog.png" alt="triste"/>
                 </div>
             </div>
             <div title="<?php _e('Chronometer displays');?>" data-options="iconCls:'icon-clock'">
@@ -211,7 +211,7 @@ $am=AuthManager::getInstance("Chrono");
                 </div>
                 <div style="display:<?php echo $am->allowed(ENABLE_CHRONO)?'none':'inherit';?>">
                     <p><?php _e('Current license permissions does not allow chronometer operations');?></p>
-                    <img src="../images/sad_dog.png" alt="triste"/>
+                    <img src="../../images/sad_dog.png" alt="triste"/>
                 </div>
             </div>
 
@@ -250,7 +250,7 @@ $am=AuthManager::getInstance("Chrono");
                 </div>
                 <div style="display:<?php echo $am->allowed(ENABLE_PUBLIC)?'none':'inherit';?>">
                     <p><?php _e('Current license permissions does not allow internet public access');?></p>
-                    <img src="../images/sad_dog.png" alt="triste"/>
+                    <img src="../../images/sad_dog.png" alt="triste"/>
                 </div>
             </div>
         </div>
