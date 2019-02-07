@@ -184,6 +184,13 @@ class PrintHallOfFame extends PrintCommon {
             $this->ac_header(1,13);
             $this->SetFont($this->getFontName(),'BI',13); // default font
             $this->Cell(80,8,$hdrstr,'TBLR',0,'C',true);
+            // letras "tiempo" "penalizacion" en pequeño
+            $this->SetXY(72,40);
+            $this->SetFont($this->getFontName(),'',6); // default font
+            $this->Cell(10,3,_('Time'),'',0,'C',true);
+            $this->Cell(10,3,_('Penal'),'',0,'C',true);
+
+            $this->SetXY(12,44);
             $this->ac_row(1,11);
             // tres mejores absolutos
             for($n=0;$n<3;$n++) {
