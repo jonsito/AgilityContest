@@ -874,7 +874,7 @@ class Resultados extends DBObject {
             $numdogs=count($equipo['Resultados']);
             $this->myLogger->trace("Checking NumDogs {$equipo['Nombre']} : {$numdogs}");
             switch($numdogs){
-                case 0: continue; // ignore team
+                case 0: // ignore team
 					break;
                 case 1: $equipo['Penalizacion']+=400.0; // required team member undeclared
                 // no break
