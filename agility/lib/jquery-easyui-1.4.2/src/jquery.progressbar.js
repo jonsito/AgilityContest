@@ -84,7 +84,7 @@
 				var text = opts.text.replace(/{value}/, value);
 				var oldValue = opts.value;
 				opts.value = value;
-				$(this).find('div.progressbar-value').width(value+'%');
+				$(this).find('div.progressbar-value').width(''+parseInt(value)+'%');
 				$(this).find('div.progressbar-text').html(text);
 				if (oldValue != value){
 					opts.onChange.call(this, value, oldValue);

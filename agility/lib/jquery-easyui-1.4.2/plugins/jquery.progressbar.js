@@ -68,7 +68,7 @@ var _f=$.data(this,"progressbar").options;
 var _10=_f.text.replace(/{value}/,_e);
 var _11=_f.value;
 _f.value=_e;
-$(this).find("div.progressbar-value").width(_e+"%");
+$(this).find("div.progressbar-value").width(""+parseInt(_e)+"%");
 $(this).find("div.progressbar-text").html(_10);
 if(_11!=_e){
 _f.onChange.call(this,_e,_11);
