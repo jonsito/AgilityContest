@@ -306,6 +306,7 @@ function restoreDatabase(fromClient){
 
                     function setProgressValue(value) {
                         var bar = $.messager.progress('bar');  // get the progressbar object
+                        bar.progressbar({text: '{value}' }); // remove '%' sign at progress var
                         bar.progressbar('setValue',value);  // set new progress value
                     }
 

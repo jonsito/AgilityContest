@@ -485,7 +485,7 @@ class Admin extends DBObject {
             if (strpos($line,"INSERT")===0) { $this->myLogger->trace("$line "); }
             // If it has a semicolon at the end, it's the end of the query
             if (substr(trim($line), -1, 1) == ';') {
-				$this->handleSession("Completed: ".intval((100*$idx)/$numlines) );
+				$this->handleSession("".intval((100*$idx)/$numlines). "% Completed" );
                 // Perform the query
                 if (! $conn->query($templine) ){
 					$this->myLogger->error('Error performing query \'<strong>' . $templine . '\': ' . $conn->error . '<br />');
