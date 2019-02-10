@@ -371,10 +371,15 @@ class Eventos extends DBObject {
 		if ($data['Session']<=0) return $this->error("No Session ID specified");
         if ($data['Session']>1) $str=" AND ( Session = {$data['Session']} )";
 
-        // store named sessions into persistent storage
-        if ($data['SessionName']!=="") {
+        $sname=$data['SessionName'];
+        $smsg="(Unkonwn)";
+        if ($sname!=="") {
+            // store named sessions into persistent storage
             $ses=new Sesiones("Events::connect");
-            $ses->testAndSet($data['SessionName']);
+            $ses->testAndSet($sname);
+            // and extract info for show in console
+            $sndata=explode(":",$sname);
+            $smsg="{$sndata[0]}({$sndata[4]})"; // basename,session, ring,mode,options,name )
         }
 
 		$result=$this->__select(
@@ -385,6 +390,24 @@ class Eventos extends DBObject {
 				/* LIMIT */ "0,1"
 						);
 		// $this->myLogger->leave();
+        if ($result['total']!=0) { // send connection message to console
+            $evt=$result['rows'][0];
+            $msg="7:Connect From {$smsg}<br/> at IP {$_SERVER['REMOTE_ADDR']}";
+            $this->myLogger->trace($msg);
+            $data=array (
+                // common data for senders and receivers
+                'ID'		=>	0, // to be set
+                'Session'	=> 	1, // "any"
+                'TimeStamp'	=> 	time(), /* date('Y-m-d H:i:s'),*/
+                'Type' 		=> 	"command",
+                'Source'	=> 	$smsg,
+                'Name'      =>  'console', // send event to console
+                // datos identificativos del evento que se envia
+                'Oper'      =>  EVTCMD_MESSAGE,
+                'Value' =>  $msg
+            );
+            $this->putEvent($data);
+        }
 		return $result;
 	}
 }

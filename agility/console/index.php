@@ -110,7 +110,7 @@ var ac_clientOpts = {
     'View':0,
     'Mode':0,
     'Timeout':0,
-    'SessionName':''
+    'SessionName':'console'
 };
 
 function initialize() {
@@ -200,9 +200,10 @@ function console_eventManager(id,e) {
     var accept=false;
     // si el evento es para la consola ( session = 1 ) se acepta
     if (evt['Session']==="1") accept=true;
-    // si no es para la consola, pero es "init" o "reconfig" se acepta
+    // si no es para la consola, pero es "init", "command" o "reconfig" se acepta
     if (evt['Type']==='init') accept=true;
     if (evt['Type']==='reconfig') accept=true;
+    if (evt['Type']==='command') accept=true;
     // else se rechaza
     if (!accept) return;
     if (typeof(eventHandler[evt['Type']])==="function") {
@@ -230,7 +231,7 @@ function console_noticeLogin(evt) {
 // handle showMessage event command
 function console_showMessage(evt) {
     // value is in form timeout:text
-    var data=event['Value'].split(':',2);
+    var data=evt['Value'].split(':',2);
     if (data[1].length===0) return; // nothing to show :-)
     var tout=parseInt(data[0]);
     tout= (tout<=0)?1:tout;
@@ -238,10 +239,9 @@ function console_showMessage(evt) {
     // and send message to console
     $.messager.show({
         width: 300,
-        height: 75,
-        timeout: 1000*tout,
+        height: 100*tout,
         title: '<?php _e('Console'); ?>',
-        msg: data
+        msg: data[1]
     })
 }
 
@@ -271,7 +271,8 @@ var eventHandler= {
     'cancelar': null, // operador pulsa cancelar
     'camera':	null, // change video source
     'command': function(event){ // videowall remote control
-        handleCommandEvent(
+        handleCommandEvent
+        (
             event,
             [
                 /* EVTCMD_NULL:         */ function(e) {console.log("Received null command"); },

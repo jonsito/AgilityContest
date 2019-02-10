@@ -24,11 +24,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 *
 */
 /***************************************************************************************************************/
-const querystring = require('querystring');
-const http = require('http');
-const OBSWebSocket = require('obs-websocket-js');
-const obs = new OBSWebSocket();
-const baseurl = "agility";
+var querystring = require('querystring');
+var http = require('http');
+var OBSWebSocket = require('obs-websocket-js');
+var obs = new OBSWebSocket();
+var baseurl = "agility";
 // Video sources
 var videoSources = {
     ChromaKey : {
