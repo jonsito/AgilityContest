@@ -239,7 +239,8 @@ function console_showMessage(evt) {
     // and send message to console
     $.messager.show({
         width: 300,
-        height: 100*tout,
+        height: 125,
+        timeout: 1000*tout, // timeout in miliseconds
         title: '<?php _e('Console'); ?>',
         msg: data[1]
     })

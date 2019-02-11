@@ -373,6 +373,7 @@ class Eventos extends DBObject {
 
         $sname=$data['SessionName'];
         $smsg="(Unkonwn)";
+        $sring="(Any)";
         if ($sname!=="") {
             // store named sessions into persistent storage
             $ses=new Sesiones("Events::connect");
@@ -380,6 +381,7 @@ class Eventos extends DBObject {
             // and extract info for show in console
             $sndata=explode(":",$sname);
             $smsg="{$sndata[0]}({$sndata[4]})"; // basename,session, ring,mode,options,name )
+            $sring="{$sndata[1]} SesID ${sndata[2]}";
         }
 
 		$result=$this->__select(
@@ -392,7 +394,7 @@ class Eventos extends DBObject {
 		// $this->myLogger->leave();
         if ($result['total']!=0) { // send connection message to console
             $evt=$result['rows'][0];
-            $msg="7:Connect From {$smsg}<br/> at IP {$_SERVER['REMOTE_ADDR']}";
+            $msg="7:Connect to Ring {$sring}<br/>From {$smsg}<br/> at IP {$_SERVER['REMOTE_ADDR']}";
             $this->myLogger->trace($msg);
             $data=array (
                 // common data for senders and receivers
