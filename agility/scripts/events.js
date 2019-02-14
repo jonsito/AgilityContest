@@ -89,7 +89,7 @@ function parseEvent(data) {
 
 		function handleError(XMLHttpRequest,textStatus,errorThrown) {
 			// register and show error
-			var msg= 'waitForEvent( '+type+' ) error: '+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + ' '+ errorThrown;
+			var msg= 'waitForEvent() error: '+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + ' '+ errorThrown;
 	        console.log(msg);
             $.messager.show({
                 title: 'Error',
@@ -107,11 +107,11 @@ function parseEvent(data) {
 			type: "GET",
 			url: "../ajax/database/eventFunctions.php",
 			data: {
-				'Operation' : 'getEvents',
-				'ID'		: evtID,
-				'Session'	: workingData.sesion,
-				'TimeStamp' : mark,
-				'SessionName': sname
+				Operation:	'getEvents',
+				ID: 		evtID,
+				Session:	workingData.sesion,
+				TimeStamp:	mark,
+				SessionName: sname
 			},
 			async: true,
 			cache: false,
@@ -134,9 +134,9 @@ function startEventMgr() {
 		type: "GET",
 		url: "../ajax/database/eventFunctions.php",
 		data: {
-			'Operation' : 'connect',
-			'Session'	: workingData.sesion,
-            'SessionName': sname
+			Operation:	'connect',
+			Session:	workingData.sesion,
+            SessionName: sname
 		},
 		async: true,
 		cache: false,

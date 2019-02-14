@@ -110,7 +110,7 @@ function deleteSession(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete session'); ?>'+':'+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
-        $.get('../ajax/database/sessionFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('../ajax/database/sessionFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
             if (result.success){
                 $(dg).datagrid('unselectAll').datagrid('reload');    // reload the session data
             } else {
@@ -134,7 +134,7 @@ function resetSession(dg) {
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete event history on session'); ?>'+':'+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
-        $.get('../ajax/database/sessionFunctions.php',{Operation:'reset',ID:row.ID},function(result){
+        $.get('../ajax/database/sessionFunctions.php',{ Operation: 'reset', ID: row.ID },function(result){
             if (result.success){
                 $(dg).datagrid('reload');    // reload the session data
             } else {
@@ -224,26 +224,26 @@ function remote_putEvent(data){
     // setup default elements for this event
     var obj= {
         // global objects
-        'ID'       : 0, // not used, just for enumeration
-        'Operation':'putEvent',
-        'Type': 	'command',
-        'TimeStamp': Math.floor(Date.now() / 1000),
+        ID:         0, // not used, just for enumeration
+        Operation:  'putEvent',
+        Type:       'command',
+        TimeStamp:  Math.floor(Date.now() / 1000),
         // event inner parameters
-        'Source':	'Console_'+data.Session,
-        'Session':	data.Session,
-        'Prueba':	(typeof data.Prueba==="undefined")?0:data.Prueba,
-        'Jornada':	(typeof data.Jornada==="undefined")?0:data.Jornada,
-        'Manga':	(typeof data.Manga==="undefined")?0:data.Manga,
-        'Tanda':	(typeof data.Tanda==="undefined")?0:data.Tanda,
+        Source:     'Console_'+data.Session,
+        Session:    data.Session,
+        Prueba:     (typeof data.Prueba==="undefined")?0:data.Prueba,
+        Jornada:    (typeof data.Jornada==="undefined")?0:data.Jornada,
+        Manga:      (typeof data.Manga==="undefined")?0:data.Manga,
+        Tanda:      (typeof data.Tanda==="undefined")?0:data.Tanda,
         // not used in "command" event
-        'Perro':	0,
-        'Dorsal':	0,
-        'Equipo':	0,
-        'Celo':		0,
+        Perro:	    0,
+        Dorsal:	    0,
+        Equipo:	    0,
+        Celo:		0,
         // command event parameters. may be overriden with 'data contents
-        'Name':     '', // display name
-        'Oper':     0, // operation to be requested for 'command' event
-        'Value':	0   // csv parameter list
+        Name:       '', // display name
+        Oper:       0, // operation to be requested for 'command' event
+        Value:      0   // csv parameter list
     };
     // send "update" event to every session listeners
     $.ajax({

@@ -231,9 +231,9 @@ function vwls_showData(data) {
 				type: "GET",
 				url: '../ajax/database/dogFunctions.php',
 				data: {
-					'Operation' : 'getbyidperro',
-					'ID'	: data['Perro'],
-					'Jornada': workingData.jornada
+					Operation:  'getbyidperro',
+					ID:         data['Perro'],
+					Jornada:    workingData.jornada
 				},
 				async: true,
 				cache: false,

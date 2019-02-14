@@ -188,7 +188,7 @@ function deleteGuia(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete data on handler'); ?>'+': '+ row.Nombre+'\n'+'<?php _e('Sure?'); ?>',function(r){
     	if (!r) return;
-    	$.get('../ajax/database/guiaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+    	$.get('../ajax/database/guiaFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
     		if (result.success){
     			$(dg).datagrid('reload');    // reload the guia data
     		} else {

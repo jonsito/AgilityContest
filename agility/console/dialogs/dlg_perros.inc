@@ -184,7 +184,7 @@ $config =Config::getInstance();
     	mode: 'remote',
     	url: '../ajax/database/dogFunctions.php',
         queryParams: {
-            Operation:'grados',
+            Operation: 'grados',
             Federation: workingData.federation
         },
     	// TODO: this should work. study why doesn't
@@ -208,7 +208,7 @@ $config =Config::getInstance();
 		mode: 'remote',
 		url: '../ajax/database/dogFunctions.php',
         queryParams: {
-            Operation:'categorias',
+            Operation: 'categorias',
             Federation: workingData.federation
         }
     });
@@ -219,7 +219,7 @@ $config =Config::getInstance();
 		idField: 'ID',
 		textField: 'Nombre',
 		url: '../ajax/database/guiaFunctions.php',
-    	queryParams: {Operation:'enumerate',Federation:workingData.federation},
+    	queryParams: {Operation: 'enumerate', Federation: workingData.federation},
 		method: 'get',
 		mode: 'remote',
 		required: true,

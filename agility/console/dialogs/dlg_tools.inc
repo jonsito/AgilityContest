@@ -65,7 +65,7 @@
         idField: 'ID',
         textField: 'LongName',
         url: '../ajax/modules/moduleFunctions.php',
-        queryParams: { 'Operation' : 'enumerate' },
+        queryParams: { Operation : 'enumerate' },
         method: 'get',
         mode: 'remote',
         required: true,

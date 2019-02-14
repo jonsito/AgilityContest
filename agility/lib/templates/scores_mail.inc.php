@@ -148,10 +148,10 @@ $config =Config::getInstance();
             $('#scores_email-Jueces').datagrid(
                 'load',
                 {
-                    Operation:'enumerateJueces',
-                    Prueba:workingData.prueba,
-                    Jornada:workingData.jornada,
-                    Federation:workingData.federation
+                    Operation: 'enumerateJueces',
+                    Prueba: workingData.prueba,
+                    Jornada: workingData.jornada,
+                    Federation: workingData.federation
                 }
             );
             return true;

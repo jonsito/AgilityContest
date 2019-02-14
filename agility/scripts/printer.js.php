@@ -445,7 +445,7 @@ function checkAndPrintParcial(recorrido) {
 		type:'GET',
 		url:"../ajax/database/resultadosFunctions.php",
 		dataType:'json',
-		data: {	Operation:'getPendientes', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, Mode: mode },
+		data: {	Operation: 'getPendientes', Prueba: workingData.prueba, Jornada: workingData.jornada, Manga: workingData.manga, Mode: mode },
 		success: function(data) {
 			if (parseInt(data['total'])==0) {
 				// No hay perros pendientes de salir: imprimimos los datos de la manga y categoria solicitada

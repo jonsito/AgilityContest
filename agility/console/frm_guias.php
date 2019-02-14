@@ -73,7 +73,7 @@ $config =Config::getInstance();
             collapsed: false,
             title: '<?php _e('Handlers data management');?>'+' - '+fedName(workingData.federation),
             url: '../ajax/database/guiaFunctions.php',
-            queryParams: { Operation:'select', Federation: workingData.federation },
+            queryParams: { Operation: 'select', Federation: workingData.federation },
             loadMsg: '<?php _e('Updating handlers list');?>'+'...',
             method: 'get',
             toolbar: '#guias-toolbar',

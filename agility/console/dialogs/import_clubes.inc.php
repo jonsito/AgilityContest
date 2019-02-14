@@ -84,7 +84,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             idField: 'ID',
             textField: 'Nombre',
             url: '../ajax/database/clubFunctions.php',
-            queryParams: { Operation:'enumerate' },
+            queryParams: { Operation: 'enumerate' },
             method: 'get',
             mode: 'remote',
             columns: [[

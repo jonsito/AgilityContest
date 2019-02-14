@@ -115,12 +115,12 @@ if (!$am->allowed(ENABLE_VIDEOWALL)) {
 <script type="text/javascript" charset="utf-8">
 
 var ac_clientOpts = {
-    'BaseName':'videowall',
-    'Ring':2, // sessid:2 --> ring 1
-    'View':3,
-    'Mode':0,
-    'Timeout':0,
-    'SessionName':''
+    BaseName:   'videowall',
+    Ring:       2, // sessid:2 --> ring 1
+    View:       3,
+    Mode:       0,
+    Timeout:    0,
+    SessionName: ''
 };
 
 function initialize() {
@@ -314,7 +314,7 @@ $('#selvw-Session').combogrid({
 	textField: 'Nombre',
 	url: '../ajax/database/sessionFunctions.php',
 	method: 'get',
-    queryParams: {'Operation':'selectring','Hidden':0 },
+    queryParams: { Operation : 'selectring', Hidden: 0 },
 	mode: 'remote',
 	required: true,
 	rownumber: true,

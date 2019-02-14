@@ -124,7 +124,7 @@ $config =Config::getInstance();
             delay: 500,
     		textField: 'Nombre',
     		url: '../ajax/database/guiaFunctions.php',
-            queryParams: { Operation:'enumerate', Federation: workingData.federation },
+            queryParams: { Operation: 'enumerate', Federation: workingData.federation },
     		method: 'get',
     		mode: 'remote',
     		columns: [[
@@ -151,14 +151,14 @@ $config =Config::getInstance();
 
         $('#chguias-Categoria').combobox({
             panelHeight: 'auto',
-            valueField:'Categoria',
-            textField:'Observaciones',
+            valueField: 'Categoria',
+            textField: 'Observaciones',
             method: 'get',
             mode: 'remote',
             required: true,
             url: '../ajax/database/guiaFunctions.php',
             queryParams: {
-                Operation:'categorias',
+                Operation: 'categorias',
                 Federation: workingData.federation
             }
         });

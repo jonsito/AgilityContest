@@ -419,7 +419,7 @@ function loadConfiguration(callback) {
 	$.ajax({
 		type: 'GET',
 		url: '../ajax/adminFunctions.php',
-		data: { Operation : 'loadConfig' },
+		data: { Operation: 'loadConfig' },
 		async: true,
 		cache: false,
 		dataType: 'json',
@@ -462,7 +462,7 @@ function getLicenseInfo() {
 		type: "GET",
 		url: "../ajax/adminFunctions.php",
 		data: {
-			'Operation' : 'reginfo'
+			Operation: 'reginfo'
 		},
 		async: true,
 		cache: false,
@@ -486,7 +486,7 @@ function getLicensedClubInfo() {
         type: "GET",
         url: "../ajax/adminFunctions.php",
         data: {
-            'Operation' : 'searchClub'
+            Operation: 'searchClub'
         },
         async: true,
         cache: false,
@@ -510,7 +510,7 @@ function getFederationInfo() {
 	$.ajax({
 		type: "GET",
 		url: '../ajax/modules/moduleFunctions.php',
-		data: {	'Operation' : 'list' },
+		data: {	Operation: 'list' },
 		async: true,
 		cache: false,
 		dataType: 'json',

@@ -210,7 +210,7 @@ $('#ordeneq3-datagrid').datagrid({
     // propiedades del panel asociado
     fit: true,
     url: '../ajax/database/ordenSalidaFunctions.php',
-    queryParams: { Operation:'getTeams', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, where:''	},
+    queryParams: { Operation: 'getTeams', Prueba: workingData.prueba, Jornada: workingData.jornada, Manga: workingData.manga, where:''	},
     loadMsg: '<?php _e('Updating teams starting order');?> ...',
     method: 'get',
     mode: 'remote',

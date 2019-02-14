@@ -128,7 +128,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             required: true,
             url:'../ajax/database/guiaFunctions.php',
             queryParams: {
-                Operation:'categorias',
+                Operation: 'categorias',
                 Federation: workingData.federation
             }
         });
@@ -138,7 +138,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			idField: 'ID',
 			textField: 'Nombre',
 			url: '../ajax/database/clubFunctions.php',
-	    	queryParams: {Operation:'enumerate',Federation:workingData.federation},
+	    	queryParams: {Operation: 'enumerate',Federation: workingData.federation},
 			method: 'get',
 			mode: 'remote',
 			required: true,

@@ -102,7 +102,7 @@ $config =Config::getInstance();
                    onclick="
                            // clear selection and reload table
                            $('#sesiones-datagrid-search').val('<?php _e('-- Search --'); ?>');
-                           $('#sesiones-datagrid').datagrid('load',{ where: '' });"
+                           $('#sesiones-datagrid').datagrid('load',{ Operation: 'select', where: '' });"
                 ><?php _e('Clear'); ?></a>
    			</span>
 </div>

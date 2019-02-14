@@ -394,7 +394,8 @@ class Eventos extends DBObject {
 		// $this->myLogger->leave();
         if ($result['total']!=0) { // send connection message to console
             $evt=$result['rows'][0];
-            $msg="7:Connect to Ring {$sring}<br/>From {$smsg}<br/> at IP {$_SERVER['REMOTE_ADDR']}";
+            $ip=str_replace(':',';',$_SERVER['REMOTE_ADDR']); // ';' instead ':' for IPv6
+            $msg="7:Connect to Ring {$sring}<br/>From {$smsg}<br/>IP {$ip}";
             $this->myLogger->trace($msg);
             $data=array (
                 // common data for senders and receivers

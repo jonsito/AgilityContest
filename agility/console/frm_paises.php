@@ -130,7 +130,7 @@ $config =Config::getInstance();
         	    loadMsg: '<?php _e('Loading handlers list'); ?>' +' ....',
         		url: '../ajax/database/guiaFunctions.php',
         		queryParams: { 
-            		Operation:'getbyclub', // remember that clubes and countries share same DDBB table
+            		Operation: 'getbyclub', // remember that clubes and countries share same DDBB table
             		Club: country.ID,
             		Federation: workingData.federation 
             	},

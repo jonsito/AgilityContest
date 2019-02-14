@@ -159,7 +159,7 @@ $('#team_datagrid-dialog').dialog({
 $('#team_datagrid').datagrid({
 	fit: true,
 	url: '../ajax/database/equiposFunctions.php',
-	queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},
+	queryParams: { Operation: 'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},
 	loadMsg: '<?php _e('Updating team list');?> ...',
     footer: '#team_datagrid-buttons',
     toolbar: '#team_datagrid-toolbar',
@@ -316,7 +316,7 @@ $('#selteam-Equipo').combogrid({
 	idField: 'ID',
 	textField: 'Nombre',
 	url: '../ajax/database/equiposFunctions.php',
-	queryParams: { Operation:'enumerate', Prueba:workingData.prueba, Jornada:workingData.jornada },
+	queryParams: { Operation: 'enumerate', Prueba:workingData.prueba, Jornada:workingData.jornada },
 	loadMsg: '<?php _e('Updating team list');?>...',
 	method: 'get',
 	mode: 'remote',

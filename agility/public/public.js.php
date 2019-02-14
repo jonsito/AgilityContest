@@ -101,9 +101,9 @@ function pb_updateOrdenSalida() {
  */
 function pb_updateInscripciones() {
     $('#pb_inscripciones-datagrid').datagrid('reload', {
-        Operation:'inscritosbyjornada',
-        Prueba:workingData.prueba,
-        Jornada:workingData.jornada
+        Operation: 'inscritosbyjornada',
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada
     });
 }
 
@@ -112,12 +112,12 @@ function pb_updateInscripciones() {
  */
 function pb_updateInscripciones_eq3() {
     $('#pb_inscripciones_eq3-datagrid').datagrid('reload', {
-        Operation:'select',
-        Prueba:workingData.prueba,
-        Jornada:workingData.jornada,
-        where:'',
-        HideDefault:1, // do not show default team
-        AddLogo:1 // generate LogoTeam
+        Operation: 'select',
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada,
+        where: '',
+        HideDefault: 1, // do not show default team
+        AddLogo: 1 // generate LogoTeam
     });
 }
 

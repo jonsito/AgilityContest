@@ -146,10 +146,10 @@ function deleteInscripcion() {
 						'../ajax/database/inscripcionFunctions.php',
 						// arguments
 						{ 
-							Operation:'delete',
-							ID:row.ID, // id de la inscripcion
-							Perro:row.Perro, // id del perro
-							Prueba:row.Prueba // id de la prueba
+							Operation: 'delete',
+							ID: row.ID, // id de la inscripcion
+							Perro: row.Perro, // id del perro
+							Prueba: row.Prueba // id de la prueba
 						},
 						// on Success function
 						function(result){
@@ -158,7 +158,7 @@ function deleteInscripcion() {
 									where: $('#inscripciones-search').val()
 								});
 							} else {
-								$.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
+								$.messager.show({ width: 300, height: 200, title: 'Error', msg: result.errorMsg });
 							}
 						},
 						// expected datatype format for response
@@ -489,7 +489,7 @@ function importExportInscripciones() {
                     '../ajax/excel/excelWriterFunctions.php',
                     {
                         httpMethod: 'GET',
-                        data: {	'Operation':'Inscripciones','Prueba': workingData.prueba, 'Club': club },
+                        data: {	Operation: 'Inscripciones', Prueba: workingData.prueba, Club: club },
                         preparingMessageHtml: '<?php _e("Creating Excel file. Please wait"); ?> ...',
                         failMessageHtml: '<?php _e("There was a problem generating your report, please try again"); ?>.'
                     }

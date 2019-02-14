@@ -179,7 +179,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             fitColumns: true,
             selectOnNavigation: false,
             onChange: function(newvalue,oldvalue) {
-                $('#clubes-Provincia').combogrid('grid').datagrid('load',{Operation:'select',Country:newvalue});
+                $('#clubes-Provincia').combogrid('grid').datagrid('load',{Operation: 'select', Country: newvalue});
             }
         });
 

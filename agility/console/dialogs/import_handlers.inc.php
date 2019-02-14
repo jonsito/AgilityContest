@@ -81,7 +81,7 @@ $config =Config::getInstance();
             delay: 500,
     		textField: 'Nombre',
     		url: '../ajax/database/guiaFunctions.php',
-            queryParams: { Operation:'enumerate' },
+            queryParams: { Operation: 'enumerate' },
     		method: 'get',
     		mode: 'remote',
     		columns: [[

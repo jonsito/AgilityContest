@@ -157,7 +157,7 @@ $config =Config::getInstance();
         delay: 500,
 		textField: 'Nombre',
 		url: '../ajax/database/dogFunctions.php',
-		queryParams: { Operation:'enumerate', Federation: workingData.federation },
+		queryParams: { Operation: 'enumerate', Federation: workingData.federation },
 		method: 'get',
 		mode: 'remote',
 		columns: [[
@@ -241,6 +241,6 @@ $config =Config::getInstance();
 		mode: 'remote',
 		required: true,
         url: '../ajax/database/dogFunctions.php',
-        queryParams: { Operation:'categorias', Federation: workingData.federation }
+        queryParams: { Operation: 'categorias', Federation: workingData.federation }
     });
     </script>

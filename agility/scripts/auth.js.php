@@ -338,8 +338,8 @@ function check_permissions(perms, callback) {
 		type: "GET",
 		url: '../ajax/adminFunctions.php',
 		data: {
-			'Operation' : 'permissions',
-			'Perms':perms
+			Operation:  'permissions',
+			Perms:      perms
 		},
 		async: true,
 		cache: false,

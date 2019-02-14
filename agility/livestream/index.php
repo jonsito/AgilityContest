@@ -112,12 +112,12 @@ try {
 <script type="text/javascript" charset="utf-8">
 
 var ac_clientOpts={
-    'BaseName':'livestream',
-    'Ring':1,
-    'View':2,
-    'Mode':'chroma',
-    'Timeout':0,
-    'SessionName':''
+    BaseName:   'livestream',
+    Ring:       1,
+    View:       2,
+    Mode:       'chroma',
+    Timeout:    0,
+    SessionName: ''
 };
 
 function initialize() {

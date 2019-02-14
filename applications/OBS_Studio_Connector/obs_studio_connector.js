@@ -453,10 +453,10 @@ function findServer(ring) {
 function waitForEvents(evtID,timestamp){
 
     var postData = querystring.stringify({
-        'Operation'   : 'getEvents',
-        'ID'		  : evtID,
-        'Session'     : ac_config.sessionID,
-        'TimeStamp'   : timestamp
+        Operation:  'getEvents',
+        ID:         evtID,
+        Session:    ac_config.sessionID,
+        TimeStamp:  timestamp
     });
 
     var options = {
@@ -515,9 +515,11 @@ function waitForEvents(evtID,timestamp){
  */
 function startEventMgr() {
 
+    var sname="OBS_Studio_Connector:0:0:0:1234";
     var postData = querystring.stringify({
-        'Operation':'connect',
-        'Session': ac_config.sessionID
+        Operation:  'connect',
+        Session:    ac_config.sessionID,
+        SessionName: sname
     });
 
     var options = {

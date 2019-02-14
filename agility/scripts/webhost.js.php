@@ -36,11 +36,11 @@ function wh_check_dbAccess(callback) {
         type: "POST",
         url: 'ajax/webhostingFunctions.php',
         data: {
-            'Operation' : 'checkdbroot',
-            'Server': $('#install_host').textbox('getText'),
-            'Database': $('#install_dbname').textbox('getText'),
-            'User': $('#install_dbuser').textbox('getText'),
-            'Password': $('#install_dbpass').textbox('getText')
+            Operation:  'checkdbroot',
+            Server:     $('#install_host').textbox('getText'),
+            Database:   $('#install_dbname').textbox('getText'),
+            User:       $('#install_dbuser').textbox('getText'),
+            Password:   $('#install_dbpass').textbox('getText')
         },
         async: true,
         cache: false,
@@ -97,15 +97,15 @@ function wh_checkAndInstall() {
                 // no need to base64 encode pass: we are using post over ssl
                 // also do not hass pw at client side. it's prone to security failure point
                 // https://stackoverflow.com/questions/9397268/passing-base64-encoded-username-and-password-through-a-https-ssl-connection-fo
-                'Operation' : 'install',
-                'Server': $('#install_host').textbox('getText'),
-                'Database': $('#install_dbname').textbox('getText'),
-                'User': $('#install_dbuser').textbox('getText'),
-                'Password': $('#install_dbpass').textbox('getText'),
-                'Admin': $('#install_admin').textbox('getText'),
-                'Operator': $('#install_operator').textbox('getText'),
-                'Assistant': $('#install_assistant').textbox('getText'),
-                'License': $('#install_regdata').val()
+                Operation:  'install',
+                Server:     $('#install_host').textbox('getText'),
+                Database:   $('#install_dbname').textbox('getText'),
+                User:       $('#install_dbuser').textbox('getText'),
+                Password:   $('#install_dbpass').textbox('getText'),
+                Admin:      $('#install_admin').textbox('getText'),
+                Operator:   $('#install_operator').textbox('getText'),
+                Assistant:  $('#install_assistant').textbox('getText'),
+                License:    $('#install_regdata').val()
             },
             async: true,
             cache: false,

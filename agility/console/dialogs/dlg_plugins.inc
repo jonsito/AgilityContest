@@ -35,7 +35,7 @@
 		title: '<?php _e('Current installed modules'); ?>',
 		// datos de la conexion ajax
 		url: '../ajax/modules/moduleFunctions.php',
-        queryParams: { 'Operation' : 'competitions' },
+        queryParams: { Operation : 'competitions' },
 		loadMsg: '<?php _e('Loading competitions module list'); ?>',
 		method: 'get',
 		toolbar: '#plugins-datagrid-toolbar',

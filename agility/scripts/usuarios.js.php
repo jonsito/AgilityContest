@@ -115,7 +115,7 @@ function deleteUser(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete data on user'); ?>'+': '+row.Login+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
-        $.get('../ajax/database/userFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('../ajax/database/userFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
             if (result.success){
                 $(dg).datagrid('unselectAll').datagrid('reload');    // reload the user data
             } else {

@@ -319,7 +319,7 @@ function excel_importSendTask(params) {
             // valid data received fire up client-side import parser
             excel_importHandleResult(res);
             if (ac_import.count==0) { // start progress monitoring
-                setTimeout(function() {excel_importSendTask({'Operation':'progress'})} ,ac_import.progress_timeout);
+                setTimeout(function() {excel_importSendTask({ Operation:'progress'})} ,ac_import.progress_timeout);
             }
             ac_import.count++;
         },
@@ -352,17 +352,17 @@ function excel_importHandleResult(data) {
         case "upload":
             import_setProgressStatus("running");
             pb.progressbar('setValue','<?php _e("Checking Excel File");?> : '); // beware ' : ' sequence
-            setTimeout(function() {excel_importSendTask({'Operation':'check','Filename':data.filename})},0);
+            setTimeout(function() {excel_importSendTask({ Operation:'check', Filename: data.filename})},0);
             break;
         case "check":
             import_setProgressStatus("running");
             pb.progressbar('setValue','<?php _e("Starting data import");?>');
-            setTimeout(function() { excel_importSendTask({'Operation':'parse'})},0);
+            setTimeout(function() { excel_importSendTask({ Operation: 'parse'})},0);
             break;
         case "parse": // analyze next line
             if (data.success=='ok') { // if success==true parse again
                 import_setProgressStatus("running");
-                setTimeout(function(){excel_importSendTask({'Operation':'parse'})},0);
+                setTimeout(function(){excel_importSendTask({ Operation: 'parse'})},0);
             }
             if (data.success=='fail') { // user action required. study cases
                 var funcs = {};
@@ -382,7 +382,7 @@ function excel_importHandleResult(data) {
                             icon: 'error',
                             width: 480
                         });
-                        setTimeout(function(){excel_importSendTask({'Operation':'abort'})},0);
+                        setTimeout(function(){excel_importSendTask({ Operation: 'abort'})},0);
                         break;
                     }
                     funcs= {'notf': clubNotFound,'miss':clubMissmatch,'multi':clubMustChoose};
@@ -399,7 +399,7 @@ function excel_importHandleResult(data) {
             }
             if (data.success=='done') { // file parsed: start real import procedure
                 import_setProgressStatus("running");
-                setTimeout(function() { excel_importSendTask({'Operation':'import'})},0);
+                setTimeout(function() { excel_importSendTask({ Operation: 'import'})},0);
             }
             break;
         case "create": // create a new entry with provided data for current line
@@ -409,7 +409,7 @@ function excel_importHandleResult(data) {
         case "ignore": // ignore data from excel file in current line
             // continue parsing and restart progress monitoring
             import_setProgressStatus("running");
-            setTimeout(function() { excel_importSendTask({'Operation':'parse'}); },0);
+            setTimeout(function() { excel_importSendTask({ Operation: 'parse'}); },0);
             break;
         case "abort": // cancel transaction
             import_setProgressStatus("running");
@@ -419,7 +419,7 @@ function excel_importHandleResult(data) {
         case "import": // import dogs finished.
             import_setProgressStatus("running");
             var op=data.success; // success field tells what to do now : close,teams, inscribe
-            setTimeout(function() { excel_importSendTask({'Operation':op}); },0);
+            setTimeout(function() { excel_importSendTask({ Operation: op}); },0);
             break;
         case "close":
             import_setProgressStatus("stopped");
@@ -432,7 +432,7 @@ function excel_importHandleResult(data) {
             if (data.status==="Done.") return; // end of job
             // check for update progress bar and/or continue progress polling
             if (ac_import.progress_status==='running') pb.progressbar('setValue',data.status);
-            if (ac_import.progress_status!=='stopped') setTimeout(function() {excel_importSendTask({'Operation':'progress'})},ac_import.progress_timeout);
+            if (ac_import.progress_status!=='stopped') setTimeout(function() {excel_importSendTask({ Operation: 'progress'})},ac_import.progress_timeout);
             break;
         default:
             import_setProgressStatus('stopped');

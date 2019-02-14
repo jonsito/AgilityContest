@@ -61,9 +61,9 @@ function checkTeams(datagrid) {
         url:"../ajax/database/equiposFunctions.php",
         dataType:'json',
         data: {
-            Operation:	'verify',
+            Operation: 'verify',
             Prueba:	workingData.prueba,
-            Jornada:workingData.jornada
+            Jornada: workingData.jornada
         },
         success: function(data) {
             if (data.errorMsg) {
@@ -118,13 +118,13 @@ function realPrintTeams() {
 function printTeams(datagrid) {
     // primero verificamos la lista de equipos
     $.ajax({
-        type:'GET',
-        url:"../ajax/database/equiposFunctions.php",
-        dataType:'json',
+        type: 'GET',
+        url: "../ajax/database/equiposFunctions.php",
+        dataType: 'json',
         data: {
-        Operation:	'verify',
+        Operation: 'verify',
         Prueba:	workingData.prueba,
-        Jornada:workingData.jornada
+        Jornada: workingData.jornada
         },
         success: function(data) {
             var flag=false;
@@ -178,7 +178,7 @@ function openTeamWindow(pruebaID) {
             $.messager.alert('<?php _e("Current License has no permissions to handle Team Journeys"); ?>',res.errorMsg,"error");
         } else {
             // allright: marcamos jornada como activa, recargamos lista de equipos y abrimos ventana
-            $('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
+            $('#team_datagrid').datagrid('load',{ Operation: 'select', Prueba: workingData.prueba, Jornada: workingData.jornada, where:''});
             $('#team_datagrid-dialog').dialog('open');
         }
         return false; // prevent default fireup of event trigger
@@ -249,9 +249,9 @@ function deleteTeam(dg){
 			"<p><?php _e('This operation will remove selected team from journey');?><br />"+
 			"<p><?php _e('Do you really want to delete team');?> '"+row.Nombre+"' <?php _e('from this journey');?>?</p>",function(r){
         if (r){
-            $.get('../ajax/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba,Jornada:row.Jornada},function(result){
+            $.get('../ajax/database/equiposFunctions.php',{Operation: 'delete', ID: row.ID, Prueba: row.Prueba, Jornada: row.Jornada},function(result){
                 if (result.success){
-                    $(dg).datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});    // reload the prueba data 
+                    $(dg).datagrid('load',{ Operation: 'select', Prueba: workingData.prueba, Jornada: workingData.jornada, where:''});    // reload the prueba data
                     $('#selteam-Equipo').combogrid('grid').datagrid('unselectAll').datagrid('load'); // update assignment combogrid list
                 } else {
                     $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
@@ -374,7 +374,7 @@ function saveTeam() {
             } else {// on submit success, reload results
                 // on save done refresh related data/combo grids
                 $('#team_edit_dialog').dialog('close');
-                $('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
+                $('#team_datagrid').datagrid('load',{ Operation: 'select', Prueba: workingData.prueba, Jornada: workingData.jornada, where:''});
             }
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
@@ -394,7 +394,7 @@ function saveTeam() {
 function changeTeamDialog(dg,row) {
 	// cogemos datos de la inscripcion a modificar
 	// actualizamos lista de equipos en el combogrid
-	$('#selteam-Equipo').combogrid('grid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada});
+	$('#selteam-Equipo').combogrid('grid').datagrid('load',{ Operation: 'select', Prueba: workingData.prueba, Jornada: workingData.jornada});
 	// ajustamos variables extras del formulario
     row.Parent=dg;
 	// recargamos el formulario con los datos de la fila seleccionada
@@ -474,7 +474,7 @@ function changeTeam() {
 function reloadOrdenEquipos() {
     $('#ordenequipos-datagrid').datagrid(
         'load',
-        {  Operation:'getTeams', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, where:''	}
+        {  Operation: 'getTeams', Prueba: workingData.prueba, Jornada: workingData.jornada, Manga: workingData.manga, where:''	}
     );
     return true;
 }
@@ -482,7 +482,7 @@ function reloadOrdenEquipos() {
 function reloadSimpleOrdenEquipos() {
     $('#ordeneq3-datagrid').datagrid(
         'load',
-        {  Operation:'getTeams', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, where:''	}
+        {  Operation: 'getTeams', Prueba: workingData.prueba, Jornada: workingData.jornada, Manga: workingData.manga, where:''	}
     );
     return true;
 }

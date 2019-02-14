@@ -168,7 +168,7 @@ $config =Config::getInstance();
             idField: 'ID',
             textField: 'Nombre',
             url: '../ajax/database/clubFunctions.php',
-            queryParams: {Operation:'enumerate',Federation:workingData.federation},
+            queryParams: {Operation: 'enumerate', Federation: workingData.federation},
             method: 'get',
             mode: 'remote',
             required: true,

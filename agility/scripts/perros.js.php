@@ -26,7 +26,7 @@ $config =Config::getInstance();
 function reload_perrosDatagrid(dg) {
 	var w=$(dg+'-search').val();
 	if (strpos(w,"<?php _e('-- Search --'); ?>",0)!==false) w='';
-	// $(dg).datagrid('load',{Operation:'select', where: w, Federation: workingData.federation });
+	// $(dg).datagrid('load',{ Operation: 'select', where: w, Federation: workingData.federation });
     setTimeout(function() { $(dg).datagrid('reload'); },500);
 }
 
@@ -116,7 +116,7 @@ function deleteDog(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete dog'); ?>'+': "'+ row.Nombre+'" '+'<?php _e('from database'); ?>'+'.\n'+'<?php _e('Sure?'); ?>',function(r){
        	if (!r) return;
-        $.get('../ajax/database/dogFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('../ajax/database/dogFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
             if (result.success){
                 $(dg).datagrid('unselectAll').datagrid('reload');    // reload the dog data. PENDING: what about using reloadPerrosDatagrid()?
             } else { // show error message
@@ -149,7 +149,7 @@ function joinDog(action) {
         $.ajax({
             type: 'GET',
             url: '../ajax/database/dogFunctions.php',
-            data: {Operation:'join',From:row.ID,To:torow.ID},
+            data: { Operation: 'join', From: row.ID, To: torow.ID},
             dataType: 'json',
             success: function (result) {
                 if (result.errorMsg){
@@ -217,7 +217,7 @@ function delPerroFromGuia(dgstr,guia) {
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e("Delete assignment from dog"); ?>'+" '"+row.Nombre+"' '+'<?php _e('to handler');?>'+' '"+guia.Nombre+"' "+'<?php _e('Sure?');?>',function(r){
         if (r){
-            $.get('../ajax/database/dogFunctions.php',{Operation:'orphan',ID:row.ID},function(result){
+            $.get('../ajax/database/dogFunctions.php',{ Operation: 'orphan', ID: row.ID },function(result){
                 if (result.success){
                 	dg.datagrid('reload');
                 } else {

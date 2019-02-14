@@ -248,7 +248,7 @@ $config =Config::getInstance();
         buttons:'#pruebas_email-dlg-buttons',
         onBeforeOpen: function() {
             if (workingData.prueba==0) return false; // it's an error: no contest declared. so don't try to load clubs
-            $('#pruebas_email-Clubs').datagrid('load',{Operation:'enumerate',Prueba:workingData.prueba,Federation:workingData.federation});
+            $('#pruebas_email-Clubs').datagrid('load',{Operation: 'enumerate', Prueba: workingData.prueba, Federation: workingData.federation});
             return true;
         }
     });
@@ -273,9 +273,9 @@ $config =Config::getInstance();
         textField: 'Nombre',
         url: '../ajax/mailFunctions.php',
         queryParams: {
-            'Operation': 'enumerate',
-            'Prueba': workingData.prueba,
-            'Federation': workingData.federation
+            Operation: 'enumerate',
+            Prueba: workingData.prueba,
+            Federation: workingData.federation
         },
         method: 'get',
         mode: 'remote',
@@ -343,7 +343,7 @@ $config =Config::getInstance();
         idField: 'ID',
         textField: 'LongName',
         url: '../ajax/modules/moduleFunctions.php',
-        queryParams: { 'Operation' : 'enumerate' },
+        queryParams: { Operation: 'enumerate' },
         method: 'get',
         mode: 'remote',
         required: true,
@@ -372,8 +372,8 @@ $config =Config::getInstance();
 		textField: 'Nombre',
 		url: '../ajax/database/clubFunctions.php',
         queryParams: {
-            'Operation': 'enumerate',
-            'Federation': $('#pruebas-Federation').combogrid('getValue')
+            Operation: 'enumerate',
+            Federation: $('#pruebas-Federation').combogrid('getValue')
         },
 		method: 'get',
 		mode: 'remote',

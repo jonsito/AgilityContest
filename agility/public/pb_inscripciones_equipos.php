@@ -78,12 +78,12 @@ $('#pb_inscripciones_eq3-datagrid').datagrid({
     fit: true,
     url: '../ajax/database/equiposFunctions.php',
     queryParams: {
-        Operation:'select',
-        Prueba:workingData.prueba,
-        Jornada:workingData.jornada,
-        where:'',
-        HideDefault:1, // do not show default team
-        AddLogo:1 // generate LogoTeam
+        Operation: 'select',
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada,
+        where: '',
+        HideDefault: 1, // do not show default team
+        AddLogo: 1 // generate LogoTeam
     },
     loadMsg: "<?php _e('Updating inscriptions');?> ...",
     method: 'get',

@@ -105,12 +105,12 @@ if ( $runmode === AC_RUNMODE_MASTER) {
 <script type="text/javascript">
 
 var ac_clientOpts = {
-    'BaseName':'console',
-    'Ring':1, // sessid:1 --> console (broadcast ring)
-    'View':0,
-    'Mode':0,
-    'Timeout':0,
-    'SessionName':'console'
+    BaseName:   'console',
+    Ring:       1, // sessid:1 --> console (broadcast ring)
+    View:       0,
+    Mode:       0,
+    Timeout:    0,
+    SessionName: 'console'
 };
 
 function initialize() {

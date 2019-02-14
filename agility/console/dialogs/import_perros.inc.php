@@ -83,7 +83,7 @@ $config =Config::getInstance();
         delay: 500,
 		textField: 'Nombre',
 		url: '../ajax/database/dogFunctions.php',
-		queryParams: { Operation:'enumerate' },
+		queryParams: { Operation: 'enumerate' },
 		method: 'get',
 		mode: 'remote',
 		columns: [[

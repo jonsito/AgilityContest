@@ -676,8 +676,8 @@ function reload_manga(id) {
 	// ventana de datos
 	var url='../ajax/database/mangaFunctions.php?Operation=getbyid&Jornada='+workingData.jornada+"&Manga="+id;
     // update judge list to prevent federation change
-    $('#dmanga-Juez1').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
-    $('#dmanga-Juez2').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
+    $('#dmanga-Juez1').combogrid('load',{ Operation: 'Enumerate', Federation: workingData.federation});
+    $('#dmanga-Juez2').combogrid('load',{ Operation: 'Enumerate', Federation: workingData.federation});
     $('#competicion-formdatosmanga').form('load',url); // notice that "onBeforeLoad is declared"
 }
 
@@ -1218,34 +1218,34 @@ function saveCompeticionData(idx,data) {
 
     function sendEvent(evtdata) {
         var obj= {
-            'Operation':'putEvent',
-            'Type': 	'aceptar',
-            'TimeStamp': Math.floor(Date.now() / 1000),
-            'Source':	'Console',
-            'Session':	1, // Session id for console events
-            'Prueba':	workingData.prueba,
-            'Jornada':	workingData.jornada,
-            'Manga':	workingData.manga,
-            'Tanda':	workingData.tanda,
-            'Perro':	evtdata['Perro'],
-            'Dorsal':	evtdata['Dorsal'],
-            'Equipo':	evtdata['Equipo'],
-            'Celo':		evtdata['Celo'],
-            'Value':	evtdata['Value'],
-            'Licencia':	evtdata['Licencia'],
-            'Nombre':		evtdata['Nombre'],
-            'NombreGuia':	evtdata['NombreGuia'],
-            'NombreClub':	evtdata['NombreClub'],
-            'Categoria':	evtdata['Categoria'],
-            'Tocados':	    evtdata['Tocados'],
-            'Faltas':		evtdata['Faltas'],
-            'Rehuses':	    evtdata['Rehuses'],
-            'Tiempo':		evtdata['Tiempo'],
-            'Eliminado':	evtdata['Eliminado'],
-            'NoPresentado':	evtdata['NoPresentado'],
-            'Observaciones':data['Observaciones'],
-            'Pendiente':    evtdata['Pendiente'],
-            'Games':        evtdata['Games']
+            Operation:  'putEvent',
+            Type: 	    'aceptar',
+            TimeStamp:  Math.floor(Date.now() / 1000),
+            Source:	    'Console',
+            Session:	1, // Session id for console events
+            Prueba:	    workingData.prueba,
+            Jornada:	workingData.jornada,
+            Manga:	    workingData.manga,
+            Tanda:	    workingData.tanda,
+            Perro:	    evtdata['Perro'],
+            Dorsal:	    evtdata['Dorsal'],
+            Equipo:	    evtdata['Equipo'],
+            Celo:		evtdata['Celo'],
+            Value:	    evtdata['Value'],
+            Licencia:	evtdata['Licencia'],
+            Nombre:		evtdata['Nombre'],
+            NombreGuia:	evtdata['NombreGuia'],
+            NombreClub:	evtdata['NombreClub'],
+            Categoria:	evtdata['Categoria'],
+            Tocados:	evtdata['Tocados'],
+            Faltas:		evtdata['Faltas'],
+            Rehuses:	evtdata['Rehuses'],
+            Tiempo:		evtdata['Tiempo'],
+            Eliminado:	evtdata['Eliminado'],
+            NoPresentado:	evtdata['NoPresentado'],
+            Observaciones:  data['Observaciones'],
+            Pendiente:  evtdata['Pendiente'],
+            Games:      evtdata['Games']
         };
         // send "update" event to every session listeners
         $.ajax({
@@ -1503,7 +1503,7 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 		type: 'GET',
 		url: '../ajax/database/resultadosFunctions.php',
 		dataType: 'json',
-		data: {	Operation:'getResultadosIndividual', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:idmanga, Mode: mode },
+		data: {	Operation: 'getResultadosIndividual', Prueba: workingData.prueba, Jornada: workingData.jornada, Manga: idmanga, Mode: mode },
 		success: function(dat) {
 			var suffix='L';
 			switch (mode) {

@@ -129,7 +129,7 @@ function deleteTanda(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Remove activity'); ?>'+' '+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
-        $.get('../ajax/database/tandasFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('../ajax/database/tandasFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
             if (result.success){
                 reloadOrdenTandas();
             } else {

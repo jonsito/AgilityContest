@@ -191,7 +191,7 @@ function deletePrueba(dg){
     		'<?php _e("<p>By deleting this contest <b>youll loose</b> every associated data and scores"); ?>' +
     		"</p><p><?php _e('Do you really want to delete this contest'); ?>?</p>",function(r){
         if (r){
-            $.get('../ajax/database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+            $.get('../ajax/database/pruebaFunctions.php',{Operation: 'delete', ID: row.ID},function(result){
                 if (result.success){
                     $(dg).datagrid('unselectAll').datagrid('reload');    // reload the prueba data
                 } else {
@@ -305,10 +305,10 @@ function prueba_clearSentMark() {
             if (!r) return false;
             $.get(
                 '../ajax/mailFunctions.php',
-                {Operation:'clearsent',Prueba:workingData.prueba,Federation:workingData.federation},
+                { Operation: 'clearsent', Prueba: workingData.prueba, Federation: workingData.federation },
                 function(result){
                     if (result.success){
-                        $('#pruebas_email-Clubs').datagrid('reload',{Operation:'enumerate',Prueba:workingData.prueba,Federation:workingData.federation});    // reload the prueba data
+                        $('#pruebas_email-Clubs').datagrid('reload',{ Operation: 'enumerate', Prueba: workingData.prueba, Federation: workingData.federation});    // reload the prueba data
                     } else {
                         $.messager.show({ width:300, height:200, title:'<?php _e('Error'); ?>', msg:result.errorMsg });
                     }
@@ -334,7 +334,7 @@ function perform_emailPrueba() {
             // recursive call finished, clean, close and refresh
             pwindow.window('close');
             dg.datagrid('clearSelections');
-            dg.datagrid('reload',{Prueba:workingData.prueba,Federation:workingData.federation,Operation:'enumerate'});
+            dg.datagrid('reload',{ Prueba: workingData.prueba, Federation: workingData.federation, Operation: 'enumerate'});
             return;
         }
         // take care on sent mails and "ReSend" flag
@@ -467,7 +467,7 @@ function closeJornadaFromPrueba(datagridID,event) {
                     $.messager.progress({title:'',text:'<?php _e("Processing");?>...'});
     	            $.get(
     	                '../ajax/database/jornadaFunctions.php',
-                        {Operation:'close',ID:row.ID,Mode:mode},
+                        {Operation: 'close',ID: row.ID,Mode: mode},
                         function(result){
     	                    $.messager.progress('close');
     	                    if (result.success){
@@ -543,7 +543,7 @@ function saveJornada(){
             	var id=$('#jornadas-Prueba').val();
                 $('#jornadas-dialog').dialog('close');        // close the dialog
                 // notice that some of these items may fail if dialog is not deployed. just ignore
-                $('#jornadas-datagrid-'+id).datagrid('reload',{ Prueba:id , Operation:'select' }); // reload the prueba data
+                $('#jornadas-datagrid-'+id).datagrid('reload',{ Prueba: id, Operation: 'select' }); // reload the prueba data
                 $('#inscripciones-jornadas').datagrid('reload');    // reload the prueba data
                 $('#inscripciones-datagrid').datagrid('reload');    // reload the inscriptions to enable checkboxes on new journey
             }

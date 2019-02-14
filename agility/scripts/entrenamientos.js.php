@@ -75,7 +75,7 @@ function resetEntrenamientos(dg) {
         type: 'GET',
         url: '../ajax/database/trainingFunctions.php',
         data: {
-            Operation:'populate',
+            Operation: 'populate',
             Prueba: workingData.prueba
         },
         dataType: 'json',

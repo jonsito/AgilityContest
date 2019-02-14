@@ -308,10 +308,10 @@ function findServer(ring) {
 function waitForEvents(evtID,timestamp){
 
     var postData = querystring.stringify({
-        'Operation'   : 'getEvents',
-        'ID'		  : evtID,
-        'Session'     : workingData.sessionID,
-        'TimeStamp'   : timestamp
+        Operation:	'getEvents',
+        ID:			evtID,
+        Session:	workingData.sessionID,
+        TimeStamp:	timestamp
     });
 
     var options = {
@@ -364,9 +364,11 @@ function waitForEvents(evtID,timestamp){
  */
 function startEventMgr() {
 
+	var sname="EventMonitor:0:0:0:1234";
     var postData = querystring.stringify({
-        'Operation':'connect',
-        'Session': workingData.sessionID
+        Operation:	'connect',
+        Session:	workingData.sessionID,
+		SessionName: sname
     });
 
     var options = {

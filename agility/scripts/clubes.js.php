@@ -243,7 +243,7 @@ function deleteClub(dg){
     }
     $.messager.confirm('<?php _e('Confirm'); ?>',"<?php _e('Clear club');?>"+' "'+row.Nombre+'" <?php _e('from database. Sure?');?>',function(r){
         if (!r) return;
-        $.get('../ajax/database/clubFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('../ajax/database/clubFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
             if (result.success){
                 $(dg).datagrid('unselectAll').datagrid('reload');    // reload the provided datagrid
             } else {
