@@ -367,23 +367,34 @@ class Eventos extends DBObject {
         }
         $str="";
 
-        // sessionID 1 means allow events from _any_ source
-		if ($data['Session']<=0) return $this->error("No Session ID specified");
-        if ($data['Session']>1) $str=" AND ( Session = {$data['Session']} )";
+        // buscamos los datos de la sesion que pide el connect
+        if ($data['Session']<=0) return $this->error("No Session ID specified");
+        $sesiones= $this->__select( "*","sesiones","")['rows'];
 
-        $sname=$data['SessionName'];
-        $smsg="(Unkonwn)";
-        $sring="(Any)";
-        if ($sname!=="") {
-            // store named sessions into persistent storage
-            $ses=new Sesiones("Events::connect");
-            $ses->testAndSet($sname);
-            // and extract info for show in console
-            $sndata=explode(":",$sname);
-            $smsg="{$sndata[0]}({$sndata[4]})"; // basename,session, ring,mode,options,name )
-            $sring="{$sndata[1]} SesID ${sndata[2]}";
+        $sourceName="(Unknown)";
+        $ringName="(Any)";
+        $sessionName="";
+        // $ipAddress=str_replace(':',';',$_SERVER['REMOTE_ADDR']); // ';' instead ':' for IPv6
+        $ipAddress=$_SERVER['REMOTE_ADDR'];
+        foreach ($sesiones as $sesion) {
+            if ($sesion['ID']!=$data['Session']) continue;
+            $ringName=$sesion['Nombre'];
         }
 
+        // if sessionData is provided, extrad info on source and session name
+        if ($data['SessionName']!=="") {
+            // store named sessions into persistent storage
+            $ses=new Sesiones("Events::connect");
+            $ses->testAndSet($sessionName);
+            // and extract info to show in console // source:ringsessid:type:mode:sessionaname
+            $sndata=explode(":",$data['SessionName']);
+            $sourceName=$sndata[0];
+            $sessionName=$sndata[4];
+        }
+
+        // ahora buscamos el ultimo evento 'init' de la sesion solicitada
+        // o bien si sessionID es 1, de cualquier sesion
+        if (intval($data['Session'])>1) $str=" AND ( Session = {$data['Session']} )";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "eventos",
@@ -393,21 +404,25 @@ class Eventos extends DBObject {
 						);
 		// $this->myLogger->leave();
         if ($result['total']!=0) { // send connection message to console
-            $evt=$result['rows'][0];
-            $ip=str_replace(':',';',$_SERVER['REMOTE_ADDR']); // ';' instead ':' for IPv6
-            $msg="7:Connect to Ring {$sring}<br/>From {$smsg}<br/>IP {$ip}";
-            $this->myLogger->trace($msg);
+
+            // compose message to be shown on console as timeout:message
+            $message="7:Connect From {$sourceName} ({$sessionName})<br/>
+                  On {$ringName} (ID {$data['Session']})<br/>
+                  IP Address {$ipAddress}";
+
+            // and send to console to be shown
+            $this->myLogger->trace($message);
             $data=array (
                 // common data for senders and receivers
                 'ID'		=>	0, // to be set
                 'Session'	=> 	1, // "any"
                 'TimeStamp'	=> 	time(), /* date('Y-m-d H:i:s'),*/
                 'Type' 		=> 	"command",
-                'Source'	=> 	$smsg,
+                'Source'	=> 	$sourceName,
                 'Name'      =>  'console', // send event to console
                 // datos identificativos del evento que se envia
                 'Oper'      =>  EVTCMD_MESSAGE,
-                'Value' =>  $msg
+                'Value' =>  $message
             );
             $this->putEvent($data);
         }

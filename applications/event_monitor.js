@@ -260,13 +260,19 @@ function findServer(ring) {
 		var url="http://"+hostaddr+"/"+base+"/ajax/database/sessionFunctions.php?Operation=selectring";
 		var request = require('sync-request');
 		try {
-			var res = request('GET', url, {
-				timeout: 250,
-				headers: { // this is for some routers that return "Auth required" to fail and send proper error code
-					authorization: 'Basic ' + new Buffer('AgilityContest' + ':' + 'AgilityContest', 'ascii').toString('base64')
+			process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+			var res = request(
+				/* method */ 'GET',
+				/* URL */ url,
+				/* options */ {
+					timeout: 250,
+					headers: { // this is for some routers that return "Auth required" to fail and send proper error code
+						authorization: 'Basic ' + new Buffer('AgilityContest' + ':' + 'AgilityContest', 'ascii').toString('base64')
+					},
+					rejectUnauthorized: false
 				}
-			});
-			if (res.statusCode!=200) return false; // http request failed
+			);
+			if (res.statusCode!==200) return false; // http request failed
 			console.log("Found AgilityContest server at: "+hostaddr);
 			var data = JSON.parse(res.getBody('utf8'));
 			// this code assumes that first returned row matches ring 1, second ring 2 and so
@@ -364,7 +370,8 @@ function waitForEvents(evtID,timestamp){
  */
 function startEventMgr() {
 
-	var sname="EventMonitor:0:0:0:1234";
+	//  source:ringsessid:type:mode:sessname
+	var sname="EventMonitor:1:0:0:eventmon@1.2.3.4";
     var postData = querystring.stringify({
         Operation:	'connect',
         Session:	workingData.sessionID,

@@ -515,7 +515,7 @@ function waitForEvents(evtID,timestamp){
  */
 function startEventMgr() {
 
-    var sname="OBS_Studio_Connector:0:0:0:1234";
+    var sname="OBS_Studio_Connector:1:0:0:obsstudio@1.2.3.4";
     var postData = querystring.stringify({
         Operation:  'connect',
         Session:    ac_config.sessionID,

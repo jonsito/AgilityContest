@@ -43,6 +43,19 @@ if (typeof String.prototype.capitalize != 'function') {
 }
 
 /**
+ * equivalent for php's explode() as javascript::split() cuts at limit
+ */
+if (typeof String.prototype.explode != 'function') {
+    String.prototype.explode = function (separator, limit) {
+        const array = this.split(separator);
+        if (limit !== undefined && array.length >= limit) {
+            array.push(array.splice(limit - 1).join(separator));
+        }
+        return array;
+    };
+}
+
+/**
  * As Date.parse(string) is implementation dependend, create own YYYY-mm-dd parser
  * https://stackoverflow.com/questions/2587345/why-does-date-parse-give-incorrect-results
  * @param {string} input YYYY-mm-dd date format string

@@ -231,7 +231,7 @@ function console_noticeLogin(evt) {
 // handle showMessage event command
 function console_showMessage(evt) {
     // value is in form timeout:text
-    var data=evt['Value'].split(':',2);
+    var data=evt['Value'].explode(':',2); // explode is defined en common.js
     if (data[1].length===0) return; // nothing to show :-)
     var tout=parseInt(data[0]);
     tout= (tout<=0)?1:tout;
@@ -247,31 +247,31 @@ function console_showMessage(evt) {
 }
 
 var eventHandler= {
-    'null': null,// null event: no action taken
-    'init': function(event){ // PENDING: notify to console every "init" event
+    null: null,// null event: no action taken
+    init: function(event){ // PENDING: notify to console every "init" event
         console_noticeLogin(event);
     },
-    'open': null,// operator select tanda
-    'close': null,    // no more dogs in tanda
-    'datos': null,      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-    'llamada': null,    // llamada a pista
-    'salida': null,     // orden de salida
-    'start': null,      // start crono manual
-    'stop': null,       // stop crono manual
+    open:       null,// operator select tanda
+    close:      null,    // no more dogs in tanda
+    datos:      null,      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+    llamada:    null,    // llamada a pista
+    salida:     null,     // orden de salida
+    start:      null,      // start crono manual
+    stop:       null,       // stop crono manual
     // nada que hacer aqui: el crono automatico se procesa en el tablet
-    'crono_start':  null, // arranque crono automatico
-    'crono_restart': null,// paso de tiempo intermedio a manual
-    'crono_int':  	null, // tiempo intermedio crono electronico
-    'crono_stop':  null, // parada crono electronico
-    'crono_reset':  null, // puesta a cero del crono electronico
-    'crono_error':  null, // fallo en los sensores de paso
-    'crono_dat':    null, // datos desde crono electronico
-    'crono_ready':    null, // chrono ready and listening
-    'user':    null, // user defined event
-    'aceptar':	null, // operador pulsa aceptar
-    'cancelar': null, // operador pulsa cancelar
-    'camera':	null, // change video source
-    'command': function(event){ // videowall remote control
+    crono_start:    null, // arranque crono automatico
+    crono_restart:  null,// paso de tiempo intermedio a manual
+    crono_int:  	null, // tiempo intermedio crono electronico
+    crono_stop:     null, // parada crono electronico
+    crono_reset:    null, // puesta a cero del crono electronico
+    crono_error:    null, // fallo en los sensores de paso
+    crono_dat:      null, // datos desde crono electronico
+    crono_ready:    null, // chrono ready and listening
+    user:       null, // user defined event
+    aceptar:	null, // operador pulsa aceptar
+    cancelar:   null, // operador pulsa cancelar
+    camera:	    null, // change video source
+    command:    function(event){ // videowall remote control
         handleCommandEvent
         (
             event,
@@ -289,8 +289,8 @@ var eventHandler= {
             ]
         )
     },
-    'reconfig':	function(event) { loadConfiguration(); }, // reload configuration from server
-    'info':	null // click on user defined tandas
+    reconfig:	function(event) { loadConfiguration(); }, // reload configuration from server
+    info:	    null // click on user defined tandas
 };
 
 function confirmInstallDB() {

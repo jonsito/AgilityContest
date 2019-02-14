@@ -72,13 +72,13 @@ if (!$am->allowed(ENABLE_CHRONO)) {
 <script type="text/javascript" charset="utf-8">
 
 var ac_clientOpts = {
-    'BaseName':'chrono',
-    'Ring':2, // defaults to session id:2 --> ring 1
-    'View':0,
-    'Mode':0, // no view nor mode in chrono, but needed
-    'SensorDate':0,
-    'Timeout':0,
-    'SessionName':''
+    BaseName:   'chrono',
+    Ring:       2, // defaults to session id:2 --> ring 1
+    View:       0,
+    Mode:       0, // no view nor mode in chrono, but needed
+    SensorDate: 0,
+    Timeout:    0,
+    SessionName: '' // to be filled later
 };
 
 function initialize() {
@@ -152,9 +152,9 @@ $('#chrono-form').form();
 addTooltip($('#chrono-okBtn').linkbutton(),"<?php _e('Work with selected ring/session');?>");
 
 $('#chrono-SessionName').textbox({
-    value: ac_clientOpts.SessionName,
-    required:false,
-    validType:'length[1,255]',
+    value:  ac_clientOpts.SessionName,
+    required: false,
+    validType: 'length[1,255]',
     onChange: function(value) {ac_clientOpts.SessionName=value.replace(/:/g,'');}
 });
 

@@ -51,6 +51,9 @@ function parseEvent(data) {
 
 // $(function(evtID,timestamp){
 	function waitForEvents(evtID,timestamp,firstcall){
+		// ejemplo: source:ringsessionID:view_type:round_mode:SessionName
+		// source: videowall,tablet, chrono, xxxx
+		// SessionName: xxxx@ipaddress: random(8)
         var sname=ac_clientOpts.BaseName+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.Mode+":"+ac_clientOpts.SessionName;
         // use inner vars to preserve scope in handleSuccess
 		var mark=timestamp;
@@ -129,6 +132,9 @@ function parseEvent(data) {
  * On sucess invoke
  */
 function startEventMgr() {
+	// ejemplo: source:ringsesionID:view_type:round_mode:xxxxx@ipaddress
+	// source: videowall,tablet, chrono, xxxx
+	// xxxx: random(8)
     var sname=ac_clientOpts.BaseName+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.Mode+":"+ac_clientOpts.SessionName;
 	$.ajax({
 		type: "GET",
