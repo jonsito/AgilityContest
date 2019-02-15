@@ -50,6 +50,13 @@ DirectoryIndex index.php index.html
     RewriteCond %{REQUEST_URI} /server/database/updater/updateRequest.php
     RewriteRule ^(.*)$ /ajax/serverRequest.php [R=307,L]
 
+    # let the Galican Chrono work using old URL
+    # need to rewrite "server/database/updater" to "ajax"
+    RewriteCond %{REQUEST_URI} /server/database/eventFunctions.php
+    RewriteRule ^(.*)$ /agility/ajax/database/eventFunctions.php [R=307,L]
+    RewriteCond %{REQUEST_URI} /server/database/sessionFunctions.php
+    RewriteRule ^(.*)$ /agility/ajax/database/sessionFunctions.php [R=307,L]
+
     # block access to "*/server/*" and web directory
     RewriteCond %{REQUEST_URI} /(config|applications|server|build|extras|logs|xampp)/
     RewriteRule ^(.*) - [F,L]
