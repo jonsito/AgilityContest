@@ -19,12 +19,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 * browser-less implementation of AgilityContest event protocol parser
 *
 * Requires nodejs >=4
-* Required npm modules http sync-request querystring os ip
+* Required npm modules 'https' 'follow-redirects' 'querystring' 'os' 'ip'
 *
 */
 /***************************************************************************************************************/
 var querystring = require('querystring');
-var http = require('http');
+var https = require('follow-redirects').https;
+var ip=require('ip');
+var os = require('os');
 
 var workingData = {
 	// Comment as desired
@@ -195,7 +197,7 @@ var eventHandler= {
             case 8: str= "8 EVTCMD_MESSAGE"; break;
             case 9: str= "9 EVTCMD_ENABLEOSD"; break;
         }
-        console.log("Command: "+str+ "Value: "+event['Value']);
+        console.log(" Command: "+str+ "Value: "+event['Value']);
     },
     'reconfig':	function(event,time) {  // reload configuration from server
         console.log(event['Type'] + " - Configuration changed from main console");
@@ -225,19 +227,16 @@ function event_parser(id,event) {
  * This function explores network trying to locate an AgilityContest server
  * When found, deduce desired sesion ID and set up working data parameters
  *
- * Notice that due to async nature of http requests, a dirty trick is needed
- * to wait for host polling to finish. this should be revisited in a later revision
- *
  * @param {int} ring Ring number (1..4) to search their sessionID for
  * @returns {boolean} true when server and session found. otherwise false
  */
 function findServer(ring) {
+
 	var addresses = []; // to be evaluated
 
 	// locate any non local interface ipaddress/mask
 	// take care on multiple interfaced hosts
 	function getInterfaces() {
-		var os = require('os');
 		var interfaces = os.networkInterfaces();
 		for (var k in interfaces) {
 			for (var k2 in interfaces[k]) {
@@ -256,51 +255,61 @@ function findServer(ring) {
 	 * @return true on success; otherwise false
      */
 	function connectServer(hostaddr){
-		var base='agility'; // to be edited
-		var url="http://"+hostaddr+"/"+base+"/ajax/database/sessionFunctions.php?Operation=selectring";
-		var request = require('sync-request');
-		try {
-			process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
-			var res = request(
-				/* method */ 'GET',
-				/* URL */ url,
-				/* options */ {
-					timeout: 250,
-					headers: { // this is for some routers that return "Auth required" to fail and send proper error code
-						authorization: 'Basic ' + new Buffer('AgilityContest' + ':' + 'AgilityContest', 'ascii').toString('base64')
-					},
-					rejectUnauthorized: false
+
+    	var options = {
+        	protocol: 	'https:',
+        	hostname:	hostaddr,
+        	port: 		443,
+        	path: 		'/agility/ajax/database/sessionFunctions.php?Operation=selectring',
+        	method: 	'GET',
+			timeout: 	250,
+			rejectUnauthorized: false,
+        	headers: 	{
+        		// this is for some routers that return "Auth required" to fail and send proper error code
+				authorization: 'Basic ' + new Buffer('AgilityContest' + ':' + 'AgilityContest', 'ascii').toString('base64')
+        	}
+    	};
+
+		var req = https.request(options,function(result){
+			result.on('data', (res) =>{
+				if (result.statusCode===404) {
+					console.log("HTTP Server at: "+hostaddr+" is not AgilityContest server");
+					return;
 				}
-			);
-			if (res.statusCode!==200) return false; // http request failed
-			console.log("Found AgilityContest server at: "+hostaddr);
-			var data = JSON.parse(res.getBody('utf8'));
-			// this code assumes that first returned row matches ring 1, second ring 2 and so
-			workingData.hostname=hostaddr;
-			workingData.sessionID=parseInt(data['rows'][ring-1]['ID']);
-			console.log("SessionID for ring:"+ring+" is:"+workingData.sessionID);
-			return true;
-		} catch (err) {
-			console.log("Host: "+hostname+" Error: "+err);
-			return false;
-		}
+				console.log("Found AgilityContest server at: "+hostaddr);
+				var data = JSON.parse(res);
+				// this code assumes that first returned row matches ring 1, second ring 2 and so
+				workingData.hostname=hostaddr;
+				workingData.sessionID=parseInt(data['rows'][ring-1]['ID']);
+				console.log("SessionID for ring:"+ring+" is:"+workingData.sessionID);
+			});
+			result.on('end', function() { /* empty */  });
+		});
+		req.on('error', (error) => {
+			console.log("Host: "+hostaddr+" Error: "+error);
+		});
+		req.end();
+	}
+
+	function iterate(n,end){
+		if (workingData.hostname!=="0.0.0.0") return;
+		if(n>end) return;
+		var hostname=ip.fromLong(n).toString();
+		connectServer(hostname);
+		setTimeout( function () {iterate(n+1,end); },500);
 	}
 
 	getInterfaces(); // retrieve network interface information
-	var ip=require('ip');
 	for (var item in addresses) { // iterate on every ip/mask found
 		var ipaddr=addresses[item].address;
 		var mask=addresses[item].netmask;
 		var start=ip.toLong(ip.subnet(ipaddr,mask).firstAddress);
 		var stop=ip.toLong(ip.subnet(ipaddr,mask).lastAddress);
-		for (var n=start;n<=stop;n++) {
-			var hostname=ip.fromLong(n).toString();
-			if (connectServer(hostname) ) return true;
-		}
+		if (workingData.hostname!=="0.0.0.0") return;
+		iterate(start,stop);
 	}
 	// arriving here means server not found. Notify and return
 	console.log("Cannot locate server. exiting");
-	return false;
 }
 
 
@@ -321,11 +330,12 @@ function waitForEvents(evtID,timestamp){
     });
 
     var options = {
-        protocol: 'http:',
+        protocol: 'https:',
         hostname: workingData.hostname,
-        port: 80,
-        path: '../ajax/database/eventFunctions.php',
+        port: 443,
+        path: '/agility/ajax/database/eventFunctions.php',
         method: 'POST',
+		rejectUnauthorized: false,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Content-Length': postData.length
@@ -351,7 +361,7 @@ function waitForEvents(evtID,timestamp){
 		setTimeout(function(){ waitForEvents(evtID,timestamp);},5000); // retry in 5 seconds
 	}
 
-    var req = http.request(options,function(res){
+    var req = https.request(options,function(res){
         res.setEncoding('utf8');
         res.on('data', handleSuccess);
         res.on('end', function() { /* empty */  });
@@ -379,18 +389,19 @@ function startEventMgr() {
     });
 
     var options = {
-        protocol: 'http:',
+        protocol: 'https:',
         hostname: workingData.hostname,
-        port: 80,
-        path: '../ajax/database/eventFunctions.php',
+        port: 443,
+        path: '/agility/ajax/database/eventFunctions.php',
         method: 'POST',
+		rejectUnauthorized: false,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Content-Length': postData.length
         }
     };
 
-    var req = http.request(options,function(res){
+    var req = https.request(options,function(res){
         res.setEncoding('utf8');
         res.on('data', function(data) {
             var response=JSON.parse(data);
@@ -424,10 +435,9 @@ function startEventMgr() {
 	return false;
 }
 
-// if server address not declared try to locate server. on fail exit
-if (workingData.hostname==='0.0.0.0') {
-	if (!findServer(workingData.ring)) process.exit(1);
+function waitForHost() {
+	if (workingData.hostname === "0.0.0.0") startEventMgr();
+	else setTimeout(waitForHost, 500);
 }
-
-// start event manager
-startEventMgr();
+if (workingData.hostname==="0.0.0.0") findServer(workingData.ring);
+waitForHost();
