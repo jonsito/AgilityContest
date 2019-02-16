@@ -79,10 +79,10 @@ class Mangas extends DBObject {
 	/* tabla para obtener facilmente la manga complementaria a una manga dada */
 	public static $manga_hermana= array(
 		array(0),	    /* 0,'','' No manga declared of type 0 */
-        array(2,17),    /* 1, 'Pre-Agility Manga 1', 'P.A.' */ // notice that in 1 manga mode there is no sister
-        array(1,17),    /* 2, 'Pre-Agility Manga 2', 'P.A.' */
-        array(4),	    /* 3, 'Agility Grado I Manga 1', 'GI' */
-        array(3),	    /* 4, 'Agility Grado I Manga 2', 'GI' */
+        array(2),       /* 1, 'Pre-Agility Manga 1', 'P.A.' */ // notice that in 1 manga mode there is no sister
+        array(1),       /* 2, 'Pre-Agility Manga 2', 'P.A.' */
+        array(4,17),    /* 3, 'Agility Grado I Manga 1', 'GI' */
+        array(3,17),    /* 4, 'Agility Grado I Manga 2', 'GI' */
         array(10),	    /* 5, 'Agility Grado II', 'GII' */
         array(11),	    /* 6, 'Agility Grado III', 'GIII' */
         array(12),	    /* 7, 'Agility Abierta', '-' */
@@ -95,7 +95,7 @@ class Mangas extends DBObject {
         array(9),	    /* 14,'Jumping Equipos (Conjunta)', '-' */
         array(0),	    /* 15,'Ronda K.O.', '-' */
         array(0),	    /* 16,'Manga Especial', '-' */
-        array(1,2),	    /* 17,'Agility Grado I Manga 3', 'GI' */
+        array(3,4),	    /* 17,'Agility Grado I Manga 3', 'GI' */
         /* mangas extra para K.O. */
         array(0),       /* 18 ,'K.O. Second round',	*/
         array(0),       /* 19 ,'K.O. Third round',*/

@@ -68,8 +68,14 @@ class Logger {
 	function alert($msg) { return $this->log(LEVEL_ALERT,$msg); }
 	function panic($msg) { die ($this->log(LEVEL_PANIC,$msg)); }
 
-	function enter() { return ($this->log(LEVEL_TRACE,"Enter")); }
-	function leave() { return ($this->log(LEVEL_TRACE,"Leave")); }
+	function enter($data=null) {
+	    $msg=($data===null)?"()":'( '.json_encode($data).' )';
+	    return ($this->log(LEVEL_TRACE,"Enter{$msg}"));
+	}
+	function leave($data=null) {
+        $msg=($data===null)?"()":'( '.json_encode($data).' )';
+	    return ($this->log(LEVEL_TRACE,"Leave{$msg}"));
+	}
 
 	function query($msg) {
 		if ($this->level<=LEVEL_INFO) return "";
