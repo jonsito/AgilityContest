@@ -1,3 +1,6 @@
+Version 3.9.0 20190216_1700
+    - Notice in console any 'connect' command from event bus
+    - Fix serious error in tandas handlind that prevented showing pre-agility
 Version 3.9.0 20190204_1210
     - Support for 5Height contests
     - New Module: RSCE temporada 2019

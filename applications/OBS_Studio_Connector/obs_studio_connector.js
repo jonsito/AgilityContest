@@ -25,7 +25,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 /***************************************************************************************************************/
 var querystring = require('querystring');
-var http = require('http');
+var http = require('https');
 var OBSWebSocket = require('obs-websocket-js');
 var obs = new OBSWebSocket();
 var baseurl = "agility";
@@ -374,7 +374,7 @@ function event_parser(id,event) {
  * @return true on success; otherwise false
  */
 function connectServer(hostaddr,ring){
-    var url="http://"+hostaddr+"/"+baseurl+"/ajax/database/sessionFunctions.php?Operation=selectring";
+    var url="https://"+hostaddr+"/"+baseurl+"/ajax/database/sessionFunctions.php?Operation=selectring";
     var request = require('sync-request');
     try {
         var res = request('GET', url, {
@@ -460,10 +460,10 @@ function waitForEvents(evtID,timestamp){
     });
 
     var options = {
-        protocol: 'http:',
+        protocol: 'https:',
         hostname: ac_config.hostname,
         port: 80,
-        path: '../ajax/database/eventFunctions.php',
+        path: '/'+baseurl+'/ajax/database/eventFunctions.php',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -526,7 +526,7 @@ function startEventMgr() {
         protocol: 'http:',
         hostname: ac_config.hostname,
         port: 80,
-        path: '../ajax/database/eventFunctions.php',
+        path: '/'+baseurl+'/ajax/database/eventFunctions.php',
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
