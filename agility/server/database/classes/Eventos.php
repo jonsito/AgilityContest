@@ -385,7 +385,7 @@ class Eventos extends DBObject {
         if ($data['SessionName']!=="") {
             // store named sessions into persistent storage
             $ses=new Sesiones("Events::connect");
-            $ses->testAndSet($sessionName);
+            $ses->testAndSet($data['SessionName']);
             // and extract info to show in console // source:ringsessid:type:mode:sessionaname
             $sndata=explode(":",$data['SessionName']);
             $sourceName=$sndata[0];
