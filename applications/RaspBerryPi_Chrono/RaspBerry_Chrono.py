@@ -143,11 +143,11 @@ def blink_powerled():
     GPIO.output(LED_Pwr, not state )
         
 # perform json request to send event to server
-def json_request(type,value):
+def json_request(type,value,extra):
     global session_id
     # compose json request
     args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(math.floor(millis()/1000))+"&Source=" +SESSION_NAME
-    args = args + "&Session=" + str(session_id) + "&Value="+value
+    args = args + "&Session=" + str(session_id) + "&Value="+value+"&start="+extra
     url="https://"+server+"/"+baseurl+"/ajax/database/eventFunctions.php"
     # debug( "JSON Request: " + url + "" + args)
     response = requests.get(url+args, verify=False)    # send request . It is safe to ignore response
@@ -164,6 +164,7 @@ def kitt(value):
 def lookForServer():
     global server
     global ETH_DEVICE
+    global SESSION_NAME
     global session_id
     rings = ["2","3","4","5"] # array of session id's received from server To be re-evaluated later from server response
     # look for IPv4 addresses on ETH_DEVICE [0]->use first IPv4 address found on this interface
@@ -181,7 +182,7 @@ def lookForServer():
             # so take care on it by providing a fake auth, so the router fails and return 401 error
             url= "/"+baseurl+"/ajax/database/sessionFunctions.php"
             args= "?Operation=selectring"
-            response = requests.get("https://" + ip + url + args, verify=False, timeout=0.5, auth=('AgilityContest','AgilityContest'))
+            response = requests.get("https://" + ip + url + args, verify=False, timeout=0.25, auth=('AgilityContest','AgilityContest'))
             # if response failed, try next IP address
             if response.status_code != 200:
                 continue
@@ -208,6 +209,7 @@ def lookForServer():
     ring = 0x03 ^ ( ( GPIO.input(BTN_Sel1) << 1 ) | GPIO.input(BTN_Sel0) )
     session_id = rings[ring];
     debug( "Ring: "+str(ring)+ " Session ID: "+str(session_id) )
+    SESSION_NAME="chrono_"+str(1+ring)
     # and finally setup server IP
     return server
 
@@ -230,13 +232,13 @@ def check_sensors():
     if state == True: # no hay nada pulsado: all right
         GPIO.output(LED_Err,False)
         if open_time>=10:
-            json_request("crono_error","0") # mark error solved
+            json_request("crono_error","0","0") # mark error solved
         open_time=0
         return True
     # hay algo pulsado: incrementa contador y comprueba si ha llegado al limite
     open_time = open_time + 1
     if open_time == 10: # send error to server
-        json_request("crono_error","1")
+        json_request("crono_error","1","0")
     if open_time>=10:
         # check for shutdown request
         if GPIO.input(BTN_Reset) == False:
@@ -273,13 +275,17 @@ def button_pressed(val,pin,txt):
 def handle_rec(pin):
     if not button_pressed(1,pin,"Reconocimiento"):
         return False
-    return json_request("crono_rec",str(millis()))
+    state = GPIO.input(LED_Rec) # read led status
+    if state == True:
+        return json_request("crono_rec",str(millis()),"0") #stop
+    else:
+        return json_request("crono_rec",str(millis()),"420") #start 7 minutes countdown
 
 # Reset del cronometro
 def handle_reset(pin):
     if not button_pressed(1,pin,"Reset"):
         return False
-    return json_request("crono_reset",str(millis()))
+    return json_request("crono_reset",str(millis()),"0")
 
 # Arranque / parada del cronometro
 def handle_startstop(pin):
@@ -288,15 +294,15 @@ def handle_startstop(pin):
     state = GPIO.input(LED_Run) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
     #and send event to server
     if state == True :
-        return json_request("crono_stop",str(millis()))
+        return json_request("crono_stop",str(millis()),"0")
     if state == False :
-        return json_request("crono_start",str(millis()))
+        return json_request("crono_start",str(millis()),"0")
 
 # Tiempo intermedio
 def handle_int(pin):
     if not button_pressed(1,pin,"T. Intermedio"):
         return False
-    return json_request("crono_int",str(millis()))
+    return json_request("crono_int",str(millis()),"0")
 
 #Setup the DPad module pins and pull-ups
 def ac_gpio_setup():
@@ -343,10 +349,11 @@ def eventParser():
     global server
     global session_id #string
     global start_run
+    global SESSION_NAME
     event_id=0 # event ID of last "open" call in current session
     # call to "connect", to retrieve last event id and timeout
     debug( "Connecting event manager on server "+server+" ...")
-    sname="chrono:"+session_id+":0:0:chrono@"+str(int(session_id)-1)
+    sname="chrono:"+session_id+":0:0:"+SESSION_NAME
     while True:
         try:
             args = "?Operation=connect&Session="+session_id+"&SessionName="+sname
@@ -390,16 +397,19 @@ def eventParser():
         if 'TimeStamp' in data:
             timestamp=data['TimeStamp']
         else:
-            debug ("ERROR: Reveived Event without Timestamp. ID:"+str(event_id)+" Type:"+type+ " Value:"+str(value))
+            # debug ("ERROR: Reveived Event without Timestamp. ID:"+str(event_id)+" Type:"+type+ " Value:"+str(value))
             timestamp=1+int(timestamp) # to don't receive invalid event again
         for i in data['rows']:
             event_id=i['ID']
             type=i['Type']
             evtdata=json.loads(i['Data'])
             value=0
+            start="0"
             if 'Value' in evtdata:            # some events does not provide "Value" in data
                 value=evtdata['Value']
-            debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value))
+            if 'start' in evtdata:
+                start=evtdata['start']
+            debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value)+" Start:"+str(start) )
             # Eventos generales
             if type == 'null':                # null event: no action taken
                 continue
@@ -430,11 +440,13 @@ def eventParser():
             if type == 'crono_stop':        # Parada Crono electronico
                 GPIO.output(LED_Run, False )
                 elapsed= int(value)-int(start_run) # miliseconds
-                debug("End of course. Total time: %.2f" % (elapsed/1000.0) )
+                debug("End of course. Total time: %.3f" % (elapsed/1000.0) )
                 continue
             if type == 'crono_rec':            # Llamada a reconocimiento de pista
-                state = GPIO.input(LED_Rec) # read led status
-                GPIO.output(LED_Rec, not state )
+                if int(start) == 0:
+                    GPIO.output(LED_Rec, False )
+                else:
+                    GPIO.output(LED_Rec, True )
                 continue
             if type == 'crono_dat':            # Envio de Falta/Rehuse/Eliminado desde el crono
                 continue

@@ -216,14 +216,18 @@ class NRNetwork:
 
 # Llamada a pista
 	def handle_llamada(self,numero,id):
-		if int(id)==0: # si perro en blanco marcamos perro numero "0"
+	    # si perro en blanco marcamos perro numero "0"
+		if int(id)==0:
 			numero='0'
 		self.dspHandler.setNowRunning(int(numero))
 
 # comando desde consola
 	def handle_command(self,data):
-		if data['Oper'] != 8:
-			return
+        # self.debug("Command event: Name:"+data['Name']+" SessionName:"+NRNetwork.SNAME+" Oper:"+str(data['Oper']) )
+        if data['Name'] != NRNetwork.SNAME : # not for me
+            return
+        if int(data['Oper']) != 8 : # only "show message" cmd is allowed
+            return
 		a=data['Value'].split(":") # Value = "duration:message"
 		self.dspHandler.setOobMessage(a[1],int(a[0]))
 
@@ -244,7 +248,8 @@ class NRNetwork:
 		try:
 			# evaluate SessionName to allow control from console
 			self.session_id=NRNetwork.rings[current_ring-1]
-			self.session_name="videowall:%s:0:0:%s@%d" % ( self.session_id,NRNetwork.SNAME,current_ring)
+			# remember that SNAME=NowRunning_xxrandom@ring , but acts like a videowall
+			self.session_name="videowall:%s:0:0:%s" % ( self.session_id,NRNetwork.SNAME)
 			event_id=0 # event ID of last "open" call in current session
 			# prepare server "connect" call
 			args = "?Operation=connect&Session="+self.session_id+"&SessionName="+self.session_name
@@ -444,7 +449,7 @@ class NRNetwork:
 
 		# create a random session name
 		rndstr="".join([random.choice(string.ascii_letters + string.digits) for n in range(8)])
-		NRNetwork.SNAME = "NowRunning_"+rndstr
+		NRNetwork.SNAME = "NowRunning_"+rndstr+"@"+str(ring)
 
 		# set up displayHandler
 		self.dspHandler = handler
