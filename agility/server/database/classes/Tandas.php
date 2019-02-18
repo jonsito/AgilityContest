@@ -42,8 +42,8 @@ class Tandas extends DBObject {
 	 static $tipo_tanda = array (
 			0	=> array('Tipo'=>0,		'TipoManga'=>0,		'Nombre'=>'-- Sin especificar --',  'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-',	'Grado'=>'-'),
 			// en pre-agility no hay categorias
-			1	=> array('Tipo'=>1,		'TipoManga'=> 1,	'Nombre'=>'Pre-Agility 1',			'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'P.A.'),
-			2	=> array('Tipo'=>2,		'TipoManga'=> 2,	'Nombre'=>'Pre-Agility 2',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'P.A.'),
+			1	=> array('Tipo'=>1,		'TipoManga'=> 1,	'Nombre'=>'Pre-Agility 1',			'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'P.A.'),
+			2	=> array('Tipo'=>2,		'TipoManga'=> 2,	'Nombre'=>'Pre-Agility 2',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'P.A.'),
 			3	=> array('Tipo'=>3,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Large',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'GI'),
 			4	=> array('Tipo'=>4,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'GI'),
 			5	=> array('Tipo'=>5,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GI'),
@@ -81,7 +81,7 @@ class Tandas extends DBObject {
 			35	=> array('Tipo'=>35,	'TipoManga'=> 14,	'Nombre'=>'Jp. Teams Large',		'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'L',	'Grado'=>'-'), // team combined
 			36	=> array('Tipo'=>36,	'TipoManga'=> 14,	'Nombre'=>'Jp. Teams Med/Small',	'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'MS',	'Grado'=>'-'), // team combined
 			// en las rondas KO, los perros compiten todos contra todos
-			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O. 1',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
+			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O. 1',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
 			38	=> array('Tipo'=>38,	'TipoManga'=> 16,	'Nombre'=>'Special Round Large',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'-'),
 			39	=> array('Tipo'=>39,	'TipoManga'=> 16,	'Nombre'=>'Special Round Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'-'),
 			40	=> array('Tipo'=>40,	'TipoManga'=> 16,	'Nombre'=>'Special Round Small',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'-'),
@@ -108,13 +108,13 @@ class Tandas extends DBObject {
             58	=> array('Tipo'=>58,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GI'),
             59	=> array('Tipo'=>59,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Tiny',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GI'),
             // resto de las rondas KO. Los perros compiten todos contra todos
-            60	=> array('Tipo'=>60,	'TipoManga'=> 18,	'Nombre'=>'Manga K.O. 2',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
-            61	=> array('Tipo'=>61,	'TipoManga'=> 19,	'Nombre'=>'Manga K.O. 3',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
-            62	=> array('Tipo'=>62,	'TipoManga'=> 20,	'Nombre'=>'Manga K.O. 4',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
-            63	=> array('Tipo'=>63,	'TipoManga'=> 21,	'Nombre'=>'Manga K.O. 5',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
-            64	=> array('Tipo'=>64,	'TipoManga'=> 22,	'Nombre'=>'Manga K.O. 6',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
-            65	=> array('Tipo'=>65,	'TipoManga'=> 23,	'Nombre'=>'Manga K.O. 7',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
-            66	=> array('Tipo'=>66,	'TipoManga'=> 24,	'Nombre'=>'Manga K.O. 8',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-LMST','Grado'=>'-'),
+            60	=> array('Tipo'=>60,	'TipoManga'=> 18,	'Nombre'=>'Manga K.O. 2',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
+            61	=> array('Tipo'=>61,	'TipoManga'=> 19,	'Nombre'=>'Manga K.O. 3',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
+            62	=> array('Tipo'=>62,	'TipoManga'=> 20,	'Nombre'=>'Manga K.O. 4',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
+            63	=> array('Tipo'=>63,	'TipoManga'=> 21,	'Nombre'=>'Manga K.O. 5',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
+            64	=> array('Tipo'=>64,	'TipoManga'=> 22,	'Nombre'=>'Manga K.O. 6',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
+            65	=> array('Tipo'=>65,	'TipoManga'=> 23,	'Nombre'=>'Manga K.O. 7',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
+            66	=> array('Tipo'=>66,	'TipoManga'=> 24,	'Nombre'=>'Manga K.O. 8',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
             // tandas para games ( cuatro categorias, siete mangas distintas
             67	=> array('Tipo'=>67,	'TipoManga'=> 25,	'Nombre'=>'Agility A 650',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
             68	=> array('Tipo'=>68,	'TipoManga'=> 25,	'Nombre'=>'Agility A 525',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),
@@ -228,8 +228,8 @@ class Tandas extends DBObject {
         // ordenamos segun la categoria conforme a la secuencia xlmst-
         foreach( array('X','L','M','S','T','-') as $cat) {
             foreach (Tandas::$tipo_tanda as $key => $value) {
-                if (($value['TipoManga'] == $tipo) && ($value['Categoria'] == $cat))
-                    array_push($res, $key);
+                if (($value['TipoManga'] == $tipo) && (strpos($value['Categoria'],$cat) !== FALSE) )
+                    if (!in_array($key,$res)) array_push($res, $key);
             }
         }
         return $res;
@@ -252,8 +252,9 @@ class Tandas extends DBObject {
         // ordenamos segun la categoria conforme a la secuencia xlmst-
         foreach( array('X','L','M','S','T','-') as $cat) {
             foreach (Tandas::$tipo_tanda as $item) {
-                if ( ($item[$key]==$value) && ($item['Categoria']==$cat) )
-                    array_push($res, $item);
+                if ( ($item[$key]==$value) && (strpos($item['Categoria'],$cat) !== FALSE) )
+                    // trick to insert tandas with mixed heights only once
+                    if (!in_array($item,$res)) array_push($res, $item);
             }
         }
 		return $res;
@@ -685,6 +686,7 @@ class Tandas extends DBObject {
     // tipomanga: manga type:
     // oper: false:remove true:insert
 	private function insert_remove($fed,$tipomanga,$oper) {
+	    $this->myLogger->enter();
 		$heights=intval($fed->get('Heights'));
 		$grados=intval($fed->get('Grades'));
 		// obtenemos las tandas cuyo tipo de manga coincide con el indicado
@@ -692,11 +694,21 @@ class Tandas extends DBObject {
 		foreach( $tandas as $item) {
             // hacemos limpieza de la lista de tandas obtenidas, eliminando las que no nos interesan
             $tipo=$item['Tipo'];
-			if( ($heights==3) && ($item['Categoria']==='T') ) {
-				// remove every "tiny" tandas on RSCE contests
-				$this->removeFromList($tipo);
-				continue;
-			}
+            if( ($heights==3) && ($item['Categoria']==='T') ) {
+                // remove every "tiny" tandas on RSCE contests
+                $this->removeFromList($tipo);
+                continue;
+            }
+            if( ($heights==3) && ($item['Categoria']==='X') ) {
+                // remove every "XLarge" tandas on RSCE contests
+                $this->removeFromList($tipo);
+                continue;
+            }
+            if( ($heights==4) && ($item['Categoria']==='X') ) {
+                // remove every "XLarge" tandas on RFEC contests
+                $this->removeFromList($tipo);
+                continue;
+            }
 			if( ($grados==2) && ($item['Grado']==='GIII') ) {
 				// remove every "Grado III" tandas on non RSCE contests
 				$this->removeFromList($tipo);
@@ -760,6 +772,7 @@ class Tandas extends DBObject {
 				if (!$rs) return $this->error($this->conn->error); 
 			}
 		} /* foreach $tandas as $item */
+        $this->myLogger->leave();
 		return ""; // success
 	}
 	

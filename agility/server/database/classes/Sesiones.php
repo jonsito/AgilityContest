@@ -370,21 +370,30 @@ class Sesiones extends DBObject {
         register_shutdown_function('session_write_close');
         session_start();
         if (!isset($_SESSION['ac_clients'])) $_SESSION['ac_clients']=array();
-        $this->myLogger->trace("Session::testAndSet() looking for clientSession: $name");
+        // $this->myLogger->trace("Session::testAndSet() looking for clientSession: $name");
 
+        $toBeUnset=null;
         foreach ( $_SESSION['ac_clients'] as $key => &$client) { // pass by reference as need to be edited
             if ($key!==$k) { // client name does not match: evaluate expiration
                 $a=explode(':',$client);
                 if ( ($timestamp - intval($a[5]) ) <= 300 ) continue; // expire after 5 minutes
                 $a[5]=0;
                 $client=implode(':',$a);
+                $toBeUnset=$key; // cannot call unset() inside foreach
             } else {// item found: update timestamp
                 $client="{$name}:{$timestamp}";
                 $found=true;
             }
         }
-        // if arriving here and client not found, insert
-        if (!$found) $_SESSION['ac_clients'][$k]="{$name}:{$timestamp}";
+        if (!$found) { // new session session list: create and notice
+            $_SESSION['ac_clients'][$k]="{$name}:{$timestamp}";
+            $this->myLogger->trace("Session started: {$k}");
+        }
+        if ($toBeUnset!=null) { // session expired: remove and notice
+            $ses=$_SESSION['ac_clients'][$toBeUnset];
+            unset($_SESSION['ac_clients'][$toBeUnset]);
+            $this->myLogger->trace("Session expired: {$ses}");
+        }
         session_write_close();
         return "";
     }

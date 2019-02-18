@@ -46,12 +46,12 @@
 #####################################################################
 import os
 import threading            # to receive event messages from server
-import json					# to parse Data field on event responses
-import requests 			# to handle json http requests
-import RPi.GPIO as GPIO		# to handle Raspberry PI GPIO pins
+import json                    # to parse Data field on event responses
+import requests             # to handle json http requests
+import RPi.GPIO as GPIO        # to handle Raspberry PI GPIO pins
 import datetime
-import time					# to get and process timestamps
-import netifaces as ni		# to discover ip address/network/netmask
+import time                    # to get and process timestamps
+import netifaces as ni        # to discover ip address/network/netmask
 import ipaddress            # to deal with IPv4 addresses
 import math                 # to handle timestamps
 
@@ -60,28 +60,28 @@ import math                 # to handle timestamps
 # Either models A,Brev1,and Brev2 have different pinout meaning for some gpios (
 
 # LED assignment pin Number =  # gpio/broadcom number (altfunction) - BreakoutBoard ID
-LED_Rec	=	3	# BCM02 (SDA)	- LED_1	// Reconocimiento de pista
-LED_Run =	5	# BCM03 (SCL)	- LED_2	// Crono running
-LED_Int =	7	# BCM04 (GPCLK0)- LED_3	// Intermediate time
-LED_Err	=	26	# BCM07 (CE1)	- LED_4	// Sensor error
-LED_Sel1=	24	# BCM08 (CE0)	- LED_5	// Selected Ring MSB
-LED_Sel0=	21	# BCM09 (MISO)	- LED_6	// Selected Ring LSB
-LED_Btn =	19	# BCM10 (MOSI)	- LED_7	// Button Pressed
-LED_Pwr	=	23	# BCM11 (SCLK)	- LED_8	// (Flashing) PWR On
+LED_Rec    =    3    # BCM02 (SDA)    - LED_1    // Reconocimiento de pista
+LED_Run =    5    # BCM03 (SCL)    - LED_2    // Crono running
+LED_Int =    7    # BCM04 (GPCLK0)- LED_3    // Intermediate time
+LED_Err    =    26    # BCM07 (CE1)    - LED_4    // Sensor error
+LED_Sel1=    24    # BCM08 (CE0)    - LED_5    // Selected Ring MSB
+LED_Sel0=    21    # BCM09 (MISO)    - LED_6    // Selected Ring LSB
+LED_Btn =    19    # BCM10 (MOSI)    - LED_7    // Button Pressed
+LED_Pwr    =    23    # BCM11 (SCLK)    - LED_8    // (Flashing) PWR On
 
 # use them as array in server search process
 LEDS=(LED_Rec,LED_Run,LED_Int,LED_Err,LED_Sel1,LED_Sel0,LED_Btn,LED_Pwr)
 
 # Chrono action buttons
 
-BTN_Rec1 =	10	# BCM15 (RxD)	- Button_1 //	Start Reconocimiento
-BTN_Rec2 =	11	# BCM17		- Button_2 //	End Reconocimiento
-BTN_Sel1 =	12	# BCM18 (PCM_C)	- Button_3 //	Ring selection MSB
-BTN_Reset=	13	# BCM27 (PCM_D)	- Button_4 //	Reset Chrono
-BTN_Start=	15	# BCM22		- Button_5 //	Start chrono
-BTN_Stop =	16	# BCM23		- Button_6 //	End chrono
-BTN_Sel0 =	18	# BCM24		- Button_7 //	Ring selection LSB
-BTN_Inter=	22	# BCM25		- Button_8 //	Intermediate Chrono
+BTN_Rec1 =    10    # BCM15 (RxD)    - Button_1 //    Start Reconocimiento
+BTN_Rec2 =    11    # BCM17        - Button_2 //    End Reconocimiento
+BTN_Sel1 =    12    # BCM18 (PCM_C)    - Button_3 //    Ring selection MSB
+BTN_Reset=    13    # BCM27 (PCM_D)    - Button_4 //    Reset Chrono
+BTN_Start=    15    # BCM22        - Button_5 //    Start chrono
+BTN_Stop =    16    # BCM23        - Button_6 //    End chrono
+BTN_Sel0 =    18    # BCM24        - Button_7 //    Ring selection LSB
+BTN_Inter=    22    # BCM25        - Button_8 //    Intermediate Chrono
 
 # AgilityContest chrono json request parameter definition
 # ================================================================
@@ -92,18 +92,18 @@ BTN_Inter=	22	# BCM25		- Button_8 //	Intermediate Chrono
 # Parameter list
 # Operation=chronoEvent
 # Type= one of : ( from ajax/database/Eventos.php )
-#		'crono_start'	// Arranque Crono electronico
-#		'crono_int'		// Tiempo intermedio Crono electronico
-#		'crono_stop'	// Parada Crono electronico
-#		'crono_rec'		// comienzo/fin del reconocimiento de pista
-#		'crono_dat'	    // Envio de Falta/Rehuse/Eliminado desde el crono
-#		'crono_reset'	// puesta a cero del contador
-#		'crono_error'	// sensor error detected (Value=1) or solved (Value=0)
-#		'crono_ready'	// chrono synced and listening (Value=1) or disabled (Value=0)
+#        'crono_start'    // Arranque Crono electronico
+#        'crono_int'        // Tiempo intermedio Crono electronico
+#        'crono_stop'    // Parada Crono electronico
+#        'crono_rec'        // comienzo/fin del reconocimiento de pista
+#        'crono_dat'        // Envio de Falta/Rehuse/Eliminado desde el crono
+#        'crono_reset'    // puesta a cero del contador
+#        'crono_error'    // sensor error detected (Value=1) or solved (Value=0)
+#        'crono_ready'    // chrono synced and listening (Value=1) or disabled (Value=0)
 # Session= Session ID to join. You should select it from retrieved list of available session ID's from server
 # Source= Chronometer ID. should be in form "chrono_sessid"
 # Value= start/stop/int: time of event detection
-#		  error: 1: detected 0:solved
+#          error: 1: detected 0:solved
 # Timestamp= time mark of last event parsed as received from server
 #
 # example
@@ -111,24 +111,24 @@ BTN_Inter=	22	# BCM25		- Button_8 //	Intermediate Chrono
 # data = json.load( urllib.urlopen('https://ip.addr.of.server/base_url/ajax/database/eventFunctions.php') + arguments, verify=False )
 
 ##### Some constants
-SESSION_NAME = "Chrono_2"	# should be generated from evaluated session ID
+SESSION_NAME = "Chrono_2"    # should be generated from evaluated session ID
 DEBUG=True
-ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
+ETH_DEVICE='eth0'        # this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
 
 # some global variables
-server = "192.168.1.35"		# to be evaluated later by querying network
+server = "192.168.1.35"     # to be evaluated later by querying network
 baseurl = "agility"         # standard /aglity base url. must be changed in nonstd installs
-button_state = 0			# countdown var to control LED_Btn status
-start_time = datetime.datetime.now()	# to store datetime from program start
-session_id = 0		        # to be retrieved from server and evaluate according GPIO Sel[10] Switches
-open_time = 0				# seconds since last closed state detected on start/stop/int sensor
-start_run = 0				# to store crono_start event timestamp
-intermediate_time = 0		# seconds since Intermediate time received
+button_state = 0            # countdown var to control LED_Btn status
+start_time = datetime.datetime.now()    # to store datetime from program start
+session_id = "0"             # to be retrieved from server and evaluate according GPIO Sel[10] Switches
+open_time = 0                # seconds since last closed state detected on start/stop/int sensor
+start_run = 0                # to store crono_start event timestamp
+intermediate_time = 0        # seconds since Intermediate time received
 
 def debug(str):
-	global DEBUG
-	if DEBUG==True:
-		print (str)
+    global DEBUG
+    if DEBUG==True:
+        print (str)
 
 
 # returns the elapsed milliseconds since the start of the program
@@ -139,366 +139,370 @@ def millis():
 
 # change power led status, to get it blinking
 def blink_powerled():
-	state = GPIO.input(LED_Pwr) # read led status
-	GPIO.output(LED_Pwr, not state )
-		
+    state = GPIO.input(LED_Pwr) # read led status
+    GPIO.output(LED_Pwr, not state )
+        
 # perform json request to send event to server
 def json_request(type,value):
-	global session_id
-	# compose json request
-	args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(math.floor(millis()/1000))+"&Source=" +SESSION_NAME
-	args = args + "&Session=" + session_id + "&Value="+value
-	url="https://"+server+"/"+baseurl+"/ajax/database/eventFunctions.php"
-	# debug( "JSON Request: " + url + "" + args)
-	response = requests.get(url+args, verify=False)	# send request . It is safe to ignore response
+    global session_id
+    # compose json request
+    args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(math.floor(millis()/1000))+"&Source=" +SESSION_NAME
+    args = args + "&Session=" + str(session_id) + "&Value="+value
+    url="https://"+server+"/"+baseurl+"/ajax/database/eventFunctions.php"
+    # debug( "JSON Request: " + url + "" + args)
+    response = requests.get(url+args, verify=False)    # send request . It is safe to ignore response
 
 # use leds as progress bar. on value<0 turn all of them off
 def kitt(value):
-	for i in range(8):
-		GPIO.output(LEDS[i],False) # turn off all leds
-	if (value >= 0):
-		GPIO.output( LEDS[value%8],True) # turn on requested led
-	return value+1
+    for i in range(8):
+        GPIO.output(LEDS[i],False) # turn off all leds
+    if (value >= 0):
+        GPIO.output( LEDS[value%8],True) # turn on requested led
+    return value+1
 
 # scan local network to look for server
 def lookForServer():
-	global server
-	global ETH_DEVICE
-	global session_id
-	rings = ["2","3","4","5"] # array of session id's received from server To be re-evaluated later from server response
-	# look for IPv4 addresses on ETH_DEVICE [0]->use first IPv4 address found on this interface
-	netinfo=ni.ifaddresses(ETH_DEVICE)[ni.AF_INET][0]
-	# iterate on every hosts on this network/netmask. Use strict=False to ignore ip address host bits
-	count=0
-	for i in ipaddress.IPv4Network(netinfo['addr']+"/"+netinfo['netmask'],strict=False).hosts():
-		count = kitt(count)
-		ip = str(i)
-		debug( "Looking for server at: " + ip)
-		# time to look for server. To do this, we send an http request to retrieve available session rings, with
-		# their ID to be evaluated according our dip-switches
-		try:
-			# Some stupid routers, instead of 404 in nonexistent pager requests for basic authentication
-			# so take care on it by providing a fake auth, so the router fails and return 401 error
-			url= "../ajax/database/sessionFunctions.php"
-			args= "?Operation=selectring"
-			response = requests.get("https://" + ip + url + args, verify=False, timeout=0.5, auth=('AgilityContest','AgilityContest'))
-			# if response failed, try next IP address
-			if response.status_code != 200:
-				continue
-			# response ok. Extract json message (will throw an exception on fail)
-			data=response.json()
-			# arriving here means server found. store server IP
-			debug ("Found AgilityContest server at IP address: "+ip)
-			server = ip
-			# retrieve session id for each ring
-			for id in range (0,3):
-				rings[id]=data['rows'][id]['ID']
-			# clear leds and return
-			kitt(-1)
-			break
-		except requests.exceptions.RequestException as ex:
-			# debug ( "Http request error:" + str(ex) )
-			continue
-	else:
-		# arriving here means server not found
-		session_id=0 # invalid sid
-		return "0.0.0.0"
-	# on received answer retrieve Session ID from declared rings
-	# read ring information. Notice that pull-up makes default to be "11"
-	ring = 0x03 ^ ( ( GPIO.input(BTN_Sel1) << 1 ) | GPIO.input(BTN_Sel0) )
-	session_id = rings[ring];
-	debug( "Ring: "+str(ring)+ " Session ID: "+str(session_id) )
-	# and finally setup server IP
-	return server
+    global server
+    global ETH_DEVICE
+    global session_id
+    rings = ["2","3","4","5"] # array of session id's received from server To be re-evaluated later from server response
+    # look for IPv4 addresses on ETH_DEVICE [0]->use first IPv4 address found on this interface
+    netinfo=ni.ifaddresses(ETH_DEVICE)[ni.AF_INET][0]
+    # iterate on every hosts on this network/netmask. Use strict=False to ignore ip address host bits
+    count=0
+    for i in ipaddress.IPv4Network(netinfo['addr']+"/"+netinfo['netmask'],strict=False).hosts():
+        count = kitt(count)
+        ip = str(i)
+        debug( "Looking for server at: " + ip)
+        # time to look for server. To do this, we send an http request to retrieve available session rings, with
+        # their ID to be evaluated according our dip-switches
+        try:
+            # Some stupid routers, instead of 404 in nonexistent pager requests for basic authentication
+            # so take care on it by providing a fake auth, so the router fails and return 401 error
+            url= "/"+baseurl+"/ajax/database/sessionFunctions.php"
+            args= "?Operation=selectring"
+            response = requests.get("https://" + ip + url + args, verify=False, timeout=0.5, auth=('AgilityContest','AgilityContest'))
+            # if response failed, try next IP address
+            if response.status_code != 200:
+                continue
+            # response ok. Extract json message (will throw an exception on fail)
+            data=response.json()
+            # arriving here means server found. store server IP
+            debug ("Found AgilityContest server at IP address: "+ip)
+            server = ip
+            # retrieve session id for each ring
+            for id in range (0,3):
+                rings[id]=data['rows'][id]['ID']
+            # clear leds and return
+            kitt(-1)
+            break
+        except requests.exceptions.RequestException as ex:
+            # debug ( "Http request error:" + str(ex) )
+            continue
+    else:
+        # arriving here means server not found
+        session_id=0 # invalid sid
+        return "0.0.0.0"
+    # on received answer retrieve Session ID from declared rings
+    # read ring information. Notice that pull-up makes default to be "11"
+    ring = 0x03 ^ ( ( GPIO.input(BTN_Sel1) << 1 ) | GPIO.input(BTN_Sel0) )
+    session_id = rings[ring];
+    debug( "Ring: "+str(ring)+ " Session ID: "+str(session_id) )
+    # and finally setup server IP
+    return server
 
 def handle_intermediate_time():
-	global intermediate_time
-	state = GPIO.input(LED_Int) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
-	if state == True:
-		intermediate_time = intermediate_time -1
-	if intermediate_time <= 0:
-		GPIO.output(LED_Int,False) # end of countdown: turn of led
-		intermediate_time = 0 # not really needed, but...
+    global intermediate_time
+    state = GPIO.input(LED_Int) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
+    if state == True:
+        intermediate_time = intermediate_time -1
+    if intermediate_time <= 0:
+        GPIO.output(LED_Int,False) # end of countdown: turn of led
+        intermediate_time = 0 # not really needed, but...
 
 # take care on how much time a button has been pressed
 # return True on success, False on sensor error
 # on press resetkey more than 5 seconds shutdown Raspberry
 def check_sensors():
-	global open_time
-	# remember that pull-ups let buttons high as iddle state
-	state = GPIO.input(BTN_Start) and GPIO.input(BTN_Stop) and GPIO.input(BTN_Inter) and GPIO.input(BTN_Reset)
-	if state == True: # no hay nada pulsado: all right
-		GPIO.output(LED_Err,False)
-		if open_time>=10:
-			json_request("crono_error","0") # mark error solved
-		open_time=0
-		return True
-	# hay algo pulsado: incrementa contador y comprueba si ha llegado al limite
-	open_time = open_time + 1
-	if open_time == 10: # send error to server
-		json_request("crono_error","1")
-	if open_time>=10:
-		# check for shutdown request
-		if GPIO.input(BTN_Reset) == False:
-			debug("Power off requested")
-			os.system("/sbin/poweroff")
-			return True
-		# no shutdown requested, so houston: we have a sensor failure problem
-		debug("ERROR: Comprobar sensores")
-		return False
-	else:
-		GPIO.output(LED_Err,False)
-		return True
+    global open_time
+    # remember that pull-ups let buttons high as iddle state
+    state = GPIO.input(BTN_Start) and GPIO.input(BTN_Stop) and GPIO.input(BTN_Inter) and GPIO.input(BTN_Reset)
+    if state == True: # no hay nada pulsado: all right
+        GPIO.output(LED_Err,False)
+        if open_time>=10:
+            json_request("crono_error","0") # mark error solved
+        open_time=0
+        return True
+    # hay algo pulsado: incrementa contador y comprueba si ha llegado al limite
+    open_time = open_time + 1
+    if open_time == 10: # send error to server
+        json_request("crono_error","1")
+    if open_time>=10:
+        # check for shutdown request
+        if GPIO.input(BTN_Reset) == False:
+            debug("Power off requested")
+            os.system("/sbin/poweroff")
+            return True
+        # no shutdown requested, so houston: we have a sensor failure problem
+        debug("ERROR: Comprobar sensores")
+        return False
+    else:
+        GPIO.output(LED_Err,False)
+        return True
 
 # indica que se ha pulsado boton
 def button_pressed(val,pin,txt):
-	global button_state
-	if (button_state==0) and (val==0): # end of countdown
-		GPIO.output(LED_Btn,False)
-		return False
-	if (button_state==0) and (val!=0): # ready for key: accept
-		GPIO.output(LED_Btn,True)
-		debug( "Pressed PIN:" + str(pin) + " - " + txt )
-		button_state = val
-		return True
-	if (button_state!=0) and (val==0): # countdown 
-		GPIO.output(LED_Btn,True)
-		button_state = button_state - 1
-		return False
-	if (button_state!=0) and (val!=0): # not ready for key: ignore
-		GPIO.output(LED_Btn,True)
-		return False
-	
+    global button_state
+    if (button_state==0) and (val==0): # end of countdown
+        GPIO.output(LED_Btn,False)
+        return False
+    if (button_state==0) and (val!=0): # ready for key: accept
+        GPIO.output(LED_Btn,True)
+        debug( "Pressed PIN:" + str(pin) + " - " + txt )
+        button_state = val
+        return True
+    if (button_state!=0) and (val==0): # countdown 
+        GPIO.output(LED_Btn,True)
+        button_state = button_state - 1
+        return False
+    if (button_state!=0) and (val!=0): # not ready for key: ignore
+        GPIO.output(LED_Btn,True)
+        return False
+    
 # Reconocimiento de pista / Fin de reconocimiento
 def handle_rec(pin):
-	if not button_pressed(1,pin,"Reconocimiento"):
-		return False
-	return json_request("crono_rec",str(millis()))
+    if not button_pressed(1,pin,"Reconocimiento"):
+        return False
+    return json_request("crono_rec",str(millis()))
 
 # Reset del cronometro
 def handle_reset(pin):
-	if not button_pressed(1,pin,"Reset"):
-		return False
-	return json_request("crono_reset",str(millis()))
+    if not button_pressed(1,pin,"Reset"):
+        return False
+    return json_request("crono_reset",str(millis()))
 
 # Arranque / parada del cronometro
 def handle_startstop(pin):
-	if not button_pressed(1,pin,"Start/Stop"):
-		return False
-	state = GPIO.input(LED_Run) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
-	#and send event to server
-	if state == True :
-		return json_request("crono_stop",str(millis()))
-	if state == False :
-		return json_request("crono_start",str(millis()))
+    if not button_pressed(1,pin,"Start/Stop"):
+        return False
+    state = GPIO.input(LED_Run) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
+    #and send event to server
+    if state == True :
+        return json_request("crono_stop",str(millis()))
+    if state == False :
+        return json_request("crono_start",str(millis()))
 
 # Tiempo intermedio
 def handle_int(pin):
-	if not button_pressed(1,pin,"T. Intermedio"):
-		return False
-	return json_request("crono_int",str(millis()))
+    if not button_pressed(1,pin,"T. Intermedio"):
+        return False
+    return json_request("crono_int",str(millis()))
 
 #Setup the DPad module pins and pull-ups
 def ac_gpio_setup():
-	# set up leds
-	leds = ( LED_Rec, LED_Run, LED_Int, LED_Err, LED_Sel1, LED_Sel0, LED_Btn, LED_Pwr )
-	names = ( "Rec", "Run", "Interm.", "Error", "Sel1", "Sel0", "Button", "Power" )
-	numbers = ( "1", "2","3","4","5","6","7","8" )
-	gpios = ( "8", "9","7","11","10","13","12","14" )
-	for led, name, number,gpio in zip(leds,names,numbers,gpios):
-		debug( "Led:"+ number + " Pin:" + str(led) + " - GPIO:"+gpio +" - "+ name)
-		GPIO.setup(led, GPIO.OUT) # set up as output
-		GPIO.output(led, GPIO.LOW) # turn off
+    # set up leds
+    leds = ( LED_Rec, LED_Run, LED_Int, LED_Err, LED_Sel1, LED_Sel0, LED_Btn, LED_Pwr )
+    names = ( "Rec", "Run", "Interm.", "Error", "Sel1", "Sel0", "Button", "Power" )
+    numbers = ( "1", "2","3","4","5","6","7","8" )
+    gpios = ( "8", "9","7","11","10","13","12","14" )
+    for led, name, number,gpio in zip(leds,names,numbers,gpios):
+        debug( "Led:"+ number + " Pin:" + str(led) + " - GPIO:"+gpio +" - "+ name)
+        GPIO.setup(led, GPIO.OUT) # set up as output
+        GPIO.output(led, GPIO.LOW) # turn off
 
-	# set up buttons
-	buttons = ( BTN_Rec1, BTN_Rec2,  BTN_Sel1, BTN_Reset, BTN_Start, BTN_Stop, BTN_Sel0, BTN_Inter )
-	names = ( "StartRec", "EndRec", "Sel1.", "Reset", "Start", "Stop", "Sel0","Intermediate" )
-	numbers = ( "1", "2","3","4","5","6","7","8" )
-	gpios = ( "16", "0","1","2","3","4","5","6" )
-	for button,name,number,gpio in zip(buttons,names,numbers,gpios):
-		debug( "Button: "+ number + " Pin:" +str(button) + " - GPIO:"+gpio +" - "+ name)
-		GPIO.setup(button, GPIO.IN,pull_up_down=GPIO.PUD_UP) # set up as input
-	time.sleep(.1)
+    # set up buttons
+    buttons = ( BTN_Rec1, BTN_Rec2,  BTN_Sel1, BTN_Reset, BTN_Start, BTN_Stop, BTN_Sel0, BTN_Inter )
+    names = ( "StartRec", "EndRec", "Sel1.", "Reset", "Start", "Stop", "Sel0","Intermediate" )
+    numbers = ( "1", "2","3","4","5","6","7","8" )
+    gpios = ( "16", "0","1","2","3","4","5","6" )
+    for button,name,number,gpio in zip(buttons,names,numbers,gpios):
+        debug( "Button: "+ number + " Pin:" +str(button) + " - GPIO:"+gpio +" - "+ name)
+        GPIO.setup(button, GPIO.IN,pull_up_down=GPIO.PUD_UP) # set up as input
+    time.sleep(.1)
 
 # declare and trigger events for each button
 def ac_gpio_addevents():
-	# listen for events and share callback.
-	debug( "add callback for Rec1")
-	GPIO.add_event_detect(BTN_Rec1,	GPIO.FALLING,callback=handle_rec,	bouncetime=250)
-	debug( "add callback for Rec2")
-	GPIO.add_event_detect(BTN_Rec2,	GPIO.FALLING,callback=handle_rec,	bouncetime=250)
-	debug( "add callback for Intermediate")
-	GPIO.add_event_detect(BTN_Inter,GPIO.FALLING,callback=handle_int,	bouncetime=250)
-	debug( "add callback for Reset")
-	GPIO.add_event_detect(BTN_Reset,GPIO.FALLING,callback=handle_reset,	bouncetime=250)
-	debug( "add callback for Start")
-	GPIO.add_event_detect(BTN_Start,GPIO.FALLING,callback=handle_startstop, bouncetime=250)
-	debug( "add callback for Stop")
-	GPIO.add_event_detect(BTN_Stop,	GPIO.FALLING,callback=handle_startstop, bouncetime=250)
-	time.sleep(0.1)
+    # listen for events and share callback.
+    debug( "add callback for Rec1")
+    GPIO.add_event_detect(BTN_Rec1,    GPIO.FALLING,callback=handle_rec,    bouncetime=250)
+    debug( "add callback for Rec2")
+    GPIO.add_event_detect(BTN_Rec2,    GPIO.FALLING,callback=handle_rec,    bouncetime=250)
+    debug( "add callback for Intermediate")
+    GPIO.add_event_detect(BTN_Inter,GPIO.FALLING,callback=handle_int,    bouncetime=250)
+    debug( "add callback for Reset")
+    GPIO.add_event_detect(BTN_Reset,GPIO.FALLING,callback=handle_reset,    bouncetime=250)
+    debug( "add callback for Start")
+    GPIO.add_event_detect(BTN_Start,GPIO.FALLING,callback=handle_startstop, bouncetime=250)
+    debug( "add callback for Stop")
+    GPIO.add_event_detect(BTN_Stop,    GPIO.FALLING,callback=handle_startstop, bouncetime=250)
+    time.sleep(0.1)
 
 # wait for network event messages
 # this method runs in a separate thread
 def eventParser():
-	global server
-	global session_id
-	global start_run
-	event_id=0 # event ID of last "open" call in current session
-	# call to "connect", to retrieve last event id and timeout
-	debug( "Connecting event manager on server ...")
-	while True:
-		try:
-			args = "?Operation=connect&Session="+session_id
-			response = requests.get("https://" + server + "/" + baseurl + "/ajax/database/eventFunctions.php"+args, verify=False)
-		except requests.exceptions.RequestException as ex:
-			debug ( "Connect() error:" + str(ex) )
-			time.sleep(5) # wait 5 seconds and try again
-			continue
-		# if response failed, try next IP address
-		if response.status_code != 200:
-			debug("Invalid response. Try again")
-			time.sleep(5) # wait 5 seconds and retry
-			continue
-		# response ok: retrieve event ID of last "open" call
-		data=response.json()
-		if data['total'] == "0":
-			time.sleep(5) # no data available. Sleep and retry
-			continue
-		event_id = data['rows'][0]['ID']
-		break
-	# connect done, now, enter in an infinite "getEvents" request loop
-	debug( "Connected. Waiting for Server events ...")
-	timestamp=0
-	while True:
-		try:
-			args="?Operation=getEvents&Session=" + session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)
-			response = requests.get("https://" + server + "/" + baseurl + "/ajax/database/eventFunctions.php"+args, verify=False )
-		except requests.exceptions.RequestException as ex:
-			debug ( "getEvents() error:" + str(ex) )
-			time.sleep(5) # wait 5 seconds and try again
-			continue
-		# if response failed, try next IP address
-		if response.status_code != 200:
-			time.sleep(5) # wait 5 seconds and retry
-			continue
-		# response ok: retrieve event ID of last "open" call
-		data=response.json()
-		if data['total'] == "0":
-			time.sleep(5) # no data available. Sleep and retry
-			continue
-		if 'TimeStamp' in data:
-			timestamp=data['TimeStamp']
-		else:
-			debug ("ERROR: Reveived Event without Timestamp. ID:"+str(event_id)+" Type:"+type+ " Value:"+str(value))
-		for i in data['rows']:
-			event_id=i['ID']
-			type=i['Type']
-			evtdata=json.loads(i['Data'])
-			value=0
-			if 'Value' in evtdata:			# some events does not provide "Value" in data
-				value=evtdata['Value']
-			debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value))
-			# Eventos generales
-			if type == 'null':				# null event: no action taken
-				continue
-			if type == 'init':				# operator starts tablet application
-				continue
-			if type == 'login':				# operador hace login en el sistema
-				continue
-			if type == 'open':				# operator selects tanda on tablet
-				continue
-			# eventos de crono manual
-			if type == 'salida':			# juez da orden de salida ( crono 15 segundos )
-				continue
-			if type == 'start':				# Crono manual - value: timestamp
-				continue
-			if type == 'stop':				# Crono manual - value: timestamp
-				continue
-			# en crono electronico los campos "Value" y "TimeStamp" contienen la marca de tiempo del sistema
-			# en el momento en que se capturo el evento
-			if type == 'crono_start':		# Arranque Crono electronico
-				start_run=value		# store timestamp mark
-				GPIO.output(LED_Run, True )
-				continue
-			if type == 'crono_int':			# Tiempo intermedio Crono electronico
-				global intermediate_time
-				intermediate_time=10
-				GPIO.output(LED_Int, True ) # turn led on and start countdown
-				continue
-			if type == 'crono_stop':		# Parada Crono electronico
-				GPIO.output(LED_Run, False )
-				elapsed= (value-start_run) # miliseconds
-				debug("End of course. Total time: %.2f" % (elapsed/1000.0) )
-				continue
-			if type == 'crono_rec':			# Llamada a reconocimiento de pista
-				state = GPIO.input(LED_Rec) # read led status
-				GPIO.output(LED_Rec, not state )
-				continue
-			if type == 'crono_dat':			# Envio de Falta/Rehuse/Eliminado desde el crono
-				continue
-			if type == 'crono_restart':		# paso de crono manual a automatico (not supported here)
-				continue			
-			if type == 'crono_reset':		# puesta a cero del contador
-				GPIO.output(LED_Rec, False )
-				GPIO.output(LED_Run, False )
-				GPIO.output(LED_Int, False )
-				GPIO.output(LED_Err, False )
-				continue
-			if type == 'crono_error':		# error en alineamiento de sensores
-				if value==1:
-					GPIO.output(LED_Err, True ) # check_sensors() will turn of when solved
-				continue
-			# entrada de datos, dato siguiente, cancelar operacion
-			if type == 'llamada':			# operador abre panel de entrada de datos
-				continue
-			if type == 'datos':				# actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-				continue
-			if type == 'aceptar':			# grabar datos finales
-				continue
-			if type == 'cancelar':			# restaurar datos originales
-				continue
-			if type == 'info':				# value: message
-				continue
-			if type == 'crono_ready':		# crono becomes ready
-            	continue
-			if type == 'user':		        # user defined event. Value=number
-            	continue
-			# eventos de cambio de camara para gestion de Live Stream
-			# el campo "data" contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
-			if type == 'camera':			# cambio de fuente de streaming
-				continue
-			if type == 'reconfig':			# reconfiguracion del servidor
-				continue
-			# Si llega hasta aqui tenemos un error desconocido. Notificar e ignorar
-			debug("Error: Unknown event type:"+type )
+    global server
+    global session_id #string
+    global start_run
+    event_id=0 # event ID of last "open" call in current session
+    # call to "connect", to retrieve last event id and timeout
+    debug( "Connecting event manager on server "+server+" ...")
+    sname="chrono:"+session_id+":0:0:chrono@"+str(int(session_id)-1)
+    while True:
+        try:
+            args = "?Operation=connect&Session="+session_id+"&SessionName="+sname
+            response = requests.get("https://" + server + "/" + baseurl + "/ajax/database/eventFunctions.php"+args, verify=False)
+        except requests.exceptions.RequestException as ex:
+            debug ( "Connect() error:" + str(ex) )
+            time.sleep(5) # wait 5 seconds and try again
+            continue
+        # if response failed, try next IP address
+        if response.status_code != 200:
+            debug("Invalid response. Try again")
+            time.sleep(5) # wait 5 seconds and retry
+            continue
+        # response ok: retrieve event ID of last "open" call
+        data=response.json()
+        if data['total'] == "0":
+            time.sleep(5) # no data available. Sleep and retry
+            continue
+        event_id = data['rows'][0]['ID']
+        break
+    # connect done, now, enter in an infinite "getEvents" request loop
+    debug( "Connected. Waiting for "+server+" Server events ...")
+    timestamp=0
+    while True:
+        try:
+            args="?Operation=getEvents&Session=" + session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)+"&SessionName="+sname
+            response = requests.get("https://" + server + "/" + baseurl + "/ajax/database/eventFunctions.php"+args, verify=False )
+        except requests.exceptions.RequestException as ex:
+            debug ( "getEvents() error:" + str(ex) )
+            time.sleep(5) # wait 5 seconds and try again
+            continue
+        # if response failed, try next IP address
+        if response.status_code != 200:
+            time.sleep(5) # wait 5 seconds and retry
+            continue
+        # response ok: retrieve event ID of last "open" call
+        data=response.json()
+        if data['total'] == "0":
+            time.sleep(5) # no data available. Sleep and retry
+            continue
+        if 'TimeStamp' in data:
+            timestamp=data['TimeStamp']
+        else:
+            debug ("ERROR: Reveived Event without Timestamp. ID:"+str(event_id)+" Type:"+type+ " Value:"+str(value))
+            timestamp=1+int(timestamp) # to don't receive invalid event again
+        for i in data['rows']:
+            event_id=i['ID']
+            type=i['Type']
+            evtdata=json.loads(i['Data'])
+            value=0
+            if 'Value' in evtdata:            # some events does not provide "Value" in data
+                value=evtdata['Value']
+            debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value))
+            # Eventos generales
+            if type == 'null':                # null event: no action taken
+                continue
+            if type == 'init':                # operator starts tablet application
+                continue
+            if type == 'login':                # operador hace login en el sistema
+                continue
+            if type == 'open':                # operator selects tanda on tablet
+                continue
+            # eventos de crono manual
+            if type == 'salida':            # juez da orden de salida ( crono 15 segundos )
+                continue
+            if type == 'start':                # Crono manual - value: timestamp
+                continue
+            if type == 'stop':                # Crono manual - value: timestamp
+                continue
+            # en crono electronico los campos "Value" y "TimeStamp" contienen la marca de tiempo del sistema
+            # en el momento en que se capturo el evento
+            if type == 'crono_start':        # Arranque Crono electronico
+                start_run=value        # store timestamp mark
+                GPIO.output(LED_Run, True )
+                continue
+            if type == 'crono_int':            # Tiempo intermedio Crono electronico
+                global intermediate_time
+                intermediate_time=10
+                GPIO.output(LED_Int, True ) # turn led on and start countdown
+                continue
+            if type == 'crono_stop':        # Parada Crono electronico
+                GPIO.output(LED_Run, False )
+                elapsed= int(value)-int(start_run) # miliseconds
+                debug("End of course. Total time: %.2f" % (elapsed/1000.0) )
+                continue
+            if type == 'crono_rec':            # Llamada a reconocimiento de pista
+                state = GPIO.input(LED_Rec) # read led status
+                GPIO.output(LED_Rec, not state )
+                continue
+            if type == 'crono_dat':            # Envio de Falta/Rehuse/Eliminado desde el crono
+                continue
+            if type == 'crono_restart':        # paso de crono manual a automatico (not supported here)
+                continue            
+            if type == 'crono_reset':        # puesta a cero del contador
+                GPIO.output(LED_Rec, False )
+                GPIO.output(LED_Run, False )
+                GPIO.output(LED_Int, False )
+                GPIO.output(LED_Err, False )
+                continue
+            if type == 'crono_error':        # error en alineamiento de sensores
+                if value==1:
+                    GPIO.output(LED_Err, True ) # check_sensors() will turn of when solved
+                continue
+            # entrada de datos, dato siguiente, cancelar operacion
+            if type == 'llamada':            # operador abre panel de entrada de datos
+                continue
+            if type == 'datos':                # actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+                continue
+            if type == 'aceptar':            # grabar datos finales
+                continue
+            if type == 'cancelar':            # restaurar datos originales
+                continue
+            if type == 'info':                # value: message
+                continue
+            if type == 'crono_ready':        # crono becomes ready
+                continue
+            if type == 'user':                # user defined event. Value=number
+                continue
+            # eventos de cambio de camara para gestion de Live Stream
+            # el campo "data" contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
+            if type == 'camera':            # cambio de fuente de streaming
+                continue
+            if type == 'reconfig':            # reconfiguracion del servidor
+                continue
+            if type == 'command':            # command received from server
+                continue
+            # Si llega hasta aqui tenemos un error desconocido. Notificar e ignorar
+            debug("Error: Unknown event type:"+type )
 
 def main():
-	# Setup breakout board
-	GPIO.setmode(GPIO.BOARD)
-	ac_gpio_setup()
-	# look for server
-	lookForServer()
-	# add event listeners
-	ac_gpio_addevents()
-	# add thread for receive events from server
-	w = threading.Thread(target=eventParser)
-	w.start()
+    # Setup breakout board
+    GPIO.setmode(GPIO.BOARD)
+    ac_gpio_setup()
+    # look for server
+    lookForServer()
+    # add event listeners
+    ac_gpio_addevents()
+    # add thread for receive events from server
+    w = threading.Thread(target=eventParser)
+    w.start()
 
 
-	# and enter into infinite loop setting handling buttonPressed and Power Leds
-	debug( "waiting for GPIO's ...")
-	while True:
-		blink_powerled() # make led power blink
-		button_pressed(0,0,"") # countdown keypressed led
-		check_sensors() # check for permanently closed start/stop/intermediate sensors
-		handle_intermediate_time() # check coundount on intermediate time led
-		time.sleep(0.5) # delay and loop again
+    # and enter into infinite loop setting handling buttonPressed and Power Leds
+    debug( "waiting for GPIO's ...")
+    while True:
+        blink_powerled() # make led power blink
+        button_pressed(0,0,"") # countdown keypressed led
+        check_sensors() # check for permanently closed start/stop/intermediate sensors
+        handle_intermediate_time() # check coundount on intermediate time led
+        time.sleep(0.5) # delay and loop again
 
 try:
-	# do not throw exception on check certifcate
-	requests.packages.urllib3.disable_warnings()
-	main()
-	
+    # do not throw exception on check certifcate
+    requests.packages.urllib3.disable_warnings()
+    main()
+    
 finally:
-	GPIO.cleanup()
+    GPIO.cleanup()
 # End

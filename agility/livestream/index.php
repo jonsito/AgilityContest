@@ -117,7 +117,7 @@ var ac_clientOpts={
     View:       2,
     Mode:       'chroma',
     Timeout:    0,
-    SessionName: ''
+    SessionName: '' // to be set later from form dialog
 };
 
 function initialize() {
