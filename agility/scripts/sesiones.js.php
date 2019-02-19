@@ -148,9 +148,9 @@ function resetSession(dg) {
 /************************ funciones de manejo de control remoto de sesiones ********************/
 
 function reloadRemoteClientList() {
-    $('#remote-videowall-datagrid').datagrid('load');
-    $('#remote-livestream-datagrid').datagrid('load');
-    $('#remote-chronometer-datagrid').datagrid('load');
+    $('#remote-videowall-datagrid').datagrid('unselectAll').datagrid('load');
+    $('#remote-livestream-datagrid').datagrid('unselectAll').datagrid('load');
+    $('#remote-chronometer-datagrid').datagrid('unselectAll').datagrid('load');
 }
 
 // retrieve ring name from val:session_id

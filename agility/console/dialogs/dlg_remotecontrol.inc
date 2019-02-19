@@ -22,7 +22,7 @@ require_once(__DIR__ . "/../../server/auth/AuthManager.php");
 $am=AuthManager::getInstance("Chrono");
 ?>
     <!-- ventana de control remoto para los cronos/videomarcadores/livestream definidos en una o varias sesiones -->
-    <div id="remote-dialog" style="width:750px;height:400px;padding:5px;">
+    <div id="remote-dialog" style="width:800px;height:400px;padding:5px;">
         <div id="remote-accordion">
             <div title="<?php _e('Videowall Screens');?>" data-options="iconCls:'icon-video-tv'">
                 <div style="display:<?php echo $am->allowed(ENABLE_VIDEOWALL)?'inherit':'none';?>">
@@ -315,9 +315,10 @@ $am=AuthManager::getInstance("Chrono");
             idField:'Name',
             columns: [[
                 { field:'Source',		hidden:true },
-                { field:'Name',	        width:40, sortable:true,title:'<?php _e('Display name'); ?>' },
-                { field:'Session',	    width:20, sortable:true,title:'<?php _e('Ring'); ?>', formatter: formatRingName },// sess id
-                { field:'View',		    width:40, sortable:true,title:'<?php _e('View mode'); ?>', formatter: formatVideowallView },
+                { field:'IPAddr',	    width:25, sortable:true,title:'<?php _e('IP Address'); ?>' },
+                { field:'Name',	        width:30, sortable:true,title:'<?php _e('Display name'); ?>' },
+                { field:'Session',	    width:15, sortable:true,title:'<?php _e('Ring'); ?>', formatter: formatRingName },// sess id
+                { field:'View',		    width:30, sortable:true,title:'<?php _e('View mode'); ?>', formatter: formatVideowallView },
                 { field:'Mode',		    hidden:true }, // no sense in videowall
                 { field:'LastCall',		hidden:true }
             ]],
@@ -452,9 +453,10 @@ $am=AuthManager::getInstance("Chrono");
             idField:'Name',
             columns: [[
                 { field:'Source',		hidden:true },
-                { field:'Name',	        width:40, sortable:true,title:'<?php _e('Display name'); ?>' },
-                { field:'Session',	    width:20, sortable:true,title:'<?php _e('Ring'); ?>', formatter:formatRingName },// ring name
-                { field:'View',		    width:40, sortable:true,title:'<?php _e('View mode'); ?>',formatter: formatLiveStreamView },
+                { field:'IPAddr',	    width:25, sortable:true,title:'<?php _e('IP Address'); ?>' },
+                { field:'Name',	        width:30, sortable:true,title:'<?php _e('Display name'); ?>' },
+                { field:'Session',	    width:15, sortable:true,title:'<?php _e('Ring'); ?>', formatter:formatRingName },// ring name
+                { field:'View',		    width:30, sortable:true,title:'<?php _e('View mode'); ?>',formatter: formatLiveStreamView },
                 { field:'Mode',		    hidden:true }, // do not show in livestream, but need to retrieve
                 { field:'LastCall',		hidden:true }
             ]],
@@ -554,8 +556,9 @@ $am=AuthManager::getInstance("Chrono");
             idField:'Name',
             columns: [[
                 { field:'Source',		hidden:true },
-                { field:'Name',	        width:60, sortable:true,title:'<?php _e('Display name'); ?>' },
-                { field:'Session',	    width:40, sortable:true,title:'<?php _e('Ring'); ?>', formatter:formatRingName  },// ring name
+                { field:'IPAddr',	    width:25, sortable:true,title:'<?php _e('IP Address'); ?>' },
+                { field:'Name',	        width:50, sortable:true,title:'<?php _e('Display name'); ?>' },
+                { field:'Session',	    width:25, sortable:true,title:'<?php _e('Ring'); ?>', formatter:formatRingName  },// ring name
                 { field:'View',		    hidden:true }, // no sense in chrono
                 { field:'Mode',		    hidden:true }, // no sense in chrono
                 { field:'LastCall',		hidden:true }

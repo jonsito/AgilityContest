@@ -335,16 +335,26 @@ class Sesiones extends DBObject {
         register_shutdown_function('session_write_close');
         session_start();
         if (!isset($_SESSION['ac_clients'])) $_SESSION['ac_clients']=array();
-        foreach ( $_SESSION['ac_clients'] as $client) {
+        foreach ( $_SESSION['ac_clients'] as $key => $client) {
             // $this->myLogger->trace("Session::getClients() parsing clientSession: $client");
             $a=explode(':',$client);
+
             // comprobamos expiracion
             if ( ($timestamp - intval($a[5]) ) > 180 ) $a[5]=0; // expire after 3 minutes
             if (intval($a[5])==0) continue;  // if expired, skip
-            // compose item and insert into response if requested
-            $item=array('Source'=>$a[0],'Session'=>$a[1],'View'=>$a[2],'Mode'=>$a[3],'Name'=>$a[4],'LastCall'=>$a[5]);
+
+            // exclude clients not requested
             if ( ($type==="") || ($type===$a[0]) ) {
-                $key="{$a[0]}:{$a[1]}:{$a[4]}"; // source:session:name
+                // compose item and insert into response if requested
+                $item=array(
+                    'Source'=>$a[0],
+                    'Session'=>$a[1],
+                    'View'=>$a[2],
+                    'Mode'=>$a[3],
+                    'Name'=>$a[4],
+                    'LastCall'=>$a[5],
+                    'IPAddr' =>$a[6]
+                );
                 $res[$key]=$item; // use key/value array to remove duplicates
             }
         }
@@ -357,6 +367,7 @@ class Sesiones extends DBObject {
      * @return {string} empty on success; else error message
      */
     function testAndSet($name="") {
+        $this->myLogger->enter($name);
         if ($name==="") {
             $this->myLogger->error("Sesiones::testAndSet() null SessionName provided");
             return "";
@@ -365,29 +376,30 @@ class Sesiones extends DBObject {
         FileSessionHandler::getInstance();
         $timestamp=time();
         $found=false;
-        $e=explode(":",$name);
-        $k="{$e[0]}:{$e[1]}:{$e[4]}"; // source:sesid:name as search key
+        $ip=str_replace(':','.',$_SERVER['REMOTE_ADDR']);
         register_shutdown_function('session_write_close');
         session_start();
         if (!isset($_SESSION['ac_clients'])) $_SESSION['ac_clients']=array();
-        // $this->myLogger->trace("Session::testAndSet() looking for clientSession: $name");
-
         $toBeUnset=null;
+
+        // look for key in sessions
+        // key   is source:sesid:view:mode:name
+        // value is source:sesid:view:mode:name:timetolive:ipaddress
         foreach ( $_SESSION['ac_clients'] as $key => &$client) { // pass by reference as need to be edited
-            if ($key!==$k) { // client name does not match: evaluate expiration
+            if ($key!==$name) { // client name does not match: evaluate expiration
                 $a=explode(':',$client);
                 if ( ($timestamp - intval($a[5]) ) <= 300 ) continue; // expire after 5 minutes
                 $a[5]=0;
                 $client=implode(':',$a);
-                $toBeUnset=$key; // cannot call unset() inside foreach
+                $toBeUnset=$key; // stupid iterator: cannot call unset() inside foreach
             } else {// item found: update timestamp
-                $client="{$name}:{$timestamp}";
+                $client="{$name}:{$timestamp}:{$ip}";
                 $found=true;
             }
         }
         if (!$found) { // new session session list: create and notice
-            $_SESSION['ac_clients'][$k]="{$name}:{$timestamp}";
-            $this->myLogger->trace("Session started: {$k}");
+            $_SESSION['ac_clients'][$name]="{$name}:{$timestamp}:{$ip}";
+            $this->myLogger->trace("Session started: {$name}");
         }
         if ($toBeUnset!=null) { // session expired: remove and notice
             $ses=$_SESSION['ac_clients'][$toBeUnset];
