@@ -286,7 +286,7 @@ class NRNetwork:
 			self.debug ( "getEvents() error:" + str(ex) )
 			return {"total":0 , "rows":[] , "TimeStamp": ts }
 		if response.status_code != 200:
-			self.debug("getEvents() error: received status code:"+str(response_status_code))
+			self.debug("getEvents() error: received status code:"+str(response.status_code))
 			return {"total":0 , "rows":[] , "TimeStamp": ts }
 		try:
 			return response.json()
