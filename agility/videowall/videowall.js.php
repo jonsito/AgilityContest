@@ -45,7 +45,7 @@ function vw_updateWorkingData(evt,callback) {
 	else if (workingData.jornada!=evt.Jornada) flag=false;
 	else if (workingData.manga!=evt.Manga) flag=false;
 	else if (workingData.tanda!=evt.Tanda) flag=false;
-	else if  (workingData.sesion!=evt.Sesion) flag=false;
+	else if  (workingData.session!=evt.Sesion) flag=false;
 	if (flag) {
 		var data={
 			Prueba:workingData.datosPrueba,
@@ -68,7 +68,7 @@ function vw_updateWorkingData(evt,callback) {
             Jornada: evt.Jornada,
             Manga: evt.Manga,
             Tanda: evt.Tanda,
-            Session: workingData.sesion
+            Session: workingData.session
         },
         success: function(data,status,jqxhr) {
             // common updates on every videowall:
@@ -442,7 +442,7 @@ function vwcp_updateLlamada(evt,data) {
 			Before: 3,
 			After: 15,
 			Perro: parseInt(evt['Dog']),
-			Session: workingData.sesion
+			Session: workingData.session
 		},
 		success: function(dat,status,jqxhr) {
 			// componemos ventana de llamada
@@ -517,7 +517,7 @@ function vwcf_updateLlamada(evt,data) {
 			Before: (ac_config.vwc_simplified==0)?4:2,
 			After: (ac_config.vwc_simplified==0)?15:10,
 			Perro: parseInt(evt['Dog']),
-			Session: workingData.sesion
+			Session: workingData.session
 		},
 		success: function(dat,status,jqxhr) {
 			function vwcf_evalBefore(res) {
@@ -648,7 +648,7 @@ function videowall_eventManager(id,evt) {
 
 function videowall_switchConsole(event) {
     var data=event['Value'].split(':');// ring : view : mode
-    var url="../videowall/index.php?Ring="+data[0]+"&View="+data[1]+"&Mode="+data[2]+"&Timeout=2&SessionName="+ac_clientOpts.SessionName;
+    var url="../videowall/index.php?Ring="+data[0]+"&View="+data[1]+"&Mode="+data[2]+"&Timeout=2&Name="+ac_clientOpts.Name;
     window.location.replace(url);
 }
 

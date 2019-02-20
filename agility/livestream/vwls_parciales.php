@@ -43,7 +43,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <source id="vwls_videowebm" src="" type='video/webm'/>
             </video>
         <?php } else { ?>
-            <img src="../ajax/images/getChromaKeyImage.php" style="z-index:-1;" />
+            <img alt="chroma-color" src="../ajax/images/getChromaKeyImage.php" style="z-index:-1;" />
         <?php } ?>
 
         <div data-options="region:'east',split:false,border:false" style="width:5%;background-color:transparent;"></div>
@@ -56,7 +56,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     <table width="100%">
                         <tr>
                             <td rowspan="2">
-                                <span style="float:left;background:rgba(255,255,255,0.5);"> <img id="vw_header-logo" src="../images/logos/agilitycontest.png" width="100"/> </span>
+                                <span style="float:left;background:rgba(255,255,255,0.5);"> <img alt="header-logo" id="vw_header-logo" src="../images/logos/agilitycontest.png" width="100"/> </span>
                             </td>
                             <td align="left">
                                 <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Contest'); ?></span>
@@ -145,7 +145,7 @@ $('#parciales_equipos-datagrid').datagrid({
         return true;
     },
     onLoadSuccess: function(data) {
-        if (data.total==0) return; // no data yet
+        if (parseInt(data.total)===0) return; // no data yet
         var dg=$('#parciales_equipos-datagrid');
         dg.datagrid('scrollTo',0); // point to first result
         // at livestream no space to expand first row. so let remain hidden

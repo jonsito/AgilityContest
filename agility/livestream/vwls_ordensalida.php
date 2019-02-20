@@ -43,7 +43,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <source id="vwls_videowebm" src="" type='video/webm'/>
             </video>
         <?php } else { ?>
-            <img src="../ajax/images/getChromaKeyImage.php" style="z-index:-1;" />
+            <img alt="chroma-color" src="../ajax/images/getChromaKeyImage.php" style="z-index:-1;" />
         <?php } ?>
 
         <div data-options="region:'east',split:false,border:false" style="width:5%;background-color:transparent;"></div>
@@ -54,7 +54,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <div id="vw_ordensalida-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
                       style="height:75px;font-size:1.0em;" >
                     <span style="float:left;background:rgba(255,255,255,0.5);">
-                        <img id="vw_header-logo" src="../images/logos/agilitycontest.png" width="50"/>
+                        <img alt="header-logo" id="vw_header-logo" src="../images/logos/agilitycontest.png" width="50"/>
                     </span>
                     <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Header'); ?></span>
 
@@ -105,7 +105,7 @@ $('#ordensalida-datagrid').datagrid({
         Operation: 'getDataByTanda',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
-        Sesion: workingData.sesion // used only at startup. then use TandaID
+        Sesion: workingData.session // used only at startup. then use TandaID
     },
     onBeforeLoad:function(params) {
         // do not update until 'open' received

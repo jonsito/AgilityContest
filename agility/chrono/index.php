@@ -78,6 +78,7 @@ var ac_clientOpts = {
     Mode:       0, // no view nor mode in chrono, but needed
     SensorDate: 0,
     Timeout:    0,
+    Name:       '',
     SessionName: '' // to be filled later
 };
 
@@ -100,7 +101,8 @@ function initialize() {
     ac_clientOpts.Ring=<?php echo http_request("Ring","i",1); ?>; // defaults to ring 1
     ac_clientOpts.Timeout=<?php echo http_request("Timeout","i",0); ?>; // auto start displaying after x seconds. 0 disable
     // session name. defaults to random string(8)@client.ip.address
-    ac_clientOpts.SessionName='<?php echo http_request("SessionName","s",getDefaultSessionName()); ?>';
+    ac_clientOpts.Name='<?php echo http_request("Name","s",getDefaultClientName("chrono")); ?>';
+    ac_clientOpts.SessionName=composeClientSessionName(ac_clientOpts);
     if (parseInt(ac_clientOpts.Timeout)!==0) setTimeout(function() { chrono_accept();},1000*ac_clientOpts.Timeout); // if requested fire autostart
 }
 
@@ -136,7 +138,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <script type="text/javascript">
 $('#chrono-dialog').dialog({
-	title: "<?php _e('Chronometer');?>",
+	title: "<?php _e('Chronometer');?>: "+ac_clientOpts.Name+" ",
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
@@ -152,10 +154,13 @@ $('#chrono-form').form();
 addTooltip($('#chrono-okBtn').linkbutton(),"<?php _e('Work with selected ring/session');?>");
 
 $('#chrono-SessionName').textbox({
-    value:  ac_clientOpts.SessionName,
+    value:  ac_clientOpts.Name,
     required: false,
     validType: 'length[1,255]',
-    onChange: function(value) {ac_clientOpts.SessionName=value.replace(/:/g,'');}
+    onChange: function(value) {
+        ac_clientOpts.Name=value.replace(/:/g,'');
+        ac_clientOpts.SessionName=composeClientSessionName(ac_clientOpts);
+    }
 });
 
 $('#chrono-Session').combogrid({

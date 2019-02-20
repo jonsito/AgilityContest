@@ -22,8 +22,49 @@ require_once(__DIR__ . "/../../server/auth/AuthManager.php");
 $am=AuthManager::getInstance("Chrono");
 ?>
     <!-- ventana de control remoto para los cronos/videomarcadores/livestream definidos en una o varias sesiones -->
-    <div id="remote-dialog" style="width:800px;height:400px;padding:5px;">
+    <div id="remote-dialog" style="width:800px;height:480px;padding:5px;">
         <div id="remote-accordion">
+
+            <!--  control (seguimiento de tablets) -->
+
+            <div title="<?php _e('Tablet deployment');?>" data-options="iconCls:'icon-clock'">
+                <div style="display:<?php echo $am->allowed(ENABLE_CHRONO)?'inherit':'none';?>">
+                    <span style="float:left;display:inline-block;width:55%;padding:5px">
+                        <p><?php _e('List of currently active tablet commanders');?></p>
+                      <table id="remote-tablet-datagrid" style="width:100%"></table>
+                    </span>
+                    <span style="float:right;display:inline-block;width:40%;padding:5px">
+                        <br/>
+                        <strong><?php _e('Controls for connected tablets');?></strong>
+                        <form id="remote-tablet-form" name="remote-tablet-form">
+                            <?php _e('Select');?>
+                            <input type="checkbox" id="remote-tablet-all" onclick="remoteTabletAllorNone(1);"/>
+                            <label for="remote-tablet-all"><?php _e('All');?></label>
+                            <input type="checkbox" id="remote-tablet-none" onclick="remoteTabletAllorNone(0);"/>
+                            <label for="remote-tablet-none"><?php _e('None');?></label><br/>
+
+                            <br/>
+                            <strong><?php _e('Tablet message handling');?></strong>
+                            <br/>&nbsp;<br/>
+                            <label for="remote-tablet-msg" style="display:inline-block;width:100px"><?php _e('Message');?>:</label>
+                            <input id="remote-tablet-msg" name="remote-tablet-msg" value="" style="width:175px">
+                            <br/><br/>
+                            <div style="width:100%;display:inline-block;">
+                                <span style="float:left;width:50%"><?php _e("Duration (secs)");?>:</span>
+                                <span style="float:right;width:40%;padding-right:10px;padding-left:5px;">
+                                    <input id="remote-tablet-msgtimeout" name="remote-tablet-msgtimeout"/>
+                                </span>
+                            </div>
+                            <span style="display:inline-block;width:175px">&nbsp;</span>
+                            <a id="remote-tablet-msgBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-alert'" onclick="remoteSendMessageEvent('#remote-tablet')"><?php _e('Show'); ?></a>
+                         </form>
+                    </span>
+                </div>
+            </div>
+
+            <!--  dialogo para control video marcadores -->
+
             <div title="<?php _e('Videowall Screens');?>" data-options="iconCls:'icon-video-tv'">
                 <div style="display:<?php echo $am->allowed(ENABLE_VIDEOWALL)?'inherit':'none';?>">
                     <span style="float:left;display:inline-block;width:55%;padding:5px">
@@ -117,6 +158,9 @@ $am=AuthManager::getInstance("Chrono");
                     <img src="../../images/sad_dog.png" alt="triste"/>
                 </div>
             </div>
+
+            <!--  dialogo para control de pantallas de streaming -->
+
             <div title="<?php _e('Live Streaming windows');?>" data-options="iconCls:'icon-live'">
                 <div style="display:<?php echo $am->allowed(ENABLE_LIVESTREAM)?'inherit':'none';?>">
                     <span style="float:left;display:inline-block;width:55%;padding:5px">
@@ -182,6 +226,9 @@ $am=AuthManager::getInstance("Chrono");
                     <img src="../../images/sad_dog.png" alt="triste"/>
                 </div>
             </div>
+
+            <!--  dialogo para enviar comandos a (video)cronometro -->
+
             <div title="<?php _e('Chronometer displays');?>" data-options="iconCls:'icon-clock'">
                 <div style="display:<?php echo $am->allowed(ENABLE_CHRONO)?'inherit':'none';?>">
                     <span style="float:left;display:inline-block;width:55%;padding:5px">
@@ -215,6 +262,7 @@ $am=AuthManager::getInstance("Chrono");
                 </div>
             </div>
 
+            <!--  dialogo para enviar mensajes a los clientes por internet -->
             <div title="<?php _e('Internet access');?>" data-options="iconCls:'icon-web'">
                 <div style="display:<?php echo $am->allowed(ENABLE_PUBLIC)?'inherit':'none';?>">
                     <span style="float:left;display:inline-block;width:55%;padding:5px">
@@ -605,6 +653,56 @@ $am=AuthManager::getInstance("Chrono");
             ]]
         });
 
+        // datos de la tabla de tablets
+        $('#remote-tablet-datagrid').datagrid({
+            // datos del panel padre asociado
+            fit: false,
+            border: true,
+            closable: false,
+            collapsible: false,
+            expansible: false,
+            collapsed: false,
+            // datos de la conexion ajax
+            url: '../ajax/database/sessionFunctions.php',
+            queryParams: { Operation: 'getClients', SessionType: 'tablet' },
+            loadMsg: '<?php _e('Updating connected tablet list'); ?>',
+            method: 'get',
+            pagination: false,
+            rownumbers: false,
+            fitColumns: true,
+            singleSelect: false,
+            multiSort: false,
+            remoteSort: false,
+            idField:'Name',
+            columns: [[
+                { field:'Source',		hidden:true },
+                { field:'IPAddr',	    width:25, sortable:true,title:'<?php _e('IP Address'); ?>' },
+                { field:'Name',	        width:50, sortable:true,title:'<?php _e('Display name'); ?>' },
+                { field:'Session',	    width:25, sortable:true,title:'<?php _e('Ring'); ?>', formatter:formatRingName  },// ring name
+                { field:'View',		    hidden:true }, // no sense in chrono
+                { field:'Mode',		    hidden:true }, // no sense in chrono
+                { field:'LastCall',		hidden:true }
+            ]],
+            // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+            rowStyler:myRowStyler,
+            onUnselect: function(index,row) {
+                $('#remote-tablet-all').prop('checked',false);
+                remoteSetOnSingleSelection("#remote-tablet");
+            },
+            onSelect: function(index,row) {
+                $('#remote-tablet-none').prop('checked',false);
+                remoteSetOnSingleSelection("#remote-tablet");
+            }
+        });
+
+        $('#remote-tablet-msg').textbox({
+            required: true,
+            validType:'lenght[0,127]'
+        });
+        $('#remote-tablet-msgtimeout').slider({
+            mode:'h', showTip:true, min:1, max:15, value:5,   step:1
+        });
+
         // tooltips de los botones
         $('#remote-videowall-ffnextBtn').linkbutton();
         $('#remote-videowall-ffprevBtn').linkbutton();
@@ -615,6 +713,7 @@ $am=AuthManager::getInstance("Chrono");
         addTooltip($('#remote-livestream-offBtn').linkbutton(),'<?php _e("Turn On-Screen-Display overlay OFF"); ?>');
         addTooltip($('#remote-livestream-onBtn').linkbutton(),'<?php _e("Turn On-Screen-Display overlay ON"); ?>');
         addTooltip($('#remote-videowall-msgBtn').linkbutton(),'<?php _e("Show text message on selected screen with specified duration"); ?>');
+        addTooltip($('#remote-tablet-msgBtn').linkbutton(),'<?php _e("Show text message on selected tablet with specified duration"); ?>');
         addTooltip($('#remote-videowall-sendBtn').linkbutton(),'<?php _e("Switch selected scoreboard displays to choosen ring/view"); ?>');
         addTooltip($('#remote-internet-msgBtn').linkbutton(),'<?php _e("Send text message to connected internet clients<br/>listening to selected contest"); ?>');
         addTooltip($('#remote-internet-dorsals').textbox('textbox'),'<?php _e("Comma separated list of dorsals to send message to (or empty)"); ?>');

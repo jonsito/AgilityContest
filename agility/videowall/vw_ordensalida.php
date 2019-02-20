@@ -71,7 +71,7 @@ $('#ordensalida-datagrid').datagrid({
         Operation: 'getDataByTanda',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
-        Sesion: workingData.sesion // used only at startup. then use TandaID
+        Sesion: workingData.session // used only at startup. then use TandaID
     },
     onBeforeLoad:function(params) {
         // do not update until 'open' received

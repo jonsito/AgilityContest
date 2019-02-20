@@ -423,7 +423,7 @@ function vws_updateLlamada(evt,data,callback) {
             Before: 2,
             After: nitems,
             Perro: parseInt(evt['Dog']),
-            Session: workingData.sesion
+            Session: workingData.session
         },
         success: function(dat,status,jqxhr) {
             var logo="null.png";

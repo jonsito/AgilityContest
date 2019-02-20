@@ -120,6 +120,7 @@ var ac_clientOpts = {
     View:       3,
     Mode:       0,
     Timeout:    0,
+    Name:       '',
     SessionName: ''
 };
 
@@ -140,8 +141,10 @@ function initialize() {
 	ac_clientOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
 	ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // auto start displaying after x seconds. 0 disable
     // session name. defaults to random string(8)@client.ip.address
-    ac_clientOpts.SessionName='<?php echo http_request("SessionName","s",getDefaultSessionName()); ?>';
-	if (parseInt(ac_clientOpts.Timeout)!==0) setTimeout(function() { vw_accept();},1000*ac_clientOpts.Timeout); // if requested fire autostart
+    ac_clientOpts.Name='<?php echo http_request("Name","s",getDefaultClientName(videowall)); ?>';
+    ac_clientOpts.SessionName=composeClientSessionName(ac_clientOpts);
+    // if requested fire autostart
+	if (parseInt(ac_clientOpts.Timeout)!==0) setTimeout(function() { vw_accept();},1000*ac_clientOpts.Timeout);
 }
 
 /**
@@ -276,10 +279,10 @@ function myLlamadaRowStyler(idx,row) {
 $.extend($.fn.window.defaults,{callback:null});
 
 $('#selvw-SessionName').textbox({
-    value: ac_clientOpts.SessionName,
+    value: ac_clientOpts.Name,
     required:false,
     validType:'length[1,255]',
-    onChange: function(value) {ac_clientOpts.SessionName=value.replace(/:/g,'');}
+    onChange: function(value) {ac_clientOpts.Name=value.replace(/:/g,'');}
 });
 
 $('#selvw-Vista').combobox({
@@ -360,7 +363,7 @@ function vw_accept() {
     $('#selvw-okBtn').linkbutton('disable');
     requestFullScreen(document.body);
 	// store selected data into global structure
-	workingData.sesion=s.ID;
+	workingData.session=s.ID;
 	workingData.nombreSesion=s.Nombre;
 	initWorkingData(s.ID,videowall_eventManager);
 	ac_config.vwc_simplified=0;

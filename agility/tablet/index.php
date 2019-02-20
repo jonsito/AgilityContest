@@ -96,13 +96,17 @@ getFederationInfo();
 
 var ac_clientOpts = {
     BaseName:       'tablet',
+    Destination:    ''
 	Ring:           0,
     View:           0,
     Mode:           0,
 	StartStopMode:  0, // 0:stop, 1:start, -1:auto
 	DataEntryEnabled: 0, // 0: roundSelection enabled 1:dataEntry enabled
 	CourseWalk:     0, // 0 reconocimiento de pista parado else time
-    SessionName:    '' // nombre del cliente utilizado para control de expire-time
+    // nombre del cliente utilizado para control de expire-time
+    // after login becomes "tablet_random@ring"
+    Name:           '<?php echo http_request("Name","s",getDefaultClientName('tablet')); ?>';
+    SessionName:    composeClientSessionName(ac_clientOpts)
 };
 
 function initialize() {
@@ -115,8 +119,6 @@ function initialize() {
 	    return true;
 	  }
 	});
-    // session name. defaults to random string(8)@client.ip.address
-    ac_clientOpts.SessionName='<?php echo http_request("SessionName","s",getDefaultSessionName()); ?>';
 }
 
 /**
@@ -129,7 +131,7 @@ function myRowStyler(idx,row) {
 	var res="height:35px;background-color:";
 	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
 	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
-	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+	if ( (idx&0x01)===0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
 </script>
@@ -248,7 +250,11 @@ $('#seltablet-Sesion').combogrid({
 		ts.combogrid('setValue',def);
 	},
     onSelect: function(index,row) {
+        // update session name and ring information
+	    var ri=parseInt(row.ID)-1;
         ac_clientOpts.Ring=row.ID;
+        ac_clientOpts.Name= ac_clientOpts.Name.replace(/@.*/g,"@"+ri);
+        ac_clientOpts.SessionName= composeClientSessionName(ac_clientOpts);
     }
 });
 
@@ -448,13 +454,13 @@ function tablet_acceptSelectJornada() {
 
 //on Enter key on login field fo	cus on password
 $('#seltablet-Username').bind('keypress', function (evt) {
-    if (evt.keyCode != 13) return true;
+    if (evt.keyCode !== 13) return true;
     $('#seltablet-Password').focus();
     return false;
 });
 //on Enter key on login field fo	cus on password
 $('#seltablet-Password').bind('keypress', function (evt) {
-    if (evt.keyCode != 13) return true;
+    if (evt.keyCode !== 13) return true;
     $('#seltablet-Sesion').next().find('input').focus();
     return false;
 });

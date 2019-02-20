@@ -112,7 +112,7 @@ function parseEvent(data) {
 			data: {
 				Operation:	'getEvents',
 				ID: 		evtID,
-				Session:	workingData.sesion,
+				Session:	workingData.session,
 				TimeStamp:	mark,
 				SessionName: sname
 			},
@@ -135,14 +135,17 @@ function startEventMgr() {
 	// ejemplo: source:ringsesionID:view_type:round_mode:xxxxx@ipaddress
 	// source: videowall,tablet, chrono, xxxx
 	// xxxx: random(8)
-    var sname=ac_clientOpts.BaseName+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.Mode+":"+ac_clientOpts.SessionName;
+    var sname=ac_clientOpts.BaseName+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.Mode+":"+ac_clientOpts.Name;
 	$.ajax({
 		type: "GET",
 		url: "../ajax/database/eventFunctions.php",
 		data: {
 			Operation:	'connect',
-			Session:	workingData.sesion,
-            SessionName: sname
+			Session:	workingData.session,
+            SessionName: sname,
+			Source:		ac_clientOpts.BaseName,
+			Destination: '', /* not specified */
+			Name:		ac_clientOpts.Name
 		},
 		async: true,
 		cache: false,
@@ -177,9 +180,21 @@ function startEventMgr() {
  * @param {Array} callbacks array functions
  */
 function handleCommandEvent(event,callbacks) {
-	// if not for me, return
+	var sessid=parseInt(event['Session']);
+	var source=event['Source'];
+	var destination=event['Destination'];
 	var name=event['Name'];
-	if (name!==ac_clientOpts.SessionName) return; // not for me
+
+	var isForMe=false;
+	if (sessid===0) isForMe=true; /* broadcast */
+	if (name==="") {
+		if (sessid === parseInt(ac_clientOpts.Ring)) isForMe=true;
+		if (destination === ac_clientOpts.BaseName) isForMe=true;
+	}
+	if (name===ac_clientOpts.Name) isForMe=true;
+	// not for me, return
+	if (!isForMe) return;
+	// ok, it's for me: analyze
 	var op=parseInt(event['Oper']);
 	if ( typeof(callbacks[op]) !== "function") return; // function not declared int table
 	setTimeout( function(){callbacks[op](event);},0);

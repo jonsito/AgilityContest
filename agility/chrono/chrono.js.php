@@ -30,16 +30,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 function chrono_putEvent(type,dat){
 	// setup default elements for this event
 	var obj= {
-			Operation:'chronoEvent',
-			Type: 	type,
-			TimeStamp: Math.floor(Date.now() / 1000),
-			Source:	'chrono_'+workingData.sesion,
-			Session:	workingData.sesion,
-			Prueba:	workingData.prueba,
-			Jornada:	workingData.jornada,
-			Manga:	workingData.manga,
-			Tanda:	workingData.tanda,
-			Value:	0 // may be overridden by received 'data' contents
+			Operation:      'chronoEvent',
+			Type: 	        type,
+			TimeStamp:      Math.floor(Date.now() / 1000),
+			Source:	        ac_clientOpts.BaseName,
+            Name:           ac_clientOpts.Name,
+            Destination:    '',
+            SessionName:    ac_clientOpts.SessionName,
+			Session:	    workingData.session,
+			Prueba:	        workingData.prueba,
+			Jornada:	    workingData.jornada,
+			Manga:	        workingData.manga,
+			Tanda:	        workingData.tanda,
+			Value:	        0 // may be overridden by received 'data' contents
 	};
 	// send "update" event to every session listeners
 	$.ajax({

@@ -188,7 +188,7 @@ $config =Config::getInstance();
             Operation: 'getTandas',
             Prueba: workingData.prueba,
             Jornada: workingData.jornada,
-            Sesion: (workingData.sesion==1)?1:-(workingData.sesion)
+            Sesion: (workingData.session==1)?1:-(workingData.session)
         },
         toolbar:'#tablet-toolbar',
         loadMsg: "<?php _e('Updating series order');?>"+" ...",
@@ -311,7 +311,7 @@ $config =Config::getInstance();
             rowStyler:myRowStyler,
             onClickRow: function(idx,data) {
                 doBeep();
-                data.Session=workingData.sesion;
+                data.Session=workingData.session;
                 data.Parent=mySelfstr; // store datagrid reference
                 data.RowIndex=idx; // store row index
                 $('#tdialog-form').form('load',data);

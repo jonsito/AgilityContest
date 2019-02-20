@@ -40,7 +40,7 @@ $config =Config::getInstance();
         queryParams: {
             Operation: 'select',
             Prueba: workingData.prueba, // when used from direct access
-            Sesion: workingData.sesion // when used from event handler
+            Sesion: workingData.session // when used from event handler
         },
         loadMsg: "<?php _e('Updating training session order');?> ...",
         pagination: false,

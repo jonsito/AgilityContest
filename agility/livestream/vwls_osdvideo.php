@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 <!-- Pantalla liveStream -->
-<div id="vwls_LiveStream-window" style="padding:0px;height:auto;">
+<div id="vwls_LiveStream-window" style="padding:0;height:auto;">
 	<div id="vwls_LiveStream" class="easyui-panel" style="overflow-x:hidden;overflow-y:hidden"
 		data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
 <?php if ($combined==1) { ?>
@@ -45,7 +45,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <source id="vwls_videowebm" src="" type='video/webm'/>
             </video>
 <?php } else { ?>
-		<img src="../ajax/images/getChromaKeyImage.php" style="z-index:-1;" />
+		<img alt="chroma-color" src="../ajax/images/getChromaKeyImage.php" style="z-index:-1;" />
 <?php } ?>
 		<div id="osd_common" style="display:inline-block;width:100%;">
 

@@ -333,7 +333,7 @@ function vwls_displayPuesto(flag,time) {
 
 function livestream_switchConsole(event) {
     var data=event['Value'].split(':');// ring : view : mode
-    var url="../livestream/index.php?Ring="+data[0]+"&View="+data[1]+"&Mode="+data[2]+"&Timeout=2&SessionName="+ac_clientOpts.SessionName;
+    var url="../livestream/index.php?Ring="+data[0]+"&View="+data[1]+"&Mode="+data[2]+"&Timeout=2&Name="+ac_clientOpts.Name;
     window.location.replace(url);
 }
 

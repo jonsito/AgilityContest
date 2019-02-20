@@ -79,6 +79,22 @@ function getRandomString(len) {
 }
 
 /**
+* Compose session identifier for given client options
+ *
+ * identifier is composed as: "base:sessid:view:mode:name"
+ * base: source family
+ * ring: session id for conected ring
+ * View: Display style
+ * Mode: Display options
+ * Name: unique client name. Must not contain ':' recommended example: basename_xxrandom8@ring
+ * @param {string} opts pointer to ac_clientOpts structure
+ * @return {string} composed string
+*/
+function composeClientSessionName(opts) {
+    return opts.BaseName + ":" + opts.Ring + ":" + opts.View + ":" + opts.Mode + ":" + opts.Name;
+}
+
+/**
  * Evaluate start Time (used as base time in tablet/chrono/videowall
  */
 var startDate=Date.now();
@@ -944,7 +960,7 @@ function initWorkingData(id,evtmgr) {
 	workingData.manga2= 0; // ID de la segunda manga para el calculo de resultados
 	workingData.tanda=0; // tanda (pareja manga/categoria) activa
 	workingData.nombreTanda = ""; 
-	workingData.sesion=1; // ID de sesion. 1: broadcast 2:ring 1 ....
+	workingData.session=1; // ID de sesion. 1: broadcast 2:ring 1 ....
 	workingData.nombreSesion=""; // nombre de la sesion
 	setFederation(0); // defaults to RSCE;
 	if (typeof(workingData.federation)==="undefined") setFederation(0); // select RSCE as default federation
@@ -974,7 +990,7 @@ function initWorkingData(id,evtmgr) {
 				workingData.manga2= 0; // ID de la segunda manga para el calculo de resultados
 				workingData.tanda	= data.Tanda;
 				workingData.nombreTanda = ""; 
-				workingData.sesion	= data.ID;
+				workingData.session	= data.ID;
 				workingData.nombreSesion	= data.Nombre;
 				workingData.datosSesion = data;
 				// if provided store event manager for this session

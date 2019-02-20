@@ -113,10 +113,12 @@ try {
 
 var ac_clientOpts={
     BaseName:   'livestream',
+    Destination: '',
     Ring:       1,
     View:       2,
     Mode:       'chroma',
     Timeout:    0,
+    Name:       '',
     SessionName: '' // to be set later from form dialog
 };
 
@@ -139,8 +141,10 @@ function initialize() {
 	ac_clientOpts.View=<?php _e(http_request("View","i",1)); ?>; // 0:start/1:live/2:parcial/3:final
 	ac_clientOpts.Mode='<?php _e(http_request("Mode","s","chroma")); ?>'; // "video" / "chroma"
 	ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // 0: dont else auto start after x seconds
-    // session name. defaults to random string(8)@client.ip.address
-    ac_clientOpts.SessionName='<?php echo http_request("SessionName","s",getDefaultSessionName()); ?>';
+    // name. defaults to random string(8)@client.ip.address
+    ac_clientOpts.Name='<?php echo http_request("Name","s",getDefaultClientName("livestream")); ?>';
+    // session name: base:sessid:view:mode:name
+    ac_clientOpts.SessionName=composeClientSessionName(ac_clientOpts);
 	$('#Livestream_Mode_' + ac_clientOpts.Mode).prop('checked',true);
 	if (ac_clientOpts.Timeout!==0) setTimeout(function() { ls_accept();	},1000*ac_clientOpts.Timeout); // on autostart launch window after 10 seconds
 }
@@ -260,10 +264,13 @@ $('#selvw-dialog').dialog({
 $('#selvw-form').form();
 
 $('#selvw-SessionName').textbox({
-    value: ac_clientOpts.SessionName,
+    value: ac_clientOpts.Name,
     required:false,
     validType:'length[1,255]',
-    onChange: function(value) {ac_clientOpts.SessionName=value.replace(/:/g,'');}
+    onChange: function(value) {
+        ac_clientOpts.Name=value.replace(/:/g,'');
+        ac_clientOpts.SessionName=composeClientSessionName(ac_clientOpts);
+    }
 });
 
 addTooltip($('#selvw-okBtn').linkbutton(),'<?php _e("Use selected as working session"); ?>');
@@ -323,12 +330,12 @@ function ls_accept() {
 	ac_config.vw_combined=$('input[name=Livestream_Mode]:checked').val();
 	var combinedstr=(ac_config.vw_combined===0)?"chroma":"video";
 	// store selected data into global structure
-	workingData.sesion=s.ID;
+	workingData.session=s.ID;
 	workingData.nombreSesion=s.Nombre;
 	initWorkingData(s.ID,livestream_eventManager);
 
 	var page="'../console/frm_notavailable.php";
-	var title="LiveStream : " + ac_clientOpts.SessionName + " ";
+	var title="LiveStream : " + ac_clientOpts.Name + " ";
 	var n=parseInt($('#selvw-Vista').combobox('getValue'));
 	switch (n) {
 		case 0: // Starting order

@@ -148,6 +148,7 @@ function resetSession(dg) {
 /************************ funciones de manejo de control remoto de sesiones ********************/
 
 function reloadRemoteClientList() {
+    $('#remote-tablet-datagrid').datagrid('unselectAll').datagrid('load');
     $('#remote-videowall-datagrid').datagrid('unselectAll').datagrid('load');
     $('#remote-livestream-datagrid').datagrid('unselectAll').datagrid('load');
     $('#remote-chronometer-datagrid').datagrid('unselectAll').datagrid('load');
@@ -197,6 +198,9 @@ function remoteAllorNone(val, dg,all,none) {
     if (val==0) { dg.datagrid('unselectAll'); all.prop('checked',false); }
 }
 
+function remoteTabletAllorNone(val) {
+    remoteAllorNone( val, $('#remote-tablet-datagrid') , $('#remote-tablet-all') ,$('#remote-tablet-none') );
+}
 function remoteVideowallAllorNone(val) {
     remoteAllorNone( val, $('#remote-videowall-datagrid') , $('#remote-videowall-all') ,$('#remote-videowall-none') );
 }
@@ -229,7 +233,8 @@ function remote_putEvent(data){
         Type:       'command',
         TimeStamp:  Math.floor(Date.now() / 1000),
         // event inner parameters
-        Source:     'Console_'+data.Session,
+        Source:     'console',
+        Destination: '', /* not specified, use name or session */
         Session:    data.Session,
         Prueba:     (typeof data.Prueba==="undefined")?0:data.Prueba,
         Jornada:    (typeof data.Jornada==="undefined")?0:data.Jornada,
@@ -240,8 +245,9 @@ function remote_putEvent(data){
         Dorsal:	    0,
         Equipo:	    0,
         Celo:		0,
-        // command event parameters. may be overriden with 'data contents
+        // command event parameters. will be overriden with 'data contents
         Name:       '', // display name
+        SessionName: '', // full path event name source:sessid:view:mode:name
         Oper:       0, // operation to be requested for 'command' event
         Value:      0   // csv parameter list
     };

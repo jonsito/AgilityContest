@@ -424,10 +424,10 @@ function aleatorio($a) { shuffle($a); return $a; }
  * take care on ipv6 address by replace ':' with ';'
  * @return {string} default session name
  */
-function getDefaultSessionName() {
-    $base = random_password(8);
+function getDefaultClientName($base) {
+    $rnd = random_password(8);
     $addr = $_SERVER['REMOTE_ADDR'];
-    return str_replace(":",";","{$base}@{$addr}");
+    return str_replace(":",".","{$base}_{$rnd}@{$addr}"); // filter ipv6 colon
 }
 
 /**

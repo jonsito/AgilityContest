@@ -58,14 +58,16 @@ function getStartStopMode() {
  * @param {object} data Event data
  */
 function tablet_putEvent(type,data){
-	var tds=$('#tdialog-Session').val();
 	// setup default elements for this event
 	var obj= {
 			'Operation':'putEvent',
 			'Type': 	type,
 			'TimeStamp': Math.floor(Date.now() / 1000),
-			'Source':	'tablet_'+tds,
-			'Session':	tds,
+			'Source':	'tablet',
+            'Destination': "" /* not specified: use name or session */
+            'Session':	ac_clientOpts.Ring,
+            'Name':     ac_clientOpts.Name
+            'SessionName': ac_clientOpts.SessionName,
 			'Prueba':	$('#tdialog-Prueba').val(),
 			'Jornada':	$('#tdialog-Jornada').val(),
 			'Manga':	$('#tdialog-Manga').val(),
@@ -74,7 +76,7 @@ function tablet_putEvent(type,data){
 			'Dorsal':	$('#tdialog-Dorsal').val(),
 			'Equipo':	$('#tdialog-Equipo').val(),
 			'Celo':		$('#tdialog-Celo').val(),
-			'Value':	0 // may be overriden with 'data' contents
+			'Value':	0, // may be overriden with 'data' contents
 	};
 	// send "update" event to every session listeners
 	$.ajax({
@@ -105,6 +107,31 @@ function tablet_putEvent(type,data){
 	});
 }
 
+function handleCommandEvent(event) {
+    var sessid=parseInt(event['Session']);
+    var source=event['Source'];
+    var destination=event['Destination'];
+    var name=event['Name'];
+    var oper=parseInt(event['Oper']);
+    var timeout=parseInt(event['Value'].split(':')[0]);
+    var msg=event['Value'].split(':')[1];
+    var isForMe=false;
+    if (oper!==EVTCMD_MESSAGE) return; /* only handles tablet messaging */
+    if (sessid==0) isForMe=true; /* broadcast */
+    if (name==="") {
+        if (sessid == ac_clientOpts.Ring) isForMe=true;
+        if (destination == ac_clientOpts.BaseName) isForMe=true;
+    }
+    if (name===ac_clientOpts.Name) isForMe=true;
+    if (!isForMe) return;
+    $.messager.show({
+        title:'Message from: '+source,
+        msg: msg,
+        timeout: 1000*timeout,
+        showType:'slide'
+    });
+}
+
 function tablet_updateSession(row) {
 	// on user defined mangas, check for wourse walk
 	if ( parseInt(row.Manga)==0) {
@@ -122,7 +149,7 @@ function tablet_updateSession(row) {
 	// update sesion info in database
 	var data = {
 		Operation: 'update',
-		ID: workingData.sesion,
+		ID: workingData.session,
 		Prueba: row.Prueba,
 		Jornada: row.Jornada,
 		Manga: row.Manga,
@@ -398,7 +425,7 @@ function tablet_reconocimiento() {
 	var time= (ac_clientOpts.CourseWalk==0)?60 * parseInt(ac_config.crono_rectime):0;
 	ac_clientOpts.CourseWalk=time;
 	tablet_putEvent('crono_rec',{
-		'Session': workingData.sesion,
+		'Session': workingData.session,
 		'Value' : Date.now() - startDate,
 		'start' : time
 	} );
@@ -420,7 +447,7 @@ function tablet_perroEnBlanco() {
 	}
     // generamos un evento "llamada" con IDPerro=0
     doBeep();
-    workingData.testDog.Session=workingData.sesion;
+    workingData.testDog.Session=workingData.session;
     workingData.testDog.Parent='#tablet-datagrid-'+row.ID;
     var dg2=$(workingData.testDog.Parent);
     var row2=dg2.datagrid('getSelected');
@@ -623,7 +650,7 @@ function tablet_accept() {
 		dg.datagrid('scrollTo',rowindex);
 		dg.datagrid('selectRow',rowindex);
 		var data=dg.datagrid('getSelected');
-		data.Session=workingData.sesion;
+		data.Session=workingData.session;
 		data.RowIndex=rowindex;
 		data.Parent=dgname;
 		$('#tdialog-form').form('load',data);
@@ -664,7 +691,7 @@ function tablet_gotoDorsal(tanda,dgname,dorsal) {
 			dg.datagrid('selectRow', idx);
 			dg.datagrid('scrollTo', idx);
 			var data = dg.datagrid('getRows')[idx];
-			data.Session = workingData.sesion;
+			data.Session = workingData.session;
 			data.Parent = dgname; // store datagrid reference
 			data.RowIndex=idx;
 			$('#tdialog-form').form('load', data);
@@ -919,7 +946,8 @@ function tablet_eventManager(id,evt) {
 		return;
 	case 'camera': // video source for live stream has changed
 		return;
-    case 'command': // videowall remote control
+    case 'command': // handle remote control commands
+        handleCommandEvent(event);
         return;
 	case 'reconfig':	// reload configuration from server
 		loadConfiguration();
