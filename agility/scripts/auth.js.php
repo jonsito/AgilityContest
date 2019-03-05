@@ -144,19 +144,29 @@ function acceptLogin() {
                     }
                 }
        			str =str+'<br /><br />'+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
-       			var w=$.messager.alert("Login",str,"info",function(){
-                    // change menu message to logout
-					$('#login_menu-text').html('<?php _e("End session");?>'+": <br />"+data.Login);
-                    // initialize auth info
-					initAuthInfo(data);
-					if (checkForAdmin(false)) { // do not handle syncdb unless admin login
-                        // if not configured ( value<0 ) ask user to enable autosync database
-                        var up=parseInt(ac_config.search_updatedb);
-                        if (up<0) {
-                            setTimeout(function() { askForUpdateDB();},500 );
-                        }
-                        if ( (up>0) && ( $('#login_updatedb').prop('checked') == true) ) {
-                            setTimeout(function() { synchronizeDatabase(false)},500);
+       			var w=$.messager.alert({
+                    closable: false, // do not show close button at upper right corner: fn is needed anyway
+       			    title:  "Login",
+                    msg: str,
+                    icon: "info",
+                    fn: function() {
+                        // change menu message to logout
+                        $('#login_menu-text').html('<?php _e("End session");?>' + ": <br />" + data.Login);
+                        // initialize auth info
+                        initAuthInfo(data);
+                        if (checkForAdmin(false)) { // do not handle syncdb unless admin login
+                            // if not configured ( value<0 ) ask user to enable autosync database
+                            var up = parseInt(ac_config.search_updatedb);
+                            if (up < 0) {
+                                setTimeout(function () {
+                                    askForUpdateDB();
+                                }, 500);
+                            }
+                            if ((up > 0) && ($('#login_updatedb').prop('checked') == true)) {
+                                setTimeout(function () {
+                                    synchronizeDatabase(false)
+                                }, 500);
+                            }
                         }
                     }
 				});
