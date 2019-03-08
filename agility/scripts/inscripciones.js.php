@@ -67,7 +67,8 @@ function changeInscription(idx,prueba,perro,jindex,obj) {
             } else {
                 var j="J"+ji;
                 // on save done refresh related datagrid index data
-                $('#inscripciones-datagrid').datagrid('getRows')[idx][j]=obj.checked;
+                var row=$('#inscripciones-datagrid').datagrid('getSelected');
+                if (row) row[j]=obj.checked;
             }
         }
     }).then(function(){ // jquery ajax are promises, so can use .then(resolve(),reject())
