@@ -145,11 +145,14 @@ function acceptLogin() {
                 }
        			str =str+'<br /><br />'+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
        			var w=$.messager.alert({
-                    closable: false, // do not show close button at upper right corner: fn is needed anyway
+                    // closable: false, // do not show close button at upper right corner: fn is needed anyway
        			    title:  "Login",
                     msg: str,
                     icon: "info",
-                    fn: function() {
+                    width: wwidth,
+                    height: 'auto',
+                    fn: function() { /* empty */ },
+                    onClose: function() {
                         // change menu message to logout
                         $('#login_menu-text').html('<?php _e("End session");?>' + ": <br />" + data.Login);
                         // initialize auth info
@@ -170,7 +173,7 @@ function acceptLogin() {
                         }
                     }
 				});
-                w.window('resize',{width:wwidth,height:'auto'}).window('center');
+                w.window('center');
 
                 // force backup on login success
                 autoBackupDatabase(0,"");
