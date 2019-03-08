@@ -141,7 +141,7 @@ function initialize() {
 	ac_clientOpts.View=<?php _e(http_request("View","i",3)); ?>; // defaults to OSD chroma key
 	ac_clientOpts.Timeout=<?php _e(http_request("Timeout","i",0)); ?>; // auto start displaying after x seconds. 0 disable
     // session name. defaults to random string(8)@client.ip.address
-    ac_clientOpts.Name='<?php echo http_request("Name","s",getDefaultClientName(videowall)); ?>';
+    ac_clientOpts.Name='<?php echo http_request("Name","s",getDefaultClientName('videowall')); ?>';
     ac_clientOpts.SessionName=composeClientSessionName(ac_clientOpts);
     // if requested fire autostart
 	if (parseInt(ac_clientOpts.Timeout)!==0) setTimeout(function() { vw_accept();},1000*ac_clientOpts.Timeout);

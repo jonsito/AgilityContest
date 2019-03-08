@@ -101,7 +101,7 @@ function initialize() {
     ac_clientOpts.Ring=<?php echo http_request("Ring","i",1); ?>; // defaults to ring 1
     ac_clientOpts.Timeout=<?php echo http_request("Timeout","i",0); ?>; // auto start displaying after x seconds. 0 disable
     // session name. defaults to random string(8)@client.ip.address
-    ac_clientOpts.Name='<?php echo http_request("Name","s",getDefaultClientName("chrono")); ?>';
+    ac_clientOpts.Name='<?php echo http_request("Name","s", getDefaultClientName("chrono")); ?>';
     ac_clientOpts.SessionName=composeClientSessionName(ac_clientOpts);
     if (parseInt(ac_clientOpts.Timeout)!==0) setTimeout(function() { chrono_accept();},1000*ac_clientOpts.Timeout); // if requested fire autostart
 }

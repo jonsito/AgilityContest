@@ -63,7 +63,7 @@ function tablet_putEvent(type,data){
 			'Operation':'putEvent',
 			'Type': 	type,
 			'TimeStamp': Math.floor(Date.now() / 1000),
-			'Source':	'tablet',
+			'Source':	ac_clientOpts.BaseName,
             'Destination': "" /* not specified: use name or session */
             'Session':	ac_clientOpts.Ring,
             'Name':     ac_clientOpts.Name

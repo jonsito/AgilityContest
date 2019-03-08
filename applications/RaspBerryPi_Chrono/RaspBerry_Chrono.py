@@ -107,11 +107,11 @@ BTN_Inter=    22    # BCM25        - Button_8 //    Intermediate Chrono
 # Timestamp= time mark of last event parsed as received from server
 #
 # example
-# ?Operation=chronoEvent&Type=crono_rec&TimeStamp=150936&Source=chrono_2&Session=2&Value=150936
+# ?Operation=chronoEvent&Type=crono_rec&TimeStamp=150936&Source=chrono&Session=2&Value=150936
 # data = json.load( urllib.urlopen('https://ip.addr.of.server/base_url/ajax/database/eventFunctions.php') + arguments, verify=False )
 
 ##### Some constants
-SESSION_NAME = "Chrono_2"    # should be generated from evaluated session ID
+SESSION_NAME = "Chrono"    # should be generated from evaluated session ID
 DEBUG=True
 ETH_DEVICE='eth0'        # this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
 
