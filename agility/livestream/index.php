@@ -113,7 +113,6 @@ try {
 
 var ac_clientOpts={
     BaseName:   'livestream',
-    Destination: '',
     Ring:       1,
     View:       2,
     Mode:       'chroma',

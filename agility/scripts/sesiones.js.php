@@ -233,7 +233,7 @@ function remote_putEvent(data){
         Type:       'command',
         TimeStamp:  Math.floor(Date.now() / 1000),
         // event inner parameters
-        Source:     'console',
+        Source:     ac_clientOpts.BaseName,
         Destination: '', /* not specified, use name or session */
         Session:    data.Session,
         Prueba:     (typeof data.Prueba==="undefined")?0:data.Prueba,

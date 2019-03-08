@@ -1,10 +1,10 @@
--- AgilityContest Version: 3.9.0 Revision: 20190204_1210 License: 00000001
--- AgilityContest Backup Date: 20190210_1758 Hash: 
--- MySQL dump 10.17  Distrib 10.3.11-MariaDB, for Linux (x86_64)
+-- AgilityContest Version: 3.9.0 Revision: 20190216_1700 License: 00000001
+-- AgilityContest Backup Date: 20190308_1243 Hash: 
+-- MySQL dump 10.17  Distrib 10.3.12-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: agility
 -- ------------------------------------------------------
--- Server version	10.3.11-MariaDB
+-- Server version	10.3.12-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -65,7 +65,7 @@ CREATE TABLE `clubes` (
   KEY `Clubes_Nombre` (`Nombre`),
   KEY `Clubes_Provincia` (`Provincia`),
   CONSTRAINT `Clubes_ibfk_1` FOREIGN KEY (`Provincia`) REFERENCES `provincias` (`Provincia`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=709 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=710 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,7 +147,7 @@ CREATE TABLE `eventos` (
   PRIMARY KEY (`ID`),
   KEY `Eventos_Session` (`Session`),
   CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Session`) REFERENCES `sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16425 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16433 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +186,7 @@ CREATE TABLE `guias` (
   KEY `Guias_Nombre` (`Nombre`),
   KEY `Guias_Club` (`Club`),
   CONSTRAINT `Guias_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `clubes` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3115 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3119 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,7 +214,7 @@ CREATE TABLE `importdata` (
   `NombreClub` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
   `Pais` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -501,7 +501,7 @@ CREATE TABLE `perros` (
   CONSTRAINT `Perros_ibfk_1` FOREIGN KEY (`Categoria`) REFERENCES `categorias_perro` (`Categoria`) ON UPDATE CASCADE,
   CONSTRAINT `Perros_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `grados_perro` (`Grado`) ON UPDATE CASCADE,
   CONSTRAINT `Perros_ibfk_3` FOREIGN KEY (`Guia`) REFERENCES `guias` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4266 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4271 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -621,7 +621,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1642 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1646 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -728,11 +728,15 @@ CREATE TABLE `versionhistory` (
 --
 -- Dumping routines for database 'agility'
 --
--- MySQL dump 10.17  Distrib 10.3.11-MariaDB, for Linux (x86_64)
+
+-- insufficient privileges to SHOW CREATE PROCEDURE `AddColumnUnlessExists`
+-- does agility_operator have permissions on mysql.proc?
+
+-- MySQL dump 10.17  Distrib 10.3.12-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: agility
 -- ------------------------------------------------------
--- Server version	10.3.11-MariaDB
+-- Server version	10.3.12-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1204,7 +1208,8 @@ INSERT INTO `clubes` VALUES
 (705,'Siete Cejos','\"\"','La Galga','','Palmas, Las','ESP','','','','','','info@sietecejos.com','','','','siete_cejos.png',2,'',0,'2019-02-07 08:46:44',705),
 (706,'Agility Compostela','\"\"','Aramio-Arins nº 4','15892 Santiago de Compostela','Coruña, A','ESP','646 291 070','','','42.862070, -8.481085','','agilitycompostela@gmail.com','','','','agility_compostela.png',15,'',0,'2019-02-07 08:46:44',706),
 (707,'Ocean Agility','\"\"','Casais de Cabrela','2085 Sintra','-- Sin asignar --','POR','','','','','','oceanagility@gmail.com','','','','ocean_agility.png',25,'',0,'2019-02-07 08:46:44',707),
-(708,'Somnium','\"\"','Polígono 20, parcela 132','12190 Vall d\'alba','Castellón/Castelló','ESP','','','','','','agilitysomnium@gmail.com','','','','agility_somnium.png',15,'',0,'2019-02-07 08:46:44',708);
+(708,'Somnium','\"\"','Polígono 20, parcela 132','12190 Vall d\'alba','Castellón/Castelló','ESP','','','','','','agilitysomnium@gmail.com','','','','agility_somnium.png',15,'',0,'2019-02-07 08:46:44',708),
+(709,'Rio Mula','\"\"','Camino del Curtís - Campo de Fútbol','30170 Mula ','Murcia','ESP','+34 630 46 42 55','','','','','gutierrezgonzalezjoseantonio@gmail.com','','','','rio_mula.png',15,'',0,'2019-03-08 11:28:07',0);
 /*!40000 ALTER TABLE `clubes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1991,7 +1996,7 @@ INSERT INTO `guias` VALUES
 (106,'Daniel Amigo',NULL,NULL,7,0,NULL,'A','2018-01-06 10:20:52',106),
 (107,'Daniel Luna',NULL,NULL,40,0,NULL,'A','2018-01-06 10:20:52',107),
 (108,'Daniel Menéndez',NULL,NULL,31,0,NULL,'A','2018-01-06 10:20:52',108),
-(109,'David Alique Sanchez','','',115,0,'','A','2018-03-29 09:34:29',109),
+(109,'David Alique Sanchez','','',2,0,'','A','2019-03-08 11:30:39',109),
 (110,'David Asenjo','','',42,0,'','A','2018-01-06 10:20:52',110),
 (111,'David Escribano','','',27,0,'','A','2018-01-06 10:20:52',111),
 (112,'David Ferrer Tudó','','',89,0,'','A','2018-01-06 10:20:52',112),
@@ -2375,7 +2380,7 @@ INSERT INTO `guias` VALUES
 (515,'Javier González','','',35,0,'','A','2018-01-06 10:20:52',515),
 (516,'Rafael Arjona Gordillo','','',9,0,'','A','2018-01-06 10:20:52',516),
 (517,'Nina Causevic','','',9,0,'','A','2018-01-06 10:20:52',517),
-(518,'Eli Hoen Brandsaeter','','',28,0,'','A','2018-01-06 10:20:52',518),
+(518,'Eli Hoen Brandsaeter','','',60,0,'','A','2019-03-08 11:32:13',518),
 (520,'Patricia Sevillano García','','',115,0,'','A','2018-01-06 10:20:52',520),
 (521,'Daniel Colás Avilés','','',80,0,'','A','2018-01-06 10:20:52',521),
 (522,'Marta Acero Pérez','','',103,0,'','A','2018-06-21 15:26:56',522),
@@ -2920,7 +2925,7 @@ INSERT INTO `guias` VALUES
 (1085,'David Arenas','','',91,0,'','A','2018-01-06 10:20:52',1085),
 (1086,'Javier Pérez','','',91,0,'','A','2018-01-06 10:20:52',1086),
 (1087,'Javier Pagán','','',10,0,'','A','2018-01-06 10:20:52',1087),
-(1088,'Jose Antonio Gutierrez Gonzalez','','',43,0,'','S','2018-01-06 10:20:52',1088),
+(1088,'Jose Antonio Gutierrez Gonzalez','','',709,0,'','S','2019-03-08 11:35:43',1088),
 (1089,'Patricia Ferrer Pousa','','',23,0,'','A','2018-02-22 12:35:50',1089),
 (1090,'Lorena Sanchez','','',19,0,'','A','2018-01-06 10:20:52',1090),
 (1091,'Diego Gregorio Hernandez','','',19,0,'','A','2018-01-06 10:20:52',1091),
@@ -4073,7 +4078,7 @@ INSERT INTO `guias` VALUES
 (2315,'Beatriz Pesquero',NULL,NULL,37,0,NULL,'A','2018-01-06 10:20:52',2315),
 (2317,'Isabel Saboya',NULL,NULL,103,0,NULL,'A','2018-01-06 10:20:52',2317),
 (2318,'Oscar Muñoz Grados','','',87,0,'','A','2018-03-14 19:32:23',2318),
-(2320,'Daniel Garcia Fuentes',NULL,NULL,646,0,NULL,'A','2018-09-28 10:29:12',2320),
+(2320,'Daniel Garcia Fuentes',NULL,NULL,115,0,NULL,'A','2019-03-08 11:35:26',2320),
 (2321,'Lorena Rodriguez Miguel',NULL,NULL,672,0,NULL,'A','2018-01-06 10:20:52',2321),
 (2322,'Maria Redondo Valdehermoso',NULL,NULL,672,0,NULL,'A','2018-01-06 10:20:52',2322),
 (2323,'Raquel Lopez Roldan',NULL,NULL,672,0,NULL,'A','2018-01-06 10:20:52',2323),
@@ -4100,7 +4105,7 @@ INSERT INTO `guias` VALUES
 (2344,'Jorge Ludeña Sanchez','','',101,0,'','A','2018-03-14 19:08:38',2344),
 (2345,'Marta Silva Núñez','','',702,0,'','A','2018-09-28 10:27:58',2345),
 (2346,'Fernando Ortega','','',115,0,'','A','2018-01-06 10:20:52',2346),
-(2347,'Juan Carlos',NULL,NULL,101,0,NULL,'A','2018-01-06 10:20:52',2347),
+(2347,'Juan Carlos Aranda García',NULL,NULL,101,0,NULL,'A','2019-03-08 11:34:22',2347),
 (2348,'Aroa',NULL,NULL,101,0,NULL,'A','2018-01-06 10:20:52',2348),
 (2349,'Texenery',NULL,NULL,101,0,NULL,'A','2018-01-06 10:20:52',2349),
 (2350,'Montserrat García','','',37,0,'','A','2018-01-06 10:20:52',2350),
@@ -4859,7 +4864,11 @@ INSERT INTO `guias` VALUES
 (3111,'Rebeca Esmeralda Sanz Carrasco',NULL,NULL,4,0,NULL,'A','2019-02-10 16:41:00',0),
 (3112,'Hugo Pando',NULL,NULL,27,0,NULL,'A','2019-02-10 16:42:32',0),
 (3113,'Gregorio Caro',NULL,NULL,27,0,NULL,'A','2019-02-10 16:43:03',0),
-(3114,'Abrahan Roman Conde',NULL,NULL,87,0,NULL,'A','2019-02-10 16:45:28',0);
+(3114,'Abrahan Roman Conde',NULL,NULL,87,0,NULL,'A','2019-02-10 16:45:28',0),
+(3115,'Hector Casañal',NULL,NULL,2,0,NULL,'A','2019-03-08 11:30:20',0),
+(3116,'Alberto Sánchez',NULL,NULL,79,0,NULL,'A','2019-03-08 11:32:52',0),
+(3117,'Beatriz Guerrero Lobo',NULL,NULL,87,0,NULL,'A','2019-03-08 11:33:31',0),
+(3118,'Miguel Antonio Wheeler-King Moreno',NULL,NULL,101,0,NULL,'A','2019-03-08 11:34:57',0);
 /*!40000 ALTER TABLE `guias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -9820,7 +9829,7 @@ INSERT INTO `perros` VALUES
 (347,'Ada','Mestizo','','1459','S',398,0,'GII','','-','','2018-01-06 10:20:27',347,0),
 (348,'Aker','Pastor Belga Malinois','1553051','A397','L',162,0,'GII','Txakur-Bai Filete','M','985120022336575','2018-01-06 10:20:27',348,0),
 (349,'Akira','','125877','A455','S',255,0,'GII','','','','2018-01-06 10:20:27',349,0),
-(350,'Dama','Fox Terrier De Pelo Duro','AC_A641','A641','S',264,0,'P.A.','','F','','2019-02-10 16:55:22',350,0),
+(350,'Dama','Fox Terrier De Pelo Duro','AC_A641','A641','M',264,0,'P.A.','','F','','2019-03-08 11:39:03',350,0),
 (351,'Flai','Fox Terrier Wire','0129738','A815','M',264,0,'GII','Flying Start de Cudanca','M','','2018-01-09 09:59:59',351,0),
 (352,'Donna','Border Collie','121744','A795','L',405,0,'GII','','','','2018-01-06 10:20:27',352,0),
 (355,'Akela','Border Collie','RRC 121888','A746','L',155,0,'GIII','','F','941000012891213','2019-02-06 13:34:55',355,0),
@@ -9849,7 +9858,7 @@ INSERT INTO `perros` VALUES
 (379,'Skay','Pdae','131993','A605','L',212,0,'GII','','M','','2018-01-06 10:20:27',379,0),
 (380,'Keko','Podenco Portugues','149662','B219','L',17,0,'GIII','Keko','M','941000013504324','2018-01-06 10:20:27',380,0),
 (381,'Mambo','Border Collie','2037670','B239','L',39,0,'GII','','M','','2018-01-06 10:20:27',381,0),
-(382,'Swing','Border Collie','156173','10592','M',371,0,'GII','Swing','F','977200008059944','2018-04-23 11:14:06',382,0),
+(382,'Swing','Border Collie','156173','10592','M',371,0,'GIII','Swing','F','977200008059944','2019-03-08 11:39:03',382,0),
 (383,'Trufa','Pdae','1941360','B420','M',496,0,'GII','','F','','2018-01-06 10:20:27',383,0),
 (384,'Soma','Labradorr Etriever','136948','A696','L',343,0,'GII','','F','','2018-01-06 10:20:27',384,0),
 (385,'Phoebe','Border Collie','2025132','A555','M',148,0,'Baja','','-','','2018-01-06 10:20:27',385,0),
@@ -10089,7 +10098,7 @@ INSERT INTO `perros` VALUES
 (636,'Witzig','Pastor Pirineos','','1665','M',331,0,'GII','','-','','2018-01-06 10:20:27',636,0),
 (637,'Lis','Boder Collie','','11392','L',527,0,'GI','Liz','F','','2019-02-10 16:55:22',637,0),
 (638,'Luka','Westie','2032351','A721','S',638,0,'GII','Alborada Slodka','F','938000000450320','2019-02-07 08:46:09',638,0),
-(639,'Boss','Border Collie','137063','B095','L',111,0,'GII','','M','','2018-01-06 10:20:27',639,0),
+(639,'Boss','Border Collie','137063','B095','L',111,0,'GIII','','M','','2019-03-08 11:39:03',639,0),
 (640,'Nueve','West Highland','','','S',528,0,'GI','','-','','2017-11-09 10:28:55',0,0),
 (641,'Neo','Border Collie','','','L',529,0,'GI','','-','','2017-11-09 10:28:55',0,0),
 (642,'Charly','Jack Russell Terrier','152504','B259','S',1437,0,'GII','Charly','F','945000000502046','2018-04-23 11:14:06',642,0),
@@ -11806,13 +11815,13 @@ INSERT INTO `perros` VALUES
 (2473,'Kyle','B. Collie','','','L',1899,0,'GI','','M','','2017-11-09 10:28:55',0,0),
 (2474,'Arwen','Golden Retriever','AC_B136','B136','L',1900,0,'GII','','F','','2018-01-06 10:20:27',2474,0),
 (2476,'Kyra','B. Collie','','','L',1901,0,'GI','','F','','2017-11-09 10:28:55',0,0),
-(2479,'Macarena','Jack Russell Terrier','AC_B688','B688','S',1903,0,'GI','','F','','2018-01-06 10:20:27',2479,0),
+(2479,'Macarena','Jack Russell Terrier','AC_B688','B688','S',1903,0,'GII','','F','','2019-03-08 11:39:03',2479,0),
 (2487,'Amy','Border Collie','137749','B324','L',312,0,'GIII','Amy','F','981098104370818','2018-01-06 10:20:27',2487,0),
 (2488,'Sacha','Perro De Agua Español','2075511','A632','M',1912,0,'GIII','Sacha Del Bolanio','F','941000013419600','2018-07-18 16:35:54',2488,0),
 (2489,'Sonrisa','Border Collie','','2018','L',34,0,'GII','','F','','2018-01-06 10:20:27',2489,0),
 (2490,'Eliminada','Border Collie','AC_B689','B689','L',34,0,'GII','Aunia De Xanastur','F','','2018-01-28 07:35:20',2490,0),
 (2492,'Halloween','Border Collie','','','L',401,0,'GI','','F','','2017-11-09 10:28:55',0,0),
-(2494,'Maiko','Border Collie','AC_B411','B411','L',472,0,'GI','','M','','2018-07-18 16:35:54',2494,0),
+(2494,'Maiko','Border Collie','AC_B411','B411','L',472,0,'GII','','M','','2019-03-08 11:39:03',2494,0),
 (2495,'Bola','Border Collie','','','L',1177,0,'GI','','F','','2017-11-09 10:28:55',0,0),
 (2496,'Coco','Podenco Portugues','RRC0160188','1858','L',101,0,'GII','Coco','M','941000012022671','2018-02-21 10:07:30',2496,0),
 (2497,'Dana','Border Collie','141232','B419','L',312,0,'GII','','F','','2018-01-06 10:20:27',2497,0),
@@ -11834,13 +11843,13 @@ INSERT INTO `perros` VALUES
 (2523,'Lucky','Border Collie','','2124','L',1932,0,'GI','Lucky','M','','2018-09-28 10:29:12',2523,0),
 (2524,'Bulma','Border Collie','0159243','11687','L',1933,0,'GIII','Bulma','F','941000017446596','2019-02-10 16:55:22',2524,0),
 (2526,'Bako','Beagle','AC_B846','B846','M',1935,0,'GII','Bako','M','','2018-09-28 10:29:12',2526,0),
-(2530,'Ares','Pastor Belga Malinoise','AC_B385','B385','L',1939,0,'GI','','M','','2018-01-06 10:20:27',2530,0),
+(2530,'Ares','Pastor Belga Malinoise','AC_B385','B385','L',1939,0,'GII','','M','','2019-03-08 11:39:03',2530,0),
 (2532,'Flash','Border Collie','AC_B489','B489','L',1941,0,'GI','','M','','2018-01-06 10:20:27',2532,0),
 (2534,'Yashi','Pastor De Los Pirineos','2002884','B191','M',1943,0,'GII','','F','','2018-01-06 10:20:27',2534,0),
 (2538,'Greta','Shetland Sheepdog','2169931','B804','M',1947,0,'GIII','Asmoan Elixir','F','900176000100741','2018-09-28 10:29:12',2538,0),
 (2551,'Marvin','Border Collie','','','L',1957,0,'P.A.','','M','','2018-03-08 10:40:55',2551,0),
 (2556,'Kiara','Border Collie','','','L',1961,0,'GI','','F','','2017-11-09 10:28:55',0,0),
-(2558,'Nuka','Border Collie','','','L',1963,0,'P.A.','','F','','2017-11-09 10:28:55',0,0),
+(2558,'Nuka','Border Collie','','12546','L',1963,0,'GI','','F','','2019-03-08 11:39:03',0,0),
 (2559,'Galatea','Shetland','AC_B444','B444','M',1964,0,'GII','','F','','2019-02-10 16:55:22',2559,0),
 (2568,'Troya','','','1857','L',1970,0,'GI','','-','','2018-01-06 10:20:27',2568,0),
 (2571,'Megan Fox','Border Collie','AC_B462','B462','L',1972,0,'GI','','F','','2018-01-06 10:20:27',2571,0),
@@ -11852,7 +11861,7 @@ INSERT INTO `perros` VALUES
 (2583,'Stay','Border Colie','AC_B441','B441','L',176,0,'GI','','F','','2018-01-06 10:20:27',2583,0),
 (2585,'Yera','','','','L',162,0,'P.A.','','F','','2017-11-09 10:28:55',0,0),
 (2587,'Nuka','West Highland White Terrier','','1877','S',1982,0,'GI','','F','','2018-01-06 10:20:27',2587,0),
-(2588,'Duma','Mestiza','','1879','L',1983,0,'GI','','F','','2018-01-06 10:20:27',2588,0),
+(2588,'Duma','Mestiza','','1879','L',1983,0,'GII','','F','','2019-03-08 11:39:03',2588,0),
 (2589,'Nicco','Border Collie','151443','B487','L',1984,0,'GII','','M','','2018-01-06 10:20:27',2589,0),
 (2590,'Niko','Border Collie','','1886','L',1985,0,'GI','','M','','2018-01-06 10:20:27',2590,0),
 (2591,'William','Border Collie','','','L',1976,0,'P.A.','','M','','2017-11-09 10:28:55',0,0),
@@ -12137,7 +12146,7 @@ INSERT INTO `perros` VALUES
 (2887,'Cies','Border Collie','2197347','B131','L',350,0,'GIII','Cies De Dalcon','F','9.8200021005541E+14','2019-02-06 12:02:39',2887,0),
 (2888,'Norte','Shetland Sheepdog','2274020','10711','S',380,0,'GIII','Lasborras Freestyle','F','978101081178175','2018-04-23 11:14:06',2888,0),
 (2889,'Poopy','Border Collie','AC_B852','B852','L',389,0,'GIII','Astra Jara','F','956000004179884','2018-02-22 13:11:41',2889,0),
-(2890,'Noche','Pastor Del Pirineo','','10004','M',563,0,'GI','','F','','2018-01-09 12:40:18',2890,0),
+(2890,'Noche','Pastor Del Pirineo','','10004','M',563,0,'GII','','F','','2019-03-08 11:39:03',2890,0),
 (2891,'Newton','Gran Griffon Vendeano','AC_B293','B293','L',567,0,'GII','','M','','2018-01-06 10:20:27',2891,0),
 (2892,'Maisha','Pastor Belga Malinois','Loe 2251640','B516','L',569,0,'GIII','','F','941000016936634','2019-02-06 13:34:55',2892,0),
 (2893,'Brisa','Border Collie','AC_A608','B608','L',577,0,'GII','','F','','2018-01-06 10:20:27',2893,0),
@@ -12239,7 +12248,7 @@ INSERT INTO `perros` VALUES
 (2990,'Kafka','Border Collie','','','S',13,0,'P.A.','','F','','2017-11-09 10:28:55',0,0),
 (2991,'Mona','Bearded Collie','2315690','10483','L',32,0,'GII','Mona de Chester','F','250268731557688','2018-03-27 10:17:53',2991,0),
 (2992,'Shia','Border Collie','2291266','10759','L',41,0,'GIII','','F','941000018746171','2018-07-18 16:35:54',2992,0),
-(2993,'Dante','Border Colie','1934497','10965','L',148,0,'GII','Capitan Sparrow','M','','2018-01-06 10:20:27',2993,0),
+(2993,'Dante','Border Colie','1934497','10965','L',148,0,'GIII','Capitan Sparrow','M','','2019-03-08 11:39:03',2993,0),
 (2994,'Inu','Boder Collie','','','L',172,0,'P.A.','','M','','2017-11-23 14:00:35',0,0),
 (2995,'Crom','Schipperke','2343369','11206','M',184,0,'GI','','M','','2019-02-07 08:46:09',2995,0),
 (2996,'Sugar','Perro De Aguas Español','2292480','11551','M',196,0,'GIII','Hopi De L\'almozara','F','981020015333652','2019-02-07 08:46:09',2996,0),
@@ -12247,7 +12256,7 @@ INSERT INTO `perros` VALUES
 (2998,'Mérida','Border Collie','','','L',2308,0,'P.A.','','F','','2018-06-21 16:19:23',0,0),
 (2999,'Pilarica','Perro De Aguas Español','LOE2292484','10659','L',264,0,'GII','Omaha De L\'almozara','F','941000018246349','2018-09-28 12:05:56',2999,0),
 (3001,'Maclaren','Border Collie','135482','TRáMITE','L',329,0,'GII','','M','941000013588725','2018-02-23 07:54:24',3001,0),
-(3002,'Karin','Shetland','2322933','10974','S',337,0,'GI','Asmoan Kriptonite','M','978101080970902','2019-02-07 08:46:09',3002,0),
+(3002,'Karin','Shetland','2322933','10974','S',337,0,'GII','Asmoan Kriptonite','M','978101080970902','2019-03-08 11:39:03',3002,0),
 (3003,'Arwen','Shetland','2246217','B452','S',371,0,'GII','','F','941000017739844','2018-06-22 12:24:20',3003,0),
 (3004,'Saphira','Border Collie','','10432','L',423,0,'GII','Maggie','F','','2018-01-06 10:20:27',3004,0),
 (3005,'Qi','Border Collie','2300713','10484','L',457,0,'GIII','Delorean Dmc-12','F','380260100309931','2019-02-06 13:34:55',3005,0),
@@ -12395,7 +12404,7 @@ INSERT INTO `perros` VALUES
 (3151,'Newton','Mestizo','','10775','L',2346,0,'GII','','M','981098104204109','2018-06-08 21:41:09',3151,0),
 (3152,'Duque','','','','S',756,0,'P.A.','','M','','2017-11-09 10:28:55',0,0),
 (3153,'Lucky','','','','L',756,0,'P.A.','','M','','2017-11-09 10:28:55',0,0),
-(3154,'Zeus','','','','L',2347,0,'P.A.','','M','','2017-11-09 10:28:55',0,0),
+(3154,'Zeus','','','12548','L',2347,0,'GI','','M','','2019-03-08 11:39:03',0,0),
 (3155,'Zubi','','','','L',2348,0,'P.A.','','M','','2017-11-09 10:28:55',0,0),
 (3156,'Sacha','','','','L',2349,0,'P.A.','','F','','2017-11-09 10:28:55',0,0),
 (3157,'Rufo','Sabueso De Transilvania','','11565','L',2350,0,'GII','','M','','2018-02-21 11:11:18',3157,0),
@@ -13090,7 +13099,7 @@ INSERT INTO `perros` VALUES
 (3862,'Tabu','Schnauzer Mediano','','10920','M',491,0,'GI','Gema I De Barbadura','F','','2018-02-25 09:22:53',3862,0),
 (3863,'Hampi','Border Collie','2341535','1988','L',160,0,'GIII','Proforza Magma','F','958000010412665','2019-02-10 16:55:22',3863,0),
 (3864,'Dana','Sheetland Shepdog','','10989','M',2847,0,'GI','','F','','2018-02-21 12:11:57',3864,0),
-(3865,'Djamba','Border Collie','','11396','L',343,0,'GI','D\'Jamba de Mendi-Ripa','F','','2018-07-18 16:40:25',3865,0),
+(3865,'Djamba','Border Collie','','11396','L',343,0,'GII','D\'jamba De Mendi-Ripa','F','','2019-03-08 11:39:03',3865,0),
 (3866,'Goonie','Border Collie','','10816','L',6,0,'GI','','M','','2018-02-22 12:54:54',3866,0),
 (3867,'Selene','Border Collie','2352416','11418','L',182,0,'GIII','Shadow Of Aire Selene','F','705091000002054','2019-02-06 13:34:55',3867,0),
 (3868,'Stark','Kelpie','','11390','L',456,0,'GI','Stark De Scofos','M','','2018-02-22 12:56:23',3868,0),
@@ -13239,10 +13248,10 @@ INSERT INTO `perros` VALUES
 (4011,'Kazan','','','','L',2943,0,'P.A.','','M','','2018-03-08 09:10:23',0,0),
 (4012,'Lia','Yorkshire Terrier','','','S',2944,0,'P.A.','','F','','2018-03-08 09:11:25',0,0),
 (4013,'Ella','Bodeguero','','10067','M',442,0,'GI','','F','','2018-03-08 10:23:30',4013,0),
-(4014,'Horus','Kelpie','161370','11412','L',1905,0,'P.A.','Horus','M','941000021185314','2018-03-08 10:49:59',4014,0),
+(4014,'Horus','Kelpie','161370','11412','L',1905,0,'GI','Horus','M','941000021185314','2019-03-08 11:39:03',4014,0),
 (4015,'Halo','English Cocker Spaniel','2401241','12008','S',516,0,'GIII','Devogem Adventure Story','M','958000010615688','2019-02-07 08:46:09',4015,0),
 (4016,'Karen','Border Collie','2209172','11598','L',117,0,'GII','Karen de Los Parejos','F','','2018-03-08 15:47:49',4016,0),
-(4017,'Melibea','Shetlan Sheepdog','','','S',1964,0,'P.A.','','F','','2018-03-14 19:12:32',0,0),
+(4017,'Melibea','Shetlan Sheepdog','','12544','M',1964,0,'GI','','F','','2019-03-08 11:39:03',0,0),
 (4018,'Tila','Podenco','','','M',2945,0,'GII','','F','','2018-09-28 10:29:12',0,0),
 (4019,'Aloy','Border Collie','','','L',2946,0,'P.A.','','F','','2018-03-14 20:03:24',4019,0),
 (4020,'Nica','Lundehund','','11693','S',2947,0,'P.A.','','F','','2019-02-10 16:57:39',4020,0),
@@ -13302,7 +13311,7 @@ INSERT INTO `perros` VALUES
 (4074,'Ko','Border Collie','','11549','L',1158,0,'GI','','M','','2018-03-29 09:26:12',4074,0),
 (4075,'Leo','Border Collie','','10990','L',2329,0,'GI','','M','','2018-03-29 09:26:32',4075,0),
 (4076,'Triana','','AC_B761','B761','L',2989,0,'GI','','-','','2018-03-29 09:26:44',4076,0),
-(4077,'Bubble','Border Collie','','10683','L',2990,0,'GI','','F','','2018-03-29 09:26:52',4077,0),
+(4077,'Bubble','Border Collie','','10683','L',2990,0,'GII','','F','','2019-03-08 11:39:03',4077,0),
 (4078,'Berta','Perro De Aguas Español','RRC 156435','B776','M',2991,0,'GIII','','F','981098104645044','2019-02-06 13:34:55',4078,0),
 (4079,'Coco','Dachsbracke De Los Alpes','164446','11841','M',2992,0,'GII','','M','978101081364337','2018-04-23 11:14:06',4079,0),
 (4080,'Ron','Perro De Agua Español','','11429','L',2993,0,'GI','','M','','2018-03-30 11:24:02',4080,0),
@@ -13334,7 +13343,7 @@ INSERT INTO `perros` VALUES
 (4106,'Winter','Border Collie','RRC 168678','11801','L',3011,0,'GI','','M','941000021181564','2019-02-07 08:46:09',4106,0),
 (4107,'Bimba','Boxer','RRC 168679','11802','L',3012,0,'GI','','F','978101081358700','2019-02-07 08:46:09',4107,0),
 (4108,'Bud','Rough Collie','','','L',3013,0,'P.A.','','M','941000018864696','2019-02-06 13:34:55',0,0),
-(4109,'Crazy','Mestizo','','','S',2318,0,'P.A.','','F','','2018-05-12 17:32:17',0,0),
+(4109,'Crazy','Border Collie','','','L',2318,0,'P.A.','','F','','2019-03-08 11:39:03',0,0),
 (4110,'Kira','Border Collie','','','S',3014,0,'P.A.','','F','','2018-06-21 16:19:23',0,0),
 (4111,'Rihanna','Caniche Toy','','','S',3015,0,'P.A.','','F','','2018-06-21 16:19:23',0,0),
 (4112,'Hippie','Bearded Collie','','11522','L',293,0,'GI','','','','2019-02-07 08:46:09',4112,0),
@@ -13374,7 +13383,7 @@ INSERT INTO `perros` VALUES
 (4147,'Tiza','','','','M',3034,0,'P.A.','','F','','2018-06-23 21:36:56',0,0),
 (4148,'Bimba','','','12012','L',3035,0,'GI','','F','','2019-02-07 08:46:09',4148,0),
 (4149,'Twix','Caniche','','','S',3036,0,'GI','Marcus Curl Black','M','250268731739334','2018-06-21 16:11:01',0,0),
-(4150,'Bruc','Border Collie','','','L',3041,0,'GI','','M','','2018-07-18 16:35:54',0,0),
+(4150,'Bruc','Border Collie','','','L',3041,0,'P.A.','','M','','2019-03-08 11:39:03',0,0),
 (4151,'Kumba','Beagle','','12527','S',470,0,'GI','','F','977200007803645','2019-02-07 08:46:09',4151,0),
 (4152,'Brave','Working Cocker','','','S',152,0,'GI','','F','','2018-07-18 16:24:39',0,0),
 (4153,'Georgia','Border Collie','','12006','L',648,0,'GII','','F','','2019-02-07 08:46:09',4153,0),
@@ -13489,7 +13498,12 @@ INSERT INTO `perros` VALUES
 (4262,'Berta','P. Aguas','','12529','L',3110,0,'P.A.','','-','','2019-02-10 16:57:39',4262,0),
 (4263,'Cier','Border Collie','','12531','L',3111,0,'GI','','-','','2019-02-10 16:57:39',4263,0),
 (4264,'Mia','Border Collie','','12295','L',3112,0,'GI','','F','','2019-02-10 16:57:39',4264,0),
-(4265,'Odin','Jack Russell Terrier','','12431','M',3113,0,'GI','','M','','2019-02-10 16:57:39',4265,0);
+(4265,'Odin','Jack Russell Terrier','','12431','M',3113,0,'GI','','M','','2019-02-10 16:57:39',4265,0),
+(4266,'Yoru','Mudi','','12342','M',313,0,'GI','','F','','2019-03-08 11:36:28',0,0),
+(4267,'Indy','Parson Russell Terrier','','12040','S',365,0,'P.A.','Amico Terrier´s Under Pressure','F','','2019-03-08 11:37:06',0,0),
+(4268,'Inma','Border Collie','','1878','L',3116,0,'GI','','F','','2019-03-08 11:38:34',0,0),
+(4269,'Tyrion','Mestizo','','11615','L',3117,0,'GI','','M','','2019-03-08 11:38:55',0,0),
+(4270,'Hannibal','Pinscher','','12545','M',3118,0,'GI','Leopold De Lupiak','M','','2019-03-08 11:39:03',0,0);
 /*!40000 ALTER TABLE `perros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -30588,8 +30602,8 @@ INSERT INTO `sesiones` VALUES
 (5,'Ring 4','Mangas a realizar en el cuarto ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (890,'Console','mayte - Mayte Pérez',9,'Ut6bwQ9ETDge8nOP',0,0,0,0,'',NULL,NULL,NULL,'2016-09-25 06:24:47'),
 (1628,'Console','jantonio - ',7,'ZMgY2qpw4PIRQ1o6',0,0,0,0,'',NULL,NULL,NULL,'2018-10-14 07:34:00'),
-(1639,'Console','admin - Administrador de la aplicacion',3,'Bx5PWDtuWlqF3ZkF',0,0,0,0,'',NULL,NULL,NULL,'2019-02-10 16:38:27'),
-(1641,'Console','operator - Operador de consola',4,'pcKxYyDFNQ7HqwjE',0,0,0,0,'',NULL,NULL,NULL,'2019-02-10 16:50:34');
+(1644,'Console','operator - Operador de consola',4,'JpYfL4W3LXVQ21Pp',0,0,0,0,'',NULL,NULL,NULL,'2019-03-08 11:24:08'),
+(1645,'Console','admin - Administrador de la aplicacion',3,'p1qLQ4eNfjGVZryP',0,0,0,0,'',NULL,NULL,NULL,'2019-03-08 11:29:11');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -31547,10 +31561,15 @@ INSERT INTO `versionhistory` VALUES
 ('20180919_1212','2018-10-10 09:49:00'),
 ('20180928_1800','2018-10-14 15:23:00'),
 ('20181128_1333','2018-12-06 09:33:00'),
-('20190204_1210','2019-02-10 16:49:26');
+('20190204_1210','2019-02-10 17:58:00'),
+('20190216_1700','2019-03-08 11:28:07');
 /*!40000 ALTER TABLE `versionhistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'agility'
 --
+
+-- insufficient privileges to SHOW CREATE PROCEDURE `AddColumnUnlessExists`
+-- does agility_operator have permissions on mysql.proc?
+

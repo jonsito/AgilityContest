@@ -107,7 +107,7 @@ var ac_clientOpts = {
     // after login becomes "tablet_random@ring"
     Name:           '<?php echo http_request("Name","s",getDefaultClientName('tablet')); ?>';
     SessionName:    composeClientSessionName(ac_clientOpts)
-};
+}
 
 function initialize() {
 	// make sure that every ajax call provides sessionKey

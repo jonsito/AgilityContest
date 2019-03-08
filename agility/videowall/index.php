@@ -121,7 +121,7 @@ var ac_clientOpts = {
     Mode:       0,
     Timeout:    0,
     Name:       '',
-    SessionName: ''
+    SessionName: '' // to be set later
 };
 
 function initialize() {
