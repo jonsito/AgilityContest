@@ -96,7 +96,7 @@ getFederationInfo();
 
 var ac_clientOpts = {
     BaseName:       'tablet',
-    Destination:    ''
+    Destination:    '',
 	Ring:           0,
     View:           0,
     Mode:           0,
@@ -105,9 +105,10 @@ var ac_clientOpts = {
 	CourseWalk:     0, // 0 reconocimiento de pista parado else time
     // nombre del cliente utilizado para control de expire-time
     // after login becomes "tablet_random@ring"
-    Name:           '<?php echo http_request("Name","s",getDefaultClientName('tablet')); ?>';
-    SessionName:    composeClientSessionName(ac_clientOpts)
-}
+    Name:           '<?php echo http_request("Name","s",getDefaultClientName('tablet')); ?>',
+    SessionName:    ""
+};
+ac_clientOpts.SessionName=composeClientSessionName(ac_clientOpts);
 
 function initialize() {
 	// make sure that every ajax call provides sessionKey
