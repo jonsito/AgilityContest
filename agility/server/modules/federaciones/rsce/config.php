@@ -82,8 +82,8 @@ class RSCE extends Federations {
                 // categorias        L  M  S   T   X
                 array(/* separado */ 0, 1, 2, -1, -1),
                 array(/* 2 grupos */ 0, 3, 3, -1, -1),
-                array(/* conjunto */ 4, 4, 4, -1, -1 ),
-                array(/* 3 grupos */-1,-1,-1, -1, -1 )
+                array(/* conjunto */ 4, 4, 4, -1, 4 ), // pre-agility is -XLMST in tandas cat assignment
+                array(/* 3 grupos */-1,-1,-1, -1, -1 ) // invalid en rsce
             ),
             'ModeStrings' => array( // text to be shown on each category
                 array(/* separado */ "Standard", "Midi", "Mini", "Invalid","Invalid"),

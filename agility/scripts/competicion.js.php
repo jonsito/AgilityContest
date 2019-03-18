@@ -156,8 +156,10 @@ function getMangaMode(fed,recorrido,categoria) {
     }
     switch(categoria) {
         case 'XLMST':
-        case '-XLMST': return ac_fedInfo[f].Modes[3][4] // ExtraLarge mode when 5heights-CommonCourse
+        case '-XLMST': return ac_fedInfo[f].Modes[rec][4] // ExtraLarge mode when 5heights-CommonCourse
         case '-':
+        case 'LMS':
+        case '-LMS':
         case 'LMST':
         case '-LMST':return ac_fedInfo[f].Modes[2][0]; // common for all categories in 3/4 heights; just use first mode (standard )
         case 'L':return ac_fedInfo[f].Modes[rec][0];

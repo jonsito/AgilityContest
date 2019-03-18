@@ -73,7 +73,12 @@ class NAT3 extends Federations {
                 array('L' => _('Common course'), 'M' => '',                  'S' => '',         'T' => '', 'X' => ''), // common
                 array('L' => '',                 'M' => '',                  'S' => '',         'T' => '', 'X' => '') // 3 group courses
             ),
-            'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3, -1), array(/* conjunto */ 4, 4, 4, -1 )),
+            'Modes' => array(
+                array(/* separado */ 0, 1, 2, -1, -1),
+                array(/* mixto */    0, 3, 3, -1, -1),
+                array(/* conjunto */ 4, 4, 4, -1,  4 ), // pre-agility is -XLMST in tandas cat assignment
+                array(/* 3 grupos */-1,-1,-1, -1, -1 ) // invalid en rsce
+            ),
             'ModeStrings' => array( // text to be shown on each category
                 array(/* separado */ "Large", "Medium", "Small", "Invalid","Invalid"),
                 array(/* 2 grupos */ "Large", "Medium+Small", "Medium+Small", "Invalid","Invalid"),

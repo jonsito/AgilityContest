@@ -84,7 +84,7 @@ class RFEC extends Federations {
                 // categorias        L  M  S  T  X
                 array(/* separado */ 0, 1, 2, 5,-1 ),
                 array(/* 2 grupos */ 6, 6, 7, 7,-1 ),
-                array(/* conjunto */ 8, 8, 8, 8,-1 ),
+                array(/* conjunto */ 8, 8, 8, 8, 8 ), // pre-agility is declared as -XLMST
                 array(/* 3 grupos */-1,-1,-1,-1,-1 )
             ),
             'ModeStrings' => array( // text to be shown on each category

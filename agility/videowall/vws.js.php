@@ -604,6 +604,8 @@ function vws_updateParciales(data) {
     var team=isJornadaEquipos(null);
     var nitems=(team)?7:10; // clasificaciones a presentar en funcion de individual/equipos
     // buscamos resultados parciales de la manga
+    var mode=getMangaMode(workingData.federation,workingData.datosManga.Recorrido,workingData.datosTanda.Categoria);
+    if (mode==-1) return; // no data yet
     $.ajax({
             type:'GET',
             url:"../ajax/database/resultadosFunctions.php",
@@ -613,7 +615,7 @@ function vws_updateParciales(data) {
             Prueba:		workingData.prueba,
             Jornada:	workingData.jornada,
             Manga:		workingData.manga,
-            Mode:       getMangaMode(workingData.federation,workingData.datosManga.Recorrido,workingData.datosTanda.Categoria)
+            Mode:       mode
         },
         success: function (dat) {
             var items = dat.rows; // resultados que hay que coger para rellenar tablas

@@ -79,7 +79,7 @@ class INTL3 extends Federations {
                 //  categorias          L  M  S  T  X
                 array(/* 0: separado */ 0, 1, 2,-1,-1),
                 array(/* 1: 2 grupos */ 0, 3, 3,-1,-1),
-                array(/* 2: conjunto */ 4, 4, 4,-1,-1),
+                array(/* 2: conjunto */ 4, 4, 4,-1, 4), // pre-agility is -xlmst in cats assignment
                 array(/* 3: 3 grupos */-1,-1,-1,-1,-1)
             ),
             'ModeStrings' => array( // text to be shown on each category
