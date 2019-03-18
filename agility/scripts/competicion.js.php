@@ -652,6 +652,7 @@ function save_manga(id) {
     $.messager.defaults.ok="<?php _e('Continue');?>";
     $.messager.defaults.cancel="<?php _e('Back');?>";
     $.messager.confirm({
+        closable:false,
         title:"<?php _e('Missing data');?>",
         msg:"<?php _e('Some category has missing or invalid values for');?><br/>"+
             "<?php _e('either distance, SCT or MCT');?><br/>"+
