@@ -200,12 +200,10 @@ function saveClub(){
             if (result.errorMsg){
                 $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
             } else {
+                // on insert, update club-ID to allow save logo and/or reload changed data
             	var oper=$('#clubes-Operation').val();
-            	if(result.insert_id && (oper==="insert") ) {
-            	    // on insert save logo if defined
-            	    $('#clubes-ID').val(result.insert_id);
-                    if (workingData.logoChanged==true) saveLogo();
-                }
+            	if(result.insert_id && (oper==="insert")) $('#clubes-ID').val(result.insert_id);
+                if (workingData.logoChanged==true) saveLogo();
                 $('#clubes-dialog').dialog('close');        // close the dialog
                 $('#clubes-datagrid').datagrid('reload');    // reload the clubes data
             }
