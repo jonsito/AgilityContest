@@ -528,7 +528,7 @@ function importExportInscripciones() {
  */
 function printInscripciones() {
 
-    function do_print(r) {
+    function do_print(r,filas) {
         var where= $('#inscripciones-datagrid-search').val();
         if (where==="<?php _e('-- Search --');?>") where="";
         var dg=$('#inscripciones-datagrid');
@@ -543,6 +543,7 @@ function printInscripciones() {
                     Prueba: workingData.prueba,
                     Jornada: jornada,
                     Mode: parseInt(r),
+                    Filas: filas,
                     page: 0,
                     rows: 0,
                     where: where,
@@ -558,13 +559,15 @@ function printInscripciones() {
 
 	// en el caso de que haya alguna jornada seleccionada.
 	// anyadir al menu la posibilidad de imprimir solo los inscritos en dicha jornada
+    var str='<select id="idg_rows" name="idg_rows" class="easyui-combobox"/><br/>';
 	var options= {
 	    0:'<?php _e('Simple listing'); ?>',
-        1:'<?php _e('Catalog'); ?>',
+        1:'*<?php _e('Catalog'); ?>',
         2:'<?php _e('Statistics'); ?>',
         4:'<?php _e('Current selection/order'); ?>',
         6:'<?php _e('Handlers with more than one dog'); ?>',
-        5:'<?php _e('Competition ID Cards'); ?>'
+        5:'<?php _e('Competition ID Cards'); ?>',
+        7:'<?php _e('Post-It Dorsal labels'); ?> '+str
 	};
 	// buscamos la jornada seleccionada
 	var row=$('#inscripciones-jornadas').datagrid('getSelected');
@@ -579,9 +582,24 @@ function printInscripciones() {
 		'<?php _e('Select type of document to be generated'); ?>:',
 		options,
 		function(r){
-			if (r) { setTimeout(do_print(r),0); }
+			if (r) {
+                var filas=$('#idg_rows').combobox('getValue');
+			    setTimeout(do_print(r,filas),0);
+			}
 			return false ;
 		}
-	).window('resize',{width:(jornada==0)?300:350});
+	).window('resize',{width:(jornada==0)?325:375});
+	$('#idg_rows').combobox({
+        width:60,
+        panelHeight:100,
+        textField:'text',
+        valueField:'value',
+        data: [
+            {text:'3x7',value:'7'},
+            {text:'3x8',value:'8',selected:true},
+            {text:'3x9',value:'9'},
+            {text:'3x10',value:'10'}
+        ]
+	    });
 	return false; //this is critical to stop the click event which will trigger a normal file download!
 }

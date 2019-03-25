@@ -35,6 +35,7 @@ try {
 	$pruebaid=http_request("Prueba","i",0);
 	$jornadaid=http_request("Jornada","i",0);
 	$mode=http_request("Mode","i",0);
+	$filas=http_request("Filas","i",8); // hojas de etiquetas de 3x{7,8,9,10}
 	$pdf=null;
 	$name="";
 	// Datos de inscripciones
@@ -68,6 +69,10 @@ try {
             $inscritos=$inscripciones->enumerateDups();
             $pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas,_('Handlers with more than one dog'));
             break;
+		case 7: // imprimir Post-it con dorsales para guardar cartillas
+			$inscritos=$inscripciones->inscritos(true);
+			$pdf=new PrintPostItCartilla($pruebaid,$inscritos,$jornadas,$filas);
+			break;
 		default: throw new Exception ("Inscripciones::print() Invalid print mode selected $mode");
 	}
 	$pdf->AliasNbPages();

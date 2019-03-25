@@ -1006,6 +1006,107 @@ class PrintTarjetasDeVisita extends PrintCommon{
             $rowcount++;
 		}
 	}
+
+}
+
+/**
+ * Class PrintPostItCartilla
+ * Imprime en formato de postit para las cartillas la inscripcion
+ * Por cada dorsal se imprimen dos tarjetas
+ */
+class PrintPostItCartilla extends PrintCommon{
+	protected $inscritos; // inscritos en la prueba
+	protected $hasGrades=false;
+	protected $filas;
+	protected $rowheight;
+	/**
+	 * Constructor
+	 * @param {integer} $pruebaid Prueba ID
+	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+	 * @param {array} $jornadas lista de jornadas de la prueba
+	 * @param {integer} $jornadaid id de la prueba que buscamos
+	 * @throws Exception
+	 */
+	function __construct($pruebaid,$inscritos,$jornadas,$filas) {
+		parent::__construct('Portrait','print_tarjetaDeVisita',$pruebaid,0);
+		if ( ($pruebaid==0) || ($inscritos===null) ) {
+			$this->errormsg="printTarjetaDeVisita: either prueba or inscription data are invalid";
+			throw new Exception($this->errormsg);
+		}
+		// ordenamos inscripciones por dorsal
+		usort($inscritos['rows'],function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
+		$this->inscritos=$inscritos['rows'];
+		// miramos si alguna jornada tiene grado para ponerlo
+		foreach ($jornadas['rows'] as $jornada) {
+			if ($jornada['Nombre']==='-- Sin asignar --') continue;
+			if (Jornadas::hasGrades((object)$jornada)) $this->hasGrades=true;
+		}
+		$this->filas=$filas;
+		switch($this->filas) {
+			case 7: $this->rowheight=10; break;
+			case 8: $this->rowheight=9; break;
+			case 9: $this->rowheight=8; break;
+			case 10:$this->rowheight=7; break;
+			default:$this->rowheight=6; break;
+		}
+		// ajustamos nombre del fichero
+		$this->set_FileName("PostIt_Cartillas.pdf");
+	}
+
+	private function printCard($x,$y,$item) {
+		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+		// borde de la tarjeta
+		$this->SetXY($x+1,$y+1);
+		$this->Cell(60,(4*$this->rowheight)-4, '','TBLR',0,'C',false);
+
+		// Dorsal
+		$this->SetXY($x+5,$y+3);
+		$this->ac_header(2,2.5*$this->rowheight);
+		$this->Cell(16,1.5*$this->rowheight, sprintf("%03d",$item['Dorsal']),'',0,'C',true);
+
+		// Nombre
+		$this->SetXY($x+21,$y+2);
+		$this->ac_row(1,2*$this->rowheight,'BI');
+		$this->Cell(38,2+$this->rowheight, $item['Nombre'],'',0,'C',false);
+
+		// categoria y grado (si se requiere)
+		$this->ac_row(1,$this->rowheight,'B');
+		$catstr=$this->federation->getCategory($item['Categoria']);
+		$grstr="";
+		if ($this->hasGrades) {
+			$grstr= " - ".$this->federation->getGrade($item['Grado']);
+		}
+		$this->SetXY($x+21,$y+$this->rowheight);
+		$this->Cell(38,$this->rowheight, $catstr.$grstr,'',0,'L',false);
+
+		// Nombre del Guia
+		$this->ac_row(1,1.3*$this->rowheight,'B');
+		$this->SetXY($x+5,$y+2*$this->rowheight);
+		$this->Cell(55,$this->rowheight, $item['NombreGuia'],'',0,'L',false);
+
+		// nombre del Club
+		$this->ac_row(1,1.3*$this->rowheight,'B');
+		$this->SetXY($x,$y+3*($this->rowheight-1));
+		$this->Cell(55,$this->rowheight, $item['NombreClub'],'',0,'R',false);
+
+	}
+
+	function composeTable() {
+		$rowcount=0;
+		$x=0; $y=0;
+		$this->AddPage();
+		foreach($this->inscritos as $item) {
+			// when configured to do, skip printing of pre-agility dorsals
+			if ( ($item['Grado']==="P.A.") && (intval($this->config->getEnv('pdf_skippa')) )===1) continue;
+
+			$dx=10+$x*63;
+			$dy=10+$y*intval(277/$this->filas);
+			$this->printCard($dx,$dy,$item);
+			$x++;
+			if ($x>=3) {$x=0;$y++;}
+			if ($y>=$this->filas) {$y=0; $this->AddPage();}
+		}
+	}
 }
 
 ?>

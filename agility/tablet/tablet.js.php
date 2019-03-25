@@ -76,7 +76,7 @@ function tablet_putEvent(type,data){
 			'Dorsal':	$('#tdialog-Dorsal').val(),
 			'Equipo':	$('#tdialog-Equipo').val(),
 			'Celo':		$('#tdialog-Celo').val(),
-			'Value':	0, // may be overriden with 'data' contents
+			'Value':	0 // may be overriden with 'data' contents
 	};
 	// send "update" event to every session listeners
 	$.ajax({
