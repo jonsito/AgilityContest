@@ -315,9 +315,9 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInst, LPTSTR lpCmdLine, 
     */
     char *browser=calloc(256,sizeof(char));
     if (firstInstall ) {
-        sprintf(browser,"%s && start /MAX \"AgilityContest\" https://localhost/agility/console/index.php?installdb=1",set_lang);
+        sprintf(browser,"%s && start \"AgilityContest\" https://localhost/agility/console/index.php?installdb=1",set_lang);
     } else {
-        sprintf(browser,"%s && start /MAX \"AgilityContest\" https://localhost/agility/console",set_lang);
+        sprintf(browser,"%s && start \"AgilityContest\" https://localhost/agility/console",set_lang);
     }
 
     // del ..\logs\install.sql
