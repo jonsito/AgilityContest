@@ -86,6 +86,13 @@ cp ${BUILD_DIR}/xampp/php/php.ini  ${BUILD_DIR}/xampp/php/php.ini.orig
 sed -i "s/;extension=php_openssl.dll/extension=php_openssl.dll/g" ${BUILD_DIR}/xampp/php/php.ini
 sed -i "s/;extension=php_intl.dll/extension=php_intl.dll/g" ${BUILD_DIR}/xampp/php/php.ini
 
+# add module php_dio (direct i/o) to support serial line (for in-built chrono software)
+# dio module is php_version dependent. on update xampp will need to replace
+if [ -f ${CONF_DIR}/php_dio.dll ]; then
+	cp ${CONF_DIR}/php_dio.dll ${BUILD_DIR}/xampp/ext/php_dio.dll
+	sed -i "/^extension=php_openssl.dll/i extension=php_dio.dll" ${BUILD_DIR}/xampp/php/php.ini
+fi
+
 # fix options for mysql
 # notice that in 5.6.20 cannot simply add options at the end, so must provide our own
 # personalized copy of my.ini
