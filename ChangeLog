@@ -1,3 +1,9 @@
+Version 3.9.0 20190327_1207
+    - Preliminary support for new fields on event API
+    - So many bugfixes about 5Heights and pre-Agility
+    - remove "close" icon on several dialogs, to force "accept/cancel" key
+    - new feature: print stick labels on inscription data
+    - Fix Windows update 1809 that prevented open navigator dialog
 Version 3.9.0 20190216_1700
     - Notice in console any 'connect' command from event bus
     - Fix serious error in tandas handlind that prevented showing pre-agility
