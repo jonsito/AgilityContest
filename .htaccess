@@ -58,12 +58,12 @@ DirectoryIndex index.php index.html
     # need to rewrite "/server/database/" to "/ajax/database for these calls"
     # as chrono firmware may not be properly updated
     RewriteCond %{REQUEST_URI} /server/database/eventFunctions.php
-    RewriteRule ^(.*)$ /agility/ajax/database/eventFunctions.php [R=307]
+    RewriteRule ^(.*)$ /agility/agility/ajax/database/eventFunctions.php [R=307,L]
     RewriteCond %{REQUEST_URI} /server/database/sessionFunctions.php
-    RewriteRule ^(.*)$ /agility/ajax/database/sessionFunctions.php [R=307]
+    RewriteRule ^(.*)$ /agility/agility/ajax/database/sessionFunctions.php [R=307,L]
 
     # block access to "*/server/*" and web directory
-    RewriteCond %{REQUEST_URI} /(config|applications|build|extras|logs|xampp)/
+    RewriteCond %{REQUEST_URI} /(config|applications|server|build|extras|logs|xampp)/
     RewriteRule ^(.*) - [F,L]
 
     # block access to critical files:
