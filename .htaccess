@@ -55,15 +55,17 @@ DirectoryIndex index.php index.html
     # and add "server" to list of forbidden directories
 
     # let the Galican Chrono work using old URL
-    # need to rewrite "/server/database/" to "/ajax/database for these calls"
-    # as chrono firmware may not be properly updated
+    # Current chrono firmware does not handle redirect, so need to patch a fake url
+    # until chrono firmware gets properly updated
     RewriteCond %{REQUEST_URI} /server/database/eventFunctions.php
-    RewriteRule ^(.*)$ /agility/agility/ajax/database/eventFunctions.php [R=307,L]
+    RewriteRule ^(.*)$ - [L]
     RewriteCond %{REQUEST_URI} /server/database/sessionFunctions.php
-    RewriteRule ^(.*)$ /agility/agility/ajax/database/sessionFunctions.php [R=307,L]
+    RewriteRule ^(.*)$ - [L]
 
-    # block access to "*/server/*" and web directory
-    RewriteCond %{REQUEST_URI} /(config|applications|server|build|extras|logs|xampp)/
+    # block access to critical directories and web directory
+    # "server" should also be blocked, but due to above rule cannot.
+    # This is a security risk to be fixed asap
+    RewriteCond %{REQUEST_URI} /(config|applications|build|extras|logs|xampp)/
     RewriteRule ^(.*) - [F,L]
 
     # block access to critical files:
