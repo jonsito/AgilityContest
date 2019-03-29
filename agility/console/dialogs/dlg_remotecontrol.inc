@@ -229,10 +229,10 @@ $am=AuthManager::getInstance("Chrono");
 
             <!--  dialogo para enviar comandos a (video)cronometro -->
 
-            <div title="<?php _e('Chronometer displays');?>" data-options="iconCls:'icon-clock'">
+            <div title="<?php _e('Chronometers');?>" data-options="iconCls:'icon-clock'">
                 <div style="display:<?php echo $am->allowed(ENABLE_CHRONO)?'inherit':'none';?>">
                     <span style="float:left;display:inline-block;width:55%;padding:5px">
-                        <p><?php _e('List of currently active video-chronometers scoreboards');?></p>
+                        <p><?php _e('List of currently active chronometers scoreboards');?></p>
                       <table id="remote-chronometer-datagrid" style="width:100%"></table>
                     </span>
                         <span style="float:right;display:inline-block;width:40%;padding:5px">

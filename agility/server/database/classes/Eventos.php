@@ -262,6 +262,16 @@ class Eventos extends DBObject {
      */
 	function getEvents($data) { 
 		// $this->myLogger->enter();
+
+        // en sessiones::connect() y en eventos::getEvents()
+        // el Canometro de Galican no indica ni Source ni SessionName
+        // con lo que hay que componer manualmente los datos que faltan
+        if ($data['Source']=="" && $data['SessionName']=="") {
+            $data['Name']="CANometro-{$data['Session']}";
+            $data['Source']='chrono';
+            $data['SessionName']="{$data['Source']}:{$data['Session']}:0:0:{$data['Name']}";
+        }
+        // refrescamos registro de sesiones abiertas
         if ($data['SessionName']!=="") {
             $ses=new Sesiones("Events::getEvents");
             $ses->testAndSet($data['SessionName']);
@@ -324,11 +334,10 @@ class Eventos extends DBObject {
 	function listEvents($data) {
 		// $this->myLogger->enter();
 		if ($data['Session']<=0) return $this->error("No Session ID specified");
-
-        // sessionID 1 means allow events from _any_ source
         $ses="";
-        if ($data['Session']<=0) return $this->error("No Session ID specified");
-        if ($data['Session']>1) $ses="( ( Session = {$data['Session']} ) OR ( Type = 'reconfig' ) ) AND";
+        if ($data['Session']>1) { // sessionID == 1 means allow events from _any_ source
+            $ses="( ( Session = {$data['Session']} ) OR ( Type = 'reconfig' ) ) AND";
+        }
 
         // check for search specific event type
 		$extra="";
@@ -381,12 +390,20 @@ class Eventos extends DBObject {
             $ringName=$sesion['Nombre'];
         }
 
-        // if sessionData is provided, extrad info on source and session name
+        // en eventos::connect() y en eventos::getEvents()
+        // el Canometro de Galican no indica ni Source ni SessionName
+        // con lo que hay que componer manualmente los datos que faltan
+        if ($data['Source']=="" && $data['SessionName']=="") {
+            $data['Name']="CANometro-{$data['Session']}";
+            $data['Source']='chrono';
+            $data['SessionName']="{$data['Source']}:{$data['Session']}:0:0:{$data['Name']}";
+        }
+        // if sessionData is provided, extract info on source and session name
         if ($data['SessionName']!=="") {
             // store named sessions into persistent storage
             $ses=new Sesiones("Events::connect");
             $ses->testAndSet($data['SessionName']);
-            // and extract info to show in console // source:ringsessid:type:mode:sessionaname
+            // and extract info to show in console // source:ringsessid:view:mode:sessionaname
             $sndata=explode(":",$data['SessionName']);
             $sourceName=$sndata[0];
             $sessionName=$sndata[4];
@@ -419,7 +436,9 @@ class Eventos extends DBObject {
                 'TimeStamp'	=> 	time(), /* date('Y-m-d H:i:s'),*/
                 'Type' 		=> 	"command",
                 'Source'	=> 	$sourceName,
-                'Name'      =>  'console', // send event to console
+                'Destination' => 'console',
+                'Name'      =>  'Notification', // send event to console
+                'SessionName' => "{$sourceName}:1:0:0:Notification",
                 // datos identificativos del evento que se envia
                 'Oper'      =>  EVTCMD_MESSAGE,
                 'Value' =>  $message

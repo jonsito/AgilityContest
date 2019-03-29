@@ -152,6 +152,7 @@ function reloadRemoteClientList() {
     $('#remote-videowall-datagrid').datagrid('unselectAll').datagrid('load');
     $('#remote-livestream-datagrid').datagrid('unselectAll').datagrid('load');
     $('#remote-chronometer-datagrid').datagrid('unselectAll').datagrid('load');
+    // no list available for internet displays :-)
 }
 
 // retrieve ring name from val:session_id

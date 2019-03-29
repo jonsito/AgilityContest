@@ -31,11 +31,11 @@ try {
 	$data=array (
 			// common data for senders and receivers
 			'ID'		=>	http_request("ID","i",0),
-            'Session'	=> 	http_request("Session","i",0),
-            'SessionName'	=> 	http_request("SessionName","s",""),
+            'Session'	=> 	http_request("Session","i",0), // ring ID
+            'SessionName'	=> 	http_request("SessionName","s",""), //source:id:view:mode:name
 			'TimeStamp'	=> 	http_request("TimeStamp","i",0), // last timestamp parsed
 			'Type' 		=> 	http_request("Type","s",""),
-			'Source'	=> 	http_request("Source","s",""),
+			'Source'	=> 	http_request("Source","s",""), // tablet,videowall,chrono,livestream
 			// datos identificativos del evento que se envia
 			'Pru' 	=> 	http_request("Prueba","i",0),
 			'Jor'	=>	http_request("Jornada","i",0),

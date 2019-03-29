@@ -111,7 +111,10 @@ BTN_Inter=    22    # BCM25        - Button_8 //    Intermediate Chrono
 # data = json.load( urllib.urlopen('https://ip.addr.of.server/base_url/ajax/database/eventFunctions.php') + arguments, verify=False )
 
 ##### Some constants
-SESSION_NAME = "Chrono"    # should be generated from evaluated session ID
+NAME = "RB_Chrono-ID"    # should be generated from evaluated session ID
+SESSION_NAME = "chrono:ID:0:0:RB_Chrono-ID" # should be generated from evaluated session ID
+SOURCE = "chrono"
+DESTINATION = ""
 DEBUG=True
 ETH_DEVICE='eth0'        # this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
 
@@ -145,8 +148,13 @@ def blink_powerled():
 # perform json request to send event to server
 def json_request(type,value,extra):
     global session_id
+    global SOURCE
+    global DESTINATION
+    global NAME
+    global SESSION_NAME
     # compose json request
-    args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(math.floor(millis()/1000))+"&Source=" +SESSION_NAME
+    args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(math.floor(millis()/1000))
+    args = args +"&Source="+SOURCE+"&Destination="+DESTINATION+"&Name="+NAME+"&SessionName" +SESSION_NAME
     args = args + "&Session=" + str(session_id) + "&Value="+value+"&start="+extra
     url="https://"+server+"/"+baseurl+"/ajax/database/eventFunctions.php"
     # debug( "JSON Request: " + url + "" + args)
@@ -209,7 +217,8 @@ def lookForServer():
     ring = 0x03 ^ ( ( GPIO.input(BTN_Sel1) << 1 ) | GPIO.input(BTN_Sel0) )
     session_id = rings[ring];
     debug( "Ring: "+str(ring)+ " Session ID: "+str(session_id) )
-    SESSION_NAME="chrono_"+str(1+ring)
+    NAME="RB_Chrono-"+str(1+ring)
+    SESSION_NAME=SOURCE+":"+str(session_id)+":0:0:"+NAME
     # and finally setup server IP
     return server
 
@@ -334,11 +343,11 @@ def ac_gpio_addevents():
     debug( "add callback for Rec2")
     GPIO.add_event_detect(BTN_Rec2,    GPIO.FALLING,callback=handle_rec,    bouncetime=250)
     debug( "add callback for Intermediate")
-    GPIO.add_event_detect(BTN_Inter,GPIO.FALLING,callback=handle_int,    bouncetime=250)
+    GPIO.add_event_detect(BTN_Inter,    GPIO.FALLING,callback=handle_int,    bouncetime=250)
     debug( "add callback for Reset")
-    GPIO.add_event_detect(BTN_Reset,GPIO.FALLING,callback=handle_reset,    bouncetime=250)
+    GPIO.add_event_detect(BTN_Reset,    GPIO.FALLING,callback=handle_reset,    bouncetime=250)
     debug( "add callback for Start")
-    GPIO.add_event_detect(BTN_Start,GPIO.FALLING,callback=handle_startstop, bouncetime=250)
+    GPIO.add_event_detect(BTN_Start,    GPIO.FALLING,callback=handle_startstop, bouncetime=250)
     debug( "add callback for Stop")
     GPIO.add_event_detect(BTN_Stop,    GPIO.FALLING,callback=handle_startstop, bouncetime=250)
     time.sleep(0.1)
@@ -353,10 +362,10 @@ def eventParser():
     event_id=0 # event ID of last "open" call in current session
     # call to "connect", to retrieve last event id and timeout
     debug( "Connecting event manager on server "+server+" ...")
-    sname="chrono:"+session_id+":0:0:"+SESSION_NAME
     while True:
         try:
-            args = "?Operation=connect&Session="+session_id+"&SessionName="+sname
+            args = "?Operation=connect&Session="+session_id+"&SessionName="+SESSION_NAME
+            args = args + "&Source="+SOURCE+"&Destination="+DESTINATION+"&Name="+NAME
             response = requests.get("https://" + server + "/" + baseurl + "/ajax/database/eventFunctions.php"+args, verify=False)
         except requests.exceptions.RequestException as ex:
             debug ( "Connect() error:" + str(ex) )
@@ -379,7 +388,8 @@ def eventParser():
     timestamp=0
     while True:
         try:
-            args="?Operation=getEvents&Session=" + session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)+"&SessionName="+sname
+            args ="?Operation=getEvents&Session=" + session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)
+            args = args+ "&SessionName="+SESSION_NAME+"&Source="+SOURCE+"&Destination="+DESTINATION+"&Name="+NAME
             response = requests.get("https://" + server + "/" + baseurl + "/ajax/database/eventFunctions.php"+args, verify=False )
         except requests.exceptions.RequestException as ex:
             debug ( "getEvents() error:" + str(ex) )
