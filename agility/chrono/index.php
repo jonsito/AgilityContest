@@ -203,7 +203,11 @@ $('#chrono-Session').combogrid({
         },0); // also fires onSelect()
 	},
 	onSelect: function(index,row) {
+
+        var ri=parseInt(row.ID)-1;
         ac_clientOpts.Ring=row.ID;
+        ac_clientOpts.Name= ac_clientOpts.Name.replace(/@.*/g,"@"+ri);
+        ac_clientOpts.SessionName= composeClientSessionName(ac_clientOpts);
 	    setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1);
 	}
 });

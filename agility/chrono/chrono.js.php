@@ -35,7 +35,7 @@ function chrono_putEvent(type,dat){
 			TimeStamp:      Math.floor(Date.now() / 1000),
 			Source:	        ac_clientOpts.Source,
             Name:           ac_clientOpts.Name,
-            Destination:    '',
+            Destination:    ac_clientOpts.Destination,
             SessionName:    ac_clientOpts.SessionName,
 			Session:	    workingData.session,
 			Prueba:	        workingData.prueba,
