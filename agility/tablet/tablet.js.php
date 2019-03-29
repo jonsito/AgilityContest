@@ -63,8 +63,8 @@ function tablet_putEvent(type,data){
 			'Operation':'putEvent',
 			'Type': 	type,
 			'TimeStamp': Math.floor(Date.now() / 1000),
-			'Source':	ac_clientOpts.BaseName,
-            'Destination': "", /* not specified: use name or session */
+			'Source':	ac_clientOpts.Source,
+            'Destination': ac_clientOpts.Destination, /* not specified: use name or session */
             'Session':	ac_clientOpts.Ring,
             'Name':     ac_clientOpts.Name,
             'SessionName': ac_clientOpts.SessionName,
@@ -120,7 +120,7 @@ function handleCommandEvent(event) {
     if (sessid==0) isForMe=true; /* broadcast */
     if (name==="") {
         if (sessid == ac_clientOpts.Ring) isForMe=true;
-        if (destination == ac_clientOpts.BaseName) isForMe=true;
+        if (destination == ac_clientOpts.Source) isForMe=true;
     }
     if (name===ac_clientOpts.Name) isForMe=true;
     if (!isForMe) return;

@@ -115,7 +115,8 @@ if (!$am->allowed(ENABLE_VIDEOWALL)) {
 <script type="text/javascript" charset="utf-8">
 
 var ac_clientOpts = {
-    BaseName:   'videowall',
+    Source:   'videowall',
+    destination: '',
     Ring:       2, // sessid:2 --> ring 1
     View:       3,
     Mode:       0,

@@ -91,7 +91,7 @@ function getRandomString(len) {
  * @return {string} composed string
 */
 function composeClientSessionName(opts) {
-    return opts.BaseName + ":" + opts.Ring + ":" + opts.View + ":" + opts.Mode + ":" + opts.Name;
+    return opts.Source + ":" + opts.Ring + ":" + opts.View + ":" + opts.Mode + ":" + opts.Name;
 }
 
 /**

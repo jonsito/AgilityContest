@@ -72,7 +72,8 @@ if (!$am->allowed(ENABLE_CHRONO)) {
 <script type="text/javascript" charset="utf-8">
 
 var ac_clientOpts = {
-    BaseName:   'chrono',
+    Source:   'chrono',
+    Destination: '',
     Ring:       2, // defaults to session id:2 --> ring 1
     View:       0,
     Mode:       0, // no view nor mode in chrono, but needed

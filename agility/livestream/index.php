@@ -112,7 +112,8 @@ try {
 <script type="text/javascript" charset="utf-8">
 
 var ac_clientOpts={
-    BaseName:   'livestream',
+    Source:   'livestream',
+    Destination: '',
     Ring:       1,
     View:       2,
     Mode:       'chroma',

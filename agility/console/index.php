@@ -105,7 +105,7 @@ if ( $runmode === AC_RUNMODE_MASTER) {
 <script type="text/javascript">
 
 var ac_clientOpts = {
-    BaseName:   'console',
+    Source:   'console',
     Destination: '',
     Ring:       1, // sessid:1 --> console (broadcast ring)
     View:       0,

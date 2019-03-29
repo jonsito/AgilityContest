@@ -53,8 +53,6 @@ function parseEvent(data) {
 	function waitForEvents(evtID,timestamp,firstcall){
 		// ejemplo: source:ringsessionID:view_type:round_mode:SessionName
 		// source: videowall,tablet, chrono, xxxx
-		// SessionName: xxxx@ipaddress: random(8)
-        var sname=ac_clientOpts.BaseName+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.Mode+":"+ac_clientOpts.SessionName;
         // use inner vars to preserve scope in handleSuccess
 		var mark=timestamp;
 		var lastID=evtID;
@@ -114,7 +112,10 @@ function parseEvent(data) {
 				ID: 		evtID,
 				Session:	workingData.session,
 				TimeStamp:	mark,
-				SessionName: sname
+				Source:		ac_clientOpts.Source,
+				Destination: ac_clientOpts.Destination,
+				Name: 		ac_clientOpts.Name,
+				SessionName: ac_clientOpts.SessionName
 			},
 			async: true,
 			cache: false,
@@ -135,7 +136,7 @@ function startEventMgr() {
 	// ejemplo: source:ringsesionID:view_type:round_mode:xxxxx@ipaddress
 	// source: videowall,tablet, chrono, xxxx
 	// xxxx: random(8)
-    var sname=ac_clientOpts.BaseName+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.Mode+":"+ac_clientOpts.Name;
+    var sname=ac_clientOpts.Source+":"+ac_clientOpts.Ring+":"+ac_clientOpts.View+":"+ac_clientOpts.Mode+":"+ac_clientOpts.Name;
 	$.ajax({
 		type: "GET",
 		url: "../ajax/database/eventFunctions.php",
@@ -143,7 +144,7 @@ function startEventMgr() {
 			Operation:	'connect',
 			Session:	workingData.session,
             SessionName: sname,
-			Source:		ac_clientOpts.BaseName,
+			Source:		ac_clientOpts.Source,
 			Destination: '', /* not specified */
 			Name:		ac_clientOpts.Name
 		},
@@ -189,7 +190,7 @@ function handleCommandEvent(event,callbacks) {
 	if (sessid===0) isForMe=true; /* broadcast */
 	if (name==="") {
 		if (sessid === parseInt(ac_clientOpts.Ring)) isForMe=true;
-		if (destination === ac_clientOpts.BaseName) isForMe=true;
+		if (destination === ac_clientOpts.Source) isForMe=true;
 	}
 	if (name===ac_clientOpts.Name) isForMe=true;
 	// not for me, return

@@ -95,7 +95,7 @@ getLicenseInfo();
 getFederationInfo();
 
 var ac_clientOpts = {
-    BaseName:       'tablet',
+    Source:       'tablet',
     Destination:    '',
 	Ring:           0,
     View:           0,
