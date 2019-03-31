@@ -183,6 +183,8 @@ function acceptLogin() {
 
                 // fire up console event manager
                 ac_config.event_handler=console_eventManager;
+                ac_clientOpts.Name=user+"@Console"
+                ac_clientOpts.SessionName=composeClientSessionName(ac_clientOpts);
                 var ce=parseInt(ac_config.console_events);
                 if (ce!=0) startEventMgr();
        		} 

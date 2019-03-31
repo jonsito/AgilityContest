@@ -261,6 +261,32 @@ function remote_putEvent(data){
     });
 }
 
+/**
+ * Open a new navigator window on specified server
+ *@param {string} source datagrid to operate with
+ */
+function remoteOpenWebConsole(source) {
+    // if no chrono device selected, alert and ignore
+    var rows=$(source+'-datagrid').datagrid('getSelections');
+    if (rows.length===0) { // no display selected
+        $.messager.alert("<?php _e('No Selection');?>","<?php _e('There are no item(s) selected');?>","error");
+        return false;
+    }
+    if (rows.length!==1) {
+        $.messager.alert("<?php _e('Multiple select');?>","<?php _e('Can only open one web console at a time');?>","error");
+        return false;
+    }
+    if ($.inArray( rows[0]['IPAddr'], [ "localhost","127.0.0.1","127.0.1.1",",,1" ] ) >= 0 ) {
+        $.messager.alert("<?php _e('Site invalid');?>","<?php _e('Cannot open web console from localhost\'d device');?>","error");
+        return false;
+    }
+    window.open(
+        'http://'+rows[0]['IPAddr']+'/',
+        'remote_'+rows[0]['IP'],
+        "height=600,width=800,toolbar=no,menubar=no,status=no,resizable=yes"
+    );
+}
+
 function remote_handleEvents(source,data){
     // if no display selected, alert and ignore
     var rows=$(source+'-datagrid').datagrid('getSelections');

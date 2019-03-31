@@ -254,6 +254,9 @@ $am=AuthManager::getInstance("Chrono");
                             <a id="remote-chronometer-sendBtn" href="#" class="easyui-linkbutton"
                                data-options="iconCls:'icon-reload'" onclick="remoteSendChangeEvent('#remote-chronometer');"><?php _e('Switch'); ?></a>
                         </form>
+                            <br/>
+                            <a id="remote-chronometer-webBtn" href="#" class="easyui-linkbutton"
+                               data-options="iconCls:'icon-web'" onclick="remoteOpenWebConsole('#remote-chronometer');"><?php _e('Web Console'); ?></a>
                     </span>
                 </div>
                 <div style="display:<?php echo $am->allowed(ENABLE_CHRONO)?'none':'inherit';?>">
@@ -709,6 +712,7 @@ $am=AuthManager::getInstance("Chrono");
         $('#remote-videowall-fsnextBtn').linkbutton();
         $('#remote-videowall-fsprevBtn').linkbutton();
         addTooltip($('#remote-chronometer-sendBtn').linkbutton(),'<?php _e("Switch selected video-chronometers to choosen ring"); ?>');
+        addTooltip($('#remote-chronometer-webBtn').linkbutton(),'<?php _e("Open Web Console on selected device (if available)"); ?>');
         addTooltip($('#remote-livestream-sendBtn').linkbutton(),'<?php _e("Switch selected livestreamn windows to choosen ring/view"); ?>');
         addTooltip($('#remote-livestream-offBtn').linkbutton(),'<?php _e("Turn On-Screen-Display overlay OFF"); ?>');
         addTooltip($('#remote-livestream-onBtn').linkbutton(),'<?php _e("Turn On-Screen-Display overlay ON"); ?>');

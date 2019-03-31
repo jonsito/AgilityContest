@@ -111,10 +111,12 @@ var ac_clientOpts = {
     View:       0,
     Mode:       0,
     Timeout:    0,
-    SessionName: 'console'
+    Name:       'Nobody@console', // to be set at login
+    SessionName: ''
 };
 
 function initialize() {
+    ac_clientOpts.SessionName=composeClientSessionName(ac_clientOpts);
     $('.window').css('background-color','rgba(0,0,0,255,1)');
     // expand/collapse menu on mouse enter/exit
     var mm=$('#mymenu');
