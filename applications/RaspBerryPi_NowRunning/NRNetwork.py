@@ -216,18 +216,18 @@ class NRNetwork:
 
 # Llamada a pista
 	def handle_llamada(self,numero,id):
-	    # si perro en blanco marcamos perro numero "0"
+		# si perro en blanco marcamos perro numero "0"
 		if int(id)==0:
 			numero='0'
 		self.dspHandler.setNowRunning(int(numero))
 
 # comando desde consola
 	def handle_command(self,data):
-        # self.debug("Command event: Name:"+data['Name']+" SessionName:"+NRNetwork.SNAME+" Oper:"+str(data['Oper']) )
-        if data['Name'] != NRNetwork.SNAME : # not for me
-            return
-        if int(data['Oper']) != 8 : # only "show message" cmd is allowed
-            return
+		# self.debug("Command event: Name:"+data['Name']+" SessionName:"+NRNetwork.SNAME+" Oper:"+str(data['Oper']) )
+		if data['Name'] != NRNetwork.SNAME : # not for me
+			return
+		if int(data['Oper']) != 8 : # only "show message" cmd is allowed
+			return
 		a=data['Value'].split(":") # Value = "duration:message"
 		self.dspHandler.setOobMessage(a[1],int(a[0]))
 

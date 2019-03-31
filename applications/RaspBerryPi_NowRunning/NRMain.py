@@ -20,10 +20,13 @@ import argparse
 import threading
 import sys
 import os
+import SimpleHTTPServer
+import SocketServer
 
 import NRDisplay
 import NRNetwork
 import NROptions
+import NRWeb
 
 def isInteger(val):
 	try:
@@ -35,6 +38,8 @@ def isInteger(val):
 def restart(mode): # 0:exit 1:restart 2:shutdown
 	import getch
 	global displayHandler
+	global networkHandler
+	global webHandler
 	global displayName
 	msgoob = [ 'Exit','Restart','Shut down']
 	msgs = [ 'Exiting...','Restarting...','Shutting down...']
@@ -51,6 +56,7 @@ def restart(mode): # 0:exit 1:restart 2:shutdown
 	# start closing threads
 	networkHandler.stopNetwork()
 	displayHandler.stopDisplay()
+	webHandler.stopWeb()
 	if displayName == "pygame":
 		# do not restart nor shutdown on pygame, just stop
 		return False
@@ -108,6 +114,8 @@ if __name__ == "__main__":
 	global displayHandler
 	global networkHandler
 	global menuHandler
+	global webHandler
+
 	parser = argparse.ArgumentParser(description='matrix_demo arguments',
 		formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 	parser.add_argument('--display','-d',type=str,default='max7219',help='Display mode "pygame" or "max7219"')
@@ -126,6 +134,8 @@ if __name__ == "__main__":
 		displayHandler.setRing(int(args.ring))
 		# search network for connection
 		networkHandler = NRNetwork.NRNetwork(args.interface,args.ring,displayHandler)
+		webHandler = NRWeb.NRWeb()
+
 		# start display threads
 		w = threading.Thread(target = displayHandler.setStdMessage) # setting of main message
 		threads.append(w)
@@ -143,10 +153,16 @@ if __name__ == "__main__":
 		w = threading.Thread(target = networkHandler.networkLoop) # network thread loop
 		threads.append(w)
 		w.start()
+		# web server event thread
+		w = threading.Thread(target = webHandler.webLoop) # network thread loop
+		threads.append(w)
+		w.start()
+
 		# wait for all threads to die
 		for x in threads:
 			x.join()
 	except KeyboardInterrupt:
 		networkHandler.stopNetwork()
 		displayHandler.stopDisplay()
+		webHandler.stopWeb()
 		pass
