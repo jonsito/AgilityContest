@@ -181,7 +181,9 @@ function formatReorder(val,row,idx) {
 /* formatters para datagrid de inscripciones */
 function formatJourneyInscription(journey,val,row,idx) {
     if ( typeof (val) === "undefined" ) return ""; // not yet loaded datagrid
-    if ( $('#inscripciones-jornadas').datagrid('getRows')[journey].Nombre === "-- Sin asignar --") return "";
+    var jornada=$('#inscripciones-jornadas').datagrid('getRows')[journey];
+    if ( jornada.Nombre === "-- Sin asignar --") return ""; // undefined journey
+    if (!canInscribe(jornada,row['Grado'])) return ""; // journey doesn't match grade
     var checked=(val==0)?'':'checked="checked"';
     var fn="changeInscription("+idx+","+row.Prueba+","+row.Perro+","+journey+",this);"
     return '<input type="checkbox" value="1" '+checked+' onchange="'+fn+'">';
