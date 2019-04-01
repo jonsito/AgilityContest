@@ -174,43 +174,78 @@ function deleteInscripcion() {
  * @param {string} dg datagrid to retrieve selections from
  */
 function insertInscripcion(dg) {
+
+    var mask=parseInt($('#new_inscripcion-Jornadas').val());
+    var jornadas= $('#inscripciones-jornadas').datagrid('getData')['rows'];
+
+
+
 	function handleInscription(rows,index,size) {
+
+	    function doInscribeAjax() {
+            $.ajax({
+                cache: false,
+                timeout: 20000, // 20 segundos
+                type:'GET',
+                url:"../ajax/database/inscripcionFunctions.php",
+                dataType:'json',
+                data: {
+                    Prueba: workingData.prueba,
+                    Operation: 'insert',
+                    Perro: rows[index].ID,
+                    Jornadas: mask,
+                    Celo: $('#new_inscripcion-Celo').val(),
+                    Pagado: $('#new_inscripcion-Pagado').val()
+                },
+                success: function(result) {
+                    handleInscription(rows,index+1,size);
+                },
+                error: function(XMLHttpRequest,textStatus,errorThrown) {
+                    $.messager.alert("Insert Inscription","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+                    $('#new_inscripcion-okBtn').linkbutton('enable'); // enable button and do not continue inscription chain
+                }
+            });
+        }
+
+        function checkAndInscribe(n) {
+            if (n>=8) {
+                if (mask==0) return handleInscription(rows,index+1,size);
+                // preparamos progress bar
+                $('#new_inscripcion-progresslabel').text('<?php _e("Enrolling"); ?>'+": "+rows[index].Nombre);
+                $('#new_inscripcion-progressbar').progressbar('setValue', (100.0*(index+1)/size).toFixed(2));
+                return doInscribeAjax();
+            }
+            if ( ((1<<n) & mask)==0) return checkAndInscribe(n+1);
+            if (canInscribe(jornadas[n],rows[index].Grado)) return checkAndInscribe(n+1);
+            // aviso de que no se le puede inscribir en una determinada jornada
+            mask &= ~(1<<n); // borramos mascara de inscripcion en la jornada
+            var msg="<?php _e('Cannot inscribe dog');?> " + rows[index].Nombre +
+                "<br/><?php _e('into journey');?> "+jornadas[n].Nombre;
+            $.messager.alert({
+                title: '<?php _e("Notice");?>',
+                msg: msg,
+                icon: 'warning',
+                modal: true,
+                onClose: function() { return checkAndInscribe(n+1); },
+                fn: function() { return checkAndInscribe(n+1);}
+            });
+        }
+
+
 		if (index>=size){
             // recursive call finished, clean, close and refresh
             $('#new_inscripcion-okBtn').linkbutton('enable');
-            pwindow.window('close');
+            $('#new_inscripcion-progresswindow').window('close');
             $(dg).datagrid('clearSelections');
             reloadWithSearch('#new_inscripcion-datagrid','noinscritos');
             reloadWithSearch('#inscripciones-datagrid','inscritos');
 			return;
 		}
-		$('#new_inscripcion-progresslabel').text('<?php _e("Enrolling"); ?>'+": "+rows[index].Nombre);
-		$('#new_inscripcion-progressbar').progressbar('setValue', (100.0*(index+1)/size).toFixed(2));
-		$.ajax({
-			cache: false,
-			timeout: 20000, // 20 segundos
-			type:'GET',
-			url:"../ajax/database/inscripcionFunctions.php",
-			dataType:'json',
-			data: {
-				Prueba: workingData.prueba,
-				Operation: 'insert',
-				Perro: rows[index].ID,
-				Jornadas: $('#new_inscripcion-Jornadas').val(),
-				Celo: $('#new_inscripcion-Celo').val(),
-				Pagado: $('#new_inscripcion-Pagado').val()
-			},
-			success: function(result) {
-                handleInscription(rows,index+1,size);
-            },
-            error: function(XMLHttpRequest,textStatus,errorThrown) {
-                $.messager.alert("Insert Inscription","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
-                $('#new_inscripcion-okBtn').linkbutton('enable'); // enable button and do not continue inscription chain
-            }
-		});
+
+		// comprobamos si el perro se puede inscribir en una jornada determinada
+        checkAndInscribe(0);
 	}
 
-	var pwindow=$('#new_inscripcion-progresswindow');
 	var selectedRows= $(dg).datagrid('getSelections');
 	var size=selectedRows.length;
 	if(size==0) {
@@ -221,8 +256,8 @@ function insertInscripcion(dg) {
     	$.messager.alert('<?php _e("No permission"); ?>','<?php _e("Current user has not enought permissions to handle inscriptions"); ?>',"error");
     	return; // no tiene permiso para realizar inscripciones. retornar
 	}
-	pwindow.window('open');
 
+    $('#new_inscripcion-progresswindow').window('open');
     // disable button in ajax call to avoid recall twice
     $('#new_inscripcion-okBtn').linkbutton('disable');
 	handleInscription(selectedRows,0,size);
@@ -458,13 +493,34 @@ function setDorsal() {
     );
 }
 /**
- * Comprueba si un participante se puede o no inscribir en una jornada
+ * Comprueba si una jornada admite inscripciones
  * @param {object} jornada, datos de la jornada
+ * @param {string} grado, (opcional) grado del perro
  */
-function canInscribe(jornada) {
+function canInscribe(jornada,grado) {
 	var result=true;
-	if (jornada.Cerrada==1) result=false;
-	if (jornada.Nombre === '-- Sin asignar --') result=false;
+	// jornada no definida
+    if (jornada.Nombre === '-- Sin asignar --') return false;
+    // jornada cerrada
+	if (jornada.Cerrada==1) return false;
+	if ( (grado===null) || typeof(grado)==="undefined") return result;
+    if (grado==='Baja') return false;
+    if (grado==='Ret.') return false;
+    // preagility solo compite en pre-agility
+    if ( (grado==="P.A.") && (jornada.PreAgility==0) ) return false;
+    // En jornadas genericas no se comprueba el grado (salvo pre-agility)
+    if (jornada.Open!=0) return true;
+    if (jornada.Games!=0) return true;
+    if (jornada.KO!=0) return true;
+    if (jornada.Especial!=0) return true;
+    if (jornada.Equipos3!=0) return true;
+    if (jornada.Equipos4!=0) return true;
+    // En demas pruebas se comprueba la el grado del perro
+    if ( (grado==="Jr") && (jornada.Junior==0) ) return false;
+    if ( (grado==="Sr") && (jornada.Senior==0) ) return false;
+    if ( (grado==="GI") && (jornada.Grado1==0) ) return false;
+    if ( (grado==="GII") && (jornada.Grado2==0) ) return false;
+    if ( (grado==="GIII") && (jornada.Grado3==0) ) return false;
 	return result;
 }
 
