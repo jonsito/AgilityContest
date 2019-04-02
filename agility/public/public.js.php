@@ -52,7 +52,7 @@ function pb_getHeaderInfo(showJourney) {
             if ( (data.Club.logo==="") || isInternational(data.Prueba.RSCE)) {
                 logo=ac_fedInfo[data.Prueba.RSCE].OrganizerLogo
             }
-            $('#pb_header-logo').attr('src',logo);
+            $('#pb_header-logo').attr('src',"../ajax/images/getLogo.php?Fed="+data.Prueba.RSCE+"&Logo="+logo);
         }
     });
 }
