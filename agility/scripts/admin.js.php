@@ -508,7 +508,7 @@ function checkForDatabaseUpdates() {
     if (!checkForAdmin(true)) return; // not admin user
     // call server
     $.ajax({
-        url:"../ajax/serverRequest.php",
+        url:"/agility/ajax/serverRequest.php",
         dataType:'json',
         data: {
             Operation: 'checkForUpdates',
@@ -561,7 +561,7 @@ function synchronizeDatabase(warnifnotallowed) {
     });
     $.messager.progress('bar').progressbar({text: '{value}' }); // remove '%' sign at progress var
     $.ajax({
-        url:"../ajax/serverRequest.php",
+        url:"/agility/ajax/serverRequest.php",
         dataType:'json',
         data: {
             Operation: 'updateRequest',
@@ -604,7 +604,7 @@ function synchronizeDatabase(warnifnotallowed) {
     // en paralelo arrancamos una tarea para leer el progreso de la operacion
     function getProgress(){
         $.ajax({
-            url:"../ajax/serverRequest.php",
+            url:"/agility/ajax/serverRequest.php",
             dataType:'json',
             data: {
                 Operation: 'progress',

@@ -29,7 +29,7 @@
             <li><a href="https://www.agilitycontest.es/downloads/ac_user_manual.pdf">User manual</a> (PDF,english)</li>
             <li><a href="https://www.agilitycontest.es/downloads/ac_despliegue.pdf">Deployment tutorial</a> (PDF,spanish)</li>
             <li><a target="facebook" href="https://www.facebook.com/groups/agilitycontest/">News and Discussion</a> forum at Facebook</li>
-            <li>Access to stored and online realtime <a target="online" href="/AgilityContest/index.php">results page </a></li>
+            <li>Access to stored and online realtime <a target="online" href="/agility/index.php">results page </a></li>
             <li>Some (a bit outdated) <a target="screenshots" href="./screenshots">screenshots</a> and PDF <a target="printouts" href="./printouts">printouts</a></li>
             <li><a target="online" href="http://www.agilitycontest.es/downloads">Downloads</a> page</li>
         </ul>
@@ -42,10 +42,16 @@
 
 <div style="display:inline-block;width:100%">
     <span style="float:left;padding:20px;vertical-align:middle;width:35%;height:100%;">
-	&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>
+	&nbsp;<br/>&nbsp;<br/>
 	<div class="videoWrapper">
 	&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>
+        <video id="ac_videoframe" autoplay="autoplay" preload="auto" muted="muted"
+               loop="loop" poster="/agility/ajax/images/getRandomImage.php" style="width:100%;height:auto">
+            <source id="ac_videodemo" src="AgilityContest-1.0-bNZMf5zumY8.mp4" type='video/mp4'/>
+        </video>
+        <!--
         <iframe style="display:block;width:100%;height:100%" src="https://www.youtube.com/embed/bNZMf5zumY8" frameborder="0" allowfullscreen></iframe>
+        -->
 	</div>
     </span>
     <span style="float:right;width:60%">
@@ -120,5 +126,8 @@
     </span>
 
 </div>
+<hr>
+Web page privacy <a target="legal" href="/privacy.html">information</a><br/>
+AgilityContest Software data protection <a target="legal" href="/lopd.html">policy</a>
 </body>
 </html>
