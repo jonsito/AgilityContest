@@ -66,6 +66,7 @@ function retrieveFileFromURL($url) {
         curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/../config/cacert.pem");
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // tell curl to allow redirects up to 5 jumps
+        curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4); // try to fix some slowness issues in windozes
         $data = curl_exec($ch);
         if ($data===FALSE) { echo "curl_exec() failed:".curl_error($ch)."<br/>"; return FALSE; }
         curl_close($ch);
@@ -125,6 +126,7 @@ Class AgilityContestUpdater {
         curl_setopt($ch,CURLOPT_CONNECTTIMEOUT, 5); // wait 5 secs to attemp connect
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // tell curl to allow redirects up to 5 jumps
+        curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4); // try to fix some slowness issues in windozes
         curl_setopt($ch, CURLOPT_ENCODING, "");
         curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/../config/cacert.pem");
         set_time_limit(350);
