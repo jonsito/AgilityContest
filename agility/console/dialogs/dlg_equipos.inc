@@ -36,6 +36,9 @@ $config =Config::getInstance();
 		<div class="fitem">
 			<label for="team_edit_dialog-Categorias" style="width:100px"><?php _e('Categories');?>:</label>
 			<input id="team_edit_dialog-Categorias" type="hidden" name="Categorias" value=""/>
+            <span id="team_edit_dialog-xlarge">
+                <input type="checkbox" id="team_edit_dialog-X" name="X" value="X">Tiny</input>
+            </span>
 			<input type="checkbox" id="team_edit_dialog-L" name="L" value="L">Large</input>
 			<input type="checkbox" id="team_edit_dialog-M" name="M" value="M">Medium</input>
 			<input type="checkbox" id="team_edit_dialog-S" name="S" value="S">Small</input>
@@ -74,8 +77,8 @@ $('#team_edit_dialog').dialog({
 	onBeforeOpen:function(){
 		// hide tiny and xlarge button on affected federations
 		var heights=howManyHeights(workingData.datosPrueba.RSCE);
-        $('#team_edit_dialog-tiny').css('display',(heights!=3)?'inline':'none');
-        $('#team_edit_dialog-xlarge').css('display',(heights==5)?'inline':'none');
+        $('#team_edit_dialog-tiny').css('display',(parseInt(heights)!==3)?'inline':'none');
+        $('#team_edit_dialog-xlarge').css('display',(parseInt(heights)===5)?'inline':'none');
 	}
 });
 
