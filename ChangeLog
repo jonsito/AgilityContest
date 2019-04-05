@@ -1,3 +1,10 @@
+Version 3.9.1 20190405_1130
+    - Dont allow inscription if no round available
+    - Canometro is back
+    - Add web console access in session control
+    - Update database
+    - Disable curl on ipv6
+    - minor fixes in 5-height team contests
 Version 3.9.0 20190327_1207
     - Preliminary support for new fields on event API
     - So many bugfixes about 5Heights and pre-Agility
@@ -6,7 +13,7 @@ Version 3.9.0 20190327_1207
     - Fix Windows update 1809 that prevented open navigator dialog
 Version 3.9.0 20190216_1700
     - Notice in console any 'connect' command from event bus
-    - Fix serious error in tandas handlind that prevented showing pre-agility
+    - Fix serious error in tandas handling that prevented showing pre-agility
 Version 3.9.0 20190204_1210
     - Support for 5Height contests
     - New Module: RSCE temporada 2019
