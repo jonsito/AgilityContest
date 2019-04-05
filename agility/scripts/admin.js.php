@@ -286,12 +286,15 @@ function restoreDatabase(fromClient){
                                 if (data.errorMsg){
                                     $.messager.show({ width:300, height:150, title: '<?php _e('Database Restore Error'); ?>', msg: data.errorMsg });
                                 } else {
-                                    $.messager.alert(
-                                        '<?php _e("Restore Database"); ?>',
-                                        '<?php _e("Database restore success<br />Press Accept to re-init application"); ?>',
-                                        "info",
-                                        function(){window.location.reload();} // reload application main page
-                                    ).window('resize',{width:350});
+                                    $.messager.alert({
+                                        title:'<?php _e("Restore Database"); ?>',
+                                        msg: '<?php _e("Database restore success<br />Press Accept to re-init application"); ?>',
+                                        icon: "info",
+                                        fn: function(){window.location.reload();}, // reload application main page
+                                        onClose: function(){window.location.reload();}, // reload application main page
+                                        closable: false,
+                                        width:350
+                                    });
                                 }
                             },
                             error: function(XMLHttpRequest,textStatus,errorThrown) {
