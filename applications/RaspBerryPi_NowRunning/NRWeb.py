@@ -10,7 +10,6 @@ class NRWeb:
         NRWeb.loop=False
 
     def webLoop(self):
-        self.debug("webThread() starting")
         server_thread = threading.Thread(target=self.httpd.serve_forever)
         # Exit the server thread when the main thread terminates
         server_thread.daemon = True
@@ -22,7 +21,6 @@ class NRWeb:
         self.httpd.server_close()
 
         # while NRWen.loop == True
-        self.debug("webThread() exiting")
 
     def __init__(self):
         handler=CGIHTTPServer.CGIHTTPRequestHandler
