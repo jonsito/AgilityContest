@@ -15,6 +15,14 @@
             padding:10px 0px 10px 0px;
         }
 
+        .logo {
+            background:url('/html/AgilityContest.png') center no-repeat;
+            background-size: 120px 100px;
+            border:none;
+            width:100px;
+            height:80px;
+            padding:5px
+        }
     </style>
     <script type="text/javascript">
         function toogle(element) {
@@ -28,48 +36,79 @@
         }
 
         function setDog(dog) {
-
+            writeData();
         }
 
         function initialize() {
             $('#btn_turno').prop('checked',true);
             $('#sel_rec').val("0").prop('enabled',true);
         }
-        function reload() {
 
+        function readData() {
+            $.ajax({
+                url: '/readData',
+                dataType: 'json',
+                method: 'GET',
+                data: { 'Operation':'readData' }, // not really needed, but...
+                success: function(data){
+                    alert(JSON.stringify(data));
+                    // PENDING: fill form with received data
+                },
+                error: function(){
+                    alert('Error');
+                }
+            });
+            return false;
         }
-        function selectRing(obj) {
 
+        function writeData() {
+            $.ajax({
+                type: 'POST',
+                url: '/writeData',
+                dataType: 'json',
+                data: $('#parameters').serialize()
+            }).done(function(data) {
+                alert(JSON.stringify(data));
+            }).fail(function(data) {
+                alert("Error");
+            });
+        }
+
+        function selectRing(obj) {
+            writeData();
         }
         function selectRound(obj){
-
+            writeData();
         }
         function selectCategoria(obj) {
-
+            writeData();
         }
         function selectGrado(obj) {
-
+            writeData();
         }
         function selectBrillo(obj) {
-
+            writeData();
         }
         function selectRecTime(obj) {
-
+            writeData();
         }
         function reconnect(){
 
         }
+
+
     </script>
 </head>
 <body onload="initialize();">
 
 <form id="parameters" autocomplete="off">
+
 <table width="100%">
 
     <tr>
         <td colspan="2" style="text-align:left;"><h2>Panel de control "Su Turno"</h2></td>
         <td style="text-align:right">
-            <input type="image" src="html/AgilityContest.png" alt="AC Logo" style="width:100px;padding:5px" onclick="reload();">
+            <input type="text" id="logo" name="Logo" value="" class="logo" onclick="readData();">
         </td>
     </tr>
     <tr> <th colspan="3" align="left"> Modo de funcionamiento</th></tr>
@@ -82,7 +121,7 @@
                 <span class="switch-handle"></span>
             </label>
             <!-- indicador de perro en pista -->
-            <input class="input_number"  type="number" id="sel_turno" onchange="setDog(this.value);" min="0" max="999" step="1" value="0"/>
+            <input class="input_number"  type="number" id="sel_turno" name="Numero" onchange="setDog(this.value);" min="0" max="999" step="1" value="0"/>
         </td><td style="text-align:center">
             <!-- boton de reconocimiento de pista -->
             <label class="switch switch-slide">
@@ -104,7 +143,7 @@
     <tr>
         <td>
             <label for="sel_ring" style="display:inline-block;width:120px;">Ring: </label>
-            <select id="sel_ring" onchange="selectRing(this);">
+            <select id="sel_ring" name="Ring" onchange="selectRing(this);">
                 <option value="0" selected="selected">Ring 1</option>
                 <option value="1">Ring 2</option>
                 <option value="2">Ring 3</option>
@@ -115,7 +154,7 @@
         <td style="width:100px">&nbsp;</td>
         <td>
             <label for="sel_round" style="display:inline-block;width:120px;">Manga: </label>
-            <select id="sel_round" onchange="selectRound(this);">
+            <select id="sel_round" name="Round" onchange="selectRound(this);">
                 <option value="A" selected="selected">Agility</option>
                 <option value="J">Jumping</option>
                 <option value="T">Tunnel Cup</option>
@@ -130,7 +169,7 @@
     <tr>
         <td>
             <label for="sel_cat" style="display:inline-block;width:120px;">Categoria: </label>
-            <select id="sel_cat" onchange="selectCategoria(this);">
+            <select id="sel_cat" name="Categoria" onchange="selectCategoria(this);">
                 <option value="X">Extra Large</option>
                 <option value="L" selected="selected">Large</option>
                 <option value="M">Medium</option>
@@ -142,7 +181,7 @@
         <td style="width:75px">&nbsp;</td>
         <td>
             <label for="sel_grad" style="display:inline-block;width:120px;">Grado: </label>
-            <select id="sel_grad" onchange="selectGrado(this);">
+            <select id="sel_grad" name="Grado" onchange="selectGrado(this);">
                 <option value="1" selected="selected">Grado 1</option>
                 <option value="2">Grado 2</option>
                 <option value="3">Grado 3</option>
@@ -156,7 +195,7 @@
     <tr>
         <td>
             <label for="sel_rec" style="display:inline-block;width:120px;">Rec. pista: </label>
-            <select id="sel_rec" onchange="selectRecTime(this);">
+            <select id="sel_rec" name="Reconocimiento" onchange="selectRecTime(this);">
                 <option value="0">(Detener)</option>
                 <option value="6">6 Minutos</option>
                 <option value="7" selected="selected">7 Minutos</option>
@@ -168,7 +207,7 @@
         <td style="width:75px">&nbsp;</td>
         <td>
             <label for="sel_brillo" style="display:inline-block;width:120px;">Brillo: </label>
-            <input id="sel_brillo" type="number" class="input_number" value="6" min="0" max="9" step="1" onchange="selectBrillo(this);"/>
+            <input id="sel_brillo" name="Brillo" type="number" class="input_number" value="6" min="0" max="9" step="1" onchange="selectBrillo(this);"/>
             <br/>
         </td>
     </tr>
@@ -181,7 +220,7 @@
             <label for="host_ip">Direcci&oacute;n IP:</label>
         </td>
         <td>
-            <input type="text" id="host_ip" disabled="disabled" readonly="readonly" value="" style="width:200px;">
+            <input type="text" name="Client" id="host_ip" disabled="disabled" readonly="readonly" value="0.0.0.0" style="width:200px;">
         </td>
     </tr>
     <tr>
@@ -189,7 +228,7 @@
             <label for="server_ip">AgilityContest server IP:</label>
         </td>
         <td>
-            <input type="text" id="server_ip" disabled="disabled" readonly="readonly" value="" style="width:200px;">
+            <input type="text" name="Server" id="server_ip" disabled="disabled"  value="0.0.0.0" style="width:200px;">
         </td>
         <td>
             <input type="button" id="btn_reconnect" value="Reconectar" onclick="reconnect()"/>
