@@ -20,8 +20,6 @@ import argparse
 import threading
 import sys
 import os
-import SimpleHTTPServer
-import SocketServer
 
 import NRDisplay
 import NRNetwork

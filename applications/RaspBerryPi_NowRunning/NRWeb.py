@@ -1,7 +1,43 @@
-import CGIHTTPServer
-import SocketServer
+import socketserver
+# for python2
+# from BaseHTTPServer import BaseHTTPRequestHandler
+# for python3
+from http.server import BaseHTTPRequestHandler
+
 import time
 import threading
+
+class MyHandler(BaseHTTPRequestHandler):
+    def read_data(self):
+        print("read data")
+
+    def write_data(self):
+        print("Write_data")
+
+    def _set_headers(self):
+        self.send_response(200)
+        #self.send_header('Content-type', 'application/json')
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
+
+    def do_GET(self):
+        if self.path == '/readData':
+            read_data()
+        elif self.path == '/writeData':
+            write_data()
+        else:
+            BaseHTTPRequestHandler.do_GET()
+        self._set_headers()
+
+    def do_POST(self):
+        # '''Reads post request body'''
+        self._set_headers()
+        content_len = int(self.headers.getheader('content-length', 0))
+        post_body = self.rfile.read(content_len)
+        self.wfile.write("received post request:<br>{}".format(post_body))
+
+    def do_PUT(self):
+        self.do_POST()
 
 class NRWeb:
     loop = True
@@ -23,7 +59,7 @@ class NRWeb:
         # while NRWen.loop == True
 
     def __init__(self):
-        handler=CGIHTTPServer.CGIHTTPRequestHandler
-        self.httpd = SocketServer.TCPServer(("", 8000), handler)
+        handler=MyHandler
+        self.httpd = socketserver.TCPServer(("", 8000), handler)
         self.httpd.server_name = "localhost"
         self.httpd.server_port = 8000
