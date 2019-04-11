@@ -28,7 +28,7 @@
         function toogle(element) {
             var button=element.value;
             var checked=element.checked;
-            if (button==='turno' && checked===true) {
+            if (button==='Turno' && checked===true) {
                 $('#sel_turno').prop("disabled",false);
             } else {
                 $('#sel_turno').prop("disabled",true);
@@ -116,7 +116,7 @@
         <td>
             <!-- boton de perro en pista -->
             <label class="switch switch-slide">
-                <input name="buttons" id="btn_turno" class="switch-input" type="radio" value="turno" onchange="toogle(this);" checked="checked"/>
+                <input name="Mode" id="btn_turno" class="switch-input" type="radio" value="Turno" onchange="toogle(this);" checked="checked"/>
                 <span class="switch-label" data-on="Perro en pista" data-off="Perro en pista"></span>
                 <span class="switch-handle"></span>
             </label>
@@ -125,14 +125,14 @@
         </td><td style="text-align:center">
             <!-- boton de reconocimiento de pista -->
             <label class="switch switch-slide">
-                <input name="buttons" id="btn_rec" class="switch-input" type="radio" value="rec" onchange="toogle(this);" />
+                <input name="Mode" id="btn_rec" class="switch-input" type="radio" value="Reconocimiento" onchange="toogle(this);" />
                 <span class="switch-label" data-on="Reconocimiento" data-off="Reconocimiento"></span>
                 <span class="switch-handle"></span>
             </label>
         </td><td style="text-align:right">
             <!-- boton para mostrar el reloj -->
             <label class="switch switch-slide">
-                <input name="buttons" id="btn_clock" class="switch-input" type="radio" value="clock" onchange="toogle(this);" />
+                <input name="Mode" id="btn_clock" class="switch-input" type="radio" value="Reloj" onchange="toogle(this);" />
                 <span class="switch-label" data-on="Reloj" data-off="Reloj"></span>
                 <span class="switch-handle"></span>
             </label>
@@ -155,13 +155,13 @@
         <td>
             <label for="sel_round" style="display:inline-block;width:120px;">Manga: </label>
             <select id="sel_round" name="Round" onchange="selectRound(this);">
-                <option value="A" selected="selected">Agility</option>
-                <option value="J">Jumping</option>
-                <option value="T">Tunnel Cup</option>
-                <option value="S">Snooker</option>
-                <option value="G">Gambler</option>
-                <option value="K">Ronda K.O.</option>
-                <option value="*">M. Especial</option>
+                <option value="Agility" selected="selected">Agility</option>
+                <option value="Jumping">Jumping</option>
+                <option value="Tunnel Cup">Tunnel Cup</option>
+                <option value="Snooker">Snooker</option>
+                <option value="Gambler">Gambler</option>
+                <option value="Ronda K.O.">Ronda K.O.</option>
+                <option value="Manga Especial">M. Especial</option>
             </select>
             <br/>&nbsp;
         </td>
@@ -170,11 +170,11 @@
         <td>
             <label for="sel_cat" style="display:inline-block;width:120px;">Categoria: </label>
             <select id="sel_cat" name="Categoria" onchange="selectCategoria(this);">
-                <option value="X">Extra Large</option>
-                <option value="L" selected="selected">Large</option>
-                <option value="M">Medium</option>
-                <option value="S">Small</option>
-                <option value="T">Toy</option>
+                <option value="ExtraLarge">Extra Large</option>
+                <option value="Large" selected="selected">Large</option>
+                <option value="Medium">Medium</option>
+                <option value="Small">Small</option>
+                <option value="Toy">Toy</option>
             </select>
             <br/>&nbsp;
         </td>
@@ -182,12 +182,12 @@
         <td>
             <label for="sel_grad" style="display:inline-block;width:120px;">Grado: </label>
             <select id="sel_grad" name="Grado" onchange="selectGrado(this);">
-                <option value="1" selected="selected">Grado 1</option>
-                <option value="2">Grado 2</option>
-                <option value="3">Grado 3</option>
-                <option value="0">Pre-Agility</option>
-                <option value="J">Junior</option>
-                <option value="S">Senior</option>
+                <option value="Grado 1" selected="selected">Grado 1</option>
+                <option value="Grado 2">Grado 2</option>
+                <option value="Grado 3">Grado 3</option>
+                <option value="Pre-Agility">Pre-Agility</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior">Senior</option>
             </select>
             <br/>&nbsp;
         </td>

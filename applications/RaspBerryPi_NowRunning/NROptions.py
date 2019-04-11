@@ -38,11 +38,14 @@ class NROptions:
 		cat=self.menuEntries[3][self.menuItems[3]][1]
 		grad=self.menuEntries[4][self.menuItems[4]][1]
 		str= "%s %s - %s" %(round,cat,grad)
-		self.dspHandler.setRoundInfo(str)
+		self.dspHandler.setRoundInfo(cat,grad,str)
 		return
 
 	def getCountDown(self):
 		return self.countDown*60
+
+	def setDirectCountDown(self,val):
+		self.countDown=val
 
 	def setCountDown(self): # menu index 5
 		mins=self.menuEntries[5][self.menuItems[5]][0]
@@ -100,16 +103,16 @@ class NROptions:
 		self.menuItems = [ 0, 0, 0, 0, 0, 2, 5, 0, 0, 0 ]
 		self.menuAutoExec = [ 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 ]
 		self.menuNames = [
-		    [' <<'],
-		    ['Rng'],
-		    ['Mng'],
-		    ['Cat'],
-		    ['Grd'],
-		    ['Rec'],
-		    ['Bri'],
-		    ['IP ','Srv','Net','Net','Rec'],
-		    ['Inf'],
-		    ['Sto','Rst','Off'] ]
+			[' <<'],
+			['Rng'],
+			['Mng'],
+			['Cat'],
+			['Grd'],
+			['Rec'],
+			['Bri'],
+			['IP ','Srv','Net','Net','Rec'],
+			['Inf'],
+			['Sto','Rst','Off'] ]
 		self.menuFunctions = [
 			self.exitMenu,
 			self.setRing,

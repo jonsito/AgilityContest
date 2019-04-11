@@ -114,13 +114,14 @@ if __name__ == "__main__":
 	global menuHandler
 	global webHandler
 
-	parser = argparse.ArgumentParser(description='matrix_demo arguments',
+	parser = argparse.ArgumentParser(description='SuTurno cmdline arguments',
 		formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 	parser.add_argument('--display','-d',type=str,default='max7219',help='Display mode "pygame" or "max7219"')
 	parser.add_argument('--ring','-r', type=int, default=1, help='Ring to listen events from (1..4)')
 	parser.add_argument('--interface','-i', type=str, default='',help='Use specific network interface to look for server')
+	parser.add_argument('--port','-p', type=int, default=8000, help='Port to attach Web server interface (0:disable)')
 	parser.add_argument('--cascaded', '-n', type=int, default=4, help='Number of cascaded MAX7219 LED matrices')
-	parser.add_argument('--block-orientation', type=int, default=-90, choices=[0, 90, -90], help='Corrects block orientation when wired vertically')
+	parser.add_argument('--block_orientation', type=int, default=-90, choices=[0, 90, -90], help='Corrects block orientation when wired vertically')
 	parser.add_argument('--rotate', type=int, default=2, choices=[0, 1, 2, 3], help='Rotate display 0=0°, 1=90°, 2=180°, 3=270°')
 
 	args = parser.parse_args()
@@ -132,7 +133,6 @@ if __name__ == "__main__":
 		displayHandler.setRing(int(args.ring))
 		# search network for connection
 		networkHandler = NRNetwork.NRNetwork(args.interface,args.ring,displayHandler)
-		webHandler = NRWeb.NRWeb()
 
 		# start display threads
 		w = threading.Thread(target = displayHandler.setStdMessage) # setting of main message
@@ -152,9 +152,11 @@ if __name__ == "__main__":
 		threads.append(w)
 		w.start()
 		# web server event thread
-		w = threading.Thread(target = webHandler.webLoop) # network thread loop
-		threads.append(w)
-		w.start()
+		if args.port != 0 :
+			webHandler = NRWeb.NRWeb(args.port,displayHandler,networkHandler,menuHandler)
+			w = threading.Thread(target = webHandler.webLoop) # network thread loop
+			threads.append(w)
+			w.start()
 
 		# wait for all threads to die
 		for x in threads:

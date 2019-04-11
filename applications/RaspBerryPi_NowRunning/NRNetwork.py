@@ -67,6 +67,7 @@ class NRNetwork:
 	loop=True
 	reconfigure=False
 	rings = ["2","3","4","5"] # array of session id's received from server To be re-evaluated later from server response
+	hostaddr = '0.0.0.0'
 
 	def kitt(self,count):
 		return ( count + 1 ) % 8
@@ -102,6 +103,7 @@ class NRNetwork:
 		if msg=="": # no active IPv4 addresses found.
 			msg = "No network connection"
 		# finally send result to display
+		self.hostaddr = msg
 		self.debug("IP Address is: "+msg)
 		self.dspHandler.setOobMessage("IP Addr: "+msg,3)
 		return
@@ -113,6 +115,15 @@ class NRNetwork:
 		# finally send result to display
 		self.debug(msg)
 		self.dspHandler.setOobMessage(msg,3)
+
+	def getServerAddress(self):
+		msg="Not connected"
+		if self.server != "0.0.0.0":
+			msg=self.server
+		return msg
+
+	def getHostAddress(self):
+		return self.hostaddr
 
 	def setEnabled(self,state):
 		NRNetwork.ENABLED=state
@@ -233,9 +244,9 @@ class NRNetwork:
 
 # open manga
 	def handle_open(self,data):
-		self.debug("data is:'%s' " % (data))
-		self.dspHandler.setOobMessage(data,1)
-		self.dspHandler.setRoundInfo(data)
+		self.debug("data is:'%s' " % (evtdata['NombreManga']))
+		self.dspHandler.setOobMessage(evtdata['NombreManga'],1)
+		self.dspHandler.setRoundInfo(evtdata['Categoria'],evtdata['Grado'],evtdata['NombreManga'])
 		self.dspHandler.setNowRunning(1)
 
 # parar bucle de eventos
@@ -315,7 +326,7 @@ class NRNetwork:
 		if type == 'login':				# operador hace login en el sistema
 			return
 		if type == 'open':				# operator selects tanda on tablet
-			self.handle_open(evtdata['NombreManga'])
+			self.handle_open(evtdata)
 			return
 		if type == 'close':				# operator exit from dog data entry on tablet
 			return

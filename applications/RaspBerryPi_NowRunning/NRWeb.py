@@ -5,21 +5,76 @@ import socketserver
 import time
 import threading
 import cgi
+import json
 from os import curdir,sep
 from http.server import BaseHTTPRequestHandler
 
+import NRDisplay
+import NRNetwork
+import NROptions
 
 class MyHandler(BaseHTTPRequestHandler):
+
 	def readData(self):
 		print("read data")
+		# evaluate mode
+		if self.server.displayHandler.getCountDown() != 0:
+			modo="Reconocimiento"
+		elif self.server.displayHandler.getClockMode() != 0:
+			modo="Reloj"
+		else:
+			modo="Turno"
 		# pending: retrieve all required parameters
-		return '{"success":true}'
+		data = {
+			'Ring': self.server.displayHandler.getRing(),
+			'Round': self.server.displayHandler.getRoundInfo(),
+			'Categoria': self.server.displayHandler.getCategoria(),
+			'Grado': self.server.displayHandler.getGrado(),
+			'Reconocimiento': int(self.server.menuHandler.getCountDown()/60),
+			'Brillo': self.server.displayHandler.getBrightness(),
+			'Numero': self.server.displayHandler.getNowRunning(),
+			'ServerIP': self.server.networkHandler.getServerAddress(),
+			'HostIP': self.server.networkHandler.getHostAddress(),
+			'Mode': modo,
+			'Success': True
+		}
+		return json.dumps(data,separators=(',', ':'))
 
 	def writeData(self,form):
 		print("Write_data")
 		# pending: set all received parameters
 		for item in form:
-		    print("Key: %s Value:%s" %(item,form[item].value) )
+			val=form[item].value
+			print("%s >>> %s" %(item,val) )
+			if item == 'Ring':
+				self.server.displayHandler.setRing(int(val))
+			elif item == 'Round':
+				self.manga=val
+			elif item == "Categoria":
+				self.cat=val
+			elif item == "Grado":
+				self.grad=val
+			elif item == "Reconocimiento":
+				self.server.menuHandler.setDirectCountDown(int(val))
+			elif item == "Brillo":
+				self.server.displayHandler.setBrightness(int(val))
+			elif item == "Numero":
+				self.server.displayHandler.setNowRunning(int(val))
+			elif item == 'Modo':
+				if val == 'Reloj':
+					self.server.displayHandler.setCountdown(0)
+					self.server.displayHandler.setClockMode(1)
+				elif val == "Reconocimiento":
+					self.server.displayHandler.setClockMode(0)
+					self.server.displayHandler.setCountdown(self.server.menuHandler.getCountDown())
+				else:
+					self.server.displayHandler.setCountdown(0)
+					self.server.displayHandler.setClockMode(0)
+			else:
+				print("Unhandled Key: %s Value:%s" %(item,form[item].value) )
+
+		str= "%s %s - %s" %(self.manga,self.cat,self.grad)
+		self.server.displayHandler.setRoundInfo(self.cat,self.grad,str)
 
 	def do_GET(self):
 		if self.path=="/":
@@ -78,7 +133,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				fp=self.rfile,
 				headers=self.headers,
 				environ={'REQUEST_METHOD':'POST',
-		                 'CONTENT_TYPE':self.headers['Content-Type'],
+						 'CONTENT_TYPE':self.headers['Content-Type'],
 			})
 			self.writeData(form)
 			data=self.readData()
@@ -110,8 +165,11 @@ class NRWeb:
 
 		# while NRWen.loop == True
 
-	def __init__(self):
-		handler=MyHandler
-		self.httpd = socketserver.TCPServer(("", 8000), handler)
+	def __init__(self,port,dsp,net,menu):
+		self.httpd = socketserver.TCPServer(("", port), MyHandler)
+		# ad dsp,net,and menu handler as extra variables
+		self.httpd.displayHandler=dsp
+		self.httpd.networkHandler=net
+		self.httpd.menuHandler=menu
 		self.httpd.server_name = "localhost"
-		self.httpd.server_port = 8000
+		self.httpd.server_port = port

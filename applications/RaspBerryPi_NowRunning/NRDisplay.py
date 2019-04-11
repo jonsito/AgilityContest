@@ -48,10 +48,15 @@ class NRDisplay:
 	countDown=0
 	glitch=0
 	clockMode=False
+	categoria=''
+	grado=''
 
 	# enable/disable clock mode (true,false)
 	def setClockMode(self,value):
 		NRDisplay.clockMode=value
+
+	def getClockMode(self):
+		return NRDisplay.clockMode
 
 	# set countDowntime for course walk
 	# value=seconds. 0 means stop
@@ -61,6 +66,9 @@ class NRDisplay:
 		else:
 			NRDisplay.countDown=time.time() + float(value)
 
+	def getCountDown(self):
+		return NRDisplay.countDown
+
 	# finalize display threads
 	def stopDisplay(self):
 		NRDisplay.loop=False
@@ -69,6 +77,9 @@ class NRDisplay:
 	def setNowRunning(self,nr):
 		if nr >= 0:
 			NRDisplay.nowRunning = nr
+
+	def getNowRunning(self):
+		return NRDisplay.nowRunning
 
 	def setNextRunning(self):
 		NRDisplay.nowRunning = ( NRDisplay.nowRunning + 1 ) % 10000
@@ -82,8 +93,22 @@ class NRDisplay:
 	def setRing(self,ring):
 		self.ring = ring
 
-	def setRoundInfo(self,info):
+	def getRing(self):
+		return self.ring
+
+	def setRoundInfo(self,cat,grad,info):
+		self.categoria = cat
+		self.grado = grad
 		self.ronda = info
+
+	def getCategoria(self):
+		return self.categoria
+
+	def getGrado(self):
+		return self.grado
+
+	def getRoundInfo(self):
+		return self.ronda
 
 	# ajuste del menu
 	def setMenuMessage(self,str):
@@ -98,6 +123,9 @@ class NRDisplay:
 
 	def setBrightness(self,value):
 		NRDisplay.contrast = value
+
+	def getBrightness(self):
+		return NRDisplay.contrast
 
 	def setGlitch(self,value):
 		NRDisplay.glitch = int(value)
@@ -239,7 +267,7 @@ class NRDisplay:
 
 		# informacion de ring y manga y perro en pista
 		self.setRing(1)
-		self.setRoundInfo("")
+		self.setRoundInfo("","","")
 		self.setNowRunning(0)
 
 		NRDisplay.device= self.initDisplay(cascaded,block_orientation,rotate)
