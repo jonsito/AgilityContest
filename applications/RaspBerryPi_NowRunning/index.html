@@ -35,13 +35,10 @@
             }
         }
 
-        function setDog(dog) {
-            writeData();
-        }
-
         function initialize() {
             $('#btn_turno').prop('checked',true);
             $('#sel_rec').val("0").prop('enabled',true);
+            // setInterval(function() {readData();},5000);
         }
 
         function readData() {
@@ -51,8 +48,25 @@
                 method: 'GET',
                 data: { 'Operation':'readData' }, // not really needed, but...
                 success: function(data){
-                    alert(JSON.stringify(data));
-                    // PENDING: fill form with received data
+                    // alert(JSON.stringify(data));
+                    $('#sel_turno').val(data.Numero);
+                    $('#sel_ring').val(data.Ring);
+                    $('#sel_cat').val(data.Categoria);
+                    $('#sel_grad').val(data.Grado);
+                    $('#sel_brillo').val(data.Brillo);
+                    $('#sel_rec').val(data.Reconocimiento);
+                    if (data.Mode==='Reloj') {
+                        $('#sel_turno').prop("disabled",true);
+                        $('#btn_clock').prop("checked",true);
+                    }
+                    else if (data.Mode==='Reconocimiento') {
+                        $('#sel_turno').prop("disabled",true);
+                        $('#btn_rec').prop("checked",true);
+                    }
+                    else{
+                        $('#sel_turno').prop("disabled",false);
+                        $('#btn_turno').prop("checked",true);
+                    }
                 },
                 error: function(){
                     alert('Error');
@@ -74,24 +88,14 @@
             });
         }
 
-        function selectRing(obj) {
-            writeData();
-        }
-        function selectRound(obj){
-            writeData();
-        }
-        function selectCategoria(obj) {
-            writeData();
-        }
-        function selectGrado(obj) {
-            writeData();
-        }
-        function selectBrillo(obj) {
-            writeData();
-        }
-        function selectRecTime(obj) {
-            writeData();
-        }
+        function setDog(dog) { writeData(); }
+        function selectRing(obj) { writeData(); }
+        function selectRound(obj) { writeData(); }
+        function selectCategoria(obj) { writeData(); }
+        function selectGrado(obj) { writeData(); }
+        function selectBrillo(obj) { writeData(); }
+        function selectRecTime(obj) { writeData(); }
+
         function reconnect(){
 
         }

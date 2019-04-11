@@ -37,8 +37,7 @@ class NROptions:
 		round=self.menuEntries[2][self.menuItems[2]][1]
 		cat=self.menuEntries[3][self.menuItems[3]][1]
 		grad=self.menuEntries[4][self.menuItems[4]][1]
-		str= "%s %s - %s" %(round,cat,grad)
-		self.dspHandler.setRoundInfo(cat,grad,str)
+		self.dspHandler.setRoundInfo(round,cat,grad)
 		return
 
 	def getCountDown(self):

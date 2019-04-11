@@ -74,7 +74,7 @@ class MyHandler(BaseHTTPRequestHandler):
 				print("Unhandled Key: %s Value:%s" %(item,form[item].value) )
 
 		str= "%s %s - %s" %(self.manga,self.cat,self.grad)
-		self.server.displayHandler.setRoundInfo(self.cat,self.grad,str)
+		self.server.displayHandler.setRoundInfo(self.manga,self.cat,self.grad)
 
 	def do_GET(self):
 		if self.path=="/":

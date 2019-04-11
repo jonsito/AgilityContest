@@ -96,13 +96,18 @@ class NRDisplay:
 	def getRing(self):
 		return self.ring
 
-	def setRoundInfo(self,cat,grad,info):
+	def setRoundInfo(self,manga,cat,grad):
+		self.manga = cat
 		self.categoria = cat
 		self.grado = grad
-		self.ronda = info
+		str= "%s %s - %s" %(self.manga,self.categoria,self.grado)
+		self.ronda = str
 
 	def getCategoria(self):
 		return self.categoria
+
+	def getManga(self):
+		return self.manga
 
 	def getGrado(self):
 		return self.grado
@@ -267,7 +272,7 @@ class NRDisplay:
 
 		# informacion de ring y manga y perro en pista
 		self.setRing(1)
-		self.setRoundInfo("","","")
+		self.setRoundInfo("Agility","Large","Grado 1")
 		self.setNowRunning(0)
 
 		NRDisplay.device= self.initDisplay(cascaded,block_orientation,rotate)
