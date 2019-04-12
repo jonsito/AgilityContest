@@ -128,7 +128,7 @@ class NROptions:
 			[ [ '<', 'Volver' ]],
 			[ [ '1','Ring 1'],['2','Ring 2'],['3','Ring 3'], ['4','Ring 4'] ],
 			[ [ 'A','Agility'],['J','Jumping'],['S','Snooker'],['G','Gambler'],['K','K.O'],['T','TunnelCup'],[' ','Special' ] ],
-			[ [ 'L','Large'],['M','Medium'],['S','Small'],['T','Toy'] ],
+			[ [ 'X','X-Large'],[ 'L','Large'],['M','Medium'],['S','Small'],['T','Toy'] ],
 			[ [ '1','Grado 1'],['2','Grado 2'],['3','Grado 3'],['P','Pre-Agility'],['J','Junior'],['S','Senior'],['O','Open'] ],
 			[ [ '0','Stop'],[ '6','6 min.'],['7','7 min.'],['8','8 min.'],['9','9 min'] ],
 			[ [ '1','1'],['2','2'],['3','3'], ['4','4'],['5','5'],['6','6'],['7','7'], ['8','8'],['9','9'] ],

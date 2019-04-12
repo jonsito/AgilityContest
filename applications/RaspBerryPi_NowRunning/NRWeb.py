@@ -17,10 +17,11 @@ class MyHandler(BaseHTTPRequestHandler):
 
 	def readData(self):
 		print("read data")
+		# properly handle
 		# evaluate mode
 		if self.server.displayHandler.getCountDown() != 0:
 			modo="Reconocimiento"
-		elif self.server.displayHandler.getClockMode() != 0:
+		elif self.server.displayHandler.getClockMode() == True:
 			modo="Reloj"
 		else:
 			modo="Turno"
@@ -60,16 +61,19 @@ class MyHandler(BaseHTTPRequestHandler):
 				self.server.displayHandler.setBrightness(int(val))
 			elif item == "Numero":
 				self.server.displayHandler.setNowRunning(int(val))
-			elif item == 'Modo':
+			elif item == 'Mode':
 				if val == 'Reloj':
-					self.server.displayHandler.setCountdown(0)
-					self.server.displayHandler.setClockMode(1)
+					self.server.displayHandler.setCountDown(0)
+					self.server.displayHandler.setClockMode(True)
 				elif val == "Reconocimiento":
-					self.server.displayHandler.setClockMode(0)
-					self.server.displayHandler.setCountdown(self.server.menuHandler.getCountDown())
+					self.server.displayHandler.setClockMode(False)
+					self.server.displayHandler.setCountDown(self.server.menuHandler.getCountDown())
 				else:
-					self.server.displayHandler.setCountdown(0)
-					self.server.displayHandler.setClockMode(0)
+					self.server.displayHandler.setCountDown(0)
+					self.server.displayHandler.setClockMode(False)
+			elif item == 'Stop':
+			    if int(val) == 1:
+				    self.server.displayHandler.setCountDown(0)
 			else:
 				print("Unhandled Key: %s Value:%s" %(item,form[item].value) )
 

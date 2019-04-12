@@ -25,19 +25,11 @@
         }
     </style>
     <script type="text/javascript">
-        function toogle(element) {
-            var button=element.value;
-            var checked=element.checked;
-            if (button==='Turno' && checked===true) {
-                $('#sel_turno').prop("disabled",false);
-            } else {
-                $('#sel_turno').prop("disabled",true);
-            }
-        }
 
         function initialize() {
             $('#btn_turno').prop('checked',true);
             $('#sel_rec').val("0").prop('enabled',true);
+            readData();
             // setInterval(function() {readData();},5000);
         }
 
@@ -82,10 +74,27 @@
                 dataType: 'json',
                 data: $('#parameters').serialize()
             }).done(function(data) {
-                alert(JSON.stringify(data));
+                // alert(JSON.stringify(data));
             }).fail(function(data) {
                 alert("Error");
             });
+            $('#sel_stop').val("0");
+        }
+
+        function toogle(element) {
+            var button=element.value;
+            var checked=element.checked;
+            if (button==='Turno' && checked===true) {
+                $('#sel_turno').prop("disabled",false);
+            } else {
+                $('#sel_turno').prop("disabled",true);
+            }
+            writeData();
+        }
+
+        function stopCourseWalk() {
+            $('#sel_stop').val("1");
+            writeData();
         }
 
         function setDog(dog) { writeData(); }
@@ -200,7 +209,6 @@
         <td>
             <label for="sel_rec" style="display:inline-block;width:120px;">Rec. pista: </label>
             <select id="sel_rec" name="Reconocimiento" onchange="selectRecTime(this);">
-                <option value="0">(Detener)</option>
                 <option value="6">6 Minutos</option>
                 <option value="7" selected="selected">7 Minutos</option>
                 <option value="8">8 Minutos</option>
@@ -208,7 +216,10 @@
             </select>
             <br/>
         </td>
-        <td style="width:75px">&nbsp;</td>
+        <td style="width:75px;text-align:left">
+            <input type="button" id="sel_stopBtn" name="StopBtn" value="Detener" onclick="stopCourseWalk();">
+            <input type="hidden" id="sel_stop" name="Stop" value="0">
+        </td>
         <td>
             <label for="sel_brillo" style="display:inline-block;width:120px;">Brillo: </label>
             <input id="sel_brillo" name="Brillo" type="number" class="input_number" value="6" min="0" max="9" step="1" onchange="selectBrillo(this);"/>
