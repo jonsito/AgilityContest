@@ -100,7 +100,12 @@ class NRDisplay:
 		self.manga = cat
 		self.categoria = cat
 		self.grado = grad
-		str= "%s %s - %s" %(self.manga,self.categoria,self.grado)
+		if grad == "": # en open no hay grados
+		    str= "%s %s" %(self.manga,self.categoria)
+		elif cat == "": # evento llamada no incluye ni cat ni grad, solo nombre de la ronda
+		    str= "%s" %(self.manga)
+		else: # datos provenientes del mando remoto o interfaz web
+		    str= "%s %s - %s" %(self.manga,self.categoria,self.grado)
 		self.ronda = str
 
 	def getCategoria(self):

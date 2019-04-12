@@ -226,7 +226,9 @@ class NRNetwork:
 		self.dspHandler.setCountDown(time)
 
 # Llamada a pista
-	def handle_llamada(self,numero,id):
+	def handle_llamada(self,data)
+	    numero=evtdata['Numero']
+	    id=data['Dog']
 		# si perro en blanco marcamos perro numero "0"
 		if int(id)==0:
 			numero='0'
@@ -244,9 +246,9 @@ class NRNetwork:
 
 # open manga
 	def handle_open(self,data):
-		self.debug("data is:'%s' " % (evtdata['NombreManga']))
-		self.dspHandler.setOobMessage(evtdata['NombreManga'],1)
-		self.dspHandler.setRoundInfo(evtdata['Categoria'],evtdata['Grado'],evtdata['NombreManga'])
+		// self.debug("data is:'%s' " % (json.dumps(data,separators=(',', ':'))))
+		self.dspHandler.setOobMessage(data['NombreManga'],1)
+		self.dspHandler.setRoundInfo(data['NombreManga'],"","")
 		self.dspHandler.setNowRunning(1)
 
 # parar bucle de eventos
@@ -358,7 +360,7 @@ class NRNetwork:
 			return
 		# entrada de datos, dato siguiente, cancelar operacion
 		if type == 'llamada':			# operador abre panel de entrada de datos
-			self.handle_llamada(evtdata['Numero'],evtdata['Dog'])
+			self.handle_llamada(evtdata)
 			return
 		if type == 'datos':				# actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 			return
