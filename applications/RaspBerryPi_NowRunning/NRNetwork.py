@@ -263,8 +263,8 @@ class NRNetwork:
 		try:
 			# evaluate SessionName to allow control from console
 			self.session_id=NRNetwork.rings[current_ring-1]
-			# remember that SNAME=NowRunning_xxrandom@ring , but acts like a videowall
-			self.session_name="videowall:%s:0:0:%s" % ( self.session_id,NRNetwork.SNAME)
+			# remember that SNAME=NowRunning_xxrandom@ring , but acts like a chrono
+			self.session_name="chrono:%s:0:0:%s" % ( self.session_id,NRNetwork.SNAME)
 			event_id=0 # event ID of last "open" call in current session
 			# prepare server "connect" call
 			args = "?Operation=connect&Session="+self.session_id+"&SessionName="+self.session_name

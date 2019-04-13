@@ -119,7 +119,7 @@ if __name__ == "__main__":
 	parser.add_argument('--display','-d',type=str,default='max7219',help='Display mode "pygame" or "max7219"')
 	parser.add_argument('--ring','-r', type=int, default=1, help='Ring to listen events from (1..4)')
 	parser.add_argument('--interface','-i', type=str, default='',help='Use specific network interface to look for server')
-	parser.add_argument('--port','-p', type=int, default=8000, help='Port to attach Web server interface (0:disable)')
+	parser.add_argument('--port','-p', type=int, default=80, help='Port to attach Web server interface (0:disable)')
 	parser.add_argument('--cascaded', '-n', type=int, default=4, help='Number of cascaded MAX7219 LED matrices')
 	parser.add_argument('--block_orientation', type=int, default=-90, choices=[0, 90, -90], help='Corrects block orientation when wired vertically')
 	parser.add_argument('--rotate', type=int, default=2, choices=[0, 1, 2, 3], help='Rotate display 0=0°, 1=90°, 2=180°, 3=270°')
