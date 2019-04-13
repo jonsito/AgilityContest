@@ -30,7 +30,7 @@
             $('#btn_turno').prop('checked',true);
             $('#sel_rec').val("0").prop('enabled',true);
             readData();
-            // setInterval(function() {readData();},5000);
+            setInterval(function() {readData();},5000);
         }
 
         function readData() {
@@ -69,10 +69,10 @@
             return false;
         }
 
-        function writeData() {
+        function sendPost(url) {
             $.ajax({
                 type: 'POST',
-                url: '/writeData',
+                url: url,
                 dataType: 'json',
                 data: $('#parameters').serialize()
             }).done(function(data) {
@@ -81,6 +81,14 @@
                 alert("Error");
             });
             $('#sel_stop').val("0");
+        }
+
+        function writeData() {
+            sendPost('/writeData');
+        }
+
+        function reconnect(){
+            sendPost('/connectServer');
         }
 
         function toogle(element) {
@@ -106,11 +114,6 @@
         function selectGrado(obj) { writeData(); }
         function selectBrillo(obj) { writeData(); }
         function selectRecTime(obj) { writeData(); }
-
-        function reconnect(){
-
-        }
-
 
     </script>
 </head>

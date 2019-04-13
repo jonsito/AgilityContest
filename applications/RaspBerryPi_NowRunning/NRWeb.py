@@ -132,7 +132,9 @@ class MyHandler(BaseHTTPRequestHandler):
 			self.send_error(404,'File Not Found: %s' % self.path)
 
 	def do_POST(self):
-		if self.path=="/writeData":
+		if self.path=="/connectServer":
+			self.server.networkHandler.restartConnection()
+		elif self.path=="/writeData":
 			form = cgi.FieldStorage(
 				fp=self.rfile,
 				headers=self.headers,
@@ -140,12 +142,13 @@ class MyHandler(BaseHTTPRequestHandler):
 						 'CONTENT_TYPE':self.headers['Content-Type'],
 			})
 			self.writeData(form)
-			data=self.readData()
-			self.send_response(200)
-			self.send_header('Content-type','application/json')
-			self.end_headers()
-			self.wfile.write(data.encode())
-			return
+		# ok. collect status and send back to client
+		data=self.readData()
+		self.send_response(200)
+		self.send_header('Content-type','application/json')
+		self.end_headers()
+		self.wfile.write(data.encode())
+		return
 
 	def do_PUT(self):
 		self.do_POST()
