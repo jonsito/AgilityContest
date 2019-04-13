@@ -226,11 +226,11 @@ class NRNetwork:
 		self.dspHandler.setCountDown(time)
 
 # Llamada a pista
-	def handle_llamada(self,data)
-	    numero=evtdata['Numero']
-	    id=data['Dog']
+	def handle_llamada(self,data):
+		numero=evtdata['Numero']
+		id=data['Dog']
 		# si perro en blanco marcamos perro numero "0"
-		if int(id)==0:
+		if int(id) == 0:
 			numero='0'
 		self.dspHandler.setNowRunning(int(numero))
 
@@ -246,7 +246,7 @@ class NRNetwork:
 
 # open manga
 	def handle_open(self,data):
-		// self.debug("data is:'%s' " % (json.dumps(data,separators=(',', ':'))))
+		# self.debug("data is:'%s' " % (json.dumps(data,separators=(',', ':'))))
 		self.dspHandler.setOobMessage(data['NombreManga'],1)
 		self.dspHandler.setRoundInfo(data['NombreManga'],"","")
 		self.dspHandler.setNowRunning(1)

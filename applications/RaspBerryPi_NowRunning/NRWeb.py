@@ -72,8 +72,8 @@ class MyHandler(BaseHTTPRequestHandler):
 					self.server.displayHandler.setCountDown(0)
 					self.server.displayHandler.setClockMode(False)
 			elif item == 'Stop':
-			    if int(val) == 1:
-				    self.server.displayHandler.setCountDown(0)
+				if int(val) == 1:
+					self.server.displayHandler.setCountDown(0)
 			else:
 				print("Unhandled Key: %s Value:%s" %(item,form[item].value) )
 
