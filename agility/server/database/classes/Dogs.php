@@ -40,8 +40,8 @@ class Dogs extends DBObject {
         $chip =	http_request("Chip","s","",false);
         $loe_rrc =	http_request("LOE_RRC","s",null,false);
         $licencia = http_request("Licencia","s",null,false);
-        $categoria= http_request("Categoria","s",null,false);
-        $grado =	http_request("Grado","s",null,false);
+        $categoria= parseCategory(http_request("Categoria","s",null,false));
+        $grado =	parseGrade(http_request("Grado","s",null,false));
         $baja =	    http_request("Baja","i",0);
         $guia =		http_request("Guia","i",0);
 		$nombrelargo= http_request("NombreLargo","s","",false);
@@ -99,8 +99,8 @@ class Dogs extends DBObject {
         $chip =	    http_request("Chip","s","",false);
         $loe_rrc =	http_request("LOE_RRC","s",null,false);
         $licencia = http_request("Licencia","s",null,false);
-        $categoria= http_request("Categoria","s",null,false);
-        $grado =	http_request("Grado","s",null,false);
+        $categoria= parseCategory(http_request("Categoria","s",null,false));
+        $grado =	parseGrade(http_request("Grado","s",null,false));
         $baja =		http_request("Baja","i",0);
         $guia =		http_request("Guia","i",0);
 		$nombrelargo= http_request("NombreLargo","s","",false);

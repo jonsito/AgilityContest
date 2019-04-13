@@ -37,7 +37,7 @@ class Guias extends DBObject {
 		$email = http_request('Email',"s",null,false);
 		$club	= http_request('Club',"i",0); // not null
         $observaciones= http_request('Observaciones',"s",null,false);
-        $categoria= http_request('Categoria',"s","A",false); // default adult
+        $categoria= parseHandlerCat(http_request('Categoria',"s","A",false)); // default adult
 
 		// componemos un prepared statement
 		$sql ="INSERT INTO guias (Nombre,Telefono,Email,Club,Observaciones,Categoria,Federation)
@@ -86,7 +86,7 @@ class Guias extends DBObject {
         $email = http_request('Email',"s",null,false);
         $club	= http_request('Club',"i",0); // not null
         $observaciones= http_request('Observaciones',"s",null,false);
-        $categoria= http_request('Categoria',"s","A",false); // adult
+        $categoria= parseHandlerCat(http_request('Categoria',"s","A",false)); // adult
         $guiaid 	= $id; // primary key
         $this->myLogger->info("ID: $id Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 

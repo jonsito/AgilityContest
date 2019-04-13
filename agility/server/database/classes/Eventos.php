@@ -161,8 +161,8 @@ class Eventos extends DBObject {
                 $data['NombreGuia']	= http_request('NombreGuia',"s","");
                 $data['NombreClub']	= http_request('NombreClub',"s","");
                 $data['NombreEquipo']=http_request('NombreEquipo',"s","");
-                $data['Categoria']	= http_request('Categoria',"s","-");
-                $data['Grado']		= http_request('Grado',"s","-");
+                $data['Categoria']	= parseCategory(http_request('Categoria',"s","-"));
+                $data['Grado']		= parseGrade(http_request('Grado',"s","-"));
 				break;
 			case 'datos':			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 			case 'aceptar':		// grabar datos finales
