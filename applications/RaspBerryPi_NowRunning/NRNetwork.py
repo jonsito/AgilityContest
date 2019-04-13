@@ -82,7 +82,7 @@ class NRNetwork:
 		if NRNetwork.ring != ring:
 			NRNetwork.ring=ring
 
-	def showIPAddress(self):
+	def getHostAddress(self):
 		msg = ""
 		for ifname in ni.interfaces():
 			# si hemos especificado una en concreto, compara
@@ -97,7 +97,10 @@ class NRNetwork:
 				elif addr=="127.0.0.1": # loopbak. skip
 					continue
 				else:
-					msg = msg + " - " + addr
+					if msg == "":
+						msg = addr
+					else:
+						msg = msg + " - " + addr
 			# foreach IP on each interface
 		# foreach interface
 		if msg=="": # no active IPv4 addresses found.
@@ -105,8 +108,17 @@ class NRNetwork:
 		# finally send result to display
 		self.hostaddr = msg
 		self.debug("IP Address is: "+msg)
+		return self.hostaddr
+
+	def getServerAddress(self):
+		msg="Not connected"
+		if self.server != "0.0.0.0":
+			msg=self.server
+		return msg
+
+	def showIPAddress(self):
+		addr=self.getHostAddress()
 		self.dspHandler.setOobMessage("IP Addr: "+msg,3)
-		return
 
 	def showServerAddress(self):
 		msg="Server not connected"
@@ -115,16 +127,6 @@ class NRNetwork:
 		# finally send result to display
 		self.debug(msg)
 		self.dspHandler.setOobMessage(msg,3)
-
-	def getServerAddress(self):
-		msg="Not connected"
-		if self.server != "0.0.0.0":
-			msg=self.server
-		return msg
-
-	def getHostAddress(self):
-		return self.hostaddr
-
 	def setEnabled(self,state):
 		NRNetwork.ENABLED=state
 

@@ -47,6 +47,8 @@
                     $('#sel_grad').val(data.Grado);
                     $('#sel_brillo').val(data.Brillo);
                     $('#sel_rec').val(data.Reconocimiento);
+                    $('#host_ip').val(data.HostIP);
+                    $('#server_ip').val(data.ServerIP);
                     if (data.Mode==='Reloj') {
                         $('#sel_turno').prop("disabled",true);
                         $('#btn_clock').prop("checked",true);
@@ -232,10 +234,10 @@
     <tr> <th colspan="3" align="left">Informaci&oacute;n adicional</th></tr>
     <tr>
         <td>
-            <label for="host_ip">Direcci&oacute;n IP:</label>
+            <label for="host_ip">Direcciones IP:</label>
         </td>
-        <td>
-            <input type="text" name="Client" id="host_ip" disabled="disabled" readonly="readonly" value="0.0.0.0" style="width:200px;">
+        <td colspan="2" >
+            <input type="text" name="HostIP" id="host_ip" disabled="disabled" readonly="readonly" value="0.0.0.0" style="width:350px;">
         </td>
     </tr>
     <tr>
@@ -243,7 +245,7 @@
             <label for="server_ip">AgilityContest server IP:</label>
         </td>
         <td>
-            <input type="text" name="Server" id="server_ip" disabled="disabled"  value="0.0.0.0" style="width:200px;">
+            <input type="text" name="ServerIP" id="server_ip" disabled="disabled"  value="0.0.0.0" style="width:200px;">
         </td>
         <td>
             <input type="button" id="btn_reconnect" value="Reconectar" onclick="reconnect()"/>
