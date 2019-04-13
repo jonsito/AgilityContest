@@ -60,7 +60,7 @@ $config =Config::getInstance();
 
     <!-- barra de progreso de actualizacion de envio de correo -->
     <div id="pruebas_email-progresswindow" class="easyui-window"
-         data-options="title:'<?php _e('Sending mail'); ?>...',width:300,modal:true,collapsable:false,minimizable:false,maximizable:false,closable:false,closed:true">
+         data-options="title:'<?php _e('Sending mail'); ?>...',width:300,modal:true,collapsible:false,minimizable:false,maximizable:false,closable:false,closed:true">
         <p id="pruebas_email-progresslabel" style="text-align:center"><?php _e('Sending mail to'); ?>:</p>
         <div id="pruebas_email-progressbar" class="easyui-progressbar" style="width:300px;text-align:center;" data-options="value:0"></div>
     </div>

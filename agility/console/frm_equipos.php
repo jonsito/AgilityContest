@@ -96,7 +96,7 @@ $config =Config::getInstance();
 
 <!-- barra de progreso de actualizacion de cambio de equipo -->
 <div id="selteam-progresswindow" class="easyui-window"
-     data-options="title:'<?php _e('Processing data'); ?>...',width:300,modal:true,collapsable:false,minimizable:false,maximizable:false,closable:false,closed:true">
+     data-options="title:'<?php _e('Processing data'); ?>...',width:300,modal:true,collapsible:false,minimizable:false,maximizable:false,closable:false,closed:true">
     <p id="selteam-progresslabel" style="text-align:center"><?php _e('Setting team for'); ?>:</p>
     <div id="selteam-progressbar" class="easyui-progressbar" style="width:300px;text-align:center;" data-options="value:0"></div>
 </div>

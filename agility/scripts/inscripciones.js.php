@@ -154,12 +154,9 @@ function deleteInscripcion() {
 						},
 						// on Success function
 						function(result){
-                            var search=$('#inscripciones-search').val();
-                            if (search==="<?php _e('-- Search --')?>") search="";
 							if (result.success) {
-								$('#inscripciones-datagrid').datagrid('unselectAll').datagrid('reload',{ // load the inscripciones table
-									where: search
-								});
+								$('#inscripciones-datagrid').datagrid('unselectAll');
+								reloadWithSearch('#inscripciones-datagrid','inscritos',false);
 							} else {
 								$.messager.show({ width: 300, height: 200, title: 'Error', msg: result.errorMsg });
 							}
