@@ -519,7 +519,7 @@ Class Config {
 		putenv("LC_ALL={$sel}");
         putenv("LANG={$sel}");
         putenv("LANGUAGE={$sel}");
-        setlocale(LC_NUMERIC, ($windows)?'eng':'en_US'); // Fix for float number with incorrect decimal separator.
+        setlocale(LC_NUMERIC, ($windows)?'english':'en_US'); // Fix for float number with incorrect decimal separator.
         $domain="AgilityContest";
 		bindtextdomain($domain, __DIR__."/../../locale");
 		if (!$windows) bind_textdomain_codeset($domain, 'UTF-8');
