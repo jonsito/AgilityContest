@@ -384,7 +384,8 @@ class Admin extends DBObject {
 		if ($data==="remoteDownload") {
             $rev=$this->myConfig->getEnv("version_date");
             $lic=$this->myAuth->getRegistrationInfo()['Serial'];
-            $url="https://www.agilitycontest.es/agility/ajax/masterFunctions.php?Operation=getbackup&Revision={$rev}&License={$lic}";
+            $srvr=$this->myConfig-getEnv("master_server");
+            $url="https://{$srvr}/agility/ajax/masterFunctions.php?Operation=getbackup&Revision={$rev}&License={$lic}";
 		    $res=retrieveFileFromURL($url);
 		    if ($res===FALSE) return array("errorMsg" => "downloadDatabase(): cannot download file from server");
         }
@@ -653,8 +654,9 @@ class Admin extends DBObject {
         */
         /* post 3.7.3 uses ChangeLog to retrieve version and date info */
         if (!is_string($info) ) {
-            if ($fireException)
+            if ($fireException) {
                 throw new Exception("checkForUpgrade(): cannot retrieve version info from github ChangeLog");
+            }
             $info="Version 0.0.0 19700101_0000\n";
         }
         $firstline=trim(strtok($info,"\n"));

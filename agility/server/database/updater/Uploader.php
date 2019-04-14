@@ -118,6 +118,10 @@ class Uploader {
      * @return {mixed} server response
      */
     function sendJSONRequest($data,$serial) {
+        // first of all, check internet conectivity
+        if (isNetworkAlive()<0) {
+            throw new Exception("updater::SendJSONRequest(): No internet access available");
+        }
         $server=$this->myConfig->getEnv("master_server");
         $baseurl=$this->myConfig->getEnv("master_baseurl");
         $checkcert= ($server==="localhost")?false:true; // do not verify cert on localhost

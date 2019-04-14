@@ -530,6 +530,18 @@ function list_isMember($item,$list="BEGIN,END") {
     return (strpos($list,$str)===FALSE)?false:true;
 }
 
+// Function to check response time to http connect request
+// also used as tcp ping test
+function isNetworkAlive(){
+    $starttime = microtime(true);
+    $file      = @fsockopen ("185.129.248.76" /* www.agilitycontest.es */, 80, $errno, $errstr, 10);
+    $stoptime  = microtime(true);
+    if (!$file) return -1;  // Site is down
+    fclose($file);
+    $status = ($stoptime - $starttime) * 1000;
+    return floor($status);
+}
+
 /**
  * Try to get a file from url
  * Depending on config try several methods
@@ -537,6 +549,11 @@ function list_isMember($item,$list="BEGIN,END") {
  * @param {string} $url filename or URL  to retrieve
  */
 function retrieveFileFromURL($url) {
+    $scheme=parse_url($url,PHP_URL_SCHEME);
+    if ($scheme !== "file") {
+        // before continue check internet conectivity
+        if (isNetworkAlive()<0) return FALSE;
+    }
     // if enabled, use standard file_get_contents
     if (ini_get('allow_url_fopen') == true) {
         $res=@file_get_contents($url); // omit warning on faillure
@@ -744,6 +761,8 @@ function createNumberedBall($color,$bgcolor,$number) {
  * @param {object} $logger Logger object
  */
 function inMasterServer($config,$logger=null) {
+    // first of all, check internet conectivity
+    if (isNetworkAlive()<0) return false;
     // compare IP's as reverse lookup may fail in some servers
     $ip=gethostbyname($config->getEnv('master_server'));
     if ($logger){

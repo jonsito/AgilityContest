@@ -67,6 +67,7 @@ try {
             }
             // if configured to do search for new database entries in master server
             $result['NewEntries']=0;
+		    $result['Warning']="";
             if (intval($config->getEnv("search_updatedb"))!==0) {
                 // if not admin or license serial is zero, throw exception, but allow to continue
                 try{
@@ -83,7 +84,10 @@ try {
                         throw new Exception("CheckUpdateDBAtLogin(): {$res['errorMsg']}");
                     }
                     $result['NewEntries'] = $res['rows'][0]['NewEntries'];
-                } catch (Exception $e) { do_log("CheckUpdateDBAtLogin: ".$e->getMessage()); }
+                } catch (Exception $e) {
+                    $result['Warning']=$e->getMessage();
+                    do_log("CheckUpdateDBAtLogin: ".$e->getMessage());
+                }
             }
             break;
 		case "pwcheck": $result=$am->checkPassword($user,$pass); break; // just check pass, dont create session

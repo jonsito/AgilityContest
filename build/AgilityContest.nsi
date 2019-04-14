@@ -143,6 +143,7 @@ File /r docs
 FILE /r extras
 FILE /r logs
 FILE /r xampp
+FILE /r server
 
 ;Hacemos que la instalacion se realice para todos los usuarios del sistema
 SetShellVarContext all

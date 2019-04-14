@@ -144,6 +144,9 @@ function acceptLogin() {
                     }
                 }
        			str =str+'<br /><br />'+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
+       			if(data.Warning!=="") {
+                    $.messager.show({ width:300, height:150, title: "<?php _e('Notice');?>", msg: data.Warning });
+                }
        			var w=$.messager.alert({
                     // closable: false, // do not show close button at upper right corner: fn is needed anyway
        			    title:  "Login",

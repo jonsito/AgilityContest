@@ -97,6 +97,9 @@ class AuthManager {
 	}
 
 	private function retrieveBlackListFromServer() {
+        // first of all, check internet conectivity
+        if (isNetworkAlive()<0) return null;
+
         $server=$this->myConfig->getEnv("master_server");
         $baseurl=$this->myConfig->getEnv("master_baseurl");
         $url = "https://{$server}/{$baseurl}/ajax/serverRequest.php";
