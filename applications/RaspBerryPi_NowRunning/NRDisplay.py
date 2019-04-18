@@ -28,6 +28,7 @@ from PIL import Image, ImageFont, ImageDraw
 # devices
 from luma.led_matrix.device import max7219
 from luma.emulator.device import pygame
+from lib import Hub08
 
 from luma.core.interface.serial import spi, noop
 from luma.core.render import canvas

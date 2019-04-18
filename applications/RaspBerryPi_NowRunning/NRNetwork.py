@@ -229,7 +229,7 @@ class NRNetwork:
 
 # Llamada a pista
 	def handle_llamada(self,data):
-		numero=evtdata['Numero']
+		numero=data['Numero']
 		id=data['Dog']
 		# si perro en blanco marcamos perro numero "0"
 		if int(id) == 0:
