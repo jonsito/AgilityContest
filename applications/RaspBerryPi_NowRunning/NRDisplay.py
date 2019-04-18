@@ -28,7 +28,7 @@ from PIL import Image, ImageFont, ImageDraw
 # devices
 from luma.led_matrix.device import max7219
 from luma.emulator.device import pygame
-from lib import Hub08
+from lib import hub08 as hub08
 
 from luma.core.interface.serial import spi, noop
 from luma.core.render import canvas
@@ -149,8 +149,10 @@ class NRDisplay:
 			serial = spi(port=0, device=0, gpio=noop())
 			# use default if not provided by method
 			dev = max7219(serial, cascaded=cascaded or 4, block_orientation=block_orientation or -90, rotate=rotate or 2)
-		else:
+		elif NRDisplay.DISPLAY == "pygame":
 			dev = pygame(width=32, height=8, rotate=0, mode="RGB", transform="scale2x", scale=2 )
+		else: # hub08
+			dev = hub08.hub08(width=64, height=16, rotate=0, mode="1")
 		# set default bright level
 		dev.contrast( int(5*255/9) )
 		dev.show()
