@@ -4,6 +4,7 @@
 
 
 import atexit
+import json
 # import RPi.GPIO as GPIO
 import GPIOEmu as GPIO
 
@@ -63,9 +64,10 @@ class hub08(device):
         self.state=False
 
     def __init__(self,width=64, height=16, rotate=0, mode="1"):
-        super(hub08, self).__init__(serial_interface=noop())
-        self.capabilities(width, height, rotate, mode)
+        super(hub08, self).__init__(const=None,serial_interface=noop)
+        self.capabilities(width, height, rotate,mode="1")
         self.image = None
+        self.size=(width,height)
         def shutdown_hook():  # pragma: no cover
             try:
                 self.cleanup()
@@ -88,70 +90,40 @@ class hub08(device):
 
 
     def display(self,image):
+        assert(image.mode == self.mode)
+        assert(image.size == self.size)
         if self.state == False:
             return
+        print("on display")
 
+        image = super(hub08, self).preprocess(image)
+
+        #  from:
+        # https://github.com/Seeed-Studio/Ultrathin_LED_Matrix/blob/master/LEDMatrix.cpp
+        # iterate over 16 rows
         for row in range(0,15): # 16 rows
+            # send 64 bits to shift-register
             for column in range(0,63): # 64 columns
-                pixel=image.getPixel((column,row))
+                pixel=image.getpixel((column,row))
                 GPIO.output(clock,False)
-                if pixel == 0:
+                if pixel == 0: # single color
                     GPIO.output(red1,False)
                     GPIO.output(red2,False)
                 else:
                     GPIO.output(red1,self.contrast0)
                     GPIO.output(red2,self.contrast1)
                 GPIO.output(clock,True)
-#  from:
-# https://github.com/Seeed-Studio/Ultrathin_LED_Matrix/blob/master/LEDMatrix.cpp
-#
-#   this routine send a row to the display on each interaction
-#
-#    void LEDMatrix::scan()
-#    {
-#        static uint8_t row = 0;  // from 0 to 15
-#
-#        if (!state) {
-#            return;
-#        }
-#
-#        uint8_t *head = displaybuf + row * (width / 8);
-#        for (uint8_t line = 0; line < (height / 16); line++) {
-#            uint8_t *ptr = head;
-#            head += width * 2;              // width * 16 / 8
-#
-#            for (uint8_t byte = 0; byte < (width / 8); byte++) {
-#                uint8_t pixels = *ptr;
-#                ptr++;
-#                pixels = pixels ^ mask;     // reverse: mask = 0xff, normal: mask =0x00
-#                for (uint8_t bit = 0; bit < 8; bit++) {
-#                    digitalWrite(clk, LOW);
-#                    digitalWrite(r1, pixels & (0x80 >> bit));
-#                    digitalWrite(clk, HIGH);
-#                }
-#            }
-#        }
-#
-#        // disable display
-#        digitalWrite(enable, HIGH);
-#
-#        // select row
-#        digitalWrite(data0, (row & 0x01));
-#        digitalWrite(data1, (row & 0x02));
-#        digitalWrite(data2, (row & 0x04));
-#        digitalWrite(data3, (row & 0x08));
-#
-#        // latch data
-#        digitalWrite(latch, LOW);
-#        digitalWrite(latch, HIGH);
-#        digitalWrite(latch, LOW);
-#
-#        // enable display
-#        digitalWrite(enable, LOW);
-#
-#        // increase row count
-#        row = (row + 1) & 0x0F;
-#    }
+
+            # store sent data into current row
+            GPIO.output(enable,True) # disable display
+            GPIO.output(data0, (row & 0x01)!=0 )
+            GPIO.output(data1, (row & 0x02)!=0 )
+            GPIO.output(data2, (row & 0x04)!=0 )
+            GPIO.output(data3, (row & 0x08)!=0 ) # select row
+            GPIO.output(latch,False)
+            GPIO.output(latch,True)
+            GPIO.output(latch,False) # transfer data
+            GPIO.output(enable,False) # re-enable display
 
     def show(self):
         """
@@ -166,9 +138,8 @@ class hub08(device):
         sleep mode.
         remember output enable has negative logic
         """
-        GPIO.output(output_enable,True)
+        GPIO.output(enable,True)
         self.state=False
-
 
     # to Verify: assume that red1 and red2 controls led intensity 00 01 10 11
     def contrast(self, level):
