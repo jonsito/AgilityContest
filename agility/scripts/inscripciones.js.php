@@ -616,10 +616,10 @@ function printInscripciones() {
 	// anyadir al menu la posibilidad de imprimir solo los inscritos en dicha jornada
     var str='<select id="idg_rows" name="idg_rows" class="easyui-combobox"/><br/>';
 	var options= {
-	    0:'<?php _e('Simple listing'); ?>',
         1:'*<?php _e('Catalog'); ?>',
         2:'<?php _e('Statistics'); ?>',
-        4:'<?php _e('Current selection/order'); ?>',
+        0:'<?php _e('Simple (raw) listing'); ?>',
+        4:'<?php _e('Current (screen) selection/order'); ?>',
         6:'<?php _e('Handlers with more than one dog'); ?>',
         5:'<?php _e('Competition ID Cards'); ?>',
         7:'<?php _e('Post-It Dorsal labels'); ?> '+str

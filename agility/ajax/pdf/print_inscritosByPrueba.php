@@ -42,19 +42,22 @@ try {
 	$jmgr= new Jornadas("printInscritosByPrueba",$pruebaid);
 	$jornadas=$jmgr->selectByPrueba();
 	$inscripciones = new Inscripciones("printInscritosByPrueba",$pruebaid);
-	$inscritos= $inscripciones->enumerate();
 	// Creamos generador de documento
 	switch ($mode) {
 		case 0: // imprimir inscripciones
+			$inscritos= $inscripciones->enumerate();
 			$pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas);
 			break;
 		case 1: // imprimir catalogo
+			$inscritos= $inscripciones->enumerate();
 			$pdf=new PrintCatalogo($pruebaid,$inscritos,$jornadas);
 			break;
 		case 2: // imprimir estadisticas
+			$inscritos= $inscripciones->enumerate();
 			$pdf=new PrintEstadisticasInscripciones($pruebaid,$inscritos,$jornadas);
 			break;
 		case 3: // inscripciones de una jornada
+			$inscritos=$inscripciones->inscritos(true);
 			$pdf=new PrintInscritosByJornada($pruebaid,$inscritos,$jornadas,$jornadaid);
 			break;
         case 4: // imprimir segun el listado que aparece en pantalla
@@ -70,7 +73,7 @@ try {
             $pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas,_('Handlers with more than one dog'));
             break;
 		case 7: // imprimir Post-it con dorsales para guardar cartillas
-			$inscritos=$inscripciones->inscritos(true);
+			$inscritos=$inscripciones->enumerate();
 			$pdf=new PrintPostItCartilla($pruebaid,$inscritos,$jornadas,$filas);
 			break;
 		default: throw new Exception ("Inscripciones::print() Invalid print mode selected $mode");
