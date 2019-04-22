@@ -5,6 +5,10 @@
 
 import atexit
 import json
+import sys
+import time
+import spidev
+
 # import RPi.GPIO as GPIO
 import GPIOEmu as GPIO
 
@@ -12,19 +16,18 @@ from luma.core.device import device
 import luma.core.const
 from luma.core.interface.serial import noop
 
-
 # Hub08 pin assignments
-clock = 13 # GPIO 27
-latch = 15 # GPIO 22
-enable = 16 # GPIO 23
-data0 = 26 # GPIO 7
-data1 = 24 # GPIO 8
-data2 = 21 # GPIO 9
-data3 = 19 # GPIO 10
-red1 = 11 # GPIO 17
-red2 = 12 # GPIO 18
-# Green1 = 18 # GPIO 24
-# Green2 = 23 # GPIO 11
+spi_clock = 23 # GPIO 11 / SPI0_CLK / HUB08_CLOCK
+spi_dout = 19 # GPIO 10 / SPI0_DATA_OUT / HUB08_RED1
+spi_din = 21 # GPIO 09 / SPI0_DATA_IN --- NOT USED
+spi_cs = 24 # GPIO 08 / SPI0_CE_0 --- NOT USED
+
+latch = 22 # GPIO 25
+enable = 18 # GPIO 24
+addr0 = 16 # GPIO 23
+addr1 = 11 # GPIO 17
+addr2 = 13 # GPIO 27
+addr3 = 15 # GPIO 22
 
 class hub08(device):
     """
@@ -39,28 +42,82 @@ class hub08(device):
 
     # variables
     state = False  # 0:inactive 1:active
-    contrast0=True
-    contrast1=True
-    mode='1'
+    refresh_period = 20 # mseg
+    mode='1' # 1-color only
     width=64
     height=16
     rotate=0
+    display_data = [ #eigh bytes (64 pixels) on each row
+        [0,0,0,0,0,0,0,0], # row 0
+        [0,0,0,0,0,0,0,0], # row 1
+        [0,0,0,0,0,0,0,0], # row 2
+        [0,0,0,0,0,0,0,0], # row 3
+        [0,0,0,0,0,0,0,0], # row 4
+        [0,0,0,0,0,0,0,0], # row 5
+        [0,0,0,0,0,0,0,0], # row 6
+        [0,0,0,0,0,0,0,0], # row 7
+        [0,0,0,0,0,0,0,0], # row 8
+        [0,0,0,0,0,0,0,0], # row 9
+        [0,0,0,0,0,0,0,0], # row 10
+        [0,0,0,0,0,0,0,0], # row 11
+        [0,0,0,0,0,0,0,0], # row 12
+        [0,0,0,0,0,0,0,0], # row 13
+        [0,0,0,0,0,0,0,0], # row 14
+        [0,0,0,0,0,0,0,0]  # row 15
+        ]
+    cur_row = 0 # row being serialized
+
+    def refresh():
+        if self.state == True:
+            # disable display before latch data
+            GPIO.output(enable,True)
+            #transfer row data.
+            spi.xfer(self.display_data[self.cur_row])
+            # store sent data into current row
+            GPIO.output(addr0, (self.cur_row & 0x01)!=0 )
+            GPIO.output(addr1, (self.cur_row & 0x02)!=0 )
+            GPIO.output(addr2, (self.cur_row & 0x04)!=0 )
+            GPIO.output(addr3, (self.cur_row & 0x08)!=0 ) # select row
+            GPIO.output(latch,False)
+            GPIO.output(latch,True)
+            GPIO.output(enable,False) # re-enable display
+            # and finally increase cursor
+            self.cur_row = (self.cur_row + 1 ) % 16
+        time.sleep(refresh_period)
 
     def initialize(self):
-    # Setup breakout board
+        # Setup breakout board
         GPIO.setmode(GPIO.BOARD) # number pins according board pin number ( alternative to GPIO.BCM )
-        for pin in (clock,latch,enable,data0,data1,data2,data3,red1,red2):
-            GPIO.setup(pin, GPIO.OUT) # set up as output
 
-        GPIO.output(clock, True) # turn off
-        GPIO.output(latch, True) # turn off
-        GPIO.output(enable, True) # turn off
-        GPIO.output(data0, False) # turn off
-        GPIO.output(data1, False) # turn off
-        GPIO.output(data2, False) # turn off
-        GPIO.output(data3, False) # turn off
-        GPIO.output(red1, True) # turn off
-        GPIO.output(red2, True) # turn off
+        #SPI
+        GPIO.setup(spi_clock,GPIO.OUT)
+        GPIO.setup(spi_dout,GPIO.OUT)
+        GPIO.setup(spi_din,GPIO.IN)
+        GPIO.setup(spi_cs,GPIO.OUT)
+        GPIO.output(spi_clock, True) # default high
+        GPIO.output(spi_dout, True) # default high
+        GPIO.output(spi_cs, False) # default low (enabled)
+
+        # spi = spidev.SpiDev()
+        # spi.open(0, 0)
+        # spi.max_speed_hz = 7629
+
+        #GPIOs
+        GPIO.setup(latch,GPIO.OUT)
+        GPIO.setup(enable,GPIO.OUT)
+        GPIO.setup(addr0,GPIO.OUT)
+        GPIO.setup(addr1,GPIO.OUT)
+        GPIO.setup(addr2,GPIO.OUT)
+        GPIO.setup(addr3,GPIO.OUT)
+        GPIO.output(enable, False) # turn on (negative logic)
+        GPIO.output(latch, True) # turn off (negative logic)
+        GPIO.output(addr0, False) # default 0
+        GPIO.output(addr1, False) # default 0
+        GPIO.output(addr2, False) # default 0
+        GPIO.output(addr3, False) # default 0
+
+        # GPS module ( RX-TX)
+
         self.state=False
 
     def __init__(self,width=64, height=16, rotate=0, mode="1"):
@@ -94,36 +151,24 @@ class hub08(device):
         assert(image.size == self.size)
         if self.state == False:
             return
-        print("on display")
-
-        image = super(hub08, self).preprocess(image)
-
+        im = super(hub08, self).preprocess(image)
+        pixels=list(im.getdata())
+        width, height = im.size
+        # print([pixels[i * width:(i + 1) * width] for i in range(height)])
         #  from:
         # https://github.com/Seeed-Studio/Ultrathin_LED_Matrix/blob/master/LEDMatrix.cpp
         # iterate over 16 rows
         for row in range(0,15): # 16 rows
             # send 64 bits to shift-register
             for column in range(0,63): # 64 columns
-                pixel=image.getpixel((column,row))
-                GPIO.output(clock,False)
-                if pixel == 0: # single color
-                    GPIO.output(red1,False)
-                    GPIO.output(red2,False)
+                byte = int(column/8) # 8 bits per byte
+                mask  = 0x01 << int(column%8)
+                pixel= pixels[ column+ 16*row]
+                if pixel != 0:
+                    cur = self.display_data[row][byte] | mask
                 else:
-                    GPIO.output(red1,self.contrast0)
-                    GPIO.output(red2,self.contrast1)
-                GPIO.output(clock,True)
-
-            # store sent data into current row
-            GPIO.output(enable,True) # disable display
-            GPIO.output(data0, (row & 0x01)!=0 )
-            GPIO.output(data1, (row & 0x02)!=0 )
-            GPIO.output(data2, (row & 0x04)!=0 )
-            GPIO.output(data3, (row & 0x08)!=0 ) # select row
-            GPIO.output(latch,False)
-            GPIO.output(latch,True)
-            GPIO.output(latch,False) # transfer data
-            GPIO.output(enable,False) # re-enable display
+                    cur = self.display_data[row][byte] & ~mask
+                self.display_data[row][byte] = cur
 
     def show(self):
         """
@@ -141,7 +186,6 @@ class hub08(device):
         GPIO.output(enable,True)
         self.state=False
 
-    # to Verify: assume that red1 and red2 controls led intensity 00 01 10 11
     def contrast(self, level):
         """
         Switches the display contrast to the desired level, in the range
@@ -149,22 +193,14 @@ class hub08(device):
         not necessarily dim the display to nearly off. In other words,
         this method is **NOT** suitable for fade-in/out animation.
 
+        hub08 display has no way to set up bright. The only way is varying
+        refresh period.
+
         :param level: Desired contrast level in the range of 0-255.
         :type level: int
         """
         assert(0 <= level <= 255)
-        if level < 64:
-            self.contrast0=False
-            self.contrast1=False
-        elif level < 128:
-            self.contrast0=True
-            self.contrast1=False
-        elif level < 128:
-            self.contrast0=False
-            self.contrast1=True
-        else:
-            self.contrast0=True
-            self.contrast1=True
+        self.period= level # from 1 hz to 255 hz
 
     def cleanup(self):
         """

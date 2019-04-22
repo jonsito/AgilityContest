@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser(description='SuTurno cmdline arguments',
 		formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-	parser.add_argument('--display','-d',type=str,default='max7219',help='Display mode "pygame" or "max7219"')
+	parser.add_argument('--display','-d',type=str,default='hub08',help='Display mode "pygame", "max7219", or "hub08"')
 	parser.add_argument('--ring','-r', type=int, default=1, help='Ring to listen events from (1..4)')
 	parser.add_argument('--interface','-i', type=str, default='',help='Use specific network interface to look for server')
 	parser.add_argument('--port','-p', type=int, default=80, help='Port to attach Web server interface (0:disable)')
