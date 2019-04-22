@@ -43,6 +43,9 @@ class MyHandler(BaseHTTPRequestHandler):
 
 	def writeData(self,form):
 		print("Write_data")
+		manga = ""
+		categoria = ""
+		grado = ""
 		# pending: set all received parameters
 		for item in form:
 			val=form[item].value
@@ -50,11 +53,11 @@ class MyHandler(BaseHTTPRequestHandler):
 			if item == 'Ring':
 				self.server.displayHandler.setRing(int(val))
 			elif item == 'Round':
-				self.manga=val
+				manga=val
 			elif item == "Categoria":
-				self.cat=val
+				categoria=val
 			elif item == "Grado":
-				self.grad=val
+				grado=val
 			elif item == "Reconocimiento":
 				self.server.menuHandler.setDirectCountDown(int(val))
 			elif item == "Brillo":
@@ -77,8 +80,8 @@ class MyHandler(BaseHTTPRequestHandler):
 			else:
 				print("Unhandled Key: %s Value:%s" %(item,form[item].value) )
 
-		str= "%s %s - %s" %(self.manga,self.cat,self.grad)
-		self.server.displayHandler.setRoundInfo(self.manga,self.cat,self.grad)
+		# str= "%s %s - %s" %(manga,categoria,grado)
+		self.server.displayHandler.setRoundInfo(manga,categoria,grado)
 
 	def do_GET(self):
 		if self.path=="/":

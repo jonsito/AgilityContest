@@ -73,11 +73,18 @@ class hub08(device):
 			return
 		while self.refresh_period >0:
 			if self.state == True:
-				# print ("send row: '%d'" % (self.cur_row))
-				# disable display before latch data
-				GPIO.output(enable,True)
-				#transfer row data.
-				self.spi.xfer(self.display_data[self.cur_row])
+				row=self.display_data[self.cur_row]
+				GPIO.output(enable,True) # disable display before latch data
+
+				for byte in row:
+					for bit in range(8):
+						val = (byte & (1<<bit)) != 0
+						GPIO.output(spi_dout,val)
+						GPIO.output(spi_clock,False)
+						GPIO.output(spi_clock,True)
+
+				#transfer row data using SPI
+				# self.spi.writebytes(row)
 				# store sent data into current row
 				GPIO.output(addr0, (self.cur_row & 0x01)!=0 )
 				GPIO.output(addr1, (self.cur_row & 0x02)!=0 )
@@ -88,10 +95,11 @@ class hub08(device):
 				GPIO.output(latch,True)
 				GPIO.output(enable,False) # re-enable display
 				# and finally increase cursor
-				self.cur_row = (self.cur_row + 1 ) % 16
+				self.cur_row = (self.cur_row + 1 ) & 0x0F
 			time.sleep(self.refresh_period)
 
 	def initialize(self):
+		self.state = False
 		# Setup breakout board
 		GPIO.setmode(GPIO.BOARD) # number pins according board pin number ( alternative to GPIO.BCM )
 
@@ -104,9 +112,13 @@ class hub08(device):
 		GPIO.output(spi_dout, True) # default high
 		GPIO.output(spi_cs, False) # default low (enabled)
 
-		self.spi = spidev.SpiDev()
-		self.spi.open(0, 0)
-		self.spi.max_speed_hz = 7629
+		#self.spi = spidev.SpiDev()
+		#self.spi.open(0, 0)
+		#self.spi.no_cs = True
+		#self.spi.threewire = False
+		#self.spi.bits_per_word = 8
+		#self.spi.mode = 0b00
+		#self.spi.max_speed_hz = 100000
 
 		#GPIOs
 		GPIO.setup(latch,GPIO.OUT)
@@ -123,8 +135,6 @@ class hub08(device):
 		GPIO.output(addr3, False) # default 0
 
 		# GPS module ( RX-TX)
-
-		self.state=False
 
 	def __init__(self,width=64, height=16, rotate=0, mode="1"):
 		super(hub08, self).__init__(const=None,serial_interface=noop)
@@ -153,7 +163,6 @@ class hub08(device):
 		self.rotate=rotate
 		self.mode=mode
 
-
 	def display(self,image):
 		assert(image.mode == self.mode)
 		assert(image.size == self.size)
@@ -166,17 +175,18 @@ class hub08(device):
 		#  from:
 		# https://github.com/Seeed-Studio/Ultrathin_LED_Matrix/blob/master/LEDMatrix.cpp
 		# iterate over 16 rows
-		for row in range(0,15): # 16 rows
+		for row in range(16): # 16 rows
 			# send 64 bits to shift-register
-			for column in range(0,63): # 64 columns
+			for column in range(64): # 64 columns
 				byte = int(column/8) # 8 bits per byte
-				mask  = 0x01 << int(column%8)
+				mask  = 0x01 << int(column&0x07)
 				pixel= pixels[64*row + column]
-				# if pixel != 0:
-				#	cur = self.display_data[row][byte] | mask
-				#else:
-				#	cur = self.display_data[row][byte] & ~mask
-				# self.display_data[row][byte] = cur
+				# 0 is black 255:white... but matrix reverse colors
+				if pixel == 0:
+					cur = self.display_data[row][byte] | mask
+				else:
+					cur = self.display_data[row][byte] & ~mask
+				self.display_data[row][byte] = cur
 
 	def show(self):
 		"""
