@@ -153,6 +153,8 @@ class NRDisplay:
 			dev = pygame(width=32, height=8, rotate=0, mode="RGB", transform="scale2x", scale=2 )
 		else: # hub08
 			dev = hub08.hub08(width=64, height=16, rotate=0, mode="1")
+			w = threading.Thread(target = dev.refresh) # led matrix refresh thread loop
+			w.start()
 		# set default bright level
 		dev.contrast( int(5*255/9) )
 		dev.show()
