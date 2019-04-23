@@ -33,22 +33,22 @@ addr3 = 15 # GPIO 22
 # table to linearize bright values for setting pwm duty cycle
 # from https://forum.arduino.cc/index.php?topic=96839.0
 brightness_table= [
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,
-    1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  2,  2,  2,  2,  2,  2,
-    2,  3,  3,  3,  3,  3,  3,  3,  4,  4,  4,  4,  4,  5,  5,  5,
-    5,  6,  6,  6,  6,  7,  7,  7,  7,  8,  8,  8,  9,  9,  9, 10,
-    10, 10, 11, 11, 11, 12, 12, 13, 13, 13, 14, 14, 15, 15, 16, 16,
-    17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 24, 24, 25,
-    25, 26, 27, 27, 28, 29, 29, 30, 31, 32, 32, 33, 34, 35, 35, 36,
-    37, 38, 39, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 50,
-    51, 52, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 66, 67, 68,
-    69, 70, 72, 73, 74, 75, 77, 78, 79, 81, 82, 83, 85, 86, 87, 89,
-    90, 92, 93, 95, 96, 98, 99,101,102,104,105,107,109,110,112,114,
-    115,117,119,120,122,124,126,127,129,131,133,135,137,138,140,142,
-    144,146,148,150,152,154,156,158,160,162,164,167,169,171,173,175,
-    177,180,182,184,186,189,191,193,196,198,200,203,205,208,210,213,
-    215,218,220,223,225,228,231,233,236,239,241,244,247,249,252,255
+	0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+	0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,
+	1,  1,  1,  1,  1,  1,  1,  1,  1,  2,  2,  2,  2,  2,  2,  2,
+	2,  3,  3,  3,  3,  3,  3,  3,  4,  4,  4,  4,  4,  5,  5,  5,
+	5,  6,  6,  6,  6,  7,  7,  7,  7,  8,  8,  8,  9,  9,  9, 10,
+	10, 10, 11, 11, 11, 12, 12, 13, 13, 13, 14, 14, 15, 15, 16, 16,
+	17, 17, 18, 18, 19, 19, 20, 20, 21, 21, 22, 22, 23, 24, 24, 25,
+	25, 26, 27, 27, 28, 29, 29, 30, 31, 32, 32, 33, 34, 35, 35, 36,
+	37, 38, 39, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 50,
+	51, 52, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 66, 67, 68,
+	69, 70, 72, 73, 74, 75, 77, 78, 79, 81, 82, 83, 85, 86, 87, 89,
+	90, 92, 93, 95, 96, 98, 99,101,102,104,105,107,109,110,112,114,
+	115,117,119,120,122,124,126,127,129,131,133,135,137,138,140,142,
+	144,146,148,150,152,154,156,158,160,162,164,167,169,171,173,175,
+	177,180,182,184,186,189,191,193,196,198,200,203,205,208,210,213,
+	215,218,220,223,225,228,231,233,236,239,241,244,247,249,252,255
 ]
 
 class hub08(device):
@@ -65,37 +65,58 @@ class hub08(device):
 	# variables
 	state = False # true: refresh active, false: do not refresh
 	brightness = 0  # 0: full brigthness .. 100: turn off
-	refresh_period = 0.0005 # 0.5 mseg
+	refresh_period = 0.0001 # 0.1 mseg
 	mode='1' # 1-color only
 	width=64
 	height=16
 	rotate=0
-	display_data = [ #eigh bytes (64 pixels) on each row
-		[255,0,0,0,0,0,0,0], # row 0
-		[0,255,0,0,0,0,0,0], # row 1
-		[0,0,255,0,0,0,0,0], # row 2
-		[0,0,0,255,0,0,0,0], # row 3
-		[0,0,0,0,255,0,0,0], # row 4
-		[0,0,0,0,0,255,0,0], # row 5
-		[0,0,0,0,0,0,255,0], # row 6
-		[0,0,0,0,0,0,0,255], # row 7
-		[0,0,0,0,0,0,0,255], # row 8
-		[0,0,0,0,0,0,255,0], # row 9
-		[0,0,0,0,0,255,0,0], # row 10
-		[0,0,0,0,255,0,0,0], # row 11
-		[0,0,0,255,0,0,0,0], # row 12
-		[0,0,255,0,0,0,0,0], # row 13
-		[0,255,0,0,0,0,0,0], # row 14
-		[255,0,0,0,0,0,0,0]  # row 15
+	# use double-buffering
+	active_buffer = 0
+	display_data = [
+		[#eigh bytes (64 pixels) on each row
+			[255,0,0,0,0,0,0,0], # row 0
+		 	[0,255,0,0,0,0,0,0], # row 1
+		 	[0,0,255,0,0,0,0,0], # row 2
+		 	[0,0,0,255,0,0,0,0], # row 3
+		 	[0,0,0,0,255,0,0,0], # row 4
+		 	[0,0,0,0,0,255,0,0], # row 5
+		 	[0,0,0,0,0,0,255,0], # row 6
+		 	[0,0,0,0,0,0,0,255], # row 7
+		 	[0,0,0,0,0,0,0,255], # row 8
+		 	[0,0,0,0,0,0,255,0], # row 9
+		 	[0,0,0,0,0,255,0,0], # row 10
+		 	[0,0,0,0,255,0,0,0], # row 11
+		 	[0,0,0,255,0,0,0,0], # row 12
+		 	[0,0,255,0,0,0,0,0], # row 13
+		 	[0,255,0,0,0,0,0,0], # row 14
+		 	[255,0,0,0,0,0,0,0]  # row 15
+		],
+		[ #eigh bytes (64 pixels) on each row
+			[255,0,0,0,0,0,0,0], # row 0
+			[0,255,0,0,0,0,0,0], # row 1
+			[0,0,255,0,0,0,0,0], # row 2
+			[0,0,0,255,0,0,0,0], # row 3
+			[0,0,0,0,255,0,0,0], # row 4
+			[0,0,0,0,0,255,0,0], # row 5
+			[0,0,0,0,0,0,255,0], # row 6
+			[0,0,0,0,0,0,0,255], # row 7
+			[0,0,0,0,0,0,0,255], # row 8
+			[0,0,0,0,0,0,255,0], # row 9
+			[0,0,0,0,0,255,0,0], # row 10
+			[0,0,0,0,255,0,0,0], # row 11
+			[0,0,0,255,0,0,0,0], # row 12
+			[0,0,255,0,0,0,0,0], # row 13
+			[0,255,0,0,0,0,0,0], # row 14
+			[255,0,0,0,0,0,0,0]  # row 15
 		]
+	]
 	cur_row = 0 # row being serialized
 
 	def refresh(self):
 		while self.refresh_period >0: # loop until end of thread signaled
 			if self.state == True:
-				row=self.display_data[self.cur_row]
+				row=self.display_data[self.active_buffer][self.cur_row]
 				self.enabled.ChangeDutyCycle(100) # turn off display ( set enable gpio high )
-
 				for byte in row:
 					for bit in range(8):
 						val = (byte & (1<<bit)) != 0
@@ -166,7 +187,7 @@ class hub08(device):
 		self.capabilities(width, height, rotate,mode="1")
 		self.image = None
 		self.size=(width,height)
-		self.refresh_period=0.0005 # 0.5 msecs between consecutive rows refresh
+		self.refresh_period=0.0001 # 0.1 msecs between consecutive rows refresh
 		self.initialize()
 		def shutdown_hook():  # pragma: no cover
 			try:
@@ -196,22 +217,23 @@ class hub08(device):
 		im = super(hub08, self).preprocess(image)
 		pixels=list(im.getdata())
 		width, height = im.size
-		# print([pixels[i * width:(i + 1) * width] for i in range(height)])
-		#  from:
-		# https://github.com/Seeed-Studio/Ultrathin_LED_Matrix/blob/master/LEDMatrix.cpp
+		# use non active buffer to populate data
+		idx= self.active_buffer^0x01
 		# iterate over 16 rows
 		for row in range(16): # 16 rows
 			# send 64 bits to shift-register
 			for column in range(64): # 64 columns
-				byte = int(column/8) # 8 bits per byte
+				byte = column>>3 # 8 bits per byte
 				mask  = 0x01 << int(column&0x07)
 				pixel= pixels[64*row + column]
 				# 0 is black 255:white... but matrix reverse colors
 				if pixel == 0:
-					cur = self.display_data[row][byte] | mask
+					cur = self.display_data[idx][row][byte] | mask
 				else:
-					cur = self.display_data[row][byte] & ~mask
-				self.display_data[row][byte] = cur
+					cur = self.display_data[idx][row][byte] & ~mask
+				self.display_data[idx][row][byte] = cur
+		# make this buffer active
+		self.active_buffer = self.active_buffer^0x01
 
 	def show(self):
 		"""
