@@ -32,13 +32,25 @@ from luma.core.device import device
 import luma.core.const
 from luma.core.interface.serial import noop
 
-# Hub08 pin assignments
+# HUB08 connector pinout
+#
+# GND *  * addr-A
+# GND *  * addr-B
+# GND *  * addr-C
+#  EN *  * addr-D
+#  R1 *  * G1
+#  R2 *  * G2
+# GND *  * Latch
+# GND *  * Clock
+
+# Hub08 pin assignments ( shift-register related )
 spi_clock = 23 # GPIO 11 / SPI0_CLK / HUB08_CLOCK
-spi_dout = 19 # GPIO 10 / SPI0_DATA_OUT / HUB08_RED1
+spi_dout = 19 # GPIO 10 / SPI0_DATA_OUT / HUB08_R1
 spi_din = 21 # GPIO 09 / SPI0_DATA_IN --- NOT USED
 spi_cs = 24 # GPIO 08 / SPI0_CE_0 --- NOT USED
-red2 = 7 # GPIO 07 / HUB08 RED2
+red2 = 7 # GPIO 07 / HUB08 R2
 
+# HUB08 pin assignment ( row addressing and data transfer )
 latch = 22 # GPIO 25
 enable = 18 # GPIO 24
 addr0 = 16 # GPIO 23
