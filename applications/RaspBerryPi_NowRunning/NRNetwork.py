@@ -248,7 +248,7 @@ class NRNetwork:
 
 # open manga
 	def handle_open(self,data):
-		# self.debug("data is:'%s' " % (json.dumps(data,separators=(',', ':'))))
+		self.debug("data is:'%s' " % (json.dumps(data,separators=(',', ':'))))
 		self.dspHandler.setOobMessage(data['NombreManga'],1)
 		self.dspHandler.setRoundInfo(data['NombreManga'],"","")
 		self.dspHandler.setNowRunning(1)
