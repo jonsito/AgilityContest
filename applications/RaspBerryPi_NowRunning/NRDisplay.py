@@ -189,11 +189,41 @@ class NRDisplay:
 		print("setStdMessageThread() exiting")
 	# end def
 
+	# same as luma.core.legacy.text() but duplicate font size
+	def text2(self,draw, xy, txt, fill=None, font=None):
+		"""
+		Draw a legacy font starting at :py:attr:`x`, :py:attr:`y` using the
+		prescribed fill and font.
+
+		:param draw: A valid canvas to draw the text onto.
+		:type draw: PIL.ImageDraw
+		:param txt: The text string to display (must be ASCII only).
+		:type txt: str
+		:param xy: An ``(x, y)`` tuple denoting the top-left corner to draw the
+			text.
+		:type xy: tuple
+		:param fill: The fill color to use (standard Pillow color name or RGB
+			tuple).
+		:param font: The font (from :py:mod:`luma.core.legacy.font`) to use.
+		"""
+		font = font or DEFAULT_FONT
+		x, y = xy
+		for ch in txt:
+			for byte in font[ord(ch)]:
+				for j in range(0,16,2):
+					if byte & 0x01 > 0:
+						draw.point((x, y + j), fill=fill)
+						draw.point((x+1, y + j), fill=fill)
+						draw.point((x, y + j + 1), fill=fill)
+						draw.point((x+1, y + j + 1), fill=fill)
+					byte >>= 1
+				x += 2
 	#
 	# Bucle infinito de gestion de mensajes
 	def displayLoop(self):
 		oldmsg=""
 		contrast=5
+		sx=0
 		while NRDisplay.loop == True:
 			# si tenemos orden de glitch, jugamos con el contraste
 			if NRDisplay.glitch != 0:
@@ -217,12 +247,12 @@ class NRDisplay:
 				msg = NRDisplay.oobMessage
 				NRDisplay.oobMessage = ""
 				delay=NRDisplay.oobDuration * 0.01
-				font=font=proportional(CP437_FONT)
+				font=proportional(CP437_FONT)
 			# si hay mensajes "normales" pendientes, muestralos
 			elif NRDisplay.stdMessage != "":
 				msg = NRDisplay.stdMessage
 				NRDisplay.stdMessage = ""
-				font=font=proportional(LCD_FONT)
+				font=proportional(LCD_FONT)
 				delay=0.02
 			# si el temporizador está activo, mostramos tiempo restante
 			elif NRDisplay.countDown != 0:
@@ -254,14 +284,24 @@ class NRDisplay:
 				time.sleep(0.5)
 				continue # do not repaint when not needed
 			oldmsg = msg
+			sy=0
+			if NRDisplay.DISPLAY == 'hub08':
+				sy=5
 			if len(msg) >5:
-				show_message( NRDisplay.device, msg, fill="white", font=font, scroll_delay=delay )
+				show_message( NRDisplay.device, msg, y_offset=sy,fill="white", font=font, scroll_delay=delay )
 			elif len(msg) == 5:
 				with canvas(NRDisplay.device) as draw:
-					text(draw, (sx, 0), msg, fill="white",font=proportional(CP437_FONT))
+					if NRDisplay.DISPLAY == 'hub08':
+						self.text2(draw, (sx, 1), msg, fill="white",font=proportional(CP437_FONT))
+					else:
+						text(draw, (sx, sy), msg, fill="white",font=proportional(CP437_FONT))
 			else:
 				with canvas(NRDisplay.device) as draw:
-					text(draw, (sx, 0), msg, fill="white",font=CP437_FONT)
+					if NRDisplay.DISPLAY == 'hub08':
+						sx=sx+4
+						self.text2(draw, (sx, 1), msg, fill="white",font=CP437_FONT)
+					else:
+						text(draw, (sx, sy), msg, fill="white",font=CP437_FONT)
 		# while loop=True
 		NRDisplay.device.clear()
 		NRDisplay.device.hide()
