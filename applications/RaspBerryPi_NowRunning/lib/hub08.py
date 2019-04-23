@@ -1,7 +1,22 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017-18 Richard Hull and contributors
-# See LICENSE.rst for details.
-
+# Copyright (c) 2019 Juan Antonio Martinez <jonsito at gmail dot com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the Software
+# is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all copies
+# or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+# INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+# PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+# FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+# OR OTHER DEALINGS IN THE SOFTWARE.
 
 import atexit
 import json
@@ -11,7 +26,7 @@ import spidev
 import threading
 
 import RPi.GPIO as GPIO
-# import GPIOEmu as GPIO
+#import GPIOEmu as GPIO
 
 from luma.core.device import device
 import luma.core.const
@@ -22,6 +37,7 @@ spi_clock = 23 # GPIO 11 / SPI0_CLK / HUB08_CLOCK
 spi_dout = 19 # GPIO 10 / SPI0_DATA_OUT / HUB08_RED1
 spi_din = 21 # GPIO 09 / SPI0_DATA_IN --- NOT USED
 spi_cs = 24 # GPIO 08 / SPI0_CE_0 --- NOT USED
+red2 = 7 # GPIO 07 / HUB08 RED2
 
 latch = 22 # GPIO 25
 enable = 18 # GPIO 24
@@ -89,7 +105,24 @@ class hub08(device):
 		 	[0,0,0,255,0,0,0,0], # row 12
 		 	[0,0,255,0,0,0,0,0], # row 13
 		 	[0,255,0,0,0,0,0,0], # row 14
-		 	[255,0,0,0,0,0,0,0]  # row 15
+		 	[255,0,0,0,0,0,0,0], # row 15
+		 	# next values are only used in 32 row led matrices
+			[255,0,0,0,0,0,0,0], # row 16
+		 	[0,255,0,0,0,0,0,0], # row 17
+		 	[0,0,255,0,0,0,0,0], # row 18
+		 	[0,0,0,255,0,0,0,0], # row 19
+		 	[0,0,0,0,255,0,0,0], # row 20
+		 	[0,0,0,0,0,255,0,0], # row 21
+		 	[0,0,0,0,0,0,255,0], # row 22
+		 	[0,0,0,0,0,0,0,255], # row 23
+		 	[0,0,0,0,0,0,0,255], # row 24
+		 	[0,0,0,0,0,0,255,0], # row 25
+		 	[0,0,0,0,0,255,0,0], # row 26
+		 	[0,0,0,0,255,0,0,0], # row 26
+		 	[0,0,0,255,0,0,0,0], # row 28
+		 	[0,0,255,0,0,0,0,0], # row 29
+		 	[0,255,0,0,0,0,0,0], # row 30
+		 	[255,0,0,0,0,0,0,0]  # row 31
 		],
 		[ #eigh bytes (64 pixels) on each row
 			[255,0,0,0,0,0,0,0], # row 0
@@ -107,7 +140,24 @@ class hub08(device):
 			[0,0,0,255,0,0,0,0], # row 12
 			[0,0,255,0,0,0,0,0], # row 13
 			[0,255,0,0,0,0,0,0], # row 14
-			[255,0,0,0,0,0,0,0]  # row 15
+			[255,0,0,0,0,0,0,0], # row 15
+		 	# next values are only used in 32 row led matrices
+			[255,0,0,0,0,0,0,0], # row 16
+		 	[0,255,0,0,0,0,0,0], # row 17
+		 	[0,0,255,0,0,0,0,0], # row 18
+		 	[0,0,0,255,0,0,0,0], # row 19
+		 	[0,0,0,0,255,0,0,0], # row 20
+		 	[0,0,0,0,0,255,0,0], # row 21
+		 	[0,0,0,0,0,0,255,0], # row 22
+		 	[0,0,0,0,0,0,0,255], # row 23
+		 	[0,0,0,0,0,0,0,255], # row 24
+		 	[0,0,0,0,0,0,255,0], # row 25
+		 	[0,0,0,0,0,255,0,0], # row 26
+		 	[0,0,0,0,255,0,0,0], # row 26
+		 	[0,0,0,255,0,0,0,0], # row 28
+		 	[0,0,255,0,0,0,0,0], # row 29
+		 	[0,255,0,0,0,0,0,0], # row 30
+		 	[255,0,0,0,0,0,0,0]  # row 31
 		]
 	]
 	cur_row = 0 # row being serialized
@@ -116,13 +166,18 @@ class hub08(device):
 		while self.refresh_period >0: # loop until end of thread signaled
 			if self.state == True:
 				row=self.display_data[self.active_buffer][self.cur_row]
+				row2=self.display_data[self.active_buffer][self.cur_row+16]
 				self.enabled.ChangeDutyCycle(100) # turn off display ( set enable gpio high )
-				for byte in row:
+				for i in range(8):
+					byte=row[i]
+					byte2=row2[i]
 					for bit in range(8):
 						val = (byte & (1<<bit)) != 0
-						GPIO.output(spi_dout,val)
+						val2 = (byte2 & (1<<bit)) != 0
+						GPIO.output(spi_dout,val) # HUB08 R1 data
+						GPIO.output(red2,val2) # HUB08 R2 data
 						GPIO.output(spi_clock,False)
-						GPIO.output(spi_clock,True)
+						GPIO.output(spi_clock,True) # clock tick to shift-register
 
 				#transfer row data using SPI
 				# self.spi.writebytes(row)
@@ -130,12 +185,12 @@ class hub08(device):
 				GPIO.output(addr0, (self.cur_row & 0x01)!=0 )
 				GPIO.output(addr1, (self.cur_row & 0x02)!=0 )
 				GPIO.output(addr2, (self.cur_row & 0x04)!=0 )
-				GPIO.output(addr3, (self.cur_row & 0x08)!=0 ) # select row
+				GPIO.output(addr3, (self.cur_row & 0x08)!=0 ) # select row (0..15 for R1, 16..31 for R2)
 				GPIO.output(latch,False)
-				#time.sleep(.001)
-				GPIO.output(latch,True)
+				GPIO.output(latch,True) # latch data from shift register to drive leds
 				self.enabled.ChangeDutyCycle(self.brightness) # re-enable display
 				# and finally increase cursor
+				# notice that cursor range is 0..15 as rows 16..31 are processed together
 				self.cur_row = (self.cur_row + 1 ) & 0x0F
 			time.sleep(self.refresh_period)
 
@@ -150,10 +205,13 @@ class hub08(device):
 		GPIO.setup(spi_dout,GPIO.OUT)
 		GPIO.setup(spi_din,GPIO.IN)
 		GPIO.setup(spi_cs,GPIO.OUT)
+		GPIO.setup(red2,GPIO.OUT)
 		GPIO.output(spi_clock, True) # default high
-		GPIO.output(spi_dout, True) # default high
+		GPIO.output(spi_dout, True)
+		GPIO.output(red2, True)
 		GPIO.output(spi_cs, False) # default low (enabled)
 
+		# SPI related code disabled cause no easy way to handle 2 simultaneous SPI channels
 		#self.spi = spidev.SpiDev()
 		#self.spi.open(0, 0)
 		#self.spi.no_cs = True
@@ -184,12 +242,16 @@ class hub08(device):
 
 	def __init__(self,width=64, height=16, rotate=0, mode="1"):
 		super(hub08, self).__init__(const=None,serial_interface=noop)
-		self.capabilities(width, height, rotate,mode="1")
+		self.capabilities(width, height, rotate,mode)
 		self.image = None
 		self.size=(width,height)
 		self.refresh_period=0.0001 # 0.1 msecs between consecutive rows refresh
 		self.initialize()
+		self.refresh_thread = threading.Thread(target = self.refresh) # led matrix refresh thread loop
+		self.refresh_thread.start()
 		def shutdown_hook():  # pragma: no cover
+			self.state=False # disable refresh
+			self.refresh_period = -1 # tell refresh thread to exit
 			try:
 				GPIO.cleanup()
 				self.cleanup()
@@ -200,7 +262,7 @@ class hub08(device):
 	# at this momment onlu 64x16, no rotate, and single color is supported
 	def capabilities(self,width, height, rotate, mode='1'):
 		assert(width == 64)
-		assert(height == 16)
+		assert( (height==16) or (height==32) )
 		assert(rotate == 0) # no rotation (yet)
 		assert(mode == '1') # luma modes are "1", "rgb" and "rgba"
 		self.width=width
@@ -220,12 +282,12 @@ class hub08(device):
 		# use non active buffer to populate data
 		idx= self.active_buffer^0x01
 		# iterate over 16 rows
-		for row in range(16): # 16 rows
+		for row in range(self.height): # 16/32 rows
 			# send 64 bits to shift-register
-			for column in range(64): # 64 columns
+			for column in range(self.width): # 64 columns
 				byte = column>>3 # 8 bits per byte
 				mask  = 0x01 << int(column&0x07)
-				pixel= pixels[64*row + column]
+				pixel= pixels[self.width*row + column]
 				# 0 is black 255:white... but matrix reverse colors
 				if pixel == 0:
 					cur = self.display_data[idx][row][byte] | mask
