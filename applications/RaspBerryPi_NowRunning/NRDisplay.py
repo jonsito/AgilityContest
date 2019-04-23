@@ -292,7 +292,7 @@ class NRDisplay:
 			elif len(msg) == 5:
 				with canvas(NRDisplay.device) as draw:
 					if NRDisplay.DISPLAY == 'hub08':
-						self.text2(draw, (sx, 1), msg, fill="white",font=proportional(CP437_FONT))
+						self.text2(draw, (0,1), msg, fill="white",font=proportional(CP437_FONT))
 					else:
 						text(draw, (sx, sy), msg, fill="white",font=proportional(CP437_FONT))
 			else:
