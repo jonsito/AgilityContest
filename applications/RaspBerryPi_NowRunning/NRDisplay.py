@@ -246,14 +246,14 @@ class NRDisplay:
 			elif NRDisplay.oobMessage != "":
 				msg = NRDisplay.oobMessage
 				NRDisplay.oobMessage = ""
-				delay=NRDisplay.oobDuration * 0.01
+				delay=NRDisplay.oobDuration * 0.02
 				font=proportional(CP437_FONT)
 			# si hay mensajes "normales" pendientes, muestralos
 			elif NRDisplay.stdMessage != "":
 				msg = NRDisplay.stdMessage
 				NRDisplay.stdMessage = ""
 				font=proportional(LCD_FONT)
-				delay=0.02
+				delay=0.03
 			# si el temporizador está activo, mostramos tiempo restante
 			elif NRDisplay.countDown != 0:
 				remaining=NRDisplay.countDown - time.time()
