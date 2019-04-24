@@ -52,6 +52,7 @@ function askForUpdateDB() {
     var str4='<input type="checkbox" id="askForUpdateDBChk" value="0"> ';
     var str5='<label for="askForUpdate"><?php _e("Do not show this message again");?>';
     $.messager.confirm({
+        closable: false,
         title:  '<?php _e("Enable sharing");?>',
         msg:    str1+'<br/>'+str2+" "+str3+'<br/>&nbsp;<br/>'+str4+" "+str5,
         width:  500,
@@ -148,7 +149,7 @@ function acceptLogin() {
                     $.messager.show({ width:300, height:150, title: "<?php _e('Notice');?>", msg: data.Warning });
                 }
        			var w=$.messager.alert({
-                    // closable: false, // do not show close button at upper right corner: fn is needed anyway
+                    closable: false, // do not show close button at upper right corner: fn is needed anyway
        			    title:  "Login",
                     msg: str,
                     icon: "info",
