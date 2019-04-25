@@ -117,6 +117,11 @@ class Resultados extends DBObject {
 			case 6: $suffix='L'; break; // L+M
 			case 7: $suffix='S'; break; // S+T
 			case 8: $suffix="L"; break; // L+M+S+T
+            // and values for 5-height contests
+            case 9: $suffix='X'; break; // X
+            case 10: $suffix='X'; break; // X+L
+            case 11: $suffix='M'; break; // M+S+T
+            case 12: $suffix='X'; break; // X+L+M+S+T
 		}
 
         // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
@@ -157,6 +162,12 @@ class Resultados extends DBObject {
 				if ($this->getDatosManga()->{"TRS_{$suffix}_Unit"}==="s") $result['trs']= $best3 + $factor; // ( + X segundos )
 				else $result['trs']= $best3 * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
+            case 7: // trs xl +xxx
+                $result_xl=$this->getResultadosIndividual(9)['trs'];
+                if ($this->getDatosManga()->{"TRS_{$suffix}_Unit"}==="s")
+                    $result['trs']= $result_xl['trs'] + $factor; // ( + X segundos )
+                else $result['trs']= $result_xl['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
+                break;
 			case 3: // trs standard +xxx						
 				$result_std=$this->getResultadosIndividual(0)['trs'];
 				if ($this->getDatosManga()->{"TRS_{$suffix}_Unit"}==="s")
@@ -460,8 +471,7 @@ class Resultados extends DBObject {
                 if ($eliminado==1) { $tiempo=0; $tintermedio=0; $faltas=0; $tocados=0; $rehuses=0; $nopresentado=0; }
                 if ($nopresentado==1) { $tiempo=0; $tintermedio=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
                 // en este tipo de pruebas, el tiempo puede ser cero, pues solo se le apunta al ultimo del equipo
-                // if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
-                if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
+                if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=0; }
             } else { // pruebas "normales" y mangas ko
                 if ($rehuses>=3) { $tiempo=0; $tintermedio=0; $eliminado=1; $nopresentado=0;}
                 if ($tiempo>0) {$nopresentado=0;}
@@ -776,9 +786,9 @@ class Resultados extends DBObject {
 		
 		// format output data and take care con duplicated penalizacion and time
         // calculamos campo "Puesto", "Calificacion" y Puntos
-        $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
-        $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
-        $countcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
+        $puestocat=array( 'C'=>1, 'X'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
+        $lastcat=array(   'C'=>0, 'X'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
+        $countcat=array(  'C'=>0, 'X'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
 
 		for($idx=0;$idx<$size;$idx++) {
             // vemos la categoria y actualizamos contadores de categoria

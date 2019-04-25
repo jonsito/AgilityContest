@@ -303,7 +303,14 @@ function saveGuia(){
             }
         },
         error: function(XMLHttpRequest,textStatus,errorThrown) {
-            $.messager.alert("Save Guia","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+            $.messager.alert({
+                title: "Save Guia",
+                msg: "Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,
+                icon: 'error',
+                fn: function() {
+                    $('#guias-okBtn').linkbutton('enable');
+                }
+            });
         }
     }).then(function(){
         $('#guias-okBtn').linkbutton('enable');

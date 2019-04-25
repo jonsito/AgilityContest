@@ -352,7 +352,7 @@ function parseHandlerCat($cat) {
     'P' => array('p','pa','para-agility')
     );
     if (is_null($cat)) return '-';
-    $str=preg_replace("/[^A-Za-z0-9]/u", '', strtolower(iconv('UTF-8','ASCII/TRANSLIT',$cat)));
+    $str=preg_replace("/[^A-Za-z0-9]/u", '', strtolower(iconv('UTF-8','ASCII//TRANSLIT',$cat)));
     foreach ( $cats as $key => $values) {
         if (in_array($str,$values)) return $key;
     }
@@ -684,12 +684,12 @@ function sqlFilterCategoryByMode($mode,$prefix=""){
         case 4: /* L+M+S */     return "AND ( {$prefix}Categoria IN ('L','M','S') )"; break;
         case 5: /* Toy */       return "AND ( {$prefix}Categoria='T' ) "; break;
         case 6: /* L+M */       return "AND ( {$prefix}Categoria IN ('L','M') ) "; break;
-        case 7: /* M+S */       return "AND ( {$prefix}Categoria IN ('S','T') ) "; break;
+        case 7: /* S+T */       return "AND ( {$prefix}Categoria IN ('S','T') ) "; break;
         case 8: /* L+M+S+T */   return "AND ( {$prefix}Categoria IN ('L','M','S','T') ) "; break;
         case 9: /* XtraLarge */ return "AND ( {$prefix}Categoria='X' ) "; break;
         case 10: /* XL + L */   return "AND ( {$prefix}Categoria IN ('X','L') ) "; break;
-        case 11: /* L+M+S+T */  return "AND ( {$prefix}Categoria IN ('M','S','T') ) "; break;
-        case 12: /* L+M+S+T */  return "AND ( {$prefix}Categoria IN ('X','L','M','S','T') ) "; break;
+        case 11: /* M+S+T */  return "AND ( {$prefix}Categoria IN ('M','S','T') ) "; break;
+        case 12: /* X+L+M+S+T */  return "AND ( {$prefix}Categoria IN ('X','L','M','S','T') ) "; break;
         default: return null;
     }
 }
