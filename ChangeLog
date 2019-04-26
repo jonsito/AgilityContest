@@ -1,3 +1,7 @@
+Version 3.9.1 20190426_0930
+    - several bugfixes and usability issues
+    - update database
+    - SuTurno-2.0 ( big display )
 Version 3.9.1 20190413_0954
     - Add web interface for "SuTurno"
     - fix refresh after delete inscription
