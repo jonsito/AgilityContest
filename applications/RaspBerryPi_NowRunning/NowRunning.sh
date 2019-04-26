@@ -6,6 +6,7 @@ chvt 12
 setleds -D +num
 # execute app
 echo "Starting service..."
+cd /home/pi/AgilityContest/NowRunning
 /usr/bin/python3 /home/pi/AgilityContest/NowRunning/NRMain.py
 # evaluate exit code to decide what to do
 retcode=$?

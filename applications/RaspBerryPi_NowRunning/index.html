@@ -40,8 +40,12 @@
                 method: 'GET',
                 data: { 'Operation':'readData' }, // not really needed, but...
                 success: function(data){
+                    var sturno=$('#sel_turno');
                     // alert(JSON.stringify(data));
-                    $('#sel_turno').val(data.Numero);
+                    // if sel_turno has focus, do not update value
+                    if (! sturno.is(':focus')) {
+                        sturno.val(data.Numero);
+                    }
                     $('#sel_ring').val(data.Ring);
                     $('#sel_cat').val(data.Categoria);
                     $('#sel_grad').val(data.Grado);
@@ -50,7 +54,7 @@
                     $('#host_ip').val(data.HostIP);
                     $('#server_ip').val(data.ServerIP);
                     if (data.Mode==='Reloj') {
-                        $('#sel_turno').prop("disabled",true);
+                        sturno.prop("disabled",true);
                         $('#btn_clock').prop("checked",true);
                     }
                     else if (data.Mode==='Reconocimiento') {
@@ -58,7 +62,7 @@
                         $('#btn_rec').prop("checked",true);
                     }
                     else{
-                        $('#sel_turno').prop("disabled",false);
+                        sturno.prop("disabled",false);
                         $('#btn_turno').prop("checked",true);
                     }
                 },

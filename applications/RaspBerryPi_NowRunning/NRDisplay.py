@@ -283,22 +283,33 @@ class NRDisplay:
 			oldmsg = msg
 			sy=0
 			if NRDisplay.DISPLAY == 'hub08':
-				sy=5
-			if len(msg) >5:
+				sy=5 # vertical center message on screen
+			nchars= len(msg)
+			if nchars >5: # si mas de 5 caracteres imprimimos mensaje con scroll
 				show_message( NRDisplay.device, msg, y_offset=sy,fill="white", font=font, scroll_delay=delay )
-			elif len(msg) == 5:
-				with canvas(NRDisplay.device) as draw:
-					if NRDisplay.DISPLAY == 'hub08':
-						self.text2(draw, (0,1), msg, fill="white",font=proportional(CP437_FONT))
-					else:
-						text(draw, (sx, sy), msg, fill="white",font=proportional(CP437_FONT))
 			else:
 				with canvas(NRDisplay.device) as draw:
 					if NRDisplay.DISPLAY == 'hub08':
-						sx=sx+4
-						self.text2(draw, (sx, 1), msg, fill="white",font=CP437_FONT)
+						fnt = proportional(CP437_FONT) # required to avoid dup'd char overlap
+						y=1
+						if nchars == 5:
+							x=1
+						elif nchars == 4:
+							x=8 # course walk: with proportional font ':' gets shifted
+						else:
+							x=10
+						self.text2(draw, (x,y), msg, fill="white",font=fnt)
 					else:
-						text(draw, (sx, sy), msg, fill="white",font=CP437_FONT)
+						fnt = CP437_FONT
+						y=0
+						if nchars == 5:
+							fnt = proportional(CP437_FONT) # to fit 5 chars in 32x8 display
+							x=0
+						elif nchars == 4:
+							x=2
+						else:
+							x=4
+						text(draw, (x, y), msg, fill="white",font=fnt)
 		# while loop=True
 		NRDisplay.device.clear()
 		NRDisplay.device.hide()
