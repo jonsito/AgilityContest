@@ -118,7 +118,7 @@ class NRNetwork:
 
 	def showIPAddress(self):
 		addr=self.getHostAddress()
-		self.dspHandler.setOobMessage("IP Addr: "+msg,3)
+		self.dspHandler.setOobMessage("IP Addr: "+addr,3)
 
 	def showServerAddress(self):
 		msg="Server not connected"
@@ -127,6 +127,7 @@ class NRNetwork:
 		# finally send result to display
 		self.debug(msg)
 		self.dspHandler.setOobMessage(msg,3)
+
 	def setEnabled(self,state):
 		NRNetwork.ENABLED=state
 
