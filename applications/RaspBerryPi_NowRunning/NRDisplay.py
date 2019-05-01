@@ -17,9 +17,8 @@
 
 #system
 import time
-import argparse
-import sys
-import os.path
+import math
+from datetime import datetime
 
 #image handler
 from PIL import Image, ImageFont, ImageDraw
@@ -39,17 +38,64 @@ class NRDisplay:
 
 	DISPLAY = None # "max7219" or "pygame"
 	loop = True
+	# perro en pista
 	nowRunning = 0
+	# variables for message handling
 	menuMessage = ""
 	stdMessage = ""
+	# values for setStdMessage
+	categoria=''
+	grado=''
+	# variables for urgent message
 	oobMessage = ""
 	oobDuration = 1
 	contrast=5
-	countDown=0
 	glitch=0
+	# modo reconocimiento de pista
+	countDown=0
+	# modo relok
 	clockMode=False
-	categoria=''
-	grado=''
+	localTime = datetime.now()
+	# modo cronometro
+	chronoMode=0 # 0:off 1:stopped 2:running 3:countdown
+	startTime=0 # chrono provided start time
+	stopTime=0 # chrono provided stop time
+
+	# returns the elapsed milliseconds since the start of the program
+	def millis(self):
+		dt = datetime.now() - NRDisplay.localTime
+		ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
+		return ms
+
+	# 0: off 1:stopped 2:running 3:15 secs countdown
+	def setChronoMode(self,value):
+		NRDisplay.chronoMode=value
+		if value==0:
+			NRDisplay.startTime=0
+			NRDisplay.stopTime=0
+			NRDisplay.localTime=datetime.now()
+
+	def getChronoMode(self):
+		return NRDisplay.chronoMode
+
+	def chronoCountDown(self):
+		NRDisplay.localTime=datetime.now()
+		NRDisplay.startTime=self.millis()+15000
+		NRDisplay.chronoMode=3
+
+	def chronoStart(self,val):
+		NRDisplay.localTime=datetime.now()
+		NRDisplay.startTime=val
+		NRDisplay.chronoMode=2
+
+	def chronoStop(self,val):
+		NRDisplay.stopTime=val
+		NRDisplay.chronoMode=1
+
+	def chronoReset(self):
+		NRDisplay.startTime=0
+		NRDisplay.stopTime=0
+		NRDisplay.chronoMode=1
 
 	# enable/disable clock mode (true,false)
 	def setClockMode(self,value):
@@ -215,6 +261,7 @@ class NRDisplay:
 						draw.point((x+1, y + j + 1), fill=fill)
 					byte >>= 1
 				x += 2
+
 	#
 	# Bucle infinito de gestion de mensajes
 	def displayLoop(self):
@@ -245,12 +292,28 @@ class NRDisplay:
 				NRDisplay.oobMessage = ""
 				delay=NRDisplay.oobDuration * 0.02
 				font=proportional(CP437_FONT)
-			# si hay mensajes "normales" pendientes, muestralos
-			elif NRDisplay.stdMessage != "":
-				msg = NRDisplay.stdMessage
-				NRDisplay.stdMessage = ""
-				font=proportional(LCD_FONT)
-				delay=0.03
+			#
+			# Modo cronometro
+			# si el crono esta activado, mostramos crono
+			elif NRDisplay.chronoMode == 3: # 15 sec countdown
+				elapsed=NRDisplay.startTime-self.millis()
+				if ellapsed<=0:
+					self.chronoReset()
+				secs= math.trunc(elapsed/1000)
+				decs= math.trunc((elapsed%1000)/100)
+				msg="%02d:%01d " %(secs,decs)
+			elif NRDisplay.chronoMode == 2: # crono running
+				elapsed=self.millis()
+				secs= math.trunc(elapsed/1000)
+				decs= math.trunc((elapsed%1000)/100)
+				msg="%02d:%01d " %(secs,decs)
+			elif NRDisplay.chronoMode == 1: # crono stopped
+				tfinal = NRDisplay.stopTime - NRDisplay.startTime
+				secs= math.trunc(tfinal/1000)
+				cents= math.trunc((tfinal%1000)/10)
+				msg="%02d:%02d" %(secs,cents)
+			#
+			# Modo reconocimiento de pista
 			# si el temporizador está activo, mostramos tiempo restante
 			elif NRDisplay.countDown != 0:
 				remaining=NRDisplay.countDown - time.time()
@@ -264,6 +327,8 @@ class NRDisplay:
 					secs= int(remaining)%60
 					msg="%d:%02d" %(min,secs)
 					sx=1
+			#
+			# Modo reloj
 			# si el reloj esta activo, presentamos la hora
 			elif NRDisplay.clockMode == True:
 				tm= time.localtime()
@@ -272,13 +337,25 @@ class NRDisplay:
 				else:
 					msg = time.strftime("%H.%M",tm)
 				sx=0
+			#
+			# si hay mensajes "normales" pendientes, muestralos
+			elif NRDisplay.stdMessage != "":
+				msg = NRDisplay.stdMessage
+				NRDisplay.stdMessage = ""
+				font=proportional(LCD_FONT)
+				delay=0.03
+			#
+			# Modo "Perro en Pista"
 			# arriving here means just print dog running
 			else:
 				sx=5
 				msg="%03d" % (NRDisplay.nowRunning)
+
+			#
+			# una vez adivinado que hay que hacer llega la hora de pintar
 			# time to display. check length for scroll or just show
 			if oldmsg == msg:
-				time.sleep(0.5)
+				time.sleep( 0.5 if self.chronoMode==0 else 0.1 ) # crono refresh every 0.15 secs
 				continue # do not repaint when not needed
 			oldmsg = msg
 			sy=0
@@ -293,7 +370,7 @@ class NRDisplay:
 						fnt = proportional(CP437_FONT) # required to avoid dup'd char overlap
 						y=1
 						if nchars == 5:
-							x=1
+							x=0
 						elif nchars == 4:
 							x=8 # course walk: with proportional font ':' gets shifted
 						else:

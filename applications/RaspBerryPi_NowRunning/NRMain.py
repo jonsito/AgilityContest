@@ -77,11 +77,13 @@ def inputParser():
 		elif data == "*0\n":
 			print("Return to normal mode")
 			displayHandler.setCountDown(0)
+			displayHandler.setChronoMode(0)
 			displayHandler.setClockMode(False)
 		elif data == "*1\n":
 			print("Enter Course walk mode")
 			# parar reloj, activar reconocimiento
 			displayHandler.setClockMode(False)
+			displayHandler.setChronoMode(0)
 			displayHandler.setOobMessage("Course Walk",2)
 			displayHandler.setCountDown(menuHandler.getCountDown())
 		elif data == "*2\n":
@@ -90,11 +92,20 @@ def inputParser():
 			displayHandler.setOobMessage("Clock Mode",2)
 			displayHandler.setCountDown(0)
 			displayHandler.setClockMode(True)
+			displayHandler.setChronoMode(0)
+		elif data == "*3\n":
+			print("Enter chrono mode")
+			# parar reconocimiento, activar relog
+			displayHandler.setOobMessage("Chrono Mode",2)
+			displayHandler.setCountDown(0)
+			displayHandler.setClockMode(False)
+			displayHandler.setChronoMode(1)
 		elif data == "**\n":
 			print("Enter in menu")
 			# paramos reloj y reconocimiento
 			displayHandler.setCountDown(0)
 			displayHandler.setClockMode(False)
+			displayHandler.setChronoMode(0)
 			res = menuHandler.runMenu(displayHandler,networkHandler)
 			if res > 0: # 1:stop 2:restart 3:shutdown
 				loop=restart(res-1) # 0:stop 1:restart 2:shuthdown

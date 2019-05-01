@@ -254,6 +254,22 @@ class NRNetwork:
 		self.dspHandler.setRoundInfo(data['NombreManga'],"","")
 		self.dspHandler.setNowRunning(1)
 
+# cronometro remoto
+	def handle_crono(self, oper,value):
+		val=int(value)
+		# display not in chrono mode, ignore
+		if self.dspHandler.getChronoMode() == 0:
+			return
+		self.debug("crhono oper:'%d' value: '%d'" % (oper,val))
+		if oper==3: # countdown
+			self.dspHandler.chronoCountDown()
+		if oper==2: # start
+			self.dspHandler.chronoStart(val)
+		if oper==1: # stop
+			self.dspHandler.chronoStop(val)
+		if oper==0: # reset
+			self.dspHandler.chronoReset()
+
 # parar bucle de eventos
 	def stopNetwork(self):
 		NRNetwork.loop = False
@@ -337,6 +353,7 @@ class NRNetwork:
 			return
 		# eventos de crono manual
 		if type == 'salida':			# juez da orden de salida ( crono 15 segundos )
+			self.handle_crono(3,0)
 			return
 		if type == 'start':				# Crono manual - value: timestamp
 			return
@@ -345,10 +362,12 @@ class NRNetwork:
 		# en crono electronico los campos "Value" y "TimeStamp" contienen la marca de tiempo del sistema
 		# en el momento en que se capturo el evento
 		if type == 'crono_start':		# Arranque Crono electronico
+			self.handle_crono(2,value)
 			return
 		if type == 'crono_int':			# Tiempo intermedio Crono electronico
 			return
 		if type == 'crono_stop':		# Parada Crono electronico
+			self.handle_crono(1,value)
 			return
 		if type == 'crono_rec':			# Llamada a reconocimiento de pista
 			self.handle_rec(evtdata['start'])
@@ -358,6 +377,7 @@ class NRNetwork:
 		if type == 'crono_restart':		# paso de crono manual a automatico (not supported here)
 			return
 		if type == 'crono_reset':		# puesta a cero del contador
+			self.handle_crono(0,0)
 			return
 		if type == 'crono_error':		# error en alineamiento de sensores
 			return
