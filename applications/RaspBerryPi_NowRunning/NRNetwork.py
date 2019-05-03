@@ -261,6 +261,10 @@ class NRNetwork:
 		if self.dspHandler.getChronoMode() == 0:
 			return
 		self.debug("crhono oper:'%d' value: '%d'" % (oper,val))
+		if oper==5: # ready/recover
+			self.dspHandler.chronoReady()
+		if oper==4: # error
+			self.dspHandler.chronoError(val)
 		if oper==3: # countdown
 			self.dspHandler.chronoCountDown()
 		if oper==2: # start
@@ -380,6 +384,7 @@ class NRNetwork:
 			self.handle_crono(0,0)
 			return
 		if type == 'crono_error':		# error en alineamiento de sensores
+			self.handle_crono(4,0)
 			return
 		# entrada de datos, dato siguiente, cancelar operacion
 		if type == 'llamada':			# operador abre panel de entrada de datos
@@ -393,7 +398,8 @@ class NRNetwork:
 			return
 		if type == 'info':				# value: message
 			return
-		if type == 'crono_ready':		# crono becomes ready
+		if type == 'crono_ready':		# crono becomes ready or recovers from senso error
+			self.handle_crono(5,0)
 			return
 		if type == 'user':				# user defined event. Value=number
 			return

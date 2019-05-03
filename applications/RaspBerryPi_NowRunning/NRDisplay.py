@@ -57,7 +57,8 @@ class NRDisplay:
 	clockMode=False
 	localTime = datetime.now()
 	# modo cronometro
-	chronoMode=0 # 0:off 1:stopped 2:running 3:countdown
+	lastChronoMode=0 # 0:off 1:stopped 2:running 3:countdown 4:error
+	chronoMode=0 # 0:off 1:stopped 2:running 3:countdown 4:error
 	startTime=0 # chrono provided start time
 	stopTime=0 # chrono provided stop time
 
@@ -69,33 +70,44 @@ class NRDisplay:
 
 	# 0: off 1:stopped 2:running 3:15 secs countdown
 	def setChronoMode(self,value):
-		NRDisplay.chronoMode=value
+		# backup current mode. Used to handle sensor error/recovery
+		NRDisplay.lastChronoMode = NRDisplay.chronoMode
+		NRDisplay.chronoMode = value
 		if value==0:
 			NRDisplay.startTime=0
 			NRDisplay.stopTime=0
 			NRDisplay.localTime=datetime.now()
-
+			
 	def getChronoMode(self):
 		return NRDisplay.chronoMode
+
+	def chronoReady(self):
+		self.setChronoMode(NRDisplay.lastChronoMode)
+
+	def chronoError(self,value): # 1:error 0:ready
+		if (value==1):
+			self.setChronoMode(4)
+		else:
+			self.chronoReady()
 
 	def chronoCountDown(self):
 		NRDisplay.localTime=datetime.now()
 		NRDisplay.startTime=self.millis()+15000
-		NRDisplay.chronoMode=3
+		self.setChronoMode(3)
 
 	def chronoStart(self,val):
 		NRDisplay.localTime=datetime.now()
 		NRDisplay.startTime=val
-		NRDisplay.chronoMode=2
+		self.setChronoMode(2)
 
 	def chronoStop(self,val):
 		NRDisplay.stopTime=val
-		NRDisplay.chronoMode=1
+		self.setChronoMode(1)
 
 	def chronoReset(self):
 		NRDisplay.startTime=0
 		NRDisplay.stopTime=0
-		NRDisplay.chronoMode=1
+		self.setChronoMode(1)
 
 	# enable/disable clock mode (true,false)
 	def setClockMode(self,value):
@@ -295,6 +307,8 @@ class NRDisplay:
 			#
 			# Modo cronometro
 			# si el crono esta activado, mostramos crono
+			elif NRDisplay.chronoMode == 4: # Sensor error
+				msg="Error"
 			elif NRDisplay.chronoMode == 3: # 15 sec countdown
 				elapsed=NRDisplay.startTime-self.millis()
 				if ellapsed<=0:
