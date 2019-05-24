@@ -35,7 +35,8 @@ class Pruebas extends DBObject {
      *@param {$id} 0 on create, PruebaID on update
      *@return 0: no duplicates else number of dups
      */
-	function checkForDuplicates($name,$id) {
+	protected function checkForDuplicates($name,$id) {
+	    $name=$this->conn->real_escape_string($name);
 	    $where=($id===0)?"":" AND (ID!={$id})";
 	    $res=$this->__selectObject(
 	        /* select */ "count(*) AS Items",
@@ -48,6 +49,8 @@ class Pruebas extends DBObject {
 	function insert() {
 		$this->myLogger->enter();
         // iniciamos los valores, chequeando su existencia
+        // como usamos prepared statements no hace falta escapar la entrada
+        // pero habrá que hacerlo a la hora de ver si el nombre esta duplicado
         $nombre =	http_request("Nombre","s",null,false); // not null
         $club =		http_request("Club","i",0);
         $ubicacion=	http_request("Ubicacion","s","",false);

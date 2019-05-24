@@ -35,6 +35,7 @@ class Dogs extends DBObject {
 		$this->myLogger->enter();
 		if($this->federation<0) return $this->error("Dogs::insert() invalid federation value");
         // iniciamos los valores, chequeando su existencia
+        // no hace falta escapar http_request porque usamos prepared statement para el insert
         $nombre =	http_request("Nombre","s",null,false);
         $raza =		http_request("Raza","s",null,false);
         $chip =	http_request("Chip","s","",false);

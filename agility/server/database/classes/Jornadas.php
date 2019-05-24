@@ -56,6 +56,7 @@ class Jornadas extends DBObject {
      *@return 0: no duplicates else number of dups
      */
     function checkForDuplicates($name,$id) {
+        $name=$this->conn->real_escape_string($name); // name is unscaped ( for prepared stmt )
         $res=$this->__selectObject(
         /* select */ "count(*) AS Items",
             /* from */   "jornadas",
@@ -86,8 +87,10 @@ class Jornadas extends DBObject {
 
         // make sure that no existing entry with same name
         $dups=$this->checkForDuplicates($nombre,$jornadaid);
-        if ($dups!=0) return $this->error(_("There is already a journey with provided name"));
-
+        if ($dups!=0) {
+            return $this->error(_("There is already a journey with provided name"));
+        }
+        // read remaining parameters from request
         $fecha = str_replace("/","-",http_request("Fecha","s","",false)); // mysql requires format YYYY-MM-DD
         $hora = http_request("Hora","s","",false);
         $grado1 = http_request("Grado1","i",0);

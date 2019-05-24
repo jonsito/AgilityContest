@@ -34,6 +34,17 @@ class Clubes extends DBObject {
 
     protected $logoCache=array( "Perros" => array(), "Guias" => array(), "Clubes" => array(), "NombreClub" => array() );
 
+	protected function checkForDuplicates($name,$id) {
+        $name=$this->conn->real_escape_string($name);
+        $where=($id===0)?"":" AND (ID!={$id})";
+        $res=$this->__selectObject(
+        /* select */ "count(*) AS Items",
+            /* from */   "clubes",
+            /* where */  "Nombre='{$name}' {$where}"
+        );
+        return $res->Items;
+    }
+
     /**
 	 * insert a new club into database
 	 * @return {string} empty string if ok; else null
@@ -62,6 +73,9 @@ class Clubes extends DBObject {
         $logo       = $this->composeLogoName($nombre);
         // no permitimos insert/update cuando el club no se asigna a ninguna federacion
         if ($federations==0) return $this->error("Clubes::insert(): Federations field cannot be empty");
+        // check for duplicated name
+        $dups=$this->checkForDuplicates($nombre,0);
+        if ($dups!=0) return $this->error(_("There is already a registered club with provided name"));
 		// componemos un prepared statement
 		$sql ="INSERT INTO clubes (Nombre,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,
 				Web,Email,Federations,Facebook,Google,Twitter,Observaciones,Baja,Logo)
