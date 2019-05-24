@@ -16,6 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 <?php
+header('Content-Type: text/javascript');
 require_once(__DIR__."/../server/tools.php");
 ?>
 

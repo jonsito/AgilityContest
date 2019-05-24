@@ -16,6 +16,7 @@
  */
 
 <?php
+header('Content-Type: text/javascript');
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();

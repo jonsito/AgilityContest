@@ -321,6 +321,10 @@ $config =Config::getInstance();
             // reload on expand combo
             $('#pruebas-Club').combogrid('grid').datagrid('load');
             return true;
+        },
+        onClose: function() {
+            // Don't know why "ajax().then() fails. Just to be sure to reopen with button enabled
+            $('#pruebas-okBtn').linkbutton('enable');
         }
     });
     $('#pruebas-Nombre').textbox({
