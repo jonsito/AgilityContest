@@ -145,9 +145,20 @@ function editGuiaFromPerros(){ // editar guia desde el dialogo de edicion de per
         return json;
     }
 
-    var dg=$('#perros-Guia').combogrid('grid');
+    var pg=$('#perros-Guia');
+    var dg=pg.combogrid('grid');
     var r=dg.datagrid('getSelected');
-    if (!r) return; // no handler selected, cannot edit :-)
+    if (!r) {
+        $.messager.alert('<?php _e("Edit error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
+        return false;
+        /*
+        // no selection, look for valid data in combogrid
+        var id=pg.combogrid('getValue');
+        if (isNaN(id)) return false;
+        dg.datagrid('selectRecord',id);
+        r=dg.datagrid('getSelected');
+        */
+    }
     $('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('Modify handler data'); ?>'+' - '+fedName(workingData.federation));
     // add extra required parameters to dialog
     $('#guias-Operation').val('update');
@@ -166,7 +177,7 @@ function editGuiaFromPerros(){ // editar guia desde el dialogo de edicion de per
         // update datagrid entry at idx with new values
         dg.datagrid('updateRow',{index:idx,row:r});
         // tell combogrid to search and display guiaID (stored at datagrid position idx)
-        $('#perros-Guia').combogrid('setValue',r.ID);
+        pg.combogrid('setValue',r.ID);
         // finally fix club name on textbox
         $('#perros-Club').textbox('setValue',cname.Nombre);
     });

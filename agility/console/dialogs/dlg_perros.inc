@@ -153,7 +153,7 @@ $config =Config::getInstance();
         closed:true,
         buttons:'#perros-dlg-buttons',
         iconCls: 'icon-dog',
-        onBeforeOpen: function() {
+        onOpen: function() {
             // reload on expand combo
             $('#perros-Guia').combogrid('grid').datagrid('load');
             return true;
@@ -246,7 +246,8 @@ $config =Config::getInstance();
             if (r) $('#perros-Club').textbox('setValue',r.NombreClub);
         },
         loader: function(param,onsuccess,onerror){
-            var opts = $('#perros-Guia').combogrid('options');
+            var pg=$('#perros-Guia');
+            var opts = pg.combogrid('options');
             if (!opts.url){return false}
             if (typeof (param.q) !== "undefined") {
                 var q = param.q || '';
@@ -257,7 +258,9 @@ $config =Config::getInstance();
                 url: opts.url,
                 data: param,
                 dataType: 'json',
-                success: function(data){ onsuccess(data); },
+                success: function(data){
+                    onsuccess(data);
+                },
                 error: function(){ onerror.apply(this, arguments); }
             });
 

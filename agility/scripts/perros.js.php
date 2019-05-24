@@ -79,8 +79,8 @@ function editDog(dg){
  */
 function editInscribedDog(){
 	var id=$('#edit_inscripcion-Perro').val();
-	$('#perros-form').form('load','../ajax/database/dogFunctions.php?Operation=getbyidperro&ID='+id);
     $('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('Modify data on dog to be inscribed'); ?>'+' - '+fedName(workingData.federation));
+    $('#perros-form').form('load','../ajax/database/dogFunctions.php?Operation=getbyidperro&ID='+id);
     // cannot mark as retired an inscribed dog, so hide form label and entry
     $("#perros-Baja").css('display','none');
     // add extra required data to form dialog
@@ -198,9 +198,9 @@ function editPerroFromGuia(dgstr,guia) {
     }
     // add extra required data to form dialog
     row.Operation='update';
-    $('#perros-form').form('load',row);	// load form with row data. onLoadSuccess will fix comboboxes
     // finally display composed data
     $('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('Modify data on dog assigned to'); ?>'+' '+guia.Nombre+' - '+fedName(workingData.federation));
+    $('#perros-form').form('load',row);	// load form with row data. onLoadSuccess will fix comboboxes
 	$('#perros-okBtn').one('click',function () { dg.datagrid('reload'); } );
 }
 
