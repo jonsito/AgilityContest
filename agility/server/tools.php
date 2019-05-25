@@ -126,7 +126,8 @@ function disable_gzip() {
  */
 function number_format2($number,$prec) {
     // return round($number,$prec,PHP_ROUND_HALF_UP); // round
-    return round($number,$prec,PHP_ROUND_HALF_DOWN); // trunc
+    // return round($number,$prec,PHP_ROUND_HALF_DOWN); // trunc. Fails due to half down not working as expected
+    return bcmul(strval($number),1,$prec);
 }
 
 // convert a #rrggbb string to an array($r,$g,$b)
