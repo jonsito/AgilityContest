@@ -440,6 +440,15 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 	</span>
 </p>
 <script type="text/javascript">
+    var myKeyHandler = $.extend({},$.fn.combobox.defaults.keyHandler,{
+        down:function(q){
+            if( $(this).combobox('panel').panel('options').closed===true ) {
+                $(this).combobox('showPanel');
+            } else {
+                $.fn.combobox.defaults.keyHandler.down.call(this,q);
+            }
+        }
+    });
 
     //stupid easyui that does not parse from markup
     $('#dmanga_DistX').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
@@ -452,42 +461,43 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
     $('#dmanga_ObstM').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_ObstS').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_ObstT').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
-    $('#dmanga_TRS_X_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_X_Unit')}});
-    $('#dmanga_TRS_L_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_L_Unit')}});
-    $('#dmanga_TRS_M_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_M_Unit')}});
-    $('#dmanga_TRS_S_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_S_Unit')}});
-    $('#dmanga_TRS_T_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_T_Unit')}});
+    $('#dmanga_TRS_X_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_X_Unit')}});
+    $('#dmanga_TRS_L_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_L_Unit')}});
+    $('#dmanga_TRS_M_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_M_Unit')}});
+    $('#dmanga_TRS_S_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_S_Unit')}});
+    $('#dmanga_TRS_T_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_T_Unit')}});
     $('#dmanga_TRS_X_Factor').textbox();
     $('#dmanga_TRS_L_Factor').textbox();
     $('#dmanga_TRS_M_Factor').textbox();
     $('#dmanga_TRS_S_Factor').textbox();
     $('#dmanga_TRS_T_Factor').textbox();
-    $('#dmanga_TRS_X_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_X_Tipo')}});
-    $('#dmanga_TRS_L_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_L_Tipo')}});
-    $('#dmanga_TRS_M_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_M_Tipo')}});
-    $('#dmanga_TRS_S_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_S_Tipo')}});
-    $('#dmanga_TRS_T_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_T_Tipo')}});
+    $('#dmanga_TRS_X_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_X_Tipo')}});
+    $('#dmanga_TRS_L_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_L_Tipo')}});
+    $('#dmanga_TRS_M_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_M_Tipo')}});
+    $('#dmanga_TRS_S_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_S_Tipo')}});
+    $('#dmanga_TRS_T_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_T_Tipo')}});
     $('#dmanga_TRS_X_TimeSpeed').textbox();
     $('#dmanga_TRS_L_TimeSpeed').textbox();
     $('#dmanga_TRS_M_TimeSpeed').textbox();
     $('#dmanga_TRS_S_TimeSpeed').textbox();
     $('#dmanga_TRS_T_TimeSpeed').textbox();
-    $('#dmanga_TRM_X_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_X_Unit')}});
-    $('#dmanga_TRM_L_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_L_Unit')}});
-    $('#dmanga_TRM_M_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_M_Unit')}});
-    $('#dmanga_TRM_S_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_S_Unit')}});
-    $('#dmanga_TRM_T_Tipo').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_T_Unit')}});
+    $('#dmanga_TRM_X_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_X_Unit')}});
+    $('#dmanga_TRM_L_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_L_Unit')}});
+    $('#dmanga_TRM_M_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_M_Unit')}});
+    $('#dmanga_TRM_S_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_S_Unit')}});
+    $('#dmanga_TRM_T_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_T_Unit')}});
     $('#dmanga_TRM_X_Factor').textbox();
     $('#dmanga_TRM_L_Factor').textbox();
     $('#dmanga_TRM_M_Factor').textbox();
     $('#dmanga_TRM_S_Factor').textbox();
     $('#dmanga_TRM_T_Factor').textbox();
-    $('#dmanga_TRM_X_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_L_Tipo')}});
-    $('#dmanga_TRM_L_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_L_Tipo')}});
-    $('#dmanga_TRM_M_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_M_Tipo')}});
-    $('#dmanga_TRM_S_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_S_Tipo')}});
-    $('#dmanga_TRM_T_Unit').combobox({valueField:'value',panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_T_Tipo')}});
+    $('#dmanga_TRM_X_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_L_Tipo')}});
+    $('#dmanga_TRM_L_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_L_Tipo')}});
+    $('#dmanga_TRM_M_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_M_Tipo')}});
+    $('#dmanga_TRM_S_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_S_Tipo')}});
+    $('#dmanga_TRM_T_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_T_Tipo')}});
     $('#dmanga_Observaciones').textbox();
+
 
 $('#dmanga_Juez1').combogrid({
 	panelWidth: 400,
