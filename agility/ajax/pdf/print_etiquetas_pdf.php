@@ -51,6 +51,7 @@ try {
 	$rowcount=http_request("Start","i",0); // offset to first label in page
 	$listadorsales=http_request("List","s",""); // CSV Dorsal List
 	$prmode=http_request("PrintMode","i","1"); // 1:RSCE 2:CNEAC
+	$discriminate=http_request("Discriminate","i","1"); // 0:any 1:only handlers belonging RSCE or CNEAC
 	
 	// buscamos los recorridos asociados a la mangas
 	$dbobj=new DBObject("print_etiquetas_csv");
@@ -77,7 +78,7 @@ try {
 	}
 	// mandamos a imprimir
     $pdf->AliasNbPages();
-	$pdf->composeTable($res,$rowcount,$listadorsales);
+	$pdf->composeTable($res,$rowcount,$listadorsales,$discriminate);
 
 	// mandamos a la salida el documento. Notese que no usamos el metodo pdf get_FileName
     $suffix=$c->getName($mangas,$mode);

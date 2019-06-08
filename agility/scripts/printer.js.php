@@ -625,9 +625,10 @@ function clasificaciones_printCanina() {
  * @param {int} flag 0:CSV 1:PDF
  * @param {int} start if mode==PDF first line in output
  * @param {string} list CSV dorsal list
+ * @param {boolean} discriminate on set discriminate by country
  * @returns {Boolean} false 
  */
-function clasificaciones_printEtiquetas(flag,start,list) {
+function clasificaciones_printEtiquetas(flag,start,list,discriminate) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='../ajax/pdf/print_etiquetas_csv.php';
 	if (flag!=0) url='../ajax/pdf/print_etiquetas_pdf.php';
@@ -651,7 +652,8 @@ function clasificaciones_printEtiquetas(flag,start,list) {
 				Mode: mode,
 				Start: strt,
 				List: list,
-                PrintMode: flag /* 0:csv 1:rsce label 2:cneac forms */
+                PrintMode: flag, /* 0:csv 1:rsce label 2:cneac forms */
+                Discriminate: (discriminate)?1:0 /* false: don't, true: exclude by country membership */
 			},
 	        preparingMessageHtml: '(labels) <?php _e("We are preparing your report, please wait"); ?> ...',
 	        failMessageHtml: '(labels) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -754,15 +756,16 @@ function clasificaciones_doPrint() {
 	var line=$('#r_prfirst').numberspinner('getValue');
     var list=$('#r_prlist').textbox('getValue');
     var prstats=$('#r_prstats').prop('checked');
+    var discriminate=$('#r_discriminate').prop('checked');
 	$('#resultados-printDialog').dialog('close');
 	switch(parseInt(r)) {
 		case 0: /* podium */ clasificaciones_printPodium(); break;
-		case 1: /* csv */ clasificaciones_printEtiquetas(0,line,''); break; // csv
+		case 1: /* csv */ clasificaciones_printEtiquetas(0,line,'',false); break; // csv
         case 3: /* excel */ clasificaciones_printCanina(); break;
         case 6: /* mejores prueba */ clasificaciones_printHallOfFame(); break;
 		case 4: /* pdf */ clasificaciones_printClasificacion((prstats)?1:0); break;
-		case 5: /* forms cneac */ clasificaciones_printEtiquetas(2,line,list); break;
-		case 2: /* labels rsce */ clasificaciones_printEtiquetas(1,line,list); break;
+		case 5: /* forms cneac */ clasificaciones_printEtiquetas(2,line,list,discriminate); break;
+		case 2: /* labels rsce */ clasificaciones_printEtiquetas(1,line,list,discriminate); break;
 	}
 	return false; //this is critical to stop the click event which will trigger a normal file download!
 }
