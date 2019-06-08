@@ -1,3 +1,11 @@
+Version 3.9.1 20190604_1200
+    - Use bcmath to avoid trunc problems on data representation
+    - SQL injection fixes
+    - Check for duplicates on clubs/contests/journeys
+    - Fix edit handler button behaviour from edit dog dialog
+    - content/type fixes for xxxx.js.php javascript files
+    - usability fixes on round data handling dialog
+    - database updates
 Version 3.9.1 20190426_0930
     - several bugfixes and usability issues
     - update database
