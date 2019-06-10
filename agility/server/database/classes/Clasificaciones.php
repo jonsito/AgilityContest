@@ -122,6 +122,7 @@ class Clasificaciones extends DBObject {
                         'NombreGuia' => $item['NombreGuia'],
                         'NombreClub' => $item['NombreClub'],
                         'LogoClub' => $item['LogoClub'],
+                        'Pais' => $item['Pais'],
                         // global data to be evaluated
                         'Tiempo' => 0,
                         'Penalizacion' => 0,

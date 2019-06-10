@@ -205,7 +205,7 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         $this->data['Country'][2] = $this->club->Pais;
     }
 
-    function composeTable($resultados,$rowcount=0,$listadorsales="") {
+    function composeTable($resultados,$rowcount=0,$listadorsales="",$discriminate=1) {
         $this->myLogger->enter();
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 
@@ -216,6 +216,8 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
                 $pajar=",$listadorsales,";
                 if (strpos($pajar,$aguja)===FALSE) continue; // Dorsal not in list
             } else {
+                // if country discrimination is active check country and reject on no match
+                if ( ($discriminate==1) && $row['Pais']!=="FRA") continue;
                 // on double "not present" do not print label
                 if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) ) continue;
                 // on double "eliminated", ( or eliminated+notpresent ) handle printing label accordind to configuration

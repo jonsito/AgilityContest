@@ -722,7 +722,7 @@ class Resultados extends DBObject {
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
 				"resultados.Dorsal,resultados.Perro,resultados.Nombre,NombreLargo,resultados.Raza,Equipo,resultados.Licencia,resultados.Categoria,resultados.Grado,
-				    resultados.NombreGuia,resultados.NombreClub,perroguiaclub.LOE_RRC,perroguiaclub.CatGuia,
+				    resultados.NombreGuia,resultados.NombreClub, perroguiaclub.Pais,perroguiaclub.LOE_RRC,perroguiaclub.CatGuia,
 				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,resultados.Celo, resultados.Games,
 					GREATEST(200*NoPresentado,100*Eliminado,5*(Tocados+Faltas+Rehuses)) AS PRecorrido,
 					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad, resultados.Observaciones",

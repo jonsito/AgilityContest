@@ -115,7 +115,7 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 
 
 <div id="resultados-printDialog" class="easyui-dialog" 
-	data-options="title:'<?php _e('Select format'); ?>',modal:true,closable:true,closed:true,width:'475px',height:'360px'">
+	data-options="title:'<?php _e('Select format'); ?>',modal:true,closable:true,closed:true,width:'475px',height:'400px'">
 
 	<form style="padding:10px" id="resultados-printForm">
 	<input type="radio" name="r_prformat" value="0" onclick="r_selectOption(0);"/><?php _e('Podium'); ?> (PDF)<br />
@@ -138,7 +138,7 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 		<span style="float:left">
 			<input type="radio" name="r_prformat" value="5" onclick="r_selectOption(5);"/><?php _e('CNEAC Qualification forms'); ?>&nbsp;<br/>
 			<input type="radio" name="r_prformat" value="2" onclick="r_selectOption(2);"/><?php _e('RSCE Label sheets'); ?>&nbsp; <br/>
-			&nbsp;<br />
+			&nbsp;<br />&nbsp;<br/>
 		</span>
 		<span style="float:right">
 			<label id="r_prlistLbl" for="list"><?php _e('Dorsal list'); ?>:</label>
@@ -147,6 +147,8 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
             <label id="r_prfirstLbl" for="first"><?php _e('Initial label'); ?>:&nbsp;</label>
 			<input id="r_prfirst" style="width:45px" name="first" class="easyui-numberspinner"
                    data-options="value:1,min:1,max:16,disabled:true"/><br />
+            <label id="r_discriminateLbl" for="r_discriminate"><?php _e('Filter country'); ?>:</label>
+            <input id="r_discriminate" style="width:78px" name="r_discriminate" class="easyui-checkbox" type="checkbox" value="1" checked="checked"/><br/>
 		</span>
 	</span>
 	<span  style="display:inline-block;width:100%">
@@ -226,5 +228,6 @@ addTooltip($('#resultados-printDlgBtn').linkbutton(),'<?php _e("Print data in se
 addTooltip($('#resultados-cancelDlgBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels sheet"); ?>');
 addTooltip($('#r_prlistLbl'),'<?php _e("Comma separated list of dorsals to be printed"); ?>');
+addTooltip($('#r_discriminate').linkbutton(),'<?php _e("Omit label on country missmatch"); ?>');
 
 </script>

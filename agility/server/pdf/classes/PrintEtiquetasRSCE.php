@@ -197,7 +197,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
         $this->Cell(29,7,$this->juez2['Nombre'],'',0,'L',false);
 	}
 	
-	function composeTable($resultados,$rowcount=0,$listadorsales="") {
+	function composeTable($resultados,$rowcount=0,$listadorsales="",$discriminate=1) {
 		$this->myLogger->enter();
 		$this->SetFillColor(224,235,255); // azul merle
 		$this->SetTextColor(0,0,0); // negro
@@ -215,7 +215,10 @@ class PrintEtiquetasRSCE extends PrintCommon {
 				$aguja=",{$row['Dorsal']},";
 				$pajar=",$listadorsales,";
 				if (strpos($pajar,$aguja)===FALSE) continue; // Dorsal not in list
+				// do not handle discrimination on user-defined list
 			} else {
+				// if country discrimination is active check country and reject on no match
+				if ( ($discriminate==1) && $row['Pais']!=="ESP") continue;
 				// on double "not present" do not print label
                 if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) ) continue;
                 // on double "eliminated", ( or eliminated+notpresent ) handle printing label accordind to configuration
