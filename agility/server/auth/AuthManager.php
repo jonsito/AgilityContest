@@ -136,7 +136,7 @@ class AuthManager {
 
 	/*
 	 * Read blacklist file contents
-	 * If file not found or older than 7 days try to retrieve from master server
+	 * If file not found or older than 14 days try to retrieve from master server
 	 * @return base64 encoded black list in jsonn format
 	 */
 	private function readBlackListFromFile() {
@@ -146,10 +146,10 @@ class AuthManager {
         } else if (filesize(AC_BLACKLIST_FILE)==0){ // file exists, but empty
             $this->myLogger->trace("Local blacklist file is empty");
             $need_to_load=1;
-		} else {  // if bl file older than 1 week try to download
+		} else {  // if bl file older than 2 weeks try to download
             $now=time();
             $mtime=filemtime(AC_BLACKLIST_FILE);
-            if  ( ($now - $mtime) > 60*60*24*7 ) {
+            if  ( ($now - $mtime) > 60*60*24*14 ) {
                 $this->myLogger->trace("Local blacklist file is too old");
                 $need_to_load=1;
             } else {
