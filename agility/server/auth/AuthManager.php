@@ -472,7 +472,7 @@ class AuthManager {
         if (!$obj) throw new Exception("dbLogin: Unknown user: '$login'");
         $pw = $obj->Password;
         if (strstr('--UNDEF--', $pw) !== FALSE)
-            throw new Exception("Seems that AgilityContest has not been properly configured. Please reinstall");
+            throw new Exception("User has no password declared. Please use another account to fix this");
         else if (strstr('--LOCK--', $pw) !== FALSE)
             throw new Exception("Account '$login' is LOCKED");
         else if (strstr('--NULL--', $pw) === FALSE) { // --NULL-- means no password required
