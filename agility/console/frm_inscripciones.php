@@ -32,6 +32,7 @@ $config =Config::getInstance();
         		<div class="fitem">
 					<label for="selprueba-Search"><?php _e('Select contest');?>:</label>
             		<select id="selprueba-Search" name="Search" style="width:200px"></select>
+                    <br/>&nbsp;<br/>
         		</div>
 			</form>
 		</div> <!-- contenido -->
@@ -52,7 +53,7 @@ $('#selprueba-window').window({
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
-	closable: true,
+	closable: false,
 	closed: true,
 	shadow: false,
 	modal: true

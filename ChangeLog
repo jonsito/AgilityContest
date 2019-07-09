@@ -1,3 +1,9 @@
+Version 3.9.2 20190710_1100
+    - Fix xxx.js.php header to mark as javascript
+    - Fix so many dialogs to remove topright "close" button and force use Cancel
+    - Fix cneac label printing policy and layout
+    - Fix messages on some dialogs to clarify meaning
+    - Fix toBeFirst() evaluation when no round has been finished
 Version 3.9.1 20190604_1200
     - Use bcmath to avoid trunc problems on data representation
     - SQL injection fixes
