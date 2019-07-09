@@ -163,6 +163,15 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         $this->data['Puesto1'][2]=$row['Puesto1'];
         $this->data['Puesto2'][2]=$row['Puesto2'];
 
+        // now evaluate offset for grade
+        $offset=0;
+        if ($row['Grado']==="GII") $offset=0.06;
+        if ($row['Grado']==="GIII") $offset=0.12;
+        foreach ( $this->data as $key => &$val) {
+            if (endsWith($key,"1")) $val[1]+=$offset;
+            if (endsWith($key,"2")) $val[1]+=$offset;
+        }
+
         $img=$this->getImage();
         $tmpfile=tempnam_sfx(__DIR__."/../../../../logs","cneac_","png");
         imagepng($img,$tmpfile);

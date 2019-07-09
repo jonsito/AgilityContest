@@ -52,7 +52,7 @@ $('#seljornada-window').window({
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
-	closable: true,
+	closable: false,
 	closed: true,
 	shadow: false,
 	modal: true

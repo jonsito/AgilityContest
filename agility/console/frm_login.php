@@ -118,7 +118,7 @@ $('#login-window').window({
 	collapsible:false,
 	minimizable:false,
 	maximizable:false,
-	closable:true,
+	closable:false,
 	closed:false,
 	shadow:false,
 	modal:true,
