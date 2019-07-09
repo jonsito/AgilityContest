@@ -55,7 +55,7 @@ class Clasificaciones extends DBObject {
         // when perro is requested, but we are in first round, it's possible that dog has no data yet,
         // and doesn't appears in clasification, so make sure that at least a dummy entry is returned
         $this->currentDog=$perro;
-        $this->current=array('Perro' => $perro );
+        // $this->current=array('Perro' => $perro );
 	}
 
     /**
@@ -257,7 +257,9 @@ class Clasificaciones extends DBObject {
         // if no dogs yet, just do nothing :-)
         if (count($result['rows'])==0)  { $this->current['toBeFirst']=""; return; }
         $first=$result['rows'][0]; // pointer to first dog in scores
-
+        $this->myLogger->trace("**** first is: ".json_encode($first));
+        $this->myLogger->trace("**** current is: ".json_encode($this->current));
+        $this->myLogger->trace("**** currentDog is: ".json_encode($this->currentDog));
         // on first round current dog has <at least 400 on penalty. detect dual NP on first
         if ( $first['Penalizacion'] >= 400 ) {// first round.
             // in first current no data yet for current dog, unless already run. so detect and handle

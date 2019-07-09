@@ -16,6 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 <?php
+header('Content-Type: text/javascript');
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
@@ -590,7 +591,7 @@ function vwcf_updateLlamada(evt,data) {
 			// dado que necesitamos tener la clasificacion con los perros de la tabla "before",
 			// lo que vamos a hacer es calcular dicha tabla aquí, en lugar de desde el evento "aceptar"
 			updateFinales(current['Perro'],data.Ronda, vwcf_evalBefore);
-		}
+		} // success
 	});
 }
 

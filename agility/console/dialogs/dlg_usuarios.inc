@@ -132,9 +132,9 @@ $config =Config::getInstance();
 
 	<script type="text/javascript">
 		// declaraciones
-		$('#usuarios-dialog').dialog({ closed:true, buttons:'#usuarios-dlg-buttons', iconCls:'icon-users', modal:true });
+		$('#usuarios-dialog').dialog({ title: 'Create/Edit user',closed:true, buttons:'#usuarios-dlg-buttons', iconCls:'icon-users', modal:true });
 		$('#usuarios-form').form({novalidate:true});
-		$('#password-dialog').dialog({ closed:true, buttons:'#password-dlg-buttons', iconCls:'icon-users', modal:true });
+		$('#password-dialog').dialog({ title:"Set password",closed:true, buttons:'#password-dlg-buttons', iconCls:'icon-users', modal:true });
 		$('#password-form').form({novalidate:true});
 		
         // - botones
