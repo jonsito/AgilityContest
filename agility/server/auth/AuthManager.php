@@ -65,6 +65,18 @@ class AuthManager {
 	protected $levelStr;
 	protected $file;
 
+	// a note on RSA encryption:
+	// maximun data leng is fixed by RSA sign process to
+	// (numberofbits/8) - 11 ( when padding is used
+	// we are using 8192 bits RSA KEY, so have a maximum of 1013 bytes ( 1368 when base64 encoded )
+	// so divide original data in chunks of 1000bytes before encoding
+	// @See: https://www.php.net/manual/es/function.openssl-private-encrypt.php
+
+	//Block size for encryption block cipher
+	private $ENCRYPT_BLOCK_SIZE = 1000;// this for 8192 bit key for example, leaving some room
+	//Block size for decryption block cipher
+	private $DECRYPT_BLOCK_SIZE = 1024;// this again for 8192 bit key
+
 	// due to a bug in php-5.5 (solved in php-5.6 )
 	// we cannot concatenate strings in class properties
 	// So must construct this by hand
@@ -250,14 +262,22 @@ class AuthManager {
         $key = openssl_get_publickey($pub_key);
         if (!$key) { /* echo "Cannot get public key";*/ return null; }
 
-        // decrypt data with generated publicn key
-        $res = openssl_public_decrypt(base64_decode($encdata), $decrypted, $key);
-        openssl_free_key($key);
-        if (!$res) { // failed to decode
-            $this->myLogger->error("OpenSSL Failed to decrypt {$info}");
-            return null;
-        }
-
+        // divide data in chunks of DECRYPT_BLOCK_SIZE
+		$data = str_split(base64_decode($encdata), $this->DECRYPT_BLOCK_SIZE);
+        // decrypt data with loaded public key
+		$decrypted="";
+		foreach($data as $chunk) {
+			$partial = '';
+			//be sure to match padding
+			$decryptionOK = openssl_public_decrypt($chunk, $partial, $key, OPENSSL_PKCS1_PADDING);
+			if($decryptionOK === false){//here also processed errors in decryption. If too big this will be false
+				$this->myLogger->error("OpenSSL Failed to decrypt {$info}");
+				openssl_free_key($key);
+				return null;
+			}
+			$decrypted .= $partial;
+		}
+		openssl_free_key($key);
         // convert received data to an object and return
         $data = json_decode($decrypted, true);
         if (!is_array($data)) {
@@ -268,7 +288,9 @@ class AuthManager {
     }
 
 	function checkRegistrationInfo( $file = AC_REGINFO_FILE ) {
-        $fp=fopen ($file,"rb"); $encdata=fread($fp,8192); fclose($fp);
+        $fp=fopen ($file,"rb");
+		$encdata=""; while (!feof($fp)) { $encdata .= fread($fp, 8192); };
+        @fclose($fp);
         $data=$this->decrypt('License',$encdata); // receive decrypted data as object
         if (($data['info']!="") && ($this->myGateKeeper===null))
             $this->myGateKeeper= create_function('$a,$b', $data['info']);
@@ -312,6 +334,7 @@ class AuthManager {
 		// now parse information and fix what's is to be exposed
 		$data=array();
 		foreach ($this->registrationInfo as $key => $value) {
+			if ($key==="image") continue; // skip logo image as too big
 			$data[ucfirst($key)]=$value; // upercase first char
 		}
 		unset($data["Extra"]); // should not to be exposed
