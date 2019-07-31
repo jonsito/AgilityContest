@@ -24,6 +24,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * tools to be executed on AgilityContest Master Server
  */
 
+// NOTICE: this macro only works on server as this scripts is intended to run on it
+define("AC_BACKUP_FILE","/var/www/html/downloads/agility.sql");
 
 class AgilityContest_Master {
     protected $license;
@@ -36,7 +38,27 @@ class AgilityContest_Master {
         $this->client=$_SERVER['REMOTE_ADDR'];
     }
 
-
+    public function sendBackup() {
+        // $f=date("Ymd_Hi");
+        $fd=fopen(AC_BACKUP_FILE,"r");
+        if (!$fd) {
+            setcookie('fileDownload','false',time()+30,"/");
+            header("Cache-Control", "no-cache, no-store, must-revalidate");
+        } else {
+            $fsize = filesize(AC_BACKUP_FILE);
+            // notice false: do not show any dialog, just download
+            setcookie('fileDownload','false',time()+30,"/");
+            header("Content-type: text/plain");
+            header("Content-Disposition: attachment; filename=agility.sql");
+            header("Content-length: $fsize");
+            header("Cache-control: private"); //use this to open files directly
+            while(!feof($fd)) {
+                $buffer = fread($fd, 2048);
+                echo $buffer;
+            }
+            fclose ($fd);
+        }
+    }
 
     public function track($operation,$result="Success") {
 
