@@ -24,6 +24,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once (__DIR__."/../classes/DBObject.php");
 require_once (__DIR__."/../../auth/Config.php");
 
+// NOTICE: this macro only works on server as this scripts is intended to run on it
+define("AC_BACKUP_FILE","/var/www/html/downloads/agility.sql");
+
+/*
+ * Esta clase se ejecuta siempre y solo en el master_server
+ * Sirve para obtener/descargar ("Downloader") diversos elementos del servidor:
+ * - Backup de la base de datos
+ * - Blacklist de licencias
+ * - Actualizaciones de la base de datos
+ * - Licencias ( indicando el activation key )
+ * 31-Jul-2019
+ * Todas las funciones de AgilityContest_Master se han movido aqui. No tiene sentido duplicar ficheros
+ */
 class Downloader {
     protected $myDBObject;
     protected $myConfig;
@@ -50,6 +63,7 @@ class Downloader {
 
     /**
      * retrieve from perroguiaclub every item newer than timestamp
+     * @throws Exception to generate response error in caller
      */
     function getUpdatedEntries() {
         $canUpgrade=strcmp($this->revision, "20180830_1200"); // 1 if newer version
@@ -182,17 +196,46 @@ class Downloader {
     function retrieveBlackList() {
         $blfile=__DIR__."/../../../../config/blacklist.info";
         if (!file_exists($blfile)) {
-            $msg="Downloader: retrieveBlacList({$blfile}): file not found ";
+            $msg="Downloader: retrieveBlackList({$blfile}): file not found ";
             $this->myLogger->error($msg);
             throw new Exception ($msg);
         }
         // retrieve file contents, (base64 encoded) and return json message
         $data=file_get_contents($blfile);
         if (!$data) {
-            $msg="Downloader: retrieveBlacList({$blfile}): file read error";
+            $msg="Downloader: retrieveBlackList({$blfile}): file read error";
             $this->myLogger->error($msg);
             throw new Exception ($msg);
         }
         return array( "success"=>true, "data"=>$data );
+    }
+
+    function retrieveLicense($email,$uniqueID,$activationKey) {
+        // code to generate license is -of course- outside github and is not covered by GPL
+        // we just call it via shell_exec()
+        $data=shell_exec("/usr/local/bin/getLicense.sh {$email} {$uniqueID} {$activationKey}");
+        return array('success'=>true,'data'=>$data);
+    }
+
+    public function retrieveBackup() {
+        // $f=date("Ymd_Hi");
+        $fd=fopen(AC_BACKUP_FILE,"r");
+        if (!$fd) {
+            setcookie('fileDownload','false',time()+30,"/");
+            header("Cache-Control", "no-cache, no-store, must-revalidate");
+        } else {
+            $fsize = filesize(AC_BACKUP_FILE);
+            // notice false: do not show any dialog, just download
+            setcookie('fileDownload','false',time()+30,"/");
+            header("Content-type: text/plain");
+            header("Content-Disposition: attachment; filename=agility.sql");
+            header("Content-length: $fsize");
+            header("Cache-control: private"); //use this to open files directly
+            while(!feof($fd)) {
+                $buffer = fread($fd, 2048);
+                echo $buffer;
+            }
+            fclose ($fd);
+        }
     }
 }

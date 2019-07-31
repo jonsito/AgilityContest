@@ -385,7 +385,7 @@ class Admin extends DBObject {
             $rev=$this->myConfig->getEnv("version_date");
             $lic=$this->myAuth->getRegistrationInfo()['Serial'];
             $srvr=$this->myConfig->getEnv("master_server");
-            $url="https://{$srvr}/agility/ajax/masterFunctions.php?Operation=getbackup&Revision={$rev}&License={$lic}";
+            $url="https://{$srvr}/agility/ajax/serverRequest.php?Operation=retrievebackup&Revision={$rev}&Serial={$lic}";
 		    $res=retrieveFileFromURL($url);
 		    if ($res===FALSE) return array("errorMsg" => "downloadDatabase(): cannot download file from server");
         }

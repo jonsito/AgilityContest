@@ -376,13 +376,32 @@ class AuthManager {
 	function registerApp() {
 		$this->myLogger->enter();
 		// extraemos los datos de registro
-		$data=http_request("Data","s",null);
-		if (!$data) return array("errorMsg" => "registerApp(): No registration data received");
-		if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
-			return array("errorMsg" => "registerApp(): Invalid received data format");
+		$data=http_request("Data","s",""); // old license handling: use data from web client
+		// new handling: get data from master_server by mean of activation key plus email
+		$akey=http_request("ActivationKey","s","");
+		$email=http_request("Email","s","");
+		if ( ($data==="") && ($akey==="") && ($email=="")) {
+			return array("errorMsg" => "registerApp(): Incomplete or Invalid registration data received");
 		}
-		// $type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
-		$regdata=base64_decode( $matches[2] ); // decodes received data
+		if ($akey) { // new license handling
+			// Activation key provided -> ask master server for registration info
+			$uniqueID=$this->myConfig->getEnv('uniqueID'); // retrieve host unique ID
+			$rev=$this->myConfig->getEnv("version_date");
+			$srvr=$this->myConfig->getEnv("master_server");
+			$url="https://{$srvr}/agility/ajax/serverRequest.php?".
+				"Operation=retrieveLicense&Revision={$rev}&Serial=00000000".
+				"Email={$email}&UniqueID={$uniqueID}&ActivationKey={$akey}";
+			$regdata=retrieveFileFromURL($url);
+			if ($regdata===FALSE) return array("errorMsg" => "downloadLicense(): cannot download license from server");
+		} else { // old license handling
+			// use POST data from client to extract registration license file
+			if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
+				return array("errorMsg" => "registerApp(): Invalid received data format");
+			}
+			// $type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
+			$regdata=base64_decode( $matches[2] ); // decodes received data
+		}
+
 		// cogemos los datos de registro y los guardamos en un fichero temporal
 		$tmpname = tempnam(sys_get_temp_dir(), 'reginfo');
 		$fd=fopen($tmpname,"w");
@@ -393,7 +412,7 @@ class AuthManager {
 		if (!$info) return array("errorMsg" => "registerApp(); Invalid registration data");
 		umask(002);
 		// ok: fichero de registro correcto. copiamos a su ubicacion final
-		copy(AC_REGINFO_FILE,AC_REGINFO_FILE_BACKUP);
+		@copy(AC_REGINFO_FILE,AC_REGINFO_FILE_BACKUP);
 		// in some linux deployments, this works, but fails on change file owner, so protect against warning
 		@rename($tmpname,AC_REGINFO_FILE);
 		// guardamos como "activos" y retornamos datos del nuevo registro
