@@ -15,6 +15,7 @@
  You should have received a copy of the GNU General Public License along with this program;
  if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
+require_once (__DIR__."/../tools.php");
 
 /** default values **/
 define('AC_CONFIG_FILE', __DIR__ . "/../../../config/config.ini"); // user definable configuration
@@ -230,6 +231,7 @@ Class Config {
 		'author'			=> array(	's',	true,	"Juan Antonio Martinez"),
 		'email'				=> array(	's',	true,	"juansgaviota@gmail.com"),
         'license'			=> array(	's',	true,	"GPL"),
+        'uniqueID'			=> array(   's',	true,	""),
         'master_server'		=> array(	's',	true,	"www.agilitycontest.es"),
         'master_baseurl'	=> array(	's',	true,	"agility"),
 
@@ -458,14 +460,15 @@ Class Config {
             'author'			=> $this->getEnv('author'),
             'email'				=> $this->getEnv('email'),
             'license'			=> $this->getEnv('license'),
+            'uniqueID'			=> $this->getEnv('uniqueID'), // base64 encoded
             'master_server'		=> $this->getEnv('master_server'),
             'master_baseurl'	=> $this->getEnv('master_baseurl'),
-            'database_name'		=> $data['dbname'],
-            'database_host'		=> $data['dbhost'],
-            'database_user'		=> base64_encode($data['dbuser']),  // usually "agility_admin"
-            'database_pass'		=> base64_encode($data['dbpass']),  // random, runtime generated OTP password
-            'database_ruser'	=> base64_encode($data['dbruser']), // usually "agility_operator"
-            'database_rpass'	=> base64_encode($data['dbrpass']), // random, runtime generated OTP password
+            'database_name'		=> $data['database_name'],
+            'database_host'		=> $data['database_host'],
+            'database_user'		=> $data['database_user'],  // base64 encoded, usually "agility_admin"
+            'database_pass'		=> $data['database_pass'],  // base64 encoded, random, runtime generated OTP password
+            'database_ruser'	=> $data['database_ruser'], // base64 encoded, usually "agility_operator"
+            'database_rpass'	=> $data['database_rpass'], // base64 encoded, random, runtime generated OTP password
 		);
         return $this->write_ini_file($res,AC_SYSTEM_FILE,false);
 	}
@@ -473,17 +476,16 @@ Class Config {
     /**
      * Update config.ini file with provided data
      * @param {array} $data data to be stored
-     * @param {string} $file config.ini file
      * @return bool|int number of bytes written or false on failure
      */
-	private function writeAC_configFile($data,$file) {
+	private function writeAC_configFile($data) {
 		// encode special fields before store
 		foreach ($data as $key => $val) {
 			// transcode special fields
             if ($key==="email_user") $data[$key]=base64_encode($val);
             if ($key==="email_pass") $data[$key]=base64_encode($val);
 		}
-		return $this->write_ini_file($data,$file,false);
+		return $this->write_ini_file($data,AC_CONFIG_FILE,false);
 	}
 
 	private function __construct() {
@@ -506,7 +508,11 @@ Class Config {
             // ahora procesamos los datos del sistema, que tienen precedencia
 			if ( array_key_exists($key,$sys)) $this->config[$key]=$sys[$key];
 		}
-
+		// si el sistema no tiene uniqueID, lo creamos y guardamos
+		if (!array_key_exists('uniqueID',$this->config) || ($this->config['uniqueID']==="")) {
+			$this->config['uniqueID']=base64_encode(getRandomString(16));
+			$this->writeAC_systemFile($sys);
+		}
 		// y ahora preparamos la internacionalizacion
 		$windows=(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')?true:false;
 		$locale=$this->getPreferredLanguage($this->config['lang']);
@@ -568,8 +574,8 @@ Class Config {
 					}
 				} else if ($elem==="") { // beware === to avoid conflict with "0" and "false" values
 					$content .= $key." = \n"; // empty vars
-				} else if (Config::$config_options[$key][1]==true) {
-					continue; // skip system constants
+				} else if ( ($path !== AC_SYSTEM_FILE ) && (Config::$config_options[$key][1]==true) ) {
+					continue; // skip system constants when writing config.ini
 				} else {
 					$content .= $key." = \"$elem\"\n";
 				}
@@ -600,7 +606,8 @@ Class Config {
         unset($data['database_rpass']);
         unset($data['running_mode']);
         unset($data['master_server']);
-        unset($data['master_baseurl']);
+		unset($data['master_baseurl']);
+		unset($data['uniqueID']);
 		return $data;
 	}
 	
@@ -612,7 +619,7 @@ Class Config {
 			if ($info[1]==false) $data[$key]=$info[2];
 		}
 
-		$result=$this->$this->writeAC_configFile($data,AC_CONFIG_FILE);
+		$result=$this->$this->writeAC_configFile($data);
 		if ($result===FALSE) {
 			$msg="Error al generar el fichero de configuracion";
 			$this->do_log($msg);
@@ -640,7 +647,7 @@ Class Config {
 		}
 		// finally write file:
 		$res=array_merge($this->config,$data);
-		$result=$this->writeAC_configFile($res,AC_CONFIG_FILE);
+		$result=$this->writeAC_configFile($res);
 		if ($result===FALSE) return "Error al generar el fichero de configuracion";
 		return "";
 	}
@@ -724,7 +731,7 @@ Class Config {
 		}
 		// finally write file:
 		$res=array_merge($this->config,$data);
-		$wres=$this->writeAC_configFile($res,AC_CONFIG_FILE);
+		$wres=$this->writeAC_configFile($res);
 		if ($wres===FALSE) return array("errorMsg" => "restoreConfig()::save() error saving .ini file");
 		return array('data'=>join('<br />',$result));
 	}
