@@ -92,9 +92,9 @@ if( !function_exists('ftok') ) {
 
 /* generate a pseudo-random string of provided length (def:16) */
 function getRandomString($length = 16) {
-    try { // real random, secure numbers
+    if (function_exists('random_bytes')) { // real random, secure numbers but only available after php >7.0
         return substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes($length))), 0, $length);
-    } catch (Exception $e) { // fallback when no SSL available
+    } else { // fallback when no PHP 7.0 available
         return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
     }
 }
