@@ -3,7 +3,7 @@
 
 define ("PRIVATE_KEY","/etc/AgilityContest/AgilityContest.key");
 define ("PUBLIC_KEY","/etc/AgilityContest/AgilityContest_puk.pem");
-define ("LICENSES","/etc/AgilityContest/Licenses.txt");
+define ("LICENSES","/etc/AgilityContest/Licencias.txt");
 define ("LOGOS","/var/www/html/AgilityContest/agility/images/logos");
 
 class SymmetricCipher {
@@ -162,10 +162,10 @@ class Cipher {
 
 		// now perform symetric encryption with provided uniqueID and return base64 encoded text;
         $result=null;
-        if ($uniqueID==="") {
+        if ($uniqueID!=="") {
             $result=SymmetricCipher::encrypt($text,$uniqueID,true);
         } else {
-            $result=$text;
+            $result=base64_encode($text);
         }
         if (!$result) die("SymmetricCipher::encrypt({$serial}) error");
         return $result;
@@ -174,18 +174,18 @@ class Cipher {
 	function decrypt($data,$uniqueID="",$serial="") {
 
 	    // perform symmetric decryption if uniqueID is not null
-        $text=null;
-        if ($uniqueID==="") {
+        if ($uniqueID!=="") {
             try {
-                $text=SymmetricCipher::decrypt($data,$uniqueID,false); // return data as raw
+                $text=SymmetricCipher::decrypt($data,$uniqueID,true); // data is base64 encoded
             } catch (Exception $e) { $text=null;}
+            $text=base64_encode($text);
         } else {
             $text=$data;
         }
         if (!$text) die("SymmetricCipher::decrypt({$serial}) error");
 
 		// load rsa public key
-		$fp=fopen ("AgilityContest_puk.pem","rb"); $pub_key=fread ($fp,8192); fclose($fp);
+		$fp=fopen (PUBLIC_KEY,"rb"); $pub_key=fread ($fp,8192); fclose($fp);
 		$key=openssl_get_publickey($pub_key);
 		if (!$key) echo "decrypt({$serial}): Cannot get public key";
 
@@ -199,7 +199,7 @@ class Cipher {
 			$decryptionOK = openssl_public_decrypt($chunk, $partial, $key, OPENSSL_PKCS1_PADDING);
 			if($decryptionOK === false){//here also processed errors in decryption. If too big this will be false
 				openssl_free_key($key);
-                die("RSA decrypt({$serial}) failed \n");
+                die("RSA decrypt({$serial}) failed ".openssl_error_string().PHP_EOL);
 			}
 			$decrypted .= $partial;
 		}
@@ -220,43 +220,68 @@ function composeLogoName($name) {
         // Replace all separator characters and whitespace by a single separator
         $logo = preg_replace('!['.preg_quote('-').'\s]+!u', '_', $logo);
         $logo="$logo.png";
+        fwrite(STDERR,"Looking for logo {$logo}".PHP_EOL);
         return $logo;
 }
 
+function showLogo($data) {
+    $img=imagecreatefromstring(base64_decode($data));
+    imagepng($img,"/tmp/kk.png");
+    system("eog /tmp/kk.png");
+}
+
 // invocation: getLicense email uniqueID activationKey
-if ($argc !== 4) die("Usage: {$argv[0]} email uniqueID activationKey");
-$email= $argv[1];
-$uniqueID = $argv[2];
-$activationKey = $argv[3];
+if ($argc == 4) { // encrypt
+    $email= $argv[1];
+    $uniqueID = $argv[2];
+    $activationKey = $argv[3];
 
 // read license file
-$licenses = file(LICENSES,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-if (!$licenses) die("Cannot open licenses file");
+    $licenses = file(LICENSES,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if (!$licenses) die("Cannot open licenses file");
 
 // iterate on each line until license found
-foreach ( $licenses as $lic) {
-    $data=json_decode($lic,true);
-    if ($data['email']!==$email) continue;
-    if ($data['activationkey']!==$activationKey) die("Activation key does not match");
-    if ($data['status']!=="cancelled") die("License is cancelled");
-    if ( strcmp( $data['expires'] , date("Ymd") ) <0 ) die("License is expired");
+    foreach ( $licenses as $lic) {
+        $data=json_decode($lic,true);
+        if ($data['email']!==$email) continue;
+        if ($data['activationkey']!==$activationKey) die("Activation key does not match");
+        if ($data['status']==="cancelled") die("License is cancelled");
+        if ( strcmp( $data['expires'] , date("Ymd") ) <0 ) die("License is expired");
 
-    // license is ok. prepare it
-    unset($data['status']);
-    unset($data['activationkey']);
-    // add logo
-    $logo=composeLogoName($data['club']);
-    if(!file_exists(LOGOS."/{$logo}")) $logo="agilitycontest.png"; // check for file not found
-    $data['image']=base64_encode(file_get_contents(LOGOS."/{$logo}"));
+        // license is ok. prepare it
+        unset($data['status']);
+        unset($data['activationkey']);
+        // add logo
+        $logo=composeLogoName($data['club']);
+        if(!file_exists(LOGOS."/{$logo}")) $logo="agilitycontest.png"; // check for file not found
+        $data['image']=base64_encode(file_get_contents(LOGOS."/{$logo}"));
 
+        // ok. now ready to crypt
+        $cipher=new Cipher();
+        $result=$cipher->encrypt(json_encode($data),PRIVATE_KEY,$uniqueID,$data['serial']);
+        if (!$result) die("License generation failed");
+        echo $result;
+        return 0;
+    }
+// arriving here means license not found
+    die("No license found for {$email}");
+} elseif ($argc == 3) { // decrypt
+    $file=$argv[1];
+    $uniqueID=$argv[2];
+    // load base64 encoded encrypted file
+    $fp=fopen ($file,"rb");
+    $data=""; while (!feof($fp)) { $data .= fread($fp, 8192); };
+    fclose($fp);
     // ok. now ready to crypt
     $cipher=new Cipher();
-    $result=$cipher->encrypt(json_encode($data),PRIVATE_KEY,$uniqueID,$data['serial']);
-    if (!$result) die("License generation failed");
-    echo $result;
+    $result=$cipher->decrypt($data,$uniqueID,"");
+    if (!$result) die("License decryption failed");
+    $data=json_decode($result,true);
+    showLogo($data['image']);
     return 0;
+} else {
+    die("Usage: {$argv[0]} email uniqueID activationKey");
 }
-// arriving here means license not found
-die("No license found for {$email}");
+
 
 ?>
