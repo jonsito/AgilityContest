@@ -213,7 +213,7 @@ class Downloader {
     function retrieveLicense($email,$uniqueID,$activationKey) {
         // code to generate license is -of course- outside github and is not covered by GPL
         // we just call it via shell_exec()
-        $data=shell_exec("/usr/local/bin/getLicense.sh {$email} {$uniqueID} {$activationKey}");
+        $data=shell_exec("/usr/local/bin/getLicense.php {$email} {$uniqueID} {$activationKey}");
         return array('success'=>true,'data'=>$data);
     }
 

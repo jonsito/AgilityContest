@@ -176,7 +176,8 @@ const access_perms = {
 	ENABLE_ULIMIT   :  128,// permite numero de inscripciones ilimitadas
 	ENABLE_LIVESTREAM: 256,// permite funciones de live-streaming y chroma-key
     ENABLE_TRAINING	:  512, // permite gestion de sesiones de entrenamiento
-    ENABLE_LEAGUES	: 1024 // permite gestion de ligas de competicion
+    ENABLE_LEAGUES	: 1024, // permite gestion de ligas de competicion
+    ENABLE_SERCHRONO: 2048  // permite ejecucion de programa de cronometro serie
 };
 
 // permisos de acceso
