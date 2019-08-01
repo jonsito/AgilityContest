@@ -44,6 +44,7 @@ define ("ENABLE_ULIMIT",128);   // permite numero de inscripciones ilimitadas
 define ("ENABLE_LIVESTREAM",256);// permite funciones de live-streaming y chroma-key
 define ("ENABLE_TRAINING",512); // permite gestion de sesiones de entrenamiento
 define ("ENABLE_LEAGUES",1024); // permite gestion de ligas de competicion
+define ("ENABLE_SERCHRONO",1024); // permite ejecucion de cronometro de puerto serie
 
 // datos de registro
 define('AC_BLACKLIST_FILE' , __DIR__ . "/../../../config/blacklist.info");
@@ -349,17 +350,18 @@ class AuthManager {
 
 		// permisos de ejecucion
 		$p=intval($data['Options'],2);
-		$data["ENABLE_IMPORT"]		= ( $p & 1 );	// permite importar datos desde ficheros excel
-		$data["ENABLE_TEAMS"]		= ( $p & 2 );	// permite gestionar pruebas de equipos
-		$data["ENABLE_KO"]			= ( $p & 4 );	// permite gestionar pruebas K.O
-		$data["ENABLE_SPECIAL"]		= ( $p & 8 );	// permite gestionar pruebas de mangas multiples
-		$data["ENABLE_VIDEOWALL"]	= ( $p & 16 );  // permite acceso desde videomarcador
-		$data["ENABLE_PUBLIC"]		= ( $p & 32 );  // permite acceso publico web
-		$data["ENABLE_CHRONO"]		= ( $p & 64 );  // permite gestion desde cronometro
-		$data["ENABLE_ULIMIT"]		= ( $p & 128 ); // permite numero de inscripciones ilimitadas
-		$data["ENABLE_LIVESTREAM"]	= ( $p & 256 ); // permite funciones de live-streaming y chroma-key
-        $data["ENABLE_TRAINING"]	= ( $p & 512 ); // permite gestion de sesiones de entrenamiento
-        $data["ENABLE_LEAGUES"]		= ( $p &1024 ); // permite gestion de ligas de competicion
+		$data["ENABLE_IMPORT"]		= ( $p & ENABLE_IMPORT );	// permite importar datos desde ficheros excel
+		$data["ENABLE_TEAMS"]		= ( $p & ENABLE_TEAMS );	// permite gestionar pruebas de equipos
+		$data["ENABLE_KO"]			= ( $p & ENABLE_KO );	// permite gestionar pruebas K.O
+		$data["ENABLE_SPECIAL"]		= ( $p & ENABLE_SPECIAL );	// permite gestionar pruebas de mangas multiples
+		$data["ENABLE_VIDEOWALL"]	= ( $p & ENABLE_VIDEOWALL );  // permite acceso desde videomarcador
+		$data["ENABLE_PUBLIC"]		= ( $p & ENABLE_PUBLIC );  // permite acceso publico web
+		$data["ENABLE_CHRONO"]		= ( $p & ENABLE_CHRONO );  // permite gestion desde cronometro
+		$data["ENABLE_ULIMIT"]		= ( $p & ENABLE_ULIMIT ); // permite numero de inscripciones ilimitadas
+		$data["ENABLE_LIVESTREAM"]	= ( $p & ENABLE_LIVESTREAM ); // permite funciones de live-streaming y chroma-key
+        $data["ENABLE_TRAINING"]	= ( $p & ENABLE_TRAINING ); // permite gestion de sesiones de entrenamiento
+		$data["ENABLE_LEAGUES"]		= ( $p & ENABLE_LEAGUES ); // permite gestion de ligas de competicion
+		$data["ENABLE_SERCHRONO"]	= ( $p & ENABLE_SERCHRONO ); // permite ejecucion cronometro de puerto serie
 		return $data;
 	}
 
@@ -743,6 +745,7 @@ class AuthManager {
 	/**
 	 * Comprueba si la licencia actual tiene permisos para realizar la operacion indicada
 	 * @param $requestedperm
+	 * @throws Exception
 	 */
 	function permissions($requestedperm) {
 		if ($this->allowed($requestedperm)==0)
