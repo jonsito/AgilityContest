@@ -280,7 +280,10 @@ if ($argc == 4) { // encrypt
     showLogo($data['image']);
     return 0;
 } else {
-    die("Usage: {$argv[0]} email uniqueID activationKey");
+    fwrite(STDERR,"Usage: ".PHP_EOL);
+    fwrite(STDERR,"    (encrypt) {$argv[0]} email uniqueID activationKey".PHP_EOL);
+    fwrite(STDERR,"    (decrypt) {$argv[0]} uniqueID encfile".PHP_EOL);
+    fwrite(STDERR,"Use '' for uniqueID when not used".PHP_EOL);
 }
 
 
