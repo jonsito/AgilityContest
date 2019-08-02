@@ -309,13 +309,24 @@ function read_regFile(input) {
 }
 
 function send_regFile() {
+    // check for registration form properly filled
+    var ok=true;
+    if ( ! $('#registration-Email').textbox('isValid') ) ok=false;
+    if ( ! $('#registration-AKey').textbox('isValid') ) ok=false;
+    if (ok===false) {
+        $.messager.alert('Error','<?php _e("Please fill registration form with valid data");?>','error');
+        return false;
+    }
+    // ok, make the call
     $.ajax({
   		type: 'POST',
     	url: '../ajax/adminFunctions.php',
     	dataType: 'json',
     	data: {
     		Operation: 'register',
-    		Data: $('#registrationData').val()
+            Email:$('#registration-Email').textbox('getText'),
+            ActivationKey:$('#registration-AKey').textbox('getText')
+    		// Data: $('#registrationData').val()
     	},
     	contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
     	success: function(data) {
