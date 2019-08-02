@@ -318,5 +318,12 @@ $.extend($.fn.validatebox.defaults.rules, {
             return reg.test(value);
         },
         message: 'Enter range in format XXXX-XXXX'
+    },
+    'activationkey': {
+        validator: function(value,param) {
+            var reg=new RegExp('^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$');
+            return reg.test(value);
+        },
+        message: 'Format: XXXX-XXXX-XXXX-XXXX-XXXX'
     }
 });

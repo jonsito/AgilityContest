@@ -21,7 +21,7 @@ require_once(__DIR__ . "/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 
-<div id="dlg_register" style="width:700px;padding:10px">
+<div id="dlg_register" style="width:800px;padding:10px">
 	<img src="../images/AgilityContest.png"
 		width="150" height="100" alt="AgilityContest Logo" 
 		style="border:1px solid #000000;margin:10px;float:right;padding:5px">
@@ -95,14 +95,21 @@ $config =Config::getInstance();
 	<hr />
 	<form id="register_file">
 	<div>
-		<span style="float:left">	
+		<span style="float:left">
+            <strong><?php _e("Register new license"); ?>:</strong><br/>&nbsp;<br/>
 		<a id="registration-okButton" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-key'"
    			onclick="send_regFile()"><?php _e('Register'); ?></a>
+            <!--
         <input name="fichero" id="registration-fichero" style="width:350px;" onchange="read_regFile(this)"/>
 		<input id="registrationData" type="hidden" name="Data" value="">
+		-->
+            <label for="registration-Email"><?php _e('Registration data'); ?>:</label>
+            <input id="registration-Email" type="text" name="reg_Email" />
+            <input id="registration-AKey" type="text" name="reg_AKey" />
 		</span> 
 		<span style="float:right">
+            &nbsp;<br/>&nbsp;<br/>
 			<a id="registration-cancelButton" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-cancel'"
    			onclick="$('#dlg_register').window('close');"><?php _e('Close'); ?></a>
@@ -118,17 +125,32 @@ $config =Config::getInstance();
     $('#rd_Serial').textbox();
     $('#rd_Expires').textbox();
     $('#rd_Status').textbox();
-    var fb=$('#registration-fichero');
-    fb.filebox({
-        accept:  ".info",
-        buttonText: '<?php _e("Select"); ?>',
-        buttonAlign: 'left',
-        buttonIcon: 'icon-search',
-        onChange: function(newfile,oldfile) {
-            read_regFile(fb.next().find('.textbox-value')[0]); // locate real input text
-        }
+    $('#registration-Email').textbox({
+        required: true,
+        prompt: 'E-mail',
+        validType: 'email',
+        iconCls:'icon-mail',
+        iconAlign:'left'
     });
-    fb.next().find('.textbox-value').attr('accept', '.info');
+    $('#registration-AKey').textbox({
+        required: true,
+        prompt: 'Activation Key',
+        validType: 'activationkey',
+        iconCls:'icon-lock',
+        iconAlign:'left'
+    });
+
+    // var fb=$('#registration-fichero');
+    // fb.filebox({
+    //     accept:  ".info",
+    //     buttonText: '<?php _e("Select"); ?>',
+    //     buttonAlign: 'left',
+    //     buttonIcon: 'icon-search',
+    //     onChange: function(newfile,oldfile) {
+    //        read_regFile(fb.next().find('.textbox-value')[0]); // locate real input text
+    //    }
+    // });
+    // fb.next().find('.textbox-value').attr('accept', '.info');
 
     $('#dlg_register').window({
         title: '<?php _e("Licensing information"); ?>',
@@ -148,7 +170,7 @@ $config =Config::getInstance();
         }
     });
 
-    addTooltip(fb.next().find('.textbox-button'),'<?php _e("Select license file to import"); ?>');
+    // addTooltip(fb.next().find('.textbox-button'),'<?php _e("Select license file to import"); ?>');
     addTooltip($('#registration-okButton').linkbutton(),'<?php _e("Import license file into application"); ?>');
 	addTooltip($('#registration-cancelButton').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 </script>
