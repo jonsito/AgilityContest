@@ -97,7 +97,7 @@ try {
             $uniqueID=http_request("UniqueID","s","");
             $akey=http_request("ActivationKey","s","");
             $dl=new Downloader($timestamp,$serial,$revision);
-            $result=$dl->retrieveLicense($email,$uniqueID,$akey);
+            $result=$dl->retrieveLicense($email,$uniqueID,$akey,$serial);
             break;
         case "retrieveBackup": // also to be executed in master server
             // unregistered licenses has no right to download database backup

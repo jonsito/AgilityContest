@@ -210,10 +210,10 @@ class Downloader {
         return array( "success"=>true, "data"=>$data );
     }
 
-    function retrieveLicense($email,$uniqueID,$activationKey) {
+    function retrieveLicense($email,$uniqueID,$activationKey,$serial) {
         // code to generate license is -of course- outside github and is not covered by GPL
         // we just call it via shell_exec()
-        $data=shell_exec("/usr/local/bin/getLicense.php {$email} {$uniqueID} {$activationKey}");
+        $data=shell_exec("/usr/local/bin/getLicense.php {$serial} {$email} {$uniqueID} {$activationKey}");
         return array('success'=>true,'data'=>$data);
     }
 

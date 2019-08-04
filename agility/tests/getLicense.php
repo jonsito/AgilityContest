@@ -231,16 +231,19 @@ function showLogo($data) {
 }
 
 // invocation: getLicense email uniqueID activationKey
-if ($argc == 4) { // encrypt
-    $email= $argv[1];
-    $uniqueID = $argv[2];
-    $activationKey = $argv[3];
+if ($argc == 5) { // encrypt
+    $serial = $argv[1]; // who is requesting the license
+    $email= $argv[2];
+    $uniqueID = $argv[3];
+    $activationKey = $argv[4];
 
-// read license file
+    // read license file
     $licenses = file(LICENSES,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     if (!$licenses) die("Cannot open licenses file");
 
-// iterate on each line until license found
+    // PENDING: track and log request
+
+    // iterate on each line until license found
     foreach ( $licenses as $lic) {
         $data=json_decode($lic,true);
         if ($data['email']!==$email) continue;
@@ -260,11 +263,20 @@ if ($argc == 4) { // encrypt
         $cipher=new Cipher();
         $result=$cipher->encrypt(json_encode($data),PRIVATE_KEY,$uniqueID,$data['serial']);
         if (!$result) die("License generation failed");
+
+        // now try to decrypt to make sure data is ok
+        $decrypted=$cipher->decrypt($result,$uniqueID,$serial);
+        if (!$decrypted) die("Crypt(): Cannot unencrypt resulting data");
+        $ddata=json_decode($decrypted,true);
+        if (!is_array($ddata)) die ("Crypt(): unencrypted data has novalid license contents");
+
+        // fine. so echo result
         echo $result;
         return 0;
     }
-// arriving here means license not found
+    // arriving here means license not found
     die("No license found for {$email}");
+
 } elseif ($argc == 3) { // decrypt
     $file=$argv[1];
     $uniqueID=$argv[2];
@@ -277,11 +289,12 @@ if ($argc == 4) { // encrypt
     $result=$cipher->decrypt($data,$uniqueID,"");
     if (!$result) die("License decryption failed");
     $data=json_decode($result,true);
+    if (!is_array($data)) die ("Invalid license contents");
     showLogo($data['image']);
     return 0;
 } else {
     fwrite(STDERR,"Usage: ".PHP_EOL);
-    fwrite(STDERR,"    (encrypt) {$argv[0]} email uniqueID activationKey".PHP_EOL);
+    fwrite(STDERR,"    (encrypt) {$argv[0]} serial email uniqueID activationKey".PHP_EOL);
     fwrite(STDERR,"    (decrypt) {$argv[0]} uniqueID encfile".PHP_EOL);
     fwrite(STDERR,"Use '' for uniqueID when not used".PHP_EOL);
 }
