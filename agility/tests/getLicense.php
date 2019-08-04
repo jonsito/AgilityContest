@@ -177,8 +177,10 @@ class Cipher {
         if ($uniqueID!=="") {
             try {
                 $text=SymmetricCipher::decrypt($data,$uniqueID,true); // data is base64 encoded
-            } catch (Exception $e) { $text=null;}
-            $text=base64_encode($text);
+                $text=base64_encode($text);
+            } catch (Exception $e) {
+                $text=null;
+            }
         } else {
             $text=$data;
         }
@@ -187,7 +189,7 @@ class Cipher {
 		// load rsa public key
 		$fp=fopen (PUBLIC_KEY,"rb"); $pub_key=fread ($fp,8192); fclose($fp);
 		$key=openssl_get_publickey($pub_key);
-		if (!$key) echo "decrypt({$serial}): Cannot get public key";
+		if (!$key) die("ERROR: decrypt({$serial}): Cannot get public key");
 
         // divide data in chunks
 		$chunks = str_split(base64_decode($text), $this->DECRYPT_BLOCK_SIZE);

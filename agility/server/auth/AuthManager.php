@@ -19,6 +19,7 @@ require_once (__DIR__."/../logging.php");
 require_once (__DIR__."/../tools.php");
 require_once (__DIR__."/Config.php");
 require_once (__DIR__."/CertManager.php");
+require_once (__DIR__."/SymmetricCipher.php");
 require_once (__DIR__."/../database/classes/DBObject.php");
 require_once (__DIR__."/../database/classes/Sesiones.php");
 require_once (__DIR__."/../database/classes/Eventos.php");
@@ -256,7 +257,22 @@ class AuthManager {
 		return $obj;
 	}
 
-	private function decrypt($info,$encdata) {
+	private function decrypt($info,$data) {
+		// comprobamos is el codigo esta cifrado con el uniqueID
+		// perform symmetric decryption if uniqueID is not null
+		$uniqueID=$this->myConfig->getEnv('uniqueID');
+		$encdata=null;
+		if ($uniqueID!=="") {
+			try {
+				$encdata=SymmetricCipher::decrypt($data,$uniqueID,true); // data is base64 encoded
+				$encdata=base64_encode($encdata);
+			} catch (Exception $e) {
+				if (!$encdata) $this->myLogger->trace("decrypt() does not use uniqueID. back to old style");
+				$encdata=null;
+			}
+		}
+		if ($encdata==null) $encdata=$data; // fallback in old style RSA encryption-only
+
 	    // generate public key
         $pub_key = "-----BEGIN PUBLIC KEY-----\n" . $this->getPK() . "-----END PUBLIC KEY-----\n";
         if (md5($pub_key) != "ff430f62f2e112d176110b704b256542") return null;
@@ -392,10 +408,11 @@ class AuthManager {
 			$srvr=$this->myConfig->getEnv("master_server");
 			$serial=$this->getRegistrationInfo()['Serial']; // to track who is requesting license
 			$url="https://{$srvr}/agility/ajax/serverRequest.php?".
-				"Operation=retrieveLicense&Revision={$rev}&Serial={$serial}".
+				"Operation=retrieveLicense&Revision={$rev}&Serial={$serial}&".
 				"Email={$email}&UniqueID={$uniqueID}&ActivationKey={$akey}";
-			$regdata=retrieveFileFromURL($url);
-			if ($regdata===FALSE) return array("errorMsg" => "downloadLicense(): cannot download license from server");
+			$recdata=retrieveFileFromURL($url);
+			if ($recdata===FALSE) return array("errorMsg" => "downloadLicense(): cannot download license from server");
+			$regdata=json_decode($recdata,true)['data'];
 		} else { // old license handling
 			// use POST data from client to extract registration license file
 			if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
