@@ -390,8 +390,9 @@ class AuthManager {
 			$uniqueID=$this->myConfig->getEnv('uniqueID'); // retrieve host unique ID
 			$rev=$this->myConfig->getEnv("version_date");
 			$srvr=$this->myConfig->getEnv("master_server");
+			$serial=$this->getRegistrationInfo()['Serial']; // to track who is requesting license
 			$url="https://{$srvr}/agility/ajax/serverRequest.php?".
-				"Operation=retrieveLicense&Revision={$rev}&Serial=00000000".
+				"Operation=retrieveLicense&Revision={$rev}&Serial={$serial}".
 				"Email={$email}&UniqueID={$uniqueID}&ActivationKey={$akey}";
 			$regdata=retrieveFileFromURL($url);
 			if ($regdata===FALSE) return array("errorMsg" => "downloadLicense(): cannot download license from server");
