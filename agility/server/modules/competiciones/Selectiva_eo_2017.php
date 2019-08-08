@@ -44,13 +44,13 @@ class Selectiva_eo_2017 extends Selectiva_awc_2017 {
     /**
      * Re-evaluate and fix -if required- results data used to evaluate TRS for
      * provided $prueba/$jornada/$manga
-     * @param {object} $manga Round data and trs parameters
+     * @param {object} $manga Round data and trs parameters. Passed by reference
      * @param {array} $data Original results provided for evaluation
      * @param {integer} $mode which categories have to be selected
-     * @param {boolean} $roundUp on true round UP SCT and MCT to nearest second
+     * @param {boolean} $roundUp on true round UP SCT and MCT to nearest second. Passed by reference
      * @return {array} final data to be used to evaluate trs/trm
      */
-    public function checkAndFixTRSData($manga,$data,$mode,&$roundUp) {
+    public function checkAndFixTRSData(&$manga,$data,$mode,&$roundUp) {
         // remember that prueba,jornada and manga are objects, so passed by reference
         $cat="";
         // on mode=11 no need to check category in sql, so skip

@@ -240,13 +240,13 @@ class Competitions {
     /**
      * Re-evaluate and fix -if required- results data used to evaluate TRS for
      * provided $prueba/$jornada/$manga
-     * @param {object} $manga Round data and trs parameters
+     * @param {object} $manga Round data and trs parameters. Passed by reference
      * @param {array} $data Original results provided for evaluation
      * @param {integer} $mode to evaluate which categories are to be used
-     * @roundUp {boolean} tell if SCT and MCT should be rounded up to nearest second
+     * @roundUp {boolean} tell if SCT and MCT should be rounded up to nearest second. Passed by reference
      * @return {array} final data to be used to evaluate trs/trm
      */
-    public function checkAndFixTRSData($manga,$data,$mode,&$roundUp) {
+    public function checkAndFixTRSData(&$manga,$data,$mode,&$roundUp) {
         // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
         // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
         // manga actual, sino de la manga padre.

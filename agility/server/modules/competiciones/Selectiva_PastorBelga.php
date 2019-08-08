@@ -200,13 +200,13 @@ class Selectiva_PastorBelga extends Competitions {
     /**
      * Re-evaluate and fix -if required- results data used to evaluate TRS for
      * provided $prueba/$jornada/$manga
-     * @param {object} $manga Round data and trs parameters
+     * @param {object} $manga Round data and trs parameters. Passed by reference
      * @param {array} $data Original results provided for evaluation
      * @param {integer} $mode which categories must be selected
-     * @param {boolean} $roundUp on true round UP SCT and MCT to nearest second
+     * @param {boolean} $roundUp on true round UP SCT and MCT to nearest second. Passed by reference
      * @return {array} final data to be used to evaluate trs/trm
      */
-    function checkAndFixTRSData($manga,$data,$mode,&$roundUp) {
+    function checkAndFixTRSData(&$manga,$data,$mode,&$roundUp) {
         /*
          * El TRS de una selectiva de PB es el la media de los tres mejores perros
          * de grado II y III de _cualquier_raza_ de la prueba RSCE asociada

@@ -98,31 +98,18 @@ class Resultados extends DBObject {
 	
 	/**
 	 * gets distance, obstacles, trs, trm, and velocity
-	 * @param {integer} $mode 0:Large 1:Medium 2:Small 3:M+S 4:L+M+S
-	 * @param {array} $dat current _ordered_ results data according $mode
+	 * @param {integer} $mode 0:Large 1:Medium 2:Small 3:M+S 4:L+M+S ....
+	 * @param {array} $data current _ordered_ results data according $mode
 	 * @return array('dist','obst','trs','trm','vel') or null on error
 	 */
 	protected function evalTRS($mode,$data) {
 		$result= array();
 		// vemos de donde tenemos que tomar los datos
-		$suffix='L';
-		switch($mode) {
-			case 0: $suffix='L'; break; // L
- 			case 1: $suffix='M'; break; // M
-			case 2: $suffix='S'; break; // S
-			case 3: $suffix='M'; break; // M+S
-			case 4: $suffix='L'; break; // L+M+S
-			// extra values for 4-heights contests
-			case 5: $suffix='T'; break; // T
-			case 6: $suffix='L'; break; // L+M
-			case 7: $suffix='S'; break; // S+T
-			case 8: $suffix="L"; break; // L+M+S+T
-            // and values for 5-height contests
-            case 9: $suffix='X'; break; // X
-            case 10: $suffix='X'; break; // X+L
-            case 11: $suffix='M'; break; // M+S+T
-            case 12: $suffix='X'; break; // X+L+M+S+T
-		}
+        // suffix to use with data from $manga according mode
+        //    heihgts   3   3   3   3   3    4   4   4   4    5    5    5     5
+        //    cats      L   M   S   MS LMS   T  LM  ST  LMST  X   XL   MST  XLMST
+        //    mode      0   1   2   3   4    5   6   7   8    9   10   11    12
+        $suffix=array( 'L','M','S','M','L', 'T','L','S','L', 'X', 'X', 'M', 'X')[$mode];
 
         // en el caso de pruebas subordinadas ( por ejemplo, selectiva del pastor belga),
         // puede ocurrir que los datos ( mejor o tres mejores ) no haya que tomarlos de la
@@ -130,7 +117,7 @@ class Resultados extends DBObject {
         // para contemplarlo, hacemos un bypass, que nos devolvera los datos correctos
         $roundUp=true; // default is round up SCT and MCT to nearest integer second
         $comp=$this->getCompetitionObject();
-        $data=$comp->checkAndFixTRSData($this->getDatosManga(),$data,$mode,$roundUp);
+        $data=$comp->checkAndFixTRSData($this->dmanga,$data,$mode,$roundUp);
         // si el trs esta especificado con decimales, no se redondea
         $t=$this->getDatosManga()->{"TRS_{$suffix}_Factor"};
         if ( $t - (int)$t != 0) $roundUp=false;
@@ -188,7 +175,8 @@ class Resultados extends DBObject {
 				break;
 			case 6: // en lugar de tiempo nos proporcionan velocidad
 				$result['vel']=$factor;
-				$result['trs']=ceil($result['dist']/$factor);
+				if ($roundUp) $result['trs']=ceil($result['dist']/$factor);
+				else $result['trs']=$result['dist']/$factor;
 				break;
 		}
 
