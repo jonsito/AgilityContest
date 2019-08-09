@@ -60,7 +60,7 @@ class Puntuable_RFEC_2018 extends Competitions {
      * @param {array} $perro dog data
      * @return bool
      */
-    protected function isInLeague($perro) {
+    protected function isInLeague(&$perro) {
         // on first dog, evaluate competition zone for organizer club
         if ($this->leagueZone<0) { // first call, zone not yet evaluated
             $res=$this->myDBObject->__selectObject("Comunidad",
@@ -95,7 +95,9 @@ class Puntuable_RFEC_2018 extends Competitions {
             $this->zonesByClub[$perro['NombreClub']]=Puntuable_RFEC_2018::$leagueZones[$res->Comunidad];
         }
         // return zone matching test result
-        return ($this->zonesByClub[$perro['NombreClub']]===$this->leagueZone);
+        if ($this->zonesByClub[$perro['NombreClub']]===$this->leagueZone) return true;
+        $perro['Licencia']="Open";
+        return false;
     }
 
     /**

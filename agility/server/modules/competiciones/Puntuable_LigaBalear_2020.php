@@ -59,6 +59,7 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
     function getModuleInfo($contact = null)  {
         return parent::getModuleInfo("yvonneagility@fecaza.com");
     }
+
     /**
      * Re-evaluate and fix -if required- results data used to evaluate TRS for
      * provided $prueba/$jornada/$manga
