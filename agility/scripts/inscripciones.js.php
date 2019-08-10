@@ -274,6 +274,11 @@ function reorderInscripciones(idprueba) {
         function (r) {
             if (!r) return false;
             $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Re-ordering Dorsals");?>'});
+            // retriever current sorting order
+            var dg=$('#inscripciones-datagrid');
+            var order= dg.datagrid('options').sortOrder;
+            var sort= dg.datagrid('options').sortName;
+            if ( (sort==null) || (sort=="" )) { order=""; sort=""; }
             $.ajax({
                 cache: false,
                 timeout: 60000, // 60 segundos
@@ -282,7 +287,9 @@ function reorderInscripciones(idprueba) {
                 dataType:'json',
                 data: {
                     Prueba: idprueba,
-                    Operation: 'reorder'
+                    Operation: 'reorder',
+                    order: order,
+                    sort: sort
                 },
                 success: function(data) {
                     if(data.errorMsg) {

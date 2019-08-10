@@ -530,13 +530,18 @@ class Inscripciones extends DBObject {
 	 */
 	function reorder() {
 		$this->myLogger->enter();
+		$order=getOrderString(
+            http_request("sort","s",""),
+            http_request("order","s",""),
+            "NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"
+        );
 		$timeout=ini_get('max_execution_time');
 		// ordenamos los perros por club, categoria grado
 		$inscritos=$this->__select(
 				"Perro,Nombre,NombreClub,Categoria,Grado",
 				"inscripciones,perroguiaclub",
 				"(inscripciones.Prueba={$this->pruebaID}) AND (inscripciones.Perro=perroguiaclub.ID)",
-				"NombreClub ASC,Categoria ASC, Grado ASC, Nombre ASC",
+                $order,
 				"");
 		if (!is_array($inscritos))
 			return $this->error("reorder(): Canot retrieve list of inscritos");

@@ -319,7 +319,7 @@ addTooltip($('#inscripciones-editBtn').linkbutton(),'<?php _e("Modify selected i
 addTooltip($('#inscripciones-delBtn').linkbutton(),'<?php _e("Remove selected inscription from database");?>');
 addTooltip($('#inscripciones-setBtn').linkbutton(),'<?php _e("Change dorsal number for selected inscription");?>');
 addTooltip($('#inscripciones-excelBtn').linkbutton(),'<?php _e("Import/Export Inscriptions from/to Excel file"); ?>');
-addTooltip($('#inscripciones-reorderBtn').linkbutton(),'<?php _e("Reassign dorsals ordering by Club,Category,Grade, and Name");?>');
+addTooltip($('#inscripciones-reorderBtn').linkbutton(),'<?php _e("Reassign dorsals according current ordering criteria");?>');
 addTooltip($('#inscripciones-teamBtn').linkbutton(),'<?php _e("Open Team handling window for selected journey");?>');
 addTooltip($('#inscripciones-printBtn').linkbutton(),'<?php _e("Print inscriptions list on this contest");?>');
 addTooltip($('#inscripciones-reloadBtn').linkbutton(),'<?php _e("Clear search box<br/>Update inscriptions list");?>');
