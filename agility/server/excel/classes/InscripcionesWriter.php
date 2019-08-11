@@ -148,19 +148,22 @@ class InscripcionesWriter extends XLSX_Writer {
 			foreach ($this->jornadas as $jornada) {
 				if ($jornada['Nombre']==='-- Sin asignar --') continue; // skip empty journeys
                 if ($this->club>0) { $row[]=""; continue; } // in club template mode just print empty field
-				if ($perro['J'.$jornada['Numero']]==0) { // el perro no esta inscrito en la jornada
+				if ($perro['J'.$jornada['Numero']]==0) {
+				    // el perro no esta inscrito en la jornada
 					$row[]="";
+					continue;
 				}
 				// si Estamos en una jornada por equipos, ponemos el nombre del equipo
-				// else ponemos "X"
-				else {	// perro inscrito en la jornada. buscamos equipo. Si no default se pone nombre, else "X"
-					$eqobj=new Equipos("excel_printInscripciones",$this->prueba['ID'],$jornada['ID']);
-					$equipo=$eqobj->getTeamByPerro($perro['Perro']);
-					if( ($jornada['Equipos3']!=0) || ($jornada['Equipos4']!=0) ) $row[]=$equipo['Nombre'];
-					else $row[]="X";
-				}
+                if( ($jornada['Equipos3']!=0) || ($jornada['Equipos4']!=0) ){
+                    $eqobj=new Equipos("excel_printInscripciones",$this->prueba['ID'],$jornada['ID']);
+                    $equipo=$eqobj->getTeamByPerro($perro['Perro']);
+                    $row[]=$equipo['Nombre'];
+                    continue;
+                }
+				// llegando aqui, no es una jornada por equipos, pero el perro esta inscrito: ponemos "X"
+                $row[]="X";
 			}
-			// finalmente informacion de pago
+			// por ultimo, informacion de pago
 			$row[]=($this->club>0)? 0 : $perro['Pagado'];
 			// !!finaly!! add perro to excel table
 			$this->myWriter->addRow($row);
