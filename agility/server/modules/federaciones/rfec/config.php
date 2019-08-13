@@ -67,7 +67,7 @@ class RFEC extends Federations {
             ),
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
-                // 'I' => 'Infantil',
+                'I' => 'Infantil',
                 'J' => 'Junior',
                 'A' => 'Adulto',
                 // 'S' => 'Senior',
@@ -275,7 +275,9 @@ class RFEC extends Federations {
                 31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       7), // single round
                 // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
                 32 =>	array( 32,'Junior Manga 1',	            'Jr',	'Junior 1',	    'Jr. 1',        1),
-                33 => 	array( 33,'Junior Manga 2',	            'Jr',	'Junior 2',	    'Jr. 2',        2)
+                33 => 	array( 33,'Junior Manga 2',	            'Jr',	'Junior 2',	    'Jr. 2',        2),
+                34 =>	array( 34,'Senior Manga 1',	            'Sr',	'Senior 1',	    'Sr. 1',        1),
+                35 => 	array( 35,'Senior Manga 2',	            'Sr',	'Senior 2',	    'Sr. 2',        2),
             ),
             'TipoRondas' => array(
                 /* 0 */ array(0,	''),
@@ -294,7 +296,7 @@ class RFEC extends Federations {
                 /*13 */ array(2048,	_('Teams 2') ),
                 /*14 */ array(4096,	_('Teams 3') ),
                 /*15 */ array(8192,	_('Games / WAO') ),
-                /*16 */ array(16384,_('Junior') ),
+                /*16 */ array(16384,_('Children / Junior') ),
                 /*17 */ array(32768,_('Senior') ),
             )
         ));

@@ -58,7 +58,7 @@ $config =Config::getInstance();
             </div>
 
             <div class="fitem">
-                <label for="jornadas-Junior" style="text-align:left;width:150px" ><span id="jornadas-JuniorName">Junior</span></label>
+                <label for="jornadas-Junior" style="text-align:left;width:150px" ><span id="jornadas-ChildrenName">Children</span> / <span id="jornadas-JuniorName">Junior</span></label>
                 <input id="jornadas-Junior" name="Junior" class="easyui-checkbox"
                        type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Junior',0x4000)"/>
                 <span style="width:25px">&nbsp;</span>
@@ -154,7 +154,9 @@ $config =Config::getInstance();
         onBeforeOpen: function() {
             // fix names for PreAgility, Grade 1,II and III
             $('#jornadas-PreAgilityName').html(workingData.datosFederation.ListaGrados['P.A.']);
-            $('#jornadas-JuniorName').html(workingData.datosFederation.ListaGrados['Jr']);
+            // Children/Junior share course and calification
+            $('#jornadas-ChildrenName').html(workingData.datosFederation.ListaCatGuias['I']);
+            $('#jornadas-JuniorName').html(workingData.datosFederation.ListaCatGuias['J']);
             $('#jornadas-SeniorName').html(workingData.datosFederation.ListaGrados['Sr']);
             $('#jornadas-Grado1Name').html(workingData.datosFederation.ListaGrados['GI']);
             $('#jornadas-Grado2Name').html(workingData.datosFederation.ListaGrados['GII']);

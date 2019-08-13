@@ -300,6 +300,11 @@ function hasGradosByJornada(jornada) {
     return true;
 }
 
+// notice: there is no "Children" grade, just "Children" competitor
+function hasChildren(fed) {
+    if (typeof(fed)==="undefined") fed=workingData.federation;
+    return typeof(ac_fedInfo[fed].ListaGrados.Jr)!=="undefined";
+}
 function hasJunior(fed) {
     if (typeof(fed)==="undefined") fed=workingData.federation;
     return typeof(ac_fedInfo[fed].ListaGrados.Jr)!=="undefined";

@@ -574,7 +574,7 @@ class Clasificaciones extends DBObject {
 			case 0x0004: // Grado I
 			case 0x0008: // Grado II
             case 0x0010: // Grado III
-            case 0x4000: // Junior
+            case 0x4000: // Infantil / Junior
             case 0x8000: // Senior
 			case 0x0020: // Open - Individual
 			case 0x0018: // Conjunta GII - GIII
@@ -648,7 +648,7 @@ class Clasificaciones extends DBObject {
 			case 0x0008: // 8- Grado II
 			case 0x0010: // 16- Grado III
 			case 0x0020: // 32- Open - Individual
-            case 0x4000: // 16384- Junior
+            case 0x4000: // 16384- Infantil / Junior
             case 0x8000: // 32768- Senior
 				$r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$idmangas[0]); // Agility
 				$r2=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$idmangas[1]); // Jumping

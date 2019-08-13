@@ -287,8 +287,8 @@ class CPC extends Federations {
                 31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       7), // single round
                 // Junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
                 // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
-                32 =>	array( 32,'Infantil Manga 1',	            'Jr',	'Infantil 1',	    'Jr. 1',        1),
-                33 => 	array( 33,'Infantil Manga 2',	            'Jr',	'Infantil 2',	    'Jr. 2',        2),
+                32 =>	array( 32,'Infantil/Junior Manga 1',	    'Jr',	'Infantil 1',	    'Jr. 1',        1),
+                33 => 	array( 33,'Infantil/Junior Manga 2',	    'Jr',	'Infantil 2',	    'Jr. 2',        2),
                 34 =>	array( 32,'Agility Veteranos',	            'Sr',	'Agility Vet.',	    'Ag Sr.',        1),
                 35 => 	array( 33,'Jumping Veteranos',	            'Sr',	'Jumping Vet',	    'Jp Sr.',        2),
             )

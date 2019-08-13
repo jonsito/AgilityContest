@@ -35,7 +35,7 @@ class INTL4 extends Federations {
             ),
             'ListaGrados'    => array (
                 '-' => 'Not specified ',
-                'Jr' => 'Junior',
+                'Jr' => 'Junior', // includes children
                 'Sr' => 'Senior',
                 'GI' => 'Grade I',
                 'GII'=> 'Grade II',

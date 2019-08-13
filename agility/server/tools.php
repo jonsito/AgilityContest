@@ -354,7 +354,7 @@ function parseGrade($grad) {
 
 function parseHandlerCat($cat) {
     $cats =array(
-    'I' => array('i','child','children','infantil','infantiles'),
+    'I' => array('i','ch','child','children','infantil','infantiles'),
     'J' => array('j','jr','junior','juvenil','juveniles'),
     'A' => array('a','adult','adults','adulto','adultos','absolut','absoluta'),
     'S' => array('s','sr','senior','seniors','veterans','veterano','veteranos'),

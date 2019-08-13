@@ -144,7 +144,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
                 $inscribir=true; break;
             case 32: // Junior Manga 1
             case 33: // Junior Manga 2
-            if ($g==='Jr') $inscribir=true; break;
+            if ($g==='Jr') $inscribir=true; break; // infantil-junior
             case 34: // Senior Manga 1
             case 35: // Senior Manga 2
                 if ($g==='Sr') $inscribir=true; break;

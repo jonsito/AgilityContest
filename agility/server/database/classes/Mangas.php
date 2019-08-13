@@ -60,7 +60,6 @@ class Mangas extends DBObject {
         30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        6,          'Gmb'),
         31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       7,          'Spd'), // single round
         // junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
-        // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
         32 =>	array( 32,'Junior Round 1',	            'Jr',	'Junior 1',	    'Jr. 1',        1,          'Jr1'),
         33 => 	array( 33,'Junior Round 2',	            'Jr',	'Junior 2',	    'Jr. 2',        2,          'Jr2'),
         34 =>	array( 34,'Senior Round 1',	            'Sr',	'Senior 1',	    'Sr. 1',        1,          'Sr1'),
@@ -112,8 +111,8 @@ class Mangas extends DBObject {
         array(30),      /* 29 ,'Snooker',	*/
         array(29),      /* 30 ,'Gambler',	*/
         array(25,26,27,28),/* 31 ,'SpeedStakes',*/
-        array(33),      /* 32, 'Junior Manga 1', 'Jr' */
-        array(32),      /* 33, 'Junior Manga 2', 'Jr' */
+        array(33),      /* 32, 'Children-Junior Manga 1', 'Jr' */
+        array(32),      /* 33, 'Children-Junior Manga 2', 'Jr' */
         array(35),      /* 34, 'Senior Manga 1', 'Sr' */
         array(34)       /* 35, 'Senior Manga 2', 'Sr' */
 	);
@@ -479,7 +478,7 @@ class Mangas extends DBObject {
 	 * @param {integer} $grado1 la jornada tiene(1/2/3) o no (0) mangas de grado 1
 	 * @param {integer} $grado2 la jornada tiene (1) o no (0) mangas de grado 2
 	 * @param {integer} $grado3 la jornada tiene (1) o no (0) mangas de grado 3
-     * @param {integer} $junior la jornada tiene (1) o no (0) mangas de categoria junior
+     * @param {integer} $junior la jornada tiene (1) o no (0) mangas de categoria infantil/junior
      * @param {integer} $senior la jornada tiene (1) o no (0) mangas de categoria senior
      * @param {integer} $open la jornada tiene (1) o no (0) una prueba abierta
 	 * @param {integer} $equipos3 la jornada tiene (1) o no (0) una manga por equipos (3 de 4)

@@ -666,7 +666,7 @@ function clasificaciones_printEtiquetas(flag,start,list,discriminate) {
 /**
  * Imprime una tabla con los mejores perros del global de
  * las jornadas de la prueba por categorias, grados, y conjuntas
- * Se ignoran junior, senior y pre-agility
+ * Se ignoran infantil, junior, senior y pre-agility
  * @return false
  */
 function clasificaciones_printHallOfFame() {

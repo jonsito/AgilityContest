@@ -50,10 +50,11 @@ $tipo_manga= array(
         29 =>	array( 29,_('Snooker'),			        '-',	_('Snooker'),	    _('Snkr'),         true),
         30 =>	array( 30,_('Gambler'),			        '-',	_('Gambler'),	    _('Gmblr'),        false),
         31 =>	array( 31,_('SpeedStakes'),			    '-',	_('SpeedStakes'),	_('SpdStk'),       true), // single round
-        // junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
-        // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
+        // children/junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
         32 =>	array( 32,_('Junior Round 1'),	        'Jr',	_('Junior 1'),	    _('Jr. 1'),        true),
-        33 => 	array( 33,_('Junior Round 2'),	        'Jr',	_('Junior 2'),	    _('Jr. 2'),        false)
+        33 => 	array( 33,_('Junior Round 2'),	        'Jr',	_('Junior 2'),	    _('Jr. 2'),        false),
+        34 =>	array( 34,_('Senior Round 1'),	        'Sr',	_('Senior 1'),	    _('Sr. 1'),        true),
+        35 => 	array( 35,_('Senior Round 2'),	        'Sr',	_('Senior 2'),	    _('Sr. 2'),        false)
 );
 
 ?>

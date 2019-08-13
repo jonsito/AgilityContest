@@ -199,7 +199,7 @@ class Puntuable_RFEC_2018 extends Competitions {
         $perro['Estrellas']=0;
         $perro['Extras']=0;
 
-        // en grado 1 y Junior contabilizamos excelentes(Puntos) y ceros(estrellas)
+        // en grado 1 e Infantil/Junior contabilizamos excelentes(Puntos) y ceros(estrellas)
         // NO se calculan puntos de clasificacion
         if ($grad !== "GII") {
             foreach (array(1,2,3) as $m){

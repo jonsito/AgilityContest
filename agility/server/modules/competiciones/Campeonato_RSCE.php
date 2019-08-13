@@ -9,7 +9,7 @@
 class Campeonato_RSCE extends Competitions {
 
     // en el campeonato de España 2017 aparte de la clasificacion absoluta
-    // hay trofeos al primer equipo Junior y Senior
+    // hay trofeos al primer equipo Infantil/Junior y Senior
     // por ello es preciso llevar un contador para cada categoria
     protected $pJunior=1;
     protected $pSenior=1;
@@ -34,8 +34,9 @@ class Campeonato_RSCE extends Competitions {
      */
     public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat){
         // no hay categorias ni grados: la final individual es una prueba open
-        // simplemente hay que llevar la cuenta de junior y senior
-        if ($perro['CatGuia']==="J") { // junior
+        // simplemente hay que llevar la cuenta de infantil/junior y senior
+        // nota: en RSCE junior e infantil califican y suben a podium juntos
+        if ( $perro['CatGuia']==="I" || $perro['CatGuia']==='J' ) { // infantil - junior
             $perro['Calificacion']= "{$this->pJunior}º - Junior";
             $this->pJunior++;
         }

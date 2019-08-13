@@ -65,7 +65,7 @@ class RSCE extends Federations {
             ),
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
-                //'I' => 'Infantil',
+                'I' => 'Infantil',
                 'J' => 'Junior',
                 'A' => 'Adulto',
                 'S' => 'Senior',
@@ -277,9 +277,10 @@ class RSCE extends Federations {
                 30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        6),
                 31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       7), // single round
                 // junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
-                // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
                 32 =>	array( 32,'Junior Manga 1',	            'Jr',	'Junior 1',	    'Jr. 1',        1),
                 33 => 	array( 33,'Junior Manga 2',	            'Jr',	'Junior 2',	    'Jr. 2',        2),
+                34 =>   array( 34, 'Senior Round 1',            'Sr',   'Senior 1',     'Sr. 1',        1),
+                35 =>   array( 35, 'Senior Round 2',            'Sr',   'Senior 2',     'Sr. 2',        2)
             )
         ));
     }
