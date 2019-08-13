@@ -32,9 +32,9 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         'Category'  => array ( 0.60,    0.29, 'Categoria'),
         'Grade'     => array ( 0.82,    0.29, 'Grado'),
         // datos de la primera manga
-        'Juez11'            => array ( 0.10,    0.45, 'Juez1 Agility'),
-        'Juez12'            => array ( 0.10,    0.51, 'Juez2 Agility'),
-        'Participantes1'    => array ( 0.28,    0.45, 'Num'),
+        'Juez11'            => array ( 0.095,    0.45, 'Juez1 Agility'),
+        'Juez12'            => array ( 0.095,    0.51, 'Juez2 Agility'),
+        'Participantes1'    => array ( 0.29,    0.45, 'Num'),
         'Longitud1'         => array ( 0.36,    0.45, 'Long'),
         'Obstaculos1'       => array ( 0.43,    0.45, 'Obst'),
         'TRS1'              => array ( 0.50,    0.45, 'TRS'),
@@ -47,9 +47,9 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         'Puesto1'           => array ( 0.91,    0.45, 'Puesto'),
         'C1'                => array ( 0.95,    0.45, 'Calif'),
         // datos de la segunda manga
-        'Juez21'            => array ( 0.10,    0.63, 'Juez1 Jumping'),
-        'Juez22'            => array ( 0.10,    0.69, 'Juez2 Jumping'),
-        'Participantes2'    => array ( 0.28,    0.63, 'Num'),
+        'Juez21'            => array ( 0.095,    0.63, 'Juez1 Jumping'),
+        'Juez22'            => array ( 0.095,    0.69, 'Juez2 Jumping'),
+        'Participantes2'    => array ( 0.29,    0.63, 'Num'),
         'Longitud2'         => array ( 0.36,    0.63, 'Long'),
         'Obstaculos2'       => array ( 0.43,    0.63, 'Obst'),
         'TRS2'              => array ( 0.50,    0.63, 'TRS'),
@@ -187,7 +187,7 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         // set template global data for round 1
         if ($this->manga1!=null) {
             $this->data['Juez11'][2]=$this->juez11['Nombre'];
-            $this->data['Juez12'][2]=$this->juez21['Nombre'];
+            $this->data['Juez12'][2]=$this->juez12['Nombre'];
             if ($this->juez11['Nombre']==$this->juez12['Nombre']) $this->data['Juez12'][2]="";
             if ($this->juez12['Nombre']=='-- Sin asignar --') $this->data['Juez12'][2]="";
             $this->data['Longitud1'][2]=$resultados['trs1']['dist'];
