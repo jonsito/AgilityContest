@@ -99,10 +99,16 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
 
         $font = __DIR__."/../../arial.ttf";
         foreach ( $this->data as $key =>$item) {
+            // now evaluate offset for grade
+            $offset=0;
+            if ( endsWith($key,"1") || endsWith($key,"2")) {
+                if ( endsWith($this->data['Grade'][2]," II") ) $offset=0.06;
+                if ( endsWith($this->data['Grade'][2]," III") ) $offset=0.12;
+            }
             // A4 page is 210*295
             // image size is 1007x715, so scale properly
             $x= intval ( 1003*$item[0]);
-            $y= intval ( 715*$item[1]);
+            $y= intval ( 715*($item[1]+$offset));
             imagettftext($img, 12, 0, $x, $y, $black, $font, $item[2]);
         }
         // finally set contest name and journey at bottom of page
@@ -162,15 +168,6 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         $this->data['P2'][2]=number_format2($row['P2'],2);
         $this->data['Puesto1'][2]=$row['Puesto1'];
         $this->data['Puesto2'][2]=$row['Puesto2'];
-
-        // now evaluate offset for grade
-        $offset=0;
-        if ($row['Grado']==="GII") $offset=0.06;
-        if ($row['Grado']==="GIII") $offset=0.12;
-        foreach ( $this->data as $key => &$val) {
-            if (endsWith($key,"1")) $val[1]+=$offset;
-            if (endsWith($key,"2")) $val[1]+=$offset;
-        }
 
         $img=$this->getImage();
         $tmpfile=tempnam_sfx(__DIR__."/../../../../logs","cneac_","png");
