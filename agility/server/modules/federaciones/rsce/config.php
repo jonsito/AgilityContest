@@ -65,7 +65,7 @@ class RSCE extends Federations {
             ),
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
-                'I' => 'Infantil',
+                // 'I' => 'Infantil',
                 'J' => 'Junior',
                 'A' => 'Adulto',
                 'S' => 'Senior',

@@ -583,7 +583,7 @@ function clasificaciones_printPodium() {
 }
 
 /**
- * Imprime los resultados finales separados por categoria y grado, tal y como pide la RSCE
+ * Imprime los resultados finales en formato excel separados por categoria y grado, tal y como pide la RSCE
  */
 function clasificaciones_printCanina() {
 	
@@ -688,9 +688,11 @@ function clasificaciones_printHallOfFame() {
 
 /**
  * Imprime los resultados finales de la ronda seleccionada en formato pdf
+ * @param {boolean} stats Also print statistics
+ * @param {boolean} children On RFEC Junior rounds, print separate sheets for Children/Junior
  * @return false
  */
-function clasificaciones_printClasificacion(stats) {
+function clasificaciones_printClasificacion(stats,children) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='../ajax/pdf/print_clasificacion.php';
     if (isJornadaEqMejores()) url='../ajax/pdf/print_clasificacion_equipos.php';
@@ -720,7 +722,8 @@ function clasificaciones_printClasificacion(stats) {
                 Manga8:ronda.Manga8,
 				Rondas: ronda.Rondas,
 				Mode: mode,
-                Stats: stats
+                Stats: stats,
+                Children: children
 			},
 	        preparingMessageHtml: '(scores) <?php _e("We are preparing your report, please wait"); ?> ...',
 	        failMessageHtml:'(scores) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -757,13 +760,14 @@ function clasificaciones_doPrint() {
     var list=$('#r_prlist').textbox('getValue');
     var prstats=$('#r_prstats').prop('checked');
     var discriminate=$('#r_discriminate').prop('checked');
+    var children=$('#r_children').prop('checked');
 	$('#resultados-printDialog').dialog('close');
 	switch(parseInt(r)) {
 		case 0: /* podium */ clasificaciones_printPodium(); break;
 		case 1: /* csv */ clasificaciones_printEtiquetas(0,line,'',false); break; // csv
         case 3: /* excel */ clasificaciones_printCanina(); break;
         case 6: /* mejores prueba */ clasificaciones_printHallOfFame(); break;
-		case 4: /* pdf */ clasificaciones_printClasificacion((prstats)?1:0); break;
+		case 4: /* pdf */ clasificaciones_printClasificacion((prstats)?1:0,children); break;
 		case 5: /* forms cneac */ clasificaciones_printEtiquetas(2,line,list,discriminate); break;
 		case 2: /* labels rsce */ clasificaciones_printEtiquetas(1,line,list,discriminate); break;
 	}

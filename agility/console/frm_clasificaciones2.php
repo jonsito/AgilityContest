@@ -114,9 +114,7 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 </div> <!-- panel de informacion -->
 
 
-<div id="resultados-printDialog" class="easyui-dialog" 
-	data-options="title:'<?php _e('Select format'); ?>',modal:true,closable:true,closed:true,width:'475px',height:'400px'">
-
+<div id="resultados-printDialog">
 	<form style="padding:10px" id="resultados-printForm">
 	<input type="radio" name="r_prformat" value="0" onclick="r_selectOption(0);"/><?php _e('Podium'); ?> (PDF)<br />
         <input type="radio" name="r_prformat" value="6" onclick="r_selectOption(6);"/><?php _e('Contest Hall Of Fame'); ?> (PDF)
@@ -131,7 +129,12 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 		<span style="float:right">
 			<label id="r_prstatslbl" for="r_prstats"><?php _e('Include Statistics'); ?>:</label>
             <input id="r_prstats" style="width:78px" name="r_prstats" class="easyui-checkbox" type="checkbox" value="1" checked="checked"/>
-		</span>
+            <br/>
+            <span id="r_junior"> <!-- to hide when not in children+junior rounds -->
+                <label id="r_childrenlbl" for="r_children"><?php _e('Split Children/Junior'); ?></label>
+                <input id="r_children" style="width:78px" name="r_children" class="easyui-checkbox" type="checkbox" value="1" checked="checked"/>
+            </span>
+        </span>
 	</span>
     <br />&nbsp;<hr /><br/>
 	<span  style="display:inline-block;width:100%">
@@ -142,11 +145,11 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 		</span>
 		<span style="float:right">
 			<label id="r_prlistLbl" for="list"><?php _e('Dorsal list'); ?>:</label>
-			<input id="r_prlist" style="width:85px" name="list" class="easyui-textbox" data-options="value:'',disabled:true"/>
+			<input id="r_prlist" style="width:85px" name="list" type="text" value="" disabled="disabled"/>
             <br />
             <label id="r_prfirstLbl" for="first"><?php _e('Initial label'); ?>:&nbsp;</label>
-			<input id="r_prfirst" style="width:45px" name="first" class="easyui-numberspinner"
-                   data-options="value:1,min:1,max:16,disabled:true"/><br />
+			<input id="r_prfirst" style="width:45px" type="text" value="1" disabled="disabled" name="first"/>
+            <br />
             <label id="r_discriminateLbl" for="r_discriminate"><?php _e('Filter country'); ?>:</label>
             <input id="r_discriminate" style="width:78px" name="r_discriminate" class="easyui-checkbox" type="checkbox" value="1" checked="checked"/><br/>
 		</span>
@@ -161,6 +164,27 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 </div>
 
 <script type="text/javascript">
+
+$('#r_prlist').textbox();
+$('#r_prfirst').numberspinner({
+    max: 16,
+    min: 1,
+    value: 1
+});
+$('#resultados-printDialog').dialog({
+    title:'<?php _e('Select format'); ?>',
+    modal:true,
+    closable:true,
+    closed:true,
+    width:'475px',
+    height:'400px',
+    onBeforeOpen: function() {
+        var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
+        var ch= ((ronda.Rondas & 16384)!==0) && hasChildren(workingData.federation);
+        $('#r_junior').css('display',(ch)?'inherit':'none');
+        return true;
+    }
+});
 
 $('#resultados-selectCategoria').combobox({
     width:125,
@@ -229,5 +253,6 @@ addTooltip($('#resultados-cancelDlgBtn').linkbutton(),'<?php _e("Cancel operatio
 addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels sheet"); ?>');
 addTooltip($('#r_prlistLbl'),'<?php _e("Comma separated list of dorsals to be printed"); ?>');
 addTooltip($('#r_discriminate').linkbutton(),'<?php _e("Omit label on country missmatch"); ?>');
+addTooltip($('#r_children').linkbutton(),'<?php _e("Create separate listings for Children and Junior"); ?>');
 
 </script>

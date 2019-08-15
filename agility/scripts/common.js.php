@@ -303,7 +303,7 @@ function hasGradosByJornada(jornada) {
 // notice: there is no "Children" grade, just "Children" competitor
 function hasChildren(fed) {
     if (typeof(fed)==="undefined") fed=workingData.federation;
-    return typeof(ac_fedInfo[fed].ListaGrados.Jr)!=="undefined";
+    return typeof(ac_fedInfo[fed].ListaCatGuias.I)!=="undefined";
 }
 function hasJunior(fed) {
     if (typeof(fed)==="undefined") fed=workingData.federation;
@@ -325,7 +325,10 @@ function isJornadaKO() { return (workingData.datosJornada.KO!=0); }
 function isJornadaGames() { return (workingData.datosJornada.Games!=0); }
 function isJornadaEqMejores() { return (workingData.datosJornada.Equipos3!=0); }
 function isJornadaEqConjunta() { return (workingData.datosJornada.Equipos4!=0); }
+// notice numeric/string dual usage ( stupid javascript )
 function isMangaGames() { return ( $.inArray(workingData.datosManga.Tipo,["29","30",29,30]) >=0 ); }
+function isMangaJunior() { return ( $.inArray(workingData.datosManga.Tipo,["32","33",32,33]) >=0 ); }
+function isMangaSenior() { return ( $.inArray(workingData.datosManga.Tipo,["34","35",34,35]) >=0 ); }
 
 /**
  * Check if provided jornada has Team rounds

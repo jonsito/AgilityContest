@@ -61,10 +61,10 @@ class INTL3 extends Federations {
             ),
             'ListaCatGuias' => array (
                 '-' => 'Not specified',
-                'I' => 'Children',
-                'J' => 'Junior',
+                // 'I' => 'Children',
+                // 'J' => 'Junior',
                 'A' => 'Adult',
-                'S' => 'Senior',
+                // 'S' => 'Senior',
                 'R' => 'Retired',
                 'P' => 'Para-Agility',
             ),
