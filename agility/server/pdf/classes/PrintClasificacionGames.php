@@ -300,8 +300,9 @@ class PrintClasificacionGames extends PrintCommon {
         }
         $this->Ln(6);
 	}
-	
-	function composeTable() {
+
+	// split not used, just for consistency with PrintClasificacion::composeTable()
+	function composeTable($split) {
 		$this->myLogger->enter();
         $len=array_sum($this->cell_width);
 

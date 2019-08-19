@@ -73,7 +73,8 @@ class PrintClasificacion extends PrintCommon {
 	}
 
 
-	function print_datosMangas() {
+	function print_datosMangas($cat="") {
+	    if ($cat==="") $cat=$this->categoria;
 
 	    // objeto para buscar jueces
 		$jobj=new Jueces("print_Clasificaciones");
@@ -85,8 +86,9 @@ class PrintClasificacion extends PrintCommon {
 		$this->Ln(6);
         $this->Cell(80,6,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
         $this->Ln(6);
-        $ronda=$this->getGradoString(intval($this->manga1->Tipo)); // todas las mangas comparten grado
-        $this->Cell(80,6,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
+        // $ronda=$this->getGradoString(intval($this->manga1->Tipo)); // todas las mangas comparten grado
+        $ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
+        $this->Cell(80,6,_('Round').": $ronda - {$cat}",0,0,'',false);
 
         // ahora los datos de cada manga individual
         // manga 1:
@@ -165,7 +167,8 @@ class PrintClasificacion extends PrintCommon {
 	}
 
 	// on second and consecutive pages print a short description to avoid sheet missorder
-	function print_datosMangas2() {
+	function print_datosMangas2($cat="") {
+	    if ($cat==="") $cat=$this->categoria;
 		$this->SetXY(35,20);
 		$this->SetFont($this->getFontName(),'B',11); // bold 9px
 		$this->Cell(80,7,"{$this->jornada->Nombre}",0,0,'',false);
@@ -173,7 +176,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(80,7,"{$this->jornada->Fecha}",0,0,'',false);
 		$ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
 		$this->SetXY(35,30);
-		$this->Cell(80,7,"$ronda - {$this->categoria}",0,0,'',false);
+		$this->Cell(80,7,"$ronda - {$cat}",0,0,'',false);
 	}
 
 	function Header() {
@@ -196,7 +199,7 @@ class PrintClasificacion extends PrintCommon {
 	    $this->myStats->print_statsData();
     }
 
-	function writeTableHeader() {
+	function writeTableHeader($cat) {
 		$wide=$this->federation->get('WideLicense'); // some federations need extra space to show license id
         $tm1=($this->manga1!==null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)):"";
         $tm2=($this->manga2!==null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)):"";
@@ -205,7 +208,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->ac_header(1,12);
 		$this->SetXY(10,65);// first page has 3 extra header lines
 		if ($this->PageNo()!=1) {
-			$this->print_datosMangas2();
+			$this->print_datosMangas2($cat);
 			$this->SetXY(10,40);
 		}
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
@@ -427,39 +430,84 @@ class PrintClasificacion extends PrintCommon {
 		$this->Ln();
 	}
 	
-	function composeTable() {
+	function composeTable($split) {
 		$this->myLogger->enter();
         $len=(($this->manga3)!==null)?115+(57*3+46)*0.75:115+57*2+46; // lenght of closing line
 
-		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
-		$this->SetTextColor(0,0,0); // negro
-		$this->SetFont($this->getFontName(),'',8); // default font
-		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-		$this->SetLineWidth(.3);
-		
-		$rowcount=0;
-		$this->AddPage();
-		$this->print_datosMangas();
+        // when required split clasificacion in "Children" and "Young"
+		$result1=array();
+		$result2=array();
 		foreach($this->resultados as $row) {
-			$numrows=($this->PageNo()==1)?18:22;
-			if($rowcount==0) $this->writeTableHeader();	
-			$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-			$this->writeCell( $rowcount % $numrows,$row);
-			$rowcount++;
-			if ($rowcount>=$numrows) {
-				// pintamos linea de cierre 	
-				$this->setX(10);
-				$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-				$this->cell($len,0,'','T'); // celda sin altura y con raya
-				$this->AddPage();
-				$rowcount=0;
-			}
-		}
-		// pintamos linea de cierre final
-		$this->setX(10);
-		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-		$this->cell($len,0,'','T'); // celda sin altura y con raya
-		$this->myLogger->leave();
+		    // not split, just add to first resultset
+		    if ($split===0) { $result1[]=$row; continue; }
+		    // split: if not children add to first resultset, else add to second
+            if ($row['CatGuia']!=='I') $result1[]=$row;
+            else $result2[]=$row;
+        }
+
+		if (count($result1)!==0) {
+            $this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
+            $this->SetTextColor(0,0,0); // negro
+            $this->SetFont($this->getFontName(),'',8); // default font
+            $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+            $this->SetLineWidth(.3);
+
+            $rowcount=0;
+            $this->AddPage();
+            $this->print_datosMangas(($split===1)?_("Young"):"");
+            foreach($result1 as $row) {
+                $numrows=($this->PageNo()==1)?18:22;
+                if($rowcount==0) $this->writeTableHeader(($split===1)?_("Young"):"");
+                $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+                $this->writeCell( $rowcount % $numrows,$row);
+                $rowcount++;
+                if ($rowcount>=$numrows) {
+                    // pintamos linea de cierre
+                    $this->setX(10);
+                    $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+                    $this->cell($len,0,'','T'); // celda sin altura y con raya
+                    $this->AddPage();
+                    $rowcount=0;
+                }
+            }
+            // pintamos linea de cierre final
+            $this->setX(10);
+            $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+            $this->cell($len,0,'','T'); // celda sin altura y con raya
+        }
+
+		if (count($result2)!==0) {
+            // arriving here means split 1 and need to print "Juvenil" round
+
+            $this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
+            $this->SetTextColor(0,0,0); // negro
+            $this->SetFont($this->getFontName(),'',8); // default font
+            $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+            $this->SetLineWidth(.3);
+
+            $rowcount=0;
+            $this->AddPage();
+            $this->print_datosMangas(_('Children'));
+            foreach($this->resultados as $row) {
+                $numrows=($this->PageNo()==1)?18:22;
+                if($rowcount==0) $this->writeTableHeader(($split===1)?_("Children"):"");
+                $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+                $this->writeCell( $rowcount % $numrows,$row);
+                $rowcount++;
+                if ($rowcount>=$numrows) {
+                    // pintamos linea de cierre
+                    $this->setX(10);
+                    $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+                    $this->cell($len,0,'','T'); // celda sin altura y con raya
+                    $this->AddPage();
+                    $rowcount=0;
+                }
+            }
+            // pintamos linea de cierre final
+            $this->setX(10);
+            $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+            $this->cell($len,0,'','T'); // celda sin altura y con raya
+        }
 	}
 }
 

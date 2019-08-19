@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2019-08-15 11:14+0200\n"
-"PO-Revision-Date: 2019-08-15 12:44+0200\n"
+"POT-Creation-Date: 2019-08-19 12:28+0200\n"
+"PO-Revision-Date: 2019-08-19 12:29+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -192,7 +192,7 @@ msgstr "R"
 #: public/pbmenu_inscripciones.php:102
 #: public/pbmenu_inscripciones_equipos.php:145 scripts/competicion.js.php:1685
 #: scripts/printer.js.php:456 scripts/results_and_scores.js.php:334
-#: server/pdf/classes/PrintClasificacion.php:223
+#: server/pdf/classes/PrintClasificacion.php:226
 #: server/pdf/classes/PrintClasificacionExcel.php:157
 #: server/pdf/classes/PrintClasificacionGames.php:84
 #: server/pdf/classes/PrintClasificacionGames.php:118
@@ -266,7 +266,7 @@ msgstr "Perro"
 #: server/database/updater/Uploader.php:258
 #: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:88
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:81
-#: server/pdf/classes/PrintClasificacion.php:240
+#: server/pdf/classes/PrintClasificacion.php:243
 #: server/pdf/classes/PrintClasificacionExcel.php:162
 #: server/pdf/classes/PrintClasificacionGames.php:84
 #: server/pdf/classes/PrintClasificacionGames.php:118
@@ -499,7 +499,7 @@ msgstr "Eliminado"
 #: scripts/perros.js.php:279 scripts/perros.js.php:313
 #: scripts/printer.js.php:500 scripts/printer.js.php:558
 #: scripts/printer.js.php:595 scripts/printer.js.php:638
-#: scripts/printer.js.php:703 scripts/pruebas.js.php:115
+#: scripts/printer.js.php:705 scripts/pruebas.js.php:115
 #: scripts/pruebas.js.php:199 scripts/pruebas.js.php:248
 #: scripts/pruebas.js.php:314 scripts/pruebas.js.php:477
 #: scripts/pruebas.js.php:636 scripts/pruebas.js.php:642
@@ -645,8 +645,8 @@ msgstr "Dors"
 #: console/dialogs/dlg_sesiones.inc:159 console/dialogs/dlg_tools.inc:80
 #: console/dialogs/dlg_usuarios.inc:55
 #: console/dialogs/import_handlers.inc.php:89
-#: console/frm_clasificaciones2.php:216
-#: console/frm_clasificaciones_equipos.php:196 console/frm_clubes.php:99
+#: console/frm_clasificaciones2.php:218
+#: console/frm_clasificaciones_equipos.php:198 console/frm_clubes.php:99
 #: console/frm_clubes.php:178 console/frm_clubes.php:266
 #: console/frm_equipos.php:126 console/frm_equipos.php:176
 #: console/frm_equipos.php:255 console/frm_equipos.php:329
@@ -674,9 +674,9 @@ msgstr "Dors"
 #: server/excel/classes/XLSXWriter.php:124
 #: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:87
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:79
-#: server/pdf/classes/PrintClasificacion.php:226
-#: server/pdf/classes/PrintClasificacion.php:228
-#: server/pdf/classes/PrintClasificacion.php:232
+#: server/pdf/classes/PrintClasificacion.php:229
+#: server/pdf/classes/PrintClasificacion.php:231
+#: server/pdf/classes/PrintClasificacion.php:235
 #: server/pdf/classes/PrintClasificacionExcel.php:158
 #: server/pdf/classes/PrintClasificacionGames.php:84
 #: server/pdf/classes/PrintClasificacionGames.php:118
@@ -752,7 +752,7 @@ msgstr "Gu&iacute;a"
 #: public/pbmenu_inscripciones_equipos.php:150
 #: scripts/results_and_scores.js.php:266 scripts/results_and_scores.js.php:338
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:78
-#: server/pdf/classes/PrintClasificacion.php:238
+#: server/pdf/classes/PrintClasificacion.php:241
 #: server/pdf/classes/PrintClasificacionTeam.php:280
 #: server/pdf/classes/PrintEntradaDeDatosKO.php:177
 #: server/pdf/classes/PrintInscripciones.php:126
@@ -1015,7 +1015,7 @@ msgstr "Limpiar formulario"
 #: console/dialogs/dlg_resultados_individual.inc:115
 #: console/dialogs/dlg_resultados_ko.inc:113
 #: console/dialogs/dlg_sesiones.inc:117 console/dialogs/dlg_usuarios.inc:143
-#: console/dialogs/dlg_usuarios.inc:146 console/frm_clasificaciones2.php:250
+#: console/dialogs/dlg_usuarios.inc:146 console/frm_clasificaciones2.php:252
 #: console/frm_inscripciones2.php:329 console/frm_myAdmin.php:101
 #: console/frm_perros.php:217 console/frm_perros.php:219
 #: console/frm_registration.php:175 lib/templates/scores_mail.inc.php:98
@@ -1258,9 +1258,9 @@ msgid "Flt"
 msgstr "Flt"
 
 #: console/dialogs/dlg_competicion.inc:131
-#: server/pdf/classes/PrintClasificacion.php:246
-#: server/pdf/classes/PrintClasificacion.php:259
-#: server/pdf/classes/PrintClasificacion.php:272
+#: server/pdf/classes/PrintClasificacion.php:249
+#: server/pdf/classes/PrintClasificacion.php:262
+#: server/pdf/classes/PrintClasificacion.php:275
 #: server/pdf/classes/PrintClasificacionTeam.php:286
 #: server/pdf/classes/PrintClasificacionTeam.php:297
 #: server/pdf/classes/PrintEntradaDeDatos.php:254
@@ -1305,10 +1305,10 @@ msgstr "Toc"
 #: scripts/datagrid_formatters.js.php:443 scripts/results_and_scores.js.php:273
 #: scripts/results_and_scores.js.php:279 scripts/results_and_scores.js.php:283
 #: scripts/results_and_scores.js.php:346
-#: server/pdf/classes/PrintClasificacion.php:247
-#: server/pdf/classes/PrintClasificacion.php:260
-#: server/pdf/classes/PrintClasificacion.php:273
-#: server/pdf/classes/PrintClasificacion.php:282
+#: server/pdf/classes/PrintClasificacion.php:250
+#: server/pdf/classes/PrintClasificacion.php:263
+#: server/pdf/classes/PrintClasificacion.php:276
+#: server/pdf/classes/PrintClasificacion.php:285
 #: server/pdf/classes/PrintClasificacionExcel.php:166
 #: server/pdf/classes/PrintClasificacionExcel.php:174
 #: server/pdf/classes/PrintClasificacionExcel.php:180
@@ -1463,7 +1463,7 @@ msgstr "Selecciona las categor&iacute;as a mostrar"
 #: lib/templates/final_individual.inc.php:11
 #: lib/templates/final_last_individual.inc.php:11
 #: lib/templates/final_last_teams.inc.php:11 livestream/vwls_finales.php:88
-#: server/pdf/classes/PrintClasificacion.php:214
+#: server/pdf/classes/PrintClasificacion.php:217
 #: server/pdf/classes/PrintClasificacionExcel.php:151
 #: server/pdf/classes/PrintClasificacionGames.php:80
 #: server/pdf/classes/PrintClasificacionGames.php:133
@@ -2688,7 +2688,7 @@ msgstr "Importar/Exportar"
 #: console/dialogs/dlg_resultados_individual.inc:57
 #: console/dialogs/dlg_resultados_ko.inc:56
 #: console/frm_clasificaciones2.php:161
-#: console/frm_clasificaciones_equipos.php:161 console/frm_clubes.php:49
+#: console/frm_clasificaciones_equipos.php:163 console/frm_clubes.php:49
 #: console/frm_equipos.php:50 console/frm_inscripciones2.php:130
 #: console/frm_ligas.php:51 console/frm_ligas.php:87 console/frm_perros.php:91
 #: scripts/printer.js.php:64
@@ -2710,7 +2710,7 @@ msgstr "Actualizando sesi&oacute;n de entrenamientos de la prueba"
 #: server/excel/classes/XLSXWriter.php:124
 #: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:105
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:100
-#: server/pdf/classes/PrintClasificacion.php:86
+#: server/pdf/classes/PrintClasificacion.php:87
 #: server/pdf/classes/PrintClasificacionExcel.php:103
 #: server/pdf/classes/PrintClasificacionGames.php:195
 #: server/pdf/classes/PrintClasificacionTeam.php:123
@@ -2997,8 +2997,8 @@ msgstr "Actualizando lista de perros"
 #: public/pbmenu_inscripciones_equipos.php:148
 #: scripts/results_and_scores.js.php:265 scripts/results_and_scores.js.php:337
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:77
-#: server/pdf/classes/PrintClasificacion.php:229
-#: server/pdf/classes/PrintClasificacion.php:233
+#: server/pdf/classes/PrintClasificacion.php:232
+#: server/pdf/classes/PrintClasificacion.php:236
 #: server/pdf/classes/PrintClasificacionTeam.php:278
 #: server/pdf/classes/PrintEntradaDeDatos.php:234
 #: server/pdf/classes/PrintEntradaDeDatos.php:336
@@ -4435,9 +4435,9 @@ msgstr "Ignorar entrada. No importar este resultado a la base de datos"
 #: lib/templates/parcial_round_data.inc.php:15
 #: server/database/updater/Uploader.php:242
 #: server/excel/classes/ClasificacionesWriter.php:86
-#: server/pdf/classes/PrintClasificacion.php:112
-#: server/pdf/classes/PrintClasificacion.php:136
-#: server/pdf/classes/PrintClasificacion.php:160
+#: server/pdf/classes/PrintClasificacion.php:114
+#: server/pdf/classes/PrintClasificacion.php:138
+#: server/pdf/classes/PrintClasificacion.php:162
 #: server/pdf/classes/PrintClasificacionExcel.php:121
 #: server/pdf/classes/PrintClasificacionExcel.php:123
 #: server/pdf/classes/PrintClasificacionGames.php:227
@@ -4559,9 +4559,9 @@ msgstr "TRM fijo"
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:253
 #: server/excel/classes/PartialScoresWriter.php:88
-#: server/pdf/classes/PrintClasificacion.php:101
-#: server/pdf/classes/PrintClasificacion.php:125
-#: server/pdf/classes/PrintClasificacion.php:149
+#: server/pdf/classes/PrintClasificacion.php:103
+#: server/pdf/classes/PrintClasificacion.php:127
+#: server/pdf/classes/PrintClasificacion.php:151
 #: server/pdf/classes/PrintClasificacionExcel.php:130
 #: server/pdf/classes/PrintClasificacionExcel.php:139
 #: server/pdf/classes/PrintClasificacionGames.php:216
@@ -4602,7 +4602,7 @@ msgstr "Plantillas"
 #: console/frm_clasificaciones2.php:127
 #: console/frm_clasificaciones_equipos.php:137 console/index.php:449
 #: server/excel/classes/ClasificacionesWriter.php:241
-#: server/pdf/classes/PrintClasificacion.php:218
+#: server/pdf/classes/PrintClasificacion.php:221
 #: server/pdf/classes/PrintClasificacionExcel.php:154
 msgid "Scores"
 msgstr "Clasificaciones"
@@ -4707,7 +4707,7 @@ msgstr ""
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/OrdenSalidaWriter.php:129
 #: server/excel/classes/PartialScoresWriter.php:84
-#: server/pdf/classes/PrintClasificacion.php:89
+#: server/pdf/classes/PrintClasificacion.php:91
 #: server/pdf/classes/PrintClasificacionExcel.php:125
 #: server/pdf/classes/PrintClasificacionExcel.php:134
 #: server/pdf/classes/PrintClasificacionGames.php:197
@@ -4733,9 +4733,9 @@ msgstr "Jueces"
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:256
 #: server/excel/classes/PartialScoresWriter.php:89
-#: server/pdf/classes/PrintClasificacion.php:102
-#: server/pdf/classes/PrintClasificacion.php:126
-#: server/pdf/classes/PrintClasificacion.php:150
+#: server/pdf/classes/PrintClasificacion.php:104
+#: server/pdf/classes/PrintClasificacion.php:128
+#: server/pdf/classes/PrintClasificacion.php:152
 #: server/pdf/classes/PrintClasificacionExcel.php:131
 #: server/pdf/classes/PrintClasificacionExcel.php:140
 #: server/pdf/classes/PrintClasificacionGames.php:217
@@ -4770,12 +4770,12 @@ msgstr "TRM"
 #: scripts/results_and_scores.js.php:274 scripts/results_and_scores.js.php:280
 #: scripts/results_and_scores.js.php:347
 #: server/excel/classes/ClasificacionesWriter.php:86
-#: server/pdf/classes/PrintClasificacion.php:103
-#: server/pdf/classes/PrintClasificacion.php:127
-#: server/pdf/classes/PrintClasificacion.php:151
-#: server/pdf/classes/PrintClasificacion.php:248
-#: server/pdf/classes/PrintClasificacion.php:261
-#: server/pdf/classes/PrintClasificacion.php:274
+#: server/pdf/classes/PrintClasificacion.php:105
+#: server/pdf/classes/PrintClasificacion.php:129
+#: server/pdf/classes/PrintClasificacion.php:153
+#: server/pdf/classes/PrintClasificacion.php:251
+#: server/pdf/classes/PrintClasificacion.php:264
+#: server/pdf/classes/PrintClasificacion.php:277
 #: server/pdf/classes/PrintClasificacionExcel.php:133
 #: server/pdf/classes/PrintClasificacionExcel.php:142
 #: server/pdf/classes/PrintClasificacionGames.php:218
@@ -4879,7 +4879,7 @@ msgstr "Club anfitri&oacute;n"
 #: server/excel/classes/XLSXWriter.php:129
 #: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:107
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:102
-#: server/pdf/classes/PrintClasificacion.php:84
+#: server/pdf/classes/PrintClasificacion.php:85
 #: server/pdf/classes/PrintClasificacionExcel.php:101
 #: server/pdf/classes/PrintClasificacionGames.php:193
 #: server/pdf/classes/PrintClasificacionTeam.php:121
@@ -4961,12 +4961,12 @@ msgid "RSCE Label sheets"
 msgstr "Etiquetas cartilla RSCE"
 
 #: console/frm_clasificaciones2.php:147
-#: console/frm_clasificaciones_equipos.php:154
+#: console/frm_clasificaciones_equipos.php:156
 msgid "Dorsal list"
 msgstr "Lista de dorsales"
 
 #: console/frm_clasificaciones2.php:150
-#: console/frm_clasificaciones_equipos.php:151
+#: console/frm_clasificaciones_equipos.php:153
 msgid "Initial label"
 msgstr "Etiqueta inicial"
 
@@ -4979,50 +4979,50 @@ msgstr "Filtrar por pa&iacute;s"
 msgid "Select format"
 msgstr "Selecciona formato"
 
-#: console/frm_clasificaciones2.php:244
+#: console/frm_clasificaciones2.php:246
 msgid "Jump to Journey development window"
 msgstr "Abrir ventana de desarrollo de la jornada"
 
-#: console/frm_clasificaciones2.php:245
-#: console/frm_clasificaciones_equipos.php:224
+#: console/frm_clasificaciones2.php:247
+#: console/frm_clasificaciones_equipos.php:226
 msgid "Update score tables"
 msgstr "Actualizar tablas de resultados"
 
-#: console/frm_clasificaciones2.php:246
-#: console/frm_clasificaciones_equipos.php:225
+#: console/frm_clasificaciones2.php:248
+#: console/frm_clasificaciones_equipos.php:227
 msgid "Check for dogs without registered data"
 msgstr "Comprobar si hay perros sin datos anotados"
 
-#: console/frm_clasificaciones2.php:247
-#: console/frm_clasificaciones_equipos.php:227
+#: console/frm_clasificaciones2.php:249
+#: console/frm_clasificaciones_equipos.php:229
 msgid "Print scores on current round"
 msgstr "Imprimir clasificaci&oacute;n de la manga"
 
-#: console/frm_clasificaciones2.php:248
-#: console/frm_clasificaciones_equipos.php:226
+#: console/frm_clasificaciones2.php:250
+#: console/frm_clasificaciones_equipos.php:228
 msgid "Share results and scores by electronic mail"
 msgstr "Enviar resultados y clasificaciones por correo electr&oacute;nico"
 
-#: console/frm_clasificaciones2.php:249
-#: console/frm_clasificaciones_equipos.php:228
+#: console/frm_clasificaciones2.php:251
+#: console/frm_clasificaciones_equipos.php:230
 msgid "Print data in selected format"
 msgstr "Imprimir los datos en el formato seleccionado"
 
-#: console/frm_clasificaciones2.php:251
-#: console/frm_clasificaciones_equipos.php:229
+#: console/frm_clasificaciones2.php:253
+#: console/frm_clasificaciones_equipos.php:231
 msgid "where to start printing<br/>in labels sheet"
 msgstr "Posici&oacute;n inicial <br /> en la hoja de etiquetas"
 
-#: console/frm_clasificaciones2.php:252
-#: console/frm_clasificaciones_equipos.php:230
+#: console/frm_clasificaciones2.php:254
+#: console/frm_clasificaciones_equipos.php:232
 msgid "Comma separated list of dorsals to be printed"
 msgstr "Lista de dorsales a imprimir separada por comas"
 
-#: console/frm_clasificaciones2.php:253
+#: console/frm_clasificaciones2.php:255
 msgid "Omit label on country missmatch"
 msgstr "Omitir etiquetas si el pa&iacute;s no coincide"
 
-#: console/frm_clasificaciones2.php:254
+#: console/frm_clasificaciones2.php:256
 msgid "Create separate listings for Children and Junior"
 msgstr "Generar listados separados para las clasificaciones infantil y junior"
 
@@ -5034,11 +5034,11 @@ msgstr "Exportar como texto"
 msgid "R.S.C.E. Report"
 msgstr "Informe R.S.C.E."
 
-#: console/frm_clasificaciones_equipos.php:147
+#: console/frm_clasificaciones_equipos.php:149
 msgid "Label sheets"
 msgstr "Hojas de etiquetas"
 
-#: console/frm_clasificaciones_equipos.php:148
+#: console/frm_clasificaciones_equipos.php:150
 msgid "Isolated labels"
 msgstr "Etiquetas sueltas"
 
@@ -5579,7 +5579,7 @@ msgstr "Borrar casilla de b&uacute;squeda. Actualizar datos"
 msgid "Look for judges matching search criteria"
 msgstr "Buscar jueces que coincidan con el criterio de b&uacute;squeda"
 
-#: console/frm_ligas.php:34 server/pdf/classes/PrintClasificacion.php:236
+#: console/frm_ligas.php:34 server/pdf/classes/PrintClasificacion.php:239
 msgid "Cat/Grad"
 msgstr "Cat/Grad"
 
@@ -6247,9 +6247,9 @@ msgstr "Cierre"
 #: lib/templates/final_last_teams.inc.php:44
 #: lib/templates/final_last_teams.inc.php:51 livestream/vwls_finales.php:101
 #: livestream/vwls_finales.php:104
-#: server/pdf/classes/PrintClasificacion.php:251
-#: server/pdf/classes/PrintClasificacion.php:264
-#: server/pdf/classes/PrintClasificacion.php:277
+#: server/pdf/classes/PrintClasificacion.php:254
+#: server/pdf/classes/PrintClasificacion.php:267
+#: server/pdf/classes/PrintClasificacion.php:280
 #: server/pdf/classes/PrintClasificacionGames.php:85
 #: server/pdf/classes/PrintClasificacionGames.php:86
 #: server/pdf/classes/PrintClasificacionGames.php:87
@@ -6284,7 +6284,7 @@ msgstr "Gambler"
 #: lib/templates/parcial_last_individual.inc.php:45
 #: lib/templates/parcial_last_teams.inc.php:47 livestream/vwls_finales.php:107
 #: scripts/results_and_scores.js.php:286 scripts/results_and_scores.js.php:350
-#: server/pdf/classes/PrintClasificacion.php:285
+#: server/pdf/classes/PrintClasificacion.php:288
 #: server/pdf/classes/PrintClasificacionExcel.php:183
 #: server/pdf/classes/PrintClasificacionGames.php:90
 #: server/pdf/classes/PrintClasificacionGames.php:123
@@ -6311,7 +6311,7 @@ msgstr "Actualizando clasificaci&oacute;n final"
 #: lib/templates/parcial_last_individual.inc.php:43
 #: lib/templates/parcial_last_teams.inc.php:45 livestream/vwls_finales.php:106
 #: scripts/results_and_scores.js.php:284
-#: server/pdf/classes/PrintClasificacion.php:283
+#: server/pdf/classes/PrintClasificacion.php:286
 #: server/pdf/classes/PrintClasificacionExcel.php:168
 #: server/pdf/classes/PrintClasificacionExcel.php:176
 #: server/pdf/classes/PrintClasificacionExcel.php:181
@@ -6331,9 +6331,9 @@ msgstr "Penal"
 #: lib/templates/parcial_last_individual.inc.php:44
 #: lib/templates/parcial_last_teams.inc.php:46
 #: scripts/results_and_scores.js.php:285 scripts/results_and_scores.js.php:349
-#: server/pdf/classes/PrintClasificacion.php:250
-#: server/pdf/classes/PrintClasificacion.php:263
-#: server/pdf/classes/PrintClasificacion.php:276
+#: server/pdf/classes/PrintClasificacion.php:253
+#: server/pdf/classes/PrintClasificacion.php:266
+#: server/pdf/classes/PrintClasificacion.php:279
 #: server/pdf/classes/PrintClasificacionTeam.php:290
 #: server/pdf/classes/PrintClasificacionTeam.php:301
 #: server/pdf/classes/PrintPodium.php:145
@@ -6352,9 +6352,9 @@ msgstr "Calif"
 #: lib/templates/parcial_last_teams.inc.php:32
 #: scripts/results_and_scores.js.php:271 scripts/results_and_scores.js.php:277
 #: scripts/results_and_scores.js.php:343
-#: server/pdf/classes/PrintClasificacion.php:245
-#: server/pdf/classes/PrintClasificacion.php:258
-#: server/pdf/classes/PrintClasificacion.php:271
+#: server/pdf/classes/PrintClasificacion.php:248
+#: server/pdf/classes/PrintClasificacion.php:261
+#: server/pdf/classes/PrintClasificacion.php:274
 #: server/pdf/classes/PrintClasificacionTeam.php:285
 #: server/pdf/classes/PrintClasificacionTeam.php:296
 #: server/pdf/classes/PrintPodium.php:128
@@ -6372,9 +6372,9 @@ msgstr "F/T"
 #: livestream/vwls_finales.php:100 livestream/vwls_finales.php:103
 #: scripts/datagrid_formatters.js.php:443 scripts/results_and_scores.js.php:275
 #: scripts/results_and_scores.js.php:281 scripts/results_and_scores.js.php:348
-#: server/pdf/classes/PrintClasificacion.php:249
-#: server/pdf/classes/PrintClasificacion.php:262
-#: server/pdf/classes/PrintClasificacion.php:275
+#: server/pdf/classes/PrintClasificacion.php:252
+#: server/pdf/classes/PrintClasificacion.php:265
+#: server/pdf/classes/PrintClasificacion.php:278
 #: server/pdf/classes/PrintClasificacionGames.php:85
 #: server/pdf/classes/PrintClasificacionGames.php:86
 #: server/pdf/classes/PrintClasificacionGames.php:87
@@ -6418,9 +6418,9 @@ msgstr "Datos de la manga"
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:247
 #: server/excel/classes/PartialScoresWriter.php:86
-#: server/pdf/classes/PrintClasificacion.php:99
-#: server/pdf/classes/PrintClasificacion.php:123
-#: server/pdf/classes/PrintClasificacion.php:147
+#: server/pdf/classes/PrintClasificacion.php:101
+#: server/pdf/classes/PrintClasificacion.php:125
+#: server/pdf/classes/PrintClasificacion.php:149
 #: server/pdf/classes/PrintClasificacionExcel.php:128
 #: server/pdf/classes/PrintClasificacionExcel.php:137
 #: server/pdf/classes/PrintClasificacionGames.php:214
@@ -6437,9 +6437,9 @@ msgstr "Dist"
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:250
 #: server/excel/classes/PartialScoresWriter.php:87
-#: server/pdf/classes/PrintClasificacion.php:100
-#: server/pdf/classes/PrintClasificacion.php:124
-#: server/pdf/classes/PrintClasificacion.php:148
+#: server/pdf/classes/PrintClasificacion.php:102
+#: server/pdf/classes/PrintClasificacion.php:126
+#: server/pdf/classes/PrintClasificacion.php:150
 #: server/pdf/classes/PrintClasificacionExcel.php:129
 #: server/pdf/classes/PrintClasificacionExcel.php:138
 #: server/pdf/classes/PrintClasificacionGames.php:215
@@ -7733,7 +7733,7 @@ msgstr "Imprimiendo lista de equipos. Por favor, espere"
 #: scripts/printer.js.php:209 scripts/printer.js.php:247
 #: scripts/printer.js.php:289 scripts/printer.js.php:579
 #: scripts/printer.js.php:659 scripts/printer.js.php:683
-#: scripts/printer.js.php:726 scripts/pruebas.js.php:222
+#: scripts/printer.js.php:729 scripts/pruebas.js.php:222
 msgid "There was a problem generating your report, please try again."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
@@ -8185,7 +8185,7 @@ msgid "Catalog"
 msgstr "Cat&aacute;logo"
 
 #: scripts/inscripciones.js.php:628
-#: server/pdf/classes/PrintClasificacion.php:189
+#: server/pdf/classes/PrintClasificacion.php:192
 #: server/pdf/classes/PrintClasificacionTeam.php:202
 #: server/pdf/classes/PrintClasificacionTeam.php:213
 #: server/pdf/classes/PrintInscripciones.php:258
@@ -8312,8 +8312,8 @@ msgstr "Actualizar lista de perros con datos obtenidos de un fichero Excel"
 #: scripts/printer.js.php:321 scripts/printer.js.php:396
 #: scripts/printer.js.php:414 scripts/printer.js.php:578
 #: scripts/printer.js.php:616 scripts/printer.js.php:658
-#: scripts/printer.js.php:682 scripts/printer.js.php:725
-#: scripts/printer.js.php:795 scripts/printer.js.php:816
+#: scripts/printer.js.php:682 scripts/printer.js.php:728
+#: scripts/printer.js.php:797 scripts/printer.js.php:818
 #: scripts/pruebas.js.php:221
 msgid "We are preparing your report, please wait"
 msgstr "Preparando el informe, por favor, espere"
@@ -8397,12 +8397,12 @@ msgid "Selected category"
 msgstr "Categoria seleccionada"
 
 #: scripts/printer.js.php:558 scripts/printer.js.php:595
-#: scripts/printer.js.php:638 scripts/printer.js.php:703
+#: scripts/printer.js.php:638 scripts/printer.js.php:705
 msgid "There is no selected round on this journey"
 msgstr "No hay ninguna manga seleccionada en la jornada"
 
-#: scripts/printer.js.php:617 scripts/printer.js.php:796
-#: scripts/printer.js.php:817
+#: scripts/printer.js.php:617 scripts/printer.js.php:798
+#: scripts/printer.js.php:819
 msgid "There was a problem generating your report, please contact the author."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Contacte con el autor."
@@ -9787,11 +9787,21 @@ msgstr "Promocion"
 msgid "Competicion"
 msgstr "Competicion"
 
-#: server/pdf/classes/PrintClasificacion.php:284
+#: server/pdf/classes/PrintClasificacion.php:287
 #: server/pdf/classes/PrintClasificacionTeam.php:308
 #: server/pdf/classes/PrintPodium.php:164
 msgid "Calific"
 msgstr "Calif"
+
+#: server/pdf/classes/PrintClasificacion.php:457
+#: server/pdf/classes/PrintClasificacion.php:460
+msgid "Young"
+msgstr "Juvenil"
+
+#: server/pdf/classes/PrintClasificacion.php:490
+#: server/pdf/classes/PrintClasificacion.php:493
+msgid "Children"
+msgstr "Infantil"
 
 #: server/pdf/classes/PrintClasificacionExcel.php:164
 #: server/pdf/classes/PrintClasificacionExcel.php:172

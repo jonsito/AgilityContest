@@ -45,15 +45,18 @@ try {
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
     // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small 5:tiny 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
 	$mode=http_request("Mode","i","0");
-	$stats=http_request("Stats","i","0");
+    $stats=http_request("Stats","i","0");
+    $children=http_request("Children","i","0");
 	$c= Competitions::getClasificacionesInstance("print_clasificacion_pdf",$jornada);
 	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
+	// en caso de manga junior y children true separamos infantil de juvenil
+    $split= ( ($children!==0) && ($rondas&16384)!==0 )?1:0;
 	// Creamos generador de documento
     if (intval($c->getJornada()->Games)!==0)
         $pdf=new PrintClasificacionGames($prueba,$jornada,$mangas,$result,$mode);
 	else $pdf = new PrintClasificacion($prueba,$jornada,$mangas,$result,$mode);
 	$pdf->AliasNbPages();
-	$pdf->composeTable();
+	$pdf->composeTable($split);
     if($stats==1) $pdf->print_stats();
 	$suffix=$c->getName($mangas,$mode);
 	$pdf->Output("FinalScores_{$suffix}.pdf","D"); // "D" means output to web client (download)

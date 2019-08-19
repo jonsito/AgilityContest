@@ -138,7 +138,9 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 		    </span>
 		        <span style="float:right">
 			    <label id="r_prstatslbl" for="r_prstats"><?php _e('Include Statistics'); ?>:</label>
-                <input id="r_prstats" style="width:78px" name="r_prstats" class="easyui-checkbox" type="checkbox" value="1"/>
+                <input id="r_prstats" style="width:78px" name="r_prstats" class="easyui-checkbox" type="checkbox" value="1"/><br/>
+                <!-- allways hidden in team contests -->
+                <input id="r_children" style="display:none" name="r_children" type="checkbox" value="1"/>
 		    </span>
 	    </span>
         <br />

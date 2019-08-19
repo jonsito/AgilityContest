@@ -688,8 +688,8 @@ function clasificaciones_printHallOfFame() {
 
 /**
  * Imprime los resultados finales de la ronda seleccionada en formato pdf
- * @param {boolean} stats Also print statistics
- * @param {boolean} children On RFEC Junior rounds, print separate sheets for Children/Junior
+ * @param {int} stats 0..1 Also print statistics
+ * @param {int} children 0..1  On RFEC Junior rounds, print separate sheets for Children/Junior
  * @return false
  */
 function clasificaciones_printClasificacion(stats,children) {
@@ -767,7 +767,7 @@ function clasificaciones_doPrint() {
 		case 1: /* csv */ clasificaciones_printEtiquetas(0,line,'',false); break; // csv
         case 3: /* excel */ clasificaciones_printCanina(); break;
         case 6: /* mejores prueba */ clasificaciones_printHallOfFame(); break;
-		case 4: /* pdf */ clasificaciones_printClasificacion((prstats)?1:0,children); break;
+		case 4: /* pdf */ clasificaciones_printClasificacion((prstats)?1:0,(children)?1:0); break;
 		case 5: /* forms cneac */ clasificaciones_printEtiquetas(2,line,list,discriminate); break;
 		case 2: /* labels rsce */ clasificaciones_printEtiquetas(1,line,list,discriminate); break;
 	}
