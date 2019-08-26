@@ -142,9 +142,14 @@ File /r config
 File /r docs
 FILE /r extras
 FILE /r logs
-FILE /r xampp
 FILE /r server
+IfFileExists $INSTDIR\xampp\* DoNotOverwrite
+    FILE /r xampp
+    goto ShortCuts
+DoNotOverwrite:
+    Delete $INSTDIR\logs\first_install
 
+ShortCuts:
 ;Hacemos que la instalacion se realice para todos los usuarios del sistema
 SetShellVarContext all
 ;Creamos los directorios, acesos directos y claves del registro que queramos...
@@ -275,14 +280,17 @@ Function .onInit
   ReadRegStr $R1 HKLM SOFTWARE\${PROGRAM_NAME} "Version"
   StrCpy $installedVersion "$R1"
   
-  MessageBox MB_OKCANCEL|MB_ICONEXCLAMATION \
+  MessageBox MB_YESNOCANCEL|MB_DEFBUTTON2|MB_ICONEXCLAMATION \
   "${PROGRAM_NAME} $installedVersion is currently installed. $\n\
-  Press OK to remove and install ${PROGRAM_NAME} ${VERSION} $\n\
-  Or select `Cancel` to abort and keep current configuration " \
-  IDOK uninst
-  Abort
- 
-;Run the uninstaller
+  Reinstall or Upgrade ? $\n\
+  Press YES to remove current installation and INSTALL new version $\n\
+  Press NO to just UPGRADE to new version ${PROGRAM_NAME} ${VERSION} $\n\
+  Select `Cancel` to abort and keep current installation " \
+  IDYES uninst \
+  IDNO done
+  Abort "Cancelling installation"
+
+; Run the uninstaller
 uninst:
   ; make sure that application is stopped before uninstall/reinstall
   ifFileExists "$INSTDIR\xampp\apache\bin\pv.exe" 0 dontExecKillProc
