@@ -11,8 +11,9 @@ if (!file_exists(SYSTEM_INI)) {
 if (!isset($config) ) $config=Config::getInstance();
 /* check for navigator */
 
-if (!in_array(get_browser_name(),array('Firefox','Chrome','Safari'))) {
-    die("Invalid browser: you should use either Firefox, Chrome or Safari. Otherwise correct behaviour is not guaranteed");
+$current_browser=get_browser_name();
+if (!in_array($current_browser,array('Firefox','Chrome','Safari'))) {
+    die("Invalid browser '{$current_browser}': you should use either Firefox, Chrome or Safari. Otherwise correct behaviour is not guaranteed");
 }
 
 /* check for properly installed xampp */
