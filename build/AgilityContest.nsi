@@ -143,11 +143,8 @@ File /r docs
 FILE /r extras
 FILE /r logs
 FILE /r server
-IfFileExists $INSTDIR\xampp\* DoNotOverwrite
+IfFileExists $TEMP\DoNotReinstall.txt ShortCuts
     FILE /r xampp
-    goto ShortCuts
-DoNotOverwrite:
-    Delete $INSTDIR\logs\first_install
 
 ShortCuts:
 ;Hacemos que la instalacion se realice para todos los usuarios del sistema
@@ -249,8 +246,17 @@ Function .onInstSuccess
   ; recuperamos ficheros de configuracion de la desinstalacion previa
   CopyFiles $TEMP\registration.info $INSTDIR\config
   CopyFiles $TEMP\config.ini $INSTDIR\config
+  CopyFiles $TEMP\system.ini $INSTDIR\config
+
   ; recuperamos backups
   CopyFiles $TEMP\agility-*.sql $INSTDIR\logs
+
+  ; si es update, borramos marca de reinstalacion
+  IfFileExists $TEMP\DoNotReinstall.txt 0 skip
+    Delete $INSTDIR\logs\first_install
+    Delete $TEMP\DoNotReinstall.txt
+skip:
+
 FunctionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -262,12 +268,15 @@ Function .onInit
   ; Preserve configuration and backup files (if exists).
   ; Make sure previous temp config is deleted
   Delete $TEMP\config.ini
+  Delete $TEMP\system.ini
   ; backward compatibility to <3.7.3
-  CopyFiles $INSTDIR\agility\server\auth\registration.info $TEMP
-  CopyFiles $INSTDIR\agility\server\auth\config.ini $TEMP
+  ; CopyFiles $INSTDIR\agility\server\auth\registration.info $TEMP
+  ; CopyFiles $INSTDIR\agility\server\auth\config.ini $TEMP
+  ; CopyFiles $INSTDIR\agility\server\auth\system.ini $TEMP
   ; new config data location
   CopyFiles $INSTDIR\config\registration.info $TEMP
   CopyFiles $INSTDIR\config\config.ini $TEMP
+  CopyFiles $INSTDIR\config\system.ini $TEMP
   ; save sql database backups
   CopyFiles $INSTDIR\logs\agility-*.sql $TEMP
   StrCpy $1 ${esp} ; Spanish is selected by default
@@ -287,11 +296,19 @@ Function .onInit
   Press NO to just UPGRADE to new version ${PROGRAM_NAME} ${VERSION} $\n\
   Select `Cancel` to abort and keep current installation " \
   IDYES uninst \
-  IDNO done
+  IDNO markUpdate
   Abort "Cancelling installation"
+
+markUpdate:
+   ; create a teporary file mark
+   FileOpen $0 $TEMP\DoNotReinstall.txt w ;Opens a Empty File an fills it
+   FileWrite $0 "DoNotReinstall\r$\n"
+   FileClose $0 ;Closes the filled file
+   goto done
 
 ; Run the uninstaller
 uninst:
+  Delete $TEMP\DoNotReinstall.txt
   ; make sure that application is stopped before uninstall/reinstall
   ifFileExists "$INSTDIR\xampp\apache\bin\pv.exe" 0 dontExecKillProc
   nsExec::Exec '"$INSTDIR\xampp\apache\bin\pv.exe" -f -k httpd.exe -q'

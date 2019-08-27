@@ -21,6 +21,7 @@ require_once (__DIR__."/../tools.php");
 define('AC_CONFIG_FILE', __DIR__ . "/../../../config/config.ini"); // user definable configuration
 define('AC_SYSTEM_FILE', __DIR__ . "/../../../config/system.ini"); // system configuration.
 define('AC_BATCH_FILE',__DIR__."/../../../settings.bat"); // to store lang info in windoze
+define('AC_CHANGELOG',__DIR__."/../../../ChangeLog"); // to retrieve current version and revision
 
 /** running modes */
 define('AC_RUNMODE_STANDALONE',1);	// normal (pc/mac/linux) client installation
@@ -508,11 +509,17 @@ Class Config {
             // ahora procesamos los datos del sistema, que tienen precedencia
 			if ( array_key_exists($key,$sys)) $this->config[$key]=$sys[$key];
 		}
+		// nos aseguramos de que version name y date son correctos
+		$changelog = rtrim(fgets(fopen(AC_CHANGELOG, 'r')),"\r\n");
+		$chng = explode(" ",$changelog);
+		$this->config['version_name']=$chng[1];
+		$this->config['version_date']=$chng[2];
 		// si el sistema no tiene uniqueID, lo creamos y guardamos
 		if (!array_key_exists('uniqueID',$this->config) || ($this->config['uniqueID']==="")) {
 			$this->config['uniqueID']=base64_encode(getRandomString(16));
-			$this->writeAC_systemFile($sys);
 		}
+		$this->writeAC_systemFile($sys);
+
 		// y ahora preparamos la internacionalizacion
 		$windows=(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')?true:false;
 		$locale=$this->getPreferredLanguage($this->config['lang']);
