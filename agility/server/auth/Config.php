@@ -509,16 +509,27 @@ Class Config {
             // ahora procesamos los datos del sistema, que tienen precedencia
 			if ( array_key_exists($key,$sys)) $this->config[$key]=$sys[$key];
 		}
-		// nos aseguramos de que version name y date son correctos
-		$changelog = rtrim(fgets(fopen(AC_CHANGELOG, 'r')),"\r\n");
+
+		// al hacer una actualización, y para preservar el uniqueID, es preciso conservar
+        // el system.ini. Por ello es necesario verificar que la versión quede actualizada
+		// nos aseguramos de que en el system.ini version name y date son correctos
+		$changelog = rtrim(fgets(fopen(AC_CHANGELOG, 'r')),"\r\n"); // auto-close
 		$chng = explode(" ",$changelog);
-		$this->config['version_name']=$chng[1];
-		$this->config['version_date']=$chng[2];
+		$needToSave=false;
+		if ($this->config['version_name']!=$chng[1]) {
+            $this->config['version_name'] = $chng[1];
+            $needToSave = true;
+        }
+		if ($this->config['version_date']!=$chng[2]) {
+		    $this->config['version_date']=$chng[2];
+            $needToSave = true;
+        }
 		// si el sistema no tiene uniqueID, lo creamos y guardamos
 		if (!array_key_exists('uniqueID',$this->config) || ($this->config['uniqueID']==="")) {
 			$this->config['uniqueID']=base64_encode(getRandomString(16));
+            $needToSave = true;
 		}
-		$this->writeAC_systemFile($sys);
+		if ($needToSave===true) $this->writeAC_systemFile($sys);
 
 		// y ahora preparamos la internacionalizacion
 		$windows=(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')?true:false;
