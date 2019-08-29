@@ -215,11 +215,14 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
         $this->myLogger->enter();
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 
+        if ($listadorsales!=="") {
+            $granero=join(",",expand_range($listadorsales));
+            $pajar=",{$granero},";
+        }
         // iterate on available data
         foreach($resultados as $row) {
             if ($listadorsales!=="") {
                 $aguja=",{$row['Dorsal']},";
-                $pajar=",$listadorsales,";
                 if (strpos($pajar,$aguja)===FALSE) continue; // Dorsal not in list
             } else {
                 // if country discrimination is active check country and reject on no match

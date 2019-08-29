@@ -163,6 +163,23 @@ function is_color($str) {
 	return false;
 }
 
+// compile a range-comma (ie: "1,2,5-9" ) string to an array of values
+function expand_range($range,$sep=",") {
+    if (!is_string($range)) return array(); // empty
+    $a=explode($sep,trim($range));
+    $result=array();
+    for ($n=0; $n<count ($a); $n++) {
+        if (is_numeric($a[$n])) { $result[]= intval($a[$n]); continue;} // just add data
+        if (preg_match('/^\d+-\d+$/',$a[$n])===FALSE) continue; // invalid syntax
+        $r=explode("-",$a[$n]);
+        $f=intval($r[0]);
+        $t=intval($r[1]);
+        if ($t<$f) continue; // invalid negative range specification
+        for($i=$f;$i<=$t;$i++) $result[]=$i;
+    }
+    return $result;
+}
+
 // check if we are using HTTPS.
 // notice this may fail on extrange servers when https is not by mean of port 443
 function is_https(){

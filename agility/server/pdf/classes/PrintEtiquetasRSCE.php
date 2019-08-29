@@ -210,10 +210,13 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		$this->SetMargins(10,$this->config->getEnv('pdf_topmargin'),10); // left top right
 		$this->SetAutoPageBreak(true,10);
 
+		if ($listadorsales!=="") {
+			$granero=join(",",expand_range($listadorsales));
+			$pajar=",{$granero},";
+		}
 		foreach($resultados as $row) {
 			if ($listadorsales!=="") {
 				$aguja=",{$row['Dorsal']},";
-				$pajar=",$listadorsales,";
 				if (strpos($pajar,$aguja)===FALSE) continue; // Dorsal not in list
 				// do not handle discrimination on user-defined list
 			} else {
