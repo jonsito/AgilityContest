@@ -675,7 +675,7 @@ function tempnam_sfx($path, $prefix="tmp_",$suffix="") {
  * @param {string} $to valid categories
  * return {boolean} true or false
  */
-function category_match($from,$to="-LMSTX") {
+function category_match($from,$to="-XLMST") {
     if (is_numeric($to)) {
         switch (intval($to)) {
             case 0: $to='L'; break;
@@ -691,7 +691,7 @@ function category_match($from,$to="-LMSTX") {
             case 10: $to='XL'; break;
             case 11: $to='MST'; break;
             case 12: $to='XLMST'; break;
-            default: $to='-LMSTX'; break;
+            default: $to='-XLMST'; break;
         }
     }
 	if (strpos($to,"-")!==false) return true; // "-" matches any

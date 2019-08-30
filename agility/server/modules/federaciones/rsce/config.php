@@ -116,7 +116,9 @@ class RSCE extends Federations {
                 "ST"=>"Mini/Tiny", // invalid
                 "MS"=>"Midi/Mini",
                 "LMS" => 'Conjunta LMS',
+                "-LMS" => 'Conjunta LMS',
                 "LMST" => 'Conjunta LMST', // invalid
+                "-LMST" => 'Conjunta LMST', // invalid
                 "X" => '',
                 "XL" => '',
                 "MST" => '',

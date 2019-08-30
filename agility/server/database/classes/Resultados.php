@@ -322,7 +322,7 @@ class Resultados extends DBObject {
 	/**
 	 * Intercambia los resultados de la manga actual con la manga hermana
 	 * @param {integer} $id ID De manga origen
-	 * @param {string} $cat "-LMSTX" (una letra) que indica las categorias a las que afecta el swap
+	 * @param {string} $cat "-XLMST" (una letra) que indica las categorias a las que afecta el swap
      * @param {integer} $tipo tipomanga cuando el swap se puede hacer sobre mas de una manga
 	 * @return {string} "" in success else error string
 	 */
