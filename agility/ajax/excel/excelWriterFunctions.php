@@ -64,6 +64,7 @@ try {
             // starting order
             $osobj= Competitions::getOrdenSalidaInstance("excelResultadosByManga",$manga);
             $res=$osobj->getData(false,$mode,$resultados); // reindex resultados in starting order
+            do_log("results before:".count($resultados['rows'])." after:".count($res['rows']));
             $res['trs']=$resultados['trs']; // add trs/trm information
             // Creamos generador de documento
             $excel = new PartialScoresWriter($prueba,$jornada,$mng,$res,$mode);

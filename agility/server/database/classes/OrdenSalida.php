@@ -444,7 +444,10 @@ class OrdenSalida extends DBObject {
 		// excluyendo a aquellos cuya categoria no coincide con la solicitada
 		$p2=array();
 		$listas=$this->splitPerrosByMode($this->getOrden(),$catmode,false,$range);
-		$orden=explode(',',$listas[1]); // cogemos la lista de los perros incluidos
+		$orden=explode(',',$listas[1]); // cogemos la lista de los perros incluido
+		// PENDING: This is a bypass for some obscure error in orden_salida data corruption.
+		// NEED TO BE PROPERLY FIXED
+		$orden=array_unique($orden, SORT_NUMERIC);
 		foreach ($orden as $perro) {
 			if ($perro==="BEGIN") continue;
 			if ($perro==="END") continue;
