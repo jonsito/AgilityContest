@@ -99,7 +99,9 @@ class NAT3 extends Federations {
                 "ST"=>"Small/Tiny", // invalid
                 "MS"=>"Medium/Small",
                 "LMS" => 'Common LMS',
+                "-LMS" => 'Common LMS',
                 "LMST" => 'Common LMST',
+                "-LMST" => 'Common LMST',
                 "X" => 'Extra L',
                 "XL" => 'Common XL',
                 "MST" => 'Med/Small/Tiny',

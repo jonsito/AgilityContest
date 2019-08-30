@@ -113,7 +113,9 @@ class INTL3 extends Federations {
                 "ST"=>"Small/Tiny", // invalid
                 "MS"=>"Medium/Small",
                 "LMS" => 'Common LMS',
+                "-LMS" => 'Common LMS',
                 "LMST" => 'Common LMST',
+                "-LMST" => 'Common LMST',
                 "X" => '', // invalid
                 "XL" => '', // invalid
                 "MST" => '', // invalid

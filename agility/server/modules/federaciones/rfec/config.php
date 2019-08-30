@@ -118,7 +118,9 @@ class RFEC extends Federations {
                 "ST"=>"Clase 40/30",
                 "MS"=>"Clase 50/40",
                 "LMS" => 'Conjunta 60/50/40',
+                "-LMS" => 'Conjunta 60/50/40',
                 "LMST" => 'Conjunta 60/50/40/30',
+                "-LMST" => 'Conjunta 60/50/40/30',
                 "X" => '', // invalid
                 "XL" => '', // invalid
                 "MST" => '', // invalid

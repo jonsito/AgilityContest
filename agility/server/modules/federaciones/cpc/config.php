@@ -116,7 +116,9 @@ class CPC extends Federations {
                 "ST"=>"Mini/Tiny", // invalid
                 "MS"=>"Midi/Mini",
                 "LMS" => 'Conjunta LMS',
+                "-LMS" => 'Conjunta LMS',
                 "LMST" => 'Conjunta LMST', // invalid
+                "-LMST" => 'Conjunta LMST', // invalid
                 "X" => 'ExtraLarge', // invalid
                 "XL" => 'XL/Large', // invalid
                 "MST" => 'Midi/Mini/Toy', // invalid for cpc

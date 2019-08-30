@@ -114,7 +114,9 @@ class NAT4 extends Federations {
                 "ST"=>"Cat. 40+30",
                 "MS"=>"Cat. 50+40", // invalid
                 "LMS" => 'Conjunta 6+5+4', // invalid
+                "-LMS" => 'Conjunta 6+5+4', // invalid
                 "LMST" =>'Conjunta 6+5+4+3',
+                "-LMST" =>'Conjunta 6+5+4+3',
                 "X" => "", // invalid
                 "XL" => "", // invalid
                 "XLMST" => "", // invalid

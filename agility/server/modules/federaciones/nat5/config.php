@@ -119,7 +119,9 @@ class NAT5 extends Federations {
                 "ST"=>"Cat. 30+20", // 3 groups mode
                 "MS"=>"Cat. 40+30", // invalid in 5 heights
                 "LMS" => 'Conjunta 5+4+3', // invalid in 5 heights
+                "-LMS" => 'Conjunta 5+4+3', // invalid in 5 heights
                 "LMST" =>'Conjunta 5+4+3+2', // invalid in 5 heights
+                "-LMST" =>'Conjunta 5+4+3+2', // invalid in 5 heights
                 "X" => "Cat. 60",
                 "XL" => "Cat. 60+50", // 3 groups mode
                 "MST" => "Cat. 40+30+20", // 2 groups mode
