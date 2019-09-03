@@ -287,12 +287,16 @@ class Competitions {
      * to be used in special rounds
      *
      * @param {string} $file Filename to be used in debug functions
-     * @param {integer} $manga Manga ID
+     * @param {integer | object} $manga Manga ID
      * @return {class} OrdenSalida instance
      */
     public static function getOrdenSalidaInstance($file="OrdenSalida",$manga) {
         $dbobj=new DBObject($file);
-        $mangaobj=$dbobj->__getObject("mangas",$manga);
+        if (is_object($manga)) {
+            $mangaobj=$manga;
+        } else {
+            $mangaobj=$dbobj->__getObject("mangas",$manga);
+        }
         $jornadaobj=$dbobj->__getObject("jornadas",$mangaobj->Jornada);
         $pruebaobj=$dbobj->__getObject("pruebas",$jornadaobj->Prueba);
         // retrieve OrdenSalida handler from competition module

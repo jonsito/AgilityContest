@@ -125,7 +125,7 @@ class PrintTRSTemplates extends PrintCommon {
     function printFormulario(){
         $cols=array(_("Category"),_("Dist").".",_("Obst").".",_("Spd").".",_("SCT"),_("MCT"));
         $size=array(20,15,12.5,12.5,15,15);
-        $mng=new Mangas("printFormularioTRS",$this->jornada->ID);
+        $mng=new Mangas("printFormularioTRS",$this->jornada);
         // obtenemos la lista de mangas de la jornada
         $mangas=$mng->selectByJornada()['rows'];
         $heights=intval($this->federation->get('Heights'));

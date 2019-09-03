@@ -488,7 +488,7 @@ class MailManager {
                 if ($pdf==null) continue;
                 // Creamos generador de documento
                 $pdf->AliasNbPages();
-                $pdf->composeTable();
+                $pdf->composeTable(false);
                 $pdfname=normalize_filename("Clasificaciones_{$s['Nombre']}");
                 array_push($filelist,"{$pdfname}.pdf");
                 $pdf->Output("$maildir/$pdfname.pdf","F"); // "F" means save to file; "D" send to client; "O" store in variable

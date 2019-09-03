@@ -629,7 +629,7 @@ class OrdenSalida extends DBObject {
         $this->myLogger->enter();
         assertClosedJourney($this->jornada); // throw exception on closed journeys
         // buscamos la "manga hermana"
-        $mhandler=new Mangas("OrdenSalida::sameOrder()",$this->jornada->ID);
+        $mhandler=new Mangas("OrdenSalida::sameOrder()",$this->jornada);
         $hermanas=$mhandler->getHermanas($this->manga->ID);
         if (!is_array($hermanas))
             return $this->error("Error find hermanas info for jornada:{$this->jornada->ID} and manga:{$this->manga->ID}");
@@ -790,7 +790,7 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->enter();
         assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// fase 1: buscamos la "manga hermana"
-		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada->ID);
+		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada);
 		$hermanas=$mhandler->getHermanas($this->manga->ID);
 		if (!is_array($hermanas))
 		    return $this->error("Error find hermanas info for jornada:{$this->jornada->ID} and manga:{$this->manga->ID}");

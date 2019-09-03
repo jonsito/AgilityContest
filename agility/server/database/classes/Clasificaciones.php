@@ -743,7 +743,7 @@ class Clasificaciones extends DBObject {
 		$result=null;
 		$myManga=$perro['Manga'];
         // buscamos la manga hermana
-        $mng=new Mangas("getPuestoFinal",$this->jornada->ID);
+        $mng=new Mangas("getPuestoFinal",$this->jornada);
         $hermanas=$mng->getHermanas($myManga); // [0]:current [1]:counterpair [2]...[n]:rest of sisters
         $id1=intval($hermanas[0]->ID);
         $id2=0;

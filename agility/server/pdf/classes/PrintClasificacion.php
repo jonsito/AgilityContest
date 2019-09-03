@@ -430,7 +430,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->Ln();
 	}
 	
-	function composeTable($split) {
+	function composeTable($split=false) {
 		$this->myLogger->enter();
         $len=(($this->manga3)!==null)?115+(57*3+46)*0.75:115+57*2+46; // lenght of closing line
 

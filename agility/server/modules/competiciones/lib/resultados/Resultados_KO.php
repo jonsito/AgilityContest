@@ -94,7 +94,7 @@ class Resultados_KO extends Resultados {
         $res=parent::getResultadosIndividual(11); // ignore categories, just group all
 
         // le pasamos estos datos a OrdenSalida::getData()
-        $osobj=Competitions::getOrdenSalidaInstance("Resultados KO",$this->getDatosManga()->ID);
+        $osobj=Competitions::getOrdenSalidaInstance("Resultados KO",$this->getDatosManga());
         $osres=$osobj->getData(true,8,$res);
 
         // y ahora evaluamos las calificaciones dos a dos

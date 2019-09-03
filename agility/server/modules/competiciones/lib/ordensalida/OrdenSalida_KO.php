@@ -328,7 +328,7 @@ class OrdenSalida_KO extends OrdenSalida {
         } else {        // if $orden==false sort results by starting order checking winner on each pair round
 
             // retrieve results in starting order with no pair separators and no cats
-            $mobj=Competitions::getOrdenSalidaInstance("getParentResults()",$pmanga->ID);
+            $mobj=Competitions::getOrdenSalidaInstance("getParentResults()",$pmanga);
             $data=$mobj->getData(false,8,null);
 
             // evaluate PRecorrido

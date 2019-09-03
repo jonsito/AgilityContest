@@ -141,16 +141,20 @@ class Mangas extends DBObject {
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
-	 * @param {integer} $jornada jornada ID
+	 * @param {integer | object} $jornada jornada ID
 	 * @throws Exception if cannot contact database or invalid jornada ID
 	 */
 	function __construct($file,$jornada) {
 		parent::__construct($file);
-		if ($jornada<=0) {
-			$this->errormsg="Manga::Construct invalid jornada ID";
-			throw new Exception($this->errormsg);
-		}
-		$this->jornadaObj=$this->__selectObject("*","jornadas","(ID=$jornada)" );
+		if (is_object($jornada)) {
+		    $this->jornadaObj=$jornada;
+        } else {
+            if ($jornada<=0) {
+                $this->errormsg="Manga::Construct invalid jornada ID";
+                throw new Exception($this->errormsg);
+            }
+            $this->jornadaObj=$this->__selectObject("*","jornadas","(ID=$jornada)" );
+        }
 		$this->pruebaObj=$this->__selectObject("*","pruebas","(ID={$this->jornadaObj->Prueba})");
         $this->defaultTeamObj=$this->__selectObject("*","equipos","(Jornada=$jornada) AND (DefaultTeam=1)");
 	}

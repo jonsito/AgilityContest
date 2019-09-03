@@ -71,12 +71,10 @@ class PrintCatalogo extends PrintCommon {
 		$this->print_commonFooter();
 	}
 
-	function printClub($id) {
+	function printClub($cmgr,$fedName,$id) {
         $y=$this->GetY();
 		// retrieve club data
-		$cmgr=new Clubes('printCatalogo',$this->prueba->RSCE);
 		$club=$cmgr->selectByID($id);
-		$fedName=$this->federation->get('Name');
 
         // evaluate logo
 		$icon=getIconPath($fedName,"agilitycontest.png");
@@ -207,13 +205,15 @@ class PrintCatalogo extends PrintCommon {
 		$this->AddPage(); // start page
 		$club=0;
         $count=0;
+		$fedName=$this->federation->get('Name');
+		$cmgr=new Clubes('printCatalogo',$this->prueba->RSCE);
 		foreach($this->inscritos as $row) {
             $pos = $this->GetY();
             if (($club == $row['Club'])) {
                 // no hay cambio de club
                 if ($pos > 270) {
                     $this->AddPage();
-                    $this->printClub($club);
+                    $this->printClub($cmgr,$fedName,$club);
                     $count = 0;
                 }
             } else {
@@ -221,7 +221,7 @@ class PrintCatalogo extends PrintCommon {
                 // cambio de club
                 $this->ln(7); // extra newline
                 if ($pos > 250) $this->AddPage();
-                $this->printClub($club);
+                $this->printClub($cmgr,$fedName,$club);
                 $count = 0;
             }
             $this->printParticipante($count, $row);

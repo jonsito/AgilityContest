@@ -922,13 +922,8 @@ class Resultados extends DBObject {
      * @return {class} Resultados instance
      */
     public static function getInstance($file="Resultados",$manga) {
-        $dbobj=new DBObject($file);
-        $mangaobj=$dbobj->__getObject("mangas",$manga);
-        $jornadaobj=$dbobj->__getObject("jornadas",$mangaobj->Jornada);
-        $pruebaobj=$dbobj->__getObject("pruebas",$jornadaobj->Prueba);
-        // retrieve OrdenSalida handler from competition module
-        $compobj=Competitions::getCompetition($pruebaobj,$jornadaobj);
-        return $compobj->getResultadosInstance($file,$pruebaobj,$jornadaobj,$mangaobj);
+        // just call propper competition module
+        return Competitions::getResultadosInstance($file,$manga);
     }
 }
 ?>
