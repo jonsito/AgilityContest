@@ -34,13 +34,13 @@ $config =Config::getInstance();
        data-options="iconCls: 'icon-cancel'" onclick="$('#resultadosmanga-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
 </div>
 
-<!--  dialogo de presentacion de resultados parciales de una manga -->
-<div id="resultadosmanga-dialog" style="width:800px;height:450px;padding:0 10px 100px 10px">
+<!-- TABLA DE DATOS DE TRS Y TRM DE LA MANGA -->
+<div id="resultadosmanga-trs">
+    <?php include_once(__DIR__."/../../lib/templates/parcial_console_round_data.inc.php"); ?>
+</div>
 
-	<!-- TABLA DE DATOS DE TRS Y TRM DE LA MANGA -->
-	<div id="resultadosmanga-trs">
-		<?php include_once(__DIR__."/../../lib/templates/parcial_console_round_data.inc.php"); ?>
-	</div>
+<!--  dialogo de presentacion de resultados parciales de una manga -->
+<div id="resultadosmanga-dialog" style="width:800px;height:550px;padding:0 10px 100px 10px">
 
 	<!-- BARRA DE TAREAS DE RESULTADOS PARCIALES DE MANGA -->
 	<div id="resultadosmanga-toolbar">
@@ -89,7 +89,8 @@ $config =Config::getInstance();
 	    iconCls:		'icon-endflag',
 	    closed:			true,
 	    modal:			true,
-        onBeforeOpen: function () {
+        toolbar:        '#resultadosmanga-trs',
+        onBeforeOpen: function () { // set buttons at bottom of dialog
             prepareCompetitionDialogs("resultadosmanga");
             return true;
         }
