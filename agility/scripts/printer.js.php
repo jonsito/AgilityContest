@@ -355,15 +355,19 @@ function print_parcial(mode) {
         '</span>';
     var msgs=  {
         0: '*<?php _e("Create PDF Report");?>',
-        // 1: '<?php _e("Create Excel File"); ?>',
         2: '<?php _e("Print filled assistant sheets 10 dogs/pages"); ?>',
         3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>'+title
     };
     if (isJornadaKO()) msgs={
         0: '*<?php _e("Create PDF Report");?>',
-        // 1: '<?php _e("Create Excel File"); ?>',
         4: '<?php _e("Print filled assistant sheets 16 dogs/pages"); ?>'
     };
+    if (isJornadaEqMejores()) msgs= {
+        0: '*<?php _e("Create PDF (teams) Report");?>',
+        1: '<?php _e("Create PDF (individual) Report");?>',
+        2: '<?php _e("Print filled assistant sheets 10 dogs/pages"); ?>',
+        3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>'+title
+    }
     $.messager.radio(
         '<?php _e("Partial scores"); ?>',
         '<?php _e("Select output format"); ?>:',
@@ -371,16 +375,20 @@ function print_parcial(mode) {
         function (r) {
             if (!r) return false;
             var t= $('#pp_headertitle').textbox('getText');
+            var url="";
             switch (parseInt(r)) {
                 case 0: // create pdf
                     // generic, ko, games
-                    var url = '../ajax/pdf/print_resultadosByManga.php';
+                    url = '../ajax/pdf/print_resultadosByManga.php';
                     // team best
                     if (parseInt(workingData.datosJornada.Equipos3) != 0)
                         url = '../ajax/pdf/print_resultadosByEquipos.php';
                     // team combined
                     if (parseInt(workingData.datosJornada.Equipos4) != 0)
                         url = '../ajax/pdf/print_resultadosByEquipos4.php';
+                    // no break
+                case 1: // on x-of-y best team contests extra option to print individual results
+                    if (url==="") url = '../ajax/pdf/print_resultadosByManga.php';
                     $.fileDownload(
                         url,
                         {
@@ -398,7 +406,16 @@ function print_parcial(mode) {
                         }
                     );
                     break;
-                case 1: // create excel file
+                case 2: // filled normal rounds 10 dogs/page
+                    print_asistente(10, modeToCats(mode), true,"1-99999","",false);
+                    break;
+                case 3: // filled normal rounds 15 dogs/page
+                    print_asistente(15, modeToCats(mode), true,"1-99999","",false);
+                    break;
+                case 4: // filled ko assistant sheets
+                    print_asistente(16, modeToCats(mode), true,"1-99999","",false);
+                    break;
+                case 5: // create excel file
                     $.fileDownload(
                         '../ajax/excel/excelWriterFunctions.php',
                         {
@@ -415,15 +432,6 @@ function print_parcial(mode) {
                             failMessageHtml: '(Excel partial scores) <?php _e("There was a problem generating your report, please contact author."); ?>'
                         }
                     );
-                    break;
-                case 2: // filled normal rounds 10 dogs/page
-                    print_asistente(10, modeToCats(mode), true,"1-99999","",false);
-                    break;
-                case 3: // filled normal rounds 15 dogs/page
-                    print_asistente(15, modeToCats(mode), true,"1-99999","",false);
-                    break;
-                case 4: // filled ko assistant sheets
-                    print_asistente(16, modeToCats(mode), true,"1-99999","",false);
                     break;
                 // PENDING: add filled sheet for snooker/gambler
             }
@@ -462,8 +470,8 @@ function checkAndPrintParcial(recorrido) {
 					}
 				);
 				str+="</table><br /><?php _e('Print anyway'); ?>?";
-				var w=$.messager.confirm('<?php _e('Invalid data'); ?>',str,function(r){if (r) print_parcial(mode);});
-				w.window('resize',{width:550}).window('center');
+				var w=$.messager.confirm('<?php _e('Incomplete data'); ?>',str,function(r){if (r) print_parcial(mode);});
+				w.window('resize',{width:600,height:550}).window('center');
 			}
 		}
 	});
@@ -690,12 +698,13 @@ function clasificaciones_printHallOfFame() {
  * Imprime los resultados finales de la ronda seleccionada en formato pdf
  * @param {int} stats 0..1 Also print statistics
  * @param {int} children 0..1  On RFEC Junior rounds, print separate sheets for Children/Junior
+ * @param {int} force 0..1  On team-3 force print of individual scores
  * @return false
  */
-function clasificaciones_printClasificacion(stats,children) {
+function clasificaciones_printClasificacion(stats,children,force) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='../ajax/pdf/print_clasificacion.php';
-    if (isJornadaEqMejores()) url='../ajax/pdf/print_clasificacion_equipos.php';
+    if (isJornadaEqMejores() && (force==0)) url='../ajax/pdf/print_clasificacion_equipos.php';
     if (isJornadaEqConjunta()) {
         stats=0; // no sense in equipos conjunta
         url='../ajax/pdf/print_clasificacion_equipos.php';
@@ -743,6 +752,7 @@ function r_selectOption(val) {
 	case 1: // csv
 	case 3: // excel
 	case 4: // pdf
+    case 6: // individual pdf on teams-3
         prfirst.numberspinner('disable'); prlist.textbox('disable'); break;
 	case 2: // etiquetas rsce
 	    prfirst.numberspinner('enable'); prlist.textbox('enable'); break;
@@ -767,7 +777,8 @@ function clasificaciones_doPrint() {
 		case 1: /* csv */ clasificaciones_printEtiquetas(0,line,'',false); break; // csv
         case 3: /* excel */ clasificaciones_printCanina(); break;
         case 6: /* mejores prueba */ clasificaciones_printHallOfFame(); break;
-		case 4: /* pdf */ clasificaciones_printClasificacion((prstats)?1:0,(children)?1:0); break;
+        case 7: /* individual on team3 */  clasificaciones_printClasificacion((prstats)?1:0,(children)?1:0,1); break;
+		case 4: /* pdf */ clasificaciones_printClasificacion((prstats)?1:0,(children)?1:0,0); break;
 		case 5: /* forms cneac */ clasificaciones_printEtiquetas(2,line,list,discriminate); break;
 		case 2: /* labels rsce */ clasificaciones_printEtiquetas(1,line,list,discriminate); break;
 	}

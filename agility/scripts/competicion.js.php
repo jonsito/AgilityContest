@@ -1724,7 +1724,7 @@ function verifyClasificaciones() {
 					$.messager.alert('<?php _e("Verify OK"); ?>','<?php _e("No dogs found without their course results"); ?>',"info");
 				} else {
 					var w=$.messager.alert("Verify Error",str1,"error");
-					w.window('resize',{width:600}).window('center');
+					w.window('resize',{width:600,height:550}).window('center');
 				}
 				return false; // prevent default fireup of event trigger
 			}

@@ -124,17 +124,23 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
    	-->
 </div>
 
-<div id="resultados-printDialog" class="easyui-dialog" 
-	data-options="title:'<?php _e('Select format'); ?>',modal:true,closable:true,closed:true,width:'450px',height:'260px'">
+<div id="resultados-printDialog">
 	<form style="padding:10px" id="resultados-printForm">
-        <input type="radio" name="r_prformat" value="0" onclick="r_selectOption(0);"/><?php _e('Podium'); ?> (PDF)<br />
-        <input type="radio" name="r_prformat" value="1" onclick="r_selectOption(1);"/><?php _e('Text export'); ?> (CSV)<br />
-        <input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/><?php _e('R.S.C.E. Report'); ?> (Excel)<br />
+        <input type="radio" id="r_prformat0" name="r_prformat" value="0" onclick="r_selectOption(0);"/>
+            <label for="r_prformat0"><?php _e('Podium'); ?> (PDF)<br /></label>
+        <input type="radio" id="r_prformat1" name="r_prformat" value="1" onclick="r_selectOption(1);"/>
+            <label for="r_prformat1"><?php _e('Text export'); ?> (CSV)<br /></label>
+        <input type="radio" id="r_prformat3" name="r_prformat" value="3" onclick="r_selectOption(3);"/>
+            <label for="r_prformat3"><?php _e('R.S.C.E. Report'); ?> (Excel)<br /></label>
+        <span id="r_extra_team3">
+            <input type="radio" id="r_prformat7" name="r_prformat" value="7" onclick="r_selectOption(7);"/>
+                <label for="r_prformat7"><?php _e('Individual Scores'); ?> (PDF)<br /></label>
+        </span>
 
         <span  style="display:inline-block;width:100%">
 		    <span style="float:left">
 	            <input type="radio" id="r_prformat4" name="r_prformat" value="4" checked="checked" onclick="r_selectOption(4);"/>
-                <label for="r_prformat4"><?php _e('Scores'); ?> (PDF)</label>
+                <label for="r_prformat4"><?php _e('Team Scores'); ?> (PDF)</label>
 		    </span>
 		        <span style="float:right">
 			    <label id="r_prstatslbl" for="r_prstats"><?php _e('Include Statistics'); ?>:</label>
@@ -151,10 +157,11 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 		    </span>
 		    <span style="float:right">
 			    <label id="r_prfirstLbl" for="first"><?php _e('Initial label'); ?>:</label>
-			    <input id="r_prfirst" style="width:45px" name="first" class="easyui-numberspinner"
-				    data-options="value:1,min:1,max:16,disabled:true"/><br />
+			        <input id="r_prfirst" style="width:45px" type="text" value="1" disabled="disabled" name="first"/>
+                <br/>
 			    <label id="r_prlistLbl" for="list"><?php _e('Dorsal list'); ?>:</label>
-			    <input id="r_prlist" style="width:85px" name="list" class="easyui-textbox" data-options="value:'',disabled:true"/><br />
+			        <input id="r_prlist" style="width:85px" name="list" type="text" value="" disabled="disabled"/>
+                <br/>
 		    </span>
 	    </span>
         &nbsp;<br />
@@ -166,6 +173,13 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 </div>
 
 <script type="text/javascript">
+
+$('#r_prlist').textbox();
+$('#r_prfirst').numberspinner({
+        max: 16,
+        min: 1,
+        value: 1
+});
 
 $('#resultados-selectCategoria').combobox({
 		valueField:'mode',
@@ -220,6 +234,19 @@ $('#resultados-info-prueba').form('load',{
 	Fecha:	workingData.datosJornada.Fecha,
 	Ronda:	"", // to be filled later
 	Observaciones: workingData.datosPrueba.Observaciones
+});
+
+$('#resultados-printDialog').dialog({
+    title:'<?php _e('Select format'); ?>',
+    modal:true,
+    closable:true,
+    closed:true,
+    width:'450px',
+    height:'300px',
+    onBeforeOpen: function() {
+        $('#r_extra_team3').css('display',isJornadaEqMejores()?'inherit':'none');
+        return true;
+    }
 });
 
 //tooltips
