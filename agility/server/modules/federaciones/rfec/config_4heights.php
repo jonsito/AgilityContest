@@ -16,7 +16,7 @@ class RFEC extends Federations {
             'WebURL' => 'http://www.fecaza.com/',
             'ParentWebURL' => 'http://www.csd.gob.es/',
             'Email' => 'yvonneagility@fecaza.com',
-            'Heights' => 5,
+            'Heights' => 4,
             'Grades' => 2,
             'Games' => 0,
             'International' => 0,
@@ -25,9 +25,9 @@ class RFEC extends Federations {
             'ReverseXLMST' => true, // default order is TSMLX instead of XLMST
             'Recorridos' => array(
                 _('Common course'),
-                "Clase 60+50 / 40+30+25", // 2 groups
+                "Clases 60+50 / 40+30", // 2 groups
                 _("Separate courses"),
-                "Clase 60+50 / 40 / 30+25"
+                ""
             ),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
@@ -51,84 +51,81 @@ class RFEC extends Federations {
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',
-                'X' => '60',
-                'L' => '50',
-                'M' => '40',
-                'S' => '30',
-                'T' => '25'
+                // 'E' => 'Extra',
+                'L' => '60',
+                'M' => '50',
+                'S' => '40',
+                'T' => '30'
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',
-                'X' => 'Clase 60',
-                'L' => 'Clase 50',
-                'M' => 'Clase 40',
-                'S' => 'Clase 30',
-                'T' => 'Clase 25'
+                // 'E' => 'Extra Large',
+                'L' => 'Clase 60',
+                'M' => 'Clase 50',
+                'S' => 'Clase 40',
+                'T' => 'Clase 30'
             ),
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
                 'I' => 'Infantil',
-                'J' => 'Juvenil',
+                'J' => 'Junior',
                 'A' => 'Adulto',
                 // 'S' => 'Senior',
                 'R' => 'Retirado',
                 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('L' => _('Clase 50'),'M' => _('Clase 40'),'S' => _('Clase 30'),'T' => _('Clase 25'),'X' => _('Clase 60') ), // separate courses
-                array('L' => '',           'M' => _('40+30+25'),'S' => '',           'T' => '',           'X' => _('60+50')), // mixed (2 groups) courses
-                array('L' => '',           'M' => '',           'S' => '',           'T' => '',           'X' => _('6+5+4+3+2')), // common ( single height ) course
-                array('L' => '',           'M' => _('Clase 40'),'S' => _('30+25'),   'T' => '',           'X' => _('60+50'),   ) // 3 group courses
+                array('L' => _('Clase 60'),   'M' => _('Clase 50'),'S' => _('Clase 40'), 'T' => _('Clase 30'),'X' => ""), // separate courses
+                array('L' => _('Cl. 60+50'),  'M' => '',           'S' => _('Cl. 40+30'),'T' => '',         'X' => ""), // 2 groups
+                array('L' => _('60+50+40+30'),'M' => '',           'S' => '',            'T' => '',         'X' => ""), // common
+                array('L' => "",              'M' => "",           'S' => "",            'T' => "",         'X' => "") // 3 groups
             ),
             'Modes' => array(
-                //  categorias            L   M   S   T   X
-                array(/* 0: separado */   0,  1,  2,  5,  9 ),
-                array(/* 1: 2 groups */  10, 11, 11, 11, 10 ),
-                array(/* 2: conjunto */  12, 12, 12, 12, 12 ), // pre-agility is declared as -XLMST
-                array(/* 3: 3 grupos */  10,  1,  7,  7, 10 )
+                // categorias        L  M  S  T  X
+                array(/* separado */ 0, 1, 2, 5,-1 ),
+                array(/* 2 grupos */ 6, 6, 7, 7,-1 ),
+                array(/* conjunto */ 8, 8, 8, 8, 8 ), // pre-agility is declared as -XLMST
+                array(/* 3 grupos */-1,-1,-1,-1,-1 )
             ),
             'ModeStrings' => array( // text to be shown on each category
-
-                // category  L M S T X
-                array(/* separado  */_('Clase 50'),     _('Clase 40'),      _('Clase 30'),      _('Clase 25'),     _('Clase 60') ),
-                array(/* 2 grupos */ _('Clase 60+50'),  _('Clase 40+30+25'),_('Cat. 40+30+25'), _('Cat. 40+30+25'),_('Clase 60+50') ),
-                array(/* conjunto */ "Recorrido comun", "Recorrido comun",  "Recorrido comun",  "Recorrido comun", "Recorrido comun"),
-                array(/* 3 grupos */ _('Clase 60+50'),  _('Clae 40'),       _('Clase 30+25'),   _('Clase 30+25'),  _('Clase 60+50'))
+                array(/* separado */ "Clase 60",    "Clase 50",     "Clase 40",     "Clase 30",     "Invalid"),
+                array(/* 2 grupos */ "Clase 60+50", "Clase 60+50",  "Clase 40+30",  "Clase 40+30",  "Invalid"),
+                array(/* conjunto */ "Recorrido comun", "Recorrido comun", "Recorrido comun", "Recorrido comun","Invalid"),
+                array(/* 3 grupos */ "Invalid",     "Invalid",      "Invalid",      "Invalid",      "Invalid"),
             ),
             'IndexedModes' => array (
-                /* 0 - L    */ "Clase 50",
-                /* 1 - M    */ "Clase 40",
-                /* 2 - S    */ "Clase 30",
-                /* 3 - MS   */ "Clase 40+30",
-                /* 4 - LMS  */ "Clase 50+40+30",
-                /* 5 - T    */ "Clase 25",
-                /* 6 - LM   */ "Clase 50+40",
-                /* 7 - ST   */ "Clase 30+25",
-                /* 8 - LMST */ "50+40+30+25",
-                /* 9 - X    */ "Clase 60",
-                /*10 - XL   */ "Clase 60+50",
-                /*11 - MST  */ "Clase 40+30+25",
-                /*12 - XLMST*/ "60+50+40+30+25"
+                "Clase 60",
+                "Clase 50",
+                "Clase 40",
+                "Cl. 50+40",
+                "Conjunta 60/50/40",
+                "Clase 30",
+                "Cl. 60+50",
+                "Cl. 40+30",
+                "Conjunta 60/50/40/30",
+                "Extra Large",
+                "Large + XL",
+                "Common M/S/T",
+                "Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
-
                 "-" => "",
-                "L"=>"Clase 50",
-                "M"=>"Clase 40",
-                "S"=>"Clase 30",
-                "T"=>"Clase 25",
-                "LM"=>"Clase 60+50", // // invalid in 5 heights
-                "ST"=>"Clase 30+25", // 3 groups mode
-                "MS"=>"Clase 40+30", // invalid in 5 heights
-                "LMS" => 'Conjunta 5+4+3', // invalid in 5 heights
-                "-LMS" => 'Conjunta 5+4+3', // invalid in 5 heights
-                "LMST" =>'Conjunta 5+4+3+2', // invalid in 5 heights
-                "-LMST" =>'Conjunta 5+4+3+2', // invalid in 5 heights
-                "X" => "Clase 60",
-                "XL" => "Clase 60+50", // 3 groups mode
-                "MST" => "Clase 40+30+20", // 2 groups mode
-                "XLMST" => "", // common course
-                "-XLMST"=> ""
+                "L"=>"Clase 60",
+                "M"=>"Clase 50",
+                "S"=>"Clase 40",
+                "T"=>"Clase 30",
+                "LM"=>"Clase 60/50",
+                "ST"=>"Clase 40/30",
+                "MS"=>"Clase 50/40",
+                "LMS" => 'Conjunta 60/50/40',
+                "-LMS" => 'Conjunta 60/50/40',
+                "LMST" => 'Conjunta 60/50/40/30',
+                "-LMST" => 'Conjunta 60/50/40/30',
+                "X" => '', // invalid
+                "XL" => '', // invalid
+                "MST" => '', // invalid
+                "XLMST" => '', // invalid
+                "-XLMST" => ''
             ),
             'NombreTandas' => array(
                 0	=> '-- Sin especificar --',
@@ -137,9 +134,9 @@ class RFEC extends Federations {
                 3	=> 'Agility-1 Promocion 60',
                 4	=> 'Agility-1 Promocion 50',
                 5	=> 'Agility-1 Promocion 40',
-                6	=> 'Jumping Promocion 60', // en temporada 2019-2020 la segunda manga es jumping
-                7	=> 'Jumping Promocion 50',
-                8	=> 'Jumping Promocion 40',
+                6	=> 'Agility-2 Promocion 60',
+                7	=> 'Agility-2 Promocion 50',
+                8	=> 'Agility-2 Promocion 40',
                 9	=> 'Agility Competicion 60',
                 10	=> 'Agility Competicion 50',
                 11	=> 'Agility Competicion 40',
@@ -178,7 +175,7 @@ class RFEC extends Federations {
 
                 // "Tiny" support for Pruebas de cuatro alturas
                 41	=> 'Agility-1 Promocion 30',
-                42	=> 'Jumping Promocion 30',
+                42	=> 'Agility-2 Promocion 30',
                 43	=> 'Agility Competicion 30',
                 44	=> 'Agility GIII 30',	// no existe
                 45	=> 'Agility Clase 30', //  Individual-Open
@@ -242,14 +239,6 @@ class RFEC extends Federations {
                 100  => 'Junior 2 50',
                 101  => 'Junior 2 40',
                 102  => 'Junior 2 30',
-                103 => 'Senior 1 Large',
-                104 => 'Senior 1 Medium',
-                105 => 'Senior 1 Small',
-                106 => 'Senior 1 Toy',
-                107 => 'Senior 2 Large',
-                108 => 'Senior 2 Medium',
-                109 => 'Senior 2 Small',
-                110 => 'Senior 2 Toy'
             ),
             'TipoMangas' => array(
                 0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo', 'IsAgility'),
