@@ -778,6 +778,19 @@ class Updater {
         $this->addColumnUnlessExists("mangas", "TRM_X_Unit", "varchar(1)", "%");
         return 0;
     }
+
+    // New rules for rfec 5 heights
+    function updateHeightsRFEC() {
+        $this->myLogger->enter();
+        $cmds= array(
+            "UPDATE perros SET Categoria='X' WHERE Categoria='L' AND Federation=1",
+            "UPDATE perros SET Categoria='L' WHERE Categoria='M' AND Federation=1",
+            "UPDATE perros SET Categoria='M' WHERE Categoria='S' AND Federation=1",
+            "UPDATE perros SET Categoria='S' WHERE Categoria='T' AND Federation=1"
+        );
+        foreach ($cmds as $query) { $this->myDBObject->query($query); }
+        return 0;
+    }
 }
 
 $upg=new Updater();
@@ -860,6 +873,9 @@ try {
     $upg->updatePreAgility();
 
     // $upg->updateInscripciones(); not needed and to many time wasted
+
+    // si la versión de la db es inferior a la 4.0.0, mover los perros de caza
+    // PENDING
 
     // for server edition, include inscription dates
     // notice that mysql does not support CURRENT_DATE as default value, so need to emulate

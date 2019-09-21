@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2019-09-15 14:46+0200\n"
-"PO-Revision-Date: 2019-09-15 14:48+0200\n"
+"POT-Creation-Date: 2019-09-21 10:42+0200\n"
+"PO-Revision-Date: 2019-09-21 10:44+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -2842,12 +2842,14 @@ msgstr "Sin grados - Open"
 
 #: console/dialogs/dlg_jornadas.inc:106 server/database/classes/poedit.php:33
 #: server/modules/Competitions.php:115 server/modules/Federations.php:312
-#: server/modules/federaciones/rfec/config.php:294
+#: server/modules/federaciones/rfec/config.php:328
+#: server/modules/federaciones/rfec/config_4heights.php:294
 msgid "K.O. Round"
 msgstr "Ronda K.O."
 
 #: console/dialogs/dlg_jornadas.inc:110 server/modules/Federations.php:318
-#: server/modules/federaciones/rfec/config.php:300
+#: server/modules/federaciones/rfec/config.php:334
+#: server/modules/federaciones/rfec/config_4heights.php:300
 msgid "Games / WAO"
 msgstr "Juegos / WAO"
 
@@ -5457,7 +5459,8 @@ msgid "Junior"
 msgstr "Junior"
 
 #: console/frm_inscripciones2.php:185 server/modules/Federations.php:320
-#: server/modules/federaciones/rfec/config.php:302
+#: server/modules/federaciones/rfec/config.php:336
+#: server/modules/federaciones/rfec/config_4heights.php:302
 msgid "Senior"
 msgstr "Senior"
 
@@ -7429,20 +7432,23 @@ msgid "Countries"
 msgstr "Pa&iacute;ses"
 
 #: scripts/competicion.js.php:97 server/modules/Federations.php:317
-#: server/modules/federaciones/rfec/config.php:299
+#: server/modules/federaciones/rfec/config.php:333
+#: server/modules/federaciones/rfec/config_4heights.php:299
 msgid "Teams 3"
 msgstr "Equipos (3)"
 
 #: scripts/competicion.js.php:102 server/modules/Federations.php:311
-#: server/modules/federaciones/rfec/config.php:293
+#: server/modules/federaciones/rfec/config.php:327
+#: server/modules/federaciones/rfec/config_4heights.php:293
 msgid "Teams 4"
 msgstr "Equipos (4 conjunta)"
 
 #: scripts/competicion.js.php:108 server/database/classes/poedit.php:25
 #: server/database/classes/poedit.php:30 server/database/classes/poedit.php:34
 #: server/modules/Federations.php:309
-#: server/modules/federaciones/rfec/config.php:291 videowall/vws.js.php:307
-#: videowall/vws.js.php:338
+#: server/modules/federaciones/rfec/config.php:325
+#: server/modules/federaciones/rfec/config_4heights.php:291
+#: videowall/vws.js.php:307 videowall/vws.js.php:338
 msgid "Individual"
 msgstr "Individual"
 
@@ -8924,7 +8930,8 @@ msgstr "Agility GIII"
 
 #: server/database/classes/poedit.php:24 server/database/classes/poedit.php:29
 #: server/modules/Federations.php:308
-#: server/modules/federaciones/rfec/config.php:290
+#: server/modules/federaciones/rfec/config.php:324
+#: server/modules/federaciones/rfec/config_4heights.php:290
 msgid "Grade III"
 msgstr "Grado III"
 
@@ -8983,7 +8990,8 @@ msgid "K.O."
 msgstr "K.O."
 
 #: server/database/classes/poedit.php:34 server/modules/Federations.php:313
-#: server/modules/federaciones/rfec/config.php:295
+#: server/modules/federaciones/rfec/config.php:329
+#: server/modules/federaciones/rfec/config_4heights.php:295
 msgid "Special Round"
 msgstr "Manga especial"
 
@@ -9466,6 +9474,7 @@ msgstr "Excelente (0)"
 #: server/modules/federaciones/nat4/config.php:26
 #: server/modules/federaciones/nat5/config.php:26
 #: server/modules/federaciones/rfec/config.php:27
+#: server/modules/federaciones/rfec/config_4heights.php:27
 #: server/modules/federaciones/rsce/config.php:26
 msgid "Common course"
 msgstr "Recorrido com&uacute;n"
@@ -9478,6 +9487,7 @@ msgstr "Recorrido com&uacute;n"
 #: server/modules/federaciones/nat4/config.php:28
 #: server/modules/federaciones/nat5/config.php:28
 #: server/modules/federaciones/rfec/config.php:29
+#: server/modules/federaciones/rfec/config_4heights.php:29
 #: server/modules/federaciones/rsce/config.php:28
 msgid "Separate courses"
 msgstr "Recorridos separados"
@@ -9493,27 +9503,31 @@ msgid "Standard / Midi + Mini"
 msgstr "Standard / Midi + Mini"
 
 #: server/modules/Federations.php:310
-#: server/modules/federaciones/rfec/config.php:292
+#: server/modules/federaciones/rfec/config.php:326
+#: server/modules/federaciones/rfec/config_4heights.php:292
 msgid "Teams 3best"
 msgstr "Eq. 3mejores"
 
 #: server/modules/Federations.php:314
-#: server/modules/federaciones/rfec/config.php:296
+#: server/modules/federaciones/rfec/config.php:330
+#: server/modules/federaciones/rfec/config_4heights.php:296
 msgid "Grade II-III"
 msgstr "Grado II-III conjunta"
 
 #: server/modules/Federations.php:315
-#: server/modules/federaciones/rfec/config.php:297
+#: server/modules/federaciones/rfec/config.php:331
+#: server/modules/federaciones/rfec/config_4heights.php:297
 msgid "Teams 2best"
 msgstr "Eq. 2mejores"
 
 #: server/modules/Federations.php:316
-#: server/modules/federaciones/rfec/config.php:298
+#: server/modules/federaciones/rfec/config.php:332
+#: server/modules/federaciones/rfec/config_4heights.php:298
 msgid "Teams 2"
 msgstr "Equipos 2"
 
 #: server/modules/Federations.php:319
-#: server/modules/federaciones/rfec/config.php:301
+#: server/modules/federaciones/rfec/config_4heights.php:301
 msgid "Children / Junior"
 msgstr "Infantil / Junior"
 
@@ -9703,7 +9717,7 @@ msgstr "Cat. 40+30"
 
 #: server/modules/federaciones/nat4/config.php:76
 #: server/modules/federaciones/nat4/config.php:89
-#: server/modules/federaciones/rfec/config.php:80
+#: server/modules/federaciones/rfec/config_4heights.php:80
 msgid "60+50+40+30"
 msgstr "60+50+40+30"
 
@@ -9734,10 +9748,13 @@ msgstr "40+30+20"
 
 #: server/modules/federaciones/nat5/config.php:78
 #: server/modules/federaciones/nat5/config.php:80
+#: server/modules/federaciones/rfec/config.php:79
+#: server/modules/federaciones/rfec/config.php:81
 msgid "60+50"
 msgstr "60+50"
 
 #: server/modules/federaciones/nat5/config.php:79
+#: server/modules/federaciones/rfec/config.php:80
 msgid "6+5+4+3+2"
 msgstr "6+5+4+3+2"
 
@@ -9762,41 +9779,85 @@ msgid "Cat. 30+20"
 msgstr "Cat. 30+20"
 
 #: server/modules/federaciones/rfec/config.php:78
-msgid "Clase 60"
-msgstr "Clase 60"
-
-#: server/modules/federaciones/rfec/config.php:78
+#: server/modules/federaciones/rfec/config.php:93
+#: server/modules/federaciones/rfec/config_4heights.php:78
 msgid "Clase 50"
 msgstr "Clase 50"
 
 #: server/modules/federaciones/rfec/config.php:78
+#: server/modules/federaciones/rfec/config.php:81
+#: server/modules/federaciones/rfec/config.php:93
+#: server/modules/federaciones/rfec/config.php:96
+#: server/modules/federaciones/rfec/config_4heights.php:78
 msgid "Clase 40"
 msgstr "Clase 40"
 
 #: server/modules/federaciones/rfec/config.php:78
+#: server/modules/federaciones/rfec/config.php:93
+#: server/modules/federaciones/rfec/config_4heights.php:78
 msgid "Clase 30"
 msgstr "Clase 30"
 
-#: server/modules/federaciones/rfec/config.php:79
-msgid "Cl. 60+50"
-msgstr "Cl. 60+50"
+#: server/modules/federaciones/rfec/config.php:78
+#: server/modules/federaciones/rfec/config.php:93
+msgid "Clase 25"
+msgstr "Clase 25"
+
+#: server/modules/federaciones/rfec/config.php:78
+#: server/modules/federaciones/rfec/config.php:93
+#: server/modules/federaciones/rfec/config_4heights.php:78
+msgid "Clase 60"
+msgstr "Clase 60"
 
 #: server/modules/federaciones/rfec/config.php:79
-msgid "Cl. 40+30"
-msgstr "Cl. 40+30"
+msgid "40+30+25"
+msgstr "40+30+25"
 
-#: server/modules/federaciones/rfec/config.php:286
-#: server/modules/federaciones/rfec/config.php:287
+#: server/modules/federaciones/rfec/config.php:81
+msgid "30+25"
+msgstr "30+25"
+
+#: server/modules/federaciones/rfec/config.php:94
+#: server/modules/federaciones/rfec/config.php:96
+msgid "Clase 60+50"
+msgstr "Clase 60+50"
+
+#: server/modules/federaciones/rfec/config.php:94
+msgid "Clase 40+30+25"
+msgstr "Clase 40+30+25"
+
+#: server/modules/federaciones/rfec/config.php:96
+msgid "Clase 30+25"
+msgstr "Clase 30+25"
+
+#: server/modules/federaciones/rfec/config.php:320
+#: server/modules/federaciones/rfec/config.php:321
+#: server/modules/federaciones/rfec/config_4heights.php:286
+#: server/modules/federaciones/rfec/config_4heights.php:287
 msgid "Iniciacion"
 msgstr "Iniciacion"
 
-#: server/modules/federaciones/rfec/config.php:288
+#: server/modules/federaciones/rfec/config.php:322
+#: server/modules/federaciones/rfec/config_4heights.php:288
 msgid "Promocion"
 msgstr "Promocion"
 
-#: server/modules/federaciones/rfec/config.php:289
+#: server/modules/federaciones/rfec/config.php:323
+#: server/modules/federaciones/rfec/config_4heights.php:289
 msgid "Competicion"
 msgstr "Competicion"
+
+#: server/modules/federaciones/rfec/config.php:335
+msgid "Children / Joung"
+msgstr "Infantil / Juvenil"
+
+#: server/modules/federaciones/rfec/config_4heights.php:79
+msgid "Cl. 60+50"
+msgstr "Cl. 60+50"
+
+#: server/modules/federaciones/rfec/config_4heights.php:79
+msgid "Cl. 40+30"
+msgstr "Cl. 40+30"
 
 #: server/pdf/classes/PrintClasificacion.php:287
 #: server/pdf/classes/PrintClasificacionTeam.php:308

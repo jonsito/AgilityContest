@@ -25,9 +25,9 @@ class RFEC extends Federations {
             'ReverseXLMST' => true, // default order is TSMLX instead of XLMST
             'Recorridos' => array(
                 _('Common course'),
-                "Clase 60+50 / 40+30+25", // 2 groups
+                "60+50 / 40+30+25", // 2 groups
                 _("Separate courses"),
-                "Clase 60+50 / 40 / 30+25"
+                "60+50 / 40 / 30+25" // 3 groups
             ),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
@@ -91,9 +91,9 @@ class RFEC extends Federations {
 
                 // category  L M S T X
                 array(/* separado  */_('Clase 50'),     _('Clase 40'),      _('Clase 30'),      _('Clase 25'),     _('Clase 60') ),
-                array(/* 2 grupos */ _('Clase 60+50'),  _('Clase 40+30+25'),_('Cat. 40+30+25'), _('Cat. 40+30+25'),_('Clase 60+50') ),
+                array(/* 2 grupos */ _('Clase 60+50'),  _('Clase 40+30+25'),_('Clase 40+30+25'), _('Clase 40+30+25'),_('Clase 60+50') ),
                 array(/* conjunto */ "Recorrido comun", "Recorrido comun",  "Recorrido comun",  "Recorrido comun", "Recorrido comun"),
-                array(/* 3 grupos */ _('Clase 60+50'),  _('Clae 40'),       _('Clase 30+25'),   _('Clase 30+25'),  _('Clase 60+50'))
+                array(/* 3 grupos */ _('Clase 60+50'),  _('Clase 40'),       _('Clase 30+25'),   _('Clase 30+25'),  _('Clase 60+50'))
             ),
             'IndexedModes' => array (
                 /* 0 - L    */ "Clase 50",
@@ -278,8 +278,8 @@ class RFEC extends Federations {
                 0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo', 'IsAgility'),
                 1 =>	array( 1, 'Iniciacion Manga 1', 		'P.A.',	'Iniciacion 1',	'Iniciacion',  1),
                 2 => 	array( 2, 'Iniciacion Manga 2', 		'P.A.',	'Iniciacion 2',	'Iniciacion',  2),
-                3 =>	array( 3, 'Agility Promocion Manga 1',	'GI',	'Ag-1 Promocion',	'Promocion',   1),
-                4 => 	array( 4, 'Agility Promocion Manga 2',	'GI',	'Ag-2 Promocion',	'Promocion',   2),
+                3 =>	array( 3, 'Agility Promocion',	        'GI',	'Ag Promocion',	'Promocion',   1),
+                4 => 	array( 4, 'Jumping Promocion',	        'GI',	'Jp Promocion',	'Promocion',   2),
                 5 =>	array( 5, 'Agility Competicion', 		'GII',	'Ag. Competicion',	'Competicion', 1),
                 6 =>	array( 6, 'Agility Grade III', 			'GIII',	'Agility GIII',	'Grade III',   1), // no existe en caza
                 7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',  1), // Open
@@ -292,7 +292,7 @@ class RFEC extends Federations {
                 14 =>	array( 14,'Jumping Equipos'				,'-',  	'Jp. Equipos',	'Equipos',     2), // team combined
                 15 =>	array( 15,'K.O. Manga 1', 				'-',	'K.O. - 1',	    'K.O.',        1),
                 16 =>	array( 16,'Manga Especial', 			'-',	'Manga Especial','Individual', 1), // special round, no grades
-                17 => 	array( 17,'Agility Promocion Manga 3',	'GI',	'Ag-3 Promocion',	'Promocion',   3), // on RFEC special G1 3rd round
+                17 => 	array( 17,'Agility Promocion (2)',	    'GI',	'Ag Promocion (2)',	'Promocion',   3), // on RFEC special G1 3rd round
                 // mangas extra para K.O.
                 18 =>	array( 18,'K.O. Segunda manga',			'-',	'K.O. - 2',     'K.O.',         2),
                 19 =>	array( 19,'K.O. Tercera manga',			'-',	'K.O. - 3',	    'K.O.',         3),

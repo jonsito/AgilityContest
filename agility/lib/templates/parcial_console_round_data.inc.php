@@ -55,7 +55,7 @@ $config =Config::getInstance();
     </table>
 </form>
 <script type="text/javascript" charset="UTF-8">
-    $.each(['L','M','S','T'],function(index,cat){
+    $.each(['X','L','M','S','T'],function(index,cat){
        $.each(['DIST_','OBST_','TRS_','TRM_','VEL_'],function(index2,grad){
          $('#rm_'+grad+cat).textbox();
        });
