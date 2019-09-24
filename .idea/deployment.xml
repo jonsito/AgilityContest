@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Localhost" deleteMissingItems="true" createEmptyFolders="true">
+    <serverData>
+      <paths name="Localhost">
+        <serverdata>
+          <mappings>
+            <mapping deploy="." local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/build" />
+            <excludedPath local="true" path="$PROJECT_DIR$/extras" />
+            <excludedPath local="true" path="$PROJECT_DIR$/web" />
+            <excludedPath local="true" path="$PROJECT_DIR$/config/registration.info" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.htaccess" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="SuTurno">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$/applications/RaspBerryPi_NowRunning" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="*.pyc" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
