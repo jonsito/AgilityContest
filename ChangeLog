@@ -1,3 +1,13 @@
+Version 4.0.0 20190923_1123
+    - Support for 5-heights on RFEC Federation
+    - RFEC Balear league support
+    - Allow individual listings team-best rounds
+    - Do not scroll round selection box on partial results dialog
+    - New license handling by mean of remote activation key
+    - Children/Joung competitor supports in RFEC
+    - Fixes on Excel Export to ease handling of resulting files
+    - So many bug fixes and enhancements
+    - Database update
 Version 3.9.2 20190710_1100
     - Fix xxx.js.php header to mark as javascript
     - Fix so many dialogs to remove topright "close" button and force use Cancel

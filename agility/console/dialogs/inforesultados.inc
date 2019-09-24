@@ -39,7 +39,7 @@ $config =Config::getInstance();
 				</td>
 			</tr>
             <tr id="datos_manga<?php echo $nmanga; ?>-XLargeRow">
-                <th id="dm<?php echo $nmanga; ?>_Lbl_X">Large</th>
+                <th id="dm<?php echo $nmanga; ?>_Lbl_X">X-Large</th>
                 <td><?php _e('Distance');?>: <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_DIST_X"></td>
                 <td><?php _e('Obstacles');?>: <input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_OBST_X"></td>
                 <td><?php _e('SCT');?>:<input type="text" size="4" class="result_forms easyui-textbox" readonly="readonly" id="dm<?php echo $nmanga; ?>_TRS_X"></td>

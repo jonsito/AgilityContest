@@ -37,17 +37,18 @@ define('DO_NOT_BACKUP',__DIR__."/../../logs/do_not_backup");
 
 class Updater {
     protected $myConfig;
-    public $current_version;
-    public $last_version;
+    public $current_version; // Software version from system.ini
+    public $last_version; // database version from VersionHistory table
     public $myLogger;
     protected $conn;
     protected $myDBObject;
 
     // used to store backup version info to handle remote updates
-    protected $bckVersion="0.0.0";
-    protected $bckRevision="00000000_0000";
-    protected $bckLicense="00000000";
-    protected $bckDate="20180215_0944";
+    // these values comes from Backup database header
+    protected $bckVersion="0.0.0";              // software version that created backup file
+    protected $bckRevision="00000000_0000";     // software revision that created backup file
+    protected $bckLicense="00000000";           // software license number that created backup file
+    protected $bckDate="20180215_0944";         // Date of backup file creation
 
     /**
      * Updater constructor.
@@ -57,8 +58,8 @@ class Updater {
         // extract version info from configuration file
         $this->myConfig=Config::getInstance();
         $this->myLogger=new Logger("autoUpgrade",$this->myConfig->getEnv("debug_level"));
-        $this->bckVersion=$this->myConfig->getEnv('version_name'); // extracted from sql file. defaults to current
-        $this->bckRevision=$this->myConfig->getEnv('version_date'); // extracted from sql file. defaults to current
+        $this->bckVersion=$this->myConfig->getEnv('version_name'); // extracted from sql file on restore. defaults to current
+        $this->bckRevision=$this->myConfig->getEnv('version_date'); // extracted from sql file on restore. defaults to current
         $this->current_version=$this->myConfig->getEnv("version_date");
 
         // connect database with proper permissions
@@ -778,6 +779,24 @@ class Updater {
         $this->addColumnUnlessExists("mangas", "TRM_X_Unit", "varchar(1)", "%");
         return 0;
     }
+
+    // New rules for rfec 5 heights
+    function updateHeightsRFEC() {
+        $this->myLogger->enter();
+        $cmds= array(
+            // promote L->X and so
+            "UPDATE perros SET Categoria='X' WHERE Categoria='L' AND Federation=1",
+            "UPDATE perros SET Categoria='L' WHERE Categoria='M' AND Federation=1",
+            "UPDATE perros SET Categoria='M' WHERE Categoria='S' AND Federation=1",
+            "UPDATE perros SET Categoria='S' WHERE Categoria='T' AND Federation=1",
+            // mark every existing RFEC journeys as closed
+            // DON'T update pruebas's closed flag: contest wont be available anymore
+            // "UPDATE pruebas SET Cerrada=1 WHERE RSCE=1",
+            "UPDATE jornadas SET Cerrada=1 WHERE jornadas.Prueba=pruebas.ID AND pruebas.RSCE=1"
+        );
+        foreach ($cmds as $query) { $this->myDBObject->query($query); }
+        return 0;
+    }
 }
 
 $upg=new Updater();
@@ -860,6 +879,8 @@ try {
     $upg->updatePreAgility();
 
     // $upg->updateInscripciones(); not needed and to many time wasted
+    // si la versión de la db es inferior a la 4.0.0, mover los perros de caza
+    if(strcmp($upg->last_version,"4.0.0")<0) $upg->updateHeightsRFEC();
 
     // for server edition, include inscription dates
     // notice that mysql does not support CURRENT_DATE as default value, so need to emulate

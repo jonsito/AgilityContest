@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA LOS DATOS DE EQUIPOS DE UNA PRUEBA -->
-<div id="team_edit_dialog" title="Nuevo/Editar equipo" style="width:450px;padding:10px">
+<div id="team_edit_dialog" title="Nuevo/Editar equipo" style="width:500px;padding:10px">
    	<div class="ftitle"><?php _e('Team information'); ?>:</div>
    	<form id="team_edit_dialog-form" class="easyui-form">
    		<input id="team_edit_dialog-ID" type="hidden" name="ID" value="0"/>
@@ -31,19 +31,24 @@ $config =Config::getInstance();
    		<input id="team_edit_dialog-Operation" type="hidden" name="Operation" value="insert"/>
    	 	<div class="fitem">
 			<label for="team_edit_dialog-Nombre" style="width:100px"><?php _e('Name'); ?>:</label>
-			<input id="team_edit_dialog-Nombre" name="Nombre" style="width:150px;"/>
+			<input id="team_edit_dialog-Nombre" name="Nombre" style="width:250px;"/>
 		</div>
 		<div class="fitem">
 			<label for="team_edit_dialog-Categorias" style="width:100px"><?php _e('Categories');?>:</label>
 			<input id="team_edit_dialog-Categorias" type="hidden" name="Categorias" value=""/>
             <span id="team_edit_dialog-xlarge">
-                <input type="checkbox" id="team_edit_dialog-X" name="X" value="X">Tiny</input>
+                <input type="checkbox" id="team_edit_dialog-X" name="X" value="X"/>
+                <label id="team_edit_dialog_lbl-X" for="team_edit_dialog-X" style="width:40px">Xlarge</label>
             </span>
-			<input type="checkbox" id="team_edit_dialog-L" name="L" value="L">Large</input>
-			<input type="checkbox" id="team_edit_dialog-M" name="M" value="M">Medium</input>
-			<input type="checkbox" id="team_edit_dialog-S" name="S" value="S">Small</input>
+			<input type="checkbox" id="team_edit_dialog-L" name="L" value="L">
+            <label id="team_edit_dialog_lbl-L" for="team_edit_dialog-L" style="width:40px">Large</label>
+			<input type="checkbox" id="team_edit_dialog-M" name="M" value="M">
+            <label id="team_edit_dialog_lbl-M" for="team_edit_dialog-M" style="width:40px">Medium</label>
+			<input type="checkbox" id="team_edit_dialog-S" name="S" value="S">
+            <label id="team_edit_dialog_lbl-S" for="team_edit_dialog-S" style="width:40px">Small</label>
 			<span id="team_edit_dialog-tiny">
-                <input type="checkbox" id="team_edit_dialog-T" name="T" value="T">Tiny</input>
+                <input type="checkbox" id="team_edit_dialog-T" name="T" value="T">
+                <label id="team_edit_dialog_lbl-T" for="team_edit_dialog-T" style="width:40px">Tiny</label>
             </span>
 		</div>
 		<div class="fitem">
@@ -85,6 +90,11 @@ $('#team_edit_dialog').dialog({
 $('#team_edit_dialog-Nombre').textbox({
     required: true,
     validType: 'length[1,100]'
+});
+
+$.each(['X','L','M','S','T'],function(index,cat){
+    var str=workingData.datosFederation.ListaCategoriasShort[cat];
+    $('#team_edit_dialog_lbl-'+cat).html(str);
 });
 
 addTooltip($('#team_edit_dialog-okBtn').linkbutton(),'<?php _e("Register team data.<br />Update database"); ?>');
