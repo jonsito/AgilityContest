@@ -241,7 +241,7 @@ class RFEC extends Federations {
                 99   => 'Junior 2 50',
                 100  => 'Junior 2 40',
                 101  => 'Junior 2 30',
-                102  => 'Junior 2 250',
+                102  => 'Junior 2 25',
                 103 => 'Senior 1 50',
                 104 => 'Senior 1 40',
                 105 => 'Senior 1 30',
