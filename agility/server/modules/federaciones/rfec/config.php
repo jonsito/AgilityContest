@@ -257,7 +257,7 @@ class RFEC extends Federations {
                 114	=> 'Senior 2 60',
                 115	=> 'Agility-1 Promocion 60',
                 116	=> 'Jumping Promocion 60',
-                117	=> 'Agility-3 Promocion 60',
+                117	=> 'Agility-2 Promocion 60',
                 118	=> 'Agility Competicion 60',
                 119	=> 'Jumping Competicion 60',
                 120	=> 'Agility GIII XLarge', // no existe en rfec

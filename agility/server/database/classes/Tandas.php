@@ -163,8 +163,8 @@ class Tandas extends DBObject {
             109	=> array('Tipo'=>109,	'TipoManga'=> 35,	'Nombre'=>'Senior 2 Small',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'Sr'),
          110	=> array('Tipo'=>110,	'TipoManga'=> 35,	'Nombre'=>'Senior 2 Toy',		'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Sr'),
          // tandas para cinco alturas (X-Large
-         111	=> array('Tipo'=>111,	'TipoManga'=> 35,	'Nombre'=>'Junior 1 XLarge',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Jr'),
-         112	=> array('Tipo'=>112,	'TipoManga'=> 35,	'Nombre'=>'Junior 2 XLarge',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Jr'),
+         111	=> array('Tipo'=>111,	'TipoManga'=> 32,	'Nombre'=>'Junior 1 XLarge',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Jr'),
+         112	=> array('Tipo'=>112,	'TipoManga'=> 33,	'Nombre'=>'Junior 2 XLarge',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Jr'),
          113	=> array('Tipo'=>113,	'TipoManga'=> 34,	'Nombre'=>'Senior 1 XLarge',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Sr'),
          114	=> array('Tipo'=>114,	'TipoManga'=> 34,	'Nombre'=>'Senior 2 XLarge',	'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Sr'),
          115	=> array('Tipo'=>115,	'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI XLarge','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'GI'),
@@ -481,18 +481,48 @@ class Tandas extends DBObject {
 	function swapXLMST() {
         $p=$this->prueba->ID;
         $j=$this->jornada->ID;
-        $l="( 3,  6,   9, 12, 15, 18, 23, 26, 29, 32, 38, 56, 95,  99 )";
-	    $m="( 4,  7,  10, 13, 16, 19, 24, 27, 30, 33, 39, 57, 96, 100 )";
-	    $s="( 5,  8,  11, 14, 17, 20, 25, 28, 31, 34, 40, 58, 97, 101 )";
-	    $t="( 41, 42, 43, 44, 45, 46, 49, 50, 51, 52, 55, 59, 98, 102 )";
-	    $cmds=array(
-	        // swap large and toy
-            "UPDATE tandas SET Orden=Orden+3 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$l})",
-            "UPDATE tandas SET Orden=Orden-3 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$t})",
-            // swap small and medium
-            "UPDATE tandas SET Orden=Orden+1 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$m})",
-            "UPDATE tandas SET Orden=Orden-1 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$s})"
-        );
+        // list of tandas that may be exchanged
+        $x="( 111,112, 113,114,115,116,117,118,119,120,121,122,123, 124, 125, 126 )"; // XLarge
+        $l="(   3,  6,   9, 12, 15, 18, 23, 26, 29, 32, 38, 56, 95,  99, 103, 107 )"; // Large
+	    $m="(   4,  7,  10, 13, 16, 19, 24, 27, 30, 33, 39, 57, 96, 100, 104, 108 )"; // medium
+	    $s="(   5,  8,  11, 14, 17, 20, 25, 28, 31, 34, 40, 58, 97, 101, 102, 109 )"; // small
+	    $t="(  41, 42,  43, 44, 45, 46, 49, 50, 51, 52, 55, 59, 98, 102, 106, 110 )"; // toy
+	    $cmds=array();
+	    $heights=$this->federation->get('Heights');
+	    if ($heights==3){
+            $cmds=array(
+                // medium unchanged and stay in the middle
+                // swap large and small
+                "UPDATE tandas SET Orden=Orden+2 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$l})",
+                "UPDATE tandas SET Orden=Orden-2 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$s})"
+            );
+        }
+	    if ($heights==4) {
+            $cmds=array(
+                // swap large and toy
+                "UPDATE tandas SET Orden=Orden+3 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$l})",
+                "UPDATE tandas SET Orden=Orden-3 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$t})",
+                // swap small and medium
+                "UPDATE tandas SET Orden=Orden+1 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$m})",
+                "UPDATE tandas SET Orden=Orden-1 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$s})"
+            );
+        }
+	    if ($heights==5) {
+            $cmds=array(
+                // medium unchanged
+                // swap xlarge and toy
+                "UPDATE tandas SET Orden=Orden+4 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$x})",
+                "UPDATE tandas SET Orden=Orden-4 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$t})",
+                // swap large and small
+                "UPDATE tandas SET Orden=Orden+2 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$l})",
+                "UPDATE tandas SET Orden=Orden-2 WHERE (Prueba={$p}) AND (Jornada={$j}) AND (Tipo IN {$s})"
+            );
+
+        }
+	    if ( count($cmds)==0) {
+	        $this->myLogger->error("Federation has invalid heigths number: {$heights}");
+	        return;
+        }
         $this->query("START TRANSACTION");
 	    foreach ($cmds as $cmd) {
 	        $res=$this->query($cmd);
@@ -705,7 +735,7 @@ class Tandas extends DBObject {
                 continue;
             }
             if( ($heights==4) && ($item['Categoria']==='X') ) {
-                // remove every "XLarge" tandas on RFEC contests
+                // remove every "XLarge" tandas on 4-Heights contests
                 $this->removeFromList($tipo);
                 continue;
             }
