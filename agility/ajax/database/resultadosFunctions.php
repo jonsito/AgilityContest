@@ -30,7 +30,7 @@ try {
 	$jornadaID=http_request("Jornada","i",0);
 	$mangaID=http_request("Manga","i",0);
 	$idperro=http_request("Perro","i",0);
-	$mode=http_request("Mode","i",11); // XLMST includes 4 (LMS) and 8 (LMST)
+	$mode=http_request("Mode","i",12); // XLMST includes 4 (LMS) and 8 (LMST)
 	$cats= http_request("Categorias","s","-"); // sort everything LMST by default
 
     // preliminary checks
@@ -48,9 +48,9 @@ try {
 		case "delete": $am->access(PERMS_OPERATOR); $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;
 		case "reset":
-            $catmode=11;
+            $catmode=12;
             switch ($cats) {
-                case "-": $catmode=11; break; // use 11 cause includes 4 (LMS) and 8 (LMST)
+                case "-": $catmode=12; break; // use 12 cause includes 4 (LMS) and 8 (LMST)
                 case "X": $catmode=9; break;
                 case "L": $catmode=0; break;
                 case "M": $catmode=1; break;

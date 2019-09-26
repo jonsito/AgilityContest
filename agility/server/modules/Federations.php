@@ -342,7 +342,7 @@ class Federations {
 
     /**
      * Translate requested manga mode to federation dependent i18n'd Manga mode data
-     * @param {integer} $mode manga mode 0..11
+     * @param {integer} $mode manga mode 0..12
      * @param {integer} $idx tipo de resultado 0:largo 1:abreviado
      * @return {string} requested data
      */

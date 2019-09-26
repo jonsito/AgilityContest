@@ -111,7 +111,6 @@ class RFEC extends Federations {
                 /*12 - XLMST*/ "60+50+40+30+25"
             ),
             'IndexedModeStrings' => array(
-
                 "-" => "",
                 "L"=>"Clase 50",
                 "M"=>"Clase 40",

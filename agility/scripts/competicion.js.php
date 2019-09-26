@@ -1499,7 +1499,7 @@ function competicionDialog(name) {
  * resultados: almacen de resultados (array[mode][manga]
  * idmanga: Manga ID
  * idxmanga: 1..2 manga index
- * mode: 0..11
+ * mode: 0..12
  */
 function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
     if (mode<0) return; // invalid mode. do not parse
@@ -1610,16 +1610,16 @@ function resultados_doSelectRonda(row) {
     var rondas=[];
     var last=-1;
     var count=0;
-    for (var n=0; n<5; n++) { // L M S T X
+    // por razones historiacas ( no habia 5 alturas ) los campos mode y modestring
+    // estan dados en el orden L M S T X, por lo que hay que hacer una reindexacion
+    var orden=[4,0,1,2,3];
+    for (var i=0; i<5; i++) {
+        var n=orden[i];
         var mode=fedinfo.Modes[rec][n];
         if (mode < 0) continue;
         if (mode==last) continue;
         last=mode;
-        if (n==4) { // dirty hack: X category comes in first place
-            rondas.splice(0,0,{'mode':mode,'text':fedinfo.ModeStrings[rec][n]});
-        } else {
-            rondas[count]={'mode':mode,'text':fedinfo.ModeStrings[rec][n]};
-        }
+        rondas[count]={'mode':mode,'text':fedinfo.ModeStrings[rec][n]};
         count++;
     }
     $('#resultados-selectCategoria').combobox('loadData',rondas);

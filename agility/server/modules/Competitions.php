@@ -222,7 +222,7 @@ class Competitions {
      * @return {array} trs array or null if no changes
      */
     public function presetTRSData($tipo) {
-        // on KO rounds preset to TRS=0:TRM=100 mode=11
+        // on KO rounds preset to TRS=0:TRM=100 mode=12
         if ( ! isMangaKO($tipo) ) return null; // no KO->no preset
         $manga=array();
         $manga['Recorrido']=2; // 0:separados 1:mixto 2:conjunto

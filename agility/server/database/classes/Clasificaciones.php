@@ -194,9 +194,9 @@ class Clasificaciones extends DBObject {
 		$this->sortFinal($final,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
 
 		// calculamos campo "Puesto", "Calificacion" y Puntos
-        $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
-        $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
-        $countcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
+        $puestocat=array( 'C'=>1, 'X' => 1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
+        $lastcat=array( 'C'=>0, 'X' => 0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
+        $countcat=array( 'C'=>0, 'X' => 0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
 		$size=count($final);
         // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
         $comp=Competitions::getCompetition($this->prueba,$this->jornada);
@@ -330,6 +330,7 @@ class Clasificaciones extends DBObject {
 			$id=$equipo['ID'];
             if ($equipo['Nombre']==="-- Sin asignar --") continue;
             // comprobamos la categoria. si no coincide tiramos el equipo
+            //            0   1   2   3     4    5    6    7    8     9   10    11     12
             $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST","X","XL","MST","XLMST");
             if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
             $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0,'Outs1'=>0,'Outs2'=>0));
@@ -560,7 +561,7 @@ class Clasificaciones extends DBObject {
 	 * Evalua las clasificaciones finales por equipos
 	 * @param {integer} $rondas bitfield Jornadas::$tipo_ronda
 	 * @param {array[{integer}]} $idmangas array con los ID's de las mangas a evaluar
-	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
+	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:M+S+T 12:X+L+M+S+T
 	 *
 	 * Retorna varios arrays:
 	 * - datos de las mangas
@@ -617,7 +618,7 @@ class Clasificaciones extends DBObject {
 	 * Evalua las clasificaciones en funcion de los datos pedidos
 	 * @param {integer} $rondas bitfield Jornadas::$tipo_ronda
 	 * @param {array[{integer}]} $idmangas array con los ID's de las mangas a evaluar
-	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
+	 * @param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:M+S+T 12:X+L+M+S+T
      * @return {array} final clasification data
 	 */
 	function clasificacionFinal($rondas,$idmangas,$mode) {
@@ -735,7 +736,7 @@ class Clasificaciones extends DBObject {
      * Esta funcion no tiene en cuenta pruebas por equipos ni ko. simplemente considera las dos primeras
      * mangas (o solo la primera, si no hay manga hermana
      *
-	 *@param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
+	 *@param {integer} $mode Modo 0:L 1:M 2:S 3:M+S 4:L+M+S 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:M+S+T 12:X+L+M+S+T
 	 *@param {array} $perro datos del perro (Perro,Faltas,Tocados,Rehuses,Eliminado,NoPresentado,Tiempo,IDManga)
 	 *@return {array} requested data or error
 	 */

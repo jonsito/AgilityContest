@@ -73,7 +73,7 @@ class Resultados_KO extends Resultados {
 
     /**
      * Presenta una tabla ordenada segun los resultados de la manga
-     *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
+     *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:M+S+T 12:X+L+M+S+T
      *@return {array} requested data or error
      */
     function getResultadosIndividual($mode) {

@@ -257,7 +257,7 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
             return;
         }
         // evaluamos puesto real una vez eliminados los "extranjeros"
-        $puesto=$puestocat[$cat]-$this->pfoffset[$cat];
+        $puesto=$puestocat[$cat] - $this->pfoffset[$cat];
         // si esta entre los 7 primeros cogemos los puntos
         if ($puesto<8) $pfin=$ptsglobal[$puesto-1];
         // y asignamos la calificacion final

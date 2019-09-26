@@ -273,14 +273,14 @@ class Resultados extends DBObject {
     /**
      * Used in excel import to find round entries that matches with provided search criteria
      */
-    function enumerate($mode=11) { // 11 (XLMST) includes 4 (LMS) and 8 (LMST)
+    function enumerate($mode=12) { // 12 (XLMST) includes 4 (LMS) and 8 (LMST)
         $this->myLogger->enter();
         // evaluate search criteria for query
         $q=http_request("q","s","");
         $where="1";
         if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
         $cats="";
-        if ($mode!=11) $cats=sqlFilterCategoryByMode($mode,"");
+        if ($mode!=12) $cats=sqlFilterCategoryByMode($mode,"");
         $result=$this->__select(
         /* SELECT */ "*",
             /* FROM */ "resultados",
@@ -295,7 +295,7 @@ class Resultados extends DBObject {
 	function reset($catsmode) {
 		$this->myLogger->enter();
 		$where="";
-		if ($catsmode!==11) $where=sqlFilterCategoryByMode($catsmode,""); // 11(XLMST) includes 4(LMS) and 8(LMST)
+		if ($catsmode!=12) $where=sqlFilterCategoryByMode($catsmode,""); // 12(XLMST) includes 4(LMS) and 8(LMST)
 		$this->getDatosJornada(); // also implies getDatosManga
 		$idmanga=$this->IDManga;
 		if ($this->isCerrada())
@@ -520,7 +520,7 @@ class Resultados extends DBObject {
 		$idmanga=$this->IDManga;
 		$where="(Manga=$idmanga) AND (Pendiente=1) "; // para comprobar pendientes
 		$cat="";
-		if ($mode!=11) $cat=sqlFilterCategoryByMode($mode,"");
+		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode,"");
 		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		// comprobamos si hay perros pendientes de salir
 		$res= $this->__select(
@@ -536,17 +536,17 @@ class Resultados extends DBObject {
 
 	/**
 	 * Retrieve best intermediate and final times on this round
-	 * @param $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST 9:X 10:XL 11:XLMST
+	 * @param $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST 9:X 10:XL 11:MST 12:XLMST
 	 * @return {array} requested data or error
 	 */
-	function bestTimes($mode=11) {
+	function bestTimes($mode=12) {
 		$this->myLogger->enter();
 
 		// FASE 0: en funcion del tipo de recorrido y modo pedido
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga={$this->IDManga}) AND (Pendiente=0) ";
 		$cat="";
-		if ($mode!=11) $cat=sqlFilterCategoryByMode($mode,"");
+		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode,"");
 		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		//  evaluamos mejores tiempos intermedios y totales
 		$best=$this->__select(
@@ -565,7 +565,7 @@ class Resultados extends DBObject {
 	 * Compone un array de tiempo/penalizaciones anyadiendo el perro que le indicamos
      * Se utiliza para obtener el puesto de un perro cuando todavia NO ha sido insertado en la base de datos
      * Si perro es null entonces no se anyade nada
-	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
+	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:M+S+T 12:X+L+M+S+T
 	 *@param {array} { perro,faltas,tocados,rehuses,eliminado,nopresentado,tiempo }
 	 *@return {array} dog data with penal/time ordered
 	 */
@@ -582,7 +582,7 @@ class Resultados extends DBObject {
             $where="(Manga=$idmanga) AND (Pendiente=0) AND (Perro!=$idperro)";
         }
 		$cat="";
-        if ($mode!=11) $cat=sqlFilterCategoryByMode($mode,""); // 11:XLMST includes 4:LMS and 8:LMST
+        if ($mode!=12) $cat=sqlFilterCategoryByMode($mode,""); // 12:XLMST includes 4:LMS and 8:LMST
         if ($cat===null)  return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
@@ -668,7 +668,7 @@ class Resultados extends DBObject {
 
     /**
      * Obtiene el puesto de un perro cuando todavia NO ha sido insertado en la base de datos
-     *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+S+T
+     *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:M+S+T 12:X+L+M+S+T
      *@param {array} { perro,faltas,tocados,rehuses,eliminado,nopresentado,tiempo }
      *@return {array} dog data with penal/time ordered
      */
@@ -694,7 +694,7 @@ class Resultados extends DBObject {
 
 	/**
 	 * Presenta una tabla ordenada segun los resultados de la manga
-	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:X+L+M+S+T
+	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:L+M 7:S+T 8:L+M+S+T 9:X 10:X+L 11:M+S+T 12:X+L+M+S+T
 	 *@return {array} requested data or error
 	 */
 	function getResultadosIndividual($mode) {
@@ -705,7 +705,8 @@ class Resultados extends DBObject {
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga=$idmanga) AND (Pendiente=0) AND (perroguiaclub.ID=resultados.Perro) ";
 		$cat="";
-		if ($mode!=11) $cat=sqlFilterCategoryByMode($mode,"resultados."); // notice the ending dot '.'
+		// mode 12 is XLMST
+		if ($mode<12) $cat=sqlFilterCategoryByMode($mode,"resultados."); // notice the ending dot '.'
         if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(

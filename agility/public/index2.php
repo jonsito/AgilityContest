@@ -316,7 +316,8 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
                                 case 'LMST':$mode=8; break;
                                 case 'X':   $mode=9; break;
                                 case 'XL':   $mode=10; break;
-                                case 'XLMST':$mode=11; break;
+                                case 'MST':  $mode=11; break;
+                                case 'XLMST':$mode=12; break;
                             }
                             echon('<dt>Live session now: <a class="easyui-linkbutton" href="javascript:pbmenu_loadPartialScores('.$p.','.$j.','.$mng.','.$mode.');">'.$tanda['Nombre'].'</a></dt><dd>&nbsp;</dd>');
                         }
