@@ -202,12 +202,12 @@ class Mangas extends DBObject {
         }
         $str="UPDATE mangas
 				SET Recorrido={$cdata['Recorrido']},
-				TRS_L_Tipo={$cdata['TRS_L_Tipo']},     TRS_M_Tipo={$cdata['TRS_M_Tipo']},     TRS_S_Tipo={$cdata['TRS_S_Tipo']},     TRS_T_Tipo={$cdata['TRS_T_Tipo']},
-				TRS_L_Factor={$cdata['TRS_L_Factor']}, TRS_M_Factor={$cdata['TRS_M_Factor']}, TRS_S_Factor={$cdata['TRS_S_Factor']}, TRS_T_Factor={$cdata['TRS_T_Factor']},
-				TRS_L_Unit='{$cdata['TRS_L_Unit']}',   TRS_M_Unit='{$cdata['TRS_M_Unit']}',   TRS_S_Unit='{$cdata['TRS_S_Unit']}',   TRS_T_Unit='{$cdata['TRS_T_Unit']}',
-				TRM_L_Tipo={$cdata['TRM_L_Tipo']},     TRM_M_Tipo={$cdata['TRM_M_Tipo']},     TRM_S_Tipo={$cdata['TRM_S_Tipo']},     TRM_T_Tipo={$cdata['TRM_T_Tipo']},
-				TRM_L_Factor={$cdata['TRM_L_Factor']}, TRM_M_Factor={$cdata['TRM_M_Factor']}, TRM_S_Factor={$cdata['TRM_S_Factor']}, TRM_T_Factor={$cdata['TRM_T_Factor']},
-				TRM_L_Unit='{$cdata['TRM_L_Unit']}',   TRM_M_Unit='{$cdata['TRM_M_Unit']}',   TRM_S_Unit='{$cdata['TRM_S_Unit']}',   TRM_T_Unit='{$cdata['TRM_T_Unit']}'
+				TRS_X_Tipo={$cdata['TRS_X_Tipo']},     TRS_L_Tipo={$cdata['TRS_L_Tipo']},     TRS_M_Tipo={$cdata['TRS_M_Tipo']},     TRS_S_Tipo={$cdata['TRS_S_Tipo']},     TRS_T_Tipo={$cdata['TRS_T_Tipo']},
+				TRS_X_Factor={$cdata['TRS_X_Factor']}, TRS_L_Factor={$cdata['TRS_L_Factor']}, TRS_M_Factor={$cdata['TRS_M_Factor']}, TRS_S_Factor={$cdata['TRS_S_Factor']}, TRS_T_Factor={$cdata['TRS_T_Factor']},
+				TRS_X_Unit='{$cdata['TRS_X_Unit']}',   TRS_L_Unit='{$cdata['TRS_L_Unit']}',   TRS_M_Unit='{$cdata['TRS_M_Unit']}',   TRS_S_Unit='{$cdata['TRS_S_Unit']}',   TRS_T_Unit='{$cdata['TRS_T_Unit']}',
+				TRM_X_Tipo={$cdata['TRM_X_Tipo']},     TRM_L_Tipo={$cdata['TRM_L_Tipo']},     TRM_M_Tipo={$cdata['TRM_M_Tipo']},     TRM_S_Tipo={$cdata['TRM_S_Tipo']},     TRM_T_Tipo={$cdata['TRM_T_Tipo']},
+				TRM_X_Factor={$cdata['TRM_X_Factor']}, TRM_L_Factor={$cdata['TRM_L_Factor']}, TRM_M_Factor={$cdata['TRM_M_Factor']}, TRM_S_Factor={$cdata['TRM_S_Factor']}, TRM_T_Factor={$cdata['TRM_T_Factor']},
+				TRM_X_Unit='{$cdata['TRM_X_Unit']}',   TRM_L_Unit='{$cdata['TRM_L_Unit']}',   TRM_M_Unit='{$cdata['TRM_M_Unit']}',   TRM_S_Unit='{$cdata['TRM_S_Unit']}',   TRM_T_Unit='{$cdata['TRM_T_Unit']}'
 				WHERE ( ID=$mangaid )";
         $rs=$this->query($str);
         if (!$rs) return $this->error($this->conn->error);
@@ -239,42 +239,50 @@ class Mangas extends DBObject {
 		$recorrido	= http_request("Recorrido","i",0);
 		$tipo	= http_request("Tipo","i",0);
 		// distancias
-		$dist_l = http_request("Dist_L","i",0);
+        $dist_x = http_request("Dist_X","i",0);
+        $dist_l = http_request("Dist_L","i",0);
 		$dist_m = http_request("Dist_M","i",0);
 		$dist_s = http_request("Dist_S","i",0);
 		$dist_t = http_request("Dist_T","i",0);
 		// obstaculos
-		$obst_l = http_request("Obst_L","i",0);
+        $obst_x = http_request("Obst_X","i",0);
+        $obst_l = http_request("Obst_L","i",0);
 		$obst_m = http_request("Obst_M","i",0);
 		$obst_s = http_request("Obst_S","i",0);
 		$obst_t = http_request("Obst_T","i",0);
 		// tipo TRS
-		$trs_l_tipo = http_request("TRS_L_Tipo","i",0);
+        $trs_x_tipo = http_request("TRS_X_Tipo","i",0);
+        $trs_l_tipo = http_request("TRS_L_Tipo","i",0);
 		$trs_m_tipo = http_request("TRS_M_Tipo","i",0);
 		$trs_s_tipo = http_request("TRS_S_Tipo","i",0);
 		$trs_t_tipo = http_request("TRS_T_Tipo","i",0);
 		// tipo TRM
-		$trm_l_tipo = http_request("TRM_L_Tipo","i",1);
+        $trm_x_tipo = http_request("TRM_X_Tipo","i",1);
+        $trm_l_tipo = http_request("TRM_L_Tipo","i",1);
 		$trm_m_tipo = http_request("TRM_M_Tipo","i",1);
 		$trm_s_tipo = http_request("TRM_S_Tipo","i",1);
 		$trm_t_tipo = http_request("TRM_T_Tipo","i",1);
 		// factor TRS
-		$trs_l_factor = http_request("TRS_L_Factor","f",0.0);
+        $trs_x_factor = http_request("TRS_X_Factor","f",0.0);
+        $trs_l_factor = http_request("TRS_L_Factor","f",0.0);
 		$trs_m_factor = http_request("TRS_M_Factor","f",0.0);
 		$trs_s_factor = http_request("TRS_S_Factor","f",0.0);
 		$trs_t_factor = http_request("TRS_T_Factor","f",0.0);
 		// factor TRM
-		$trm_l_factor = http_request("TRM_L_Factor","f",50.0);
+        $trm_x_factor = http_request("TRM_X_Factor","f",50.0);
+        $trm_l_factor = http_request("TRM_L_Factor","f",50.0);
 		$trm_m_factor = http_request("TRM_M_Factor","f",50.0);
 		$trm_s_factor = http_request("TRM_S_Factor","f",50.0);
 		$trm_t_factor = http_request("TRM_T_Factor","f",50.0);
 		// Unidad TRS
-		$trs_l_unit = http_request("TRS_L_Unit","s","s",false);
+        $trs_x_unit = http_request("TRS_X_Unit","s","s",false);
+        $trs_l_unit = http_request("TRS_L_Unit","s","s",false);
 		$trs_m_unit = http_request("TRS_M_Unit","s","s",false);
 		$trs_s_unit = http_request("TRS_S_Unit","s","s",false);
 		$trs_t_unit = http_request("TRS_T_Unit","s","s",false);
 		// Unidad TRM
-		$trm_l_unit = http_request("TRM_L_Unit","s","%",false);
+        $trm_x_unit = http_request("TRM_X_Unit","s","%",false);
+        $trm_l_unit = http_request("TRM_L_Unit","s","%",false);
 		$trm_m_unit = http_request("TRM_M_Unit","s","%",false);
 		$trm_s_unit = http_request("TRM_S_Unit","s","%",false);
 		$trm_t_unit = http_request("TRM_T_Unit","s","%",false);
@@ -286,7 +294,12 @@ class Mangas extends DBObject {
 		// preparamos la query SQL
 		$sql= "UPDATE mangas SET
  			Recorrido=? ,
-			Dist_L=? , Obst_L=? , Dist_M=? , Obst_M=? , Dist_S=? , Obst_S=? , Dist_T=? , Obst_T=? ,
+			Dist_X=? , Obst_X=? , 
+			Dist_L=? , Obst_L=? , 
+            Dist_M=? , Obst_M=? , 
+            Dist_S=? , Obst_S=? , 
+            Dist_T=? , Obst_T=? ,
+			TRS_X_Tipo=? , TRS_X_Factor=? , TRS_X_Unit=? , TRM_X_Tipo=? , TRM_X_Factor=? , TRM_X_Unit=? ,
 			TRS_L_Tipo=? , TRS_L_Factor=? , TRS_L_Unit=? , TRM_L_Tipo=? , TRM_L_Factor=? , TRM_L_Unit=? ,
 			TRS_M_Tipo=? , TRS_M_Factor=? , TRS_M_Unit=? , TRM_M_Tipo=? , TRM_M_Factor=? , TRM_M_Unit=? ,
 			TRS_S_Tipo=? , TRS_S_Factor=? , TRS_S_Unit=? , TRM_S_Tipo=? , TRM_S_Factor=? , TRM_S_Unit=? ,
@@ -298,10 +311,11 @@ class Mangas extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param(
-			'iiiiiiiiiidsidsidsidsidsidsidsidsiis',
+			'iiiiiiiiiiiidsidsidsidsidsidsidsidsidsidsiis',
 			$recorrido,
-			$dist_l,	$obst_l,	$dist_m,	$obst_m,	$dist_s,	$obst_s, 	$dist_t,	$obst_t,// distancias y obstaculos
-			$trs_l_tipo,	$trs_l_factor,	$trs_l_unit,	$trm_l_tipo,	$trm_l_factor,	$trm_l_unit,// TRS y TRM Large
+            $dist_x,	$obst_x,	$dist_l,	$obst_l,	$dist_m,	$obst_m,	$dist_s,	$obst_s, 	$dist_t,	$obst_t,// distancias y obstaculos
+            $trs_x_tipo,	$trs_x_factor,	$trs_x_unit,	$trm_x_tipo,	$trm_x_factor,	$trm_x_unit,// TRS y TRM XLarge
+            $trs_l_tipo,	$trs_l_factor,	$trs_l_unit,	$trm_l_tipo,	$trm_l_factor,	$trm_l_unit,// TRS y TRM Large
 			$trs_m_tipo,	$trs_m_factor,	$trs_m_unit,	$trm_m_tipo,	$trm_m_factor,	$trm_m_unit,// TRS Y TRM Medium
 			$trs_s_tipo,	$trs_s_factor,	$trs_s_unit,	$trm_s_tipo,	$trm_s_factor,	$trm_s_unit,// TRS y TRM Small
 			$trs_t_tipo,	$trs_t_factor,	$trs_t_unit,	$trm_t_tipo,	$trm_t_factor,	$trm_t_unit,// TRS y TRM Small
