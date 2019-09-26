@@ -842,6 +842,7 @@ try {
         $upg->updatePerroGuiaClub();
         return;
     }
+    set_time_limit(ini_get('max_execution_time'));
     // software version changed. make sure that database is upgraded
     $upg->myLogger->info("Database version is lower than installed sw version. Updating DB structure");
     // $upg->addCountries();

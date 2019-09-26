@@ -25,7 +25,8 @@ define ('TEMP_FILE', __DIR__."/../logs/AgilityContest-");
 define ('LOG_FILE', __DIR__."/../logs/update.log");
 define ('PROGRESS_FILE', __DIR__."/../logs/progress.log");
 define ('TEMP_DIR', __DIR__."/../logs/");
-define ('CONFIG_DIR', __DIR__."/../server/auth/");
+define ('CONFIG_DIR', __DIR__."/../config/");
+define ('OLDSRV_DIR', __DIR__."/../server/");
 define ('POST_INSTALL', __DIR__."/../post-install.php");
 
 function logTrace($str) {
@@ -257,7 +258,7 @@ Class AgilityContestUpdater {
             } // skip easyui related files
             //Make the directory if we need to...
             if ( !is_dir ( $root . $dir_name ) ) {
-                $res=mkdir ( $root . $dir_name );
+                $res=@mkdir ( $root . $dir_name,0777,true );
                 if (!$res) $this->logProgress("FAILED MAKEDIR: $dir_name");;
                 $this->logProgress("MAKEDIR: $dir_name");
             }
