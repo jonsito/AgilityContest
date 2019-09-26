@@ -605,6 +605,8 @@ Class Config {
     	fclose($handle);
 		// for windows (sucks) systems, also write to settings.bat to setup language
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        	// PENDING: on update from app 'lang' is lost. Find cause
+        	if (!array_key_exists('lang',$assoc_arr)) $assoc_arr['lang']='es_ES';
             $handle=fopen(AC_BATCH_FILE,'wb'); // force binary mode
             if (!is_resource($handle)) return false;
             fwrite($handle,"SET LANG=${assoc_arr['lang']}\r\n");
