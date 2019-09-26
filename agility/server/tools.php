@@ -325,15 +325,15 @@ function parseGender($gender) {
 /**
  * Try to obtain dog grade according provided string
  * @param {string} $cat user provided category
- * @return {string} L,M,S,T,- detected category
+ * @return {string} X,L,M,S,T,- detected category
  */
 function parseCategory($cat) {
     $cats= array (
-        'X' => array('x','extra','xlarge','xl',"extra-large"),
-        'L' => array('l','large','standard','estandar','std','600','60','6'),
-	    'M' => array('m','medium','midi','mid','med','500','50','5'),
-	    'S' => array('s','small','mini','min','400','40','4'),
-	    'T' => array('t','enano','tiny','toy','300','30','3','20','2'), // include junior as toy
+        'X' => array('x','extra','xlarge','xl','x-large','extra-large','600','60','6'),
+        'L' => array('l','large','standard','estandar','std','500','50','5'),
+	    'M' => array('m','medium','midi','mid','med','400','40','4'),
+	    'S' => array('s','small','mini','min','300','30','3'),
+	    'T' => array('t','enano','tiny','toy','xs','x-small','x-short','extra-short','25','20','2'),
     );
 	if (is_null($cat)) return '-';
     $str = preg_replace("/[^A-Za-z0-9]/u", '', strtolower(iconv('UTF-8','ASCII//TRANSLIT',$cat)));
