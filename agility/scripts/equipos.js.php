@@ -226,7 +226,8 @@ function editTeam(dg){
 	// load team edit dialog with provided data   
 	$('#team_edit_dialog-form').form('load',row);
 	// fill properly checkboxes
-	$('#team_edit_dialog-L').prop('checked',(row.Categorias.indexOf('L')<0)?false:true);
+    $('#team_edit_dialog-X').prop('checked',(row.Categorias.indexOf('L')<0)?false:true);
+    $('#team_edit_dialog-L').prop('checked',(row.Categorias.indexOf('L')<0)?false:true);
 	$('#team_edit_dialog-M').prop('checked',(row.Categorias.indexOf('M')<0)?false:true);
 	$('#team_edit_dialog-S').prop('checked',(row.Categorias.indexOf('S')<0)?false:true);
 	$('#team_edit_dialog-T').prop('checked',(row.Categorias.indexOf('T')<0)?false:true);
@@ -354,7 +355,8 @@ function saveTeam() {
     if (! frm.form('validate')) return;
 	// evaluate 'Categorias' field
 	var cat='';
-	if ( $('#team_edit_dialog-L').is(':checked') ) cat+='L';
+    if ( $('#team_edit_dialog-X').is(':checked') ) cat+='X';
+    if ( $('#team_edit_dialog-L').is(':checked') ) cat+='L';
 	if ( $('#team_edit_dialog-M').is(':checked') ) cat+='M';
 	if ( $('#team_edit_dialog-S').is(':checked') ) cat+='S';
 	if ( $('#team_edit_dialog-T').is(':checked') ) cat+='T';
