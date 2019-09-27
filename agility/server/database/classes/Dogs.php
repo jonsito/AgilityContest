@@ -205,7 +205,7 @@ class Dogs extends DBObject {
 			http_request("order","s",""),
 			"Nombre ASC"
 		);
-		$this->myLogger->debug("Sort order is: $sort");
+		// $this->myLogger->debug("Sort order is: $sort");
 		$search=http_request("where","s","");
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);

@@ -617,7 +617,12 @@ function getOrderString($sort,$order,$def) {
 	$res="";
 	for($n=0;$n<count($s);$n++) {
 		if ($n!=0) $res.=",";
-		$res = $res . $s[$n] . " " . $o[$n];
+		$sn=$s[$n];
+        // as alphabetic sorting order does not work here we need a little sql trick
+		if (strcmp($s[$n],'Categoria')==0) {
+            $sn=" FIELD(Categoria,'X','L','M','S','T','-')";
+        }
+		$res = $res . $sn . " " . $o[$n];
 	}
 	return $res;
 }
