@@ -62,7 +62,7 @@ function import_setProgressStatus(status) {
 function searchDataToString(search) {
     var lic=search.Licencia;
     if (lic!=="") lic="Lic:"+lic+" - ";
-    return search.Nombre+" - "+lic+ search.Categoria+""+search.Grado+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
+    return search.Nombre+" - "+lic+ search.Categoria+" "+search.Grado+" ( "+search.NombreGuia+" - "+search.NombreClub+" )";
 }
 
 /**

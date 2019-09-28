@@ -1,6 +1,8 @@
-Version 4.0.0 20190926_2212
+Version 4.0.0 20190928_0224
     - New windows installer for alternate update/reinstall option
     - Multiple 5-heights bug-fixes
+    - Add category / grade sorting in dog datagrids
+    - Update database
 Version 4.0.0 20190923_1123
     - Support for 5-heights on RFEC Federation
     - RFEC Balear league support
