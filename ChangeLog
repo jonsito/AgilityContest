@@ -1,3 +1,7 @@
+Version 4.0.0 20190929_2050
+    - Fixes on installer
+    - Fixes on TRS evaluation for Balear League
+    - Fixes on database update up to version 4.0.0
 Version 4.0.0 20190928_0224
     - New windows installer for alternate update/reinstall option
     - Multiple 5-heights bug-fixes
