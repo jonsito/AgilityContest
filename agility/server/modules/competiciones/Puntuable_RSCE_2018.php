@@ -51,6 +51,8 @@ class Puntuable_RSCE_2018 extends Competitions {
         $factor=(in_array($tipo,array(5,10)))?25:15; // Grado 2:25%; grado 3: 15%
         $manga=array();
         $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
+        $manga['TRS_X_Tipo']=1;$manga['TRS_X_Factor']=$factor;  $manga['TRS_X_Unit']='%';
+        $manga['TRM_X_Tipo']=1;$manga['TRM_X_Factor']=50;       $manga['TRM_X_Unit']='%';
         $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=$factor;  $manga['TRS_L_Unit']='%'; // best dog + 25 %
         $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;       $manga['TRM_L_Unit']='%'; // trs + 50 %
         $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=$factor;  $manga['TRS_M_Unit']='%';

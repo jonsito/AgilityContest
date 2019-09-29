@@ -118,9 +118,10 @@ class Resultados extends DBObject {
         $roundUp=true; // default is round up SCT and MCT to nearest integer second
         $comp=$this->getCompetitionObject();
         $data=$comp->checkAndFixTRSData($this->dmanga,$data,$mode,$roundUp);
-        // si el trs esta especificado con decimales, no se redondea
-        $t=$this->getDatosManga()->{"TRS_{$suffix}_Factor"};
-        if ( $t - (int)$t != 0) $roundUp=false;
+
+        // si el trs no va por velocidad y esta especificado con decimales, no se redondea
+        // $t=$this->getDatosManga()->{"TRS_{$suffix}_Factor"};
+        // if ( $t - (int)$t != 0) $roundUp=false;
 
 		// evaluamos distancia y obstaculos
 		$result['dist']= $this->getDatosManga()->{"Dist_$suffix"};
@@ -175,7 +176,7 @@ class Resultados extends DBObject {
 				break;
 			case 6: // en lugar de tiempo nos proporcionan velocidad
 				$result['vel']=$factor;
-				if ($roundUp) $result['trs']=ceil($result['dist']/$factor);
+				if ($roundUp==true) $result['trs']=ceil($result['dist']/$factor);
 				else $result['trs']=$result['dist']/$factor;
 				break;
 		}
@@ -198,7 +199,7 @@ class Resultados extends DBObject {
 				break;
 		}
 		// ajustamos los datos finales en funcion de si hay que redondear o no
-		if ($roundUp) { // redondeamos hacia arriba
+		if ($roundUp==true) { // redondeamos hacia arriba
             $result['trs']=ceil($result['trs']);
 		    $result['trm']=ceil($result['trm']);
         }  else { // si no, ajustamos a dos decimales

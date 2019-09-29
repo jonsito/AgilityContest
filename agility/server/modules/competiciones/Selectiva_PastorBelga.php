@@ -186,6 +186,8 @@ class Selectiva_PastorBelga extends Competitions {
         if ( ($tipo!=6) && ($tipo!=11) && ($tipo!=5) && ($tipo!=10)) return parent::presetTRSData($tipo);
         $manga=array();
         $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
+        $manga['TRS_X_Tipo']=2;$manga['TRS_X_Factor']=10;$manga['TRS_X_Unit']='%';
+        $manga['TRM_X_Tipo']=1;$manga['TRM_X_Factor']=50;$manga['TRM_X_Unit']='%';
         $manga['TRS_L_Tipo']=2;$manga['TRS_L_Factor']=10;$manga['TRS_L_Unit']='%'; // media 3 mejores + 10% roundup
         $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;$manga['TRM_L_Unit']='%'; // trs + 50 %
         $manga['TRS_M_Tipo']=2;$manga['TRS_M_Factor']=10;$manga['TRS_M_Unit']='%';

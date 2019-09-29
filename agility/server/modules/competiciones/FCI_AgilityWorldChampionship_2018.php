@@ -44,7 +44,9 @@ class FCI_AgilityWorldChampionship_2018 extends Competitions {
     public function presetTRSData($tipo) {
         if (!in_array($tipo,array(7,8,12,13))) return parent::presetTRSData($tipo); // Not open/teambest, use parent
         $manga=array();
-        $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
+        $manga['Recorrido']=0; // 0:separados 1:dos grupos 2:conjunto 3: tres grupos
+        $manga['TRS_X_Tipo']=1;$manga['TRS_X_Factor']=15;$manga['TRS_X_Unit']='%';
+        $manga['TRM_X_Tipo']=6;$manga['TRM_X_Factor']=2.0;$manga['TRM_X_Unit']='m';
         $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=15;$manga['TRS_L_Unit']='%'; // best dog + 15% round up
         $manga['TRM_L_Tipo']=6;$manga['TRM_L_Factor']=2.0;$manga['TRM_L_Unit']='m'; // 2.0ms-agility 2.5ms-jumping
         $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=15;$manga['TRS_M_Unit']='%';

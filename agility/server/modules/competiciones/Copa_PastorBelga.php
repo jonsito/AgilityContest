@@ -41,7 +41,9 @@ class Copa_PastorBelga extends Selectiva_PastorBelga  {
         if ( isMangaKO($tipo) ) return parent::presetTRSData($tipo);
         // in std copa pastor belga any grade is allowed, so no check tipo
         $manga=array();
-        $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
+        $manga['Recorrido']=0; // 0:separados 1:dos grupos 2:conjunto 3: tres grupos
+        $manga['TRS_X_Tipo']=1;$manga['TRS_X_Factor']=15;$manga['TRS_X_Unit']='%';
+        $manga['TRM_X_Tipo']=1;$manga['TRM_X_Factor']=50;$manga['TRM_X_Unit']='%';
         $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=15;$manga['TRS_L_Unit']='%'; // mejor + 15%  roundup
         $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;$manga['TRM_L_Unit']='%'; // trs + 50 %
         $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=15;$manga['TRS_M_Unit']='%';

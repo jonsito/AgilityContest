@@ -42,7 +42,9 @@ class Puntuable_RSCE_2017 extends Competitions {
     public function presetTRSData($tipo) {
         if ( ($tipo!=6) && ($tipo!=11) ) return parent::presetTRSData($tipo); // Not grade 3,use parent default
         $manga=array();
-        $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
+        $manga['Recorrido']=0; // 0:separados 1:dos grupos 2:conjunto 3:tres grupos
+        $manga['TRS_X_Tipo']=1;$manga['TRS_X_Factor']=15;$manga['TRS_X_Unit']='%';
+        $manga['TRM_X_Tipo']=1;$manga['TRM_X_Factor']=50;$manga['TRM_X_Unit']='%';
         $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=15;$manga['TRS_L_Unit']='%'; // best dog + 15 %
         $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;$manga['TRM_L_Unit']='%'; // trs + 50 %
         $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=15;$manga['TRS_M_Unit']='%';

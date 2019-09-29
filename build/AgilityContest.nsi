@@ -137,6 +137,7 @@ File License.txt
 File COPYING
 FILE README.md
 FILE Contributors
+FILE ChangeLog
 File /r agility
 File /r config
 File /r docs

@@ -40,7 +40,9 @@ class Selectiva_awc_2018 extends Puntuable_RSCE_2018 {
     public function presetTRSData($tipo) {
         if ( ($tipo!=6) && ($tipo!=11) ) return parent::presetTRSData($tipo); // Not grade 3, use parent
         $manga=array();
-        $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
+        $manga['Recorrido']=0; // 0:separados 1:dos grupos 2:conjunto 3: tres grupos
+        $manga['TRS_X_Tipo']=1;$manga['TRS_X_Factor']=0;$manga['TRS_X_Unit']='s';
+        $manga['TRM_X_Tipo']=1;$manga['TRM_X_Factor']=50;$manga['TRM_X_Unit']='%';
         $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=0;$manga['TRS_L_Unit']='s'; // best dog + 0s no roundup
         $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;$manga['TRM_L_Unit']='%'; // trs + 50 %
         $manga['TRS_M_Tipo']=1;$manga['TRS_M_Factor']=0;$manga['TRS_M_Unit']='s';
@@ -66,7 +68,9 @@ class Selectiva_awc_2018 extends Puntuable_RSCE_2018 {
         // it's overriden by European open declaration
         // remember that prueba,jornada and manga are objects, so passed by reference
         $this->prueba->Selectiva = 1; // not really required, just to be sure
+        // en grado 3 el TRS lo marca el mejor perro + cero segundos sin redondeo
         if (($manga->Tipo==6) || ($manga->Tipo==11)) $roundUp=false;
+        else $roundUp=true;
         return $data;
     }
 

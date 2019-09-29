@@ -53,6 +53,10 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
         10, 8, 6, 4, 3, 2, 1 por orden de clasificacion
         La penalización total tiene que ser inferior o igual a 11.98
         Los extranjeros no puntuan y corren turno
+
+        Se presentan dos listados:
+        El conjunto, 60/50 40/30/25 que sirve para evaluar el TRS y los podium
+        El separado por clases, que utiliza los TRS del anterior, y se envía a Federación
     */
     function useLongNames() { return false; }
 
@@ -60,6 +64,29 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
         return parent::getModuleInfo("yvonneagility@fecaza.com");
     }
 
+    /**
+     * Provide default TRS/TRM/Recorrido values for a given competitiona at
+     * Round creation time
+     * @param {integer} $tipo Round tipe as declared as Mangas::TipoManga
+     * @return {array} trs array or null if no changes
+     */
+    public function presetTRSData($tipo) {
+        // when not grade 2 use parent default
+        if (!in_array($tipo,array(5,10))) return parent::presetTRSData($tipo);
+        $manga=array();
+        $manga['Recorrido']=2; // 0:separados 1:dos grupos 2:conjunto 3: tres grupos
+        $manga['TRS_X_Tipo']=2;$manga['TRS_X_Factor']=10;  $manga['TRS_X_Unit']='%'; // best two dogs/2 + 10%
+        $manga['TRM_X_Tipo']=1;$manga['TRM_X_Factor']=50;  $manga['TRM_X_Unit']='%'; // trs + 50 %
+        $manga['TRS_L_Tipo']=2;$manga['TRS_L_Factor']=10;  $manga['TRS_L_Unit']='%'; // best two dogs/2 + 10%
+        $manga['TRM_L_Tipo']=1;$manga['TRM_L_Factor']=50;  $manga['TRM_L_Unit']='%'; // trs + 50 %
+        $manga['TRS_M_Tipo']=2;$manga['TRS_M_Factor']=10;  $manga['TRS_M_Unit']='%';
+        $manga['TRM_M_Tipo']=1;$manga['TRM_M_Factor']=50;  $manga['TRM_M_Unit']='%';
+        $manga['TRS_S_Tipo']=2;$manga['TRS_S_Factor']=10;  $manga['TRS_S_Unit']='%';
+        $manga['TRM_S_Tipo']=1;$manga['TRM_S_Factor']=50;  $manga['TRM_S_Unit']='%';
+        $manga['TRS_T_Tipo']=2;$manga['TRS_T_Factor']=10;  $manga['TRS_T_Unit']='%'; // not used but required
+        $manga['TRM_T_Tipo']=1;$manga['TRM_T_Factor']=50;  $manga['TRM_T_Unit']='%';
+        return $manga;
+    }
     /**
      * Re-evaluate and fix -if required- results data used to evaluate TRS for
      * provided $prueba/$jornada/$manga
@@ -89,25 +116,39 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
         // si hay menos de dos resultados proceder en consecuencia
         if (count($data)<=1) return $data; // nothing to do yet
         if($manga->{"Dist_{$suffix}"}==0) return $data; // no distance provided. cannot evaluate anything
+        // si el recorrido es individual y trs es fijo, no se hace nada
+        if ( ($manga->Recorrido == 0) && ($manga->{"TRS_{$suffix}_Tipo"}==0) ) return $data;
         $res=array();
         $med=($data[0]['Tiempo']+$data[1]['Tiempo'])/2.0;
         $res[0]=array('Tiempo' =>$data[0]['Tiempo']);
-        $res[1]=array('Tiempo' =>$data[1]['Tiempo']);
-        $res[2]=array('Tiempo' =>$med);
+        $res[1]=array('Tiempo' =>$med);
+        $res[2]=array('Tiempo' =>$data[1]['Tiempo']);
         // fase 2: comprobar si la velocidad excede de los margenes federativos
-        $speed= 0.9 * ($manga->{"Dist_{$suffix}"} / $med); // media de velocidad - 10 %
-        $min=3.0; $max=4.0;
-        if (in_array($mode, array(0,4,6,8,9,10,12))) { $min=3.5; $max=4.5;}
-        do_log("Mode:{$mode} Speed:{$speed} min:{$min} max:{$max}");
-        if ($speed<$min) $speed=$min;
-        if ($speed>$max) $speed=$max;
+        $evaltime=1.10*$med;
+        $minspeed=3.0;
+        $maxspeed=4.0;
+        if (in_array($mode, array(0,4,6,8,9,10,12))) {
+            $minspeed=3.5;
+            $maxspeed=4.5;
+        }
+        $maxtime= $manga->{"Dist_{$suffix}"} / $minspeed;
+        $mintime= $manga->{"Dist_{$suffix}"} / $maxspeed;
+        $speed=0;
+        if ($evaltime<$mintime) { $evaltime=$mintime; $speed=$maxspeed; }
+        if ($evaltime>$maxtime) { $evaltime=$maxtime; $speed=$minspeed; }
 
         // fase 3: re-escribir parametros de TRS y TRM conforme a resultado de fase 2
-        // vamos a poner como parametro fijos calculo por velocidad (sin redondeo) + 10 % y trm +50%
-        $roundUp=false; // no redondear trs
-        $manga->{"TRS_{$suffix}_Tipo"}=6; // velocidad
-        $manga->{"TRS_{$suffix}_Factor"}=number_format2($speed,2);
-        $manga->{"TRS_{$suffix}_Unit"}='m';
+        // vamos a poner como parametro fijos el trs calculado y trm +50%
+        $roundUp=true; // no redondear trs
+        if ($speed==0) { // estamos dentro de los limites de velocidad: trs por tiempo
+            $manga->{"TRS_{$suffix}_Tipo"}=0; // fijo
+            $manga->{"TRS_{$suffix}_Factor"}=ceil($evaltime);
+            $manga->{"TRS_{$suffix}_Unit"}='s';
+        } else { // nos hemos pasado de los limites de velocidad: trs por velocidad (min o max)
+            $manga->{"TRS_{$suffix}_Tipo"}=6; // velocidad
+            $manga->{"TRS_{$suffix}_Factor"}=$speed;
+            $manga->{"TRS_{$suffix}_Unit"}='s';
+        }
         $manga->{"TRM_{$suffix}_Tipo"}=1; // TRS + XX
         $manga->{"TRM_{$suffix}_Factor"}=50;
         $manga->{"TRM_{$suffix}_Unit"}='%';
