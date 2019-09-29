@@ -139,10 +139,10 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
 
         // fase 3: re-escribir parametros de TRS y TRM conforme a resultado de fase 2
         // vamos a poner como parametro fijos el trs calculado y trm +50%
-        $roundUp=true; // no redondear trs
+        $roundUp=false; // no redondear trs
         if ($speed==0) { // estamos dentro de los limites de velocidad: trs por tiempo
             $manga->{"TRS_{$suffix}_Tipo"}=0; // fijo
-            $manga->{"TRS_{$suffix}_Factor"}=ceil($evaltime);
+            $manga->{"TRS_{$suffix}_Factor"}=$evaltime;
             $manga->{"TRS_{$suffix}_Unit"}='s';
         } else { // nos hemos pasado de los limites de velocidad: trs por velocidad (min o max)
             $manga->{"TRS_{$suffix}_Tipo"}=6; // velocidad
