@@ -49,7 +49,7 @@ class PrintPodium extends PrintCommon {
 	 */
 	function __construct($prueba,$jornada,$mangas,$results) {
 		parent::__construct('Landscape',"print_podium",$prueba,$jornada);
-		$dbobj=new DBObject("print_clasificacion");
+		$dbobj=new DBObject("print_podium");
         $this->manga1=($mangas[0]!=0)?$dbobj->__getObject("mangas",$mangas[0]):null;
         $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("mangas",$mangas[1]):null;
         $this->manga3=($mangas[2]!=0)?$dbobj->__getObject("mangas",$mangas[2]):null;
@@ -77,14 +77,14 @@ class PrintPodium extends PrintCommon {
 	}
 	
 	function print_InfoJornada() {
-		$this->setXY(10,40);
+		$this->setXY(10,38);
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // gris
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg2')); // negro
 		$this->ac_SetDrawColor("0x000000"); // line color
 		$this->SetFont($this->getFontName(),'B',11); // bold 11px
 		$this->Cell(140,6,_("Journey").": {$this->jornada->Nombre}",0,0,'L',true);
 		$this->Cell(135,6,_("Date").": {$this->jornada->Fecha}",0,0,'R',true);
-		$this->ln(10); // TODO: write jornada / fecha / grado
+		$this->ln(8); // TODO: write jornada / fecha / grado
 	}
 	
 	function writeTableHeader($mode) {
@@ -99,70 +99,70 @@ class PrintPodium extends PrintCommon {
 
         // first row of table header
 		$this->SetFont($this->getFontName(),'BI',12); // default font
-		$this->Cell(115,6,Mangas::getMangaMode($mode,0,$this->federation),0,0,'L',true);
-        $this->Cell(59*$factor,6,$tm1,0,0,'C',true);
-        $this->Cell(59*$factor,6,$tm2,0,0,'C',true);
+		$this->Cell(115,5,Mangas::getMangaMode($mode,0,$this->federation),0,0,'L',true);
+        $this->Cell(59*$factor,5,$tm1,0,0,'C',true);
+        $this->Cell(59*$factor,5,$tm2,0,0,'C',true);
         if($tm3!=="") $this->Cell(59*$factor,6,$tm3,0,0,'C',true);
-		$this->Cell(42*$factor,6,_('Score'),0,0,'C',true);
+		$this->Cell(42*$factor,5,_('Score'),0,0,'C',true);
 		$this->ln();
 		$this->SetFont($this->getFontName(),'',8); // default font
 
 		// datos del participante
-		$this->Cell(10,6,_('Dorsal'),0,0,'C',true); 	// dorsal
+		$this->Cell(10,5,_('Dorsal'),0,0,'C',true); 	// dorsal
         if ($this->useLongNames){
-            $this->Cell(40,6,_('Name'),0,0,'C',true);	// nombre
+            $this->Cell(40,5,_('Name'),0,0,'C',true);	// nombre
         } else {
-            $this->Cell(25,6,_('Name'),0,0,'C',true);	// nombre
-            $this->Cell(15,6,_('Lic').'.',0,0,'C',true);	// licencia
+            $this->Cell(25,5,_('Name'),0,0,'C',true);	// nombre
+            $this->Cell(15,5,_('Lic').'.',0,0,'C',true);	// licencia
         }
 		if ($this->hasGrades){
-			$this->Cell(10,6,_('Cat').'/'._('Grd'),0,0,'C',true);	// categoria/grado
+			$this->Cell(10,5,_('Cat').'/'._('Grd'),0,0,'C',true);	// categoria/grado
 		} else {
-			$this->Cell(10,6,_('Cat'),0,0,'C',true);	// categoria/grado
+			$this->Cell(10,5,_('Cat'),0,0,'C',true);	// categoria/grado
 		}
-		$this->Cell(35,6,_('Handler'),0,0,'C',true);	// nombreGuia
-		$this->Cell(20,6,$this->strClub,0,0,'C',true);	// nombreClub
+		$this->Cell(35,5,_('Handler'),0,0,'C',true);	// nombreGuia
+		$this->Cell(20,5,$this->strClub,0,0,'C',true);	// nombreClub
 
 		// manga 1
         if (!is_null($this->manga1)) {
-            $this->Cell(7*$factor,6,_('F/T'),0,0,'C',true);	// 1- Faltas+Tocados
-            $this->Cell(7*$factor,6,_('Ref'),0,0,'C',true);	// 1- Rehuses
-            $this->Cell(12*$factor,6,_('Time'),0,0,'C',true);	// 1- Tiempo
-            $this->Cell(9*$factor,6,_('Vel'),0,0,'C',true);	// 1- Velocidad
-            $this->Cell(12*$factor,6,_('Penal'),0,0,'C',true);	// 1- Penalizacion
-            $this->Cell(12*$factor,6,'Calif',0,0,'C',true);	// 1- calificacion
+            $this->Cell(7*$factor,5,_('F/T'),0,0,'C',true);	// 1- Faltas+Tocados
+            $this->Cell(7*$factor,5,_('Ref'),0,0,'C',true);	// 1- Rehuses
+            $this->Cell(12*$factor,5,_('Time'),0,0,'C',true);	// 1- Tiempo
+            $this->Cell(9*$factor,5,_('Vel'),0,0,'C',true);	// 1- Velocidad
+            $this->Cell(12*$factor,5,_('Penal'),0,0,'C',true);	// 1- Penalizacion
+            $this->Cell(12*$factor,5,'Calif',0,0,'C',true);	// 1- calificacion
         } else {
-            $this->Cell(59*$factor,6,'',0,0,'C',true);	// espacio en blanco
+            $this->Cell(59*$factor,5,'',0,0,'C',true);	// espacio en blanco
         }
 
 		// manga 2
 		if (!is_null($this->manga2)) {
-			$this->Cell(7*$factor,6,_('F/T'),0,0,'C',true);	// 2- Faltas+Tocados
-			$this->Cell(7*$factor,6,_('Ref'),0,0,'C',true);	// 2- Rehuses
-			$this->Cell(12*$factor,6,_('Time'),0,0,'C',true);	// 2- Tiempo
-			$this->Cell(9*$factor,6,_('Vel'),0,0,'C',true);	// 2- Velocidad
-			$this->Cell(12*$factor,6,_('Penal'),0,0,'C',true);	// 2- Penalizacion
-			$this->Cell(12*$factor,6,_('Calif'),0,0,'C',true);	// 2- calificacion
+			$this->Cell(7*$factor,5,_('F/T'),0,0,'C',true);	// 2- Faltas+Tocados
+			$this->Cell(7*$factor,5,_('Ref'),0,0,'C',true);	// 2- Rehuses
+			$this->Cell(12*$factor,5,_('Time'),0,0,'C',true);	// 2- Tiempo
+			$this->Cell(9*$factor,5,_('Vel'),0,0,'C',true);	// 2- Velocidad
+			$this->Cell(12*$factor,5,_('Penal'),0,0,'C',true);	// 2- Penalizacion
+			$this->Cell(12*$factor,5,_('Calif'),0,0,'C',true);	// 2- calificacion
 		} else {
-			$this->Cell(59*$factor,6,'',0,0,'C',true);	// espacio en blanco
+			$this->Cell(59*$factor,5,'',0,0,'C',true);	// espacio en blanco
 		}
 
         // manga 3
         if (!is_null($this->manga3)) {
-            $this->Cell(7*$factor,6,_('F/T'),0,0,'C',true);	// 2- Faltas+Tocados
-            $this->Cell(7*$factor,6,_('Ref'),0,0,'C',true);	// 2- Rehuses
-            $this->Cell(12*$factor,6,_('Time'),0,0,'C',true);	// 2- Tiempo
-            $this->Cell(9*$factor,6,_('Vel'),0,0,'C',true);	// 2- Velocidad
-            $this->Cell(12*$factor,6,_('Penal'),0,0,'C',true);	// 2- Penalizacion
-            $this->Cell(12*$factor,6,_('Calif'),0,0,'C',true);	// 2- calificacion
+            $this->Cell(7*$factor,5,_('F/T'),0,0,'C',true);	// 2- Faltas+Tocados
+            $this->Cell(7*$factor,5,_('Ref'),0,0,'C',true);	// 2- Rehuses
+            $this->Cell(12*$factor,5,_('Time'),0,0,'C',true);	// 2- Tiempo
+            $this->Cell(9*$factor,5,_('Vel'),0,0,'C',true);	// 2- Velocidad
+            $this->Cell(12*$factor,5,_('Penal'),0,0,'C',true);	// 2- Penalizacion
+            $this->Cell(12*$factor,5,_('Calif'),0,0,'C',true);	// 2- calificacion
         }
         // do not print empty data if no round 3
 
 		// global
-		$this->Cell(12*$factor,6,_('Time'),0,0,'C',true);	// Tiempo total
-		$this->Cell(12*$factor,6,_('Penaliz'),0,0,'C',true);	// Penalizacion
-		$this->Cell(10*$factor,6,_('Calific'),0,0,'C',true);	// Calificacion
-		$this->Cell(8*$factor,6,_('Position'),0,0,'C',true);	// Puesto
+		$this->Cell(12*$factor,5,_('Time'),0,0,'C',true);	// Tiempo total
+		$this->Cell(12*$factor,5,_('Penaliz'),0,0,'C',true);	// Penalizacion
+		$this->Cell(10*$factor,5,_('Calific'),0,0,'C',true);	// Calificacion
+		$this->Cell(8*$factor,5,_('Position'),0,0,'C',true);	// Puesto
 		$this->Ln();	
 		// restore colors
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
@@ -284,10 +284,10 @@ class PrintPodium extends PrintCommon {
 
 		$this->AddPage();
 		$this->print_InfoJornada();
-		foreach($this->resultados as $mode => $data) {
+		foreach($this->resultados as $data) {
 			$rowcount=0;
-			foreach($data as $row) {
-				if($rowcount==0) $this->writeTableHeader($mode);
+			foreach($data['Data'] as $row) {
+				if($rowcount==0) $this->writeTableHeader($data['Mode']);
 				if($rowcount>2) break; // only print 3 first results
 				$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 				$this->writeCell( $rowcount,$row);
@@ -297,7 +297,7 @@ class PrintPodium extends PrintCommon {
 			$this->setX(10);
 			$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 			$this->cell($len,0,'','T'); // celda sin altura y con raya
-			$this->Ln(3); // 3 mmts to next box
+			$this->Ln(2); // 3 mmts to next box
 		}
 		$this->myLogger->leave();
 	}

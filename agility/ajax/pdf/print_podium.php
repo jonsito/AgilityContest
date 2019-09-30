@@ -52,63 +52,74 @@ try {
 	$result=array();
 	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
 	switch($mng->Recorrido) {
-		case 0: // recorridos separados large medium small
+		case 0: // recorridos separados xlarge large medium small toy
 			$l=$c->clasificacionFinal($rondas,$mangas,0);
-			$result[0]=$l['rows'];
 			$m=$c->clasificacionFinal($rondas,$mangas,1);
-			$result[1]=$m['rows'];
 			$s=$c->clasificacionFinal($rondas,$mangas,2);
-			$result[2]=$s['rows'];
-            if ($heights!=3) {
+            if ($heights==3) {
                 $t=$c->clasificacionFinal($rondas,$mangas,5);
-                $result[5]=$t['rows'];
+                $result[] = array( 'Mode' => 0, 'Data' => $l['rows'] );
+                $result[] = array( 'Mode' => 1, 'Data' => $m['rows'] );
+                $result[] = array( 'Mode' => 2, 'Data' => $s['rows'] );
+            }
+            if ($heights==4) {
+                $t=$c->clasificacionFinal($rondas,$mangas,5);
+                $result[] = array( 'Mode' => 0, 'Data' => $l['rows'] );
+                $result[] = array( 'Mode' => 1, 'Data' => $m['rows'] );
+                $result[] = array( 'Mode' => 2, 'Data' => $s['rows'] );
+                $result[] = array( 'Mode' => 5, 'Data' => $t['rows'] );
             }
             if ($heights==5) {
+                $t=$c->clasificacionFinal($rondas,$mangas,5);
                 $x = $c->clasificacionFinal($rondas, $mangas, 9);
-                $result[9] = $x['rows'];
+                $result[] = array( 'Mode' => 9, 'Data' => $x['rows'] );
+                $result[] = array( 'Mode' => 0, 'Data' => $l['rows'] );
+                $result[] = array( 'Mode' => 1, 'Data' => $m['rows'] );
+                $result[] = array( 'Mode' => 2, 'Data' => $s['rows'] );
+                $result[] = array( 'Mode' => 5, 'Data' => $t['rows'] );
             }
 			break;
         case 1: // dos grupos: (l+ms) (lm+st) (xl+mst)
 			if ($heights==3) {
 				$l=$c->clasificacionFinal($rondas,$mangas,0);
-				$result[0]=$l['rows'];
 				$ms=$c->clasificacionFinal($rondas,$mangas,3);
-				$result[3]=$ms['rows'];
+                $result[] = array( 'Mode' => 0, 'Data' => $l['rows'] );
+                $result[] = array( 'Mode' => 3, 'Data' => $ms['rows'] );
 			}
 			if ($heights==4) {
 				$lm=$c->clasificacionFinal($rondas,$mangas,6);
-				$result[6]=$lm['rows'];
 				$st=$c->clasificacionFinal($rondas,$mangas,7);
-				$result[7]=$st['rows'];
+                $result[] = array( 'Mode' => 6, 'Data' => $lm['rows'] );
+                $result[] = array( 'Mode' => 7, 'Data' => $st['rows'] );
 			}
 			if ($heights==5) {
                 $xl=$c->clasificacionFinal($rondas,$mangas,10);
-                $result[10]=$xl['rows'];
                 $mst=$c->clasificacionFinal($rondas,$mangas,11);
-                $result[11]=$mst['rows'];
+                $result[] = array( 'Mode' => 10, 'Data' => $xl['rows'] );
+                $result[] = array( 'Mode' => 11, 'Data' => $mst['rows'] );
             }
 			break;
-		case 2: // recorrido conjunto large+medium+small
+		case 2: // recorrido conjunto xlarge-large+medium+small+toy
 			if ($heights==3) {
 				$lms=$c->clasificacionFinal($rondas,$mangas,4);
-				$result[4]=$lms['rows'];
+                $result[] = array( 'Mode' => 4, 'Data' => $lms['rows'] );
 			}
 			if ($heights==4){
 				$lmst=$c->clasificacionFinal($rondas,$mangas,8);
-				$result[8]=$lmst['rows'];
+                $result[] = array( 'Mode' => 8, 'Data' => $lmst['rows'] );
 			}
 			if ($heights==5) {
                 $xlmst=$c->clasificacionFinal($rondas,$mangas,12);
-                $result[12]=$xlmst['rows'];
+                $result[] = array( 'Mode' => 12, 'Data' => $xlmst['rows'] );
             }
 			break;
-        case 3: // tres grupos. implica $heights==5
+        case 3: // tres grupos. Xlarge-Large Medium Small-Toy implica $heights==5
             $xl=$c->clasificacionFinal($rondas,$mangas,10);
-            $result[0]=$xl['rows'];
             $m=$c->clasificacionFinal($rondas,$mangas,1);
-            $result[1]=$m['rows'];
             $st=$c->clasificacionFinal($rondas,$mangas,7);
-            $result[2]=$st['rows'];
+            $result[] = array( 'Mode' => 10, 'Data' => $xl['rows'] );
+            $result[] = array( 'Mode' => 1, 'Data' => $m['rows'] );
+            $result[] = array( 'Mode' => 7, 'Data' => $st['rows'] );
             break;
 	}
 	
