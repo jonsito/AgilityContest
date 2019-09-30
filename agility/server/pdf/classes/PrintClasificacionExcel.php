@@ -179,8 +179,9 @@ class PrintClasificacionExcel {
         $this->xlsLabel($base,22,_("Stars")."_J");
 		$this->xlsLabel($base,23,_("Time"));
 		$this->xlsLabel($base,24,_("Penaliz"));
-		$this->xlsLabel($base,25,_("Score"));
-		$this->xlsLabel($base,26,_("Position"));
+        $this->xlsLabel($base,25,_("Score"));
+        $this->xlsLabel($base,26,_("Points"));
+		$this->xlsLabel($base,27,_("Position"));
 		return $base+1;
 	}
 	
@@ -222,7 +223,8 @@ class PrintClasificacionExcel {
 		$this->xlsNumber($base,23,number_format2($row['Tiempo'],$this->timeResolution));
 		$this->xlsNumber($base,24,$penal);
 		$this->xlsLabel($base,25,$row['Calificacion']);
-		$this->xlsLabel($base,26,$puesto);
+        $this->xlsLabel($base,26,$row['Puntos']);
+        $this->xlsLabel($base,27,$puesto);
 		return $base+1;
 	}
 	

@@ -26,7 +26,18 @@ require_once(__DIR__ . "/../../server/logging.php");
 require_once(__DIR__ . "/../../server/modules/Federations.php");
 require_once(__DIR__ . '/../../server/modules/Competitions.php');
 require_once(__DIR__ . '/../../server/database/classes/DBObject.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintClasificacionGeneral.php');
 require_once(__DIR__ . '/../../server/pdf/classes/PrintPodium.php');
+
+function pp_getArray($mode,$data) {
+    $result = array(
+        'Mode' => $mode,
+        'Data' => $data['rows'],
+        'TRS'  => array($data['trs1'],$data['trs2'],$data['trs3'],$data['trs4'],$data['trs5'],$data['trs6'],$data['trs7'],$data['trs8'] ),
+        // 'Jueces' => $data['jueces']
+    );
+    return $result;
+}
 
 try {
 	$result=null;
@@ -43,6 +54,7 @@ try {
 	$mangas[6]=http_request("Manga7","i",0);
 	$mangas[7]=http_request("Manga8","i",0);
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
+    $podium=http_request("Podium","i",0); // 0:general-completa 1:Podium-3primeros
 	
 	// buscamos los recorridos asociados a la manga
 	$dbobj=new DBObject("print_podium_individual");
@@ -57,74 +69,74 @@ try {
 			$m=$c->clasificacionFinal($rondas,$mangas,1);
 			$s=$c->clasificacionFinal($rondas,$mangas,2);
             if ($heights==3) {
-                $t=$c->clasificacionFinal($rondas,$mangas,5);
-                $result[] = array( 'Mode' => 0, 'Data' => $l['rows'] );
-                $result[] = array( 'Mode' => 1, 'Data' => $m['rows'] );
-                $result[] = array( 'Mode' => 2, 'Data' => $s['rows'] );
+                $result[] = pp_getArray(0,$l);
+                $result[] = pp_getArray(1,$m);
+                $result[] = pp_getArray(2,$s);
             }
             if ($heights==4) {
                 $t=$c->clasificacionFinal($rondas,$mangas,5);
-                $result[] = array( 'Mode' => 0, 'Data' => $l['rows'] );
-                $result[] = array( 'Mode' => 1, 'Data' => $m['rows'] );
-                $result[] = array( 'Mode' => 2, 'Data' => $s['rows'] );
-                $result[] = array( 'Mode' => 5, 'Data' => $t['rows'] );
+                $result[] = pp_getArray(0,$l);
+                $result[] = pp_getArray(1,$m);
+                $result[] = pp_getArray(2,$s);
+                $result[] = pp_getArray(5,$t);
             }
             if ($heights==5) {
                 $t=$c->clasificacionFinal($rondas,$mangas,5);
                 $x = $c->clasificacionFinal($rondas, $mangas, 9);
-                $result[] = array( 'Mode' => 9, 'Data' => $x['rows'] );
-                $result[] = array( 'Mode' => 0, 'Data' => $l['rows'] );
-                $result[] = array( 'Mode' => 1, 'Data' => $m['rows'] );
-                $result[] = array( 'Mode' => 2, 'Data' => $s['rows'] );
-                $result[] = array( 'Mode' => 5, 'Data' => $t['rows'] );
+                $result[] = pp_getArray(9,$x);
+                $result[] = pp_getArray(0,$l);
+                $result[] = pp_getArray(1,$m);
+                $result[] = pp_getArray(2,$s);
+                $result[] = pp_getArray(5,$t);
             }
 			break;
         case 1: // dos grupos: (l+ms) (lm+st) (xl+mst)
 			if ($heights==3) {
 				$l=$c->clasificacionFinal($rondas,$mangas,0);
 				$ms=$c->clasificacionFinal($rondas,$mangas,3);
-                $result[] = array( 'Mode' => 0, 'Data' => $l['rows'] );
-                $result[] = array( 'Mode' => 3, 'Data' => $ms['rows'] );
+                $result[] = pp_getArray(0,$l);
+                $result[] = pp_getArray(3,$ms);
 			}
 			if ($heights==4) {
 				$lm=$c->clasificacionFinal($rondas,$mangas,6);
 				$st=$c->clasificacionFinal($rondas,$mangas,7);
-                $result[] = array( 'Mode' => 6, 'Data' => $lm['rows'] );
-                $result[] = array( 'Mode' => 7, 'Data' => $st['rows'] );
+                $result[] = pp_getArray(6,$lm);
+                $result[] = pp_getArray(7,$st);
 			}
 			if ($heights==5) {
                 $xl=$c->clasificacionFinal($rondas,$mangas,10);
                 $mst=$c->clasificacionFinal($rondas,$mangas,11);
-                $result[] = array( 'Mode' => 10, 'Data' => $xl['rows'] );
-                $result[] = array( 'Mode' => 11, 'Data' => $mst['rows'] );
+                $result[] = pp_getArray(10,$xl);
+                $result[] = pp_getArray(11,$mst);
             }
 			break;
 		case 2: // recorrido conjunto xlarge-large+medium+small+toy
 			if ($heights==3) {
 				$lms=$c->clasificacionFinal($rondas,$mangas,4);
-                $result[] = array( 'Mode' => 4, 'Data' => $lms['rows'] );
+                $result[] = pp_getArray(4,$lms);
 			}
 			if ($heights==4){
 				$lmst=$c->clasificacionFinal($rondas,$mangas,8);
-                $result[] = array( 'Mode' => 8, 'Data' => $lmst['rows'] );
+                $result[] = pp_getArray(8,$lmst);
 			}
 			if ($heights==5) {
                 $xlmst=$c->clasificacionFinal($rondas,$mangas,12);
-                $result[] = array( 'Mode' => 12, 'Data' => $xlmst['rows'] );
+                $result[] = pp_getArray(12,$xlmst);
             }
 			break;
         case 3: // tres grupos. Xlarge-Large Medium Small-Toy implica $heights==5
             $xl=$c->clasificacionFinal($rondas,$mangas,10);
             $m=$c->clasificacionFinal($rondas,$mangas,1);
             $st=$c->clasificacionFinal($rondas,$mangas,7);
-            $result[] = array( 'Mode' => 10, 'Data' => $xl['rows'] );
-            $result[] = array( 'Mode' => 1, 'Data' => $m['rows'] );
-            $result[] = array( 'Mode' => 7, 'Data' => $st['rows'] );
+            $result[] = pp_getArray(10,$xl);
+            $result[] = pp_getArray(1,$m);
+            $result[] = pp_getArray(7,$st);
             break;
 	}
 	
 	// Creamos generador de documento
-	$pdf = new PrintPodium($prueba,$jornada,$mangas,$result);
+    if ($podium==1) $pdf = new PrintPodium($prueba,$jornada,$mangas,$result);
+    else $pdf = new PrintClasificacionGeneral($prueba,$jornada,$mangas,$result);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
