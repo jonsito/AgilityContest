@@ -34,7 +34,7 @@ function pp_getArray($mode,$data) {
         'Mode' => $mode,
         'Data' => $data['rows'],
         'TRS'  => array($data['trs1'],$data['trs2'],$data['trs3'],$data['trs4'],$data['trs5'],$data['trs6'],$data['trs7'],$data['trs8'] ),
-        // 'Jueces' => $data['jueces']
+        'Jueces' => $data['jueces']
     );
     return $result;
 }

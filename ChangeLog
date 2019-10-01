@@ -1,3 +1,7 @@
+Version 4.0.1 20191001_1111
+    - Fix podium on 5-heights
+    - Add Global scores printing ( every heights of same Class )
+    - More 5-heights fixes
 Version 4.0.0 20190929_2050
     - Fixes on installer
     - Fixes on TRS evaluation for Balear League

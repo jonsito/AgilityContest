@@ -65,7 +65,7 @@ class PrintClasificacionGeneral extends PrintCommon {
 	}
 
 	function Header() {
-		$this->print_commonHeader(_("Global Scores"));
+		$this->print_commonHeader(_("Final Scores"));
 	}
 	
 	// Pie de página: tampoco cabe
@@ -73,14 +73,14 @@ class PrintClasificacionGeneral extends PrintCommon {
 		$this->print_commonFooter();
 	}
 
-    function print_datosMangas($trsdata,$index) {
-        $cat="";
+    function print_datosMangas($data,$index) {
+        $cat= $this->federation->getMangaMode($data['Mode'],0);
         // objeto para buscar jueces
         $jobj=new Jueces("print_Clasificaciones");
-
+        $r_offset= $index * ( ($this->manga3!=null)?28:20) ;
         if($index==0) { // solo se pinta info de la manga en el primer elemento
             // imprimimos informacion de la manga
-            $this->setXY(10,40+20*$index);
+            $this->setXY(10,40+$r_offset);
             $this->SetFont($this->getFontName(),'B',11); // bold 9px
             $this->Cell(80,6,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
             $this->Ln(6);
@@ -88,15 +88,15 @@ class PrintClasificacionGeneral extends PrintCommon {
             $this->Ln(6);
             // $ronda=$this->getGradoString(intval($this->manga1->Tipo)); // todas las mangas comparten grado
             $ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
-            $this->Cell(80,6,_('Round').": $ronda - {$cat}",0,0,'',false);
+            $this->Cell(80,6,_('Round').": $ronda",0,0,'',false);
         }
 
         // ahora los datos de cada manga individual
         // manga 1:
         if ($this->manga1!=null) {
             // pintamos los datos de TRS
-            $trs=$trsdata[0];
-            $this->setXY(80,40+20*$index);
+            $trs=$data['TRS'][0];
+            $this->setXY(80,40+$r_offset);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell(90,8,"","LTB",0,'L',false);// caja vacia
             $this->Cell(20,8,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
@@ -107,10 +107,10 @@ class PrintClasificacionGeneral extends PrintCommon {
             // ahora el nombre de la manga y los jueces
             $nmanga=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $cat;
             $juez1=$jobj->selectByID($this->manga1->Juez1); $juez2=$jobj->selectByID($this->manga1->Juez2);
-            $this->setXY(81,41+20*$index);
+            $this->setXY(81,41+$r_offset);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell( 88,4,$nmanga,"",0,'L',false);
-            $this->setXY(81,44+20*$index);
+            $this->setXY(81,44+$r_offset);
             $this->SetFont($this->getFontName(),'I',8); // bold 9px
             $jueces = _('Judge') .": ". $juez1['Nombre'];
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
@@ -119,8 +119,8 @@ class PrintClasificacionGeneral extends PrintCommon {
         // manga 2:
         if ($this->manga2!=null) {
             // pintamos los datos de TRS
-            $trs=$trsdata[1];
-            $this->setXY(80, 48+20*$index);
+            $trs=$data['TRS'][1];
+            $this->setXY(80, 48+$r_offset);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell(90,8,"","LTB",0,'L',false);// caja vacia
             $this->Cell(20, 8, _('Dist') . ".: {$trs['dist']}m", "LTB", 0, 'L', false);
@@ -131,10 +131,10 @@ class PrintClasificacionGeneral extends PrintCommon {
             // ahora el nombre de la manga y los jueces
             $nmanga=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $cat;
             $juez1=$jobj->selectByID($this->manga2->Juez1); $juez2=$jobj->selectByID($this->manga2->Juez2);
-            $this->setXY(81,49+20*$index);
+            $this->setXY(81,49+$r_offset);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell( 88,4,$nmanga,"",0,'L',false);
-            $this->setXY(81,52+20*$index);
+            $this->setXY(81,52+$r_offset);
             $this->SetFont($this->getFontName(),'I',8); // bold 9px
             $jueces = _('Judge') .": ". $juez1['Nombre'];
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
@@ -143,8 +143,8 @@ class PrintClasificacionGeneral extends PrintCommon {
         // manga 3:
         if ($this->manga3!=null) {
             // pintamos los datos de TRS
-            $trs=$trsdata[2];
-            $this->setXY(80,56+20*$index);
+            $trs=$data['TRS'][2];
+            $this->setXY(80,56+$r_offset);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell(90,8,"","LTB",0,'L',false); // caja vacia
             $this->Cell(20,8,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
@@ -155,10 +155,10 @@ class PrintClasificacionGeneral extends PrintCommon {
             // ahora el nombre de la manga y los jueces
             $nmanga=_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)) . " - " . $cat;
             $juez1=$jobj->selectByID($this->manga3->Juez1); $juez2=$jobj->selectByID($this->manga3->Juez2);
-            $this->setXY(81,57+20*$index);
+            $this->setXY(81,57+$r_offset);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell( 88,4,$nmanga,"",0,'L',false);
-            $this->setXY(81,60+20*$index);
+            $this->setXY(81,60+$r_offset);
             $this->SetFont($this->getFontName(),'I',8); // bold 9px
             $jueces = _('Judge') .": ". $juez1['Nombre'];
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
@@ -377,7 +377,7 @@ class PrintClasificacionGeneral extends PrintCommon {
 		$this->AddPage();
 		$count=0;
         foreach($this->resultados as $data) {
-            $this->print_datosMangas($data['TRS'],$count++);
+            $this->print_datosMangas($data,$count++);
         }
 
 		// en las siguientes hojas pintamos los resultados

@@ -51,7 +51,7 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 				<td><input id="resultados-info-fecha" type="text" class="result_forms" readonly="readonly" name="Fecha"/></td>
 			</tr>
 			<tr>
-				<td><label for="resultados-info-ronda"><?php _e('Round'); ?>:</label></td>
+				<td><label for="resultados-info-ronda"><?php _e('Grade'); ?>:</label></td>
 				<td><select id="resultados-info-ronda" name="Ronda" class="result_forms" style="width:150px"></select></td>
 			</tr>
 			<tr>
@@ -120,14 +120,15 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
         <input type="radio" name="r_prformat" value="6" onclick="r_selectOption(6);"/><?php _e('Contest Hall Of Fame'); ?> (PDF)
     <br />&nbsp;<hr/><br/>
 	<input type="radio" name="r_prformat" value="1" onclick="r_selectOption(1);"/><?php _e('Export in text format'); ?> (CSV)<br />
-    <input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/><?php _e('Export as spreadsheet'); ?> (Excel)<br />
-    <span  style="display:inline-block;width:100%">
+        <input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/><?php _e('Export as spreadsheet'); ?> (Excel)<br />
+        <input type="radio" name="r_prformat" value="8" onclick="r_selectOption(8);"/><?php _e('Global Scores'); ?> (PDF)<br />
+        <span  style="display:inline-block;width:100%">
 		<span style="float:left">
 	        <input type="radio" id="r_prformat4" name="r_prformat" value="4" checked="checked" onclick="r_selectOption(4);"/>
-            <label for="r_prformat4"><?php _e('Scores'); ?> (PDF)</label>
+            <label for="r_prformat4"><?php _e('Round Scores'); ?> (PDF)</label>
 		</span>
-		<span style="float:right">
-			<label id="r_prstatslbl" for="r_prstats"><?php _e('Include Statistics'); ?>:</label>
+		<span style="float:right;">
+            <label id="r_prstatslbl" for="r_prstats"><?php _e('Include Statistics'); ?>:</label>
             <input id="r_prstats" style="width:78px" name="r_prstats" class="easyui-checkbox" type="checkbox" value="1" checked="checked"/>
             <br/>
             <span id="r_junior"> <!-- to hide when not in children+junior rounds -->
@@ -176,7 +177,7 @@ $('#resultados-printDialog').dialog({
     modal:true,
     closable:true,
     closed:true,
-    width:'475px',
+    width:'500px',
     height:'400px',
     onBeforeOpen: function() {
         var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');

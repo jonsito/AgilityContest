@@ -556,9 +556,10 @@ function print_commonDesarrollo(def,cb) {
 /******************************** Datos de clasificacion general **********************/
 
 /**
- * Imprime una hoja con los podio de esta ronda
+ * Imprime Podium (1) o clasificacion General (0)
+ *
  */
-function clasificaciones_printPodium() {
+function clasificaciones_printGlobal(podium) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='../ajax/pdf/print_podium.php';
     if (isJornadaEquipos()) url='../ajax/pdf/print_podium_equipos.php';
@@ -581,7 +582,8 @@ function clasificaciones_printPodium() {
                 Manga6:ronda.Manga6,
                 Manga7:ronda.Manga7,
                 Manga8:ronda.Manga8,
-				Rondas: ronda.Rondas
+				Rondas: ronda.Rondas,
+                Podium: podium
 			},
 	        preparingMessageHtml:'(podium) <?php _e("We are preparing your report, please wait"); ?> ...',
 	        failMessageHtml:'(podium) <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -752,6 +754,7 @@ function r_selectOption(val) {
 	case 1: // csv
 	case 3: // excel
 	case 4: // pdf
+    case 8: // global scores for every heihgts
     case 6: // individual pdf on teams-3
         prfirst.numberspinner('disable'); prlist.textbox('disable'); break;
 	case 2: // etiquetas rsce
@@ -773,11 +776,12 @@ function clasificaciones_doPrint() {
     var children=$('#r_children').prop('checked');
 	$('#resultados-printDialog').dialog('close');
 	switch(parseInt(r)) {
-		case 0: /* podium */ clasificaciones_printPodium(); break;
+		case 0: /* podium */ clasificaciones_printGlobal(1); break;
 		case 1: /* csv */ clasificaciones_printEtiquetas(0,line,'',false); break; // csv
         case 3: /* excel */ clasificaciones_printCanina(); break;
         case 6: /* mejores prueba */ clasificaciones_printHallOfFame(); break;
         case 7: /* individual on team3 */  clasificaciones_printClasificacion((prstats)?1:0,(children)?1:0,1); break;
+        case 8: /* Global del grado */ clasificaciones_printGlobal(0); break;
 		case 4: /* pdf */ clasificaciones_printClasificacion((prstats)?1:0,(children)?1:0,0); break;
 		case 5: /* forms cneac */ clasificaciones_printEtiquetas(2,line,list,discriminate); break;
 		case 2: /* labels rsce */ clasificaciones_printEtiquetas(1,line,list,discriminate); break;
