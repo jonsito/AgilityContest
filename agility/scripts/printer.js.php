@@ -562,6 +562,7 @@ function print_commonDesarrollo(def,cb) {
 function clasificaciones_printGlobal(podium) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='../ajax/pdf/print_podium.php';
+	var msgtag=(podium==0)?"( Global )":"( Podium )";
     if (isJornadaEquipos()) url='../ajax/pdf/print_podium_equipos.php';
 	if (ronda==null) {
     	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
@@ -585,8 +586,8 @@ function clasificaciones_printGlobal(podium) {
 				Rondas: ronda.Rondas,
                 Podium: podium
 			},
-	        preparingMessageHtml:'(podium) <?php _e("We are preparing your report, please wait"); ?> ...',
-	        failMessageHtml:'(podium) <?php _e("There was a problem generating your report, please try again."); ?>'
+	        preparingMessageHtml:msgtag+' <?php _e("We are preparing your report, please wait"); ?> ...',
+	        failMessageHtml:msgtag+' <?php _e("There was a problem generating your report, please try again."); ?>'
 		}
 	);
     return false; //this is critical to stop the click event which will trigger a normal file download!

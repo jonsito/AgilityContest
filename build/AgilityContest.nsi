@@ -144,10 +144,11 @@ File /r docs
 FILE /r extras
 FILE /r logs
 FILE /r server
-IfFileExists $TEMP\DoNotReinstall.txt ShortCuts
+IfFileExists $TEMP\DoNotReinstall.txt dontReinstall Reinstall
+Reinstall:
     FILE /r xampp
 
-ShortCuts:
+dontReinstall:
 ;Hacemos que la instalacion se realice para todos los usuarios del sistema
 SetShellVarContext all
 ;Creamos los directorios, acesos directos y claves del registro que queramos...

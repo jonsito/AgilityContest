@@ -694,7 +694,7 @@ class Admin extends DBObject {
     	}
         $ch = curl_init(str_replace(" ","%20",$source)); //Here is the file we are downloading, replace spaces with %20
 		curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // not really needed but...
-        curl_setopt($ch, CURLOPT_TIMEOUT, 300); // 5 minutes should be enougth for wellknownforslowness github
+        curl_setopt($ch, CURLOPT_TIMEOUT, 420); // 7 minutes should be enougth for wellknownforslowness github
         curl_setopt($ch, CURLOPT_CAINFO, __DIR__ . "/../../../../config/cacert.pem");
         curl_setopt($ch, CURLOPT_FILE, $fp); // write curl response to file
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // to allow redirect
