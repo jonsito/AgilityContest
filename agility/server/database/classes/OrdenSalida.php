@@ -500,12 +500,14 @@ class OrdenSalida extends DBObject {
             // ordenamos segun el orden de categorias establecido en las tandas
             $p5=array();
             foreach ($res['rows'] as $item) {
+            	// hack to get compatibility with oldest database entries
             	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-XLMST";
             	// si la tanda tiene mas de una categoria, hacemos un split y separamos internamente
 				$cats=str_split(($item['Categoria']));
 				foreach($cats as $cat) {
                     foreach ($p4 as $perro) {
-                        if ($cat==$perro['Categoria']) array_push($p5,$perro);
+						$ccat=compatibleHeights($this->federation->get('Heights'),$cat);
+                        if ( category_match($perro['Categoria'],$ccat)) array_push($p5,$perro);
                     }
 				}
 			}

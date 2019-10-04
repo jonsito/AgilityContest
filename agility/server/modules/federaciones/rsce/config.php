@@ -49,19 +49,19 @@ class RSCE extends Federations {
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',
-                // 'E' => 'Extra',
+                'X' => 'XL',
                 'L' => 'Std',
                 'M' => 'Midi',
                 'S' => 'Mini',
-                // 'T' => 'Toy' // no existe
+                'T' => 'Toy'
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',
-                // 'E' => 'Extra Large',
+                'X' => 'Extra Large',
                 'L' => 'Standard',
                 'M' => 'Midi',
                 'S' => 'Mini',
-                // 'T' => 'Toy' // no existe
+                'T' => 'Toy'
             ),
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',

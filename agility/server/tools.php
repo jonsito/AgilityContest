@@ -674,6 +674,19 @@ function tempnam_sfx($path, $prefix="tmp_",$suffix="") {
 	return $file;
 }
 
+// returns compatible heigts with provided one according federation heights
+function compatibleHeights($height,$cat) {
+    if($cat=="-") return '-XLMST'; // any
+    $a=array (
+        3 => array ( 'X' => 'XL', 'L' => 'XL', 'M' => 'M', 'S'=>'ST', 'T' => 'ST'),
+        4 => array ( 'X' => 'XL', 'L' => 'XL', 'M' => 'M', 'S'=>'S',  'T' => 'T'),
+        5 => array ( 'X' => 'X',  'L' => 'L',  'M' => 'M', 'S'=>'S',  'T' => 'T'),
+    );
+    if (! array_key_exists($height,$a)) return $cat; // should not occur
+    if (! in_array($cat,$a[$height])) return $cat; // should not occur
+    return $a[$height][$cat];
+}
+
 /**
  * Check if any of provided categories in $from are included in valid ones in $to
  * @param {string} $from categories to check
