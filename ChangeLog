@@ -1,4 +1,5 @@
-Version 4.0.1 20191001_1111
+Version 4.0.1 20191001_2150
+    - Fix stupid bug on compare version history
     - Fix podium on 5-heights
     - Add Global scores printing ( every heights of same Class )
     - More 5-heights fixes

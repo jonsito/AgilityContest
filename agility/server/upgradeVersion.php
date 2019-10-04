@@ -881,7 +881,7 @@ try {
 
     // $upg->updateInscripciones(); not needed and to many time wasted
     // si la versión de la db es inferior a la 4.0.0, mover los perros de caza
-    if(strcmp($upg->last_version,"4.0.0")<0) $upg->updateHeightsRFEC();
+    if(strcmp($upg->last_version,"20190923_1123")<0) $upg->updateHeightsRFEC();
 
     // for server edition, include inscription dates
     // notice that mysql does not support CURRENT_DATE as default value, so need to emulate
