@@ -118,8 +118,9 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
         // si hay menos de dos resultados proceder en consecuencia
         if (count($data)<=1) return $data; // nothing to do yet
         if($manga->{"Dist_{$suffix}"}==0) return $data; // no distance provided. cannot evaluate anything
-        // si el trs es fijo, no se hace nada
-        if ( $manga->{"TRS_{$suffix}_Tipo"}==0 ) return $data;
+        // si el trs no es la media de los tres mejores no se hace nada
+        // ask federation: should we roundUp?
+        if ( $manga->{"TRS_{$suffix}_Tipo"}!=2 ) return $data;
         $res=array();
         $med=($data[0]['Tiempo']+$data[1]['Tiempo'])/2.0;
         $res[0]=array('Tiempo' =>$data[0]['Tiempo']);
