@@ -156,7 +156,7 @@ class Mangas extends DBObject {
             $this->jornadaObj=$this->__selectObject("*","jornadas","(ID=$jornada)" );
         }
 		$this->pruebaObj=$this->__selectObject("*","pruebas","(ID={$this->jornadaObj->Prueba})");
-        $this->defaultTeamObj=$this->__selectObject("*","equipos","(Jornada=$jornada) AND (DefaultTeam=1)");
+        $this->defaultTeamObj=$this->__selectObject("*","equipos","(Jornada={$this->jornadaObj->ID}) AND (DefaultTeam=1)");
 	}
 	
 	/**
