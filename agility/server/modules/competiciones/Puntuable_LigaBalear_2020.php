@@ -113,6 +113,8 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
         $suffix=array( 'L','M','S','M','L', 'T','L','S','L', 'X', 'X', 'M', 'X')[$mode];
 
         // fase 1: componer $data con los dos mejores datos y la media de ellos 2
+        // la liga balear no aplica redondeos. Los desactivamos
+        $roundUp=false;
         // si la manga no es de competicion no hacer nada
         if (!in_array($manga->Tipo, array(5,10))) return $data;
         // si hay menos de dos resultados proceder en consecuencia
