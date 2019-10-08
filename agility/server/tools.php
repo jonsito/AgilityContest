@@ -696,20 +696,20 @@ function compatibleHeights($height,$cat) {
 function category_match($from,$to="-XLMST") {
     if (is_numeric($to)) {
         switch (intval($to)) {
-            case 0: $to='L'; break;
-            case 1: $to='M'; break;
-            case 2: $to='S'; break;
-            case 3: $to='MS'; break;
-            case 4: $to='LMS'; break;
-            case 5: $to='T'; break;
-            case 6: $to='LM'; break;
-            case 7: $to='ST'; break;
-            case 8: $to='LMST'; break;
-            case 9: $to='X'; break;
-            case 10: $to='XL'; break;
-            case 11: $to='MST'; break;
-            case 12: $to='XLMST'; break;
-            default: $to='-XLMST'; break;
+            case 0: $to='L'; break;         // L
+            case 1: $to='M'; break;         // M
+            case 2: $to='S'; break;         // S
+            case 3: $to='MS'; break;        // MS
+            case 4: $to='LMS'; break;       // LMS
+            case 5: $to='T'; break;         // T
+            case 6: $to='LM'; break;        // LM
+            case 7: $to='ST'; break;        // ST
+            case 8: $to='LMST'; break;      // LMST
+            case 9: $to='X'; break;         // X
+            case 10: $to='XL'; break;       // XL
+            case 11: $to='MST'; break;      // MST
+            case 12: $to='XLMST'; break;    // XLMST
+            default: $to='-XLMST'; break;   // -
         }
     }
 	if (strpos($to,"-")!==false) return true; // "-" matches any

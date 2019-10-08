@@ -41,8 +41,8 @@ class Puntuable_RFEC_2018 extends Competitions {
         "Rioja, La"             =>  3 // temporalmente en Liga Norte
     );
 
-    protected $poffset=array('X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
-    protected $pfoffset=array('X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
+    protected $poffset=array('G'=>0,'X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
+    protected $pfoffset=array('G'=>0,'X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
 
     protected $zonesByClub=array();
     protected $leagueZone=-1;

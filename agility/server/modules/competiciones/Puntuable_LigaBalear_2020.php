@@ -258,6 +258,7 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
 
         // los "extranjeros" no puntuan
         if (!$this->isInLeague($perro)) {
+            $this->pfoffset['G']++; // properly handle general offset
             $this->pfoffset[$cat]++; // properly handle puestocat offset
             if ( ($resultados[0]==null) || ($resultados[1]==null)) {
                 $perro['Calificacion']= " ";
@@ -298,6 +299,11 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
             return;
         }
         // evaluamos puesto real una vez eliminados los "extranjeros"
+        // en la liga balear, hay tres clasificaciones, en funcion del recorrido
+        // recorrido comun: usar pfoffset['G'] ( global )
+        // recorrido separado: usar pfoffset[$cat]
+        // recorrido conjunto: no hay puntuacion global
+        do_log("Manga info: ".json_encode($mangas));
         $puesto=$puestocat[$cat] - $this->pfoffset[$cat];
         // si esta entre los 7 primeros cogemos los puntos
         if ($puesto<8) $pfin=$ptsglobal[$puesto-1];
