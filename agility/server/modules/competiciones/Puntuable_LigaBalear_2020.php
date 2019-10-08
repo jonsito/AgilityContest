@@ -255,7 +255,7 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
         $perro['Puntos']=0;
         $perro['Estrellas']=0;
         $perro['Extras']=0;
-        // si no grado II utiliza los sistemas de calificacion de la RFEC
+        // si no grado II utiliza  los sistemas de calificacion de la RFEC
         if ($grad !== "GII") {
             parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             return;
@@ -308,13 +308,27 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
         // recorrido comun: usar pfoffset['G'] ( global )
         // recorrido separado: usar pfoffset[$cat]
         // recorrido conjunto: no hay puntuacion global
-        do_log("Manga info: ".json_encode($mangas));
-        $puesto=$puestocat[$cat] - $this->pfoffset[$cat];
-        // si esta entre los 7 primeros cogemos los puntos
-        if ($puesto<8) $pfin=$ptsglobal[$puesto-1];
-        // y asignamos la calificacion final
-        $perro['Calificacion']="{$pt1} - {$pt2} - {$pfin}";
-        $perro['Puntos']=intval($pt1)+intval($pt2)+intval($pfin);
+        if ($mangas[0]->Recorrido==2) { // conjunta // puntos por general, no por altura
+            $puesto=$puestocat[$cat] - $this->pfoffset['G'];
+            // si esta entre los 7 primeros cogemos los puntos
+            if ($puesto<8) $pfin=$ptsglobal[$puesto-1];
+            // y asignamos la calificacion final
+            $perro['Calificacion']="{$pt1} - {$pt2} - {$pfin}";
+            $perro['Puntos']=intval($pt1)+intval($pt2)+intval($pfin);
+
+        }
+        else if ($mangas[0]->Recorrido==0)  { // separada cada altura tiene sus propios puntos
+            $puesto=$puestocat[$cat] - $this->pfoffset[$cat];
+            // si esta entre los 7 primeros cogemos los puntos
+            if ($puesto<8) $pfin=$ptsglobal[$puesto-1];
+            // y asignamos la calificacion final
+            $perro['Calificacion']="{$pt1} - {$pt2} - {$pfin}";
+            $perro['Puntos']=intval($pt1)+intval($pt2)+intval($pfin);
+        }
+        else { // conjunta XL - MST no hay puntuacion por clasificacion general
+            $perro['Calificacion']="{$pt1} - {$pt2}";
+            $perro['Puntos']=intval($pt1)+intval($pt2);
+        }
     }
 
 }
