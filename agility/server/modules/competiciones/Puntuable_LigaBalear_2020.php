@@ -113,11 +113,16 @@ class Puntuable_LigaBalear_2020 extends Puntuable_RFEC_2018 {
         $suffix=array( 'L','M','S','M','L', 'T','L','S','L', 'X', 'X', 'M', 'X')[$mode];
 
         // fase 1: componer $data con los dos mejores datos y la media de ellos 2
+        // la liga balear no aplica redondeos. Los desactivamos
+        $roundUp=false;
+        // si la manga no es de competicion no hacer nada
+        if (!in_array($manga->Tipo, array(5,10))) return $data;
         // si hay menos de dos resultados proceder en consecuencia
         if (count($data)<=1) return $data; // nothing to do yet
         if($manga->{"Dist_{$suffix}"}==0) return $data; // no distance provided. cannot evaluate anything
-        // si el recorrido es individual y trs es fijo, no se hace nada
-        if ( ($manga->Recorrido == 0) && ($manga->{"TRS_{$suffix}_Tipo"}==0) ) return $data;
+        // si el trs no es la media de los tres mejores no se hace nada
+        // ask federation: should we roundUp?
+        if ( $manga->{"TRS_{$suffix}_Tipo"}!=2 ) return $data;
         $res=array();
         $med=($data[0]['Tiempo']+$data[1]['Tiempo'])/2.0;
         $res[0]=array('Tiempo' =>$data[0]['Tiempo']);

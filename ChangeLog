@@ -1,4 +1,7 @@
-Version 4.0.1 20191001_2150
+Version 4.0.1 20191006_1920
+    - Last time fixes for Balear league
+    - Fix printing judge score table for 5 heights
+    - Fix real-test bugs found
     - Fix stupid bug on compare version history
     - Fix podium on 5-heights
     - Add Global scores printing ( every heights of same Class )

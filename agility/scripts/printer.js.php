@@ -444,7 +444,7 @@ function print_parcial(mode) {
 
 /**
  * imprime los resultados de la manga/categoria solicitadas
- * @param {integer} recorrido 0:L 1:M 2:S 3:T
+ * @param {integer} recorrido 0:L 1:M 2:S 3:T 4:X
  */
 function checkAndPrintParcial(recorrido) {
 	var value=parseInt(recorrido); // stupid javascript!!
