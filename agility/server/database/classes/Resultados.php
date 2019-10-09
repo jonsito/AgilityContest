@@ -281,7 +281,7 @@ class Resultados extends DBObject {
         $where="1";
         if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
         $cats="";
-        if ($mode!=12) $cats=sqlFilterCategoryByMode($mode,"");
+        if ($mode!=12) $cats=sqlFilterCategoryByMode($mode, $this->federation->get('Heights'),"");
         $result=$this->__select(
         /* SELECT */ "*",
             /* FROM */ "resultados",
@@ -296,7 +296,7 @@ class Resultados extends DBObject {
 	function reset($catsmode) {
 		$this->myLogger->enter();
 		$where="";
-		if ($catsmode!=12) $where=sqlFilterCategoryByMode($catsmode,""); // 12(XLMST) includes 4(LMS) and 8(LMST)
+		if ($catsmode!=12) $where=sqlFilterCategoryByMode($catsmode, $this->federation->get('Heights'),""); // 12(XLMST) includes 4(LMS) and 8(LMST)
 		$this->getDatosJornada(); // also implies getDatosManga
 		$idmanga=$this->IDManga;
 		if ($this->isCerrada())
@@ -521,7 +521,7 @@ class Resultados extends DBObject {
 		$idmanga=$this->IDManga;
 		$where="(Manga=$idmanga) AND (Pendiente=1) "; // para comprobar pendientes
 		$cat="";
-		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode,"");
+		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $this->federation->get('Heights'),"");
 		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		// comprobamos si hay perros pendientes de salir
 		$res= $this->__select(
@@ -547,7 +547,7 @@ class Resultados extends DBObject {
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga={$this->IDManga}) AND (Pendiente=0) ";
 		$cat="";
-		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode,"");
+		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $this->federation->get('Heights'),"");
 		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		//  evaluamos mejores tiempos intermedios y totales
 		$best=$this->__select(
@@ -583,7 +583,7 @@ class Resultados extends DBObject {
             $where="(Manga=$idmanga) AND (Pendiente=0) AND (Perro!=$idperro)";
         }
 		$cat="";
-        if ($mode!=12) $cat=sqlFilterCategoryByMode($mode,""); // 12:XLMST includes 4:LMS and 8:LMST
+        if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $this->federation->get('Heights'),""); // 12:XLMST includes 4:LMS and 8:LMST
         if ($cat===null)  return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
@@ -707,7 +707,7 @@ class Resultados extends DBObject {
 		$where="(Manga=$idmanga) AND (Pendiente=0) AND (perroguiaclub.ID=resultados.Perro) ";
 		$cat="";
 		// mode 12 is XLMST
-		if ($mode<12) $cat=sqlFilterCategoryByMode($mode,"resultados."); // notice the ending dot '.'
+		if ($mode<12) $cat=sqlFilterCategoryByMode($mode, $this->federation->get('Heights'),"resultados."); // notice the ending dot '.'
         if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(

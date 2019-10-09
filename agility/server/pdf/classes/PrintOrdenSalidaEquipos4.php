@@ -182,7 +182,7 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
             // skip "-- Sin asignar --" team. Do not print team on unrequested categories
             if ($equipo['Nombre']==="-- Sin asignar --") continue;
             // $this->myLogger->trace("Team:{$equipo['Nombre']} cats:{$equipo['Categorias']} compare to:{$this->validcats}");
-            if (!category_match($equipo['Categorias'],$this->validcats)) continue;
+            if (!category_match($equipo['Categorias'],$this->federation->get('Heights'),$this->validcats)) continue;
             if ( (($index+1)<$fromItem) || (($index+1)>$toItem) ) { $index++; continue; } // team index not in range; skip
             $miembros=$equipo['Perros'];
             $num=count($miembros);

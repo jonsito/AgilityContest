@@ -217,7 +217,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         $rowcount=0;
         $this->categoria="-";
 		foreach($this->equipos as $equipo) {
-            if(!category_match($equipo['Categorias'],$this->validcats)) continue;
+            if(!category_match($equipo['Categorias'],$this->federation->get('Heights'),$this->validcats)) continue;
             if ( (($index+1)<$fromItem) || (($index+1)>$toItem) ) { $index++; continue; } // not in range; skip
             $miembros=$equipo['Perros'];
             $num=count($miembros);

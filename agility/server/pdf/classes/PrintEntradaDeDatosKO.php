@@ -246,7 +246,7 @@ class PrintEntradaDeDatosKO extends PrintCommon {
         $rowcount=0;
         foreach($this->orden as $row) {
             // remember: in ko rounds heigths are grouped. so just skip if not selected, but no add new page
-            if (!category_match($row['Categoria'],$this->validcats)) continue;
+            if (!category_match($row['Categoria'],$this->federation->get('Heights'),$this->validcats)) continue;
 
             if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
             // REMINDER: $this->cell( width, height, data, borders, where, align, fill)

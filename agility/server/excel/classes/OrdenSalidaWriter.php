@@ -152,7 +152,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
             // skip "-- Sin asignar --" team. Do not print team on unrequested categories
             if ($equipo['Nombre']==="-- Sin asignar --") continue;
             // $this->myLogger->trace("Team:{$equipo['Nombre']} cats:{$equipo['Categorias']} compare to:{$this->validcats}");
-            if (!category_match($equipo['Categorias'],$this->validcats)) continue;
+            if (!category_match($equipo['Categorias'],$this->federation->get('Heights'),$this->validcats)) continue;
             // print team name:
             $row=array();
             array_push($row,_utf('Team') . ':');
@@ -200,7 +200,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
         $equipo="-- Sin asignar --";
         $index=1;
         foreach($this->orden as $perro) {
-            if (!category_match($perro['Categoria'],$this->validcats)) continue;
+            if (!category_match($perro['Categoria'],$this->federation->get('Heights'),$this->validcats)) continue;
             if ($categoria!=$perro['Categoria']) {
                 if ($categoria!="") $this->myWriter->addRow(array()); // add empty row
                 $row=array();

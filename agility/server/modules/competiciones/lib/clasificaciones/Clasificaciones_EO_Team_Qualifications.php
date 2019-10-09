@@ -206,6 +206,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
      * @param {integer} $mode modo de la prueba
      */
 	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$maxdogs,$mode) {
+	    $heights=Federations::getFederation($this->prueba->RSCE)->get('Heights');
         // Datos de equipos de la jornada
         $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
         $tbj=$eobj->getTeamsByJornada();
@@ -216,7 +217,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
             if ($equipo['Nombre']==="-- Sin asignar --") continue;
             // comprobamos la categoria. si no coincide tiramos el equipo
             $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST","X","XL","MST","XLMST");
-            if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
+            if ( ! category_match($equipo['Categorias'],$heights,$modes[$mode])) continue;
             $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,
                 'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0,'Puntos'=>0,'Extra'=>0,'Best'=>0));
             $teams[$id]=$r;

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2019-10-01 10:09+0200\n"
-"PO-Revision-Date: 2019-10-01 10:11+0200\n"
+"POT-Creation-Date: 2019-10-09 12:59+0200\n"
+"PO-Revision-Date: 2019-10-09 13:00+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -445,7 +445,7 @@ msgstr "Reh&uacute;se"
 #: server/modules/competiciones/Puntuable_CPC_2018.php:127
 #: server/modules/competiciones/Puntuable_FMC_2018.php:93
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:92
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:201
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:206
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:151
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:73
 #: server/modules/competiciones/SelectivaWAO_Games.php:93
@@ -498,9 +498,9 @@ msgstr "Eliminado"
 #: scripts/jueces.js.php:105 scripts/perros.js.php:196
 #: scripts/perros.js.php:216 scripts/perros.js.php:225
 #: scripts/perros.js.php:279 scripts/perros.js.php:313
-#: scripts/printer.js.php:508 scripts/printer.js.php:567
-#: scripts/printer.js.php:605 scripts/printer.js.php:648
-#: scripts/printer.js.php:716 scripts/pruebas.js.php:115
+#: scripts/printer.js.php:508 scripts/printer.js.php:568
+#: scripts/printer.js.php:606 scripts/printer.js.php:649
+#: scripts/printer.js.php:717 scripts/pruebas.js.php:115
 #: scripts/pruebas.js.php:199 scripts/pruebas.js.php:248
 #: scripts/pruebas.js.php:314 scripts/pruebas.js.php:477
 #: scripts/pruebas.js.php:636 scripts/pruebas.js.php:642
@@ -586,7 +586,7 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 #: server/modules/competiciones/Puntuable_CPC_2018.php:128
 #: server/modules/competiciones/Puntuable_FMC_2018.php:94
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:93
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:202
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:207
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:152
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:74
 #: server/modules/competiciones/SelectivaWAO_Games.php:94
@@ -646,7 +646,7 @@ msgstr "Dors"
 #: console/dialogs/dlg_sesiones.inc:159 console/dialogs/dlg_tools.inc:80
 #: console/dialogs/dlg_usuarios.inc:55
 #: console/dialogs/import_handlers.inc.php:89
-#: console/frm_clasificaciones2.php:220
+#: console/frm_clasificaciones2.php:219
 #: console/frm_clasificaciones_equipos.php:212 console/frm_clubes.php:99
 #: console/frm_clubes.php:178 console/frm_clubes.php:266
 #: console/frm_equipos.php:126 console/frm_equipos.php:176
@@ -782,7 +782,7 @@ msgstr "Grd"
 #: lib/templates/parcial_teams.inc.php:15
 #: public/pb_inscripciones_equipos.php:100
 #: public/pbmenu_inscripciones_equipos.php:95
-#: server/database/classes/OrdenSalida.php:532
+#: server/database/classes/OrdenSalida.php:534
 #: server/excel/classes/OrdenSalidaWriter.php:158
 #: server/excel/classes/OrdenSalidaWriter.php:216 tablet/tablet_main.php:292
 #: videowall/vwc_finales.php:218 videowall/vwc_parciales.php:230
@@ -797,7 +797,7 @@ msgstr "Equipo"
 #: console/frm_paises.php:81 scripts/datagrid_formatters.js.php:173
 #: scripts/datagrid_formatters.js.php:569
 #: scripts/datagrid_formatters.js.php:579
-#: server/excel/classes/DogReader.php:450 server/modules/Federations.php:417
+#: server/excel/classes/DogReader.php:451 server/modules/Federations.php:417
 #: server/pdf/classes/PrintEntrenamientos.php:59
 #: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:293
 msgid "Country"
@@ -988,7 +988,7 @@ msgstr "Reasignar"
 #: console/dialogs/dlg_resultados_ko.inc:34
 #: console/dialogs/dlg_selectJornada.inc:44 console/dialogs/dlg_sesiones.inc:70
 #: console/dialogs/dlg_usuarios.inc:47 console/dialogs/dlg_usuarios.inc:95
-#: console/frm_clasificaciones2.php:161 console/frm_equipos.php:92
+#: console/frm_clasificaciones2.php:160 console/frm_equipos.php:92
 #: console/frm_inscripciones.php:44 console/frm_inscripciones2.php:48
 #: console/frm_login.php:83 console/frm_logout.php:37
 #: console/frm_myAdmin.php:65 console/frm_perros.php:34
@@ -1016,7 +1016,7 @@ msgstr "Limpiar formulario"
 #: console/dialogs/dlg_resultados_individual.inc:115
 #: console/dialogs/dlg_resultados_ko.inc:114
 #: console/dialogs/dlg_sesiones.inc:117 console/dialogs/dlg_usuarios.inc:143
-#: console/dialogs/dlg_usuarios.inc:146 console/frm_clasificaciones2.php:254
+#: console/dialogs/dlg_usuarios.inc:146 console/frm_clasificaciones2.php:253
 #: console/frm_inscripciones2.php:329 console/frm_myAdmin.php:101
 #: console/frm_perros.php:217 console/frm_perros.php:219
 #: console/frm_registration.php:175 lib/templates/scores_mail.inc.php:98
@@ -1362,7 +1362,7 @@ msgstr "Tiempo"
 #: server/modules/competiciones/Puntuable_CPC_2018.php:123
 #: server/modules/competiciones/Puntuable_FMC_2018.php:89
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:88
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:197
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:202
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:147
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:69
 #: server/modules/competiciones/SelectivaWAO_Games.php:97
@@ -2689,7 +2689,7 @@ msgstr "Importar/Exportar"
 #: console/dialogs/dlg_resultados_games.inc:56
 #: console/dialogs/dlg_resultados_individual.inc:56
 #: console/dialogs/dlg_resultados_ko.inc:56
-#: console/frm_clasificaciones2.php:163
+#: console/frm_clasificaciones2.php:162
 #: console/frm_clasificaciones_equipos.php:170 console/frm_clubes.php:49
 #: console/frm_equipos.php:50 console/frm_inscripciones2.php:130
 #: console/frm_ligas.php:51 console/frm_ligas.php:87 console/frm_perros.php:91
@@ -4965,91 +4965,91 @@ msgstr "Exportar como hoja de cálculo"
 msgid "Global Scores"
 msgstr "Clasificaci&oacute;n general"
 
-#: console/frm_clasificaciones2.php:129
+#: console/frm_clasificaciones2.php:128
 #: server/pdf/classes/PrintResultadosGames.php:77
 msgid "Round Scores"
 msgstr "Clasificaci&oacute;n de la manga"
 
-#: console/frm_clasificaciones2.php:132
+#: console/frm_clasificaciones2.php:131
 #: console/frm_clasificaciones_equipos.php:146
 msgid "Include Statistics"
 msgstr "Incluir Estad&iacute;sticas"
 
-#: console/frm_clasificaciones2.php:136
+#: console/frm_clasificaciones2.php:135
 msgid "Split Children/Junior"
 msgstr "Separar Infantil / Junior"
 
-#: console/frm_clasificaciones2.php:144
+#: console/frm_clasificaciones2.php:143
 msgid "CNEAC Qualification forms"
 msgstr "Hojas de calificación  CNEAC"
 
-#: console/frm_clasificaciones2.php:145
+#: console/frm_clasificaciones2.php:144
 msgid "RSCE Label sheets"
 msgstr "Etiquetas cartilla RSCE"
 
-#: console/frm_clasificaciones2.php:149
+#: console/frm_clasificaciones2.php:148
 #: console/frm_clasificaciones_equipos.php:162
 msgid "Dorsal list"
 msgstr "Lista de dorsales"
 
-#: console/frm_clasificaciones2.php:152
+#: console/frm_clasificaciones2.php:151
 #: console/frm_clasificaciones_equipos.php:159
 msgid "Initial label"
 msgstr "Etiqueta inicial"
 
-#: console/frm_clasificaciones2.php:155
+#: console/frm_clasificaciones2.php:154
 msgid "Filter country"
 msgstr "Filtrar por pa&iacute;s"
 
-#: console/frm_clasificaciones2.php:177
+#: console/frm_clasificaciones2.php:176
 #: console/frm_clasificaciones_equipos.php:240
 msgid "Select format"
 msgstr "Selecciona formato"
 
-#: console/frm_clasificaciones2.php:248
+#: console/frm_clasificaciones2.php:247
 msgid "Jump to Journey development window"
 msgstr "Abrir ventana de desarrollo de la jornada"
 
-#: console/frm_clasificaciones2.php:249
+#: console/frm_clasificaciones2.php:248
 #: console/frm_clasificaciones_equipos.php:253
 msgid "Update score tables"
 msgstr "Actualizar tablas de resultados"
 
-#: console/frm_clasificaciones2.php:250
+#: console/frm_clasificaciones2.php:249
 #: console/frm_clasificaciones_equipos.php:254
 msgid "Check for dogs without registered data"
 msgstr "Comprobar si hay perros sin datos anotados"
 
-#: console/frm_clasificaciones2.php:251
+#: console/frm_clasificaciones2.php:250
 #: console/frm_clasificaciones_equipos.php:256
 msgid "Print scores on current round"
 msgstr "Imprimir clasificaci&oacute;n de la manga"
 
-#: console/frm_clasificaciones2.php:252
+#: console/frm_clasificaciones2.php:251
 #: console/frm_clasificaciones_equipos.php:255
 msgid "Share results and scores by electronic mail"
 msgstr "Enviar resultados y clasificaciones por correo electr&oacute;nico"
 
-#: console/frm_clasificaciones2.php:253
+#: console/frm_clasificaciones2.php:252
 #: console/frm_clasificaciones_equipos.php:257
 msgid "Print data in selected format"
 msgstr "Imprimir los datos en el formato seleccionado"
 
-#: console/frm_clasificaciones2.php:255
+#: console/frm_clasificaciones2.php:254
 #: console/frm_clasificaciones_equipos.php:258
 msgid "where to start printing<br/>in labels sheet"
 msgstr "Posici&oacute;n inicial <br /> en la hoja de etiquetas"
 
-#: console/frm_clasificaciones2.php:256
+#: console/frm_clasificaciones2.php:255
 #: console/frm_clasificaciones_equipos.php:259
 msgid "Comma separated list of dorsals to be printed"
 msgstr "Lista de dorsales a imprimir separada por comas"
 
-#: console/frm_clasificaciones2.php:257
+#: console/frm_clasificaciones2.php:256
 msgid "Omit label on country missmatch"
 msgstr "Omitir etiquetas si el pa&iacute;s no coincide"
 
-#: console/frm_clasificaciones2.php:258
+#: console/frm_clasificaciones2.php:257
 msgid "Create separate listings for Children and Junior"
 msgstr "Generar listados separados para las clasificaciones infantil y junior"
 
@@ -7776,9 +7776,9 @@ msgstr "Imprimiendo lista de equipos. Por favor, espere"
 #: scripts/printer.js.php:102 scripts/printer.js.php:124
 #: scripts/printer.js.php:147 scripts/printer.js.php:184
 #: scripts/printer.js.php:209 scripts/printer.js.php:247
-#: scripts/printer.js.php:289 scripts/printer.js.php:589
-#: scripts/printer.js.php:669 scripts/printer.js.php:693
-#: scripts/printer.js.php:740 scripts/pruebas.js.php:222
+#: scripts/printer.js.php:289 scripts/printer.js.php:590
+#: scripts/printer.js.php:670 scripts/printer.js.php:694
+#: scripts/printer.js.php:741 scripts/pruebas.js.php:222
 msgid "There was a problem generating your report, please try again."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
@@ -8355,10 +8355,10 @@ msgstr "Actualizar lista de perros con datos obtenidos de un fichero Excel"
 #: scripts/printer.js.php:183 scripts/printer.js.php:208
 #: scripts/printer.js.php:246 scripts/printer.js.php:288
 #: scripts/printer.js.php:321 scripts/printer.js.php:404
-#: scripts/printer.js.php:431 scripts/printer.js.php:588
-#: scripts/printer.js.php:626 scripts/printer.js.php:668
-#: scripts/printer.js.php:692 scripts/printer.js.php:739
-#: scripts/printer.js.php:812 scripts/printer.js.php:833
+#: scripts/printer.js.php:431 scripts/printer.js.php:589
+#: scripts/printer.js.php:627 scripts/printer.js.php:669
+#: scripts/printer.js.php:693 scripts/printer.js.php:740
+#: scripts/printer.js.php:813 scripts/printer.js.php:834
 #: scripts/pruebas.js.php:221
 msgid "We are preparing your report, please wait"
 msgstr "Preparando el informe, por favor, espere"
@@ -8445,13 +8445,13 @@ msgstr "No hay ninguna manga seleccionada"
 msgid "Selected category"
 msgstr "Categoria seleccionada"
 
-#: scripts/printer.js.php:567 scripts/printer.js.php:605
-#: scripts/printer.js.php:648 scripts/printer.js.php:716
+#: scripts/printer.js.php:568 scripts/printer.js.php:606
+#: scripts/printer.js.php:649 scripts/printer.js.php:717
 msgid "There is no selected round on this journey"
 msgstr "No hay ninguna manga seleccionada en la jornada"
 
-#: scripts/printer.js.php:627 scripts/printer.js.php:813
-#: scripts/printer.js.php:834
+#: scripts/printer.js.php:628 scripts/printer.js.php:814
+#: scripts/printer.js.php:835
 msgid "There was a problem generating your report, please contact the author."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Contacte con el autor."
@@ -8873,7 +8873,7 @@ msgstr "Ya hay una prueba con ese nombre"
 #: server/modules/competiciones/Puntuable_CPC_2018.php:122
 #: server/modules/competiciones/Puntuable_FMC_2018.php:88
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:87
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:196
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:201
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:146
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:68
 #: server/modules/competiciones/SelectivaWAO_Games.php:96
@@ -9321,7 +9321,7 @@ msgstr "LOE_RRC"
 #: server/modules/competiciones/Puntuable_CPC_2018.php:131
 #: server/modules/competiciones/Puntuable_FMC_2018.php:97
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:96
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:205
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:210
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:155
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:77
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:103
@@ -9341,7 +9341,7 @@ msgstr "No Clasificado"
 #: server/modules/competiciones/Puntuable_CPC_2018.php:132
 #: server/modules/competiciones/Puntuable_FMC_2018.php:98
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:97
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:206
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:211
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:156
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:78
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:104
@@ -9361,8 +9361,8 @@ msgstr "N.C."
 #: server/modules/competiciones/Puntuable_FMC_2018.php:102
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:100
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:101
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:210
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:211
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:215
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:216
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:159
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:160
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:81
@@ -9384,7 +9384,7 @@ msgstr "Bien"
 #: server/modules/competiciones/Puntuable_CPC_2018.php:139
 #: server/modules/competiciones/Puntuable_FMC_2018.php:105
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:104
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:215
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:220
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:163
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:85
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:111
@@ -9403,7 +9403,7 @@ msgstr "Muy bien"
 #: server/modules/competiciones/Puntuable_CPC_2018.php:140
 #: server/modules/competiciones/Puntuable_FMC_2018.php:106
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:105
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:216
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:221
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:164
 #: server/modules/competiciones/SelectivaWAO_Biathlon.php:86
 #: server/modules/competiciones/SelectivaWAO_Pentathlon.php:112
@@ -9422,8 +9422,8 @@ msgstr "M.B."
 #: server/modules/competiciones/Puntuable_FMC_2018.php:113
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:108
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:112
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:220
 #: server/modules/competiciones/Puntuable_LigaBalear_2020.php:225
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:230
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:167
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:171
 #: server/modules/competiciones/Puntuable_RSCE_2017.php:111
@@ -9437,10 +9437,10 @@ msgstr "M.B."
 #: server/modules/competiciones/Selectiva_awc_2017.php:150
 #: server/modules/competiciones/Selectiva_awc_2018.php:149
 #: server/modules/competiciones/Selectiva_awc_2018.php:153
-#: server/modules/competiciones/Selectiva_eo_2017.php:146
-#: server/modules/competiciones/Selectiva_eo_2017.php:150
-#: server/modules/competiciones/Selectiva_eo_2018.php:148
-#: server/modules/competiciones/Selectiva_eo_2018.php:152
+#: server/modules/competiciones/Selectiva_eo_2017.php:147
+#: server/modules/competiciones/Selectiva_eo_2017.php:151
+#: server/modules/competiciones/Selectiva_eo_2018.php:149
+#: server/modules/competiciones/Selectiva_eo_2018.php:153
 #: server/pdf/classes/PrintEstadisticas.php:25
 #: server/pdf/classes/PrintEstadisticas.php:72
 #: server/pdf/classes/PrintEstadisticas.php:73
@@ -9462,8 +9462,8 @@ msgstr "Excelente"
 #: server/modules/competiciones/Puntuable_FMC_2018.php:114
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:109
 #: server/modules/competiciones/Puntuable_LigaAragon_2019.php:113
-#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:221
 #: server/modules/competiciones/Puntuable_LigaBalear_2020.php:226
+#: server/modules/competiciones/Puntuable_LigaBalear_2020.php:231
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:168
 #: server/modules/competiciones/Puntuable_RFEC_2018.php:172
 #: server/modules/competiciones/Puntuable_RSCE_2016.php:88
@@ -9478,8 +9478,8 @@ msgstr "Excelente"
 #: server/modules/competiciones/Selectiva_PastorBelga.php:105
 #: server/modules/competiciones/Selectiva_awc_2017.php:147
 #: server/modules/competiciones/Selectiva_awc_2018.php:150
-#: server/modules/competiciones/Selectiva_eo_2017.php:147
-#: server/modules/competiciones/Selectiva_eo_2018.php:149
+#: server/modules/competiciones/Selectiva_eo_2017.php:148
+#: server/modules/competiciones/Selectiva_eo_2018.php:150
 #: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:92
 #: videowall/videowall.js.php:411
 msgid "Exc"
@@ -9559,9 +9559,10 @@ msgid "Teams 2"
 msgstr "Equipos 2"
 
 #: server/modules/Federations.php:319
+#: server/modules/federaciones/rfec/config.php:334
 #: server/modules/federaciones/rfec/config_4heights.php:301
-msgid "Children / Junior"
-msgstr "Infantil / Junior"
+msgid "Children / Young"
+msgstr "Infantil / Juvenil"
 
 #: server/modules/competiciones/Clasificatoria_Interclubes_2017.php:69
 #: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:86
@@ -9585,8 +9586,8 @@ msgstr "Ex P"
 
 #: server/modules/competiciones/Selectiva_awc_2017.php:151
 #: server/modules/competiciones/Selectiva_awc_2018.php:154
-#: server/modules/competiciones/Selectiva_eo_2017.php:151
-#: server/modules/competiciones/Selectiva_eo_2018.php:153
+#: server/modules/competiciones/Selectiva_eo_2017.php:152
+#: server/modules/competiciones/Selectiva_eo_2018.php:154
 msgid "ExP"
 msgstr "Ex P"
 
@@ -9878,10 +9879,6 @@ msgstr "Promocion"
 #: server/modules/federaciones/rfec/config_4heights.php:289
 msgid "Competicion"
 msgstr "Competicion"
-
-#: server/modules/federaciones/rfec/config.php:334
-msgid "Children / Joung"
-msgstr "Infantil / Juvenil"
 
 #: server/modules/federaciones/rfec/config_4heights.php:79
 msgid "Cl. 60+50"
@@ -10222,7 +10219,7 @@ msgstr "P&aacute;gina"
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
 
-#: server/tools.php:758
+#: server/tools.php:813
 msgid "Current journey is closed. cannot modify"
 msgstr "La jornada actual est&aacute; cerrada. No se puede modificar"
 
@@ -10379,6 +10376,12 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "Children / Junior"
+#~ msgstr "Infantil / Juvenil"
+
+#~ msgid "Children / Joung"
+#~ msgstr "Infantil / Juvenil"
 
 #~ msgid "Create Excel File"
 #~ msgstr "Generar fichero Excel"

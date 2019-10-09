@@ -606,7 +606,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$orden=1;
 		$rowcount=0;
 		foreach($this->orden as $row) {
-			if (!category_match($row['Categoria'],$this->validcats)) continue;
+			if (!category_match($row['Categoria'],$this->federation->get('Heights'),$this->validcats)) continue;
 			// if change in categoria, reset orden counter and force page change
 			if ($this->category_needsNewPage($this->categoria,$row['Categoria'],$this->manga)===true) {
                 $rowcount=0;

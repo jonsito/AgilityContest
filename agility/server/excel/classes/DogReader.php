@@ -44,6 +44,7 @@ class DogReader {
     public $myLogger;
     protected $name;
     protected $federation;
+    protected $fedobj;
     protected $myOptions;
     protected $blindMode;
     protected $myAuthMgr;
@@ -94,8 +95,8 @@ class DogReader {
         $this->tablename= TABLE_NAME;
         $this->myDBObject = new DBObject($name);
         // take care on international feds ajdusting "required" array field
-        $fedobj=Federations::getFederation($this->federation);
-        $this->isInternational=$fedobj->isInternational();
+        $this->fedobj=Federations::getFederation($this->federation);
+        $this->isInternational=$this->fedobj->isInternational();
         if ($this->isInternational) {
             $this->fieldList['Club'][1]=-1;$this->fieldList['Country'][1]=1;
         }

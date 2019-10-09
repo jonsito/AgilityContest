@@ -315,6 +315,8 @@ class Clasificaciones extends DBObject {
      * @param {integer} $mode modo de la prueba
      */
 	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$maxdogs,$mode) {
+	    $heights=Federations::getFederation(intval($this->prueba->RSCE))->get('Heights');
+
         // indexamos las clasificaciones por id de perro
         $indexedc=array();
         foreach ($c as &$item) {
@@ -332,7 +334,7 @@ class Clasificaciones extends DBObject {
             // comprobamos la categoria. si no coincide tiramos el equipo
             //            0   1   2   3     4    5    6    7    8     9   10    11     12
             $modes=array("L","M","S","MS","LMS","T","LM","ST","LMST","X","XL","MST","XLMST");
-            if ( ! category_match($equipo['Categorias'],$modes[$mode])) continue;
+            if ( ! category_match($equipo['Categorias'],$heights,$modes[$mode])) continue;
             $r=array_merge($equipo,array('C1'=>0,'C2'=>0,'T1'=>0,'T2'=>0,'P1'=>0,'P2'=>0,'Puesto1'=>0,'Puesto2'=>0,'Tiempo'=>0,'Penalizacion'=>0,'Puesto'=>0,'Outs1'=>0,'Outs2'=>0));
             $teams[$id]=$r;
 			$teams[$id]['Equipo']=$id; // guardamos el teamID 

@@ -346,7 +346,7 @@ class OrdenSalida extends DBObject {
                 array_push($listas[2],$perro);
 			} else {
                 // dorsal match, compare categories, and insert in proper list
-                if (mode_match($listaperros[$perro]['Categoria'],$mode)) {
+                if (category_match($listaperros[$perro]['Categoria'],$this->federation->get('Heights'),$mode)) {
                     array_push($listas[1],$perro);
                 } else {
                     array_push($listas[2],$perro);
@@ -386,7 +386,7 @@ class OrdenSalida extends DBObject {
             // add unconditionally to main list
 			array_push($listas[0],$equipo);
             // compare categories, and insert in proper list
-			if (mode_match($listaequipos[$equipo]['Categorias'],$mode)) {
+			if (category_match($listaequipos[$equipo]['Categorias'],$this->federation->get('Heights'),$mode)) {
                 array_push($listas[1],$equipo);
             } else {
                 array_push($listas[2],$equipo);
@@ -500,14 +500,16 @@ class OrdenSalida extends DBObject {
             // ordenamos segun el orden de categorias establecido en las tandas
             $p5=array();
             foreach ($res['rows'] as $item) {
+            	$heights=$this->federation->get('Heights');
             	// hack to get compatibility with oldest database entries
             	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-XLMST";
             	// si la tanda tiene mas de una categoria, hacemos un split y separamos internamente
 				$cats=str_split(($item['Categoria']));
 				foreach($cats as $cat) {
                     foreach ($p4 as $perro) {
-						$ccat=compatibleHeights($this->federation->get('Heights'),$cat);
-                        if ( category_match($perro['Categoria'],$ccat)) array_push($p5,$perro);
+                    	$ccats=compatible_categories($heights,$cat);
+                    	do_log("perro:{$perro['Perro']} categoria:{$perro['Categoria']} tanda:{$cat} ccats:{$ccats}");
+                        if ( category_match($perro['Categoria'],$heights,$ccats)) array_push($p5,$perro);
                     }
 				}
 			}
@@ -746,7 +748,7 @@ class OrdenSalida extends DBObject {
 		for($idx=$size-1; $idx>=0; $idx--) {
 		    // si el resultado indica un perro que no existe en orden de salida actual, skip
             // esto ocurre cuando from corresponde a una manga de calificacion
-			if (! mode_match($data[$idx]['Categoria'],$catmode) ) continue;
+			if (! category_match($data[$idx]['Categoria'],$this->federation->get('Heights'),$catmode) ) continue;
 			$idperro=$data[$idx]['Perro'];
 			// lo borramos para evitar una posible doble insercion
 			$str = ",$idperro,";
@@ -768,7 +770,7 @@ class OrdenSalida extends DBObject {
         $ordenequipos=$this->getOrdenEquipos();
         // y reinsertamos los perros actualizando el orden si la categoria del equipo coincide
         for($idx=$size-1; $idx>=0; $idx--) {
-			if (! mode_match($res[$idx]['Categorias'],$catmode)) continue;
+			if (! category_match($res[$idx]['Categorias'],$this->federation->get('Heights'),$catmode)) continue;
             $equipo=intval($res[$idx]['ID']);
             $this->myLogger->trace("Equipo: $equipo - ,{$res[$idx]['Nombre']}");
             // eliminamos el equipo del puesto donde esta

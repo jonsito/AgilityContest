@@ -331,7 +331,7 @@ class RFEC extends Federations {
                 /*13 */ array(2048,	_('Teams 2') ),
                 /*14 */ array(4096,	_('Teams 3') ),
                 /*15 */ array(8192,	_('Games / WAO') ),
-                /*16 */ array(16384,_('Children / Joung') ),
+                /*16 */ array(16384,_('Children / Young') ),
                 /*17 */ array(32768,_('Senior') ),
             )
         ));

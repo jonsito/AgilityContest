@@ -689,7 +689,7 @@ class Updater {
             // temporary hack for Junior and Senior grades
             // this sucks: Jr and Sr are handler categories, not dog ones, but...
             // also children runs together with junior. so use same "grade"
-            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('Jr','Children / Junior')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('Jr','Children / Young')",
             "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('Sr','Senior')",
             // new model for module based competitions and federations
             // use numeric strings to allow easy int-to-string conversion

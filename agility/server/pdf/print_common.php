@@ -105,22 +105,22 @@ class PrintCommon extends FPDF {
 					$result=false;
 					break;
 				}
-				$result=category_match($to,'XL');
+				$result=category_match($to, $heights,'XL');
 				break;
 			case 'L':
-				if ($heights==3)  $result= category_match($to,'L');
-				if ($heights==4)  $result= category_match($to,'LM');
-				if ($heights==5)  $result= category_match($to,'XL'); // XL tanto en dos como en tres grupos (rec=1,3)
+				if ($heights==3)  $result= category_match($to,3,'L');
+				if ($heights==4)  $result= category_match($to,4,'LM');
+				if ($heights==5)  $result= category_match($to,5,'XL'); // XL tanto en dos como en tres grupos (rec=1,3)
 				break;
 			case 'M':
-				if ($heights==3)  $result= category_match($to,'MS'); // solo hay recorrido 1 MS salen juntas
-				if ($heights==4)  $result= category_match($to,'LM'); // solo hay recorrido 1 LM salen juntas
-				if ($heights==5)  $result= category_match($to,($manga['Recorrido']==1)?'MST':'M'); // 2 o tres grupos
+				if ($heights==3)  $result= category_match($to,3,'MS'); // solo hay recorrido 1 MS salen juntas
+				if ($heights==4)  $result= category_match($to,4,'LM'); // solo hay recorrido 1 LM salen juntas
+				if ($heights==5)  $result= category_match($to,5,($manga['Recorrido']==1)?'MST':'M'); // 2 o tres grupos
 				break;
 			case 'S':
-				if ($heights==3)  $result= category_match($to,'MS'); // rec==1 1: MS salen juntas
-				if ($heights==4)  $result= category_match($to,'ST'); // rec==1 1: ST salen juntas
-				if ($heights==5)  $result= category_match($to,($manga['Recorrido']==1)?'MST':'ST'); // rec==1,3 (2 o 3 grupos)
+				if ($heights==3)  $result= category_match($to,3,'MS'); // rec==1 1: MS salen juntas
+				if ($heights==4)  $result= category_match($to,4,'ST'); // rec==1 1: ST salen juntas
+				if ($heights==5)  $result= category_match($to,5,($manga['Recorrido']==1)?'MST':'ST'); // rec==1,3 (2 o 3 grupos)
 				break;
 			case 'T':
 				if ($heights==3) {
@@ -128,8 +128,8 @@ class PrintCommon extends FPDF {
 					$result=false;
 					break;
 				}
-				if ($heights==4)  $result= category_match($to,'ST');
-				if ($heights==5)  $result= category_match($to,($manga['Recorrido']==1)?'MST':'ST'); // rec==1,3 (2 o 3 grupos)
+				if ($heights==4)  $result= category_match($to, 4,'ST');
+				if ($heights==5)  $result= category_match($to,5,($manga['Recorrido']==1)?'MST':'ST'); // rec==1,3 (2 o 3 grupos)
 				break;
 			default:
 				$this->myLogger->notice("evalNewPage() unknown Category $from - $to");

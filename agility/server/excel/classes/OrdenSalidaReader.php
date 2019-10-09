@@ -63,7 +63,7 @@ class OrdenSalidaReader extends DogReader {
         $fedobj=Federations::getFederation($this->federation);
         if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=0; $this->fieldList['Country'][1]=1; } // country/club
         $this->validPageNames=array("StartingOrder",_("StartingOrder"),"Starting order",_("Starting order"));
-        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']),"resultados.");
+        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']), $fedobj->get('Heights'),"resultados.");
     }
 
     private function removeTmpEntry($item) {
@@ -92,7 +92,7 @@ class OrdenSalidaReader extends DogReader {
         $d=intval($item['Dorsal']);
         $n=$this->myDBObject->conn->real_escape_string($item['Nombre']);
         $nl=$this->myDBObject->conn->real_escape_string($item['NombreLargo']);
-        if (! category_match($item['Categoria'],$this->myOptions['Mode'])) {
+        if (! category_match($item['Categoria'],$this->fedobj->get('Heights'),$this->myOptions['Mode'])) {
             $this->myLogger->info("findAndSetEntry(): not matching category: ".json_encode($item));
             $this->saveStatus("Skip category missmatch entry {$n} found: {$item['Categoria']} expected:{$this->myOptions['Mode']}");
             return $this->removeTmpEntry($item); // returns null

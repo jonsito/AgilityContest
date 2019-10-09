@@ -674,41 +674,86 @@ function tempnam_sfx($path, $prefix="tmp_",$suffix="") {
 	return $file;
 }
 
-// returns compatible heigts with provided one according federation heights
-function compatibleHeights($height,$cat) {
-    if($cat=="-") return '-XLMST'; // any
-    $a=array (
-        3 => array ( 'X' => 'XL', 'L' => 'XL', 'M' => 'M', 'S'=>'ST', 'T' => 'ST'),
-        4 => array ( 'X' => 'XL', 'L' => 'XL', 'M' => 'M', 'S'=>'S',  'T' => 'T'),
-        5 => array ( 'X' => 'X',  'L' => 'L',  'M' => 'M', 'S'=>'S',  'T' => 'T'),
-    );
-    if (! array_key_exists($height,$a)) return $cat; // should not occur
-    if (! in_array($cat,$a[$height])) return $cat; // should not occur
-    return $a[$height][$cat];
+function compatible_categories($height,$cat) {
+    switch ($height) {
+        case 3: // join XL and ST
+            switch($cat) {
+                case 'X': return 'XL';
+                case 'L': return 'XL';
+                case 'M': return 'M';
+                case 'S': return 'ST';
+                case 'T': return 'ST';
+            }
+            break;
+        case 4: // join XL
+            switch($cat) {
+                case 'X': return 'XL';
+                case 'L': return 'XL';
+                case 'M': return 'M';
+                case 'S': return 'S';
+                case 'T': return 'T';
+            }
+            break;
+        case 5: // do not join
+            return $cat;
+    }
+    // arriving here retunrs default
+    return '-XLMST';
 }
 
 /**
  * Check if any of provided categories in $from are included in valid ones in $to
  * @param {string} $from categories to check
- * @param {string} $to valid categories
+ * @param {integer} $number of heights
+ * @param {string | integer} $to valid categories, or mode
  * return {boolean} true or false
  */
-function category_match($from,$to="-XLMST") {
+function category_match($from,$heights,$to="-XLMST") {
     if (is_numeric($to)) {
-        switch (intval($to)) {
-            case 0: $to='L'; break;         // L
-            case 1: $to='M'; break;         // M
-            case 2: $to='S'; break;         // S
-            case 3: $to='MS'; break;        // MS
-            case 4: $to='LMS'; break;       // LMS
-            case 5: $to='T'; break;         // T
-            case 6: $to='LM'; break;        // LM
-            case 7: $to='ST'; break;        // ST
-            case 8: $to='LMST'; break;      // LMST
-            case 9: $to='X'; break;         // X
-            case 10: $to='XL'; break;       // XL
-            case 11: $to='MST'; break;      // MST
-            case 12: $to='XLMST'; break;    // XLMST
+        switch (intval($to)+100*$heights) {
+            // 3 heights add X to L and T to S
+            case 300: $to='XL'; break;         // L
+            case 301: $to='M'; break;         // M
+            case 302: $to='ST'; break;         // S
+            case 303: $to='MS'; break;        // MS
+            case 304: $to='XLMST'; break;       // LMS
+            case 305: $to='T'; break;         // T
+            case 306: $to='XLM'; break;        // LM
+            case 307: $to='ST'; break;        // ST
+            case 308: $to='XLMST'; break;      // LMST
+            case 309: $to='X'; break;         // X
+            case 310: $to='XL'; break;       // XL
+            case 311: $to='MST'; break;      // MST
+            case 312: $to='XLMST'; break;    // XLMST
+            // 4 heights: add X to L
+            case 400: $to='XL'; break;         // L
+            case 401: $to='M'; break;         // M
+            case 402: $to='S'; break;         // S
+            case 403: $to='MS'; break;        // MS
+            case 404: $to='XLMS'; break;       // LMS
+            case 405: $to='T'; break;         // T
+            case 406: $to='XLM'; break;        // LM
+            case 407: $to='ST'; break;        // ST
+            case 408: $to='XLMST'; break;      // LMST
+            case 409: $to='X'; break;         // X
+            case 410: $to='XL'; break;       // XL
+            case 411: $to='MST'; break;      // MST
+            case 412: $to='XLMST'; break;    // XLMST
+            // 5 heights: match to mode
+            case 500: $to='L'; break;         // L
+            case 501: $to='M'; break;         // M
+            case 502: $to='S'; break;         // S
+            case 503: $to='MS'; break;        // MS
+            case 504: $to='LMS'; break;       // LMS
+            case 505: $to='T'; break;         // T
+            case 506: $to='LM'; break;        // LM
+            case 507: $to='ST'; break;        // ST
+            case 508: $to='LMST'; break;      // LMST
+            case 509: $to='X'; break;         // X
+            case 510: $to='XL'; break;       // XL
+            case 511: $to='MST'; break;      // MST
+            case 512: $to='XLMST'; break;    // XLMST
+
             default: $to='-XLMST'; break;   // -
         }
     }
@@ -719,43 +764,54 @@ function category_match($from,$to="-XLMST") {
 	return ($common==="")?false:true;
 }
 
-function sqlFilterCategoryByMode($mode,$prefix=""){
-    // select category according mode
-    switch($mode) {
-        case 0: /* Large */     return "AND ( {$prefix}Categoria='L' ) "; break;
-        case 1: /* Medium */    return "AND ( {$prefix}Categoria='M' ) "; break;
-        case 2: /* Small */     return "AND ( {$prefix}Categoria='S' ) "; break;
-        case 3: /* Med+Small */ return "AND ( {$prefix}Categoria IN ('M','S') ) "; break;
-        case 4: /* L+M+S */     return "AND ( {$prefix}Categoria IN ('L','M','S') )"; break;
-        case 5: /* Toy */       return "AND ( {$prefix}Categoria='T' ) "; break;
-        case 6: /* L+M */       return "AND ( {$prefix}Categoria IN ('L','M') ) "; break;
-        case 7: /* S+T */       return "AND ( {$prefix}Categoria IN ('S','T') ) "; break;
-        case 8: /* L+M+S+T */   return "AND ( {$prefix}Categoria IN ('L','M','S','T') ) "; break;
-        case 9: /* XtraLarge */ return "AND ( {$prefix}Categoria='X' ) "; break;
-        case 10: /* XL + L */   return "AND ( {$prefix}Categoria IN ('X','L') ) "; break;
-        case 11: /* M+S+T */  return "AND ( {$prefix}Categoria IN ('M','S','T') ) "; break;
-        case 12: /* X+L+M+S+T */  return "AND ( {$prefix}Categoria IN ('X','L','M','S','T') ) "; break;
-        default: return null;
+function sqlFilterCategoryByMode($mode,$heights,$prefix=""){
+    // select valid categories according mode and heights
+    do_log("mode:{$mode} heights:{$heights} prefix:{$prefix}");
+    switch($mode+100*$heights) {
+        // 3 heights ( add 'X' to 'L' and 'T' to 'S'
+        case 300: /* Large */     return "AND ( {$prefix}Categoria IN ('X','L') ) "; break;
+        case 301: /* Medium */    return "AND ( {$prefix}Categoria='M' ) "; break;
+        case 302: /* Small */     return "AND ( {$prefix}Categoria IN ('S','T') ) "; break;
+        case 303: /* Med+Small */ return "AND ( {$prefix}Categoria IN ('M','S','T') ) "; break;
+        case 304: /* L+M+S */     return "AND ( {$prefix}Categoria IN ('-','X','L','M','S','T') )"; break;
+        case 305: /* Toy */       return "AND ( {$prefix}Categoria='T' ) "; break;
+        case 306: /* L+M */       return "AND ( {$prefix}Categoria IN ('X','L','M') ) "; break;
+        case 307: /* S+T */       return "AND ( {$prefix}Categoria IN ('S','T') ) "; break;
+        case 308: /* L+M+S+T */   return "AND ( {$prefix}Categoria IN ('-','X','L','M','S','T') ) "; break;
+        case 309: /* XtraLarge */ return "AND ( {$prefix}Categoria='X' ) "; break;
+        case 310: /* XL + L */    return "AND ( {$prefix}Categoria IN ('X','L') ) "; break;
+        case 311: /* M+S+T */     return "AND ( {$prefix}Categoria IN ('M','S','T') ) "; break;
+        case 312: /* X+L+M+S+T */ return "AND ( {$prefix}Categoria IN ('-','X','L','M','S','T') ) "; break;
+        // 4 heights ( add X to L )
+        case 400: /* Large */     return "AND ( {$prefix}Categoria IN ('X','L') ) "; break;
+        case 401: /* Medium */    return "AND ( {$prefix}Categoria='M' ) "; break;
+        case 402: /* Small */     return "AND ( {$prefix}Categoria='S' ) "; break;
+        case 403: /* Med+Small */ return "AND ( {$prefix}Categoria IN ('M','S') ) "; break;
+        case 404: /* L+M+S */     return "AND ( {$prefix}Categoria IN ('X','L','M','S') )"; break;
+        case 405: /* Toy */       return "AND ( {$prefix}Categoria='T' ) "; break;
+        case 406: /* L+M */       return "AND ( {$prefix}Categoria IN ('X','L','M') ) "; break;
+        case 407: /* S+T */       return "AND ( {$prefix}Categoria IN ('S','T') ) "; break;
+        case 408: /* L+M+S+T */   return "AND ( {$prefix}Categoria IN ('-','X','L','M','S','T') ) "; break;
+        case 409: /* XtraLarge */ return "AND ( {$prefix}Categoria='X' ) "; break;
+        case 410: /* XL + L */    return "AND ( {$prefix}Categoria IN ('X','L') ) "; break;
+        case 411: /* M+S+T */     return "AND ( {$prefix}Categoria IN ('M','S','T') ) "; break;
+        case 412: /* X+L+M+S+T */ return "AND ( {$prefix}Categoria IN ('-','X','L','M','S','T') ) "; break;
+        // 5 heights ( leave same as mode states )
+        case 500: /* Large */     return "AND ( {$prefix}Categoria='L' ) "; break;
+        case 501: /* Medium */    return "AND ( {$prefix}Categoria='M' ) "; break;
+        case 502: /* Small */     return "AND ( {$prefix}Categoria='S' ) "; break;
+        case 503: /* Med+Small */ return "AND ( {$prefix}Categoria IN ('M','S') ) "; break;
+        case 504: /* L+M+S */     return "AND ( {$prefix}Categoria IN ('L','M','S') )"; break;
+        case 505: /* Toy */       return "AND ( {$prefix}Categoria='T' ) "; break;
+        case 506: /* L+M */       return "AND ( {$prefix}Categoria IN ('L','M') ) "; break;
+        case 507: /* S+T */       return "AND ( {$prefix}Categoria IN ('S','T') ) "; break;
+        case 508: /* L+M+S+T */   return "AND ( {$prefix}Categoria IN ('L','M','S','T') ) "; break;
+        case 509: /* XtraLarge */ return "AND ( {$prefix}Categoria='X' ) "; break;
+        case 510: /* XL + L */    return "AND ( {$prefix}Categoria IN ('X','L') ) "; break;
+        case 511: /* M+S+T */     return "AND ( {$prefix}Categoria IN ('M','S','T') ) "; break;
+        case 512: /* X+L+M+S+T */ return "AND ( {$prefix}Categoria IN ('-','X','L','M','S','T') ) "; break;
+        default: return "";
     }
-}
-
-function mode_match($cat,$mode) {
-	switch ($mode) {
-		case 0: return category_match($cat,"L");
-		case 1: return category_match($cat,"M");
-		case 2: return category_match($cat,"S");
-		case 3: return category_match($cat,"MS");
-		case 4: return category_match($cat,"LMS");
-		case 5: return category_match($cat,"T");
-		case 6: return category_match($cat,"LM");
-		case 7: return category_match($cat,"ST");
-		case 8: return category_match($cat,"LMST");
-        case 9: return category_match($cat,"X");
-        case 10: return category_match($cat,"XL");
-        case 11: return category_match($cat,"MST");
-        case 12: return category_match($cat,"XLMST");
-	}
-	return false; // invalid mode
 }
 
 // comodity functions from Mangas.php

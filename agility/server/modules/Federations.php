@@ -316,7 +316,7 @@ class Federations {
                 /*13 */ array(/* 0x0800 */ 2048,	_('Teams 2') ),
                 /*14 */ array(/* 0x1000 */ 4096,	_('Teams 3') ),
                 /*15 */ array(/* 0x2000 */ 8192,	_('Games / WAO') ),
-                /*16 */ array(/* 0x4000 */ 16384,   _('Children / Junior') ),
+                /*16 */ array(/* 0x4000 */ 16384,   _('Children / Young') ),
                 /*17 */ array(/* 0x8000 */ 32768,   _('Senior') )
             )
         );
