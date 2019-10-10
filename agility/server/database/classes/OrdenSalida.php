@@ -508,7 +508,7 @@ class OrdenSalida extends DBObject {
 				foreach($cats as $cat) {
                     foreach ($p4 as $perro) {
                     	$ccats=compatible_categories($heights,$cat);
-                    	do_log("perro:{$perro['Perro']} categoria:{$perro['Categoria']} tanda:{$cat} ccats:{$ccats}");
+                    	// do_log("perro:{$perro['Perro']} categoria:{$perro['Categoria']} tanda:{$cat} ccats:{$ccats}");
                         if ( category_match($perro['Categoria'],$heights,$ccats)) array_push($p5,$perro);
                     }
 				}

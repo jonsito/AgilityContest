@@ -398,7 +398,7 @@ class Competitions {
      */
     function getHeights($mangaInfo) {
         // default is return federation related default height
-        return $this->federationObj->get('Heights');
+        return $mangaInfo->Federation->get('Heights');
     }
 
     /**************************************** static functions comes here *************************************/

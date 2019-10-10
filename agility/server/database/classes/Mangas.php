@@ -402,9 +402,10 @@ class Mangas extends DBObject {
      * @throws Exception when invalid parameter provided
      */
 	static function getMangaInfo($id) {
+	    do_log("getMangaInfo id:".json_encode($id));
 	    $mid=null;
 	    if (is_object(($id))) $mid=$id->ID;
-	    if (is_integer($id)) $mid=$id;
+	    if (is_numeric($id)) $mid=intval($id);
 	    if (is_null($mid)) throw new Exception ("Mangas::getMangaInfo() invalid object or identifier");
 	    $myDbObject= new DBObject("getMangaInfo");
 	    $result = new stdClass();
@@ -424,7 +425,7 @@ class Mangas extends DBObject {
             return null;
         }
         $result->Federation=Federations::getFederation($result->Prueba->RSCE);
-        $result->Competition=Competitions::getCompetition($result->Prueba->ID,$result->Jornada->ID);
+        $result->Competition=Competitions::getCompetition($result->Prueba,$result->Jornada);
         $result->Tandas=Tandas::getTandasByTipoManga($result->Manga->Tipo);
         return $result;
     }
