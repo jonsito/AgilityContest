@@ -60,9 +60,11 @@ try {
 	$dbobj=new DBObject("print_podium_individual");
 	$mng=$dbobj->__getObject("mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("pruebas",$prueba);
+	$jrd=$dbobj->__getObject($prueba,$jornada);
 	$c= Competitions::getClasificacionesInstance("print_podium_pdf",$jornada);
 	$result=array();
-	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
+	$mangasInfo=Mangas::getMangaInfo($mng->ID);
+	$heights=Competitions::getCompetition($prb,$jrd)->getHeights($mangasInfo);
 	switch($mng->Recorrido) {
 		case 0: // recorridos separados xlarge large medium small toy
 			$l=$c->clasificacionFinal($rondas,$mangas,0);

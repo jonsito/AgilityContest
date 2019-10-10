@@ -96,17 +96,10 @@ class Pruebas extends DBObject {
 			// retrieve ID of inserted jornada
 			$jornadaid=$this->conn->insert_id;
 			// create default team for each journey
-            // evaluate categories for default_team according federation
-            $fed=Federations::getFederation(intval($rsce));
-            $cats="XLMST";
-            switch(intval($fed->get('Heights'))) {
-                case 3: $cats="LMS"; break;
-                case 4: $cats="LMST"; break;
-                case 5: $cats="XLMST"; break;
-            }
+            // as for 4.0.0 and up default team allows every heights
             // notice that "Miembros" is no longer used, just set not null for db integrity
 			$str="INSERT INTO equipos (Prueba,Jornada,Nombre,Categorias,Observaciones,Miembros,DefaultTeam)
-				VALUES ($pruebaid,$jornadaid,'-- Sin asignar --','{$cats}','NO BORRAR: PRUEBA $pruebaid JORNADA $jornadaid - Default Team','BEGIN,END',1 )";
+				VALUES ($pruebaid,$jornadaid,'-- Sin asignar --','XLMST','NO BORRAR: PRUEBA $pruebaid JORNADA $jornadaid - Default Team','BEGIN,END',1 )";
 			$res=$this->query($str);
 			if (!$res) return $this->error($this->conn->error);
             // retrieve ID of inserted default team and insert into newly created jornada

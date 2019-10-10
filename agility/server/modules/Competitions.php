@@ -51,6 +51,7 @@ class Competitions {
         protected $prueba=null;
         protected $jornada=null;
         protected $federationLogoAllowed=false; // RSCE rules: only allowed in authorized events
+        protected $federationObj=null;
 
         /* protected */ function __construct($name) {
             $this->competitionName=$name;
@@ -61,16 +62,16 @@ class Competitions {
      * @param $contact email address for contac
      */
     public function getModuleInfo($contact=null) {
-        $fed=Federations::getFederation($this->federationID);
-        if (!$contact) $contact=$fed->get("Email");
+        $this->federationObj=Federations::getFederation($this->federationID);
+        if (!$contact) $contact=$this->federationObj->get("Email");
         return array(
             // for compatibility with getModuleList($fed)
             "ID" => $this->competitionID,
             "Nombre" => $this->competitionName,
             // module information name
             "ModuleName" => $this->competitionName,
-            "FederationName" => $fed->get("Name"),
-            "FederationLongName" => $fed->get("LongName"),
+            "FederationName" => $this->federationObj->get("Name"),
+            "FederationLongName" => $this->federationObj->get("LongName"),
             "ModuleID" => $this->competitionID,
             "FederationID" => $this->federationID,
             "ModuleVersion" => $this->moduleVersion,
@@ -385,6 +386,19 @@ class Competitions {
     public static function getLigasInstance($file="Ligas",$federation) {
         $compobj=Competitions::getDefaultCompetition($federation);
         return $compobj->getLigasObject($file);
+    }
+
+    /**
+     * Retrieve number of height of current competition/round
+     * As for AgilityContest 4.0 some federations may have distinct heights depending of specific round
+     * ( i.e. grade 2 and 3 in RSCE selective rounds )
+     * So replace Federation:getFederation($id)->get('Heights') with this (may be overriden) function
+     * @param {object} $mangaInfo round info as comes from Mangas::getMangaInfo($id);
+     * @return {integer} number of heights
+     */
+    function getHeights($mangaInfo) {
+        // default is return federation related default height
+        return $this->federationObj->get('Heights');
     }
 
     /**************************************** static functions comes here *************************************/

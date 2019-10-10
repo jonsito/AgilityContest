@@ -34,6 +34,7 @@ class Resultados extends DBObject {
 	protected $dequipos=null; // datos de los equipos
 	protected $dprueba=null; // datos de la prueba
     protected $dcompetition=null; // datos del modulo de competicion
+    protected $mangaInfo=null; // datos globales prueba,jornada, manga,federacion,competicion
 
 	protected $federation=null;
 
@@ -94,6 +95,7 @@ class Resultados extends DBObject {
         $manga->TipoManga=_(Mangas::getTipoManga($manga->Tipo,1,$this->getFederation()));
 		$this->dmanga=$manga;
         $this->IDManga=$manga->ID;
+        $this->mangaInfo=Mangas::getMangaInfo($manga->ID);
 	}
 	
 	/**
@@ -281,7 +283,8 @@ class Resultados extends DBObject {
         $where="1";
         if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
         $cats="";
-        if ($mode!=12) $cats=sqlFilterCategoryByMode($mode, $this->federation->get('Heights'),"");
+        $heights=$this->mangaInfo->Competition->getHeights($this->mangaInfo);
+        if ($mode!=12) $cats=sqlFilterCategoryByMode($mode, $heights,"");
         $result=$this->__select(
         /* SELECT */ "*",
             /* FROM */ "resultados",
@@ -296,7 +299,8 @@ class Resultados extends DBObject {
 	function reset($catsmode) {
 		$this->myLogger->enter();
 		$where="";
-		if ($catsmode!=12) $where=sqlFilterCategoryByMode($catsmode, $this->federation->get('Heights'),""); // 12(XLMST) includes 4(LMS) and 8(LMST)
+		$heights=$this->mangaInfo->Competition->getHeights($this->mangaInfo);
+		if ($catsmode!=12) $where=sqlFilterCategoryByMode($catsmode, $heights,""); // 12(XLMST) includes 4(LMS) and 8(LMST)
 		$this->getDatosJornada(); // also implies getDatosManga
 		$idmanga=$this->IDManga;
 		if ($this->isCerrada())
@@ -521,7 +525,8 @@ class Resultados extends DBObject {
 		$idmanga=$this->IDManga;
 		$where="(Manga=$idmanga) AND (Pendiente=1) "; // para comprobar pendientes
 		$cat="";
-		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $this->federation->get('Heights'),"");
+        $heights=$this->mangaInfo->Competition->getHeights($this->mangaInfo);
+		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $heights,"");
 		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		// comprobamos si hay perros pendientes de salir
 		$res= $this->__select(
@@ -547,7 +552,8 @@ class Resultados extends DBObject {
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga={$this->IDManga}) AND (Pendiente=0) ";
 		$cat="";
-		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $this->federation->get('Heights'),"");
+        $heights=$this->mangaInfo->Competition->getHeights($this->mangaInfo);
+		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $heights,"");
 		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		//  evaluamos mejores tiempos intermedios y totales
 		$best=$this->__select(
@@ -583,7 +589,8 @@ class Resultados extends DBObject {
             $where="(Manga=$idmanga) AND (Pendiente=0) AND (Perro!=$idperro)";
         }
 		$cat="";
-        if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $this->federation->get('Heights'),""); // 12:XLMST includes 4:LMS and 8:LMST
+        $heights=$this->mangaInfo->Competition->getHeights($this->mangaInfo);
+        if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $heights,""); // 12:XLMST includes 4:LMS and 8:LMST
         if ($cat===null)  return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
@@ -707,7 +714,8 @@ class Resultados extends DBObject {
 		$where="(Manga=$idmanga) AND (Pendiente=0) AND (perroguiaclub.ID=resultados.Perro) ";
 		$cat="";
 		// mode 12 is XLMST
-		if ($mode<12) $cat=sqlFilterCategoryByMode($mode, $this->federation->get('Heights'),"resultados."); // notice the ending dot '.'
+        $heights=$this->mangaInfo->Competition->getHeights($this->mangaInfo);
+		if ($mode<12) $cat=sqlFilterCategoryByMode($mode,$heights,"resultados."); // notice the ending dot '.'
         if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(

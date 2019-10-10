@@ -66,9 +66,15 @@ try {
 	
 	// buscamos los recorridos asociados a la mangas
 	$c= Competitions::getClasificacionesInstance("print_clasificacion_excel",$jornada);
-	
-	$result=array();
-	$heights=intval(Federations::getFederation( intval($excel->prueba->RSCE) )->get('Heights'));
+	// buscamos las alturas referidas segun la manga y el tipo de competicion
+    $dbobj=new DBObject("print_podium_individual");
+    $mng=$dbobj->__getObject("mangas",$mangas[0]);
+    $prb=$dbobj->__getObject("pruebas",$prueba);
+    $jrd=$dbobj->__getObject($prueba,$jornada);
+    $mangasInfo=Mangas::getMangaInfo($mng->ID);
+    $heights=Competitions::getCompetition($prb,$jrd)->getHeights($mangasInfo);
+
+    $result=array();
 	switch($excel->manga1->Recorrido) {
 		case 0: // recorridos separados xlarge large medium small tiny
             if ($heights==3) {
