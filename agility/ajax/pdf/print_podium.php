@@ -60,7 +60,7 @@ try {
 	$dbobj=new DBObject("print_podium_individual");
 	$mng=$dbobj->__getObject("mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("pruebas",$prueba);
-	$jrd=$dbobj->__getObject($prueba,$jornada);
+	$jrd=$dbobj->__getObject('jornadas',$jornada);
 	$c= Competitions::getClasificacionesInstance("print_podium_pdf",$jornada);
 	$result=array();
 	$mangasInfo=Mangas::getMangaInfo($mng->ID);
