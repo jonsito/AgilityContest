@@ -394,7 +394,41 @@ class Mangas extends DBObject {
 		$this->myLogger->leave();
 		return $result;
 	}
-	
+
+    /**
+     * retrieve every related information about provided mangas
+     * @param {integer|object} $id mangaID or mangaObj ( as __getObject )
+     * @return object { prueba, jornada, manga, tanda, federation, competition } or null on error
+     * @throws Exception when invalid parameter provided
+     */
+	static function getMangaInfo($id) {
+	    $mid=null;
+	    if (is_object(($id))) $mid=$id->ID;
+	    if (is_integer($id)) $mid=$id;
+	    if (is_null($mid)) throw new Exception ("Mangas::getMangaInfo() invalid object or identifier");
+	    $myDbObject= new DBObject("getMangaInfo");
+	    $result = new stdClass();
+	    $result->Manga=$myDbObject->__getObject('mangas','id');
+	    if (!is_object($result->Manga)) {
+	        $myDbObject->myLogger->error("Mangas::getMangaInfo() cannot locate MangaID: {$mid}");
+	        return null;
+        }
+        $result->Jornada=$myDbObject->__getObject('jornadas',$result->Manga->Jornada);
+        if (!is_object($result->Jornada)) {
+            $myDbObject->myLogger->error("Mangas::getMangaInfo() cannot locate JornadaID: {$result->Manga->Jornada}");
+            return null;
+        }
+        $result->Prueba=$myDbObject->__getObject('pruebas',$result->Jornada->Prueba);
+        if (!is_object($result->Jornada)) {
+            $myDbObject->myLogger->error("Mangas::getMangaInfo() cannot locate PruebaID: {$result->Jornada->Prueba}");
+            return null;
+        }
+        $result->Federation=Federations::getFederation($result->Prueba->RSCE);
+        $result->Competition=Competitions::getCompetition($result->Prueba->ID,$result->Jornada->ID);
+        $result->Tandas=Tandas::getTandasByTipoManga($result->Manga->Tipo);
+        return $result;
+    }
+
 	/**
 	 * Enumera las mangas de una jornada
 	 * @return null on error, result on success
