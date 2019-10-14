@@ -18,8 +18,45 @@
 <script src="../lib/jquery-easyui-1.4.2/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
-<script src="../scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="../scripts/common.js.php" type="text/javascript" charset="utf-8" ></script>
 <title>Manual de usuario</title>
+
+	<style>
+		/* Common CSS tags for Agility Contest */
+
+		body {
+			font-size: 100%;
+			background: whitesmoke;
+		}
+
+		/***** Datos de la cabecera ******/
+		#mylogo {
+			position: fixed;
+			top: 0;
+			right: 10px;
+			background: whitesmoke;
+		}
+
+		#myheader {	position: fixed; top: 10px; left: 10px; }
+		#myheader p {
+			color: darkblue;
+			padding-left: 20px;
+			font-family: Arial, sans-serif;
+			font-size: 28pt;
+			font-style: italic;
+			font-weight: bold;
+			display: table-cell;
+		}
+		#myheader p a:link {  text-decoration:none; color:darkblue; }      /* unvisited link */
+		#myheader p a:visited { text-decoration:none; color:darkblue; }  /* visited link */
+		#myheader p a:hover { text-decoration:none; color:darkblue; }  /* mouse over link */
+		#myheader p a:active { text-decoration:none; color:darkblue; }  /* selected link */
+		#myheader span p { font-size:24pt; padding-left: 250px; color:darkcyan; }
+
+		/* .pdfobject-container { height: 30rem;  border: 1rem solid rgba(0,0,0,.1);} */
+		.pdfobject-container { height: 30rem; }
+	</style>
+
 </head>
 <body><!-- CABECERA -->
 <div id="myheader">
@@ -29,7 +66,7 @@
 
 <!-- LOGO -->
 <div id="mylogo">
-	<p><img src="../images/AgilityContest.png" alt="AgilityContest" /></p>
+	<p><img src="../images/AgilityContest.png" alt="AgilityContest" width="150" height="120"/></p>
 </div>
 
 <!-- MENU LATERAL -->
@@ -80,9 +117,11 @@
 	
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 <div id="mycontent">
-<span id="contenido">
-<img class="mainpage" src="../images/wallpapers/portada.jpg" alt="Portada"/>
-</span>
+	<div id="contenido" class="easyui-panel"
+		 style="background: transparent"
+		 data-options="width:'100%',height:'90%',fit:true,border:false">
+		<img class="mainpage" src="../images/wallpapers/portada.jpg" alt="Portada" width="640" height="480"/>
+	</div>
 </div>
 
 <script type="text/javascript">
