@@ -70,7 +70,6 @@
 			width: 100%;
 			height: 100%;
 		}
-
 	</style>
 
 </head>
@@ -89,7 +88,7 @@
 <div id="mysidebar">
 
 <div id="mymenu" class="easyui-panel" title="Indice"
-	data-options="border:true,closable:false,collapsible:true,collapsed:true">
+	data-options="border:true,closable:false,collapsible:true,collapsed:true,onCollapse:function(){$('#submenu').css('display','none');}">
 <ul>
 <li>INTRODUCCI&Oacute;N
 	<ul>
@@ -115,14 +114,28 @@
 	<ul>
 	<li> <a href="javascript:loadContents('../console/doc/frm_storedata.php','Registro de los resultados de cada participante')">Grabando datos</a></li>
 	<li> <a href="javascript:loadContents('../console/doc/frm_resultados.php','Presentaci&oacute;n de resultados y calificaciones')">Calificaciones</a></li>
-	<li> <a href="javascript:loadContents('../console/doc/frm_informes.php','Generando listados e informes')">Listados. Informes</a></li>
+		<li> <a href="javascript:loadContents('../console/doc/frm_informes.php','Generando listados e informes')">Listados. Informes</a></li>
+		<li>
+			<a href="javascript:toogleCollapse()">Pruebas especiales</a>
+			<span id="submenu" style="display:none;">
+				<ul style="padding-left:10px;">
+					<li> <a href="javascript:loadContents('../console/doc/frm_dualring.php','Realizaci&oacute;n de mangas a doble ring')">Pruebas en dos rings</a></li>
+					<li> <a href="javascript:loadContents('../console/doc/frm_selwao.php','Pruebas selectivas para el WAO')">Selectivas WAO</a></li>
+					<li> <a href="javascript:loadContents('../console/doc/frm_pruebasko.php','Realizaci&oacute;n de mangas K.O.')">Pruebas K.O.</a></li>
+					<li> <a href="javascript:loadContents('../console/doc/frm_interclubes.php','Desarrollo del Trofeo Interclubes')">Trofeo Interclubes RSCE</a></li>
+					<li> <a href="javascript:loadContents('../console/doc/frm_pastor.php','Selectiva y Copa del pastor belga')">Sel/Copa Pastor Belga</a></li>
+				</ul>
+			</span>
+		</li>
 	</ul>
 </li>
 <li> AVANZADAS
 	<ul>
 	<li> <a href="javascript:loadContents('../console/doc/frm_config.php','Configuraci&oacute;n del sistema')">Configuraci&oacute;n</a></li>
-	<li> <a href="javascript:loadContents('../console/doc/frm_tablet.php','Panel del asistente del juez (tablet)')">Panel asistente del juez</a></li>
+		<li> <a href="javascript:loadContents('../console/doc/frm_tablet.php','Panel del asistente del juez (tablet)')">Panel asistente del juez</a></li>
+		<li> <a href="javascript:loadContents('../console/doc/frm_mail.php','Envio de correos electr&oacute;nicos')">Env&iacute;o de e-mail</a></li>
 		<li> <a href="javascript:loadContents('../console/doc/frm_network.php','Despliegue en red local. Paneles informativos')">Operaci&oacute;n en red local</a></li>
+		<li> <a href="javascript:loadContents('../console/doc/frm_streaming.php','Manejo del soporte para Live-Streaming')">Live Streaming</a></li>
 		<li> <a href="javascript:loadContents('../console/doc/frm_moreinfo.php','Informaci&oacute;n adicional')">Informaci&oacute;n adicional</a></li>
 	</ul>
 </ul>
@@ -142,6 +155,12 @@
 // expand/collapse menu on mouse enter/exit
 $('#mymenu').mouseenter(function(){$('#mymenu').panel('expand');});
 $('#mymenu').mouseleave(function(){$('#mymenu').panel('collapse');})
+
+function toogleCollapse() {
+	var smenu=$('#submenu');
+	var state=smenu.css("display");
+	smenu.css("display",(state==="block")?"none":"block");
+}
 </script>
 </body>
 </html>
