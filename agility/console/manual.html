@@ -55,6 +55,22 @@
 
 		/* .pdfobject-container { height: 30rem;  border: 1rem solid rgba(0,0,0,.1);} */
 		.pdfobject-container { height: 30rem; }
+
+		/* datos para el video de presentacion */
+		.videoWrapper {
+			position: relative;
+			padding-bottom: 56.25%; /* 16:9 */
+			padding-top: 0px;
+			height: 0;
+		}
+		.videoWrapper iframe {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+
 	</style>
 
 </head>
@@ -77,7 +93,7 @@
 <ul>
 <li>INTRODUCCI&Oacute;N
 	<ul>
-	<li><a href="javascript:loadContents('../console/doc/frm_overview.php','Primer contacto. El entorno de trabajo');">Primer contacto</a></li>
+	<li><a href="javascript:loadContents('../console/doc/frm_overview.php','Presentaci&oacute;n');">Presentaci&oacute;n</a></li>
 	<li><a href="javascript:loadContents('../console/doc/frm_install.php','Instalaci&oacute;n y Configuraci&oacute;n');">Instalaci&oacute;n</a></li>
 	</ul>
 </li>
@@ -85,15 +101,14 @@
 	<ul>
 	<li><a href="javascript:loadContents('../console/doc/frm_database.php','Estructura de la Base de Datos');">La base de Datos</a></li>
 	<li><a href="javascript:loadContents('../console/doc/frm_operaciones.php','Altas, Bajas y Modificaciones en la BBDD');">Operaciones</a></li>
-	<li><a href="javascript:loadContents('../console/doc/frm_backup.php','Importar/Exportar datos. Copias de seguridad');">Importar/Exportar</a></li>
-	<li><a href="javascript:loadContents('../console/doc/frm_phpMyAdmin.php','Acceso directo a la consola de gesti&oacute;n de la BBDD');">Consola BBDD</a></li>
+	<li><a href="javascript:loadContents('../console/doc/frm_excel.php','Importar/Exportar datos en formato Excel');">Ficheros Excel</a></li>
 	</ul>
 </li>
 <li>PREPARATIVOS
 	<ul>
 	<li><a href="javascript:loadContents('../console/doc/frm_prueba.php','Registrando una nueva prueba');">Nueva prueba</a></li>
 	<li><a href="javascript:loadContents('../console/doc/frm_inscripciones.php','Inscripci&oacute;n de participantes');">Inscripciones</a></li>
-	<li><a href="javascript:loadContents('../console/doc/frm_salida.php','Sorteo del orden de salida. Incidencias');">Orden de salida</a></li>
+	<li><a href="javascript:loadContents('../console/doc/frm_desarrollo.php','Preparaci&oacute;n de la prueba');">Preparaci&oacute;n</a></li>
 	</ul>
 </li>
 <li>EN COMPETICI&Oacute;N
@@ -101,15 +116,14 @@
 	<li> <a href="javascript:loadContents('../console/doc/frm_storedata.php','Registro de los resultados de cada participante')">Grabando datos</a></li>
 	<li> <a href="javascript:loadContents('../console/doc/frm_resultados.php','Presentaci&oacute;n de resultados y calificaciones')">Calificaciones</a></li>
 	<li> <a href="javascript:loadContents('../console/doc/frm_informes.php','Generando listados e informes')">Listados. Informes</a></li>
-	<li> <a href="javascript:loadContents('../console/doc/frm_final.php','Al final de la prueba')">Finalizaci&oacute;n</a></li>
 	</ul>
 </li>
 <li> AVANZADAS
 	<ul>
-	<li> <a href="javascript:loadContents('../console/doc/frm_users.php','Gesti&oacute;n y administraci&oacute;n de usuarios')">Usuarios</a></li>
-	<li> <a href="javascript:loadContents('../console/doc/frm_consola.php','Panel del asistente del juez')">Asistente del juez</a></li>
-	<li> <a href="javascript:loadContents('../console/doc/frm_realtime.php','Visualizaci&oacute;n en tiempo real. Paneles informativos')">Panel informativo</a></li>
-	<li> <a href="javascript:loadContents('../console/doc/frm_chrono.php','Toma de Tiempos. Registro de actividad')">Cronometraje</a></li>
+	<li> <a href="javascript:loadContents('../console/doc/frm_config.php','Configuraci&oacute;n del sistema')">Configuraci&oacute;n</a></li>
+	<li> <a href="javascript:loadContents('../console/doc/frm_tablet.php','Panel del asistente del juez (tablet)')">Panel asistente del juez</a></li>
+		<li> <a href="javascript:loadContents('../console/doc/frm_network.php','Despliegue en red local. Paneles informativos')">Operaci&oacute;n en red local</a></li>
+		<li> <a href="javascript:loadContents('../console/doc/frm_moreinfo.php','Informaci&oacute;n adicional')">Informaci&oacute;n adicional</a></li>
 	</ul>
 </ul>
 </div> <!-- mymenu -->
