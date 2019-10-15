@@ -68,7 +68,7 @@
             }
 
             $.ajax( {
-                url: '../ajax/fileUploadFunctions.php',
+                url: '../ajax/fileFunctions.php',
                 type: 'POST',
                 dataType: 'json',
                 cache: false,

@@ -395,7 +395,7 @@ class Admin extends DBObject {
             // $type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
             $res= base64_decode( $matches[2] ); // decodes received data
 		}
-		// case 3: filename uploaded by mean of FileUploader.php library
+		// case 3: filename uploaded by mean of File_Loader.php library
 		else {
             // check if file exists; read into memory and unlink
             $pinfo=pathinfo(str_replace( "\\", '/', $data ));

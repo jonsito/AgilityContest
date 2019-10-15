@@ -20,7 +20,7 @@ require_once(__DIR__ . "/../server/logging.php");
 require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
 require_once(__DIR__ . "/../server/auth/AuthManager.php");
-require_once(__DIR__ . "/../server/FileUploader.php");
+require_once(__DIR__ . "/../server/File_Loader.php");
 
 $response="";
 try {
@@ -31,14 +31,19 @@ try {
         'type' 	=> http_request("Type","s",""),
         'chunk' => http_request("Chunk","i",0)
 	);
-    $am= AuthManager::getInstance("adminFunctions");
-	$result=null;
-    $am->access(PERMS_ADMIN); // throw exception if not allowed
-    $uld=new File_Uploader($data);
+    $uld=new File_Loader($data);
 	switch ($operation) {
+		// get file from web browser in chunks of data and store into cache
 		case "upload":
+			$am= AuthManager::getInstance("adminFunctions");
+			$result=null;
+			$am->access(PERMS_ADMIN); // throw exception if not allowed
 			$result=$uld->fileUpload();
 			break;
+		// check for file in cache, else download, store and transfer to browser
+		case "download":
+			$result=$uld->fileDownload();
+			return; // do not send any extra response, just requested file
         case "abort":
             $result=$uld->abortUpload();
             break;
