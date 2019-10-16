@@ -57,15 +57,11 @@ try {
     $podium=http_request("Podium","i",0); // 0:general-completa 1:Podium-3primeros
 	
 	// buscamos los recorridos asociados a la manga
-	$dbobj=new DBObject("print_podium_individual");
-	$mng=$dbobj->__getObject("mangas",$mangas[0]);
-	$prb=$dbobj->__getObject("pruebas",$prueba);
-	$jrd=$dbobj->__getObject('jornadas',$jornada);
+    $mangasInfo=Mangas::getMangaInfo($mangas[0]);
 	$c= Competitions::getClasificacionesInstance("print_podium_pdf",$jornada);
 	$result=array();
-	$mangasInfo=Mangas::getMangaInfo($mng->ID);
-	$heights=Competitions::getCompetition($prb,$jrd)->getHeights($mangasInfo);
-	switch($mng->Recorrido) {
+	$heights=Competitions::getCompetition($mangasInfo->Prueba,$mangasInfo->Jornada)->getHeights($mangasInfo);
+	switch($mangasInfo->Manga->Recorrido) {
 		case 0: // recorridos separados xlarge large medium small toy
 			$l=$c->clasificacionFinal($rondas,$mangas,0);
 			$m=$c->clasificacionFinal($rondas,$mangas,1);

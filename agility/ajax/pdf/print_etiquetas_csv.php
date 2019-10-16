@@ -54,13 +54,14 @@ try {
 	header("Content-Disposition: attachment; filename=printEtiquetas.csv");	
 	
 	// buscamos los recorridos asociados a la mangas
-	$dbobj=new DBObject("print_etiquetas_csv");
-	$mng=$dbobj->__getObject("mangas",$mangas[0]);
-	$prb=$dbobj->__getObject("pruebas",$prueba);
+	$mangaInfo=Mangas::getMangaInfo($mangas[0]);
+	$cmp=Competitions::getCompetition($mangaInfo->Prueba,$mangaInfo->Jornada);
+
+	$heihgts=$cmp->getHeights($mangaInfo);
+	// $heights=intval(Federations::getFederation( intval($mangaInfo->Prueba->RSCE) )->get('Heights'));
 	$c= Competitions::getClasificacionesInstance("print_etiquetas_csv",$jornada);
 	$result=array();
-	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
-	switch($mng->Recorrido) {
+	switch($mangaInfo->Manga->Recorrido) {
 		case 0: // recorridos separados large medium small
 			$l=$c->clasificacionFinal($rondas,$mangas,0);
 			$result[0]=$l['rows'];
