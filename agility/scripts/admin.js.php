@@ -539,7 +539,6 @@ function checkForDatabaseUpdates() {
     });
 }
 
-
 function synchronizeDatabase(warnifnotallowed) {
     // check if configuration allows share data
     var msg="";
@@ -628,6 +627,93 @@ function synchronizeDatabase(warnifnotallowed) {
             error: function(XMLHttpRequest,textStatus,errorThrown) {
                 $.messager.progress('close');
                 $.messager.alert("SyncDB progress","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
+            }
+        });
+    }
+    setTimeout(getProgress,2000);
+}
+
+function synchronizeDocumentation() {
+    if (!checkForAdmin(false)) {
+        msg= '<?php _e("This operation requires admin privileges"); ?>';
+        $.messager.alert('<?php _e("Notice");?>',msg,"info");
+        return;
+    }
+    // call server
+    var suffix=getRandomString(8); // random string to handle progress
+    $.messager.progress({
+        width:400,
+        title: '<?php _e("Download Documentation");?>',
+        msg: '<?php _e("Updating documentation from AgiltiyContest web server");?>',
+        interval: 0 // do not auto refresh
+    });
+    $.messager.progress('bar').progressbar({text: '{value}' }); // remove '%' sign at progress var
+    $.ajax({
+        url:"/agility/ajax/fileFunctions.php",
+        dataType:'json',
+        data: {
+            Operation: 'documentation',
+            Data: 0,
+            File: 'AllDocs',
+            Suffix: suffix
+        },
+        success: function(data) {
+            if (typeof(data.errorMsg)!=="undefined") {
+                $.messager.show({
+                    title:'<?php _e("Error"); ?>',
+                    msg:'<?php _e("Synchronize Doc");?>: '+data.errorMsg,
+                    showType: 'slide',
+                    timeout: 5000,
+                    height:200
+                });
+                return;
+            }
+            if (data.success) {
+                msg = '<p><?php _e("Documentation is synced with server"); ?></p>';
+                $.messager.alert("<?php _e('Done.');?>",msg,"info");
+                checkForDatabaseUpdates();
+            }
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            // connection error: show an slide message error at bottom of the screen
+            $.messager.show({
+                title:"<?php _e('Error');?>",
+                msg: "<?php _e('Error');?>: synchronizeDocumentation() "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown,
+                timeout: 5000,
+                showType: 'slide',
+                height:200
+            });
+        },
+        complete: function () {
+            $.messager.progress('close');
+        }
+    });
+
+    // fire up progress bar
+    // en paralelo arrancamos una tarea para leer el progreso de la operacion
+    function getProgress(){
+        $.ajax({
+            url:"/agility/ajax/fileFunctions.php",
+            dataType:'json',
+            data: {
+                Operation: 'progress',
+                Data: 0,
+                File: 'AllDocs',
+                Suffix: suffix
+            },
+            success: function(data) {
+                var value=data.progress;
+                if( (value!=="Done.") && (value!=="Failed") ) {
+                    var bar=$.messager.progress('bar');
+                    bar.progressbar('setValue', value);  // set new progress value
+                    setTimeout(getProgress,2000);
+                } else {
+                    $.messager.progress('close');
+                }
+            },
+            error: function(XMLHttpRequest,textStatus,errorThrown) {
+                $.messager.progress('close');
+                $.messager.alert("SyncDoc progress","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
             }
         });
     }

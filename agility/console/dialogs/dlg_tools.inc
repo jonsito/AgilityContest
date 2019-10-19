@@ -44,6 +44,11 @@
         &nbsp;<span id="tools-syncdbLbl"></span>
     </p>
     <p>
+        <span style="display:inline-block;width:350px"><?php _e('Download/Update on-line documentation'); ?></span>
+        <a id="tools-syncdbBtn" href="#" class="easyui-linkbutton" style="width:85px"
+           data-options="iconCls:'icon-manual'" onclick="synchronizeDocumentation()"><?php _e('SyncDoc')?></a>
+    </p>
+    <p>
         <span style="display:inline-block;width:350px"><?php _e('Debug and log trace file'); ?></span>
         <a id="tools-logResetBtn" href="#" class="easyui-linkbutton" style="width:85px"
            data-options="iconCls:'icon-brush'" onclick="resetLogFile()"><?php _e('Reset');?></a>

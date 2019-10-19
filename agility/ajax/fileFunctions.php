@@ -28,11 +28,22 @@ try {
 	$data=array(
         'data' 	=> http_request("Data","s",""),
         'file' 	=> http_request("File","s",""),
-        'type' 	=> http_request("Type","s",""),
+		'type' 	=> http_request("Type","s",""),
+		'suffix'=> http_request("Suffix","s",""),
         'chunk' => http_request("Chunk","i",0)
 	);
     $uld=new File_Loader($data);
 	switch ($operation) {
+		case "progress":
+			if (!is_dir(DOWNLOAD_DIR)) @mkdir(DOWNLOAD_DIR);
+			$progressfile=DOWNLOAD_DIR."/docsync_{$data['suffix']}.log";
+			$result= array( 'progress' => "Waiting for progress info..."); // default when file doesn't exist yet
+			if (file_exists($progressfile)) {
+				// retrieve last line of progress file
+				$lines=file($progressfile,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+				$result=array( 'progress' => strval($lines[count($lines)-1]) );
+			}
+			break;
 		// get file from web browser in chunks of data and store into cache
 		case "upload":
 			$am= AuthManager::getInstance("adminFunctions");
@@ -44,6 +55,10 @@ try {
 		case "download":
 			$result=$uld->fileDownload();
 			return; // do not send any extra response, just requested file
+		// check for documentation file(s) in cache, else download and store
+		case "documentation":
+			$result=$uld->downloadDocumentation();
+			break;
         case "abort":
             $result=$uld->abortUpload();
             break;

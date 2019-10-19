@@ -18,6 +18,7 @@ class File_Loader {
     protected $myData;
     protected $myLogger;
     protected $myConfig;
+    protected $progressFile;
 
     /**
      * File_Loader constructor.
@@ -37,6 +38,14 @@ class File_Loader {
         $l=$this->myConfig->getEnv("debug_level");
         $this->myLogger= new Logger("File_Loader( {$data['file']} )",$l);
         $this->myData=$data;
+        $this->progressFile=DOWNLOAD_DIR."/docsync_{$data['suffix']}.log";
+    }
+
+    public function reportProgress($str) {
+        $f=fopen($this->progressFile,"a"); // open for append-only
+        if (!$f) { $this->myLogger->error("fopen() cannot open file: ".$this->progressFile); return;}
+        fwrite($f,"$str\n");
+        fclose($f);
     }
 
     public function abortUpload() {
@@ -73,6 +82,15 @@ class File_Loader {
     }
 
     private function sendLocalFile($file) {
+        // when $myData['data'] is false (0) do not send anything, just store
+        if ( $this->myData['data']==0 ) {
+            if ( strpos($file,"DocumentNotAvailable.pdf")!==FALSE) {
+                $this->reportProgress("File: {$this->myData['file']} : Not available");
+            } else {
+                $this->reportProgress("Get file {$this->myData['file']} : Success");
+            }
+            return;
+        }
         // try to force browser to direct open on new window without download
         header('Content-Type: application/pdf');
         header('Content-Disposition: inline; filename="'.basename($file).'"');
@@ -157,6 +175,48 @@ class File_Loader {
             }
         }
         $this->sendLocalFile($local);
+        return "";
+    }
+
+    function downloadDocumentation() {
+        // check internet conectivity
+        if ( isNetworkAlive()<0 ) {
+            $this->reportProgress("No internet conection");
+            $this->reportProgress("Error");
+        }
+
+        // retrieve from www.agilitycontest.es list of files in download directory
+        $this->reportProgress("Retrieve list of documentation files");
+        $ch=curl_init();
+        curl_setopt_array($ch,
+            array(
+                CURLOPT_URL=>'http://www.agilitycontest.es/downloads/',
+                CURLOPT_RETURNTRANSFER=>true,
+                CURLOPT_FOLLOWLOCATION=>true,
+                CURLOPT_CAINFO => __DIR__ . "/../../config/cacert.pem",
+                CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
+                CURLOPT_CONNECTTIMEOUT =>5
+            )
+        );
+        $domd=new DOMDocument();
+        $domd->loadHTML(curl_exec($ch));
+        $document_list=array();
+        // compose list of pdf files
+        foreach($domd->getElementsByTagName("a") as $file){
+            $fname=trim($file->textContent);
+            if (! preg_match('/^ac_.*\.pdf$/i', $fname)) continue; // not a pdf documentation file
+            $document_list[]=$fname;
+        }
+        curl_close($ch);
+
+        // iterate over retrieved list and download to local server
+        $this->myData['data']=0; // disable send file back to browser
+        foreach($document_list as $item) {
+            $this->myData['file']=$item;
+            $this->reportProgress("Trying to Get: {$item}");
+            $this->fileDownload();
+        }
+        $this->reportProgress("Done.");
         return "";
     }
 }
