@@ -409,7 +409,7 @@ class Mangas extends DBObject {
 	    if (is_null($mid)) throw new Exception ("Mangas::getMangaInfo() invalid object or identifier");
 	    $myDbObject= new DBObject("getMangaInfo");
 	    $result = new stdClass();
-	    $result->Manga=$myDbObject->__getObject('mangas','id');
+	    $result->Manga=$myDbObject->__getObject('mangas',$mid);
 	    if (!is_object($result->Manga)) {
 	        $myDbObject->myLogger->error("Mangas::getMangaInfo() cannot locate MangaID: {$mid}");
 	        return null;

@@ -271,8 +271,8 @@ class PrintCommon extends FPDF {
 	 * Constructor de la superclase 
 	 * @param {string} orientacion 'landscape' o 'portrait'
      * @param {string} file name of caller to be used in traces
-	 * @param {int} $prueba ID de la jornada
-	 * @param {int} jornada Jornada ID
+	 * @param {int|object} $prueba ID de la jornada
+	 * @param {int|object} $jornada Jornada ID
 	 * @param {string} comentarios String to be added at header
 	 */
 	function __construct($orientacion,$file,$prueba,$jornada=0,$comentarios="") {
@@ -285,22 +285,21 @@ class PrintCommon extends FPDF {
 		$this->centro=($orientacion==='Portrait')?107:145;
 		$this->myDBObject=new DBObject($file);
 		$this->prueba=null;
-		$this->federation=Federations::getFederation(0); // defaults to RSCE
-		if ($prueba!=0) {
-			$this->prueba=$this->myDBObject->__getObject("pruebas",$prueba);
-			$this->federation=Federations::getFederation(intval($this->prueba->RSCE));
-		}
-		$this->strClub=($this->federation->isInternational())?_('Country'):_('Club');
-		// $this->myLogger->trace("Federation is: ".json_decode($this->federation));
 		$this->club=null;
-		if ($prueba!=0){
-			$this->club=$this->myDBObject->__getObject("clubes",$this->prueba->Club); // club organizador
+		$this->federation=Federations::getFederation(0); // defaults to RSCE
+		if (is_numeric($prueba) && ($prueba!=0)) {
+			$this->prueba=$this->myDBObject->__getObject("pruebas",$prueba);
 		}
+		if (is_object($prueba)) $this->prueba=$prueba;
+		$this->club=$this->myDBObject->__getObject("clubes",$this->prueba->Club); // club organizador
+		$this->federation=Federations::getFederation(intval($this->prueba->RSCE));
+		$this->strClub=($this->federation->isInternational())?_('Country'):_('Club');
 		$this->jornada=null;
-		if ($jornada!=0) {
+		if (is_numeric($jornada) && ($jornada!=0) ) {
 			$this->jornada=$this->myDBObject->__getObject("jornadas",$jornada);
-			$this->useLongNames=Competitions::getCompetition($this->prueba,$this->jornada)->useLongNames();
 		}
+		if (is_object($jornada)) $this->jornada=$jornada;
+		$this->useLongNames=Competitions::getCompetition($this->prueba,$this->jornada)->useLongNames();
 		$this->handleLogos($this->federation,$this->jornada);
 		// handle registration info related to PDF generation
         $this->authManager=AuthManager::getInstance("print_common");

@@ -799,10 +799,19 @@ class Jornadas extends DBObject {
 		$jornada=$dbobj->__getArray("jornadas",$jornadaid);
 		$prueba=$dbobj->__getArray("pruebas",$jornada['Prueba']);
 		$mangas=$dbobj->__select("*","mangas","(Jornada=$jornadaid)","","")['rows'];
+
         $fed=Federations::getFederation( intval($prueba['RSCE']) );
-		$heights=intval($fed->get('Heights'));
+		$heights=$fed->get('Heights'); // default: overriden bellow
 		$rows=array();
+		$mangasInfo=null;
 		foreach($mangas as $manga) {
+		    // en la primera manga obtenemos informacion de las alturas en funcion del tipo de competicion
+            // PENDING: en el futuro podran mezclarse mangas a varias alturas para un mismo tipo de competicion.
+            // habra que tenerlo en cuenta :-(
+            if ($mangasInfo==null) {
+                $mangasInfo=Mangas::getMangaInfo($manga['ID']);
+                $heights=Competitions::getCompetition($mangasInfo>Prueba,$mangasInfo->Jornada)->getHeights($mangasInfo);
+            }
 			// datos comunes a todos los resultados posibles de una misma manga
 			$item=array();
 			$item['Prueba']=$prueba['ID'];
@@ -996,6 +1005,7 @@ class Jornadas extends DBObject {
 			$m1=Jornadas::__searchManga(1,$mangas); // PA-1
 			Jornadas::__compose($data, $prueba, $jornada, 1, $m1, null);
 		}
+		// remember that Junior includes Young and Children
         if ($jornada['Junior']!=0) {  // Jornadas::tiporonda=16
             $m1 = Jornadas::__searchManga(32, $mangas); // Junior Manga 1
             $m2 = Jornadas::__searchManga(33, $mangas); // Junior Manga 2

@@ -25,7 +25,7 @@ header('Set-Cookie: fileDownload=true; path=/');
 require_once(__DIR__ . "/../../server/logging.php");
 require_once(__DIR__ . "/../../server/modules/Federations.php");
 require_once(__DIR__ . '/../../server/modules/Competitions.php');
-require_once(__DIR__ . '/../../server/database/classes/DBObject.php');
+require_once(__DIR__ . '/../../server/database/classes/Mangas.php');
 require_once(__DIR__ . '/../../server/pdf/classes/PrintClasificacionTeam.php');
 
 try {
@@ -41,17 +41,14 @@ try {
 	$mangas[4]=http_request("Manga5","i",0);
 	$mangas[5]=http_request("Manga6","i",0);
 	$mangas[6]=http_request("Manga7","i",0);
-	$mangas[7]=http_request("Manga8","i",0);
-	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
+	$mangas[7]=http_request("Manga8","i",0);// mangas 3..8 are used in KO rondas
 	
 	// buscamos los recorridos asociados a la manga
-	$dbobj=new DBObject("print_podium_equipos");
-	$mng=$dbobj->__getObject("mangas",$mangas[0]);
-	$prb=$dbobj->__getObject("pruebas",$prueba);
+    $mangasInfo=Mangas::getMangaInfo($mangas[0]);
 	$c= Competitions::getClasificacionesInstance("print_podium_pdf",$jornada);
+    $heights=Competitions::getCompetition($mangasInfo->Prueba,$mangasInfo->Jornada)->getHeights($mangasInfo);
 	$result=array();
-	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
-	switch($mng->Recorrido) {
+	switch($mangasInfo->Manga->Recorrido) {
 		case 0: // recorridos separados large medium small
             $result[0]=$c->clasificacionFinalEquipos($rondas,$mangas,0);
             $result[1]=$c->clasificacionFinalEquipos($rondas,$mangas,1);
@@ -96,7 +93,7 @@ try {
 	}
 	
 	// Creamos generador de documento
-	$pdf = new PrintClasificacionTeam($prueba,$jornada);
+	$pdf = new PrintClasificacionTeam($mangasInfo->Prueba,$mangasInfo->Jornada);
 	$pdf->set_FileName("Podium_Teams.pdf");
 	$pdf->AliasNbPages();
 	foreach($result as $mode =>$clasif) {

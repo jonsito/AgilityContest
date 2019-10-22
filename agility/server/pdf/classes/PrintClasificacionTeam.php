@@ -41,7 +41,6 @@ class PrintClasificacionTeam extends PrintCommon {
 	protected $resultados;
 	protected $trs1;
 	protected $trs2;
-	protected $doStats;
 	protected $categoria;
     protected $equipos;
     protected $headerTitle;
@@ -102,8 +101,8 @@ class PrintClasificacionTeam extends PrintCommon {
     }
 
 	 /** Constructor
-      * @param {int} $prueba prueba id
-      * @param {int} $jornada jornada id
+      * @param {int|obj} $prueba prueba id
+      * @param {int|obj} $jornada jornada id
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada) {

@@ -56,9 +56,7 @@ try {
 	// buscamos los recorridos asociados a la mangas
 	$mangaInfo=Mangas::getMangaInfo($mangas[0]);
 	$cmp=Competitions::getCompetition($mangaInfo->Prueba,$mangaInfo->Jornada);
-
-	$heihgts=$cmp->getHeights($mangaInfo);
-	// $heights=intval(Federations::getFederation( intval($mangaInfo->Prueba->RSCE) )->get('Heights'));
+	$heights=$cmp->getHeights($mangaInfo);
 	$c= Competitions::getClasificacionesInstance("print_etiquetas_csv",$jornada);
 	$result=array();
 	switch($mangaInfo->Manga->Recorrido) {
