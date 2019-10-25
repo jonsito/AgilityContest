@@ -34,6 +34,7 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
     protected $manga; // datos de la manga
     protected $categoria;
     protected $validcats;
+    protected $heights;
 	
 	// geometria de las celdas
 	protected $cellHeader;
@@ -63,6 +64,7 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
         }
         // guardamos info de la manga
         $this->manga=$this->myDBObject->__getObject("mangas",$data['manga']);
+        $this->heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->manga->ID);
         // Datos del orden de salida de equipos
         $m = Competitions::getOrdenSalidaInstance("ordenSalidaEquipos4",$data['manga']);
         $teams= $m->getTeams();
@@ -182,7 +184,7 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
             // skip "-- Sin asignar --" team. Do not print team on unrequested categories
             if ($equipo['Nombre']==="-- Sin asignar --") continue;
             // $this->myLogger->trace("Team:{$equipo['Nombre']} cats:{$equipo['Categorias']} compare to:{$this->validcats}");
-            if (!category_match($equipo['Categorias'],$this->federation->get('Heights'),$this->validcats)) continue;
+            if (!category_match($equipo['Categorias'],$this->heights,$this->validcats)) continue;
             if ( (($index+1)<$fromItem) || (($index+1)>$toItem) ) { $index++; continue; } // team index not in range; skip
             $miembros=$equipo['Perros'];
             $num=count($miembros);

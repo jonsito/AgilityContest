@@ -19,11 +19,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/auth/Config.php");
 require_once(__DIR__ . "/../../server/modules/Federations.php");
+require_once(__DIR__ . "/../../server/modules/Competitions.php");
 $config =Config::getInstance();
 // retrieve federation info
 $f=intval(http_request("Federation","i",0));
+$m=intval(http_request("Manga","i",0));
 $fed=Federations::getFederation($f);
 if (!$fed) die ("Internal error::Invalid Federation ID: $f");
+$heights=Competitions::getHeights(0,0,$m);
 ?>
 
 <!-- Formulario que contiene los datos de una manga -->
@@ -63,7 +66,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="2" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_0"><?php echo $fed->getRecorrido(0); ?></label>
 			</td>
-            <?php if (intval($fed->get('Heights'))==5) { ?>
+            <?php if ($heights==5) { ?>
                 <td colspan="2"> <!-- mixto 3 grupos (5 alturas) -->
                     <input type="radio" id="dmanga_Recorrido_3" name="Recorrido" value="3" onClick="dmanga_setRecorridos();"/>
                     <label for="dmanga_Recorrido_3"><?php echo $fed->getRecorrido(3);  ?></label>
@@ -166,7 +169,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
-                <?php if (intval($fed->get('Heights'))==5) { ?>
+                <?php if ($heights==5) { ?>
                     <option value="7"><?php _e('SCT XLarge');?> + </option>
                 <?php } ?>
 				<option value="6"><?php _e('Velocity');?> </option>
@@ -228,7 +231,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
-                <?php if (intval($fed->get('Heights'))==5) { ?>
+                <?php if ($heights==5) { ?>
                     <option value="7"><?php _e('SCT XLarge');?> + </option>
                 <?php } ?>
 				<option value="3"><?php _e('SCT Standard');?> + </option>
@@ -291,7 +294,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
-                <?php if (intval($fed->get('Heights'))==5) { ?>
+                <?php if ($heights==5) { ?>
                     <option value="7"><?php _e('SCT XLarge');?> + </option>
                 <?php } ?>
 				<option value="3"><?php _e('SCT Standard');?> + </option>
@@ -355,7 +358,7 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<option value="0" selected="selected"><?php _e('Fixed SCT'); ?></option>
 				<option value="1"><?php _e('Best result'); ?> + </option>
 				<option value="2"><?php _e('3 best average'); ?> + </option>
-                <?php if (intval($fed->get('Heights'))==5) { ?>
+                <?php if ($heights==5) { ?>
                     <option value="7"><?php _e('SCT XLarge');?> + </option>
                 <?php } ?>
 				<option value="3"><?php _e('SCT Standard'); ?> + </option>
@@ -566,7 +569,6 @@ addTooltip($('#dmanga_Juez2').combogrid('textbox'),'<?php _e("Auxiliar/Practice 
 <?php
     $ttr1="";
     $ttr3="";
-    $heights=$fed->get('Heights');
     if ($heights==3) {
         $ttr1=_("Separate courses Standard and Midi/mini");
     }

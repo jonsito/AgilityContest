@@ -489,7 +489,7 @@ class PrintEstadisticasInscripciones extends PrintCommon {
 	}
 
 	function composeTable() {
-		$heights=intval($this->federation->get('Heights'));
+		$heights=intval($this->federation->get('Heights')); // global data, use default federation heights
 		$est=$this->evalData();
 		$this->AddPage();
 		$count=0;
@@ -497,6 +497,8 @@ class PrintEstadisticasInscripciones extends PrintCommon {
 		$this->printTableData($est,'Prueba',$heights);
 		$count+=2;
 		foreach($this->jornadas as $jornada) {
+			// re-evaluate heights according journey
+			$heights=Competitions::getHeights($this->prueba->ID,$jornada['ID'],0);
 			if ($jornada['Nombre']==='-- Sin asignar --') continue;
 			$name="J{$jornada['Numero']}";
 			$this->printTableHeader($est,$name,$jornada['Nombre']);

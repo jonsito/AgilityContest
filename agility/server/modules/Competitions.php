@@ -48,6 +48,7 @@ class Competitions {
         protected $competitionID=0;
         protected $competitionName="Standard";
         protected $selectiva=0; // historic flag from Prueba table
+        protected $heights=0;
         protected $prueba=null;
         protected $jornada=null;
         protected $federationLogoAllowed=false; // RSCE rules: only allowed in authorized events
@@ -118,6 +119,16 @@ class Competitions {
         if (intval($this->jornada->Equipos3)!==0) return $this->getModuleInfo()['FederationLongName'];
         if (intval($this->jornada->Equipos4)!==0) return $this->getModuleInfo()['FederationLongName'];
         return $this->getModuleInfo()['Nombre'];
+    }
+
+    /**
+     * Get number of heights for provided round on this competition module
+     * @param {integer | object ) $round Round ID or Round object
+     * @return number of heights
+     */
+    function getRoundHeights($round) {
+        // default, should be overriden by subclasses
+        return Federations::getFederation($this->federationID)->get('Heights');
     }
 
     /**
@@ -393,12 +404,62 @@ class Competitions {
      * As for AgilityContest 4.0 some federations may have distinct heights depending of specific round
      * ( i.e. grade 2 and 3 in RSCE selective rounds )
      * So replace Federation:getFederation($id)->get('Heights') with this (may be overriden) function
-     * @param {object} $mangaInfo round info as comes from Mangas::getMangaInfo($id);
-     * @return {integer} number of heights
+     * @param {integer} $prueba Prueba ID
+     * @param {integer} $jornada Jornada ID
+     * @param {integer} $manga Manga ID
+     * @return {integer} number of heights; -1 on error
      */
-    function getHeights($mangaInfo) {
-        // default is return federation related default height
-        return $mangaInfo->Federation->get('Heights');
+    static function getHeights($prueba,$jornada=0,$manga=0) {
+        // retrieve FedID and CompetitionID
+        $federation=null;
+        $competition=null;
+        $myDBObject=new DBObject("Competitions::getHeights()");
+
+        // primeramente obtenemos federacion y modalidad de competicion
+        if ($manga != 0) {
+            $data=$myDBObject->__select(
+                "select pruebas.RSCE as Federation, jornadas.Tipo_Competicion as Modalidad",
+                "pruebas,jornadas,mangas",
+                "jornadas.Prueba=pruebas.ID AND mangas.Jornada=jornadas.ID AND mangas.ID={$manga}"
+            );
+        }
+        else if ($jornada != 0) { // no round provided
+            $data=$myDBObject->__select(
+                "select pruebas.RSCE as Federation, jornadas.Tipo_Competicion as Modalidad",
+                "pruebas,jornadas",
+                "jornadas.Prueba=pruebas.ID AND jornadas.ID={$jornada}"
+            );
+        }
+        else if ($prueba != 0) { // no round nor journey
+            $data=$myDBObject->__select(
+                "select pruebas.RSCE as Federation, -1 as Modalidad",
+                "pruebas",
+                "pruebas.ID={$prueba}"
+            );
+        }
+        else { // no valid data provided
+            $myDBObject->error("Must provide any of prueba/jornada/manga data");
+            return -1;
+        }
+        if (is_null($data)) {
+            $myDBObject->error("Invalid prueba:{$prueba} jornada:{$jornada} or manga:{$manga} info provided");
+            return -1;
+        }
+        $federation=Federations::getFederation($data->Federation);
+        if ($data->Modalidad == -1) return $federation->get('Heights'); // no round, no journey, use federation defaults
+        // locate competition module
+        foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
+            $name=str_replace(".php","",basename($filename));
+            require_once($filename);
+            $comp=new $name;
+            if (!$comp) continue; // cannot instantiate class. should report error
+            if ($comp->federationID!=$data->Federation) continue;
+            if ($comp->competitionID!=$data->Modalidad) continue;
+            return $comp->getRoundHeights($manga);
+        }
+        // arriving here means no competition module found
+        $myDBObject->error("Cannot find proper competition module for prueba:{$prueba} jornada:{$jornada}");
+        return -1;
     }
 
     /**************************************** static functions comes here *************************************/

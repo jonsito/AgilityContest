@@ -127,7 +127,7 @@ class OrdenSalida_EO_Final extends OrdenSalida {
 		// invertimos el resultado para la manga de agility
         $magility=$clasa = json_decode(json_encode($mpadre[0]));
         $mjumping=$clasa = json_decode(json_encode($mpadre[1]));
-        $heights=intval($this->federation->get('Heights'));
+        $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->manga->ID);
 		switch($this->manga->Recorrido) {
 			case 0: // Large,medium,small (3-heighs) Large,medium,small,tiny (4-heights)
 

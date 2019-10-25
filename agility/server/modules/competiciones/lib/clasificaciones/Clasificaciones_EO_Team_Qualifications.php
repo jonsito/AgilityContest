@@ -206,7 +206,7 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
      * @param {integer} $mode modo de la prueba
      */
 	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$maxdogs,$mode) {
-	    $heights=Federations::getFederation($this->prueba->RSCE)->get('Heights');
+	    $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$r1['rows'][0]['Manga']);
         // Datos de equipos de la jornada
         $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
         $tbj=$eobj->getTeamsByJornada();

@@ -162,7 +162,7 @@ class DBObject {
 		$str="SELECT $select FROM $from $where $group $order $limit";
 		// make query
 		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
+		if (!$rs) return $this->error($this->conn->error); // returns null
 		// generate result
 		$result["rows"] = $this->fetch_all($rs);
 		if ($result["total"]==0) $result["total"] = $rs->num_rows;
@@ -192,7 +192,7 @@ class DBObject {
 		if ($where!=="") $str= $str." WHERE ".$where;
 		// make query
 		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
+		if (!$rs) return $this->error($this->conn->error); // returns null
 		// generate result
 		$result=$rs->fetch_object();
 		$rs->free();

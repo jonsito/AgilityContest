@@ -56,7 +56,7 @@ class Selectiva_eo_2018 extends Selectiva_awc_2018 {
         // remember that prueba,jornada and manga are objects, so passed by reference
         $cat="";
         // on mode=12 no need to check category in sql, so skip
-        $heights=Federations::getFederation($this->federationID)->get('Heights');
+        $heights=$this->getRoundHeights($manga->ID);
         if ($mode!==12) $cat=sqlFilterCategoryByMode($mode,$heights,"");
         if ($cat==null) return $this->error("modo de recorrido desconocido:$mode");
         // fase 0: buscamos la jornada padre

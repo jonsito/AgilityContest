@@ -30,6 +30,7 @@ class OrdenSalida extends DBObject {
 	protected $jornada=null; // {object} jornada data
 	protected $manga=null; // {object} manga data
 	protected $federation=null; // {object} federation info
+	protected $heights;
 	
 	/**
 	 * Constructor
@@ -64,6 +65,7 @@ class OrdenSalida extends DBObject {
                             "jornada:{$this->jornada->ID} manga:{$this->manga->ID}";
 			throw new Exception($this->errormsg);
 		}
+		$this->heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->manga->ID);
 	}
 	
 	/**
@@ -346,7 +348,7 @@ class OrdenSalida extends DBObject {
                 array_push($listas[2],$perro);
 			} else {
                 // dorsal match, compare categories, and insert in proper list
-                if (category_match($listaperros[$perro]['Categoria'],$this->federation->get('Heights'),$mode)) {
+                if (category_match($listaperros[$perro]['Categoria'],$this->heights,$mode)) {
                     array_push($listas[1],$perro);
                 } else {
                     array_push($listas[2],$perro);
@@ -386,7 +388,7 @@ class OrdenSalida extends DBObject {
             // add unconditionally to main list
 			array_push($listas[0],$equipo);
             // compare categories, and insert in proper list
-			if (category_match($listaequipos[$equipo]['Categorias'],$this->federation->get('Heights'),$mode)) {
+			if (category_match($listaequipos[$equipo]['Categorias'],$this->heights,$mode)) {
                 array_push($listas[1],$equipo);
             } else {
                 array_push($listas[2],$equipo);
@@ -500,16 +502,15 @@ class OrdenSalida extends DBObject {
             // ordenamos segun el orden de categorias establecido en las tandas
             $p5=array();
             foreach ($res['rows'] as $item) {
-            	$heights=$this->federation->get('Heights');
             	// hack to get compatibility with oldest database entries
             	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-XLMST";
             	// si la tanda tiene mas de una categoria, hacemos un split y separamos internamente
 				$cats=str_split(($item['Categoria']));
 				foreach($cats as $cat) {
                     foreach ($p4 as $perro) {
-                    	$ccats=compatible_categories($heights,$cat);
+                    	$ccats=compatible_categories($this->heights,$cat);
                     	// do_log("perro:{$perro['Perro']} categoria:{$perro['Categoria']} tanda:{$cat} ccats:{$ccats}");
-                        if ( category_match($perro['Categoria'],$heights,$ccats)) array_push($p5,$perro);
+                        if ( category_match($perro['Categoria'],$this->heights,$ccats)) array_push($p5,$perro);
                     }
 				}
 			}
@@ -748,7 +749,7 @@ class OrdenSalida extends DBObject {
 		for($idx=$size-1; $idx>=0; $idx--) {
 		    // si el resultado indica un perro que no existe en orden de salida actual, skip
             // esto ocurre cuando from corresponde a una manga de calificacion
-			if (! category_match($data[$idx]['Categoria'],$this->federation->get('Heights'),$catmode) ) continue;
+			if (! category_match($data[$idx]['Categoria'],$this->heights,$catmode) ) continue;
 			$idperro=$data[$idx]['Perro'];
 			// lo borramos para evitar una posible doble insercion
 			$str = ",$idperro,";
@@ -770,7 +771,7 @@ class OrdenSalida extends DBObject {
         $ordenequipos=$this->getOrdenEquipos();
         // y reinsertamos los perros actualizando el orden si la categoria del equipo coincide
         for($idx=$size-1; $idx>=0; $idx--) {
-			if (! category_match($res[$idx]['Categorias'],$this->federation->get('Heights'),$catmode)) continue;
+			if (! category_match($res[$idx]['Categorias'],$this->heights,$catmode)) continue;
             $equipo=intval($res[$idx]['ID']);
             $this->myLogger->trace("Equipo: $equipo - ,{$res[$idx]['Nombre']}");
             // eliminamos el equipo del puesto donde esta
@@ -805,37 +806,36 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->trace("El orden de salida original para manga:{$this->manga->ID} ".
                                     "jornada:{$this->jornada->ID} es:\n{$hermanas[0]->Orden_Salida}");
 		// En funcion del tipo de recorrido tendremos que leer diversos conjuntos de Resultados
-		$heights=intval($this->federation->get('Heights'));
 		switch($hermanas[0]->Recorrido) {
 			case 0: // Large,medium,small (3-heighs) Large,medium,small,tiny (4-heights) X,L,M,S,T (5-heigths)
 				$this->invierteResultados($hermanas[1],0,$catmode); // L
 				$this->invierteResultados($hermanas[1],1,$catmode); // M
 				$this->invierteResultados($hermanas[1],2,$catmode); // S
-				if ($heights!=3) $this->invierteResultados($hermanas[1],5,$catmode); // T
-				if ($heights==5) $this->invierteResultados($hermanas[1],9,$catmode); // X
+				if ($this->heights!=3) $this->invierteResultados($hermanas[1],5,$catmode); // T
+				if ($this->heights==5) $this->invierteResultados($hermanas[1],9,$catmode); // X
 				break;
 			case 1: // Large,medium+small (3heights) Large+medium,Small+tiny (4heights) XLarge+Large,medium,+small+toy (5heights)
-				if ($heights==3) {
+				if ($this->heights==3) {
 					$this->invierteResultados($hermanas[1],0,$catmode); // L
 					$this->invierteResultados($hermanas[1],3,$catmode); // MS
 				}
-				if ($heights==4)  {
+				if ($this->heights==4)  {
 					$this->invierteResultados($hermanas[1],6,$catmode); // LM
 					$this->invierteResultados($hermanas[1],7,$catmode); // ST
 				}
-				if ($heights==5)  {
+				if ($this->heights==5)  {
 					$this->invierteResultados($hermanas[1],10,$catmode); // XL
 					$this->invierteResultados($hermanas[1],11,$catmode); // MST
 				}
 				break;
 			case 2: // conjunta L+M+S (3 heights) L+M+S+T (4heights)
-				if ($heights==3) {
+				if ($this->heights==3) {
 					$this->invierteResultados($hermanas[1],4,$catmode); // LMS
 				}
-				if ($heights==4)  {
+				if ($this->heights==4)  {
 					$this->invierteResultados($hermanas[1],8,$catmode); // LMST
 				}
-				if ($heights==5)  {
+				if ($this->heights==5)  {
 					$this->invierteResultados($hermanas[1],12,$catmode); // XLMST
 				}
 				break;

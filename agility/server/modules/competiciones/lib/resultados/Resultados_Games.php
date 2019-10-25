@@ -57,7 +57,8 @@ class Resultados_Games extends Resultados {
         // ajustamos el criterio de busqueda de la tabla de resultados
         $where="(Manga=$idmanga) AND (Pendiente=0) AND (perroguiaclub.ID=resultados.Perro) ";
         $cat="";
-        if ($mode!=12) $cat=sqlFilterCategoryByMode($mode,$this->federation->get('Heights'),"resultados."); // notice the ending dot '.'
+        $heights=Competitions::getHeights($this->IDPrueba,$this->IDJornada,$this->IDManga);
+        if ($mode!=12) $cat=sqlFilterCategoryByMode($mode,$heights,"resultados."); // notice the ending dot '.'
         if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
         // FASE 1: recogemos resultados ordenados por precorrido y tiempo
         // como en este caso se puntua de mas puntos a menos, vamos a poner eliminado y no presentado

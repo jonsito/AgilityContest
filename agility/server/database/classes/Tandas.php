@@ -488,7 +488,7 @@ class Tandas extends DBObject {
 	    $s="(   5,  8,  11, 14, 17, 20, 25, 28, 31, 34, 40, 58, 97, 101, 105, 109 )"; // small
 	    $t="(  41, 42,  43, 44, 45, 46, 49, 50, 51, 52, 55, 59, 98, 102, 106, 110 )"; // toy
 	    $cmds=array();
-	    $heights=$this->federation->get('Heights');
+	    $heights=Competitions::getHeights($p,$j,$this->mangas[0]['ID']);
 	    if ($heights==3){
             $cmds=array(
                 // medium unchanged and stay in the middle
@@ -717,7 +717,7 @@ class Tandas extends DBObject {
     // oper: false:remove true:insert
 	private function insert_remove($fed,$tipomanga,$oper) {
 	    $this->myLogger->enter();
-		$heights=intval($fed->get('Heights'));
+	    $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->mangas[0]['ID']);
 		$grados=intval($fed->get('Grades'));
 		// obtenemos las tandas cuyo tipo de manga coincide con el indicado
         $tandas=$this->getTandasInfo('TipoManga',$tipomanga);

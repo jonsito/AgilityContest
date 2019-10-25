@@ -60,7 +60,7 @@ try {
     $mangasInfo=Mangas::getMangaInfo($mangas[0]);
 	$c= Competitions::getClasificacionesInstance("print_podium_pdf",$jornada);
 	$result=array();
-	$heights=Competitions::getCompetition($mangasInfo->Prueba,$mangasInfo->Jornada)->getHeights($mangasInfo);
+	$heights=$mangasInfo->Competition->getRoundHeights($mangas[0]); // same heights for every round
 	switch($mangasInfo->Manga->Recorrido) {
 		case 0: // recorridos separados xlarge large medium small toy
 			$l=$c->clasificacionFinal($rondas,$mangas,0);

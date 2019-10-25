@@ -128,8 +128,8 @@ class PrintTRSTemplates extends PrintCommon {
         $mng=new Mangas("printFormularioTRS",$this->jornada);
         // obtenemos la lista de mangas de la jornada
         $mangas=$mng->selectByJornada()['rows'];
-        $heights=intval($this->federation->get('Heights'));
         for($count=0;$count<count($mangas);$count++) {
+            $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$mangas[$count]['ID']);
             if ($count%8==0){
                 $this->AddPage();
                 $this->Ln(10);

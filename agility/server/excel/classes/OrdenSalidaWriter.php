@@ -40,6 +40,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
     protected $team4;
     protected $header;
     protected $fields;
+    protected $heights;
     /**
      * Constructor
      * @throws Exception
@@ -54,6 +55,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
         $myDBObject= new DBObject("excel_ordenDeSalida");
         $this->prueba= $myDBObject->__getArray("pruebas",$prueba);
         $this->jornada= $myDBObject->__getArray("jornadas",$jornada);
+        $this->heights=Competitions::getHeights($prueba,$jornada,$manga);
         $this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
         $p=json_decode (json_encode ($this->prueba));
         $j=json_decode (json_encode ($this->jornada));
@@ -152,7 +154,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
             // skip "-- Sin asignar --" team. Do not print team on unrequested categories
             if ($equipo['Nombre']==="-- Sin asignar --") continue;
             // $this->myLogger->trace("Team:{$equipo['Nombre']} cats:{$equipo['Categorias']} compare to:{$this->validcats}");
-            if (!category_match($equipo['Categorias'],$this->federation->get('Heights'),$this->validcats)) continue;
+            if (!category_match($equipo['Categorias'],$this->heights,$this->validcats)) continue;
             // print team name:
             $row=array();
             array_push($row,_utf('Team') . ':');
@@ -200,7 +202,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
         $equipo="-- Sin asignar --";
         $index=1;
         foreach($this->orden as $perro) {
-            if (!category_match($perro['Categoria'],$this->federation->get('Heights'),$this->validcats)) continue;
+            if (!category_match($perro['Categoria'],$this->heights,$this->validcats)) continue;
             if ($categoria!=$perro['Categoria']) {
                 if ($categoria!="") $this->myWriter->addRow(array()); // add empty row
                 $row=array();

@@ -99,7 +99,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 			// en pruebas por equipos conjuntas mixtas no se pone la categoria individual
 			// sino la asociada al tipo de recorrido
             if (in_array($this->manga->Tipo,array(9,14))) {
-                $heights=$this->federation->get('Heights');
+                $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->manga->ID);
                 if ($this->manga->Recorrido==1) {
                     if ($heights==3) { // L+MS
                         switch ($cat) {
@@ -605,8 +605,10 @@ class PrintEntradaDeDatos extends PrintCommon {
 		// Datos
 		$orden=1;
 		$rowcount=0;
+		$mid=($this->manga!=null)? $this->manga->ID: ($this->manga2!=null)?$this->manga2->ID:0;
+		$heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$mid);
 		foreach($this->orden as $row) {
-			if (!category_match($row['Categoria'],$this->federation->get('Heights'),$this->validcats)) continue;
+			if (!category_match($row['Categoria'],$heights,$this->validcats)) continue;
 			// if change in categoria, reset orden counter and force page change
 			if ($this->category_needsNewPage($this->categoria,$row['Categoria'],$this->manga)===true) {
                 $rowcount=0;

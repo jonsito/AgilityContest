@@ -36,6 +36,7 @@ class PrintEntradaDeDatosGames extends PrintCommon {
     protected $validcats; // categorias de las que se solicita impresion
     protected $fillData;
     protected $rango;
+    protected $heights;
 	
 	// geometria de las celdas
 	protected $cellHeader;
@@ -75,6 +76,7 @@ class PrintEntradaDeDatosGames extends PrintCommon {
 			$this->errormsg="print_entradaDeDatosGames: either prueba or jornada data are invalid";
 			throw new Exception($this->errormsg);
 		}
+		$this->heights=Competitions::getHeights($data['prueba'],$data['jornada'],$data['manga']);
 		// si el orden de salida es null ( ojo, no es lo mismo que vacio)
         // significa que tenemos que rellenar una plantilla vacia
         if ($data['orden']===null) {
@@ -329,7 +331,7 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         $orden=1;
         $rowcount=0;
         foreach($this->orden as $row) {
-            if (!category_match($row['Categoria'],$this->federation->get('Heights'),$this->validcats)) continue;
+            if (!category_match($row['Categoria'],$this->heights,$this->validcats)) continue;
             // if change in categoria, reset orden counter and force page change
             if ($row['Categoria'] !== $this->categoria) {
                 // $this->myLogger->trace("Nueva categoria es: ".$row['Categoria']);

@@ -37,6 +37,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
     protected $validcats; // categorias de las que se solicita impresion
     protected $fillData;
     protected $rango;
+    protected $heights;
 	
 	// geometria de las celdas
 	protected $cellHeader;
@@ -70,6 +71,8 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         }
         // guardamos info de la manga
         $this->manga=$this->myDBObject->__getObject("mangas",$data['manga']);
+        // numero de alturas
+        $this->heights=Competitions::getHeights($data['prueba'],$data['jornada'],$data['manga']);
         // Datos del orden de salida de equipos
         $m = Competitions::getOrdenSalidaInstance("entradaDeDatosEquipos4",$data['manga']);
         $teams= $m->getTeams();
@@ -217,7 +220,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         $rowcount=0;
         $this->categoria="-";
 		foreach($this->equipos as $equipo) {
-            if(!category_match($equipo['Categorias'],$this->federation->get('Heights'),$this->validcats)) continue;
+            if(!category_match($equipo['Categorias'],$this->heights,$this->validcats)) continue;
             if ( (($index+1)<$fromItem) || (($index+1)>$toItem) ) { $index++; continue; } // not in range; skip
             $miembros=$equipo['Perros'];
             $num=count($miembros);

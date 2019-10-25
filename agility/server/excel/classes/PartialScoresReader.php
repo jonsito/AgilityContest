@@ -37,6 +37,7 @@ class PartialScoresReader extends DogReader {
     protected $manga;
     protected $equipos;
     protected $sqlcats="";
+    protected $heights;
 
     public function __construct($name,$options) {
         $this->myDBObject = new DBObject($name);
@@ -67,7 +68,8 @@ class PartialScoresReader extends DogReader {
         // on games rounds, make games required
         if (isMangaGames($this->manga['Tipo'])) $this->fieldList['Games'][1]=1;
         $this->validPageNames=array("Results");
-        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']),$this->fedobj->get('Heights'),"resultados.");
+        $this->heights=Competitions::getHeights($options['Prueba'],$options['Jornada'],$options['Manga']);
+        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']),$this->heights,"resultados.");
     }
 
     private function removeTmpEntry($item) {
@@ -101,7 +103,7 @@ class PartialScoresReader extends DogReader {
         $l=$this->myDBObject->conn->real_escape_string($item['Licencia']);
         $n=$this->myDBObject->conn->real_escape_string($item['Nombre']);
         $nl=$this->myDBObject->conn->real_escape_string($item['NombreLargo']);
-        if (! category_match($item['Categoria'],$this->fedobj->get('Heights'),$this->myOptions['Mode'])) {
+        if (! category_match($item['Categoria'],$this->heights,$this->myOptions['Mode'])) {
             $this->myLogger->info("findAndSetResult(): not matching category: ".json_encode($item));
             $this->saveStatus("Ignore entry with non-matching category: {$n} {$item['Categoria']}");
             return $this->removeTmpEntry($item); // returns null

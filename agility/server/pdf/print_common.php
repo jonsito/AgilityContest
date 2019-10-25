@@ -94,7 +94,7 @@ class PrintCommon extends FPDF {
 		// llegando aqui tenemos recorridos mixtos ( 1:2grupos 3:3grupos).
 		// si no manga equipos conjunta compara categorias
         // en recorrido mixto y equipos conjunta discriminamos por alturas
-		$heights=$this->federation->get('Heights');
+		$heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$manga['ID']);
 		switch ($from) {
 			case '-':
 				$result= false;// cualquier categoria es valida: no cambia pagina

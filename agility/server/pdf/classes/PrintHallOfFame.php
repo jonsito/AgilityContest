@@ -173,7 +173,7 @@ class PrintHallOfFame extends PrintCommon {
         // get 3 best of requested cat/grad
         $items= $this->tresMejores($cats,$grads);
 
-        $heights=intval($this->federation->get('Heights'));
+        $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,0);
 
         // REMINDER: $this->cell( width, height, data, borders, newline, align, fill)
         // paint box
@@ -244,7 +244,8 @@ class PrintHallOfFame extends PrintCommon {
 	function composeTable() {
 		$this->myLogger->enter();
         $this->AddPage();
-        $heights=intval($this->federation->get('Heights'));
+        // assume same heihgts for all rounds. this may not be true, but is good to keep layout safe
+        $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,0);
 		if ($heights==3) {
             $this->writeBlock(3,3,array('GI'),array('L'));
             $this->writeBlock(3,2,array('GI'),array('M'));

@@ -45,8 +45,8 @@ try {
 	
 	// buscamos los recorridos asociados a la manga
     $mangasInfo=Mangas::getMangaInfo($mangas[0]);
+    $heights=$mangasInfo->Competition->getRoundHeights($mangas[0]);
 	$c= Competitions::getClasificacionesInstance("print_podium_pdf",$jornada);
-    $heights=Competitions::getCompetition($mangasInfo->Prueba,$mangasInfo->Jornada)->getHeights($mangasInfo);
 	$result=array();
 	switch($mangasInfo->Manga->Recorrido) {
 		case 0: // recorridos separados large medium small

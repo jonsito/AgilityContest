@@ -177,8 +177,9 @@ class PrintOrdenSalida extends PrintCommon {
 		$rowcount=0;
 		$order=0;
 		$lastTeam=0;
+		$heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->manga->ID);
 		foreach($this->orden as $row) {
-			if (!category_match($row['Categoria'],$this->federation->get('Heights'),$this->validcats)) continue;
+			if (!category_match($row['Categoria'],$heights,$this->validcats)) continue;
 			$newTeam=intval($row['Equipo']);
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			// if change in categoria, reset orden counter.

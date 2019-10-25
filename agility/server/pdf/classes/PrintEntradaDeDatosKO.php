@@ -244,9 +244,10 @@ class PrintEntradaDeDatosKO extends PrintCommon {
         // Datos
         $orden=1;
         $rowcount=0;
+        $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,0); // same height for all rounds
         foreach($this->orden as $row) {
             // remember: in ko rounds heigths are grouped. so just skip if not selected, but no add new page
-            if (!category_match($row['Categoria'],$this->federation->get('Heights'),$this->validcats)) continue;
+            if (!category_match($row['Categoria'],$heights,$this->validcats)) continue;
 
             if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
             // REMINDER: $this->cell( width, height, data, borders, where, align, fill)

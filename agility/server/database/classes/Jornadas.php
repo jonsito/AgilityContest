@@ -799,19 +799,14 @@ class Jornadas extends DBObject {
 		$jornada=$dbobj->__getArray("jornadas",$jornadaid);
 		$prueba=$dbobj->__getArray("pruebas",$jornada['Prueba']);
 		$mangas=$dbobj->__select("*","mangas","(Jornada=$jornadaid)","","")['rows'];
-
-        $fed=Federations::getFederation( intval($prueba['RSCE']) );
-		$heights=$fed->get('Heights'); // default: overriden bellow
 		$rows=array();
 		$mangasInfo=null;
 		foreach($mangas as $manga) {
-		    // en la primera manga obtenemos informacion de las alturas en funcion del tipo de competicion
-            // PENDING: en el futuro podran mezclarse mangas a varias alturas para un mismo tipo de competicion.
-            // habra que tenerlo en cuenta :-(
-            if ($mangasInfo==null) {
-                $mangasInfo=Mangas::getMangaInfo($manga['ID']);
-                $heights=Competitions::getCompetition($mangasInfo>Prueba,$mangasInfo->Jornada)->getHeights($mangasInfo);
-            }
+		    // en la primera manga obtenemos informacion del tipo de competicion
+            if ($mangasInfo==null) $mangasInfo=Mangas::getMangaInfo($manga['ID']);
+            // evaluamos las alturas en funcion de la manga
+            $fed=$mangasInfo->Federation;
+            $heights=$mangasInfo->Competition->getRoundHeights($manga);
 			// datos comunes a todos los resultados posibles de una misma manga
 			$item=array();
 			$item['Prueba']=$prueba['ID'];
@@ -932,7 +927,7 @@ class Jornadas extends DBObject {
 	}
 
 	static function __compose(&$data,$prueba,$jornada,$tiporonda,$m1,$m2=null,$m3=null,$m4=null,$m5=null,$m6=null,$m7=null,$m8=null){
-		$heights=intval(Federations::getFederation( intval($prueba['RSCE']) )->get('Heights'));
+	    $heights=Competitions::getHeights($prueba->ID,$jornada->ID,$m1['ID']);
 		switch(intval($m1['Recorrido'])){ // should be the same than $m2['Recorrido']
 			case 0: // separado
                 // shared on all heights

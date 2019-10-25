@@ -39,6 +39,12 @@ class OrdenSalidaReader extends DogReader {
     protected $sqlcats="";
     protected $heights;
 
+    /**
+     * OrdenSalidaReader constructor.
+     * @param $name dboject name
+     * @param $options prueba,jornada, manda id's
+     * @throws Exception on invalid data
+     */
     public function __construct($name,$options) {
         $this->myDBObject = new DBObject($name);
         $this->prueba=$this->myDBObject->__selectAsArray("*","pruebas","ID={$options['Prueba']}");
@@ -64,11 +70,7 @@ class OrdenSalidaReader extends DogReader {
         $fedobj=Federations::getFederation($this->federation);
         if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=0; $this->fieldList['Country'][1]=1; } // country/club
         $this->validPageNames=array("StartingOrder",_("StartingOrder"),"Starting order",_("Starting order"));
-        $prb=(object) $this->prueba;
-        $jrd=(object) $this->jornada;
-        $mangaInfo=Mangas::getMangaInfo($this->manga['ID']);
-        $cmp=Competitions::getCompetition($prb,$jrd);
-        $this->heihgts=$cmp->getHeights($mangaInfo);
+        $this->heights=Competitions::getHeights($this->prueba['ID'],$this->jornada['ID'],$this->manga['ID']);
         $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']), $this->heihgts,"resultados.");
     }
 

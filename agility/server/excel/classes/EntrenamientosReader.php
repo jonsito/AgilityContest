@@ -77,6 +77,7 @@ class EntrenamientosReader extends DogReader {
         // fix fields according contest type
         $fedobj=Federations::getFederation($this->federation);
         if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=0; $this->fieldList['Country'][1]=1; } // country/club
+        // use global heights as no journey neither round is requiered for training session
         if ($fedobj->get('Heights')!=3) { $this->fieldList['Key4'][1]=1; $this->fieldList['Value4'][1]=1; } // required on 4 heights
         if ($fedobj->get('Heights')==5) { $this->fieldList['Key5'][1]=1; $this->fieldList['Value5'][1]=1; } // required on 5 heights
         $this->validPageNames=array("Results","Resultados");

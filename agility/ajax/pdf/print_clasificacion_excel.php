@@ -68,8 +68,7 @@ try {
 	$c= Competitions::getClasificacionesInstance("print_clasificacion_excel",$jornada);
 	// buscamos las alturas referidas segun la manga y el tipo de competicion
     $mangasInfo=Mangas::getMangaInfo($mangas[0]);
-    $heights=Competitions::getCompetition($mangasInfo->Prueba,$mangasInfo->Jornada)->getHeights($mangasInfo);
-
+    $heights=$mangasInfo->Competition->getRoundHeights($mangas[0]);
     $result=array();
 	switch($excel->manga1->Recorrido) {
 		case 0: // recorridos separados xlarge large medium small tiny

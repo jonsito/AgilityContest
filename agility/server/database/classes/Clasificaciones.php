@@ -51,7 +51,7 @@ class Clasificaciones extends DBObject {
 		}
 		$this->prueba=$prueba;
 		$this->jornada=$jornada;
-		$this->mangas=array();
+        $this->mangas=$this->__select("*","mangas","(Jornada=$jornada->ID)","","")['rows'];
         // when perro is requested, but we are in first round, it's possible that dog has no data yet,
         // and doesn't appears in clasification, so make sure that at least a dummy entry is returned
         $this->currentDog=$perro;
@@ -315,7 +315,7 @@ class Clasificaciones extends DBObject {
      * @param {integer} $mode modo de la prueba
      */
 	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$maxdogs,$mode) {
-	    $heights=Federations::getFederation(intval($this->prueba->RSCE))->get('Heights');
+	    $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->mangas[0]['ID']);
 
         // indexamos las clasificaciones por id de perro
         $indexedc=array();
