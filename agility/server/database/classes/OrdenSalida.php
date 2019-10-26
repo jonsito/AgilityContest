@@ -315,7 +315,7 @@ class OrdenSalida extends DBObject {
 	 * @return {array} 0:original 1:included 2:excluded 3:doglist
 	 */
 	function splitPerrosByMode($lista,$mode,$reverse,$range) {
-
+		$this->myLogger->enter();
 		// cogemos todos los perros de la manga e indexamos en función del perroID
 		$res=$this->__select("*","resultados","Manga={$this->manga->ID}","","");
 		$listaperros=array();
@@ -360,6 +360,7 @@ class OrdenSalida extends DBObject {
         $str0=implode(",",$listas[0]); // lista original
         $str1=implode(",",($reverse)?array_reverse($listas[1]):$listas[1]); // perros incluidos en lista nueva
         $str2=implode(",",$listas[2]); // perros excluidos de lista nueva
+		$this->myLogger->leave();
 		return array($str0,$str1,$str2,$listaperros);
 	}
 
@@ -372,6 +373,7 @@ class OrdenSalida extends DBObject {
 	 * @return {array} 0:original 1:included 2:excluded
 	 */
 	function splitEquiposByMode($lista,$mode,$reverse=false) {
+		$this->myLogger->enter();
 		// buscamos los equipos de la jornada y lo reindexamos en funcion del ID
 		$res=$this->__select("*","equipos","Jornada={$this->jornada->ID}","","");
 		$listaequipos=array();
@@ -398,6 +400,7 @@ class OrdenSalida extends DBObject {
         $str0=implode(",",$listas[0]);
         $str1=implode(",",($reverse)?array_reverse($listas[1]):$listas[1]);
         $str2=implode(",",$listas[2]);
+		$this->myLogger->leave();
 		return array($str0,$str1,$str2,$listaequipos);
 	}
 
@@ -442,11 +445,13 @@ class OrdenSalida extends DBObject {
 			if (array_key_exists($resultado['NombreGuia'],$guias)) $guias[$resultado['NombreGuia']]++;
 			else $guias[$resultado['NombreGuia']]=1;
 		}
+
 		// primera pasada: ajustamos los perros segun el orden de salida que figura en Orden_Salida
 		// excluyendo a aquellos cuya categoria no coincide con la solicitada
 		$p2=array();
+		// 0:original 1:included 2:excluded 3:listaperros
 		$listas=$this->splitPerrosByMode($this->getOrden(),$catmode,false,$range);
-		$orden=explode(',',$listas[1]); // cogemos la lista de los perros incluido
+		$orden=explode(',',$listas[1]); // cogemos la lista de los perros incluidos
 		// PENDING: This is a bypass for some obscure error in orden_salida data corruption.
 		// NEED TO BE PROPERLY FIXED
 		$orden=array_unique($orden, SORT_NUMERIC);
@@ -491,25 +496,25 @@ class OrdenSalida extends DBObject {
             // cuarta pasada: ordenar por categoria
 			// respetando el orden definido en el programa de la jornada
 			// miramos el orden de tandas:
-			$cats=implode(',',Tandas::getTandasByTipoManga($this->manga->Tipo)); // tipos de tanda asociados a la manga
+			$catsorderedbytanda=implode(',',Tandas::getTandasByTipoManga($this->manga->Tipo)); // tipos de tanda asociados a la manga
             $res=$this->__select(
             	"Categoria",
 				 "tandas",
-				"(tandas.Jornada={$this->jornada->ID}) AND (tandas.Tipo IN ($cats)) ",
+				"(tandas.Jornada={$this->jornada->ID}) AND (tandas.Tipo IN ($catsorderedbytanda)) ",
                 "Orden ASC"
 			);
 
             // ordenamos segun el orden de categorias establecido en las tandas
             $p5=array();
             foreach ($res['rows'] as $item) {
-            	// hack to get compatibility with oldest database entries
+            	// hack to get compatibility with oldest database entries that stored "no_cats" tanda categories as LMS
             	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-XLMST";
             	// si la tanda tiene mas de una categoria, hacemos un split y separamos internamente
 				$cats=str_split(($item['Categoria']));
 				foreach($cats as $cat) {
                     foreach ($p4 as $perro) {
                     	$ccats=compatible_categories($this->heights,$cat);
-                    	// do_log("perro:{$perro['Perro']} categoria:{$perro['Categoria']} tanda:{$cat} ccats:{$ccats}");
+                    	// do_log("perro:{$perro['Perro']} categoria:{$perro['Categoria']} tanda:{$cat} ccats:{$ccats} heights:{$this->heights}");
                         if ( category_match($perro['Categoria'],$this->heights,$ccats)) array_push($p5,$perro);
                     }
 				}

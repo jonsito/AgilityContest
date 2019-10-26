@@ -418,21 +418,21 @@ class Competitions {
         // primeramente obtenemos federacion y modalidad de competicion
         if ($manga != 0) {
             $data=$myDBObject->__select(
-                "select pruebas.RSCE as Federation, jornadas.Tipo_Competicion as Modalidad",
+                "pruebas.RSCE as Federation, jornadas.Tipo_Competicion as Modalidad",
                 "pruebas,jornadas,mangas",
                 "jornadas.Prueba=pruebas.ID AND mangas.Jornada=jornadas.ID AND mangas.ID={$manga}"
             );
         }
         else if ($jornada != 0) { // no round provided
             $data=$myDBObject->__select(
-                "select pruebas.RSCE as Federation, jornadas.Tipo_Competicion as Modalidad",
+                "pruebas.RSCE as Federation, jornadas.Tipo_Competicion as Modalidad",
                 "pruebas,jornadas",
                 "jornadas.Prueba=pruebas.ID AND jornadas.ID={$jornada}"
             );
         }
         else if ($prueba != 0) { // no round nor journey
             $data=$myDBObject->__select(
-                "select pruebas.RSCE as Federation, -1 as Modalidad",
+                "pruebas.RSCE as Federation, -1 as Modalidad",
                 "pruebas",
                 "pruebas.ID={$prueba}"
             );
@@ -441,21 +441,26 @@ class Competitions {
             $myDBObject->error("Must provide any of prueba/jornada/manga data");
             return -1;
         }
-        if (is_null($data)) {
+        if ( !is_array($data) || ($data['total']==0) ) {
             $myDBObject->error("Invalid prueba:{$prueba} jornada:{$jornada} or manga:{$manga} info provided");
             return -1;
         }
-        $federation=Federations::getFederation($data->Federation);
-        if ($data->Modalidad == -1) return $federation->get('Heights'); // no round, no journey, use federation defaults
+        $data=$data['rows'][0];
+        if ($data['Modalidad'] == -1) { // no round, no journey, use federation defaults
+            $federation=Federations::getFederation($data['Federation']);
+            return $federation->get('Heights');
+        }
         // locate competition module
         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
             $name=str_replace(".php","",basename($filename));
             require_once($filename);
             $comp=new $name;
             if (!$comp) continue; // cannot instantiate class. should report error
-            if ($comp->federationID!=$data->Federation) continue;
-            if ($comp->competitionID!=$data->Modalidad) continue;
-            return $comp->getRoundHeights($manga);
+            if ($comp->federationID!=$data['Federation']) continue;
+            if ($comp->competitionID!=$data['Modalidad']) continue;
+            $heights= $comp->getRoundHeights($manga);
+            do_log("hola heights:{$heights}");
+            return $heights;
         }
         // arriving here means no competition module found
         $myDBObject->error("Cannot find proper competition module for prueba:{$prueba} jornada:{$jornada}");
