@@ -38,7 +38,10 @@ $config =Config::getInstance();
        		onclick="editGuia('#guias-datagrid')"><?php _e('Edit handler'); ?></a>
        	<a id="guias-delBtn" href="#" class="easyui-linkbutton" 
        		data-options="iconCls:'icon-trash'"
-       		onclick="deleteGuia('#guias-datagrid')"><?php _e('Delete handler'); ?></a>
+       		onclick="deleteGuia('#guias-datagrid')"><?php _e('Delete handler(s)'); ?></a>
+   		<a id="guias-joinBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-sum'"
+           onclick="joinGuia('#guias-datagrid')"><?php _e('Join handlers'); ?></a>
    		<input id="guias-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"
 			   onfocus="handleSearchBox(this,true);" onblur="handleSearchBox(this,false);"/>
 	</span>
@@ -47,6 +50,7 @@ $config =Config::getInstance();
    			data-options="iconCls:'icon-brush'"
    			onClick="
    	        	// clear selection and reload table
+   	        	$('#guias-datagrid').datagrid('unselectAll');
    				reloadWithSearch('#guias-datagrid','select',true);
    				"
    			><?php _e('Clear'); ?></a>
@@ -79,7 +83,7 @@ $config =Config::getInstance();
             toolbar: '#guias-toolbar',
             pagination: false,
             rownumbers: true,
-            singleSelect: true,
+            singleSelect: false,
             fitColumns: true,
             idField: 'ID',
             view: scrollview,
@@ -125,7 +129,8 @@ $config =Config::getInstance();
 		// tooltips
 		addTooltip($('#guias-newBtn').linkbutton(),'<?php _e("Insert a new handler<br/>into DataBase");?>');
 		addTooltip($('#guias-editBtn').linkbutton(),'<?php _e("Edit data on selected handler");?>');
-		addTooltip($('#guias-delBtn').linkbutton(),'<?php _e("Remove selected handler from Database");?>');
+        addTooltip($('#guias-delBtn').linkbutton(),'<?php _e("Remove selected handler(s) from Database");?>');
+        addTooltip($('#guias-joinBtn').linkbutton(),'<?php _e("Mark handlers as duplicated and join them in database");?>');
 		addTooltip($('#guias-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update table");?>');
 		addTooltip($('#guias-datagrid-search'),'<?php _e("Show handlers matching search criteria");?>');
 

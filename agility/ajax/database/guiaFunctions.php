@@ -30,12 +30,15 @@ require_once(__DIR__ . "/../../server/database/classes/Guias.php");
 		$guiaid=http_request("ID","i",0);
 		$clubid=http_request("Club","i",0);
         $federation=http_request("Federation","i",-1);
+        $idfrom=http_request("From","s","BEGIN,END"); // BEGIN,item[,item [...],END string
+        $idto=http_request("To","i",0);
         $guias= new Guias("guiaFunctions",$federation);
 		if ($operation===null) throw new Exception("Call to guiaFunctions without 'Operation' requested");
 		switch ($operation) {
 			case "insert": $am->access(PERMS_OPERATOR); $result=$guias->insert(); break;
 			case "update": $am->access(PERMS_OPERATOR); $result=$guias->update($guiaid); break;
 			case "delete": $am->access(PERMS_OPERATOR); $result=$guias->delete($guiaid); break;
+            case "join":   $am->access(PERMS_OPERATOR); $result=$guias->joinTo($idfrom,$idto); break; // join two handlers
 			case "select": $result=$guias->select(); break; // select *
 			case "orphan": $am->access(PERMS_OPERATOR); $result=$guias->orphan($guiaid); break; // unassign from club
 			case "enumerate":   $result=$guias->enumerate(); break; // block select

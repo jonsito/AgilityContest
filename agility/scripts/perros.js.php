@@ -145,8 +145,8 @@ function deleteDog(dg){
 }
 
 /**
- * Borra el perro seleccionado de la base de datos
- * @param {string} dg datagrid ID de donde se obtiene el perro
+ * une los perros seleccionados en uno
+ * @param {string} dg datagrid ID de donde se obtienen los perros a unir
  */
 function joinDog(dg){
     var rows = $(dg).datagrid('getSelections');
@@ -160,7 +160,7 @@ function joinDog(dg){
     }
     var msg="<?php _e('Please select the dog that will remain after join');?><br/><?php _e('Press accept to proceed');?><br/>";
     var lista=
-        '<br/><form id="join_form"><table width="100%">'+
+        '<br/><form id="dogs_join_form"><table width="100%">'+
         '<tr><th>&nbsp;</th><th>ID</th><th><?php _e("Name");?></th><th><?php _e("License");?></th>'+
         '<th><?php _e("Cat.");?>/<?php _e("Grad.");?></th><th><?php _e("Handler");?></th><th><?php _e("Club");?></th></tr>';
     var selection="BEGIN";

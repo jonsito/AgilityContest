@@ -250,7 +250,7 @@ function passwordMatch(p1,p2,target) {
 }
 
 /**
- * returns Categoria's long string according provided categoria and fereration
+ * returns Categoria's long string according provided categoria and federation
  * @param {string} cat Categoria
  * @param {int} fed Federation, as indexed in nombreCategorias
  * @returns {string} requested result, or original one if not found
@@ -259,6 +259,18 @@ function toLongCategoria(cat,fed) {
     if (typeof(ac_fedInfo[parseInt(fed)])==='undefined') return cat;
     if (typeof(ac_fedInfo[parseInt(fed)].ListaCategorias[cat])==='undefined') return cat;
     return ac_fedInfo[parseInt(fed)].ListaCategorias[cat];
+}
+
+/**
+ * returns handler's categoria long string according provided handler categoria and federation
+ * @param {string} cat handler ategoria
+ * @param {int} fed Federation, as indexed in nombreCategorias
+ * @returns {string} requested result, or original one if not found
+ */
+function toHandlerCategoria(cat,fed) {
+    if (typeof(ac_fedInfo[parseInt(fed)])==='undefined') return cat;
+    if (typeof(ac_fedInfo[parseInt(fed)].ListaCatGuias[cat])==='undefined') return cat;
+    return ac_fedInfo[parseInt(fed)].ListaCatGuias[cat];
 }
 
 function isTeam(tipomanga) {

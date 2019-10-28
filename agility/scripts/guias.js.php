@@ -188,7 +188,7 @@ function editGuiaFromPerros(){ // editar guia desde el dialogo de edicion de per
  * Invocada desde el menu de guias
  * @param {string} dg datagrid ID de donde se obtiene el guia
  */
-function deleteGuia(dg){
+function deleteGuiaOld(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
@@ -209,6 +209,110 @@ function deleteGuia(dg){
     		}
     	},'json');
     });
+}
+
+/**
+ * Borra el perro seleccionado de la base de datos
+ * @param {string} dg datagrid ID de donde se obtiene el perro
+ */
+function deleteGuia(dg){
+    var rows = $(dg).datagrid('getSelections');
+    if (rows.length==0) {
+        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
+        return; // no way to know which handler is selected
+    }
+    for(var n=0;n<rows.length;n++) {
+        if (rows[n].ID==1) {
+            $.messager.alert('<?php _e("Delete error"); ?>','<?php _e("Cannot mark default handler to be deleted"); ?>',"error");
+            return; // cannot delete default entry
+        }
+    }
+    var msg="<?php _e('You are about to delete following handlers(s) from database');?><br/><?php _e('Are you sure?');?><br/>";
+    var lista= '<br/><table width="100%">'+
+        '<tr><th>ID</th><th><?php _e("Name");?></th><th><?php _e("Category");?></th>'+'<th><?php _e("Club");?></th></tr>';
+
+    for(n=0;n<rows.length;n++) {
+        lista+="<tr>";
+        var row=rows[n];
+        var cat=toHandlerCategoria(row.Categoria,workingData.federation);
+        lista +="<td>"+row.ID+"</td><td>"+row.Nombre+"</td><td> "+cat+"</td><td>"+row.NombreClub+"</td></tr>";
+    }
+    lista+="</table>"
+
+    $.messager.confirm('<?php _e('Delete'); ?>',msg+lista,function(r){
+        if (!r) return;
+        $.each(rows,function(index,row){
+            $.get('../ajax/database/guiaFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
+                var nombre=row.Nombre;
+                if (result.success){
+                    $(dg).datagrid('reload');    // reload the guia data
+                } else { // show error message
+                    var errormsg="Cannot delete handler: "+row.Nombre+":<br/>&nbsp<br/>"+result.errorMsg;
+                    $.messager.show({ width:300, height:200, title: 'Error',  msg: errormsg });
+                }
+            },'json');
+        });
+    }).window('resize',{width:480,height:'auto'});
+}
+
+/**
+ * une los guias seleccionados en uno
+ * @param {string} dg datagrid ID de donde se obtienen los guias a unir
+ */
+function joinGuia(dg){
+    var rows = $(dg).datagrid('getSelections');
+    if (rows.length==0) {
+        $.messager.alert('<?php _e("Join Error"); ?>','<?php _e("There are no selected handlers"); ?>',"info");
+        return; // no way to know which dog is selected
+    }
+    if (rows.length<2) {
+        $.messager.alert('<?php _e("Join Error"); ?>','<?php _e("Need to select at least two handlers"); ?>',"info");
+        return; // no way to know which dog is selected
+    }
+    for(var n=0;n<rows.length;n++) {
+        if (rows[n].ID==1) {
+            $.messager.alert('<?php _e("Join error"); ?>','<?php _e("Cannot mark default handler to be joined"); ?>',"error");
+            return; // cannot delete default entry
+        }
+    }
+    var msg="<?php _e('Please select the handler that will remain after join');?><br/><?php _e('Press accept to proceed');?><br/>";
+    var lista= '<br/><form id="handlers_join_form"><table width="100%">'+
+        '<tr><th>&nbsp;</th><th>ID</th><th><?php _e("Name");?></th><th><?php _e("Category");?></th>'+'<th><?php _e("Club");?></th></tr>';
+
+    var selection="BEGIN";
+    for(n=0;n<rows.length;n++) {
+        var row=rows[n];
+        selection = selection + "," +row.ID;
+        var input='<input type="radio" name="join_handlerid" value="'+row.ID+'">';
+        var cat=toHandlerCategoria(row.Categoria,workingData.federation);
+        lista +="<tr>";
+        lista +="<td>"+input+"</td><td>"+row.ID+"</td><td>"+row.Nombre+"</td><td> "+cat+"</td><td>"+row.NombreClub+"</td>";
+        lista +="</tr>";
+    }
+    selection += ",END";
+    lista+="</table></form>";
+
+    $.messager.confirm('<?php _e('Join handlers'); ?>',msg+lista,function(r){
+        if (!r) return;
+        if (typeof ($('input[name=join_handlerid]:checked').val() ) == "undefined") {
+            $.messager.show({ title: 'Error',  msg: 'No handler selected for join' });
+            return;
+        }
+        var selected=$('input[name=join_handlerid]:checked').val();
+        $.ajax({
+            type: 'GET',
+            url: '../ajax/database/guiaFunctions.php',
+            data: { Operation: 'join', From: selection, To: selected },
+            dataType: 'json',
+            success: function (result) {
+                if (result.errorMsg){
+                    $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
+                } else {
+                    $(dg).datagrid('unselectAll').datagrid('reload');
+                }
+            }
+        });
+    }).window('resize',{width:640,height:'auto'});
 }
 
 /**

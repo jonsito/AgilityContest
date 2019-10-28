@@ -119,8 +119,43 @@ class Guias extends DBObject {
 		$this->myLogger->leave();
 		return "";
 	}
-	
-	/**
+
+    /**
+     * Modify Database replaceing every instances of $fromID with $toID
+     * That is: handler "from" becomes handler "to"
+     * This code does not set up resulting handler properties, just move ID's
+     * @param $fromIDs handler list of items to be replaced in form BEGIN,dog[,dog[...]],END
+     * @param $toID handler to replace with
+     */
+    function joinTo($fromIDs,$toID) {
+        $this->myLogger->enter();
+        if ($toID<=0) return $this->error("joinTo() invalid to:$toID value");
+        // simpler than join dogs, as handler id is only stored in dog table
+        // results have hardcoded handler name and should not be changed
+        $ids=getInnerString($fromIDs,"BEGIN,",",END");
+        $this->query("START TRANSACTION");
+        // phase 1: reassign handlers
+        $res=$this->query("UPDATE perros SET Guia=$toID WHERE Guia IN ({$ids}) ");
+        if (!$res) {
+            $err=$this->conn->error;
+            $this->query("ROLLBACK");
+            return $this->error("Error (update perros) in Join handler: {$ids}: <br/>{$err}");
+        }
+        // phase 2: remove assigned handlers
+        $ids=str_replace(",{$toID}","",$fromIDs);
+        $ids=getInnerString($ids,"BEGIN,",",END");
+        $res=$this->query("DELETE FROM guias WHERE ID IN ({$ids}) ");
+        if (!$res) {
+            $err=$this->conn->error;
+            $this->query("ROLLBACK");
+            return $this->error("Error (delete from guias) in Join handler: {$ids}: <br/>{$err}");
+        }
+        $this->query("COMMIT");
+        $this->myLogger->leave();
+        return "";
+    }
+
+    /**
 	 * remove a handler from provided club
 	 * @param {integer} $id Guia ID primary key
 	 * @return "" on success ; null on error

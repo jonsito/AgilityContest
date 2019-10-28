@@ -163,8 +163,8 @@ class Dogs extends DBObject {
      * Modify Database replaceing every instances of $fromID with $toID
      * That is: dog "from" becomes dog "to"
      * This code does not set up resulting dog properties, just move ID's
-     * @param $fromIDs dog list of dogs to be replaced in form BEGIN,dog[,dog[...]],END
-     * @param $toID dog to replace from
+     * @param $fromIDs dog list of items to be replaced in form BEGIN,dog[,dog[...]],END
+     * @param $toID dog to replace with
      */
 	function joinTo($fromIDs,$toID) {
         $this->myLogger->enter();
