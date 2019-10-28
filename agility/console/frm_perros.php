@@ -43,7 +43,7 @@ $config =Config::getInstance();
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE union -->
 <div id="perros-join-buttons">
 	<a id="perros-join-okBtn" href="#" class="easyui-linkbutton"
-	   data-options="iconCls: 'icon-ok'" onclick="joinDog('join')"><?php _e('Join'); ?></a>
+	   data-options="iconCls: 'icon-ok'" onclick="join2Dog('join')"><?php _e('Join'); ?></a>
 	<a id="perros-join-cancelBtn" href="#" class="easyui-linkbutton"
 	   data-options="iconCls: 'icon-cancel'" onclick="$('#perros-join-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
 </div>
@@ -68,7 +68,7 @@ $config =Config::getInstance();
 		   onclick="deleteDog('#perros-datagrid')"><?php _e('Delete dog'); ?></a>
    		<a id="perros-joinBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-sum'"
-		   onclick="joinDog('open')"><?php _e('Join dog'); ?></a>
+		   onclick="joinDog('#perros-datagrid')"><?php _e('Join dog'); ?></a>
         <a id="perros-dupBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-duplicate'"
            onclick="reloadWithSearch('#perros-datagrid','duplicates',true);"><?php _e('Duplicates'); ?></a>
