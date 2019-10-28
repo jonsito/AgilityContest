@@ -110,21 +110,38 @@ function editInscribedDog(){
  * @param {string} dg datagrid ID de donde se obtiene el perro
  */
 function deleteDog(dg){
-    var row = $(dg).datagrid('getSelected');
-    if (!row) {
-    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no selected dog"); ?>',"info");
-    	return; // no way to know which dog is selected
+    var rows = $(dg).datagrid('getSelections');
+    if (rows.length==0) {
+        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There are no selected dogs"); ?>',"info");
+        return; // no way to know which dog is selected
     }
-    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete dog'); ?>'+': "'+ row.Nombre+'" '+'<?php _e('from database'); ?>'+'.\n'+'<?php _e('Sure?'); ?>',function(r){
+    var msg="<?php _e('You are about to delete following dog(s) from database');?><br/><?php _e('Are you sure?');?><br/>";
+    var lista=
+        '<br/><table width="100%"><tr><th>ID</th><th><?php _e("Name");?></th><th><?php _e("License");?></th>'+
+        '<th><?php _e("Cat.");?>/<?php _e("Grad.");?></th><th><?php _e("Handler");?></th><th><?php _e("Club");?></th></tr>';
+
+    for(var n=0;n<rows.length;n++) {
+        lista+="<tr>";
+        var row=rows[n];
+        lista +="<td>"+row.ID+"</td><td>"+row.Nombre+"</td><td>"+row.Licencia+"</td><td> "+row.Categoria+"/"+row.Grado+"</td>";
+        lista +="<td>"+row.NombreGuia+"</td><td>"+row.NombreClub+"</td></tr>";
+    }
+    lista+="</table>"
+
+    $.messager.confirm('<?php _e('Delete'); ?>',msg+lista,function(r){
        	if (!r) return;
-        $.get('../ajax/database/dogFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
-            if (result.success){
-                $(dg).datagrid('unselectAll').datagrid('reload');    // reload the dog data. PENDING: what about using reloadPerrosDatagrid()?
-            } else { // show error message
-                $.messager.show({ title: 'Error',  msg: result.errorMsg });
-            }
-        },'json');
-    });
+       	$.each(rows,function(index,row){
+            $.get('../ajax/database/dogFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
+                var nombre=row.Nombre;
+                if (result.success){
+                    $(dg).datagrid('unselectAll').datagrid('reload');    // reload the dog data. PENDING: what about using reloadPerrosDatagrid()?
+                } else { // show error message
+                    var errormsg="Cannot delete dog: "+row.Nombre+":<br/>&nbsp<br/>"+result.errorMsg;
+                    $.messager.show({ width:300, height:200, title: 'Error',  msg: errormsg });
+                }
+            },'json');
+        });
+    }).window('resize',{width:640,height:'auto'});
 }
 
 /**

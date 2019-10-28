@@ -171,7 +171,7 @@ $config =Config::getInstance();
             rownumbers: true,
             fitColumns: true,
 			idField: 'ID',
-            singleSelect: true,
+            singleSelect: false,
             view: scrollview,
             pageSize: 50,
             multiSort: true,
