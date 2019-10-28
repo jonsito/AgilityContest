@@ -66,7 +66,7 @@ function editDog(dg){
     rows[0].Operation='update';
     $('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('Modify data on dog'); ?>'+' - '+fedName(workingData.federation));
     $('#perros-form').form('load',rows[0]);// load form with row data
-    $("#perros-Baja").css('display','inline'); // make sure "retired" option is visible
+    $('#perros-Baja').css('display','inline'); // make sure "retired" option is visible
 	$('#perros-warning').css('visibility','visible');
 	$('#perros-okBtn').one('click',function() {
         $(dg).datagrid('clearSelections');

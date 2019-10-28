@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2019-10-28 23:38+0100\n"
-"PO-Revision-Date: 2019-10-28 23:41+0100\n"
+"POT-Creation-Date: 2019-10-28 23:54+0100\n"
+"PO-Revision-Date: 2019-10-28 23:55+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -325,7 +325,7 @@ msgstr "Gu&iacute;a"
 #: lib/templates/parcial_last_individual.inc.php:29
 #: livestream/vwls_osdvideo.php:92 public/index.php:197
 #: scripts/competicion.js.php:1685 scripts/datagrid_formatters.js.php:173
-#: scripts/guias.js.php:232 scripts/guias.js.php:280 scripts/import.js.php:78
+#: scripts/guias.js.php:208 scripts/guias.js.php:256 scripts/import.js.php:78
 #: scripts/import.js.php:91 scripts/import.js.php:104 scripts/perros.js.php:121
 #: scripts/perros.js.php:165 scripts/results_and_scores.js.php:270
 #: server/database/classes/Ligas.php:176 server/database/classes/Ligas.php:209
@@ -354,7 +354,7 @@ msgstr "Club"
 #: console/frm_clasificaciones2.php:78
 #: console/frm_clasificaciones_equipos.php:82 console/frm_clubes.php:179
 #: console/frm_guias.php:97 livestream/vwls_osdvideo.php:93
-#: scripts/guias.js.php:232 scripts/guias.js.php:280
+#: scripts/guias.js.php:208 scripts/guias.js.php:256
 #: server/database/classes/Ligas.php:172
 #: server/excel/classes/OrdenSalidaWriter.php:211
 #: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:86
@@ -490,30 +490,30 @@ msgstr "Eliminado"
 #: scripts/competicion.js.php:1704 scripts/competicion.js.php:1788
 #: scripts/entrenamientos.js.php:85 scripts/entrenamientos.js.php:180
 #: scripts/equipos.js.php:71 scripts/equipos.js.php:133
-#: scripts/equipos.js.php:452 scripts/guias.js.php:88 scripts/guias.js.php:208
-#: scripts/guias.js.php:339 scripts/guias.js.php:376 scripts/guias.js.php:413
-#: scripts/import.js.php:513 scripts/inscripciones.js.php:66
-#: scripts/inscripciones.js.php:113 scripts/inscripciones.js.php:296
-#: scripts/inscripciones.js.php:332 scripts/inscripciones.js.php:366
-#: scripts/inscripciones.js.php:397 scripts/inscripciones.js.php:484
-#: scripts/jueces.js.php:105 scripts/perros.js.php:231
-#: scripts/perros.js.php:251 scripts/perros.js.php:260
-#: scripts/perros.js.php:314 scripts/perros.js.php:348
-#: scripts/printer.js.php:508 scripts/printer.js.php:568
-#: scripts/printer.js.php:606 scripts/printer.js.php:649
-#: scripts/printer.js.php:717 scripts/pruebas.js.php:115
-#: scripts/pruebas.js.php:199 scripts/pruebas.js.php:248
-#: scripts/pruebas.js.php:314 scripts/pruebas.js.php:477
-#: scripts/pruebas.js.php:636 scripts/pruebas.js.php:642
-#: scripts/results_and_scores.js.php:58 scripts/results_and_scores.js.php:162
-#: scripts/results_and_scores.js.php:377 scripts/sesiones.js.php:84
-#: scripts/sesiones.js.php:143 scripts/tandas.js.php:103
-#: scripts/tandas.js.php:138 scripts/usuarios.js.php:89
-#: scripts/usuarios.js.php:158 scripts/webhost.js.php:51
-#: scripts/webhost.js.php:61 scripts/webhost.js.php:71
-#: scripts/webhost.js.php:78 scripts/webhost.js.php:83
-#: scripts/webhost.js.php:116 scripts/webhost.js.php:130 tablet/index.php:442
-#: tablet/index.php:443 videowall/index.php:347
+#: scripts/equipos.js.php:452 scripts/guias.js.php:88 scripts/guias.js.php:315
+#: scripts/guias.js.php:352 scripts/guias.js.php:389 scripts/import.js.php:513
+#: scripts/inscripciones.js.php:66 scripts/inscripciones.js.php:113
+#: scripts/inscripciones.js.php:296 scripts/inscripciones.js.php:332
+#: scripts/inscripciones.js.php:366 scripts/inscripciones.js.php:397
+#: scripts/inscripciones.js.php:484 scripts/jueces.js.php:105
+#: scripts/perros.js.php:231 scripts/perros.js.php:251
+#: scripts/perros.js.php:260 scripts/perros.js.php:314
+#: scripts/perros.js.php:348 scripts/printer.js.php:508
+#: scripts/printer.js.php:568 scripts/printer.js.php:606
+#: scripts/printer.js.php:649 scripts/printer.js.php:717
+#: scripts/pruebas.js.php:115 scripts/pruebas.js.php:199
+#: scripts/pruebas.js.php:248 scripts/pruebas.js.php:314
+#: scripts/pruebas.js.php:477 scripts/pruebas.js.php:636
+#: scripts/pruebas.js.php:642 scripts/results_and_scores.js.php:58
+#: scripts/results_and_scores.js.php:162 scripts/results_and_scores.js.php:377
+#: scripts/sesiones.js.php:84 scripts/sesiones.js.php:143
+#: scripts/tandas.js.php:103 scripts/tandas.js.php:138
+#: scripts/usuarios.js.php:89 scripts/usuarios.js.php:158
+#: scripts/webhost.js.php:51 scripts/webhost.js.php:61
+#: scripts/webhost.js.php:71 scripts/webhost.js.php:78
+#: scripts/webhost.js.php:83 scripts/webhost.js.php:116
+#: scripts/webhost.js.php:130 tablet/index.php:442 tablet/index.php:443
+#: videowall/index.php:347
 msgid "Error"
 msgstr "Error"
 
@@ -670,8 +670,8 @@ msgstr "Dors"
 #: livestream/vwls_finales.php:97 livestream/vwls_osdvideo.php:90
 #: public/index.php:195 public/index.php:228 public/pb_inscripciones.php:103
 #: public/pb_inscripciones_equipos.php:152 public/pbmenu_inscripciones.php:103
-#: public/pbmenu_inscripciones_equipos.php:147 scripts/guias.js.php:232
-#: scripts/guias.js.php:280 scripts/perros.js.php:120 scripts/perros.js.php:164
+#: public/pbmenu_inscripciones_equipos.php:147 scripts/guias.js.php:208
+#: scripts/guias.js.php:256 scripts/perros.js.php:120 scripts/perros.js.php:164
 #: scripts/results_and_scores.js.php:264 scripts/results_and_scores.js.php:336
 #: server/database/classes/Ligas.php:173
 #: server/excel/classes/XLSXWriter.php:124
@@ -1398,11 +1398,10 @@ msgstr "Editar"
 #: console/dialogs/dlg_competicion_games.inc:492
 #: console/dialogs/dlg_configuracion.inc:741 scripts/admin.js.php:69
 #: scripts/clubes.js.php:243 scripts/competicion.js.php:1323
-#: scripts/guias.js.php:81 scripts/guias.js.php:201 scripts/jueces.js.php:133
-#: scripts/perros.js.php:254 scripts/pruebas.js.php:190
-#: scripts/pruebas.js.php:303 scripts/sesiones.js.php:112
-#: scripts/sesiones.js.php:136 scripts/tandas.js.php:131
-#: scripts/usuarios.js.php:117
+#: scripts/guias.js.php:81 scripts/jueces.js.php:133 scripts/perros.js.php:254
+#: scripts/pruebas.js.php:190 scripts/pruebas.js.php:303
+#: scripts/sesiones.js.php:112 scripts/sesiones.js.php:136
+#: scripts/tandas.js.php:131 scripts/usuarios.js.php:117
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -1413,10 +1412,9 @@ msgstr "Borrar los datos de resultados del participante"
 
 #: console/dialogs/dlg_competicion.inc:232
 #: console/dialogs/dlg_competicion_games.inc:492 scripts/admin.js.php:69
-#: scripts/guias.js.php:81 scripts/guias.js.php:201 scripts/jueces.js.php:133
-#: scripts/perros.js.php:254 scripts/sesiones.js.php:112
-#: scripts/sesiones.js.php:136 scripts/tandas.js.php:131
-#: scripts/usuarios.js.php:117
+#: scripts/guias.js.php:81 scripts/jueces.js.php:133 scripts/perros.js.php:254
+#: scripts/sesiones.js.php:112 scripts/sesiones.js.php:136
+#: scripts/tandas.js.php:131 scripts/usuarios.js.php:117
 msgid "Sure?"
 msgstr "¿Seguro?"
 
@@ -3234,7 +3232,7 @@ msgstr "Insertar"
 
 #: console/dialogs/dlg_ordentandas.inc:39 console/dialogs/dlg_plugins.inc:14
 #: console/frm_equipos.php:38 console/frm_inscripciones2.php:105
-#: scripts/guias.js.php:242 scripts/perros.js.php:131
+#: scripts/guias.js.php:218 scripts/perros.js.php:131
 msgid "Delete"
 msgstr "Borrar"
 
@@ -5372,7 +5370,7 @@ msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
 msgid "Delete handler(s)"
 msgstr "Borrar gu&iacute;a(s)"
 
-#: console/frm_guias.php:44 scripts/guias.js.php:295
+#: console/frm_guias.php:44 scripts/guias.js.php:271
 msgid "Join handlers"
 msgstr "Unir Gu&iacute;as"
 
@@ -7377,11 +7375,12 @@ msgstr ""
 
 #: scripts/clubes.js.php:143 scripts/clubes.js.php:147
 #: scripts/entrenamientos.js.php:61 scripts/equipos.js.php:215
-#: scripts/equipos.js.php:219 scripts/guias.js.php:126 scripts/guias.js.php:221
-#: scripts/jueces.js.php:59 scripts/modules.js.php:32 scripts/perros.js.php:58
-#: scripts/perros.js.php:62 scripts/perros.js.php:115 scripts/pruebas.js.php:91
-#: scripts/sesiones.js.php:52 scripts/sesiones.js.php:56
-#: scripts/tandas.js.php:61 scripts/usuarios.js.php:62
+#: scripts/equipos.js.php:219 scripts/guias.js.php:126 scripts/guias.js.php:130
+#: scripts/guias.js.php:197 scripts/jueces.js.php:59 scripts/modules.js.php:32
+#: scripts/perros.js.php:58 scripts/perros.js.php:62 scripts/perros.js.php:115
+#: scripts/pruebas.js.php:91 scripts/sesiones.js.php:52
+#: scripts/sesiones.js.php:56 scripts/tandas.js.php:61
+#: scripts/usuarios.js.php:62
 msgid "Edit Error"
 msgstr "Error de edici&oacute;n"
 
@@ -7408,13 +7407,12 @@ msgstr "No se ha indicado ninguna federacion"
 #: scripts/clubes.js.php:231 scripts/clubes.js.php:235
 #: scripts/clubes.js.php:240 scripts/equipos.js.php:243
 #: scripts/equipos.js.php:247 scripts/equipos.js.php:331
-#: scripts/guias.js.php:55 scripts/guias.js.php:78 scripts/guias.js.php:194
-#: scripts/guias.js.php:198 scripts/guias.js.php:226 scripts/jueces.js.php:126
-#: scripts/jueces.js.php:130 scripts/pruebas.js.php:187
-#: scripts/sesiones.js.php:105 scripts/sesiones.js.php:109
-#: scripts/sesiones.js.php:133 scripts/tandas.js.php:124
-#: scripts/tandas.js.php:128 scripts/usuarios.js.php:110
-#: scripts/usuarios.js.php:114
+#: scripts/guias.js.php:55 scripts/guias.js.php:78 scripts/guias.js.php:202
+#: scripts/jueces.js.php:126 scripts/jueces.js.php:130
+#: scripts/pruebas.js.php:187 scripts/sesiones.js.php:105
+#: scripts/sesiones.js.php:109 scripts/sesiones.js.php:133
+#: scripts/tandas.js.php:124 scripts/tandas.js.php:128
+#: scripts/usuarios.js.php:110 scripts/usuarios.js.php:114
 msgid "Delete error"
 msgstr "Error al borrar"
 
@@ -7918,7 +7916,7 @@ msgid "Assign/Register a handler"
 msgstr "Asignar/Registrar un gu&iacute;a"
 
 #: scripts/guias.js.php:55 scripts/guias.js.php:78 scripts/guias.js.php:126
-#: scripts/guias.js.php:152 scripts/guias.js.php:194 scripts/guias.js.php:221
+#: scripts/guias.js.php:156 scripts/guias.js.php:197
 msgid "There is no handler selected"
 msgstr "No se ha seleccionado ningun gu&iacute;a"
 
@@ -7934,63 +7932,57 @@ msgstr "Borrar asignaci&oacute;n del gu&iacute;a"
 msgid "to club"
 msgstr "al club"
 
-#: scripts/guias.js.php:129 scripts/guias.js.php:162
+#: scripts/guias.js.php:130
+msgid "Too many selected handlers"
+msgstr "Demasiados gu&iacute;as seleccionados"
+
+#: scripts/guias.js.php:133 scripts/guias.js.php:166
 msgid "Modify handler data"
 msgstr "Editar datos del gu&iacute;a"
 
-#: scripts/guias.js.php:152
+#: scripts/guias.js.php:156
 msgid "Edit error"
 msgstr "Error de edici&oacute;n"
 
-#: scripts/guias.js.php:198 scripts/jueces.js.php:130 scripts/modules.js.php:45
-#: scripts/sesiones.js.php:109 scripts/tandas.js.php:128
-#: scripts/usuarios.js.php:114 scripts/usuarios.js.php:133
-msgid "This entry cannot be deleted"
-msgstr "Esta entrada no se puede borrar"
-
-#: scripts/guias.js.php:201
-msgid "Delete data on handler"
-msgstr "Borrar datos del gu&iacute;a"
-
-#: scripts/guias.js.php:226
+#: scripts/guias.js.php:202
 msgid "Cannot mark default handler to be deleted"
 msgstr "No se puede seleccionar el gu&iacute;a por defecto para ser borrado"
 
-#: scripts/guias.js.php:230
+#: scripts/guias.js.php:206
 msgid "You are about to delete following handlers(s) from database"
 msgstr "Va a borrar los siguientes gu&iacute;as de la base de datos"
 
-#: scripts/guias.js.php:230 scripts/perros.js.php:118
+#: scripts/guias.js.php:206 scripts/perros.js.php:118
 msgid "Are you sure?"
 msgstr "Est&aacute; seguro?"
 
-#: scripts/guias.js.php:265 scripts/guias.js.php:269 scripts/perros.js.php:154
+#: scripts/guias.js.php:241 scripts/guias.js.php:245 scripts/perros.js.php:154
 #: scripts/perros.js.php:158
 msgid "Join Error"
 msgstr "Error al unir"
 
-#: scripts/guias.js.php:265
+#: scripts/guias.js.php:241
 msgid "There are no selected handlers"
 msgstr "No hay ning&uacute;n gu&iacute;a seleccionado"
 
-#: scripts/guias.js.php:269
+#: scripts/guias.js.php:245
 msgid "Need to select at least two handlers"
 msgstr "Debe seleccionar al menos dos gu&iacute;as"
 
-#: scripts/guias.js.php:274
+#: scripts/guias.js.php:250
 msgid "Join error"
 msgstr "Error al unificar"
 
-#: scripts/guias.js.php:274
+#: scripts/guias.js.php:250
 msgid "Cannot mark default handler to be joined"
 msgstr "No se puede seleccionar el gu&iacute;a por defecto para ser unido"
 
-#: scripts/guias.js.php:278
+#: scripts/guias.js.php:254
 msgid "Please select the handler that will remain after join"
 msgstr ""
 "Por favor, indique el gu&iacute;a que quedar&aacute; tras la uni&oacute;n"
 
-#: scripts/guias.js.php:278 scripts/perros.js.php:161
+#: scripts/guias.js.php:254 scripts/perros.js.php:161
 msgid "Press accept to proceed"
 msgstr "Pulse Aceptar para proceder"
 
@@ -8340,6 +8332,12 @@ msgstr "No se ha seleccionado ning&uacute;n juez"
 #: scripts/jueces.js.php:65
 msgid "Modify judge data"
 msgstr "Editar datos del juez"
+
+#: scripts/jueces.js.php:130 scripts/modules.js.php:45
+#: scripts/sesiones.js.php:109 scripts/tandas.js.php:128
+#: scripts/usuarios.js.php:114 scripts/usuarios.js.php:133
+msgid "This entry cannot be deleted"
+msgstr "Esta entrada no se puede borrar"
 
 #: scripts/jueces.js.php:133
 msgid "Delete data on judge"
@@ -10445,6 +10443,9 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "Delete data on handler"
+#~ msgstr "Borrar datos del gu&iacute;a"
 
 #~ msgid ""
 #~ "Choose a dog and <br/>replace current (duplicated) selection with this "

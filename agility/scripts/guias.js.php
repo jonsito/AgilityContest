@@ -121,17 +121,21 @@ function newGuia(def,onAccept){
  */
 function editGuia(dg){
 	if ($('#guias-datagrid-search').is(":focus")) return; // on enter key in search input ignore
-    var row = $(dg).datagrid('getSelected');
-    if (!row) {
-    	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
-    	return; // no way to know which dog is selected
+    var rows = $(dg).datagrid('getSelections');
+    if (rows.length==0) {
+        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
+        return; // no way to know which dog is selected
+    }
+    if (rows.length>1) {
+        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("Too many selected handlers"); ?>',"warning");
+        return; // no way to know which dog is selected
     }
     $('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('Modify handler data'); ?>'+' - '+fedName(workingData.federation));
     // add extra required parameters to dialog
-    row.Parent='';
-    row.Operation='update';
+    rows[0].Parent='';
+    rows[0].Operation='update';
     // stupid trick to make dialog's clubs combogrid display right data
-    $('#guias-form').form('load',row); // load row data into guia edit form
+    $('#guias-form').form('load',rows[0]); // load row data into guia edit form
     // on accept, display correct data
     $('#guias-okBtn').one('click',reload_guiasDatagrid);
 }
@@ -180,34 +184,6 @@ function editGuiaFromPerros(){ // editar guia desde el dialogo de edicion de per
         pg.combogrid('setValue',r.ID);
         // finally fix club name on textbox
         $('#perros-Club').textbox('setValue',cname.Nombre);
-    });
-}
-
-/**
- * Borra de la BBDD los datos del guia seleccionado. 
- * Invocada desde el menu de guias
- * @param {string} dg datagrid ID de donde se obtiene el guia
- */
-function deleteGuiaOld(dg){
-    var row = $(dg).datagrid('getSelected');
-    if (!row) {
-    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
-    	return; // no way to know which dog is selected
-    }
-    if (row.ID==1) {
-    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
-    	return; // cannot delete default entry
-    }
-    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete data on handler'); ?>'+': '+ row.Nombre+'\n'+'<?php _e('Sure?'); ?>',function(r){
-    	if (!r) return;
-    	$.get('../ajax/database/guiaFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
-    		if (result.success){
-    			$(dg).datagrid('reload');    // reload the guia data
-    		} else {
-    			// show error message
-    			$.messager.show({ title:'<?php _e('Error'); ?>', width:300, height:200, msg:result.errorMsg });
-    		}
-    	},'json');
     });
 }
 
