@@ -30,7 +30,7 @@ try {
 	$idperro=http_request("ID","i",0);
 	$idguia=http_request("Guia","i",0);
 	$federation=http_request("Federation","i",-1);
-    $idfrom=http_request("From","i",0);
+    $idfrom=http_request("From","s","BEGIN,END"); // BEGIN,item[,item [...],END string
     $idto=http_request("To","i",0);
     $perros= new Dogs("dogFunctions",$federation);
 	if ($operation===null) throw new Exception("Call to dogFunctions without 'Operation' requested");

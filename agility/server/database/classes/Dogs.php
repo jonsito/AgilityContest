@@ -163,32 +163,60 @@ class Dogs extends DBObject {
      * Modify Database replaceing every instances of $fromID with $toID
      * That is: dog "from" becomes dog "to"
      * This code does not set up resulting dog properties, just move ID's
-     * @param $fromID dog to be replaced
+     * @param $fromIDs dog list of dogs to be replaced in form BEGIN,dog[,dog[...]],END
      * @param $toID dog to replace from
      */
-	function joinTo($fromID,$toID) {
+	function joinTo($fromIDs,$toID) {
         $this->myLogger->enter();
-        if (($fromID<=0) || ($toID<=0)) return $this->error("joinTo() invalid from:$fromID or to:$toID values");
+        if ($toID<=0) return $this->error("joinTo() invalid to:$toID value");
         // en teoria, inscripciones y resultados se actualizan mediante foreign key (Perros.ID), pero
         // por siacaso lo hacemos a mano
 	    // update inscripciones
-        $res=$this->query("UPDATE inscripciones SET Perro=$toID WHERE ( Perro=$fromID )");
-        if (!$res) return $this->error($this->conn->error);
-	    // update resultados
-        $res=$this->query("UPDATE resultados SET Perro=$toID WHERE ( Perro=$fromID )");
-        if (!$res) return $this->error($this->conn->error);
+        $this->query("START TRANSACTION");
+        $ids = explode(',', $fromIDs); //split string into array seperated by ', '
+        foreach($ids as $fromID)  { //loop over values
+            if ( $fromID=="BEGIN" ) continue;
+            if ( $fromID=="END" ) continue;
+            if ( $fromID=="" ) continue;
+            if ( $fromID==$toID ) continue; // do not replace myself
+            $res=$this->query("UPDATE inscripciones SET Perro=$toID WHERE ( Perro=$fromID )");
+            if (!$res) {
+                $err=$this->conn->error;
+                $this->query("ROLLBACK");
+                return $this->error("Error (update inscripciones) in Join Dog: {$fromID}: <br/>{$err}");
+            }
+            // update resultados
+            $res=$this->query("UPDATE resultados SET Perro=$toID WHERE ( Perro=$fromID )");
+            if (!$res) {
+                $err=$this->conn->error;
+                $this->query("ROLLBACK");
+                return $this->error("Error (update resultados) in Join Dog: {$fromID}: <br/>{$err}");
+            }
+            // en estas tablas, hay que actualizar las listas del tipo ',FromID,' a ',ToID,'
+            // update starting orders
+            $res=$this->query("UPDATE mangas SET Orden_Salida=REPLACE(Orden_Salida,',$fromID,',',$toID,') where (Orden_Salida like '%,$fromID,%')");
+            if (!$res) {
+                $err=$this->conn->error;
+                $this->query("ROLLBACK");
+                return $this->error("Error (update mangas) in Join Dog: {$fromID}: <br/>{$err}");
+            }
+            // update team member lists
+            $res=$this->query("UPDATE equipos SET Miembros=REPLACE(Miembros,',$fromID,',',$toID,') WHERE (Miembros LIKE '%,$fromID,%')");
+            if (!$res)  {
+                $err=$this->conn->error;
+                $this->query("ROLLBACK");
+                return $this->error("Error (update equipos) in Join Dog: {$fromID}: <br/>{$err}");
+            }
 
-        // en estas tablas, hay que actualizar las listas del tipo ',FromID,' a ',ToID,'
-        // update starting orders
-        $res=$this->query("UPDATE mangas SET Orden_Salida=REPLACE(Orden_Salida,',$fromID,',',$toID,') where (Orden_Salida like '%,$fromID,%')");
-        if (!$res) return $this->error($this->conn->error);
-        // update team member lists
-        $res=$this->query("UPDATE equipos SET Miembros=REPLACE(Miembros,',$fromID,',',$toID,') WHERE (Miembros LIKE '%,$fromID,%')");
-        if (!$res) return $this->error($this->conn->error);
-
-        // and finally remove "from" dog
-        $rs= $this->__delete("perros","(ID=$fromID)");
-        if (!$rs) return $this->error($this->conn->error);
+            // and finally remove "from" dog
+            $rs= $this->__delete("perros","(ID=$fromID)");
+            if (!$rs)  {
+                $err=$this->conn->error;
+                $this->query("ROLLBACK");
+                return $this->error("Error (delete dog) in Join Dog: {$fromID}: <br/>{$err}");
+            }
+        }
+        $this->query("COMMIT");
         $this->myLogger->leave();
         return "";
     }

@@ -159,22 +159,22 @@ function joinDog(dg){
         return; // no way to know which dog is selected
     }
     var msg="<?php _e('Please select the dog that will remain after join');?><br/><?php _e('Press accept to proceed');?><br/>";
-    var selection="";
     var lista=
         '<br/><form id="join_form"><table width="100%">'+
         '<tr><th>&nbsp;</th><th>ID</th><th><?php _e("Name");?></th><th><?php _e("License");?></th>'+
         '<th><?php _e("Cat.");?>/<?php _e("Grad.");?></th><th><?php _e("Handler");?></th><th><?php _e("Club");?></th></tr>';
-
+    var selection="BEGIN";
     for(var n=0;n<rows.length;n++) {
-        lista+="<tr>";
         var row=rows[n];
-        if (n!=0) selection+=',';
-        selection+=row.ID;
+        selection = selection + "," +row.ID;
         var input='<input type="radio" name="join_dogid" value="'+row.ID+'">';
+        lista +="<tr>";
         lista +="<td>"+input+"</td><td>"+row.ID+"</td><td>"+row.Nombre+"</td><td>"+row.Licencia+"</td><td> "+row.Categoria+"/"+row.Grado+"</td>";
-        lista +="<td>"+row.NombreGuia+"</td><td>"+row.NombreClub+"</td></tr>";
+        lista +="<td>"+row.NombreGuia+"</td><td>"+row.NombreClub+"</td>";
+        lista +="</tr>";
     }
-    lista+="</table></form>"
+    selection += ",END";
+    lista+="</table></form>";
 
     $.messager.confirm('<?php _e('Join dogs'); ?>',msg+lista,function(r){
         if (!r) return;
@@ -183,25 +183,20 @@ function joinDog(dg){
             return;
         }
         var selected=$('input[name=join_dogid]:checked').val();
-        $.each(rows,function(index,row){
-            if (row.index==selected) return; // do not join myself :-)
-            $.ajax({
-                type: 'GET',
-                url: '../ajax/database/dogFunctions.php',
-                data: { Operation: 'join', From: row.ID, To: selected },
-                dataType: 'json',
-                success: function (result) {
-                    if (result.errorMsg){
-                        $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
-                    } else {
-                        $('#perros-join-dialog').dialog('close');
-                    }
+        $.ajax({
+            type: 'GET',
+            url: '../ajax/database/dogFunctions.php',
+            data: { Operation: 'join', From: selection, To: selected },
+            dataType: 'json',
+            success: function (result) {
+                if (result.errorMsg){
+                    $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
+                } else {
+                    $(dg).datagrid('unselectAll').datagrid('reload');
                 }
-            });
+            }
         });
-
     }).window('resize',{width:640,height:'auto'});
-    $(dg).datagrid('unselectAll').datagrid('reload');
 }
 
 /**
