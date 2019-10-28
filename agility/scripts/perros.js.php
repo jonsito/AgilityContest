@@ -200,43 +200,6 @@ function joinDog(dg){
 }
 
 /**
- * mark selected dog to be converted as new one
- * @param action "open" (open dialog), "join" perform action
- */
-function join2Dog(action) {
-    var row = $('#perros-datagrid').datagrid('getSelected');
-    if (!row) {
-        $.messager.alert('<?php _e("Join error"); ?>','<?php _e("There is no selected dog for join"); ?>',"info");
-        return; // no way to know which dog is selected
-    }
-    if (action=="open") {
-        $('#perros-join-dialog').dialog('open');
-        return;
-    }
-    if (action=="join") {
-        var torow=$('#perros-join-combogrid').combogrid('grid').datagrid('getSelected');
-        if (!torow) {
-            $.messager.alert('<?php _e("Join error"); ?>','<?php _e("There is no selected dog to join with"); ?>',"info");
-            return;
-        }
-        $.ajax({
-            type: 'GET',
-            url: '../ajax/database/dogFunctions.php',
-            data: { Operation: 'join', From: row.ID, To: torow.ID},
-            dataType: 'json',
-            success: function (result) {
-                if (result.errorMsg){
-                    $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
-                } else {
-                    $('#perros-join-dialog').dialog('close');
-                    $('#perros-datagrid').datagrid('reload');
-                }
-            }
-        });
-    }
-}
-
-/**
  * Abre el formulario para anyadir/asignar perros a un guia
  *@param {string} dgstr identificador del datagrid que se actualiza
  *@param {object} guia datos del guia

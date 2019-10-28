@@ -153,8 +153,8 @@ $config =Config::getInstance();
 		// tooltips
 		addTooltip($('#perros-newBtn').linkbutton(),'<?php _e("Declare new dog <br/>into database"); ?>');
 		addTooltip($('#perros-editBtn').linkbutton(),'<?php _e("Modify data on selected dog"); ?>');
-		addTooltip($('#perros-delBtn').linkbutton(),'<?php _e("Remove selected dog from database"); ?>');
-        addTooltip($('#perros-joinBtn').linkbutton(),'<?php _e("Mark two dogs as duplicated and join them in the database"); ?>');
+		addTooltip($('#perros-delBtn').linkbutton(),'<?php _e("Remove selected dog(s) from database"); ?>');
+        addTooltip($('#perros-joinBtn').linkbutton(),'<?php _e("Mark dogs as duplicated and join them in the database"); ?>');
         addTooltip($('#perros-dupBtn').linkbutton(),'<?php _e("List dogs having duplicate license number"); ?>');
 		addTooltip($('#perros-excelBtn').linkbutton(),'<?php _e("Import/Export dog data from/to Excel file"); ?>');
 		addTooltip($('#perros-printBtn').linkbutton(),'<?php _e("Print dog list with current search/sort criteria"); ?>');

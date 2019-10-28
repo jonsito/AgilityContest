@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE ALTA DE INSCRIPCIONES EN UNA PRUEBA -->
-<div id="new_inscripcion-dialog" style="width:640px;height:400px;padding:5px">
+<div id="new_inscripcion-dialog" style="width:700px;height:400px;padding:5px">
    	<!--  tabla que contiene el resultado de la seleccion del formulario -->
 	<table id="new_inscripcion-datagrid"></table>
 </div>
@@ -90,7 +90,13 @@ $config =Config::getInstance();
            onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-datagrid-search').val())"><?php _e('New dog'); ?></a>
    		<a id="new_inscripcion-editdogBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-edit'"
-           onclick="editDog('#new_inscripcion-datagrid')"><?php _e('Edit dog'); ?></a>
+           onclick="editDog('#new_inscripcion-datagrid')"><?php _e('Edit dog'); ?>
+   		<a id="new_inscripcion-deldogBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-trash'"
+           onclick="deleteDog('#new_inscripcion-datagrid')"><?php _e('Delete dog(s)'); ?>
+   		<a id="new_inscripcion-joindogBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-sum'"
+           onclick="joinDog('#new_inscripcion-datagrid')"><?php _e('Join dogs'); ?>
    	</span>
    	<span style="float:right">
 		<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
@@ -260,7 +266,7 @@ addTooltip($('#new_inscripcion-doneBtn').linkbutton(),'<?php _e("Close window");
 addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),'<?php _e("Clear selection. Refresh list"); ?>');
 addTooltip($('#new_inscripcion-newdogBtn').linkbutton(),'<?php _e("Insert new dog into database"); ?>');
 addTooltip($('#new_inscripcion-editdogBtn').linkbutton(),'<?php _e("Modify data on selected dog"); ?>');
-
-
+addTooltip($('#new_inscripcion-deldogBtn').linkbutton(),'<?php _e("Remove selected dog(s) from database"); ?>');
+addTooltip($('#new_inscripcion-joindogBtn').linkbutton(),'<?php _e("Mark dogs as duplicated and join them in the database"); ?>');
 
 </script>
