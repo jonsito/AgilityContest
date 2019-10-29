@@ -88,7 +88,17 @@
 <div id="mysidebar">
 
 <div id="mymenu" class="easyui-panel" title="Indice"
-	data-options="border:true,closable:false,collapsible:true,collapsed:true,onCollapse:function(){$('#submenu').css('display','none');}">
+	data-options="
+		border:true,
+		closable:false,
+		collapsible:true,
+		collapsed:true,
+		height:550,
+		onCollapse:function(){
+			$('#submenu_special').css('display','none');
+			$('#submenu_api').css('display','none');
+			}
+	">
 <ul>
 <li>INTRODUCCI&Oacute;N
 	<ul>
@@ -116,8 +126,8 @@
 	<li> <a href="javascript:loadContents('../console/doc/frm_resultados.php','Presentaci&oacute;n de resultados y calificaciones')">Calificaciones</a></li>
 		<li> <a href="javascript:loadContents('../console/doc/frm_informes.php','Generando listados e informes')">Listados. Informes</a></li>
 		<li>
-			<a href="javascript:toogleCollapse()">Pruebas especiales</a>
-			<span id="submenu" style="display:none;">
+			<a href="javascript:toogleCollapse('#submenu_special')">Pruebas especiales</a>
+			<span id="submenu_special" style="display:none;">
 				<ul style="padding-left:10px;">
 					<li> <a href="javascript:loadContents('../console/doc/frm_dualring.php','Realizaci&oacute;n de mangas a doble ring')">Pruebas en dos rings</a></li>
 					<li> <a href="javascript:loadContents('../console/doc/frm_selwao.php','Pruebas selectivas para el WAO')">Selectivas WAO</a></li>
@@ -136,7 +146,16 @@
 		<li> <a href="javascript:loadContents('../console/doc/frm_mail.php','Envio de correos electr&oacute;nicos')">Env&iacute;o de e-mail</a></li>
 		<li> <a href="javascript:loadContents('../console/doc/frm_network.php','Despliegue en red local. Paneles informativos')">Operaci&oacute;n en red local</a></li>
 		<li> <a href="javascript:loadContents('../console/doc/frm_streaming.php','Manejo del soporte para Live-Streaming')">Live Streaming</a></li>
-		<li> <a href="javascript:loadContents('../console/doc/frm_moreinfo.php','Informaci&oacute;n adicional')">Informaci&oacute;n adicional</a></li>
+		<li>
+			<a href="javascript:toogleCollapse('#submenu_api')">API de comunicaciones</a>
+			<span id="submenu_api" style="display:none;">
+				<ul style="padding-left:10px;">
+					<li> <a href="javascript:loadContents('../console/doc/frm_eventprot.php','AgilityContest Event Protocol API')">Event Protocol API</a></li>
+					<li> <a href="javascript:loadContents('../console/doc/frm_serialprot.php','AgilityContest Serial Chronometer Interface')">Serial Interface App</a></li>
+				</ul>
+			</span>
+		</li>
+		<li> <a href="javascript:loadContents('../console/doc/frm_moreinfo.php','Informaci&oacute;n adicional')">Copyright. Licencia</a></li>
 	</ul>
 </ul>
 </div> <!-- mymenu -->
@@ -153,11 +172,13 @@
 
 <script type="text/javascript">
 // expand/collapse menu on mouse enter/exit
-$('#mymenu').mouseenter(function(){$('#mymenu').panel('expand');});
-$('#mymenu').mouseleave(function(){$('#mymenu').panel('collapse');})
+$('#mymenu_special').mouseenter(function(){$('#mymenu_special').panel('expand');});
+$('#mymenu_special').mouseleave(function(){$('#mymenu_special').panel('collapse');});
+$('#mymenu_api').mouseenter(function(){$('#mymenu_api').panel('expand');});
+$('#mymenu_api').mouseleave(function(){$('#mymenu_api').panel('collapse');});
 
-function toogleCollapse() {
-	var smenu=$('#submenu');
+function toogleCollapse(item) {
+	var smenu=$(item);
 	var state=smenu.css("display");
 	smenu.css("display",(state==="block")?"none":"block");
 }
