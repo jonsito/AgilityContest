@@ -131,7 +131,8 @@ class Puntuable_RFEC_2018 extends Competitions {
         // puntos a los 5 primeros de la zona liguera por manga/categoria si no estan eliminados o NC
         $puesto=$puestocat[$cat]-$this->poffset[$cat];
         if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<26) ) {
-            if ($puesto<=5) $pt1+= $ptsmanga[$puesto-1];
+            // PENDING: study why some puestos have negative value
+            if (($puesto>0) && ($puesto<=5)) $pt1+= $ptsmanga[$puesto-1];
         } else { // no points or not qualified; discard
             parent::evalPartialCalification($m,$perro,$puestocat);
             return;

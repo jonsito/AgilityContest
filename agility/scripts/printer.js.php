@@ -354,9 +354,10 @@ function print_parcial(mode) {
         '<input id="pp_headertitle" class="easyui-textbox" type="text" value="<?php _e("Partial scores"); ?>"/>'+
         '</span>';
     var msgs=  {
-        0: '*<?php _e("Create PDF Report");?>',
+        0: '*<?php _e("Create PDF Report for selected series");?>',
         2: '<?php _e("Print filled assistant sheets 10 dogs/pages"); ?>',
-        3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>'+title
+        3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>',
+        6: '<?php _e("Create PDF Report for all series");?>'+title
     };
     if (isJornadaKO()) msgs={
         0: '*<?php _e("Create PDF Report");?>',
@@ -376,7 +377,11 @@ function print_parcial(mode) {
             if (!r) return false;
             var t= $('#pp_headertitle').textbox('getText');
             var url="";
+            var global=0;
             switch (parseInt(r)) {
+                case 6:
+                    global=1;
+                    // no break;
                 case 0: // create pdf
                     // generic, ko, games
                     url = '../ajax/pdf/print_resultadosByManga.php';
@@ -398,6 +403,7 @@ function print_parcial(mode) {
                                 Jornada: workingData.jornada,
                                 Manga: workingData.manga,
                                 Mode: mode,
+                                Global: global,
                                 Operation: 'print',
                                 Title: t
                             },

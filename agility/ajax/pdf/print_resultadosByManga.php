@@ -30,6 +30,7 @@ require_once(__DIR__ . '/../../server/database/classes/Mangas.php');
 require_once(__DIR__ . "/../../server/pdf/classes/PrintResultadosByManga.php");
 require_once(__DIR__ . "/../../server/pdf/classes/PrintResultadosKO.php");
 require_once(__DIR__ . "/../../server/pdf/classes/PrintResultadosGames.php");
+require_once(__DIR__ . "/../../server/pdf/classes/PrintParcialGeneral.php");
 
 // Consultamos la base de datos
 try {
@@ -37,6 +38,7 @@ try {
 	$idjornada=http_request("Jornada","i",0);
 	$idmanga=http_request("Manga","i",0);
 	$mode=http_request("Mode","i",0);
+	$global=http_request("Global","i",0);
     $title=http_request("Title","s",_("Partial scores"));
 	
 	$mngobj= new Mangas("printResultadosByManga",$idjornada);
@@ -49,8 +51,68 @@ try {
         $pdf = new PrintResultadosKO($idprueba,$idjornada,$manga,$resultados);
     } else if ( isMangaGames($manga->Tipo) ) { // snooker, gambler
         $pdf = new PrintResultadosGames($idprueba,$idjornada,$manga,$resultados,$mode);
-    } else {
+    } else if ($global==0) { // just print individual results for provided round and heights/mode
         $pdf = new PrintResultadosByManga($idprueba,$idjornada,$manga,$resultados,$mode,$title);
+    } else { // print all results on provided round
+        $heights=Competitions::getHeights($idprueba,$idjornada,$idmanga);
+        // modes 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST 9:X 10:XL 11:MST 12:XLMST
+        $results=array();
+        $modes=array();
+        switch ($manga->Recorrido) {
+            case 0: // recorridos separados xlarge large medium small toy
+                if ($heights==3) {
+                    $results[]=$resobj->getResultadosIndividual(0); // L
+                    $results[]=$resobj->getResultadosIndividual(1); // M
+                    $results[]=$resobj->getResultadosIndividual(2); // S
+                    $modes = array(0,1,2);
+                }
+                if ($heights==4) {
+                    $results[]=$resobj->getResultadosIndividual(0); // L
+                    $results[]=$resobj->getResultadosIndividual(1); // M
+                    $results[]=$resobj->getResultadosIndividual(2); // S
+                    $results[]=$resobj->getResultadosIndividual(5); // T
+                    $modes=array(0,1,2,5);
+                }
+                if ($heights==5) {
+                    $results[]=$resobj->getResultadosIndividual(9); // X
+                    $results[]=$resobj->getResultadosIndividual(0); // L
+                    $results[]=$resobj->getResultadosIndividual(1); // M
+                    $results[]=$resobj->getResultadosIndividual(2); // S
+                    $results[]=$resobj->getResultadosIndividual(5); // T
+                    $modes=array(9,0,1,2,5);
+                }
+                break;
+            case 1: // dos grupos: (l+ms) (lm+st) (xl+mst)
+                if ($heights==3) {
+                    $results[]= $resobj->getResultadosIndividual(0); // L
+                    $results[]= $resobj->getResultadosIndividual(3); // MS
+                    $modes=array(0,3);
+                }
+                if ($heights==4) {
+                    $results[]= $resobj->getResultadosIndividual(6); // LM
+                    $results[]= $resobj->getResultadosIndividual(7); // ST
+                    $modes=array(6,7);
+                }
+                if ($heights==5) {
+                    $results[]= $resobj->getResultadosIndividual(10); // XL
+                    $results[]= $resobj->getResultadosIndividual(11); // MST
+                    $modes=array(10,11);
+                }
+                break;
+            case 2: // recorrido conjunto xlarge-large+medium+small+toy
+                if ($heights==3) $results[]= $resobj->getResultadosIndividual(4); // LMS
+                if ($heights==4) $results[]= $resobj->getResultadosIndividual(8); // LMST
+                if ($heights==5) $results[]= $resobj->getResultadosIndividual(12); // XLMS
+                $modes=array(4,8,12);
+                break;
+            case 3: // tres grupos. Xlarge-Large Medium Small-Toy implica $heights==5
+                $results[]=$resobj->getResultadosIndividual(10); // XL
+                $results[]=$resobj->getResultadosIndividual(1); // M
+                $results[]=$resobj->getResultadosIndividual(7); // ST
+                $modes=array(10,1,7);
+                break;
+        }
+        $pdf = new PrintParcialGeneral($idprueba,$idjornada,$manga,$results,$modes,$title);
     }
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
