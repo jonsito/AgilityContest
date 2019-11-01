@@ -151,6 +151,9 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
             <label id="r_prfirstLbl" for="first"><?php _e('Initial label'); ?>:&nbsp;</label>
 			<input id="r_prfirst" style="width:45px" type="text" value="1" disabled="disabled" name="first"/>
             <br />
+            <label id="r_globalLbl" for="r_global"><?php _e('All series'); ?>:</label>
+            <input id="r_global" style="width:78px" name="r_global" class="easyui-checkbox" type="checkbox" value="1"/>
+            <br />
             <label id="r_discriminateLbl" for="r_discriminate"><?php _e('Filter country'); ?>:</label>
             <input id="r_discriminate" style="width:78px" name="r_discriminate" class="easyui-checkbox" type="checkbox" value="1" checked="checked"/><br/>
 		</span>
@@ -253,6 +256,7 @@ addTooltip($('#resultados-printDlgBtn').linkbutton(),'<?php _e("Print data in se
 addTooltip($('#resultados-cancelDlgBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels sheet"); ?>');
 addTooltip($('#r_prlistLbl'),'<?php _e("Comma separated list of dorsals to be printed"); ?>');
+addTooltip($('#r_global').linkbutton(),'<?php _e("Print every series, not just selected one"); ?>');
 addTooltip($('#r_discriminate').linkbutton(),'<?php _e("Omit label on country missmatch"); ?>');
 addTooltip($('#r_children').linkbutton(),'<?php _e("Create separate listings for Children and Junior"); ?>');
 
