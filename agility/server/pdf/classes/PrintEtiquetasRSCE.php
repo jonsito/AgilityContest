@@ -196,7 +196,13 @@ class PrintEtiquetasRSCE extends PrintCommon {
         $this->SetXY($left+161,$y9);
         $this->Cell(29,7,$this->juez2['Nombre'],'',0,'L',false);
 	}
-	
+
+	/**
+	 * set up round data for CNEAC sheets. Has no use in RSCE labels
+	 *@param {object} $r Clasification instance object
+	*/
+	function setRoundData($r) { /*empty, just for compatibility */ }
+
 	function composeTable($resultados,$rowcount=0,$listadorsales="",$discriminate=1) {
 		$this->myLogger->enter();
 		$this->SetFillColor(224,235,255); // azul merle

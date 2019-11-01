@@ -237,5 +237,6 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
             $rowcount++;
         }
         $this->myLogger->leave();
+        return $rowcount;
     }
 }

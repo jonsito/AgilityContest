@@ -52,37 +52,99 @@ try {
 	$listadorsales=http_request("List","s",""); // CSV Dorsal List
 	$prmode=http_request("PrintMode","i","1"); // 1:RSCE 2:CNEAC
 	$discriminate=http_request("Discriminate","i","1"); // 0:any 1:only handlers belonging RSCE or CNEAC
+	$global=http_request("Global","i",0); // 0: just selected categoriesByMode; else all categories
 	
 	// buscamos los recorridos asociados a la mangas
 	$dbobj=new DBObject("print_etiquetas_csv");
 	$mng=$dbobj->__getObject("mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("pruebas",$prueba);
 	$c= Competitions::getClasificacionesInstance("print_etiquetas_pdf",$jornada);
-	
-	// obtenemos la clasificacion de la tanda seleccionada
-	$r=$c->clasificacionFinal($rondas,$mangas,$mode);
-	$result[0]=$r['rows'];
-	// juntamos las categorias
-	$res=array_merge($result[0],$result[1],$result[2],$result[3],$result[4],$result[5],$result[6],$result[7],$result[8]);
-	// y ordenamos los resultados por dorsales
-	usort($res,function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
-	
+
 	// Creamos generador de documento
-	if ($prmode===1) {
+	if ($prmode===1) { // RSCE
 		$pdf = new PrintEtiquetasRSCE($prueba,$jornada,$mangas);
 		$pdf->AddPage();
-	} else {
+	} else { // CNEAC
 		$pdf = new PrintEtiquetasCNEAC($prueba,$jornada,$mangas);
-        $pdf->setRoundData($r);
-        $rowcount=0;
+		$rowcount=0;
 	}
-	// mandamos a imprimir
-    $pdf->AliasNbPages();
-	$pdf->composeTable($res,$rowcount,$listadorsales,$discriminate);
+	// indicamos que se deben numerar las paginas
+	$pdf->AliasNbPages();
 
-	// mandamos a la salida el documento. Notese que no usamos el metodo pdf get_FileName
-    $suffix=$c->getName($mangas,$mode);
-    $pdf->Output("Etiquetas_{$suffix}.pdf","D"); // "D" means output to web client (download)
+	// obtenemos la clasificacion de la tanda seleccionada
+	$clasificaciones=array();
+	if ($global==0) {
+		$suffix=$c->getName($mangas,$mode);
+		$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,$mode);
+	} else {
+		$suffix="Global";
+		// buscamos todas las clasificaciones de esta manga y componemos el array
+		$heights=Competitions::getHeights($prueba,$jornada,$mangas[0]); // same heights for every round
+		switch($mng->Recorrido) {
+			case 0: // recorridos separados xlarge large medium small toy
+				if ($heights==3) {
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,0); // L
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,1); // M
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,2); // S
+				}
+				if ($heights==4) {
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,0); // L
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,1); // M
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,2); // S
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,5); // T
+				}
+				if ($heights==5) {
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,9); // X
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,0); // L
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,1); // M
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,2); // S
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,5); // T
+				}
+				break;
+			case 1: // dos grupos: (l+ms) (lm+st) (xl+mst)
+				if ($heights==3) {
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,0); // L
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,3); // MS
+				}
+				if ($heights==4) {
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,6); // LM
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,7); // ST
+				}
+				if ($heights==5) {
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,10); // XL
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,11); // MST
+				}
+				break;
+			case 2: // recorrido conjunto xlarge-large+medium+small+toy
+				if ($heights==3) {
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,4); // LMS
+				}
+				if ($heights==4){
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,8); // LMST
+				}
+				if ($heights==5) {
+					$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,12); // XLMST
+				}
+				break;
+			case 3: // tres grupos. Xlarge-Large Medium Small-Toy implica $heights==5
+				$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,10); // XL
+				$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,1); // M
+				$clasificaciones[]=$c->clasificacionFinal($rondas,$mangas,7); // ST
+				break;
+		}
+	}
+	// iterate every evaluated clasification series
+	foreach($clasificaciones as $cl) {
+		$pdf->setRoundData($cl);
+		$res=$cl['rows'];
+		// ordenamos los resultados por dorsales
+		usort($res,function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
+		// imprimimos las etiquetas de esta categoria
+		$rowcount=$pdf->composeTable($res,$rowcount,$listadorsales,$discriminate);
+	}
+	// indicamos nombre del fichero de salida
+	$pdf->Output("Etiquetas_{$suffix}.pdf","D"); // "D" means output to web client (download)
+
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());
