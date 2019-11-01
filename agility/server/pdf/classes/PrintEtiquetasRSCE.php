@@ -77,34 +77,37 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		//dorsal (10,y,20,17)
-		$y0=  $top + $height * $idx;
+		$y0=  $top + $height * $idx + 0;
 		$y1=  $top + $height * $idx + 1;
 		$y2=  $top + $height * $idx + 2;
-		// $y3=  $top + $height * $idx + 3;
-		// $y4=  $top + $height * $idx + 4;
+		$y3=  $top + $height * $idx + 3;
+		$y4=  $top + $height * $idx + 4;
 		$y5=  $top + $height * $idx + 5;
-		// $y6=  $top + $height * $idx + 6;
+		$y6=  $top + $height * $idx + 6;
 		$y7=  $top + $height * $idx + 7;
 		$y8=  $top + $height * $idx + 8;
         $y9=  $top + $height * $idx + 9;
 		$y10= $top + $height * $idx + 10;
+		$y11= $top + $height * $idx + 11;
         $y12=  $top+ $height * $idx + 12;
-        $y13=  $top+ $height * $idx + 13;
+		$y13=  $top+ $height * $idx + 13;
+		$y14=  $top+ $height * $idx + 14;
+		$y15=  $top+ $height * $idx + 15;
+		$y16=  $top+ $height * $idx + 16;
 		$y17=  $top+ $height * $idx + 17;
 		$ynext=$top+ $height * ($idx+1);
 		
 		$this->SetFont($this->getFontName(),'B',24); // bold 11px
-		$this->setXY($left,$y1-1);
-        // $this->Cell(20,17,$row['Dorsal'],'L',0,'C',false);
-        $this->Cell(20,8,$row['Dorsal'],'L',0,'C',false);
+		$this->setXY($left,$y1);
+        $this->Cell(20,7,$row['Dorsal'],'L',0,'C',false);
         // en el margen izquierdo de las etiquetas
         // ponemos info de perro guia y club
         $this->SetFont($this->getFontName(),'BI',7); // font size for results data
-        $this->SetXY($left,$y7);
+        $this->SetXY($left,$y6+0.5);
         $this->Cell(23,4,$row['Nombre'],'L',0,'L',false);
-        $this->SetXY($left,$y10);
+        $this->SetXY($left,$y9);
         $this->Cell(23,4,$row['NombreGuia'],'L',0,'L',false);
-        $this->SetXY($left,$y13);
+        $this->SetXY($left,$y12);
         $this->Cell(23,4,$row['NombreClub'],'L',0,'L',false);
 
         $this->SetFont($this->getFontName(),'I',8); // font for prueba,name
@@ -114,53 +117,53 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		
 		//logo   (30,y,15,15)
 		// los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
-		$this->SetXY($left+22,$y1); // margins are 10mm each
+		$this->SetXY($left+22,$y2); // margins are 10mm each
 		$this->Image($this->icon,$this->getX(),$this->getY(),15);
 		
 		//Nombre del club (45,y,38,5) left
-		$this->SetXY($left+36,$y1); 
+		$this->SetXY($left+36,$y2);
 		$this->Cell(38,5,$this->club->Nombre,0,0,'L',false);
 		//Nombre de la prueba (45,y,38,5) left
 		$this->SetXY($left+36,$y5);
 		$this->Cell(38,5,$this->prueba->Nombre,0,0,'L',false);
 		//Fecha (45,y+5,38,5) left
-		$this->SetXY($left+36,$y9); 
+		$this->SetXY($left+36,$y8);
 		$this->Cell(38,5,$this->jornada->Fecha,0,0,'L',false);
         // licencia
         $this->SetFont($this->getFontName(),'',5); // font for licencia
-        $this->SetXY($left+36,$y12);
+        $this->SetXY($left+36,$y11);
         $this->Cell(38,5,$this->serialno,0,0,'L',false);
         $this->SetFont($this->getFontName(),'I',8); // font for prueba,name
 
 		//Perro (45,y+10,38,7) right
-		$this->SetXY($left+36,$y10); 
+		$this->SetXY($left+36,$y9);
 		$this->Cell(38,7,"{$row['Licencia']} - {$row['Nombre']}",0,0,'R',false);
 		//Manga1Tipo(85,y,20,8) center
 		$tipo=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation));
-		$this->SetXY($left+75,$y1); 
+		$this->SetXY($left+75,$y2);
 		$this->Cell(20,7,$tipo,'LB',0,'L',false);
 		//Manga2Tipo(85,y+8,20,9) center
 		$tipo=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation));
-		$this->SetXY($left+75,$y8); 
+		$this->SetXY($left+75,$y8);
 		$this->Cell(20,8,$tipo,'L',0,'L',false);
 
 		$this->SetFont($this->getFontName(),'',12); // font size for results data
 		//Cat (105,y,12,8) center
-		$this->SetXY($left+95,$y1); 
+		$this->SetXY($left+95,$y2);
 		$this->Cell(12,7,$row['Categoria'],'L',0,'C',false);
 		//Grado (105,y+8,12,9) center
-		$this->SetXY($left+95,$y8); 
+		$this->SetXY($left+95,$y8);
 		$this->Cell(12,8,$row['Grado'],'L',0,'C',false);
 		//Penal1 (117,y,17,8) right
-		$this->SetXY($left+107,$y1); 
+		$this->SetXY($left+107,$y2);
 		$this->Cell(17,7,$row['P1'],'LB',0,'C',false);
 		//Penal2 (117,y+8,17,9) right
-		$this->SetXY($left+107,$y8); 
+		$this->SetXY($left+107,$y8);
 		$this->Cell(17,8,$row['P2'],'L',0,'C',false);
 
         $this->SetFont($this->getFontName(),'',8.5); // font size for results data
 		//Calif1 (134,y,25,8) right
-		$this->SetXY($left+124,$y1);
+		$this->SetXY($left+124,$y2);
 		$v=($row['V1']==0)?"":number_format2($row['V1'],2)."m/s - ";
 		$this->Cell(24,7,$v.$row['C1'],'LB',0,'C',false);
 		//Calif2 (134,y+8,25,9) right
@@ -170,18 +173,18 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		
 		//Puesto1 (159,y,15,8) center
 		$this->SetFont($this->getFontName(),'B',20); // font size for results data
-		$this->ac_Cell($left+148.5,$y1,13,7,"/",'','C',false);
+		$this->ac_Cell($left+148.5,$y2,13,7,"/",'','C',false);
 		$this->SetFont($this->getFontName(),'',10); // font size for results data
-		$this->ac_Cell($left+148,$y1,13,7,"",'LBR','C',false);
-		$this->ac_Cell($left+148,$y0,13,7,"{$row['Puesto1']}º",'','L',false);
-		$this->ac_Cell($left+148,$y2,13,7,"${row['Participantes']}",'','R',false);
+		$this->ac_Cell($left+148,$y2,13,7,"",'LBR','C',false);
+		$this->ac_Cell($left+148,$y2,13,7,"{$row['Puesto1']}º",'','L',false);
+		$this->ac_Cell($left+148,$y3,13,7,"${row['Participantes']}",'','R',false);
 
 		//Puesto2 (159,y+8,15,9) center
 		$this->SetFont($this->getFontName(),'B',20); // font size for results data
 		$this->ac_Cell($left+148.5,$y8,13,8,"/",'','C',false);
 		$this->SetFont($this->getFontName(),'',10); // font size for results data
 		$this->ac_Cell($left+148,$y8,13,8,"",'LR','C',false);
-		$this->ac_Cell($left+148,$y7,13,8,"{$row['Puesto2']}º",'','L',false);
+		$this->ac_Cell($left+148,$y8,13,8,"{$row['Puesto2']}º",'','L',false);
 		$this->ac_Cell($left+148,$y9,13,8,"${row['Participantes']}",'','R',false);
 		// si 13 etiquetas/pagina, linea al final de la celda
 		if ($height==20) $this->Line($left,$y17,$left+190,$y17);
@@ -191,9 +194,9 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		// en el margen izquierdo de las etiquetas
 		// ponemos el juez de la manga
 		$this->SetFont($this->getFontName(),'I',8); // font size for results data
-		$this->SetXY($left+161,$y1);
+		$this->SetXY($left+161,$y2);
 		$this->Cell(29,7,$this->juez1['Nombre'],'B',0,'L',false);
-        $this->SetXY($left+161,$y9);
+        $this->SetXY($left+161,$y8);
         $this->Cell(29,7,$this->juez2['Nombre'],'',0,'L',false);
 	}
 
