@@ -339,6 +339,33 @@ class AuthManager {
     }
 
 	/**
+	 * @return string|null Base64 encoded logo, or null on error/notfound
+	 */
+    function getLicenseLogo() {
+		// singleton retrieve registration data
+		if ($this->registrationInfo===null) {
+			$this->registrationInfo=$this->checkRegistrationInfo();
+		}
+		// no license information: return null
+		if ($this->registrationInfo===null) {
+			$this->myLogger->error("No License information available");
+			return null;
+		}
+		$data=array();
+		foreach ($this->registrationInfo as $key => $value) {
+			if ($key!=="image") continue; //
+			if ($value=="")  {
+				$this->myLogger->notice("License logo is empty");
+				return null;
+			}
+			return $value;
+		}
+		// no image tag in license information: return null
+		$this->myLogger->notice("License information does not include logo tag");
+		return null;
+	}
+
+	/**
 	 * Retrieve only non-critical subset of registration info stored data
 	 * @return {array} NULL
 	 */

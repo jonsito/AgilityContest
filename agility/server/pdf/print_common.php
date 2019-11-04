@@ -234,16 +234,33 @@ class PrintCommon extends FPDF {
 	function handleLogos($fedobj,$jobj) {
 		$fedName=$fedobj->get('Name');
 
-		// phase 1: organizer logo
+		// no valid or null license: use defaults
+		if ( ($this->regInfo===null) || ($this->regInfo['Serial']==="00000000") ) {
+			$fedName=$this->federation->get('Name');
+			$this->icon=getIconPath($fedName,"agilitycontest.png");
+			$this->icon2=getIconPath($fedName,"null.png");
+			return;
+		}
+		// take care on privileged licenses to bypass license logo selection
+		if ($this->regInfo['Serial']!=="00000000") {
+			$logo=$this->authManager->getLicenseLogo();
+			if ($logo!=null) {
+				// base 64 decode file
+				// store into logo directory ( ¿what about caching? )
+				// and setup logo name
+			}
+		}
+		// phase 2: organizer logo
 
-		// default: federation organizer logo
+		// else set default as Federation's Organizer logo
 		$this->icon=getIconPath($fedName,$fedobj->get('OrganizerLogo'));
+
 		// si la prueba no es internacional se usa el logo del club
-		if ( (!$fedobj->isInternational())  && isset($this->club) ) {
+		if ( (!$fedobj->isInternational()) && isset($this->club) ) {
 			$this->icon=getIconPath($fedName,$this->club->Logo);
 		}
 
-		// phase 2: federation logo
+		// phase 3: federation logo
 
 		// default: federation logo
 		$this->icon2=getIconPath($fedName,$fedobj->get('Logo'));
@@ -295,20 +312,14 @@ class PrintCommon extends FPDF {
 		$this->federation=Federations::getFederation(intval($this->prueba->RSCE));
 		$this->strClub=($this->federation->isInternational())?_('Country'):_('Club');
 		$this->jornada=null;
+		$this->useLongNames=false;
 		if (is_numeric($jornada) && ($jornada!=0) ) {
 			$this->jornada=$this->myDBObject->__getObject("jornadas",$jornada);
+			$this->useLongNames=Competitions::getCompetition($this->prueba,$this->jornada)->useLongNames();
 		}
-		if (is_object($jornada)) $this->jornada=$jornada;
-		$this->useLongNames=Competitions::getCompetition($this->prueba,$this->jornada)->useLongNames();
+		$this->authManager=AuthManager::getInstance("print_common");
+		$this->regInfo=$this->authManager->getRegistrationInfo();
 		$this->handleLogos($this->federation,$this->jornada);
-		// handle registration info related to PDF generation
-        $this->authManager=AuthManager::getInstance("print_common");
-        $this->regInfo=$this->authManager->getRegistrationInfo();
-        if ( ($this->regInfo===null) || ($this->regInfo['Serial']==="00000000") ) {
-			$fedName=$this->federation->get('Name');
-			$this->icon=getIconPath($fedName,"agilitycontest.png");
-			$this->icon2=getIconPath($fedName,"null.png");
-		}
 		// evaluate number of decimals to show when printing timestamps
 		$this->timeResolution=($this->config->getEnv('crono_milliseconds')=="0")?2:3;
 		// $this->myLogger->trace("Time resolution is ".$this->timeResolution);
@@ -358,7 +369,7 @@ class PrintCommon extends FPDF {
 	 * @param {string} $title Titulo a imprimir en el cajetin
 	 */
 	function print_commonHeader($title) {
-		//$this->myLogger->enter();
+		$this->myLogger->enter();
 		// pintamos Logo del club organizador a la izquierda y logo de la canina a la derecha
 		// recordatorio
 		// 		$this->Image(string file [, float x [, float y [, float w [, float h [, string type [, mixed link]]]]]])
