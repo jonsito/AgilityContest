@@ -226,6 +226,32 @@ class PrintCommon extends FPDF {
 		$this->myFontName=$font;
 	}
 
+	// function to handle in-memory images ( raw )
+	// not really used, just for reference
+	// http://www.fpdf.org/en/script/script45.php
+	function MemImage($data, $x=null, $y=null, $w=0, $h=0, $link='') {
+		// Display the image contained in $data
+		$v = 'img'.md5($data);
+		$GLOBALS[$v] = $data;
+		$a = getimagesize('var://'.$v);
+		if(!$a)
+			$this->Error('Invalid image data');
+		$type = substr(strstr($a['mime'],'/'),1);
+		$this->Image('var://'.$v, $x, $y, $w, $h, $type, $link);
+		unset($GLOBALS[$v]);
+	}
+
+	// function to handle in-memory images (GD library)
+	// not really used, just for reference
+	// http://www.fpdf.org/en/script/script45.php
+	function GDImage($im, $x=null, $y=null, $w=0, $h=0, $link='') {
+		// Display the GD image associated with $im
+		ob_start();
+		imagepng($im);
+		$data = ob_get_clean();
+		$this->MemImage($data, $x, $y, $w, $h, $link);
+	}
+
 	/**
 	 * Set icons properly according competition
 	 * @param $fedobj Federation object
@@ -233,55 +259,49 @@ class PrintCommon extends FPDF {
 	 */
 	function handleLogos($fedobj,$jobj) {
 		$fedName=$fedobj->get('Name');
-
+		$serial=$this->regInfo['Serial'];
 		// no valid or null license: use defaults
-		if ( ($this->regInfo===null) || ($this->regInfo['Serial']==="00000000") ) {
+		if ( ($this->regInfo===null) || ($serial==="00000000") ) {
 			$fedName=$this->federation->get('Name');
 			$this->icon=getIconPath($fedName,"agilitycontest.png");
 			$this->icon2=getIconPath($fedName,"null.png");
 			return;
 		}
-		// take care on privileged licenses to bypass license logo selection
-		if ($this->regInfo['Serial']!=="00000000") {
-			$logo=$this->authManager->getLicenseLogo();
-			if ($logo!=null) {
-				// base 64 decode file
-				// store into logo directory ( ¿what about caching? )
-				// and setup logo name
-			}
+		// try to extract logo from license
+		$data=$this->authManager->getLicenseLogo();
+		if ($data!=null) {
+			// base 64 decode file
+			$logo=base64_decode($data);
+			// use memory stream to store_it
+			$v = "img_{$serial}-".md5($logo).".png"; // add md5 sum to name to handle caching
+			$GLOBALS[$v] = $logo;
+			// and setup logo name
+			$this->icon="var://{$v}";
 		}
-		// phase 2: organizer logo
-
-		// else set default as Federation's Organizer logo
-		$this->icon=getIconPath($fedName,$fedobj->get('OrganizerLogo'));
-
-		// si la prueba no es internacional se usa el logo del club
-		if ( (!$fedobj->isInternational()) && isset($this->club) ) {
-			$this->icon=getIconPath($fedName,$this->club->Logo);
+		// on no image from license or privileged licenses select logo in "old style"
+		if ( ($data==null) || ($serial==="00000001") ) {
+			$this->icon=getIconPath($fedName,$fedobj->get('OrganizerLogo')); // default: organizer logo
+			// si la prueba no es internacional se usa el logo del club
+			if ( (!$fedobj->isInternational()) && isset($this->club) ) {
+				$this->icon=getIconPath($fedName,$this->club->Logo);
+			}
 		}
 
 		// phase 3: federation logo
-
-		// default: federation logo
-		$this->icon2=getIconPath($fedName,$fedobj->get('Logo'));
+		$this->icon2=getIconPath($fedName,$fedobj->get('Logo')); // default: federation logo
 		if ($this->icon==$this->icon2) $this->icon2=getIconPath($fedName,$fedobj->get('ParentLogo'));
 		// on international contest, use parent logo
 		if ( $fedobj->isInternational())   {
 			$this->icon2=getIconPath($fedName,$this->federation->get('ParentLogo'));
 		}
-
-		// phase3 check agains specific journey and competition modality
-
 		// no journey -> no fedlogo
 		if (!$jobj) {
 			$this->icon2=getIconPath($fedName,"null.png");
 		}
-
 		// on KO events use AgilityContest Logo instead of federation logo
 		if ($jobj && $jobj->KO!=0) {
 			$this->icon2=getIconPath($fedName,"agilitycontest.png");
 		}
-
 	}
 
 	/**
@@ -295,6 +315,8 @@ class PrintCommon extends FPDF {
 	function __construct($orientacion,$file,$prueba,$jornada=0,$comentarios="") {
 		date_default_timezone_set('Europe/Madrid');
         parent::__construct($orientacion,'mm','A4'); // Portrait or Landscape
+		// register in-memory images streams
+		stream_wrapper_register('var', 'VariableStream');
 		$this->config=Config::getInstance();
 		$this->myLogger= new Logger($file,$this->config->getEnv("debug_level"));
 		$this->SetAutoPageBreak(true,1.7); // default margin is 2cm. so enlarge a bit

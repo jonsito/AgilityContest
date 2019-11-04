@@ -459,7 +459,6 @@ class Competitions {
             if ($comp->federationID!=$data['Federation']) continue;
             if ($comp->competitionID!=$data['Modalidad']) continue;
             $heights= $comp->getRoundHeights($manga);
-            do_log("hola heights:{$heights}");
             return $heights;
         }
         // arriving here means no competition module found
