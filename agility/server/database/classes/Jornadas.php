@@ -42,9 +42,7 @@ class Jornadas extends DBObject {
 		}
         $this->prueba= ($prueba==0)?1:$prueba; // make sure there is a valid contest ID
 		$this->pruebaobj=$this->__getObject("pruebas",$this->prueba);
-		$this->myLogger->trace("Prueba: ".json_encode($this->pruebaobj));
 		$this->federation=Federations::getFederation($this->pruebaobj->RSCE);
-        $this->myLogger->trace("Federation: ".json_encode($this->federation));
 		$this->jueces=array( "1" => "-- Sin asignar --");
 	}
 
@@ -152,6 +150,8 @@ class Jornadas extends DBObject {
 	
 	/**
 	 * Delete jornada with provided ID
+     * NOTE: Delete is used on deleteprueba, so no need to take care on inscriptions
+     * as they will be removed on prueba::delete (foreingkey)
 	 * @param {integer} jornada name primary key
 	 * @return "" on success ; otherwise null
 	 */
@@ -176,9 +176,55 @@ class Jornadas extends DBObject {
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
-	} 
-	
-	/**
+	}
+
+    /**
+     * Remove all data from a given journey, and mark it as "clean"
+     * @param {integer} jornada name primary key
+     * @return "" on success ; otherwise null
+     */
+    function clear($jornadaid) {
+        $this->myLogger->enter();
+        if ($jornadaid <= 0) return $this->error("Invalid Jornada ID");
+        // borramos las inscripciones de la jornada
+        $jobj=$this->__getObject("jornadas",$jornadaid);
+        $mask= 1 << (($jobj->Numero)-1); // Numero is 1..8
+        // PENDING: group by begin/commit/rollback sentences
+
+        // remove inscriptions for selected journey
+        $sql= "UPDATE inscripciones SET Jornadas=Jornadas & ~{$mask} WHERE Prueba={$jobj->Prueba}";
+        $res = $this->query($sql);
+        if (!$res) return $this->error($this->conn->error);
+
+        $fecha=date('Y-m-d');
+        $hora=date('H:i:s');
+        // procedemos a un "update" con datos por defecto
+        // do not remove "TipoCompeticion" as needed for evaluate tandas
+        $sql = "UPDATE jornadas
+				SET Nombre='-- Sin asignar --', Fecha='{$fecha}', Hora='{$hora}', SlaveOf=0, Grado1=0, Grado2=0, Grado3=0, Junior=0,
+					Senior=0, Open=0, Equipos3=0, Equipos4=0, PreAgility=0, KO=0, Games=0, Especial=0, Observaciones='', Cerrada=0
+				WHERE ( ID={$jornadaid} );";
+        $res = $this->query($sql);
+        if (!$res) return $this->error($this->conn->error);
+
+        // actualizamos (borramos) mangas
+        $mangas = new Mangas("jornadas::clear", $jornadaid);
+        $mangas->prepareMangas($jornadaid, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "");
+
+        // actualizamos (borramos) tandas
+        $ot = new Tandas("jornadas::clear", $jobj->Prueba, $jornadaid);
+        $ot->populateJornada();
+
+        // not really needed (foreign keys rules) but just for security:
+        $sql="DELETE FROM resultados WHERE jornada={$jornadaid}";
+        $res = $this->query($sql);
+        if (!$res) return $this->error($this->conn->error);
+
+        $this->myLogger->leave();
+        return "";
+    }
+
+    /**
 	 * Close jornada with provided ID
 	 * @param {integer} jornada name primary key
      * @param {boolean} closeflag 0:open 1:close

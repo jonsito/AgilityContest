@@ -202,6 +202,11 @@ $config =Config::getInstance();
         			iconCls: 'icon-edit',
 					handler: function(){editJornadaFromPrueba(datagridID,$(datagridID).datagrid('getSelected'));}
     			},{
+                    id: 'jornadasbyprueba-clearBtn'+prueba.ID,
+                    text: '<?php _e('Clear journey'); ?>',
+                    iconCls: 'icon-brush',
+                    handler: function(){clearJornadaFromPrueba(datagridID,$(datagridID).datagrid('getSelected'));}
+                },{
     				id: 'jornadasbyprueba-closeBtn'+prueba.ID,
             		text: '<?php _e('Close journey'); ?>',
         			iconCls: 'icon-forbidden',
@@ -219,7 +224,8 @@ $config =Config::getInstance();
     		
 			// tooltips de los sub-formularios
 			addSimpleKeyHandler(datagridID,"",editJornadaFromPrueba);
-			addTooltip($('#jornadasbyprueba-editBtn'+prueba.ID).linkbutton(),'<?php _e("Edit data on selected journey"); ?>');
+            addTooltip($('#jornadasbyprueba-editBtn'+prueba.ID).linkbutton(),'<?php _e("Edit data on selected journey"); ?>');
+            addTooltip($('#jornadasbyprueba-clearBtn'+prueba.ID).linkbutton(),'<?php _e("Clear data on selected journey and remove inscriptions"); ?>');
 			addTooltip($('#jornadasbyprueba-closeBtn'+prueba.ID).linkbutton(),'<?php _e("Close journey. Store data as inmutable"); ?>');
 			addTooltip($('#jornadasbyprueba-reloadBtn'+prueba.ID).linkbutton(),'<?php _e("Update journey list for this contest"); ?>');
 

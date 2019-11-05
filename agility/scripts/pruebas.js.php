@@ -426,6 +426,49 @@ function editJornadaFromPrueba(pruebaID,row) {
 }
 
 /**
+ * Edita la jornada seleccionada
+ *@param pruebaID objeto que contiene los datos de la prueba
+ *@param row datos de la jornada
+ */
+function clearJornadaFromPrueba(pruebaID,row) {
+    if (!row) {
+        $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no journey selected"); ?>',"warning");
+        return; // no hay ninguna jornada seleccionada. retornar
+    }
+    if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
+        $.messager.alert('<?php _e("Invalid selection"); ?>','<?php _e("Cannot clear a journey stated as closed"); ?>',"error");
+        return;
+    }
+    // todo ok: confirmar y si aceptar llamamos al servidor
+    var w=$.messager.confirm(
+        '<?php _e("Clear journey");?>',
+        '<?php _e("Clear journey data and associated inscriptions and results");?><br/>&nbsp;<br/>'+'<?php _e("Are you sure");?>?',
+        function(r) {
+            if(r) {
+                $.messager.progress({title:'',text:'<?php _e("Processing");?>...'});
+                $.get(
+                    '../ajax/database/jornadaFunctions.php',
+                    {Operation: 'clear',ID: row.ID},
+                    function(result){
+                        $.messager.progress('close');
+                        if (result.success){
+                            $(pruebaID).datagrid('load');    // reload the pruebas data
+                        } else {
+                            $.messager.show({ width:300, height:200, title:'<?php _e('Error'); ?>', msg:result.errorMsg });
+                        }
+                        return false;
+                    },
+                    'json'
+                );
+            }
+        });
+    w.window('resize',{width:450,height:150}).window('center');
+    return false;
+
+    $('#jornadas-dialog').dialog('open').dialog('setTitle','<?php _e('Modify journey data'); ?>');
+    $('#jornadas-form').form('load',row); // will trigger onLoadSuccess in dlg_pruebas
+}
+/**
  * Cierra la jornada seleccionada
  *@param datagridID identificador del datagrid del que se toman los datos
  *@param event para detectar si se pulsa ctrl-key para re-abrir una prueba
