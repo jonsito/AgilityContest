@@ -338,6 +338,8 @@ function send_regFile() {
                 $.messager.defaults.ok="<?php _e('Restart');?>";
                 $.messager.defaults.cancel="<?php _e('Back');?>";
                 $('#registration_data').form('load',data); // update registration info form
+                // reload logo. note the trick to bypass image catching
+                $('#rd_Logo').attr("src","../ajax/images/getLicenseLogo.php?t="+new Date().getTime());
                 $.messager.confirm({
                     title:"<?php _e('Licensing');?>",
                     msg:'<?php _e("Licensing data successfully loaded");?>'+'<br/>&nbsp;<br/>'+

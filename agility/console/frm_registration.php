@@ -49,7 +49,9 @@ $config =Config::getInstance();
 			<td><strong><?php _e('Current License Capabilities'); ?>:</strong><br/></td>
 		</tr>
 		<tr>
-		<td>
+		<td><div class="fitem" style="text-align:right;padding-right:50px;">
+                <img id="rd_Logo" alt="logo" src="../ajax/images/getLicenseLogo.php" width="50" height="50"/><br/>
+            </div>
 			<div class="fitem">
 				<label for="rd_User"><?php _e('Name'); ?>:</label>
 				<input id="rd_User" type="text" readonly="readonly" name="User"/><br/>
