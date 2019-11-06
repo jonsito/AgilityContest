@@ -27,7 +27,7 @@ require_once(__DIR__."/../../logging.php");
 require_once(__DIR__."/../../ProgressHandler.php");
 require_once(__DIR__."/../../auth/Config.php");
 require_once(__DIR__."/../../auth/AuthManager.php");
-require_once(__DIR__ . "/../../auth/SimpleCrypt.php");
+require_once(__DIR__ . "/../../auth/SymmetricCipher.php");
 require_once(__DIR__."/DBObject.php");
 require_once(__DIR__."/../../printer/RawPrinter.php");
 
@@ -249,7 +249,7 @@ class Admin extends DBObject {
         pclose($input);
         rewind($memfile);
         $data=stream_get_contents($memfile);
-        if ($key!=="") $data=SimpleCrypt::encrypt($data, $key, false);
+        if ($key!=="") $data=SymmetricCipher::encrypt($data, $key, false);
         @fwrite($outfile, $data);
         fclose($outfile);
 
@@ -359,7 +359,7 @@ class Admin extends DBObject {
         pclose($input);
         rewind($memfile);
         $data=stream_get_contents($memfile);
-        if ($key!=="") $data=SimpleCrypt::encrypt($data, $key, false);
+        if ($key!=="") $data=SymmetricCipher::encrypt($data, $key, false);
         @fwrite($outfile, $data);
         fclose($memfile);
 		return "ok";
@@ -459,7 +459,7 @@ class Admin extends DBObject {
                 $this->handleSession("Done.");
                 throw new Exception("Restore failed: Key hash does not match");
             }
-            $data=SimpleCrypt::decrypt($data,$key);
+            $data=SymmetricCipher::decrypt($data,$key);
         }
         // Read entire file into an array
         $lines = explode("\n",$data);

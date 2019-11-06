@@ -1,10 +1,18 @@
 <?php
-
-
+/**
+ * SymmetricCipher
+ * Created by PhpStorm.
+ * User: jantonio
+ * Date: 9/03/18
+ * Time: 17:37
+ *
+ * Simple class to handle symmetric data encryption/decryption
+ * https://stackoverflow.com/questions/9262109/simplest-two-way-encryption-using-php
+ */
 class SymmetricCipher {
 
     const HASH_ALGO = 'sha256';
-    const METHOD = 'aes-256-ctr';
+    const METHOD = 'aes-256-cbc';
 
     /**
      * Encrypts (but does not authenticate) a message
@@ -14,14 +22,13 @@ class SymmetricCipher {
      * @param boolean $encode - set to TRUE to return a base64-encoded
      * @return string (raw binary)
      */
-    public static function unsecure_encrypt($message, $key, $encode = false)  {
+    public static function unsecure_encrypt($message, $key)  {
         $nonceSize = openssl_cipher_iv_length(self::METHOD);
-        $nonce = openssl_random_pseudo_bytes($nonceSize);
-        $ciphertext = openssl_encrypt( $message, self::METHOD, $key,OPENSSL_RAW_DATA, $nonce );
+        $iv = openssl_random_pseudo_bytes($nonceSize); // create initialization vector
+        $ciphertext = openssl_encrypt( $message, self::METHOD, $key,OPENSSL_RAW_DATA, $iv );
         // Now let's pack the IV and the ciphertext together
         // Naively, we can just concatenate
-        if ($encode) { return base64_encode($nonce.$ciphertext); }
-        return $nonce.$ciphertext;
+        return $iv.$ciphertext;
     }
 
     /**
@@ -29,19 +36,15 @@ class SymmetricCipher {
      *
      * @param string $message - ciphertext message
      * @param string $key - encryption key (raw binary expected)
-     * @param boolean $encoded - are we expecting an encoded string?
      * @return string
      * @throws Exception
      */
-    public static function unsecure_decrypt($message, $key, $encoded = false) {
-        if ($encoded) {
-            $message = base64_decode($message, true);
-            if ($message === false) { throw new Exception('Encryption failure'); }
-        }
-        $nonceSize = openssl_cipher_iv_length(self::METHOD);
-        $nonce = mb_substr($message, 0, $nonceSize, '8bit');
-        $ciphertext = mb_substr($message, $nonceSize, null, '8bit');
-        $plaintext = openssl_decrypt( $ciphertext,self::METHOD, $key,OPENSSL_RAW_DATA, $nonce );
+    public static function unsecure_decrypt($message, $key) {
+        // retrieve initialization vector.
+        $ivSize = openssl_cipher_iv_length(self::METHOD);
+        $iv = mb_substr($message, 0, $ivSize, '8bit');
+        $ciphertext = mb_substr($message, $ivSize, null, '8bit');
+        $plaintext = openssl_decrypt( $ciphertext,self::METHOD, $key,OPENSSL_RAW_DATA, $iv );
         return $plaintext;
     }
 
@@ -54,35 +57,38 @@ class SymmetricCipher {
      * @return string (raw binary)
      */
     public static function encrypt($message, $key, $encode = false) {
+        // a partir de la clave simetrica, genero dos claves: encriptacion y firma
         list($encKey, $authKey) = self::splitKeys($key);
-        // Pass to UnsafeCrypto::encrypt
-        $ciphertext = self::unsecure_encrypt($message, $encKey);
+        // Pass to UnsafeCrypto::encrypt, that returns IV+EncryptedMsg
+        $ciphertext = self::unsecure_encrypt($message, $encKey); // encripto con la clave de encriptacion
         // Calculate a MAC of the IV and ciphertext
-        $mac = hash_hmac(self::HASH_ALGO, $ciphertext, $authKey, true);
+        $mac = hash_hmac(self::HASH_ALGO, $ciphertext, $authKey, true); // genero la firma
+        // Prepend MAC to the ciphertext and return $mac.$iv.$ciphertext to caller
         if ($encode) { return base64_encode($mac.$ciphertext); }
-        // Prepend MAC to the ciphertext and return to caller
         return $mac.$ciphertext;
     }
 
     /**
      * Decrypts a message (after verifying integrity)
      *
-     * @param string $message - ciphertext message
+     * @param string $message - ciphertext message (mac.iv.ciphertex)
      * @param string $key - encryption key (raw binary expected)
-     * @param boolean $encoded - are we expecting an encoded string?
+     * @param boolean $encoded - are we expecting a base64 encoded string?
      * @return string (raw binary)
      * @throws Exception
      */
     public static function decrypt($message, $key, $encoded = false) {
-        list($encKey, $authKey) = self::splitKeys($key);
-        if ($encoded) {
+        if ($encoded) { // en cao necesario hacemos un base64_decode
             $message = base64_decode($message, true);
             if ($message === false) { throw new Exception('Decryption failure: base64_decode'); }
         }
-        // Hash Size -- in case HASH_ALGO is changed
-        $hs = mb_strlen(hash(self::HASH_ALGO, '', true), '8bit');
-        $mac = mb_substr($message, 0, $hs, '8bit');
-        $ciphertext = mb_substr($message, $hs, null, '8bit');
+        // a partir de la clave simetrica, generamos dos claves: encriptacion y firma
+        list($encKey, $authKey) = self::splitKeys($key);
+        // evaluate length and extract mac hash from message
+        $hs = mb_strlen(hash(self::HASH_ALGO, '', true), '8bit'); // get hash size
+        $mac = mb_substr($message, 0, $hs, '8bit'); // mac
+        $ciphertext = mb_substr($message, $hs, null, '8bit'); // get iv.ciphertext
+        // eval message hash and compare against provided
         $calculated = hash_hmac(self::HASH_ALGO, $ciphertext, $authKey,true );
         if (!self::hashEquals($mac, $calculated)) { throw new Exception('Decryption failure: check hash'); }
         // Pass to UnsafeCrypto::decrypt

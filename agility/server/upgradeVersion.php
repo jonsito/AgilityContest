@@ -26,7 +26,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/tools.php");
 require_once(__DIR__."/logging.php");
 require_once(__DIR__."/auth/Config.php");
-require_once(__DIR__."/auth/SimpleCrypt.php");
+require_once(__DIR__."/auth/SymmetricCipher.php");
 require_once(__DIR__."/database/classes/DBObject.php");
 require_once(__DIR__."/i18n/Country.php");
 
@@ -128,7 +128,7 @@ class Updater {
             $key= base64_encode(substr("{$this->bckLicense}{$this->bckRevision}{$this->bckDate}",-32));
             // check key hash
             if ($keystr!== hash("md5",$key,false))return ("Restore failed: Key hash does not match");
-            $data=SimpleCrypt::decrypt($data,$key);
+            $data=SymmetricCipher::decrypt($data,$key);
         }
         // Read entire file into an array
         $lines = explode("\n",$data);
