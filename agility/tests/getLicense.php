@@ -82,14 +82,14 @@ class SymmetricCipher {
         list($encKey, $authKey) = self::splitKeys($key);
         if ($encoded) {
             $message = base64_decode($message, true);
-            if ($message === false) { throw new Exception('Encryption failure'); }
+            if ($message === false) { throw new Exception('Decryption failure: base64_decode'); }
         }
         // Hash Size -- in case HASH_ALGO is changed
         $hs = mb_strlen(hash(self::HASH_ALGO, '', true), '8bit');
         $mac = mb_substr($message, 0, $hs, '8bit');
         $ciphertext = mb_substr($message, $hs, null, '8bit');
         $calculated = hash_hmac(self::HASH_ALGO, $ciphertext, $authKey,true );
-        if (!self::hashEquals($mac, $calculated)) { throw new Exception('Encryption failure'); }
+        if (!self::hashEquals($mac, $calculated)) { throw new Exception('Decryption failure: hash missmatch'); }
         // Pass to UnsafeCrypto::decrypt
         $plaintext = self::unsecure_decrypt($ciphertext, $encKey);
         return $plaintext;
@@ -141,10 +141,17 @@ class Cipher {
 	//Block size for decryption block cipher
 	private $DECRYPT_BLOCK_SIZE = 1024;// this again for 8192 bit key
 
+    /**
+     * @param $data data to encrypt
+     * @param $privKeyFile private key file
+     * @param string $uniqueID 32 bytes raw (not base64 encoded) symmetric key
+     * @param string $serial license serial number
+     * @return string|null
+     */
 	function encrypt($data,$privKeyFile,$uniqueID="",$serial="") {
 		$fp=fopen ($privKeyFile,"rb"); $priv_key=fread ($fp,8192); fclose($fp);
 		$key=openssl_get_privatekey($priv_key);
-		if (!$key)	die("encrypt({$serial}): Cannot load private key");
+		if (!$key)	logAndDie("encrypt({$serial}): Cannot load private key");
 
 		// perform rsa encryption
 		$text="";
@@ -154,7 +161,7 @@ class Cipher {
 			openssl_private_encrypt($chunk,$partialEncrypted,$key,OPENSSL_PKCS1_PADDING);
 			if (empty($partialEncrypted)){
 				openssl_free_key($key);
-                die ("openssl_private_encrypt({$serial}) error");
+                logAndDie("openssl_private_encrypt({$serial}) error");
 			}
 		    $text.=$partialEncrypted;
 		}
@@ -171,25 +178,30 @@ class Cipher {
         return $result;
 	}
 
+    /**
+     * @param $data encoded data
+     * @param string $uniqueID 32 bytes raw key ( not base64 encoded )
+     * @param string $serial License serial number
+     * @return string
+     */
 	function decrypt($data,$uniqueID="",$serial="") {
 
 	    // perform symmetric decryption if uniqueID is not null
+        $text=$data;
         if ($uniqueID!=="") {
             try {
                 $text=SymmetricCipher::decrypt($data,$uniqueID,true); // data is base64 encoded
                 $text=base64_encode($text);
             } catch (Exception $e) {
-                $text=null;
+                syslog(LOG_ERR, $e->getMessage());
+                logAndDie("SymmetricCipher::decrypt({$serial}) error");
             }
-        } else {
-            $text=$data;
         }
-        if (!$text) die("SymmetricCipher::decrypt({$serial}) error");
 
 		// load rsa public key
 		$fp=fopen (PUBLIC_KEY,"rb"); $pub_key=fread ($fp,8192); fclose($fp);
 		$key=openssl_get_publickey($pub_key);
-		if (!$key) die("ERROR: decrypt({$serial}): Cannot get public key");
+		if (!$key) echo "decrypt({$serial}): Cannot get public key";
 
         // divide data in chunks
 		$chunks = str_split(base64_decode($text), $this->DECRYPT_BLOCK_SIZE);
@@ -201,7 +213,7 @@ class Cipher {
 			$decryptionOK = openssl_public_decrypt($chunk, $partial, $key, OPENSSL_PKCS1_PADDING);
 			if($decryptionOK === false){//here also processed errors in decryption. If too big this will be false
 				openssl_free_key($key);
-                die("RSA decrypt({$serial}) failed ".openssl_error_string().PHP_EOL);
+                logAndDie("RSA decrypt({$serial}) failed ".openssl_error_string().PHP_EOL);
 			}
 			$decrypted .= $partial;
 		}
@@ -232,56 +244,74 @@ function showLogo($data) {
     system("eog /tmp/kk.png");
 }
 
+function logAndDie($msg) {
+    syslog(LOG_ERR,$msg);
+    die($msg);
+}
+
+// activate logging
+openlog("AgilityContest", LOG_PID | LOG_PERROR, LOG_LOCAL0);
 // invocation: getLicense email uniqueID activationKey
 if ($argc == 5) { // encrypt
     $serial = $argv[1]; // who is requesting the license
     $email= $argv[2];
-    $uniqueID = $argv[3];
+    $uniqueID = base64_decode($argv[3],true);
     $activationKey = $argv[4];
-
+    syslog(LOG_INFO,"License request: serial:{$serial} email:{$email} ID:{$argv[3]} AK:{$activationKey}");
     // read license file
     $licenses = file(LICENSES,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    if (!$licenses) die("Cannot open licenses file");
+    if (!$licenses) logAndDie("Cannot open licenses file");
 
     // PENDING: track and log request
 
     // iterate on each line until license found
+    $diemsg="No license found for {$email}";
     foreach ( $licenses as $lic) {
         $data=json_decode($lic,true);
         if ($data['email']!==$email) continue;
-        if ($data['activationkey']!==$activationKey) die("Activation key does not match");
-        if ($data['status']==="cancelled") die("License is cancelled");
-        if ( strcmp( $data['expires'] , date("Ymd") ) <0 ) die("License is expired");
+        if ($data['status']==="cancelled") {
+		$diemsg="License for {email} is cancelled";
+		continue;
+	}
+        if ( strcmp( $data['expires'] , date("Ymd") ) <0 ) {
+		$diemsg="License for {$email} is expired";
+		continue;
+	}
+        if ($data['activationkey']!==$activationKey) {
+		$diemsg="Activation key for {$email} does not match";
+		continue;
+	}
 
         // license is ok. prepare it
         unset($data['status']);
         unset($data['activationkey']);
-        // add logo
-        $logo=composeLogoName($data['club']);
+	// add logo
+	if ($data['image']!=='') $logo=$data['image'];
+	else $logo=composeLogoName($data['club']);
         if(!file_exists(LOGOS."/{$logo}")) $logo="agilitycontest.png"; // check for file not found
         $data['image']=base64_encode(file_get_contents(LOGOS."/{$logo}"));
 
         // ok. now ready to crypt
         $cipher=new Cipher();
         $result=$cipher->encrypt(json_encode($data),PRIVATE_KEY,$uniqueID,$data['serial']);
-        if (!$result) die("License generation failed");
+        if (!$result) logAndDie("License generation failed");
 
         // now try to decrypt to make sure data is ok
         $decrypted=$cipher->decrypt($result,$uniqueID,$serial);
-        if (!$decrypted) die("Crypt(): Cannot unencrypt resulting data");
+        if (!$decrypted) logAndDie("Crypt(): Cannot unencrypt resulting data");
         $ddata=json_decode($decrypted,true);
-        if (!is_array($ddata)) die ("Crypt(): unencrypted data has novalid license contents");
+        if (!is_array($ddata)) logAndDie("Crypt(): unencrypted data has novalid license contents");
 
         // fine. so echo result
         echo $result;
         return 0;
     }
     // arriving here means license not found
-    die("No license found for {$email}");
+    logAndDie($diemsg);
 
 } elseif ($argc == 3) { // decrypt
-    $file=$argv[1];
-    $uniqueID=$argv[2];
+    $uniqueID=base64_decode($argv[1],true);
+    $file=$argv[2];
     // load base64 encoded encrypted file
     $fp=fopen ($file,"rb");
     $data=""; while (!feof($fp)) { $data .= fread($fp, 8192); };
@@ -289,9 +319,9 @@ if ($argc == 5) { // encrypt
     // ok. now ready to crypt
     $cipher=new Cipher();
     $result=$cipher->decrypt($data,$uniqueID,"");
-    if (!$result) die("License decryption failed");
+    if (!$result) logAndDie("License decryption failed");
     $data=json_decode($result,true);
-    if (!is_array($data)) die ("Invalid license contents");
+    if (!is_array($data)) logAndDie("Invalid license contents");
     showLogo($data['image']);
     return 0;
 } else {

@@ -77,14 +77,14 @@ class SymmetricCipher {
         list($encKey, $authKey) = self::splitKeys($key);
         if ($encoded) {
             $message = base64_decode($message, true);
-            if ($message === false) { throw new Exception('Encryption failure'); }
+            if ($message === false) { throw new Exception('Decryption failure: base64_decode'); }
         }
         // Hash Size -- in case HASH_ALGO is changed
         $hs = mb_strlen(hash(self::HASH_ALGO, '', true), '8bit');
         $mac = mb_substr($message, 0, $hs, '8bit');
         $ciphertext = mb_substr($message, $hs, null, '8bit');
         $calculated = hash_hmac(self::HASH_ALGO, $ciphertext, $authKey,true );
-        if (!self::hashEquals($mac, $calculated)) { throw new Exception('Encryption failure'); }
+        if (!self::hashEquals($mac, $calculated)) { throw new Exception('Decryption failure: check hash'); }
         // Pass to UnsafeCrypto::decrypt
         $plaintext = self::unsecure_decrypt($ciphertext, $encKey);
         return $plaintext;

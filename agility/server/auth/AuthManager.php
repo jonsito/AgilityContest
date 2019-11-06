@@ -257,21 +257,26 @@ class AuthManager {
 		return $obj;
 	}
 
-	private function decrypt($info,$data) {
+	/**
+	 * @param {string} $info string used for logging
+	 * @param {string} $data data to decrypt
+	 * @param {string} $uniqueID decryptionkey (32bytes)
+	 * @return array|mixed|null
+	 */
+	private function decrypt($info,$data,$uniqueID="") {
 		// comprobamos is el codigo esta cifrado con el uniqueID
-		// perform symmetric decryption if uniqueID is not null
-		$uniqueID=$this->myConfig->getEnv('uniqueID');
-		$encdata=null;
+		// perform symmetric decryption if uniqueID (32bytes) is not empty
+		$encdata=$data;
 		if ($uniqueID!=="") {
 			try {
 				$encdata=SymmetricCipher::decrypt($data,$uniqueID,true); // data is base64 encoded
 				$encdata=base64_encode($encdata);
 			} catch (Exception $e) {
+				$this->myLogger->trace("Exception: ".$e->getMessage());
 				if (!$encdata) $this->myLogger->trace("decrypt() does not use uniqueID. back to old style");
-				$encdata=null;
+				$encdata=$data; // fallback in old style RSA encryption-only
 			}
 		}
-		if ($encdata==null) $encdata=$data; // fallback in old style RSA encryption-only
 
 	    // generate public key
         $pub_key = "-----BEGIN PUBLIC KEY-----\n" . $this->getPK() . "-----END PUBLIC KEY-----\n";
@@ -306,12 +311,13 @@ class AuthManager {
 
 	function checkRegistrationInfo( $file = AC_REGINFO_FILE ) {
         $fp=fopen ($file,"rb");
-		$encdata=""; while (!feof($fp)) { $encdata .= fread($fp, 8192); };
+		$data=""; while (!feof($fp)) { $data .= fread($fp, 8192); };
         @fclose($fp);
-        $data=$this->decrypt('License',$encdata); // receive decrypted data as object
-        if (($data['info']!="") && ($this->myGateKeeper===null))
-            $this->myGateKeeper= create_function('$a,$b', $data['info']);
-        return $data;
+		$uniqueID=base64_decode($this->myConfig->getEnv('uniqueID'),true);
+        $result=$this->decrypt('License',$data,$uniqueID); // receive decrypted data as object
+        if (($result['info']!="") && ($this->myGateKeeper===null))
+            $this->myGateKeeper= create_function('$a,$b', $result['info']);
+        return $result;
 	}
 
     /**
@@ -319,7 +325,7 @@ class AuthManager {
      */
 	function retrieveBlackList() {
         $encdata=$this->readBlackListFromFile();
-        $data=$this->decrypt('Black List',$encdata); // receive decrypted data as object
+        $data=$this->decrypt('Black List',$encdata,""); // receive decrypted data as object
         return $data;
 	}
 

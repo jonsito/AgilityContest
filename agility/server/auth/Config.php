@@ -524,9 +524,9 @@ Class Config {
 		    $this->config['version_date']=$chng[2];
             $needToSave = true;
         }
-		// si el sistema no tiene uniqueID, lo creamos y guardamos
+		// si el sistema no tiene uniqueID, lo creamos (32 bytes -> 256bits ) y guardamos
 		if (!array_key_exists('uniqueID',$this->config) || ($this->config['uniqueID']==="")) {
-			$this->config['uniqueID']=base64_encode(getRandomString(16));
+			$this->config['uniqueID']=base64_encode(getRandomString(32));
             $needToSave = true;
 		}
 		if ($needToSave===true) $this->writeAC_systemFile($sys);
