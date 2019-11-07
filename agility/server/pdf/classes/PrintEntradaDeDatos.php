@@ -219,7 +219,7 @@ class PrintEntradaDeDatos extends PrintCommon {
             $this->Cell(20,4,$row['Licencia'],		'',0,'R',false);
             $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
         }
-		$this->Cell(60,4,$row['NombreGuia'],	'',0,'R',false);
+		$this->Cell(60,4,$this->getHandlerName($row),	'',0,'R',false);
 		$this->Cell(40,4,$row['NombreClub'],	'',0,'R',false);
 
 		// titulos cabecera de celda
@@ -321,7 +321,7 @@ class PrintEntradaDeDatos extends PrintCommon {
             $this->Cell(20,4,$row['Licencia'],		'',0,'R',false);
             $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
         }
-        $this->Cell(60,4,$row['NombreGuia'],	'',0,'R',false);
+        $this->Cell(60,4,$this->getHandlerName($row),	'',0,'R',false);
         $this->Cell(40,4,$row['NombreClub'],	'',0,'R',false);
 
         // titulos cabecera de celda
@@ -408,7 +408,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$this->SetFont($this->getFontName(),'B',12); // bold 9px
 		$this->Cell($this->pos[1],10-3,$row['Nombre'],		'',0,$this->align[1],false);
         if ($this->pos[2]!=0) $this->Cell($this->pos[2],10-3,$row['Licencia'],		'',0,$this->align[2],false);
-		$this->Cell($this->pos[3],10-3,$row['NombreGuia'],	'',0,$this->align[3],false);
+		$this->Cell($this->pos[3],10-3,$this->getHandlerName($row),	'',0,$this->align[3],false);
 		$this->Cell($this->pos[4],10-3,$row['NombreClub'],	'',0,$this->align[4],false);
 		$this->Cell($this->pos[5],10-3,($row['Celo']!=0)?"Celo":"",'',0,$this->align[5],false);
 		$this->Cell($this->pos[6],10-3,$row['Observaciones'],	'',0,$this->align[6],false);

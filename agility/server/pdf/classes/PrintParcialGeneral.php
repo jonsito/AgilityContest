@@ -149,7 +149,7 @@ class PrintParcialGeneral extends PrintCommon {
         $this->Cell($this->pos[1],6,$nombre,			'LR',	0,		$this->align[1],	true);
         $this->SetFont($this->getFontName(),'',8); // set data font size
         if ($this->pos[2]!=0) $this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	true);
-        $this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	true);
+        $this->Cell($this->pos[3],6,$this->getHandlerName($row),		'LR',	0,		$this->align[3],	true);
         $this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	true);
         if ($this->hasGrades) {
             $cat=$this->federation->getCategoryShort($row['Categoria']);

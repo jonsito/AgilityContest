@@ -126,6 +126,7 @@ define('AC_PDF_LEFTMARGIN', 10.0); // margen izquierdo etiquetas
 define('AC_PDF_LABELHEIGHT', 17.0); // Altura de las pegatinas mmts
 define('AC_PDF_JOURNEYS', "1"); // incluir jornadas en catalogo
 define('AC_PDF_GRADES', "1"); // incluir informacion de grado en catalogo
+define('AC_PDF_CATHANDLERS', "1"); // incluir informacion categoria del guia en los listados
 define('AC_PDF_HDRFG1','#000000');
 define('AC_PDF_HDRBG1','#00FF00');
 define('AC_PDF_HDRFG2','#0000ff');
@@ -302,7 +303,8 @@ Class Config {
 		'pdf_leftmargin'	=> array(	'i',	false,	AC_PDF_LEFTMARGIN),
 		'pdf_labelheight'	=> array(	'i',	false,	AC_PDF_LABELHEIGHT),
         'pdf_journeys'		=> array(	'b',	false,	AC_PDF_JOURNEYS),
-        'pdf_grades'		=> array(	'b',	false,	AC_PDF_GRADES),
+		'pdf_grades'		=> array(	'b',	false,	AC_PDF_GRADES),
+		'pdf_cathandlers'	=> array(	'b',	false,	AC_PDF_CATHANDLERS),
 		'pdf_hdrfg1'		=> array(	'c',	false,	AC_PDF_HDRFG1),
 		'pdf_hdrbg1'		=> array(	'c',	false,	AC_PDF_HDRBG1),
 		'pdf_hdrfg2'		=> array(	'c',	false,	AC_PDF_HDRFG2),

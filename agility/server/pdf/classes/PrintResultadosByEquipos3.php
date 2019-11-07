@@ -218,7 +218,7 @@ class PrintResultadosByEquipos3 extends PrintCommon {
                 $this->Cell($this->pos[1],5,$nombre,			'LBR',	0,		$this->align[1],	true);
                 $this->SetFont($this->getFontName(),'',8); // set data font size
                 if ($this->pos[2]!=0) $this->Cell($this->pos[2],5,$row['Licencia'],		'LBR',	0,		$this->align[2],	true);
-                $this->Cell($this->pos[3],5,$row['NombreGuia'],		'LBR',	0,		$this->align[3],	true);
+                $this->Cell($this->pos[3],5,$this->getHandlerName($row),		'LBR',	0,		$this->align[3],	true);
                 $this->Cell($this->pos[4],5,$row['NombreClub'],		'LBR',	0,		$this->align[4],	true);
                 // en pruebas por equipos el grado se ignora
                 // $this->Cell($this->pos[5],6,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	$fill);

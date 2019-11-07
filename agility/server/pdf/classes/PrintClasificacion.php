@@ -359,7 +359,7 @@ class PrintClasificacion extends PrintCommon {
             $cat=$this->federation->getCategory($row['Categoria']);
 			$this->Cell(10,6,"{$cat}",0,0,'C',$fill);	// categoria/grado
 		}
-		$this->Cell(($wide)?30:35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
+		$this->Cell(($wide)?30:35,6,$this->getHandlerName($row),0,0,'R',$fill);	// nombreGuia
 		$this->Cell(($wide)?15:20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
 		// manga 1
         if ($this->manga1!==null) {

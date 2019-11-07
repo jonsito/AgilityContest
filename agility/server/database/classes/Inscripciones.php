@@ -321,7 +321,7 @@ class Inscripciones extends DBObject {
 		$str="SELECT inscripciones.ID AS ID, inscripciones.Prueba AS Prueba, Dorsal , 
 				inscripciones.Perro AS Perro , perroguiaclub.Nombre AS Nombre, NombreLargo,
 				Genero, Raza,Chip, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
-				NombreGuia, NombreClub, Pais,inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
+				NombreGuia, CatGuia, NombreClub, Pais,inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
 			FROM inscripciones,perroguiaclub
 			WHERE ( inscripciones.Perro = perroguiaclub.ID) 
 				AND ( inscripciones.Prueba=$id )
@@ -434,7 +434,7 @@ class Inscripciones extends DBObject {
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT inscripciones.ID AS ID, inscripciones.Prueba AS Prueba, Dorsal, inscripciones.Perro AS Perro , perroguiaclub.Nombre AS Nombre,
 				NombreLargo, Genero, Raza, Chip, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
-				NombreGuia, NombreClub, Pais, inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
+				NombreGuia, CatGuia, NombreClub, Pais, inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
 			FROM inscripciones,perroguiaclub
 			WHERE ( inscripciones.Perro = perroguiaclub.ID) AND ( inscripciones.Prueba=$id ) $extra 
 		ORDER BY $order $limit"; 
@@ -619,7 +619,7 @@ class Inscripciones extends DBObject {
         $result=$this->__select(
 			/* SELECT */"inscripciones.ID AS ID, inscripciones.Prueba AS Prueba, inscripciones.Perro AS Perro, Raza,
 				Dorsal, perroguiaclub.Nombre AS Nombre, perroguiaclub.NombreLargo AS NombreLargo,  Genero, Raza, Chip, Licencia, LOE_RRC, Categoria, Grado, Celo, Guia, Club, Pais, LogoClub,
-				NombreGuia, NombreClub,	inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
+				NombreGuia, CatGuia, NombreClub, inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
 			/* FROM */	"inscripciones,perroguiaclub",
 			/* WHERE */ "( inscripciones.Perro = perroguiaclub.ID) AND
 				( inscripciones.Prueba=$pruebaid ) AND ( ( inscripciones.Jornadas&$mask ) != 0 ) ",

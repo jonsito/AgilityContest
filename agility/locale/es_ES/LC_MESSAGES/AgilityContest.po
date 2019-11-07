@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2019-11-05 15:27+0100\n"
-"PO-Revision-Date: 2019-11-05 15:29+0100\n"
+"POT-Creation-Date: 2019-11-07 11:45+0100\n"
+"PO-Revision-Date: 2019-11-07 11:46+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -340,7 +340,7 @@ msgstr "Gu&iacute;a"
 #: server/pdf/classes/PrintClasificacionExcel.php:99
 #: server/pdf/classes/PrintClasificacionExcel.php:163
 #: server/pdf/classes/PrintEntrenamientos.php:58
-#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:335
+#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:349
 #: tablet/index.php:280 tablet/tablet_main.php:87 tablet/tablet_main.php:298
 #: tablet/tablet_main.php:426 videowall/vwc_finales.php:84
 #: videowall/vwc_finales.php:217 videowall/vwc_parciales.php:84
@@ -474,7 +474,7 @@ msgstr "Eliminado"
 
 #: chrono/chrono.inc.php:100 console/dialogs/dlg_competicion.inc:71
 #: console/dialogs/dlg_competicion_games.inc:319
-#: console/dialogs/dlg_configuracion.inc:785
+#: console/dialogs/dlg_configuracion.inc:789
 #: console/dialogs/dlg_selectJornada.inc:159 scripts/admin.js.php:47
 #: scripts/admin.js.php:66 scripts/admin.js.php:91 scripts/admin.js.php:469
 #: scripts/admin.js.php:525 scripts/admin.js.php:577 scripts/admin.js.php:594
@@ -806,7 +806,7 @@ msgstr "Equipo"
 #: scripts/datagrid_formatters.js.php:579
 #: server/excel/classes/DogReader.php:451 server/modules/Federations.php:417
 #: server/pdf/classes/PrintEntrenamientos.php:59
-#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:335
+#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:349
 msgid "Country"
 msgstr "Pa&iacute;s"
 
@@ -921,7 +921,7 @@ msgid "Handler re-asignation"
 msgstr "Re-asignaci&oacute;n de gu&iacute;as"
 
 #: console/dialogs/dlg_chguias.inc:29 console/dialogs/dlg_chperros.inc:29
-#: console/dialogs/dlg_configuracion.inc:572
+#: console/dialogs/dlg_configuracion.inc:576
 #: console/dialogs/dlg_newInscripcion.inc:33
 #: console/dialogs/import_clubes.inc.php:32
 #: console/dialogs/import_handlers.inc.php:32
@@ -1384,8 +1384,8 @@ msgstr "N.P."
 
 #: console/dialogs/dlg_competicion.inc:149
 #: console/dialogs/dlg_competicion_games.inc:402
-#: console/dialogs/dlg_configuracion.inc:589
-#: console/dialogs/dlg_configuracion.inc:661
+#: console/dialogs/dlg_configuracion.inc:593
+#: console/dialogs/dlg_configuracion.inc:665
 #: console/dialogs/dlg_entrenamientos.inc:100
 #: console/dialogs/dlg_equipos.inc:64 console/dialogs/dlg_guias.inc:67
 #: console/dialogs/dlg_jornadas.inc:140 console/dialogs/dlg_jueces.inc:82
@@ -1404,7 +1404,7 @@ msgstr "Editar"
 
 #: console/dialogs/dlg_competicion.inc:232
 #: console/dialogs/dlg_competicion_games.inc:492
-#: console/dialogs/dlg_configuracion.inc:741 scripts/admin.js.php:69
+#: console/dialogs/dlg_configuracion.inc:745 scripts/admin.js.php:69
 #: scripts/clubes.js.php:243 scripts/competicion.js.php:1323
 #: scripts/guias.js.php:81 scripts/jueces.js.php:133 scripts/perros.js.php:254
 #: scripts/pruebas.js.php:190 scripts/pruebas.js.php:303
@@ -1731,14 +1731,14 @@ msgstr "Color de las filas impares de las tablas"
 #: console/dialogs/dlg_configuracion.inc:134
 #: console/dialogs/dlg_configuracion.inc:213
 #: console/dialogs/dlg_configuracion.inc:300
-#: console/dialogs/dlg_configuracion.inc:428
+#: console/dialogs/dlg_configuracion.inc:432
 msgid "Color for even secondary table rows"
 msgstr "Color de filas pares en tablas secundarias"
 
 #: console/dialogs/dlg_configuracion.inc:136
 #: console/dialogs/dlg_configuracion.inc:215
 #: console/dialogs/dlg_configuracion.inc:302
-#: console/dialogs/dlg_configuracion.inc:430
+#: console/dialogs/dlg_configuracion.inc:434
 msgid "Color for odd secondary table rows"
 msgstr "Color de filas impares en tablas secundarias"
 
@@ -1849,7 +1849,7 @@ msgstr "Periodo de rotaci&oacute;n de datos (seg.)"
 #: console/dialogs/dlg_configuracion.inc:193
 #: console/dialogs/dlg_configuracion.inc:248
 #: console/dialogs/dlg_configuracion.inc:280
-#: console/dialogs/dlg_configuracion.inc:358
+#: console/dialogs/dlg_configuracion.inc:362
 msgid "Background color for main header"
 msgstr "Color de fondo de la cabecera principal"
 
@@ -1861,13 +1861,13 @@ msgstr "Color del texto de la cabecera principal"
 
 #: console/dialogs/dlg_configuracion.inc:198
 #: console/dialogs/dlg_configuracion.inc:285
-#: console/dialogs/dlg_configuracion.inc:363
+#: console/dialogs/dlg_configuracion.inc:367
 msgid "Background color for secondary header"
 msgstr "Color de fondo de la cabecera secundaria"
 
 #: console/dialogs/dlg_configuracion.inc:200
 #: console/dialogs/dlg_configuracion.inc:287
-#: console/dialogs/dlg_configuracion.inc:365
+#: console/dialogs/dlg_configuracion.inc:369
 msgid "Text color for secondary header"
 msgstr "Color del texto de la cabecera secundaria"
 
@@ -1883,13 +1883,13 @@ msgstr "Color del texto de cabeceras adicionales"
 
 #: console/dialogs/dlg_configuracion.inc:208
 #: console/dialogs/dlg_configuracion.inc:295
-#: console/dialogs/dlg_configuracion.inc:423
+#: console/dialogs/dlg_configuracion.inc:427
 msgid "Background color for even table rows"
 msgstr "Color de fondo de las tablas (filas pares)"
 
 #: console/dialogs/dlg_configuracion.inc:210
 #: console/dialogs/dlg_configuracion.inc:297
-#: console/dialogs/dlg_configuracion.inc:425
+#: console/dialogs/dlg_configuracion.inc:429
 msgid "Background color for odd table rows"
 msgstr "Color de fondo de las tablas (filas impares)"
 
@@ -1984,7 +1984,7 @@ msgid "Delay for LiveStream event parsing"
 msgstr "Retardo de eventos de live streaming"
 
 #: console/dialogs/dlg_configuracion.inc:313
-#: console/dialogs/dlg_configuracion.inc:411
+#: console/dialogs/dlg_configuracion.inc:415
 msgid "sec"
 msgstr "seg"
 
@@ -2055,118 +2055,122 @@ msgid "Show level/grade info when printing catalog"
 msgstr "Inclu&iacute;r informaci&oacute;n grado en cat&aacute;logo"
 
 #: console/dialogs/dlg_configuracion.inc:354
+msgid "Add handler's category into printouts"
+msgstr "Indicar la categor&iacute;a del gu&iacute;a en los listados"
+
+#: console/dialogs/dlg_configuracion.inc:358
 msgid "Skip Dorsal labels for pre-agility dogs"
 msgstr "Omitir perros de pre-agility al imprimir dorsales"
 
-#: console/dialogs/dlg_configuracion.inc:360
+#: console/dialogs/dlg_configuracion.inc:364
 msgid "Text color on main header"
 msgstr "Color de texto de la cabecera principal"
 
-#: console/dialogs/dlg_configuracion.inc:368
+#: console/dialogs/dlg_configuracion.inc:372
 msgid "Background color for tables even rows"
 msgstr "Color de fondo de las tablas (filas pares)"
 
-#: console/dialogs/dlg_configuracion.inc:370
+#: console/dialogs/dlg_configuracion.inc:374
 msgid "Background color for tables odd rows"
 msgstr "Color de fondo de las tablas (filas impares)"
 
-#: console/dialogs/dlg_configuracion.inc:373
+#: console/dialogs/dlg_configuracion.inc:377
 msgid "Color for separation lines"
 msgstr "Color de las l&iacute;neas de separaci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:376
+#: console/dialogs/dlg_configuracion.inc:380
 msgid "Label printing"
 msgstr "Impresi&oacute;n de etiquetas"
 
-#: console/dialogs/dlg_configuracion.inc:378
+#: console/dialogs/dlg_configuracion.inc:382
 msgid "Label sheet format (# labels/sheet)"
 msgstr "Formato de la hoja (Num. etiquetas/p&aacute;gina)"
 
-#: console/dialogs/dlg_configuracion.inc:388
+#: console/dialogs/dlg_configuracion.inc:392
 msgid "Skip labels for Not Present / Eliminated dogs"
 msgstr "Omitir etiqueta si eliminado / no presentado"
 
-#: console/dialogs/dlg_configuracion.inc:392
+#: console/dialogs/dlg_configuracion.inc:396
 msgid "Label sheet upper margin (mmts)"
 msgstr "Margen superior de la hoja (mmts)"
 
-#: console/dialogs/dlg_configuracion.inc:394
+#: console/dialogs/dlg_configuracion.inc:398
 msgid "Label sheet right margin (mmts)"
 msgstr "Margen izquierdo de la hoja (mmts)"
 
-#: console/dialogs/dlg_configuracion.inc:398
+#: console/dialogs/dlg_configuracion.inc:402
 msgid "Internet"
 msgstr "Internet"
 
-#: console/dialogs/dlg_configuracion.inc:399
+#: console/dialogs/dlg_configuracion.inc:403
 msgid "Public access from internet"
 msgstr "Acceso p&uacute;blico por Internet"
 
-#: console/dialogs/dlg_configuracion.inc:400
+#: console/dialogs/dlg_configuracion.inc:404
 msgid "Data auto-refresh interval"
 msgstr "Periodo de refresco de los datos"
 
-#: console/dialogs/dlg_configuracion.inc:403
+#: console/dialogs/dlg_configuracion.inc:407
 msgid "No refresh"
 msgstr "No refrescar"
 
-#: console/dialogs/dlg_configuracion.inc:410
+#: console/dialogs/dlg_configuracion.inc:414
 msgid "Rotation period for sponsor logos"
 msgstr "Periodo de rotaci&oacute;n de anuncios"
 
-#: console/dialogs/dlg_configuracion.inc:413
+#: console/dialogs/dlg_configuracion.inc:417
 msgid "Header background color"
 msgstr "Color de fondo de cabecera/pie"
 
-#: console/dialogs/dlg_configuracion.inc:415
+#: console/dialogs/dlg_configuracion.inc:419
 msgid "Header text color"
 msgstr "Color de texto de la cabecera/pie"
 
-#: console/dialogs/dlg_configuracion.inc:418
+#: console/dialogs/dlg_configuracion.inc:422
 msgid "Round data table background color"
 msgstr "Color de fondo de informaci&oacute;n de manga"
 
-#: console/dialogs/dlg_configuracion.inc:420
+#: console/dialogs/dlg_configuracion.inc:424
 msgid "Round data table text color"
 msgstr "Color texto informaci&oacute;n de manga"
 
-#: console/dialogs/dlg_configuracion.inc:433
+#: console/dialogs/dlg_configuracion.inc:437
 msgid "Color for dog with selected dorsal"
 msgstr "Color de la fila del dorsal seleccionado"
 
-#: console/dialogs/dlg_configuracion.inc:437 console/dialogs/infomanga.php:523
+#: console/dialogs/dlg_configuracion.inc:441 console/dialogs/infomanga.php:523
 #: console/dialogs/infomanga.php:551 console/frm_guias.php:101
 #: console/frm_registration.php:60
 msgid "E-mail"
 msgstr "Correo Electr&oacute;nico"
 
-#: console/dialogs/dlg_configuracion.inc:438
+#: console/dialogs/dlg_configuracion.inc:442
 msgid "Options for sending electronic mail related functions"
 msgstr "Configuracion para operaciones de correo electr&oacute;nico"
 
-#: console/dialogs/dlg_configuracion.inc:439
+#: console/dialogs/dlg_configuracion.inc:443
 msgid "Email address"
 msgstr "Direcci&oacute;n de correo"
 
-#: console/dialogs/dlg_configuracion.inc:439
+#: console/dialogs/dlg_configuracion.inc:443
 msgid "From license info"
 msgstr "datos de la licencia"
 
-#: console/dialogs/dlg_configuracion.inc:442
+#: console/dialogs/dlg_configuracion.inc:446
 msgid "SMTP Server"
 msgstr "Servidor SMTP"
 
-#: console/dialogs/dlg_configuracion.inc:445
+#: console/dialogs/dlg_configuracion.inc:449
 msgid "Port"
 msgstr "Puerto"
 
-#: console/dialogs/dlg_configuracion.inc:452
+#: console/dialogs/dlg_configuracion.inc:456
 msgid "Encryption method"
 msgstr "M&eacute;todo de cifrado"
 
-#: console/dialogs/dlg_configuracion.inc:454
-#: console/dialogs/dlg_configuracion.inc:488
-#: console/dialogs/dlg_configuracion.inc:634 console/dialogs/dlg_pruebas.inc:53
+#: console/dialogs/dlg_configuracion.inc:458
+#: console/dialogs/dlg_configuracion.inc:492
+#: console/dialogs/dlg_configuracion.inc:638 console/dialogs/dlg_pruebas.inc:53
 #: console/dialogs/dlg_remotecontrol.inc:44
 #: console/dialogs/dlg_remotecontrol.inc:86
 #: console/dialogs/dlg_remotecontrol.inc:183
@@ -2174,198 +2178,198 @@ msgstr "M&eacute;todo de cifrado"
 msgid "None"
 msgstr "Ninguno"
 
-#: console/dialogs/dlg_configuracion.inc:455
+#: console/dialogs/dlg_configuracion.inc:459
 msgid "StartTLS after connection"
 msgstr "StartTLS tras conexi&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:456
+#: console/dialogs/dlg_configuracion.inc:460
 msgid "SSL/TLS on dedicated port"
 msgstr "SSL/TLS en puerto dedicado"
 
-#: console/dialogs/dlg_configuracion.inc:459
+#: console/dialogs/dlg_configuracion.inc:463
 msgid "Authentication method"
 msgstr "M&eacute;todo de autenticaci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:462
+#: console/dialogs/dlg_configuracion.inc:466
 #: console/dialogs/dlg_sesiones.inc:35 console/dialogs/dlg_sesiones.inc:162
 #: console/frm_logout.php:31 console/index.php:223 scripts/auth.js.php:148
 #: scripts/auth.js.php:230 tablet/index.php:158 tablet/index.php:401
 msgid "User"
 msgstr "Usuario"
 
-#: console/dialogs/dlg_configuracion.inc:465
+#: console/dialogs/dlg_configuracion.inc:469
 #: console/dialogs/dlg_usuarios.inc:58 console/dialogs/dlg_usuarios.inc:122
 #: console/frm_login.php:68 console/frm_myAdmin.php:54 tablet/index.php:163
 msgid "Password"
 msgstr "Contrase&ntilde;a"
 
-#: console/dialogs/dlg_configuracion.inc:468
+#: console/dialogs/dlg_configuracion.inc:472
 msgid "NTLM auth realm"
 msgstr "Dominio de autenticaci&oacute;n NTLM"
 
-#: console/dialogs/dlg_configuracion.inc:471
+#: console/dialogs/dlg_configuracion.inc:475
 msgid "NTLM auth workstation"
 msgstr "Servidor de autenticaci&oacute;n NTLM"
 
-#: console/dialogs/dlg_configuracion.inc:475
-#: console/dialogs/dlg_configuracion.inc:511
-#: console/dialogs/dlg_configuracion.inc:555
-#: console/dialogs/dlg_configuracion.inc:724
+#: console/dialogs/dlg_configuracion.inc:479
+#: console/dialogs/dlg_configuracion.inc:515
+#: console/dialogs/dlg_configuracion.inc:559
+#: console/dialogs/dlg_configuracion.inc:728
 #: console/dialogs/dlg_ordensalida.inc:85 index.php:126
 msgid "Check"
 msgstr "Verificar"
 
-#: console/dialogs/dlg_configuracion.inc:478
+#: console/dialogs/dlg_configuracion.inc:482
 msgid "General"
 msgstr "General"
 
-#: console/dialogs/dlg_configuracion.inc:479
+#: console/dialogs/dlg_configuracion.inc:483
 msgid "General configuration"
 msgstr "Configuraci&oacute;n general"
 
-#: console/dialogs/dlg_configuracion.inc:480
+#: console/dialogs/dlg_configuracion.inc:484
 msgid "Default language"
 msgstr "Idioma por defecto"
 
-#: console/dialogs/dlg_configuracion.inc:482
+#: console/dialogs/dlg_configuracion.inc:486
 msgid "Choose language from browser preferences"
 msgstr "Seleccionar el idioma seg&uacute;n preferencias del navegador"
 
-#: console/dialogs/dlg_configuracion.inc:485
+#: console/dialogs/dlg_configuracion.inc:489
 msgid "Debug level"
 msgstr "Nivel de depuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:489
+#: console/dialogs/dlg_configuracion.inc:493
 msgid "Unusable syetem"
 msgstr "Sistema inutilizable"
 
-#: console/dialogs/dlg_configuracion.inc:490
+#: console/dialogs/dlg_configuracion.inc:494
 msgid "Non recoverable errors"
 msgstr "Errores no recuperables"
 
-#: console/dialogs/dlg_configuracion.inc:491
+#: console/dialogs/dlg_configuracion.inc:495
 msgid "Recoverable error"
 msgstr "Errores recuperables"
 
-#: console/dialogs/dlg_configuracion.inc:492
+#: console/dialogs/dlg_configuracion.inc:496
 msgid "Notice alerts"
 msgstr "Avisos a tener en cuenta"
 
-#: console/dialogs/dlg_configuracion.inc:493
+#: console/dialogs/dlg_configuracion.inc:497
 msgid "Informative messages"
 msgstr "Mensajes informativos"
 
-#: console/dialogs/dlg_configuracion.inc:494
+#: console/dialogs/dlg_configuracion.inc:498
 msgid "Debugging information"
 msgstr "Informaci&oacute;n de depuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:495
+#: console/dialogs/dlg_configuracion.inc:499
 msgid "Execution trace registering"
 msgstr "Trazas de ejecucion"
 
-#: console/dialogs/dlg_configuracion.inc:496
+#: console/dialogs/dlg_configuracion.inc:500
 msgid "Register everything"
 msgstr "Registrar absolutamente todo"
 
-#: console/dialogs/dlg_configuracion.inc:498
+#: console/dialogs/dlg_configuracion.inc:502
 msgid "Provide raw file copy for system events"
 msgstr "Generar fichero con registro de eventos del sistema"
 
-#: console/dialogs/dlg_configuracion.inc:502
+#: console/dialogs/dlg_configuracion.inc:506
 msgid "Printer device name to write tablet reports"
 msgstr "Nombre de la impresora de registro del tablet"
 
-#: console/dialogs/dlg_configuracion.inc:503
+#: console/dialogs/dlg_configuracion.inc:507
 msgid "Paper size"
 msgstr "Tamaño del papel"
 
-#: console/dialogs/dlg_configuracion.inc:514
+#: console/dialogs/dlg_configuracion.inc:518
 msgid "Clear event registration on tablet init session"
 msgstr "Borrar historial de eventos al iniciar sesi&oacute;n en el tablet"
 
-#: console/dialogs/dlg_configuracion.inc:518
+#: console/dialogs/dlg_configuracion.inc:522
 msgid "Include event history in backup"
 msgstr "Incluir historial de eventos en la copia de seguridad"
 
-#: console/dialogs/dlg_configuracion.inc:522
+#: console/dialogs/dlg_configuracion.inc:526
 msgid "Track login events in console"
 msgstr "Monitorizar inicios de sesi&oacute;n desde consola"
 
-#: console/dialogs/dlg_configuracion.inc:526
+#: console/dialogs/dlg_configuracion.inc:530
 msgid "Search for updates at startup"
 msgstr "Buscar actualizaciones al inicio"
 
-#: console/dialogs/dlg_configuracion.inc:528
+#: console/dialogs/dlg_configuracion.inc:532
 msgid "Application"
 msgstr "Aplicaci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:531
+#: console/dialogs/dlg_configuracion.inc:535
 #: console/dialogs/dlg_entrenamientos.inc:55
 #: lib/templates/import_dialog.inc.php:37
 msgid "Database"
 msgstr "Base de datos"
 
-#: console/dialogs/dlg_configuracion.inc:533
+#: console/dialogs/dlg_configuracion.inc:537
 msgid "Auto backup options"
 msgstr "Copia de seguridad autom&aacute;tica"
 
-#: console/dialogs/dlg_configuracion.inc:535
+#: console/dialogs/dlg_configuracion.inc:539
 msgid "Encrypt data on backup generation"
 msgstr "Cifrad datos al generar el backup"
 
-#: console/dialogs/dlg_configuracion.inc:539
+#: console/dialogs/dlg_configuracion.inc:543
 msgid "Disable auto-backup"
 msgstr "Desactivar backup autom&aacute;tico"
 
-#: console/dialogs/dlg_configuracion.inc:544
+#: console/dialogs/dlg_configuracion.inc:548
 msgid "Dangerous! Use at your own risk"
 msgstr "!Cuidado! usar con precauci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:546
+#: console/dialogs/dlg_configuracion.inc:550
 msgid "Perform database backup after "
 msgstr "Realizar copia de seguridad cada "
 
-#: console/dialogs/dlg_configuracion.inc:547
+#: console/dialogs/dlg_configuracion.inc:551
 msgid "results entered"
 msgstr "resultados introducidos"
 
-#: console/dialogs/dlg_configuracion.inc:549
+#: console/dialogs/dlg_configuracion.inc:553
 msgid "Perform database backup every"
 msgstr "Copia de seguridad peri&oacute;dica cada"
 
-#: console/dialogs/dlg_configuracion.inc:550
+#: console/dialogs/dlg_configuracion.inc:554
 msgid "minutes"
 msgstr "minutos"
 
-#: console/dialogs/dlg_configuracion.inc:552
+#: console/dialogs/dlg_configuracion.inc:556
 msgid "Folder to store user-defined backup"
 msgstr "Carpeta donde guardar backup del usuario"
 
-#: console/dialogs/dlg_configuracion.inc:553
+#: console/dialogs/dlg_configuracion.inc:557
 msgid "must exist in server"
 msgstr "debe existir en el servidor"
 
-#: console/dialogs/dlg_configuracion.inc:560
+#: console/dialogs/dlg_configuracion.inc:564
 msgid "System"
 msgstr "Sistema"
 
-#: console/dialogs/dlg_configuracion.inc:561
+#: console/dialogs/dlg_configuracion.inc:565
 msgid "Additional server information"
 msgstr "Informaci&oacute;n adicional del servidor"
 
-#: console/dialogs/dlg_configuracion.inc:562
+#: console/dialogs/dlg_configuracion.inc:566
 msgid "IP address(es)"
 msgstr "Direcci&oacute;n(es) IP"
 
-#: console/dialogs/dlg_configuracion.inc:565
+#: console/dialogs/dlg_configuracion.inc:569
 msgid "Save and Restore configuration"
 msgstr "Guardar y Recuperar configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:566
+#: console/dialogs/dlg_configuracion.inc:570
 msgid "Download configuration to file"
 msgstr "Guardar configuraci&oacute;n en fichero"
 
-#: console/dialogs/dlg_configuracion.inc:567
+#: console/dialogs/dlg_configuracion.inc:571
 #: console/dialogs/dlg_entrenamientos.inc:30 console/dialogs/dlg_tools.inc:8
 #: lib/templates/import_dialog.inc.php:13
 #: lib/templates/import_ordensalida_dialog.inc.php:13
@@ -2373,88 +2377,88 @@ msgstr "Guardar configuraci&oacute;n en fichero"
 msgid "Backup"
 msgstr "Backup"
 
-#: console/dialogs/dlg_configuracion.inc:569
+#: console/dialogs/dlg_configuracion.inc:573
 msgid "Restore configuration from file"
 msgstr "Recuperar configuraci&oacute;n desde fichero"
 
-#: console/dialogs/dlg_configuracion.inc:570
-#: console/dialogs/dlg_configuracion.inc:583
-#: console/dialogs/dlg_configuracion.inc:799 console/dialogs/dlg_tools.inc:13
+#: console/dialogs/dlg_configuracion.inc:574
+#: console/dialogs/dlg_configuracion.inc:587
+#: console/dialogs/dlg_configuracion.inc:803 console/dialogs/dlg_tools.inc:13
 #: console/dialogs/infomanga.php:426
 msgid "Restore"
 msgstr "Restaurar"
 
-#: console/dialogs/dlg_configuracion.inc:585
+#: console/dialogs/dlg_configuracion.inc:589
 msgid "Default"
 msgstr "Defecto"
 
-#: console/dialogs/dlg_configuracion.inc:620
+#: console/dialogs/dlg_configuracion.inc:624
 msgid "Enter printer name/device or leave empty to disable"
 msgstr ""
 "Nombre o Dispositivo de impresi&oacute;n <br/>Dejar vac&iacute;o para "
 "desactivar"
 
-#: console/dialogs/dlg_configuracion.inc:621
+#: console/dialogs/dlg_configuracion.inc:625
 msgid "Cancel changes. Restore information from server"
 msgstr ""
 "Anular cambios. Recuperar informaci&oacute;n de configuraci&oacute;n del "
 "servidor"
 
-#: console/dialogs/dlg_configuracion.inc:622
+#: console/dialogs/dlg_configuracion.inc:626
 msgid "Factory reset. Configure with default data"
 msgstr ""
 "Configurar aplicaci&oacute;n con los valores por defecto de f&aacute;brica."
 
-#: console/dialogs/dlg_configuracion.inc:623
+#: console/dialogs/dlg_configuracion.inc:627
 msgid "Accept changes. Save as new configuration"
 msgstr "Aceptar cambios. Guardar como nueva configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:624
+#: console/dialogs/dlg_configuracion.inc:628
 msgid "Send sample report to check printer"
 msgstr "Enviar informe de prueba para comprobar impresora"
 
-#: console/dialogs/dlg_configuracion.inc:625
+#: console/dialogs/dlg_configuracion.inc:629
 msgid "Send yourself a sample mail to check parameters"
 msgstr "Enviar un correo de prueba para probar configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:626
+#: console/dialogs/dlg_configuracion.inc:630
 msgid "Test backup into user provided directory"
 msgstr "Comprobar si se genera backup en carpeta de usuario"
 
-#: console/dialogs/dlg_configuracion.inc:636
+#: console/dialogs/dlg_configuracion.inc:640
 msgid "User / Password"
 msgstr "Usuario / Contraseña"
 
-#: console/dialogs/dlg_configuracion.inc:638
+#: console/dialogs/dlg_configuracion.inc:642
 msgid "NTLM"
 msgstr "NTLM"
 
-#: console/dialogs/dlg_configuracion.inc:640
+#: console/dialogs/dlg_configuracion.inc:644
 msgid "CRAM-MD5"
 msgstr "CRAM-MD5"
 
-#: console/dialogs/dlg_configuracion.inc:662
+#: console/dialogs/dlg_configuracion.inc:666
 msgid "New configuration successfully saved"
 msgstr "Nueva configuraci&oacute;n guardada correctamente"
 
-#: console/dialogs/dlg_configuracion.inc:663
-#: console/dialogs/dlg_configuracion.inc:746
-#: console/dialogs/dlg_configuracion.inc:801
+#: console/dialogs/dlg_configuracion.inc:667
+#: console/dialogs/dlg_configuracion.inc:750
+#: console/dialogs/dlg_configuracion.inc:805
 msgid "You should close session and reload page"
 msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
 
-#: console/dialogs/dlg_configuracion.inc:664
-#: console/dialogs/dlg_configuracion.inc:747
-#: console/dialogs/dlg_configuracion.inc:802
+#: console/dialogs/dlg_configuracion.inc:668
+#: console/dialogs/dlg_configuracion.inc:751
+#: console/dialogs/dlg_configuracion.inc:806
 msgid "for changes to become active"
 msgstr "para que los cambios se activen"
 
-#: console/dialogs/dlg_configuracion.inc:680 scripts/pruebas.js.php:275
+#: console/dialogs/dlg_configuracion.inc:684 scripts/pruebas.js.php:275
 #: scripts/results_and_scores.js.php:84
 msgid "Mail services"
 msgstr "Servicios de correo"
 
-#: console/dialogs/dlg_configuracion.inc:681 scripts/pruebas.js.php:276
+#: console/dialogs/dlg_configuracion.inc:685 scripts/pruebas.js.php:276
 #: scripts/results_and_scores.js.php:85
 msgid ""
 "Electronic mail operations<br/>are not allowed for unregistered licenses"
@@ -2462,68 +2466,68 @@ msgstr ""
 "No se permiten operaciones de correo electr&oacute;nico <br/> sin licencia "
 "registrada"
 
-#: console/dialogs/dlg_configuracion.inc:697
+#: console/dialogs/dlg_configuracion.inc:701
 msgid "Mail Check"
 msgstr "Verificar Correo"
 
-#: console/dialogs/dlg_configuracion.inc:698
+#: console/dialogs/dlg_configuracion.inc:702
 msgid "Mail has been successfully sent to address: "
 msgstr "Se ha enviado un correo a la direcci&oacute;n: "
 
-#: console/dialogs/dlg_configuracion.inc:699
+#: console/dialogs/dlg_configuracion.inc:703
 msgid "Please check email inbox for received mail"
 msgstr "Por favor compruebe el buz&oacute;n de entrada"
 
-#: console/dialogs/dlg_configuracion.inc:725
+#: console/dialogs/dlg_configuracion.inc:729
 msgid "A test page has been sent to event recording printer"
 msgstr "Se ha enviado una pagina de prueba a la impresora de registro"
 
-#: console/dialogs/dlg_configuracion.inc:726
+#: console/dialogs/dlg_configuracion.inc:730
 msgid "Please check for proper output"
 msgstr "Compruebe que la impresi&oacute;n es correcta"
 
-#: console/dialogs/dlg_configuracion.inc:727
+#: console/dialogs/dlg_configuracion.inc:731
 msgid "Remember to save changes before exiting"
 msgstr "Recuerde guardar los cambios antes de salir del men&uacute;"
 
-#: console/dialogs/dlg_configuracion.inc:741
+#: console/dialogs/dlg_configuracion.inc:745
 msgid "Restore factory default values. Sure?"
 msgstr "Restaurar valores por defecto. ¿Seguro?"
 
-#: console/dialogs/dlg_configuracion.inc:744
+#: console/dialogs/dlg_configuracion.inc:748
 msgid "Factory reset"
 msgstr "Reset de f&aacute;brica"
 
-#: console/dialogs/dlg_configuracion.inc:745
+#: console/dialogs/dlg_configuracion.inc:749
 msgid "Restored default configuration options"
 msgstr "Recuperada configuraci&oacute;n por defecto"
 
-#: console/dialogs/dlg_configuracion.inc:772
+#: console/dialogs/dlg_configuracion.inc:776
 msgid "Downloading configuration, please wait"
 msgstr "Descargando fichero de configuraci&oacute;n. Espere"
 
-#: console/dialogs/dlg_configuracion.inc:773
+#: console/dialogs/dlg_configuracion.inc:777
 msgid "There was a problem in configuration download. Please try again"
 msgstr ""
 "Hubo un problema en la descarga de la configuraci&oacute;n. Pruebe de nuevo"
 
-#: console/dialogs/dlg_configuracion.inc:785
+#: console/dialogs/dlg_configuracion.inc:789
 msgid "No config file selected"
 msgstr "No se ha indicado ning&uacute;n fichero"
 
-#: console/dialogs/dlg_configuracion.inc:796
+#: console/dialogs/dlg_configuracion.inc:800
 msgid "Restore configuration from file error"
 msgstr "Error al restaurar configuraci&oacute;n desde fichero"
 
-#: console/dialogs/dlg_configuracion.inc:800
+#: console/dialogs/dlg_configuracion.inc:804
 msgid "Configuration file successfully restored"
 msgstr "Configuraci&oacute;n restaurada correctamente"
 
-#: console/dialogs/dlg_configuracion.inc:831
+#: console/dialogs/dlg_configuracion.inc:835
 msgid "Legal notice"
 msgstr "Aviso legal"
 
-#: console/dialogs/dlg_configuracion.inc:832
+#: console/dialogs/dlg_configuracion.inc:836
 msgid ""
 "Before accept, please read and accept legal <a target=\"lopd\" href=\"http://"
 "www.agilitycontest.es/lopd.html\">terms and conditions</a> on data sharing"
@@ -2725,7 +2729,7 @@ msgstr "Actualizando sesi&oacute;n de entrenamientos de la prueba"
 #: server/pdf/classes/PrintClasificacionGeneral.php:176
 #: server/pdf/classes/PrintClasificacionTeam.php:122
 #: server/pdf/classes/PrintEntrenamientos.php:61
-#: server/pdf/classes/PrintTRSTemplates.php:79 server/pdf/print_common.php:440
+#: server/pdf/classes/PrintTRSTemplates.php:79 server/pdf/print_common.php:454
 msgid "Date"
 msgstr "Fecha"
 
@@ -8937,27 +8941,27 @@ msgstr "Esperando informaci&oacute;n del proceso..."
 msgid "Root"
 msgstr "Root"
 
-#: server/auth/AuthManager.php:391
+#: server/auth/AuthManager.php:397
 msgid "Expired"
 msgstr "Expirada"
 
-#: server/auth/AuthManager.php:392
+#: server/auth/AuthManager.php:398
 msgid "Cancelled"
 msgstr "Cancelada"
 
-#: server/auth/AuthManager.php:544
+#: server/auth/AuthManager.php:550
 msgid "A valid Digital Certificate is required"
 msgstr "Se requiere un Certificado Digital valido"
 
-#: server/auth/AuthManager.php:548
+#: server/auth/AuthManager.php:554
 msgid "Your provided certificate is not in access control list"
 msgstr "El certificado no esta en la lista de control de acceso"
 
-#: server/auth/AuthManager.php:786
+#: server/auth/AuthManager.php:792
 msgid "Insufficient credentials"
 msgstr "Permisos insuficientes"
 
-#: server/auth/AuthManager.php:786
+#: server/auth/AuthManager.php:792
 msgid "Required level is"
 msgstr "El nivel requerido es"
 
@@ -10342,11 +10346,11 @@ msgstr "Gobal equipo"
 msgid "SCT / MCT data form"
 msgstr "Datos de TRS y TRM"
 
-#: server/pdf/print_common.php:442
+#: server/pdf/print_common.php:456
 msgid "Page"
 msgstr "P&aacute;gina"
 
-#: server/pdf/print_common.php:446
+#: server/pdf/print_common.php:460
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
 

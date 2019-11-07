@@ -178,7 +178,7 @@ class PrintResultadosKO extends PrintCommon {
 			$this->Cell($this->pos[2],5,$nombre,			$border,	0,		$this->align[2],	true);
 			$this->SetFont($this->getFontName(),'',7); // set data font size
 			if ($this->pos[3]!=0) $this->Cell($this->pos[3],5,$row['Licencia'],$border,0,	$this->align[3],true);
-			$this->Cell($this->pos[4],5,$row['NombreGuia'],		$border,	0,		$this->align[4],	true);
+			$this->Cell($this->pos[4],5,$this->getHandlerName($row),		$border,	0,		$this->align[4],	true);
 			$this->Cell($this->pos[5],5,$row['NombreClub'],		$border,	0,		$this->align[5],	true);
 			if ($this->hasGrades) {
                 $cat=$this->federation->getCategoryShort($row['Categoria']);

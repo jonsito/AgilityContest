@@ -253,6 +253,20 @@ class PrintCommon extends FPDF {
 	}
 
 	/**
+	 * Add ( or not ) handler category to handler's name according configuration
+	 * probably need some improvements (i18n and so), but ok for now
+	 * @param $row
+	 */
+	function getHandlerName($row) {
+		$ch=$this->config->getEnv('pdf_cathandlers');
+		if ($ch==0)  return $row['NombreGuia'];
+		if (!array_key_exists('CatGuia',$row)) return $row['NombreGuia'];
+		if ($row['CatGuia']=='A') return $row['NombreGuia'];
+		if ($row['CatGuia']=='-') return $row['NombreGuia']; // categoria sin asignar
+		return "{$row['NombreGuia']} ({$row['CatGuia']})";
+	}
+
+	/**
 	 * Set icons properly according competition
 	 * @param $fedobj Federation object
 	 * @param $jobj Jornada Object

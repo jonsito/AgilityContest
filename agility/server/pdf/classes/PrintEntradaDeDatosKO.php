@@ -166,7 +166,7 @@ class PrintEntradaDeDatosKO extends PrintCommon {
             $this->Cell(20,4,$row['Licencia'],		'',0,'R',false);
             $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
         }
-        $this->Cell(50,4,$row['NombreGuia'],	'',0,'R',false);
+        $this->Cell(50,4,$this->getHandlerName($row),	'',0,'R',false);
         $this->Cell(40,4,$row['NombreClub'],	'',0,'R',false);
 
         // titulos cabecera de celda

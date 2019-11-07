@@ -146,7 +146,7 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
             $this->SetFont($this->getFontName(),'',7);
             $this->Cell(15,4,$this->getCatString($perro['Categoria']),'LTBR',0,'C',true);
             $this->SetFont($this->getFontName(),'',7);
-            $this->Cell(27,4,$perro['NombreGuia'],'LTBR',0,'R',true);
+            $this->Cell(27,4,$this->getHandlerName($perro),'LTBR',0,'R',true);
             $this->SetFont($this->getFontName(),'',7);
             $this->Cell(20,4,$perro['NombreClub'],'LTBR',0,'R',true);
             $this->Ln(4);

@@ -201,7 +201,7 @@ class PrintHallOfFame extends PrintCommon {
                 $this->SetFont($this->getFontName(),'B',10);
                 $this->Cell(15,7.5,$items[$n]['Nombre'],'L',0,'L',false);
                 $this->SetFont($this->getFontName(),'',9);
-                $this->Cell(25,7.5,$items[$n]['NombreGuia'],'C',0,'L',false);
+                $this->Cell(25,7.5,$this->getHandlerName($items[$n]),'C',0,'L',false);
                 $this->Cell(20,7.5,$items[$n]['NombreClub'],'R',0,'R',false);
                 $this->Cell(10,7.5,$tiempo,'R',0,'R',false);
                 $this->Cell(10,7.5,$penal,'R',0,'R',false);
@@ -226,7 +226,7 @@ class PrintHallOfFame extends PrintCommon {
                 $this->SetFont($this->getFontName(),'B',7);
                 $this->Cell(11,5.5,$items[$n]['Nombre'],'L',0,'L',false);
                 $this->SetFont($this->getFontName(),'',7);
-                $this->Cell(20,5.5,$items[$n]['NombreGuia'],'C',0,'L',false);
+                $this->Cell(20,5.5,$this->getHandlerName($items[$n]),'C',0,'L',false);
                 $this->Cell(14,5.5,$items[$n]['NombreClub'],'R',0,'R',false);
                 $this->Cell(9,5.5,$tiempo,'R',0,'R',false);
                 $this->Cell(9,5.5,$penal,'R',0,'R',false);

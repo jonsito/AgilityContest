@@ -106,7 +106,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
         $this->SetXY($left,$y6+0.5);
         $this->Cell(23,4,$row['Nombre'],'L',0,'L',false);
         $this->SetXY($left,$y9);
-        $this->Cell(23,4,$row['NombreGuia'],'L',0,'L',false);
+        $this->Cell(23,4,$this->getHandlerName($row),'L',0,'L',false);
         $this->SetXY($left,$y12);
         $this->Cell(23,4,$row['NombreClub'],'L',0,'L',false);
 

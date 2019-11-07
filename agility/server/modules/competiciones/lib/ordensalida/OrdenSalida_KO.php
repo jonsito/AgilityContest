@@ -97,7 +97,7 @@ class OrdenSalida_KO extends OrdenSalida {
 		if (!$rs) $rs= $this->__select(
 			"resultados.*,equipos.Nombre AS NombreEquipo,
 			perroguiaclub.NombreLargo AS NombreLargo,perroguiaclub.LogoClub AS LogoClub,
-			perroguiaclub.Pais,perroguiaclub.Genero,perroguiaclub.LOE_RRC AS LOE_RRC,
+			perroguiaclub.Pais,perroguiaclub.Genero,perroguiaclub.CatGuia,perroguiaclub.LOE_RRC AS LOE_RRC,
 			inscripciones.Observaciones AS Observaciones, 1 AS PerrosPorGuia",
 			"resultados,equipos,perroguiaclub,inscripciones",
 			// solo se cogen los perros clasificados para dicha ronda, esto es con campo Games!=0

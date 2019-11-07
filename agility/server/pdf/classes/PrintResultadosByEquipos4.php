@@ -160,7 +160,7 @@ class PrintResultadosByEquipos4 extends PrintCommon {
             $this->SetFont($this->getFontName(),'B',8);
             $this->Cell(13,3,$perro['Nombre'],'LTBR',0,'C',true);
             $this->SetFont($this->getFontName(),'',7);
-            $this->Cell(28,3,$perro['NombreGuia'],'LTBR',0,'R',true);
+            $this->Cell(28,3,$this->getHandlerName($row),'LTBR',0,'R',true);
             $this->Ln(3);
             // sumamos faltas, tocados y rehuses
             $team['Faltas']+=$perro['Faltas'];

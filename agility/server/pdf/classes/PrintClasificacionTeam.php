@@ -350,7 +350,7 @@ class PrintClasificacionTeam extends PrintCommon {
             }
 			$this->SetFont($this->getFontName(),'',8); // default font
 			$this->Cell(8,4,"{$row['Categoria']}",0,0,'C',true);	// categoria/grado
-			$this->Cell(30,4,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
+			$this->Cell(30,4,$this->getHandlerName($row),0,0,'R',true);	// nombreGuia
 			$this->Cell(16,4,$row['NombreClub'],0,0,'R',true);	// nombreClub
 			// manga 1
 			if ($this->manga1!==null) {

@@ -308,7 +308,7 @@ class PrintClasificacionGeneral extends PrintCommon {
 		} else {
 			$this->Cell(10,6,"{$cat}",0,0,'C',true);	// solo categoria (Individual-Open/Teams/KO)
 		}
-		$this->Cell(35,6,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
+		$this->Cell(35,6,$this->getHandlerName($row),0,0,'R',true);	// nombreGuia
 		$this->Cell(20,6,$row['NombreClub'],0,0,'R',true);	// nombreClub
 
         // manga 1

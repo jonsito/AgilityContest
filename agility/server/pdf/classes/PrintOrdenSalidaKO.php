@@ -198,7 +198,7 @@ class PrintOrdenSalidaKO extends PrintCommon {
             if ($this->pos[4]!=0) $this->Cell($this->pos[4],5,$row['Licencia'],	$border,0,$this->align[4],true);
             $this->Cell($this->pos[5],5,$row['Raza'],		$border,0,$this->align[5],true);
             $this->Cell($this->pos[6],5,$row['Genero'],		$border,0,$this->align[6],true);
-			$this->Cell($this->pos[7],5,$row['NombreGuia'],	$border,0,$this->align[7],true);
+			$this->Cell($this->pos[7],5,$this->getHandlerName($row),	$border,0,$this->align[7],true);
             if (! $this->federation->isInternational()) {
                 $this->Cell($this->pos[8],5,$row['NombreClub'],	$border,0,$this->align[8],true);
             }

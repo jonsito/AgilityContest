@@ -73,7 +73,7 @@ class PrintOrdenSalida extends PrintCommon {
          //                0            1       2         3        4           5           6           7              8          9
                 array(_('Order'),_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Gender'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
         //                  orden    dorsal  nombre    licencia raza Genero     guia club   celo   observaciones
-        $this->pos	=array(  12,      10,     25,        15,      22,    10,      38,   24,     9,    25);
+        $this->pos	=array(  12,      10,     25,        15,      22,    10,      43,   24,     9,    20);
         $this->align=array(  'R',    'R',    'L',        'C',     'R',   'C',     'R',  'R',    'C',   'R');
         // obtenemos los datos de equipos de la jornada indexados por el ID del equipo
 		$eq=new Equipos("print_ordenDeSalida",$data['prueba'],$data['jornada']);
@@ -231,7 +231,7 @@ class PrintOrdenSalida extends PrintCommon {
             if ($this->pos[3]!=0) $this->Cell($this->pos[3],6,$row['Licencia'],	'LR',0,$this->align[3],true);
             $this->Cell($this->pos[4],6,$row['Raza'],		'LR',0,$this->align[4],true);
             $this->Cell($this->pos[5],6,$row['Genero'],		'LR',0,$this->align[5],true);
-			$this->Cell($this->pos[6],6,$row['NombreGuia'],	'LR',0,$this->align[6],true);
+			$this->Cell($this->pos[6],6,$this->getHandlerName($row),	'LR',0,$this->align[6],true);
             if (! $this->federation->isInternational()) {
                 $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
             }
