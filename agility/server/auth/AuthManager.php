@@ -79,11 +79,41 @@ class AuthManager {
 	//Block size for decryption block cipher
 	private $DECRYPT_BLOCK_SIZE = 1024;// this again for 8192 bit key
 
+	private static $default_license = array (
+		"status"=>"ok",
+		"serial"=>"00000000",
+		"date"=>"20150309",
+		"options"=>"0000000000000000",
+		"version"=>"1.1.1",
+		"revision"=>"20150309_1500",
+		"expires"=>"20991231",
+		"name"=>"(copia no registrada)",
+		"email"=>"(copia no registrada)",
+		"club"=>"(copia no registrada)",
+		"info"=>"",
+		"comments"=>"",
+		"extra" => "",
+		"extra2" => "",
+		"image"=>"null.png"
+	);
+
 	// due to a bug in php-5.5 (solved in php-5.6 )
 	// we cannot concatenate strings in class properties
 	// So must construct this by hand
+
+	public function getDL() {
+		return
+			"eyJhY3RpdmF0aW9ua2V5IjoiRDBYNy01RWlQLTNzMWYtT0lXSy1qVHc3Iiwic3RhdHVzIjoib2si".
+			"LCJzZXJpYWwiOiIwMDAwMDAwMCIsImRhdGUiOiIyMDE1MDMwOSIsIm9wdGlvbnMiOiIwMDAwMDAw".
+			"MDAwMDAwMDAwIiwidmVyc2lvbiI6IjEuMS4xIiwicmV2aXNpb24iOiIyMDE1MDMwOV8xNTAwIiwi".
+			"ZXhwaXJlcyI6IjIwMTkxMjMxIiwibmFtZSI6Iihjb3BpYSBubyByZWdpc3RyYWRhKSIsImVtYWls".
+			"IjoiKGNvcGlhIG5vIHJlZ2lzdHJhZGEpIiwiY2x1YiI6Iihjb3BpYSBubyByZWdpc3RyYWRhKSIs".
+			"ImluZm8iOiIiLCJjb21tZW50cyI6IiIsImV4dHJhIjoiIiwiZXh0cmEyIjoiIiwiaW1hZ2UiOiIi".
+			"fQo=";
+	}
+
 	private function getPK() {
-		$str=
+		return
 			"MIIEIjANBgkqhkiG9w0BAQEFAAOCBA8AMIIECgKCBAEAzgeD27TXHKde3iNMtQSq\n".
 			"yAFoeZYVOoPPjGQkFcNamxfGR8rFmgvGrJn28u2bq1dVnIduF9Lj4sPMt9cs/rT+\n".
 			"IOnFD3uACZbqku+e39gyrKyu7aZ2t+XTR4IUFKhGYuwr1TRmb/46iXJF7V7ZU9ci\n".
@@ -107,7 +137,6 @@ class AuthManager {
 			"qwCr9Xj8P28JFYziX0aic/0O7Q5Hkp39I7PikB4EJB73NUaYd/UK8EJ1c5zSz2tI\n".
 			"LHN0iN/VSKutDHrfZ0om7krDSEyY6TZ/rVDewnFQmbIiIORgig7mjH0EXBUiXBJF\n".
 			"VQIDAQAB\n";
-		return $str;
 	}
 
 	private function retrieveBlackListFromServer() {
@@ -119,7 +148,7 @@ class AuthManager {
         $url = "https://{$server}/{$baseurl}/ajax/serverRequest.php";
         $data = array(
         	'Operation'=> 'retrieveBlackList',
-            'Serial' => $this->registrationInfo['serial'],
+            'Serial' => $this->getRegistrationInfo()['Serial'],
             'timestamp' => date("Ymd_Hi"),
             'Revision' => $this->myConfig->getEnv("version_date"),
             'Data' => array()
@@ -309,6 +338,11 @@ class AuthManager {
         return $data;
     }
 
+	/**
+	 * Lee fichero de licencia/blacklist
+	 * @param string $file file name
+	 * @return array|mixed|null
+	 */
 	function checkRegistrationInfo( $file = AC_REGINFO_FILE ) {
         $fp=fopen ($file,"rb");
 		$data=""; while (!feof($fp)) { $data .= fread($fp, 8192); };
@@ -348,27 +382,20 @@ class AuthManager {
 	 * @return string|null Base64 encoded logo, or null on error/notfound
 	 */
     function getLicenseLogo() {
-		// singleton retrieve registration data
-		if ($this->registrationInfo===null) {
-			$this->registrationInfo=$this->checkRegistrationInfo();
-		}
-		// no license information: return null
-		if ($this->registrationInfo===null) {
-			$this->myLogger->error("No License information available");
+    	$this->getRegistrationInfo(); // make sure that registrationInfo has data
+		// notice that getRegistrationInfo does not return image data,
+		// so need to direct access to $this->registrationInfo to retrieve valid info
+		if (!array_key_exists("image",$this->registrationInfo)) {
+			// no image tag in license information: return null
+			$this->myLogger->notice("License information does not include logo tag");
 			return null;
 		}
-		$data=array();
-		foreach ($this->registrationInfo as $key => $value) {
-			if ($key!=="image") continue; //
-			if ($value=="")  {
-				$this->myLogger->notice("License logo is empty");
-				return null;
-			}
-			return $value;
+		$logo=$this->registrationInfo['image'];
+		if ($logo=="") {
+			$this->myLogger->notice("License logo is empty");
+			return null;
 		}
-		// no image tag in license information: return null
-		$this->myLogger->notice("License information does not include logo tag");
-		return null;
+		return $logo;
 	}
 
 	/**
@@ -379,8 +406,12 @@ class AuthManager {
 		// singleton retrieve registration data
 		if ($this->registrationInfo===null) {
 			$this->registrationInfo=$this->checkRegistrationInfo();
+			// if no result, use defaults
+			if ($this->registrationInfo===null) {
+				$this->myLogger->warn("Cannot retrieve license information. Using defaults");
+				$this->registrationInfo=json_decode(base64_decode($this->getDL()),true);
+			}
 		}
-		if ($this->registrationInfo===null) return null;
 		// now parse information and fix what's is to be exposed
 		$data=array();
 		foreach ($this->registrationInfo as $key => $value) {
@@ -415,13 +446,9 @@ class AuthManager {
 	}
 
 	function isDefaultLicense(){
-        // singleton retrieve registration data
-        if ($this->registrationInfo===null) {
-            $this->registrationInfo=$this->checkRegistrationInfo();
-        }
-        if ($this->registrationInfo===null) return false;
-        // raw registration info comes in lowercase.
-        return ($this->registrationInfo['serial']==="00000000")?true:false;
+		$data=$this->getRegistrationInfo();
+		if ($data==null) return false;
+		return ($data['Serial']==="00000000")?true:false;
 	}
 
 	function registerApp() {
@@ -461,7 +488,7 @@ class AuthManager {
 		fwrite($fd,$regdata);
 		fclose($fd);
 		// comprobamos que el fichero temporal contiene datos de registro validos
-		$info=$this->checkRegistrationInfo($tmpname); // notice: check(), not get()
+		$info=$this->checkRegistrationInfo($tmpname); // NOTICE: check(), not get()
 		if (!$info) return array("errorMsg" => "registerApp(); Invalid registration data");
 		umask(002);
 		// ok: fichero de registro correcto. copiamos a su ubicacion final
