@@ -122,6 +122,11 @@ function acceptLogin() {
        			var str="AgilityContest version: "+vers+"<br />";
        			str =str+'<?php _e("License registered by");?>'+": "+data.User+"<br />";
        			str =str+'<?php _e("For use at club");?>'+": "+data.Club+"<br />";
+                if(data.Comments==="Default License") {
+                    var msg ='<?php _e("License not found or license parsing error");?><br/>';
+                    msg =msg+ '<?php _e("Using default (unregistered license) values");?>';
+                    $.messager.show({width:325, height:150, title:'<?php _e('Error'); ?>',msg:msg,timeout:5000});
+                }
 				if (data.Expired==="1")  {
 					str = str+'<br/><strong><span class="blink">'+'<?php _e("License expired");?>'+'</span></strong>';
 				}

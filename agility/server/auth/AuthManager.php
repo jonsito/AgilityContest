@@ -344,7 +344,11 @@ class AuthManager {
 	 * @return array|mixed|null
 	 */
 	function checkRegistrationInfo( $file = AC_REGINFO_FILE ) {
-        $fp=fopen ($file,"rb");
+        $fp=@fopen ($file,"rb");
+        if (!$fp) {
+            $this->myLogger->error("Cannot get/read Registration info file:{$file}");
+            return null;
+        }
 		$data=""; while (!feof($fp)) { $data .= fread($fp, 8192); };
         @fclose($fp);
 		$uniqueID=base64_decode($this->myConfig->getEnv('uniqueID'),true);
@@ -410,6 +414,8 @@ class AuthManager {
 			if ($this->registrationInfo===null) {
 				$this->myLogger->warn("Cannot retrieve license information. Using defaults");
 				$this->registrationInfo=json_decode(base64_decode($this->getDL()),true);
+				// and mark data as "defaulted"
+                $this->registrationInfo['comments']="Default License";
 			}
 		}
 		// now parse information and fix what's is to be exposed
