@@ -120,6 +120,16 @@ if [ -d ${DROPBOX} ]; then
     done
     cp ${BASE_DIR}/README* ${BUILD_DIR}/docs
 fi
+# download available documentation from website
+mkdir -p ${BUILD_DIR}/logs/downloads
+cd ${BUILD_DIR}/logs/downloads
+wget -nv -O- https://www.agilitycontest.es/downloads/ |\
+    grep -e 'href="ac.*\.pdf' |\
+    sed -e 's/^.*href="//g' -e 's/\.pdf.*/.pdf/g' |\
+    while read x; do
+        sleep $(($RANDOM % 5 + 5))  ## to appear gentle and polite
+        wget -nv "https://www.agilitycontest.es/downloads/$x"
+    done
 
 # fix version and revision number in system.ini
 sed -i '/version_name/d' ${BUILD_DIR}/config/system.ini
