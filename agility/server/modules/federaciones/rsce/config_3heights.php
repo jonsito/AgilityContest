@@ -16,18 +16,17 @@ class RSCE extends Federations {
             'WebURL' => 'http://www.rsce.es/',
             'ParentWebURL' => 'http://www.fci.org/',
             'Email' => 'agility@rsce.es',
-            'Heights' => 5,
+            'Heights' => 3,
             'Grades' => 3,
             'Games' => 0,
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
-            'RoundsG1' => 3, // on rfec may be 3
+            'RoundsG1' => 2, // on rfec may be 3
             'Recorridos' => array(
                 _('Common course'),
-                _('XL+L / M+S+XS'),
+                _('Standard / Midi + Mini'),
                 _('Separate courses'),
-                _('XL+L / M / S+XS')
-            ),
+                "Invalid"),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 // 'Jr' => 'Jr.',
@@ -51,148 +50,149 @@ class RSCE extends Federations {
             'ListaCategoriasShort' => array (
                 '-' => '-',
                 'X' => 'XL',
-                'L' => 'Lrg',
-                'M' => 'Med',
-                'S' => 'Sml',
-                'T' => 'XS'
+                'L' => 'Std',
+                'M' => 'Midi',
+                'S' => 'Mini',
+                'T' => 'Toy'
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',
                 'X' => 'Extra Large',
-                'L' => 'Large',
-                'M' => 'Medium',
-                'S' => 'Small',
-                'T' => 'Extra Small'
+                'L' => 'Standard',
+                'M' => 'Midi',
+                'S' => 'Mini',
+                'T' => 'Toy'
             ),
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
-                'I' => 'Infantil',
+                // 'I' => 'Infantil',
                 'J' => 'Junior',
                 'A' => 'Adulto',
                 'S' => 'Senior',
                 'R' => 'Retirado',
-                'P' => 'Para-Agility',
+                // 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('L' => 'Large',   'M' => 'Medium',      'S' => 'Small',       'T' => 'XSmall',    'X' => 'XLarge'), // separate courses
-                array('L' => '',        'M' => 'Med+Sml+XSml','S' => '',            'T' => '',          'X' => 'XLarge+Large'), // mixed 2 courses
-                array('L' => '',        'M' => '',            'S' => '',            'T' => '',          'X' => 'XL+L+M+S+XS'), // common
-                array('L' => '',        'M' => 'Medium',      'S' => 'Small+XSmall','T' => '',          'X' => 'XLarge+Large') // mixed 3 courses
+                array('L' => _('Standard'), 'M' => _('Midi'),        'S' => _('Mini'),  'T' => '', 'X' => ''), // separate courses
+                array('L' => _('Standard'), 'M' => _('Midi+Mini'),   'S' => '',         'T' => '', 'X' => ''), // mixed courses
+                array('L' => _('Std+Midi+Mini'), 'M' => '',          'S' => '',         'T' => '', 'X' => ''), // common
+                array('L' => '',            'M' => '',               'S' => '',         'T' => '', 'X' => '') // common
             ),
             'Modes' => array(
-                //  categorias            L   M   S   T   X
-                array(/* 0: separado */   0,  1,  2,  5,  9 ),
-                array(/* 1: 2 groups */  10, 11, 11, 11, 10 ),
-                array(/* 2: conjunto */  12, 12, 12, 12, 12 ), // pre-agility is declared as -XLMST
-                array(/* 3: 3 grupos */  10,  1,  7,  7, 10 )
+                // categorias        L  M  S   T   X
+                array(/* separado */ 0, 1, 2, -1, -1),
+                array(/* 2 grupos */ 0, 3, 3, -1, -1),
+                array(/* conjunto */ 4, 4, 4, -1, 4 ), // pre-agility is -XLMST in tandas cat assignment
+                array(/* 3 grupos */-1,-1,-1, -1, -1 ) // invalid en rsce
             ),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado */ "Large", "Medium", "Small", "XSmall","XLarge"),
-                array(/* mixto */    "XLarge+Large", "Med+Small+XSmall", "Med+Small+XSmall", "Med+Small+XSmall","XLarge+Large"),
-                array(/* conjunto */ "Conjunta", "Conjunta", "Conjunta", "Conjunta","Conjunta"),
-                array(/* conjunto */ "XLarge+Large", "Medium", "Small+XSmall", "Small+XSmall","XLarge+Large")
+                array(/* separado */ "Standard", "Midi", "Mini", "Invalid","Invalid"),
+                array(/* mixto */ "Standard", "Midi+Mini", "Midi+Mini", "Invalid","Invalid"),
+                array(/* conjunto */ "Conjunta", "Conjunta", "Conjunta", "Invalid","Invalid"),
+                array(/* conjunto */ "Invalid", "Invalid", "Invalid", "Invalid","Invalid")
             ),
             'IndexedModes' => array (
-                /* 0 - L    */ "Large",
-                /* 1 - M    */ "Medium",
-                /* 2 - S    */ "Small",
-                /* 3 - MS   */ "Medium+Small",
-                /* 4 - LMS  */ "Conjunta L/M/S",
-                /* 5 - T    */ "XSmall",
-                /* 6 - LM   */ "Large+Medium",
-                /* 7 - ST   */ "Small+XSmall",
-                /* 8 - LMST */ "Conjunta L/M/S/XS",
-                /* 9 - X    */ "Extra Large",
-                /*10 - XL   */ "Extra Large + Large",
-                /*11 - MST  */ "Med+Small + XSmall",
-                /*12 - XLMST*/ "Conjunta XL/L/M/S/XS"
+                "Standard",
+                "Midi",
+                "Mini",
+                "Midi+Mini",
+                "Conjunta L/M/S",
+                "Tiny",
+                "Standard+Midi",
+                "Mini+Tiny",
+                "Conjunta L/M/S/T",
+                "Extra Large",
+                "Large + XL",
+                "Med+Small+Tiny",
+                "Common X/L/M/S/T"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
-                "L"=>"Large",
-                "M"=>"Medium",
-                "S"=>"Small",
-                "T"=>"XSmall",
-                "LM"=>"Large/Medium",
-                "ST"=>"Small/XSmall",
-                "MS"=>"Medium/Small",
+                "L"=>"Standard",
+                "M"=>"Midi",
+                "S"=>"Mini",
+                "T"=>"Tiny", // invalid
+                "LM"=>"Standard/Midi", // invalid
+                "ST"=>"Mini/Tiny", // invalid
+                "MS"=>"Midi/Mini",
                 "LMS" => 'Conjunta LMS',
                 "-LMS" => 'Conjunta LMS',
-                "LMST" => 'Conjunta LMST',
-                "-LMST" => 'Conjunta LMST',
-                "X" => 'XLarge',
-                "XL" => 'XLarge/Large',
-                "MST" => 'Medium/Small/XSmall',
-                "XLMST" => 'XL/L/M/S/XS',
-                "-XLMST" => 'XL/L/M/S/XS'
+                "LMST" => 'Conjunta LMST', // invalid
+                "-LMST" => 'Conjunta LMST', // invalid
+                "X" => '',
+                "XL" => '',
+                "MST" => '',
+                "XLMST" => '',
+                "-XLMST"
             ),
             'NombreTandas' => array(
                 0	=> '-- Sin especificar --',
                 1	=> 'Pre-Agility 1',
                 2	=> 'Pre-Agility 2',
-                3	=> 'Agility-1 GI Large',
-                4	=> 'Agility-1 GI Medium',
-                5	=> 'Agility-1 GI Small',
-                6	=> 'Jumping GI Large',
-                7	=> 'Jumping GI Medium',
-                8	=> 'Jumping GI Small',
-                9	=> 'Agility GII Large',
-                10	=> 'Agility GII Medium',
-                11	=> 'Agility GII Small',
-                12	=> 'Agility GIII Large',
-                13	=> 'Agility GIII Medium',
-                14	=> 'Agility GIII Small',
-                15	=> 'Agility Large', //  Individual-Open
-                16	=> 'Agility Medium',	//  Individual-Open
-                17	=> 'Agility Small', //  Individual-Open
-                18	=> 'Agility Equipos Large', // team best
-                19	=> 'Agility Equipos Medium',// team best
-                20	=> 'Agility Equipos Small',	 // team best
+                3	=> 'Agility-1 GI Standard',
+                4	=> 'Agility-1 GI Midi',
+                5	=> 'Agility-1 GI Mini',
+                6	=> 'Agility-2 GI Standard',
+                7	=> 'Agility-2 GI Midi',
+                8	=> 'Agility-2 GI Mini',
+                9	=> 'Agility GII Standard',
+                10	=> 'Agility GII Midi',
+                11	=> 'Agility GII Mini',
+                12	=> 'Agility GIII Standard',
+                13	=> 'Agility GIII Midi',
+                14	=> 'Agility GIII Mini',
+                15	=> 'Agility Standard', //  Individual-Open
+                16	=> 'Agility Midi',	//  Individual-Open
+                17	=> 'Agility Mini', //  Individual-Open
+                18	=> 'Agility Equipos Std', // team best
+                19	=> 'Agility Equipos Midi',// team best
+                20	=> 'Agility Equipos Mini',	 // team best
                 // en jornadas por equipos conjunta tres alturas se mezclan categorias M y S
-                21	=> 'Ag. Equipos XL / L',// team combined
-                22	=> 'Ag. Equipos M / S / XS', // team combined
-                23	=> 'Jumping GII Large',
-                24	=> 'Jumping GII Medium',
-                25	=> 'Jumping GII Small',
-                26	=> 'Jumping GIII Large',
-                27	=> 'Jumping GIII Medium',
-                28	=> 'Jumping GIII Small',
-                29	=> 'Jumping Large',//  Individual-Open
-                30	=> 'Jumping Medium',	//  Individual-Open
-                31	=> 'Jumping Small', //  Individual-Open
-                32	=> 'Jumping Equipos Large',	// team best
-                33	=> 'Jumping Equipos Medium',// team best
-                34	=> 'Jumping Equipos Small',	// team best
-                // en jornadas por equipos conjunta 3 alturas se mezclan categorias X,L y M,S,T
-                35	=> 'Jp. Equipos XL / L ',// team combined
-                36	=> 'Jp. Equipos M / S / XS', // team combined
+                21	=> 'Ag. Equipos Std',// team combined
+                22	=> 'Ag. Equipos Midi/Mini', // team combined
+                23	=> 'Jumping GII Standard',
+                24	=> 'Jumping GII Midi',
+                25	=> 'Jumping GII Mini',
+                26	=> 'Jumping GIII Standard',
+                27	=> 'Jumping GIII Midi',
+                28	=> 'Jumping GIII Mini',
+                29	=> 'Jumping Standard',//  Individual-Open
+                30	=> 'Jumping Midi',	//  Individual-Open
+                31	=> 'Jumping Mini', //  Individual-Open
+                32	=> 'Jumping Equipos Std',	// team best
+                33	=> 'Jumping Equipos Midi',// team best
+                34	=> 'Jumping Equipos Mini',	// team best
+                // en jornadas por equipos conjunta 3 alturas se mezclan categorias M y S
+                35	=> 'Jp. Equipos Std',// team combined
+                36	=> 'Jp. Equipos Midi/Mini', // team combined
                 // en las rondas KO, los perros compiten todos contra todos
                 37	=> 'Manga K.O. - 1',
-                38	=> 'Manga Especial Large',
-                39	=> 'Manga Especial Medium',
-                40	=> 'Manga Especial Small',
-                // "XSmall" support for Pruebas de cuatro alturas
-                41	=> 'Agility-1 GI XSmall',
-                42	=> 'Jumping GI XSmall',
-                43	=> 'Agility GII XSmall',
-                44	=> 'Agility GIII XSmall',
-                45	=> 'Agility XSmall', //  Individual-Open
-                46	=> 'Agility Equipos XSmall',// team best
+                38	=> 'Manga Especial Standard',
+                39	=> 'Manga Especial Midi',
+                40	=> 'Manga Especial Mini',
 
+                // LAS SIGUIENTES CONFIGURACIONES NO EXISTEN EN RSCE (3 alturas)
+                // "Tiny" support for Pruebas de cuatro alturas
+                41	=> 'Agility-1 GI Tiny',
+                42	=> 'Agility-2 GI Tiny',
+                43	=> 'Agility GII Tiny',
+                44	=> 'Agility GIII Tiny',	// no existe
+                45	=> 'Agility Tiny', //  Individual-Open
+                46	=> 'Agility Equipos Tiny',// team best
                 // en equipos4  cuatro alturas  agrupamos por LM y ST
                 47	=> 'Ag. Equipos Large/Medium', // team combined
-                48	=> 'Ag. Equipos Small/XSmall', // team combined
-                49	=> 'Jumping GII XSmall',
-                50	=> 'Jumping GIII XSmall',
-                51	=> 'Jumping XSmall', //  Individual-Open
-                52	=> 'Jumping team XSmall',	 // team best
+                48	=> 'Ag. Equipos Small/Tiny', // team combined
+                49	=> 'Jumping GII Tiny',
+                50	=> 'Jumping GIII Tiny', // no existe
+                51	=> 'Jumping Tiny', //  Individual-Open
+                52	=> 'Jumping team Tiny',	 // team best
                 53	=> 'Jp. teams Large/Medium',  // team combined
-                54	=> 'Jp. teams Small/XSmall',// team combined
-                55	=> 'Special round XSmall',
-                56	=> 'Agility-3 GI Large',	 // extra rounds for GI
+                54	=> 'Jp. teams Small/Tiny',// team combined
+                55	=> 'Special round Tiny',
+                56	=> 'Agility-3 GI Large',	 // extra rounds for GI RFEC
                 57	=> 'Agility-3 GI Medium',
                 58	=> 'Agility-3 GI Small',
-                59	=> 'Agility-3 GI XSmall',
+                59	=> 'Agility-3 GI Tiny',
                 // resto de las mangas k.o.
                 60	=> 'Manga K.O. - 2',
                 61	=> 'Manga K.O. - 3',
@@ -236,48 +236,18 @@ class RSCE extends Federations {
                 95  => 'Junior 1 Large',
                 96  => 'Junior 1 Medium',
                 97  => 'Junior 1 Small',
-                98  => 'Junior 1 XSmall',
+                98  => 'Junior 1 Toy',
                 99  => 'Junior 2 Large',
                 100  => 'Junior 2 Medium',
                 101  => 'Junior 2 Small',
-                102  => 'Junior 2 XSmall',
-                103 => 'Senior 1 Large',
-                104 => 'Senior 1 Medium',
-                105 => 'Senior 1 Small',
-                106 => 'Senior 1 XSmall',
-                107 => 'Senior 2 Large',
-                108 => 'Senior 2 Medium',
-                109 => 'Senior 2 Small',
-                110 => 'Senior 2 XSmall',
-                // tandas nuevas para xl y XSmall en rfec 5 alturas
-                111	=> 'Junior 1 XLarge',
-                112	=> 'Junior 2 XLarge',
-                113	=> 'Senior 1 XLarge',
-                114	=> 'Senior 2 XLarge',
-                115	=> 'Agility-1 GI XLarge',
-                116	=> 'Jumping GI XLarge',
-                117	=> 'Agility-2 GI XLarge',
-                118	=> 'Agility GII XLarge',
-                119	=> 'Jumping GII XLarge',
-                120	=> 'Agility GIII XLarge',
-                121	=> 'Jumping GIII XLarge',
-                122	=> 'Agility XLarge', // open X
-                123	=> 'Jumping XLarge', // open X
-                124	=> 'Agility Equipos XLarge', // team X
-                125	=> 'Jumping Equipos XLarge',
-                126	=> 'Manga especial XLarge',
-                // jornadas team mixtas extras para cinco alturas
-                127	=> 'Ag. Eq. XLarge/Large', // team combined
-                128	=> 'Jp. Eq. XLarge/Large', // team combined
-                129	=> 'Ag. Eq. Medium/Small/XSmall',  // team combined
-                130	=> 'Jp. Eq. Medium/Small/XSmall'// team combined
+                102  => 'Junior 2 Toy',
             ),
             'TipoMangas' => array(
                 0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo',  'IsAgility'),
                 1 =>	array( 1, 'Pre-Agility Manga 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility',  1),
                 2 => 	array( 2, 'Pre-Agility Manga 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility',  2),
                 3 =>	array( 3, 'Agility Grado I Manga 1',	'GI',	'Agility-1 GI',	'Grado I',      1),
-                4 => 	array( 4, 'Jumping Grado I',	        'GI',	'Jumping GI',	'Grado I',      2),
+                4 => 	array( 4, 'Agility Grado I Manga 2',	'GI',	'Agility-2 GI',	'Grado I',      2),
                 5 =>	array( 5, 'Agility Grado II', 			'GII',	'Agility GII',	'Grado II',     1),
                 6 =>	array( 6, 'Agility Grado III', 			'GIII',	'Agility GIII',	'Grado III',    1),
                 7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',   1), // Open
@@ -290,7 +260,7 @@ class RSCE extends Federations {
                 14 =>	array( 14,'Jumping Equipos'				,'-',  	'Jp. Equipos',	'Equipos',      2), // team combined
                 15 =>	array( 15,'K.O. Primera manga',			'-',	'K.O. manga 1',	'K.O. 1',       1),
                 16 =>	array( 16,'Manga Especial', 			'-',	'Manga Especial','Individual',  1), // special round, no grades
-                17 => 	array( 17,'Agility Grado I Manga 2',	'GI',	'Agility-2 GI',	'Grado I',      3), // on RFEC special G1 3rd round
+                17 => 	array( 17,'Agility Grado I Manga 3',	'GI',	'Agility-3 GI',	'Grado I',      3), // on RFEC special G1 3rd round
                 // mangas extra para K.O.
                 18 =>	array( 18,'K.O. Segunda manga',			'-',	'K.O. Manga 2',	'K.O. - 2',      2),
                 19 =>	array( 19,'K.O. Tercera manga',			'-',	'K.O. Manga 3',	'K.O. - 3',      3),
@@ -313,28 +283,9 @@ class RSCE extends Federations {
                 33 => 	array( 33,'Junior Manga 2',	            'Jr',	'Junior 2',	    'Jr. 2',        2),
                 34 =>   array( 34, 'Senior Round 1',            'Sr',   'Senior 1',     'Sr. 1',        1),
                 35 =>   array( 35, 'Senior Round 2',            'Sr',   'Senior 2',     'Sr. 2',        2)
-            ),
-            'TipoRondas' => array(
-                /* 0 */ array(0,	''),
-                /* 1 */ array(1,	_('Pre-Agility') ),
-                /* 2 */ array(2,	_('Pre-Agility') ), // 2-round preagility. no longer use since 3.4.X
-                /* 3 */ array(4,	_('Grade I') ),
-                /* 4 */ array(8,	_('Grade II') ),
-                /* 5 */ array(16,	_('Grade III') ),   // not used in RFEC
-                /* 6 */ array(32,	_('Individual') ), // Open
-                /* 7 */ array(64,	_('Teams 3best') ),
-                /* 8 */ array(128,	_('Teams 4') ),
-                /* 9 */ array(256,	_('K.O. Round') ),
-                /*10 */ array(512,	_('Special Round') ),
-                /*11 */ array(24,	_('Grade II-III') ), // not used in RFEC
-                /*12 */ array(1024,	_('Teams 2best') ),
-                /*13 */ array(2048,	_('Teams 2') ),
-                /*14 */ array(4096,	_('Teams 3') ),
-                /*15 */ array(8192,	_('Games / WAO') ),
-                /*16 */ array(16384,_('Children / Young') ),
-                /*17 */ array(32768,_('Senior') ),
             )
         ));
     }
+
 }
 ?>

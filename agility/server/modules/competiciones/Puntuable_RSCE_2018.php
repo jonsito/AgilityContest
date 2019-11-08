@@ -26,8 +26,8 @@ class Puntuable_RSCE_2018 extends Competitions {
         $this->federationID=0;
         $this->federationDefault=1;
         $this->competitionID=10;
-        $this->moduleVersion="1.0.2";
-        $this->moduleRevision="20180124_1443";
+        $this->moduleVersion="1.0.3";
+        $this->moduleRevision="20191108_1525";
         $this->federationLogoAllowed=true;
         $this->puntos=array(
             // en la temporada 2018 desaparecen los puntos dobles
@@ -50,7 +50,7 @@ class Puntuable_RSCE_2018 extends Competitions {
         if (!in_array($tipo,array(5,6,10,11))) return parent::presetTRSData($tipo);
         $factor=(in_array($tipo,array(5,10)))?25:15; // Grado 2:25%; grado 3: 15%
         $manga=array();
-        $manga['Recorrido']=0; // 0:separados 1:mixto 2:conjunto
+        $manga['Recorrido']=3; // 0:separados 1:mixto(2 grupos) 2:conjunto 3:mixto(tres grupos)
         $manga['TRS_X_Tipo']=1;$manga['TRS_X_Factor']=$factor;  $manga['TRS_X_Unit']='%';
         $manga['TRM_X_Tipo']=1;$manga['TRM_X_Factor']=50;       $manga['TRM_X_Unit']='%';
         $manga['TRS_L_Tipo']=1;$manga['TRS_L_Factor']=$factor;  $manga['TRS_L_Unit']='%'; // best dog + 25 %
@@ -129,8 +129,11 @@ class Puntuable_RSCE_2018 extends Competitions {
             // comprobamos si estamos en agility o en jumping (1:agility,2:jumping,3:third round and so )
             $offset=( (Mangas::$tipo_manga[$m->Tipo][5]) == 1)?0/*agility*/:3/*jumping*/;
             $base=2;
-            if ($perro['Categoria']==="M") $base=3;
-            if ($perro['Categoria']==="S") $base=4;
+            switch($perro['Categoria']) {
+                case "X": case "L": $base=2; break;
+                case "M": $base=3; break;
+                case "S":case "T": $base=4; break;
+            }
             // si la velocidad es igual o superior se apunta tanto. notese que el array está ordenado por grad/velocidad
             if ($perro['Velocidad']>=$item[$base+$offset]) {
                 $perro['Calificacion'] = _("Excellent")." ".$item[1];

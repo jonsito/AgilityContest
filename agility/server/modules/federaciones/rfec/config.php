@@ -174,7 +174,6 @@ class RFEC extends Federations {
                 38	=> 'Manga Especial 50',
                 39	=> 'Manga Especial 40',
                 40	=> 'Manga Especial 30',
-
                 // "Tiny" support for Pruebas de cuatro alturas. EN RFEC 5 alturas ahora pasa a clase 25
                 41	=> 'Agility-1 Promocion 25',
                 42	=> 'Jumping Promocion 25',

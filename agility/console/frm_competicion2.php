@@ -172,7 +172,7 @@ $('#competicion-listamangas').datagrid({
         workingData.manga=row.ID;
         workingData.nombreManga=row.Descripcion;
         // cannot use loadcontents, because need to execute commands, _after_ html document load success
-        var infomanga="../console/dialogs/infomanga.php?Federation="+workingData.federation+"&Manga="+workingData.Manga;
+        var infomanga="../console/dialogs/infomanga.php?Federation="+workingData.federation+"&Manga="+workingData.manga;
         $('#competicion-datosmanga').load(infomanga, function() {
             // titulo del panel lateral con la informacion de la manga
         	$('#competicion_infolayout').layout('panel','center').panel('setTitle','<?php _e('Datos de la manga');?> -- '+workingData.nombreManga);

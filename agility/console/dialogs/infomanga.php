@@ -27,6 +27,7 @@ $m=intval(http_request("Manga","i",0));
 $fed=Federations::getFederation($f);
 if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 $heights=Competitions::getHeights(0,0,$m);
+do_log("hola manga:{$m} alturas:{$heights}");
 ?>
 
 <!-- Formulario que contiene los datos de una manga -->
