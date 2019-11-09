@@ -29,7 +29,7 @@ class Mangas extends DBObject {
 		1 =>	array( 1, 'Pre-Agility Round 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility',  1,          'Pa1'),
 		2 => 	array( 2, 'Pre-Agility Round 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility',  2,          'Pa2'),
 		3 =>	array( 3, 'Agility Grade I Round 1',	'GI',	'Agility-1 GI',	'Grade I',      1,          'Ag1'),
-		4 => 	array( 4, 'Agility Grade I Round 2',	'GI',	'Agility-2 GI',	'Grade I',      2,          'Ag2'),
+		4 => 	array( 4, 'Agility Grade I Round 2',	'GI',	'Agility-2 GI',	'Grade I',      2,          'Jp'),
 		5 =>	array( 5, 'Agility Grade II', 			'GII',	'Agility GII',	'Grade II',     1,          'Ag'),
 		6 =>	array( 6, 'Agility Grade III', 			'GIII',	'Agility GIII',	'Grade III',    1,          'Ag'),
 		7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',   1,          'Ag'), // Open
@@ -42,7 +42,7 @@ class Mangas extends DBObject {
 		14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp Teams',	'Teams',        2,          'Jp'), // team combined
 		15 =>	array( 15,'K.O. First round',			'-',	'K.O. Round 1',	'K.O. R1',      1,          'KO1'),
 		16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual',   1,          'Sp.'), // special round, no grades
-		17 => 	array( 17,'Agility Grade I Round 3',	'GI',	'Agility-3 GI',	'Grade I',      3,          'Ag3'), // on RFEC special G1 3rd round
+		17 => 	array( 17,'Agility Grade I Round 3',	'GI',	'Agility-3 GI',	'Grade I',      3,          'Ag2'), // on RFEC special G1 3rd round
         // mangas extra para K.O.
         18 =>	array( 18,'K.O. Second round',			'-',	'K.O. Round 2',	'K.O. R2',      2,          'KO2'),
         19 =>	array( 19,'K.O. Third round',			'-',	'K.O. Round 3',	'K.O. R3',      3,          'KO3'),

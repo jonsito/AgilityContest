@@ -140,6 +140,7 @@ class AuthManager {
 	}
 
 	private function retrieveBlackListFromServer() {
+		$this->myLogger->enter();
         // first of all, check internet conectivity
         if (isNetworkAlive()<0) return null;
 
@@ -148,7 +149,7 @@ class AuthManager {
         $url = "https://{$server}/{$baseurl}/ajax/serverRequest.php";
         $data = array(
         	'Operation'=> 'retrieveBlackList',
-            'Serial' => $this->getRegistrationInfo()['Serial'],
+            'Serial' => 0,
             'timestamp' => date("Ymd_Hi"),
             'Revision' => $this->myConfig->getEnv("version_date"),
             'Data' => array()
@@ -174,6 +175,7 @@ class AuthManager {
         // $this->myLogger->trace("AuthManager::RetrieveBlackListFromServer() received {$json_response}");
         $res=json_decode($json_response);
         // return base64 encoded blacklist in json format
+		$this->myLogger->leave();
         return $res->data;
 	}
 
@@ -183,6 +185,7 @@ class AuthManager {
 	 * @return base64 encoded black list in jsonn format
 	 */
 	private function readBlackListFromFile() {
+		$this->myLogger->enter();
 		if (!file_exists(AC_BLACKLIST_FILE)) { // if bl file not found try to get
 			$this->myLogger->trace("No blacklist file in local server");
             $need_to_load=1;
@@ -208,9 +211,16 @@ class AuthManager {
 		}
 		// ok. now handle current file
         // notice that is base64 encoded crypted file. so remove newlines and empty lines
-		if (!file_exists(AC_BLACKLIST_FILE)) return ""; // no bl file nor can download. Fatal error
+		if (!file_exists(AC_BLACKLIST_FILE)) { // no bl file nor can download. Fatal error
+			$this->myLogger->error("cannot read nor download blacklist file");
+			return "";
+		}
 		$data=file(AC_BLACKLIST_FILE,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-		if ($data===FALSE) return ""; // no data readed: fatal error
+		if ($data===FALSE) {
+			$this->myLogger->error("blacklist file has no data");
+			return "";
+		} // no data readed: fatal error
+		$this->myLogger->leave();
 		return implode("",$data);
 	}
 
@@ -362,8 +372,10 @@ class AuthManager {
      * retrieve black list. if not available yet, import and install
      */
 	function retrieveBlackList() {
+		$this->myLogger->enter();
         $encdata=$this->readBlackListFromFile();
         $data=$this->decrypt('Black List',$encdata,""); // receive decrypted data as object
+		$this->myLogger->leave();
         return $data;
 	}
 

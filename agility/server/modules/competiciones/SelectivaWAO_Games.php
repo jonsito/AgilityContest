@@ -57,11 +57,11 @@ class SelectivaWAO_Games extends Competitions {
      * En PTiempo guardamos los puntos de la secuencia de cierre/Gambler
      * En Penalizacion guardamos la suma de PTiempo y PRecorrido
      * los campos puntos y calificacion no se usan
-     *
+     * @param {object} $manga datos de la manga
      * @param {array} $perro dog data . Passed by reference
      * @param {array} $tdata sct data
      */
-    public function evalPartialPenalization(&$perro,$tdata) {
+    public function evalPartialPenalization($manga,&$perro,$tdata) {
         $ptiempo=intval($perro['Faltas']);
         $precorrido=intval($perro['Tocados']);
         $eliminado=intval($perro['Eliminado']);

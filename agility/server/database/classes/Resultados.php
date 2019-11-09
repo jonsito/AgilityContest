@@ -644,7 +644,7 @@ class Resultados extends DBObject {
 		// FASE 4: añadimos ptiempo, penalizacion total
         $comp=$this->getCompetitionObject();
 		for ($idx=0;$idx<$size;$idx++ ){
-		    $comp->evalPartialPenalization($table[$idx],$tdata);
+		    $comp->evalPartialPenalization($this->mangaInfo->Manga,$table[$idx],$tdata);
 		}
 		// FASE 4: re-ordenamos los datos en base a la puntuacion y calculamos campo "Puesto"
 		usort($table, function($a, $b) {
@@ -747,7 +747,7 @@ class Resultados extends DBObject {
             $table[$idx]['Estrellas'] = 0; // to be re-evaluated later
             $table[$idx]['Extras'] = 0; // to be re-evaluated later
             // evaluate penalization
-			$comp->evalPartialPenalization($table[$idx],$tdata);
+			$comp->evalPartialPenalization($this->mangaInfo->Manga,$table[$idx],$tdata);
 			// evaluamos velocidad 
 			if ($table[$idx]['Tiempo']==0)	$table[$idx]['Velocidad'] = 0;
 			else 	$table[$idx]['Velocidad'] =  $tdata['dist'] / $table[$idx]['Tiempo'];

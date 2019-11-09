@@ -21,11 +21,11 @@ class SelectivaWAO_Pentathlon extends Competitions {
      * Gets Course penalization, Time, and SCT data and compose penalization
      *
      * WAO Penthatlon resolves penalization as PTime+PCourse+Time
-     *
+     * @param {object} $manga datos de la manga
      * @param {array} $perro dog data . Passed by reference
      * @param {array} $tdata sct data
      */
-    public function evalPartialPenalization(&$perro,$tdata) {
+    public function evalPartialPenalization($manga,&$perro,$tdata) {
         $trs=floatval($tdata['trs']);
         $trm=floatval($tdata['trm']);
         $tiempo=floatval($perro['Tiempo']);

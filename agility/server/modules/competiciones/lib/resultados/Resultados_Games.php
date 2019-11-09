@@ -89,7 +89,7 @@ class Resultados_Games extends Resultados {
         for ($idx=0;$idx<$size;$idx++ ){
             // evaluate penalization
             // si eliminado o no presentado PTiempo,PRecorrido y Penalizacion a cero
-            $comp->evalPartialPenalization($table[$idx],$tdata);
+            $comp->evalPartialPenalization($this->mangaInfo->Manga,$table[$idx],$tdata);
             // anyadimos nombre del equipo
             $dequipos=$this->getDatosEquipos();
             $eqinfo=$dequipos[$table[$idx]['Equipo']];

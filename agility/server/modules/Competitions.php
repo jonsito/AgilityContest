@@ -138,10 +138,11 @@ class Competitions {
      * But some competitions resolves Penalization = CoursePenalization+Time
      * So this module is required to be overriden in case of
      *
+     * @param {manga} $manga datos de la manga
      * @param {array} $perro dog data . Passed by reference
      * @param {array} $tdata sct data
      */
-    public function evalPartialPenalization(&$perro,$tdata) {
+    public function evalPartialPenalization($manga,&$perro,$tdata) {
         $trs=floatval($tdata['trs']);
         $trm=floatval($tdata['trm']);
         $tiempo=floatval($perro['Tiempo']);
@@ -164,7 +165,6 @@ class Competitions {
                 $perro['PTiempo']		= 	0.0;
                 $perro['Penalizacion']=	$perro['PRecorrido'];
             }
-
         }
     }
 
@@ -238,15 +238,15 @@ class Competitions {
         if ( ! isMangaKO($tipo) ) return null; // no KO->no preset
         $manga=array();
         $manga['Recorrido']=2; // 0:separados 1:mixto 2:conjunto
-        $manga['TRS_X_Tipo']=0;$manga['TRS_L_Factor']=0;$manga['TRS_L_Unit']='s'; // no TRS
-        $manga['TRM_X_Tipo']=0;$manga['TRM_L_Factor']=100;$manga['TRM_L_Unit']='s'; // TRM=100 segs
-        $manga['TRS_L_Tipo']=0;$manga['TRS_M_Factor']=0;$manga['TRS_M_Unit']='s';
+        $manga['TRS_X_Tipo']=0;$manga['TRS_X_Factor']=0;  $manga['TRS_X_Unit']='s'; // no TRS
+        $manga['TRM_X_Tipo']=0;$manga['TRM_X_Factor']=100;$manga['TRM_X_Unit']='s'; // TRM=100 segs
+        $manga['TRS_L_Tipo']=0;$manga['TRS_L_Factor']=0;  $manga['TRS_L_Unit']='s';
+        $manga['TRM_L_Tipo']=0;$manga['TRM_L_Factor']=100;$manga['TRM_L_Unit']='s';
+        $manga['TRS_M_Tipo']=0;$manga['TRS_M_Factor']=0;  $manga['TRS_M_Unit']='s';
         $manga['TRM_M_Tipo']=0;$manga['TRM_M_Factor']=100;$manga['TRM_M_Unit']='s';
-        $manga['TRS_S_Tipo']=0;$manga['TRS_S_Factor']=0;$manga['TRS_S_Unit']='s';
+        $manga['TRS_S_Tipo']=0;$manga['TRS_S_Factor']=0;  $manga['TRS_S_Unit']='s';
         $manga['TRM_S_Tipo']=0;$manga['TRM_S_Factor']=100;$manga['TRM_S_Unit']='s';
-        $manga['TRS_T_Tipo']=0;$manga['TRS_T_Factor']=0;$manga['TRS_T_Unit']='s';
-        $manga['TRM_T_Tipo']=0;$manga['TRM_T_Factor']=100;$manga['TRM_T_Unit']='s';
-        $manga['TRS_T_Tipo']=0;$manga['TRS_T_Factor']=0;$manga['TRS_T_Unit']='s';
+        $manga['TRS_T_Tipo']=0;$manga['TRS_T_Factor']=0;  $manga['TRS_T_Unit']='s';
         $manga['TRM_T_Tipo']=0;$manga['TRM_T_Factor']=100;$manga['TRM_T_Unit']='s';
         return $manga;
     }
