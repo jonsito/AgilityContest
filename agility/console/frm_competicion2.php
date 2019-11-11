@@ -162,15 +162,11 @@ $('#competicion-listamangas').datagrid({
     onSelect: function (index,row) {
         if (index<0) { // no manga selected
             $('#competicion-datosmanga').html("");
-        	workingData.manga=0;
-        	workingData.nombreManga="";
-        	workingData.datosManga=null;
+            setManga(null);
             return; 
         }
         // guardamos el id y el nombre de la manga
-        workingData.datosManga=row;
-        workingData.manga=row.ID;
-        workingData.nombreManga=row.Descripcion;
+        setManga(row);
         // cannot use loadcontents, because need to execute commands, _after_ html document load success
         var infomanga="../console/dialogs/infomanga.php?Federation="+workingData.federation+"&Manga="+workingData.manga;
         $('#competicion-datosmanga').load(infomanga, function() {

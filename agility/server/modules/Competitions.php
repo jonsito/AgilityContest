@@ -551,7 +551,7 @@ class Competitions {
      * @return {array|string} requested data or error string
      * @throws Exception
      */
-    static function moduleInfo($fed,$type) {
+    static function moduleInfo($fed,$type,$prueba=0,$jornada=0,$manga=0) {
         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
             $name=str_replace(".php","",basename($filename));
             require_once($filename);

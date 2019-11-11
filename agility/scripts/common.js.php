@@ -901,6 +901,8 @@ function setPrueba(data) {
 	workingData.nombrePrueba=data.Nombre;
 	workingData.datosPrueba=data;
 	setFederation(data.RSCE);
+	setJornada(null);
+	setManga(null);
 }
 
 /**
@@ -912,18 +914,22 @@ function setPrueba(data) {
 function setJornada(data) {
 	workingData.jornada=0;
 	workingData.nombreJornada="";
-	workingData.datosJornada={};
+    workingData.datosJornada={};
     workingData.datosCompeticion={};
 	if ( (typeof(data) === 'undefined') || (data==null) ) return;
 	workingData.jornada=parseInt(data.ID);
 	workingData.nombreJornada=data.Nombre;
 	workingData.datosJornada=data;
+	setManga(null);
     $.ajax({
         url:"../ajax/modules/moduleFunctions.php",
         dataType:'json',
         data: {
             Operation: 'moduleinfo',
             Federation: workingData.federation,
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada,
+            Manga: 0,
             Competition: workingData.datosJornada.Tipo_Competicion
         },
         success: function(dc) {
@@ -936,17 +942,32 @@ function setManga(data) {
 	workingData.manga = 0;
 	workingData.nombreManga = "";
 	workingData.datosManga = {};
-    if (typeof(data) === 'undefined') return;
+    if ( (typeof(data) === 'undefined') || (data==null)) return;
     workingData.manga = parseInt(data.Manga); // do not use data.ID as contains extra info
     workingData.nombreManga = data.Nombre;
-    workingData.datosManga = data
+    workingData.datosManga = data;
+    $.ajax({
+        url:"../ajax/modules/moduleFunctions.php",
+        dataType:'json',
+        data: {
+            Operation: 'moduleinfo',
+            Federation: workingData.federation,
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada,
+            Manga: workingData.manga,
+            Competition: workingData.datosJornada.Tipo_Competicion
+        },
+        success: function(dc) {
+            workingData.datosCompeticion=dc;
+        }
+    });
 }
 
 function setTanda(data) {
 	workingData.tanda = 0;
 	workingData.nombreTanda = "";
 	workingData.datosTanda = {};
-	if (typeof(data) === 'undefined') return;
+	if ((typeof(data) === 'undefined') || (data==null) ) return;
 	workingData.tanda = parseInt(data.ID);
 	workingData.nombreTanda = data.Nombre;
 	workingData.datosTanda =data;
@@ -955,7 +976,7 @@ function setTanda(data) {
 function setRonda(data) {
 	workingData.nombreRonda = "";
 	workingData.datosRonda = {};
-	if (typeof(data) === 'undefined') return;
+	if ( (typeof(data) === 'undefined') || (data==null) ) return;
 	if (data==null) return;
 	workingData.nombreRonda = data.Nombre;
 	workingData.datosRonda=data;
