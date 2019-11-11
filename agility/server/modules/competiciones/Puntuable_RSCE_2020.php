@@ -63,6 +63,7 @@ class Puntuable_RSCE_2020 extends Puntuable_RSCE_2018 {
         }
         return $manga;
     }
+
     /**
      * Gets Course penalization, Time, and SCT data and compose penalization
      *
