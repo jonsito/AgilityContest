@@ -38,7 +38,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span style="float:right;" id="pb_header-texto"><?php _e('Training session'); ?></span>
 		</div>
 		<div id="pb_entrenamientos-data" data-options="region:'center'" >
-            <?php include_once(__DIR__."/../lib/templates/entrenamientos.inc.php");?>
+            <?php include_once(__DIR__ . "/../console/templates/entrenamientos.inc.php");?>
 		</div>
         <div id="pb_entrenamientos-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>

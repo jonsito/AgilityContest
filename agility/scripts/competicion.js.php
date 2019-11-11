@@ -232,7 +232,7 @@ function dmanga_evalTimeSpeed() {
     var time_x=-1;
     var speed_x=-1;
     var tspeed_x="-";
-    if ( ac_fedInfo[workingData.federation].Heights>4 ) {
+    if ( howManyHeights(workingData.federation) > 4 ) {
         switch ($("#dmanga_TRS_X_Tipo").textbox('getValue')) {
             case "0": // tipo fijo X segundos
                 time_x= f; speed_x= (f==0)? 0: d/time_x; tspeed_x = toFixedT(speed_x,2)+" m/s";
@@ -361,7 +361,7 @@ function dmanga_evalTimeSpeed() {
     }
     $("#dmanga_TRS_S_TimeSpeed").textbox('setValue',tspeed_s);
 
-    if ( ac_fedInfo[workingData.federation].Heights<4 ) return;
+    if ( howManyHeights(workingData.federation)<4 ) return;
 
     // fase 4: evaluamos datos de categoria Toy
     d=parseInt($("#dmanga_DistT").textbox('getValue'));
@@ -422,8 +422,8 @@ function dmanga_setRecorridos() {
 
     function setDistObstBg(dist,obst,cat) {
         //setting css of unexistent element id throws javascript exception
-        if ( (cat==="T") && (ac_fedInfo[workingData.federation].Heights==3) ) return;
-        if ( (cat==="X") && (ac_fedInfo[workingData.federation].Heights!=5) ) return;
+        if ( (cat==="T") && (howManyHeights(workingData.federation)==3) ) return;
+        if ( (cat==="X") && (howManyHeights(workingData.federation)!=5) ) return;
         $('#dmanga_Dist'+cat).textbox('textbox').css('background',(dist==0)?'#ffcccc':'white');
         $('#dmanga_Obst'+cat).textbox('textbox').css('background',(obst==0)?'#ffcccc':'white');
     }
@@ -1663,11 +1663,11 @@ function resultados_doSelectRonda(row) {
     } else {
         var page="";
         if ( (parseInt(workingData.datosJornada.Games)!==0) && parseInt(workingData.datosCompeticion.ModuleID)===3) {
-            page="../lib/templates/final_games.inc.php";
+            page="../console/templates/final_games.inc.php";
         } else {
             var nmangas=0;
             for(n=8;n>0;n--) if (row['Manga'+n]!=0) {nmangas=n; break } // numero de mangas
-            page="../lib/templates/final_individual.inc.php?NumMangas="+nmangas;
+            page="../console/templates/final_individual.inc.php?NumMangas="+nmangas;
         }
         $('#resultados-data').load(page,
             function() {

@@ -20,7 +20,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 
-include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
+include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
 ?>
 
 <!-- CLASIFICACIONES DE PRUEBA/JORNADA/RONDA -->
@@ -70,7 +70,7 @@ include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
 		<div id="resultados-data" class="scores_table"
              data-options="region:'south',split:true,collapsed:false,collapsible:false" style="height:70%;">
 			<!-- tabla con las clasificaciones -->
-			<?php include(__DIR__ . "/../lib/templates/final_teams.inc.php"); ?>
+			<?php include(__DIR__ . "/../console/templates/final_teams.inc.php"); ?>
 		</div>
 	</div> <!-- informacion de layout -->
 	

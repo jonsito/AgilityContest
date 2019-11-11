@@ -23,7 +23,7 @@ $config =Config::getInstance();
 
 <!-- Ventana de seleccion de fichero para importacion de datos excel -->
 <div id="resultadosmanga-excel-dialog" style="width:640px;height:auto;padding:10px; display=none;">
-    <?php require_once(__DIR__."/../../lib/templates/import_results_dialog.inc.php"); ?>
+    <?php require_once(__DIR__ . "/../../console/templates/import_results_dialog.inc.php"); ?>
 </div>
 
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->
@@ -36,7 +36,7 @@ $config =Config::getInstance();
 
 <!-- TABLA DE DATOS DE TRS Y TRM DE LA MANGA -->
 <div id="resultadosmanga-trs">
-    <?php include_once(__DIR__."/../../lib/templates/parcial_console_round_data.inc.php"); ?>
+    <?php include_once(__DIR__ . "/../../console/templates/parcial_console_round_data.inc.php"); ?>
 </div>
 
 <!--  dialogo de presentacion de resultados parciales de una manga -->
@@ -59,7 +59,7 @@ $config =Config::getInstance();
 
     <!-- TABLA DE PRESENTACION DE RESULTADOS DE CADA MANGA -->
     <div id="resultadosmanga-data">
-        <?php include_once(__DIR__."/../../lib/templates/parcial_games.inc.php"); ?>
+        <?php include_once(__DIR__ . "/../../console/templates/parcial_games.inc.php"); ?>
     </div>
 
 </div>

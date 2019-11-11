@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;_utf\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPath-1: lib/templates\n"
+"X-Poedit-SearchPath-1: console/templates\n"
 "X-Poedit-SearchPathExcluded-0: videos\n"
 "X-Poedit-SearchPathExcluded-1: images\n"
 
@@ -42,22 +42,22 @@ msgid "T"
 msgstr "É"
 
 # Abreviatura de Rehuses
-#: chrono/chrono.inc.php:51 lib/templates/final_individual.inc.php:30
-#: lib/templates/final_individual.inc.php:37
-#: lib/templates/final_last_individual.inc.php:37
-#: lib/templates/final_last_individual.inc.php:44
-#: lib/templates/final_last_teams.inc.php:37
-#: lib/templates/final_last_teams.inc.php:44
-#: lib/templates/parcial_individual.inc.php:32
-#: lib/templates/parcial_last_individual.inc.php:34
-#: lib/templates/parcial_last_teams.inc.php:34 livestream/vwls_osdvideo.php:65
+#: chrono/chrono.inc.php:51 console/templates/final_individual.inc.php:30
+#: console/templates/final_individual.inc.php:37
+#: console/templates/final_last_individual.inc.php:37
+#: console/templates/final_last_individual.inc.php:44
+#: console/templates/final_last_teams.inc.php:37
+#: console/templates/final_last_teams.inc.php:44
+#: console/templates/parcial_individual.inc.php:32
+#: console/templates/parcial_last_individual.inc.php:34
+#: console/templates/parcial_last_teams.inc.php:34 livestream/vwls_osdvideo.php:65
 #: scripts/results_and_scores.js.php:131 videowall/vwc_finales.php:93
 #: videowall/vwc_parciales.php:93 videowall/vws_parcial_individual.php:55
 msgid "R"
 msgstr "M"
 
 #: chrono/chrono.inc.php:67 console/frm_equipos.php:220
-#: console/frm_inscripciones2.php:198 lib/templates/orden_salida.inc.php:24
+#: console/frm_inscripciones2.php:198 console/templates/orden_salida.inc.php:24
 #: livestream/vwls_osdvideo.php:86 public/pb_inscripciones.php:100
 #: public/pb_inscripciones_equipos.php:150 public/pbmenu_inscripciones.php:92
 #: public/pbmenu_inscripciones_equipos.php:141 scripts/competicion.js.php:1042
@@ -96,13 +96,13 @@ msgstr "Kutya"
 #: console/frm_equipos.php:225 console/frm_inscripciones2.php:203
 #: console/import/import.js.php:69 console/import/import.js.php:77
 #: console/import/import.js.php:86 console/import/import_perros.inc.php:151
-#: lib/templates/final_individual.inc.php:27
-#: lib/templates/final_last_individual.inc.php:34
-#: lib/templates/final_last_teams.inc.php:34
-#: lib/templates/orden_salida.inc.php:32
-#: lib/templates/parcial_individual.inc.php:26
-#: lib/templates/parcial_last_individual.inc.php:28
-#: lib/templates/parcial_last_teams.inc.php:28 livestream/vwls_osdvideo.php:88
+#: console/templates/final_individual.inc.php:27
+#: console/templates/final_last_individual.inc.php:34
+#: console/templates/final_last_teams.inc.php:34
+#: console/templates/orden_salida.inc.php:32
+#: console/templates/parcial_individual.inc.php:26
+#: console/templates/parcial_last_individual.inc.php:28
+#: console/templates/parcial_last_teams.inc.php:28 livestream/vwls_osdvideo.php:88
 #: public/pb_inscripciones.php:107 public/pb_inscripciones_equipos.php:157
 #: public/pbmenu_inscripciones.php:99
 #: public/pbmenu_inscripciones_equipos.php:148 scripts/competicion.js.php:1042
@@ -138,11 +138,11 @@ msgstr "Felvezető"
 #: console/import/import.js.php:40 console/import/import.js.php:49
 #: console/import/import.js.php:58 console/import/import_handlers.inc.php:114
 #: console/import/import_perros.inc.php:152 index.php:186
-#: lib/templates/final_individual.inc.php:28
-#: lib/templates/final_last_individual.inc.php:35
-#: lib/templates/orden_salida.inc.php:33
-#: lib/templates/parcial_individual.inc.php:27
-#: lib/templates/parcial_last_individual.inc.php:29
+#: console/templates/final_individual.inc.php:28
+#: console/templates/final_last_individual.inc.php:35
+#: console/templates/orden_salida.inc.php:33
+#: console/templates/parcial_individual.inc.php:27
+#: console/templates/parcial_last_individual.inc.php:29
 #: livestream/vwls_osdvideo.php:89 modules/Federations.php:147
 #: public/pb_inscripciones.php:108 public/pb_inscripciones_equipos.php:158
 #: public/pbmenu_inscripciones.php:100
@@ -204,7 +204,7 @@ msgstr "Szint"
 
 #: chrono/chrono.inc.php:73 chrono/chrono.js.php:268
 #: console/frm_equipos.php:229 console/frm_inscripciones2.php:205
-#: lib/templates/orden_salida.inc.php:34 livestream/vwls_osdvideo.php:92
+#: console/templates/orden_salida.inc.php:34 livestream/vwls_osdvideo.php:92
 #: public/pb_inscripciones.php:111 public/pb_inscripciones_equipos.php:161
 #: public/pbmenu_inscripciones.php:103
 #: public/pbmenu_inscripciones_equipos.php:152
@@ -365,12 +365,12 @@ msgid "NoPr"
 msgstr "Nem ind"
 
 #: chrono/chrono.js.php:151 chrono/chrono.js.php:245
-#: lib/templates/final_individual.inc.php:20
-#: lib/templates/final_last_individual.inc.php:27
-#: lib/templates/final_last_teams.inc.php:27
-#: lib/templates/parcial_individual.inc.php:19
-#: lib/templates/parcial_last_individual.inc.php:21
-#: lib/templates/parcial_last_teams.inc.php:21
+#: console/templates/final_individual.inc.php:20
+#: console/templates/final_last_individual.inc.php:27
+#: console/templates/final_last_teams.inc.php:27
+#: console/templates/parcial_individual.inc.php:19
+#: console/templates/parcial_last_individual.inc.php:21
+#: console/templates/parcial_last_teams.inc.php:21
 #: scripts/results_and_scores.js.php:115
 msgid "Dors"
 msgstr "Sorszám"
@@ -390,13 +390,13 @@ msgstr "Sorszám"
 #: console/import/import_handlers.inc.php:38
 #: console/import/import_handlers.inc.php:112
 #: console/import/import_perros.inc.php:38 index.php:184 index.php:217
-#: lib/templates/final_individual.inc.php:21
-#: lib/templates/final_last_individual.inc.php:28
-#: lib/templates/final_last_teams.inc.php:28
-#: lib/templates/orden_salida.inc.php:25
-#: lib/templates/parcial_individual.inc.php:20
-#: lib/templates/parcial_last_individual.inc.php:22
-#: lib/templates/parcial_last_teams.inc.php:22 livestream/index.php:250
+#: console/templates/final_individual.inc.php:21
+#: console/templates/final_last_individual.inc.php:28
+#: console/templates/final_last_teams.inc.php:28
+#: console/templates/orden_salida.inc.php:25
+#: console/templates/parcial_individual.inc.php:20
+#: console/templates/parcial_last_individual.inc.php:22
+#: console/templates/parcial_last_teams.inc.php:22 livestream/index.php:250
 #: livestream/vwls_osdvideo.php:87 public/pb_inscripciones.php:102
 #: public/pb_inscripciones_equipos.php:152 public/pbmenu_inscripciones.php:94
 #: public/pbmenu_inscripciones_equipos.php:143
@@ -445,14 +445,14 @@ msgstr "Felv"
 #: console/frm_equipos.php:294 console/frm_guias.php:149
 #: console/frm_inscripciones2.php:201 console/frm_perros.php:151
 #: console/import/import_perros.inc.php:149
-#: lib/templates/final_individual.inc.php:23
-#: lib/templates/final_last_individual.inc.php:30
-#: lib/templates/final_last_teams.inc.php:30
-#: lib/templates/final_teams.inc.php:22 lib/templates/orden_salida.inc.php:28
-#: lib/templates/parcial_individual.inc.php:22
-#: lib/templates/parcial_last_individual.inc.php:24
-#: lib/templates/parcial_last_teams.inc.php:24
-#: lib/templates/parcial_teams.inc.php:16 public/pb_inscripciones.php:105
+#: console/templates/final_individual.inc.php:23
+#: console/templates/final_last_individual.inc.php:30
+#: console/templates/final_last_teams.inc.php:30
+#: console/templates/final_teams.inc.php:22 console/templates/orden_salida.inc.php:28
+#: console/templates/parcial_individual.inc.php:22
+#: console/templates/parcial_last_individual.inc.php:24
+#: console/templates/parcial_last_teams.inc.php:24
+#: console/templates/parcial_teams.inc.php:16 public/pb_inscripciones.php:105
 #: public/pb_inscripciones_equipos.php:93
 #: public/pb_inscripciones_equipos.php:155 public/pbmenu_inscripciones.php:97
 #: public/pbmenu_inscripciones_equipos.php:84
@@ -480,10 +480,10 @@ msgid "Grad"
 msgstr "Szint"
 
 #: chrono/chrono.js.php:160 chrono/chrono.js.php:257 console/frm_equipos.php:90
-#: lib/templates/final_last_teams.inc.php:35
-#: lib/templates/final_teams.inc.php:21 lib/templates/orden_salida.inc.php:23
-#: lib/templates/parcial_last_teams.inc.php:29
-#: lib/templates/parcial_teams.inc.php:15
+#: console/templates/final_last_teams.inc.php:35
+#: console/templates/final_teams.inc.php:21 console/templates/orden_salida.inc.php:23
+#: console/templates/parcial_last_teams.inc.php:29
+#: console/templates/parcial_teams.inc.php:15
 #: public/pb_inscripciones_equipos.php:92
 #: public/pbmenu_inscripciones_equipos.php:83
 #: server/database/classes/OrdenSalida.php:500 tablet/tablet_main.php:285
@@ -546,7 +546,7 @@ msgstr "A kiválasztott pályával/munkamenettel dolgozni"
 #: console/frm_pruebas.php:98 console/frm_pruebas.php:152
 #: console/import/import_clubes.inc.php:111
 #: console/import/import_handlers.inc.php:55 index.php:217
-#: lib/templates/orden_salida.inc.php:35 livestream/index.php:251
+#: console/templates/orden_salida.inc.php:35 livestream/index.php:251
 #: public/pb_inscripciones_equipos.php:94
 #: public/pb_inscripciones_equipos.php:160 public/pb_programa.php:102
 #: public/pbmenu_inscripciones_equipos.php:85
@@ -576,10 +576,10 @@ msgid "You should select a valid session/ring"
 msgstr "Válasszon ki egy érvényes munkamenetet/pályát"
 
 #: console/dialogs/infomanga.php:43 console/dialogs/infomanga.php:47
-#: lib/templates/final_rounds_data.inc.php:11
-#: lib/templates/final_rounds_data.inc.php:12
-#: lib/templates/parcial_round_data.inc.php:14
-#: lib/templates/parcial_round_data.inc.php:15
+#: console/templates/final_rounds_data.inc.php:11
+#: console/templates/final_rounds_data.inc.php:12
+#: console/templates/parcial_round_data.inc.php:14
+#: console/templates/parcial_round_data.inc.php:15
 #: server/excel/scores_writer.php:94 server/pdf/print_clasificacion.php:86
 #: server/pdf/print_clasificacion.php:89
 #: server/pdf/print_clasificacion_equipos.php:124
@@ -604,10 +604,10 @@ msgid "Courses"
 msgstr "Pályák"
 
 #: console/dialogs/infomanga.php:79
-#: lib/templates/parcial_console_round_data.inc.php:13
-#: lib/templates/parcial_console_round_data.inc.php:22
-#: lib/templates/parcial_console_round_data.inc.php:31
-#: lib/templates/parcial_console_round_data.inc.php:40
+#: console/templates/parcial_console_round_data.inc.php:13
+#: console/templates/parcial_console_round_data.inc.php:22
+#: console/templates/parcial_console_round_data.inc.php:31
+#: console/templates/parcial_console_round_data.inc.php:40
 #: server/pdf/print_resultadosByEquipos.php:121
 #: server/pdf/print_resultadosByEquipos4.php:116
 #: server/pdf/print_resultadosByManga.php:86
@@ -620,10 +620,10 @@ msgid "Distance"
 msgstr "Távolság"
 
 #: console/dialogs/infomanga.php:80
-#: lib/templates/parcial_console_round_data.inc.php:14
-#: lib/templates/parcial_console_round_data.inc.php:23
-#: lib/templates/parcial_console_round_data.inc.php:32
-#: lib/templates/parcial_console_round_data.inc.php:41
+#: console/templates/parcial_console_round_data.inc.php:14
+#: console/templates/parcial_console_round_data.inc.php:23
+#: console/templates/parcial_console_round_data.inc.php:32
+#: console/templates/parcial_console_round_data.inc.php:41
 #: server/pdf/print_resultadosByEquipos.php:123
 #: server/pdf/print_resultadosByEquipos4.php:118
 #: server/pdf/print_resultadosByManga.php:88
@@ -679,10 +679,10 @@ msgstr "Fix MCT"
 
 #: console/dialogs/infomanga.php:123 console/dialogs/infomanga.php:178
 #: console/dialogs/infomanga.php:235 console/dialogs/infomanga.php:292
-#: lib/templates/parcial_console_round_data.inc.php:15
-#: lib/templates/parcial_console_round_data.inc.php:24
-#: lib/templates/parcial_console_round_data.inc.php:33
-#: lib/templates/parcial_console_round_data.inc.php:42
+#: console/templates/parcial_console_round_data.inc.php:15
+#: console/templates/parcial_console_round_data.inc.php:24
+#: console/templates/parcial_console_round_data.inc.php:33
+#: console/templates/parcial_console_round_data.inc.php:42
 #: server/excel/scores_writer.php:94 server/pdf/print_clasificacion.php:100
 #: server/pdf/print_clasificacion.php:114
 #: server/pdf/print_clasificacion_equipos.php:138
@@ -1039,13 +1039,13 @@ msgstr "Forduló"
 
 #: console/frm_clasificaciones2.php:52
 #: console/frm_clasificaciones_equipos.php:51
-#: lib/templates/final_individual.inc.php:11
-#: lib/templates/final_individual.inc.php:12
-#: lib/templates/final_last_individual.inc.php:12
-#: lib/templates/final_last_individual.inc.php:13
-#: lib/templates/final_last_teams.inc.php:12
-#: lib/templates/final_last_teams.inc.php:13
-#: lib/templates/final_teams.inc.php:11 lib/templates/final_teams.inc.php:12
+#: console/templates/final_individual.inc.php:11
+#: console/templates/final_individual.inc.php:12
+#: console/templates/final_last_individual.inc.php:12
+#: console/templates/final_last_individual.inc.php:13
+#: console/templates/final_last_teams.inc.php:12
+#: console/templates/final_last_teams.inc.php:13
+#: console/templates/final_teams.inc.php:11 console/templates/final_teams.inc.php:12
 #: livestream/vwls_osdvideo.php:53 public/pb_parciales.php:55
 #: public/pb_parciales_equipos.php:55 server/excel/scores_writer.php:94
 #: server/pdf/print_clasificacion.php:109
@@ -1296,7 +1296,7 @@ msgstr "Méret"
 #: console/frm_clubes.php:262 console/frm_guias.php:151
 #: console/frm_paises.php:227 console/frm_perros.php:147
 #: console/import/import_perros.inc.php:59
-#: lib/templates/orden_salida.inc.php:26 public/pb_inscripciones.php:103
+#: console/templates/orden_salida.inc.php:26 public/pb_inscripciones.php:103
 #: public/pb_inscripciones_equipos.php:153 public/pbmenu_inscripciones.php:95
 #: public/pbmenu_inscripciones_equipos.php:144
 #: server/pdf/print_equiposByJornada.php:84
@@ -1318,7 +1318,7 @@ msgid "KC id"
 msgstr "MEOESZ id"
 
 #: console/frm_clubes.php:265 console/frm_guias.php:154
-#: console/frm_paises.php:229 lib/templates/orden_salida.inc.php:27
+#: console/frm_paises.php:229 console/templates/orden_salida.inc.php:27
 #: server/pdf/print_clasificacion_excel.php:160
 #: server/pdf/print_entradaDeDatos.php:230
 #: server/pdf/print_entradaDeDatos.php:312
@@ -1523,12 +1523,12 @@ msgid "Reading inscription list"
 msgstr "Regisztált versenyzők listázása"
 
 #: console/frm_equipos.php:222 console/frm_inscripciones2.php:200
-#: console/frm_perros.php:150 lib/templates/final_individual.inc.php:22
-#: lib/templates/final_last_individual.inc.php:29
-#: lib/templates/final_last_teams.inc.php:29
-#: lib/templates/parcial_individual.inc.php:21
-#: lib/templates/parcial_last_individual.inc.php:23
-#: lib/templates/parcial_last_teams.inc.php:23 public/pb_inscripciones.php:104
+#: console/frm_perros.php:150 console/templates/final_individual.inc.php:22
+#: console/templates/final_last_individual.inc.php:29
+#: console/templates/final_last_teams.inc.php:29
+#: console/templates/parcial_individual.inc.php:21
+#: console/templates/parcial_last_individual.inc.php:23
+#: console/templates/parcial_last_teams.inc.php:23 public/pb_inscripciones.php:104
 #: public/pb_inscripciones_equipos.php:154 public/pbmenu_inscripciones.php:96
 #: public/pbmenu_inscripciones_equipos.php:145
 #: scripts/results_and_scores.js.php:118 scripts/results_and_scores.js.php:190
@@ -2578,10 +2578,10 @@ msgstr "Nevezők listája"
 msgid "Partial scores"
 msgstr "Részleges eredmények"
 
-#: index.php:152 index2.php:289 lib/templates/final_individual.inc.php:13
-#: lib/templates/final_last_individual.inc.php:14
-#: lib/templates/final_last_teams.inc.php:14
-#: lib/templates/final_teams.inc.php:13 public/pb_finales.php:38
+#: index.php:152 index2.php:289 console/templates/final_individual.inc.php:13
+#: console/templates/final_last_individual.inc.php:14
+#: console/templates/final_last_teams.inc.php:14
+#: console/templates/final_teams.inc.php:13 public/pb_finales.php:38
 #: public/pb_finales.php:44 public/pb_finales.php:53
 #: public/pb_finales_equipos.php:38 public/pb_finales_equipos.php:44
 #: public/pb_finales_equipos.php:53 public/pbmenu_finales.php:39
@@ -2618,34 +2618,34 @@ msgstr "Program"
 msgid "Inscriptions"
 msgstr "Nevezők"
 
-#: lib/templates/final_individual.inc.php:10
-#: lib/templates/final_last_individual.inc.php:11
-#: lib/templates/final_last_teams.inc.php:11
+#: console/templates/final_individual.inc.php:10
+#: console/templates/final_last_individual.inc.php:11
+#: console/templates/final_last_teams.inc.php:11
 #: server/pdf/print_clasificacion.php:156
 #: server/pdf/print_clasificacion_equipos.php:223
 #: server/pdf/print_clasificacion_excel.php:152
 msgid "Competitor data"
 msgstr "Versenyző adatai"
 
-#: lib/templates/final_individual.inc.php:25
-#: lib/templates/final_last_individual.inc.php:32
-#: lib/templates/final_last_teams.inc.php:32
-#: lib/templates/parcial_individual.inc.php:24
-#: lib/templates/parcial_last_individual.inc.php:26
-#: lib/templates/parcial_last_teams.inc.php:26 server/pdf/print_podium.php:106
+#: console/templates/final_individual.inc.php:25
+#: console/templates/final_last_individual.inc.php:32
+#: console/templates/final_last_teams.inc.php:32
+#: console/templates/parcial_individual.inc.php:24
+#: console/templates/parcial_last_individual.inc.php:26
+#: console/templates/parcial_last_teams.inc.php:26 server/pdf/print_podium.php:106
 msgid "Grd"
 msgstr "Szint"
 
 # Abrev de Faltas/Tocados
-#: lib/templates/final_individual.inc.php:29
-#: lib/templates/final_individual.inc.php:36
-#: lib/templates/final_last_individual.inc.php:36
-#: lib/templates/final_last_individual.inc.php:43
-#: lib/templates/final_last_teams.inc.php:36
-#: lib/templates/final_last_teams.inc.php:43
-#: lib/templates/parcial_individual.inc.php:28
-#: lib/templates/parcial_last_individual.inc.php:30
-#: lib/templates/parcial_last_teams.inc.php:30
+#: console/templates/final_individual.inc.php:29
+#: console/templates/final_individual.inc.php:36
+#: console/templates/final_last_individual.inc.php:36
+#: console/templates/final_last_individual.inc.php:43
+#: console/templates/final_last_teams.inc.php:36
+#: console/templates/final_last_teams.inc.php:43
+#: console/templates/parcial_individual.inc.php:28
+#: console/templates/parcial_last_individual.inc.php:30
+#: console/templates/parcial_last_teams.inc.php:30
 #: scripts/results_and_scores.js.php:124 scripts/results_and_scores.js.php:130
 #: scripts/results_and_scores.js.php:196 server/pdf/print_clasificacion.php:174
 #: server/pdf/print_clasificacion.php:182
@@ -2655,21 +2655,21 @@ msgstr "Szint"
 msgid "F/T"
 msgstr "H/É"
 
-#: lib/templates/final_individual.inc.php:31
-#: lib/templates/final_individual.inc.php:38
-#: lib/templates/final_individual.inc.php:43
-#: lib/templates/final_last_individual.inc.php:38
-#: lib/templates/final_last_individual.inc.php:45
-#: lib/templates/final_last_individual.inc.php:50
-#: lib/templates/final_last_teams.inc.php:38
-#: lib/templates/final_last_teams.inc.php:45
-#: lib/templates/final_last_teams.inc.php:50
-#: lib/templates/final_teams.inc.php:23 lib/templates/final_teams.inc.php:25
-#: lib/templates/final_teams.inc.php:27
-#: lib/templates/parcial_individual.inc.php:36
-#: lib/templates/parcial_last_individual.inc.php:38
-#: lib/templates/parcial_last_teams.inc.php:38
-#: lib/templates/parcial_teams.inc.php:17
+#: console/templates/final_individual.inc.php:31
+#: console/templates/final_individual.inc.php:38
+#: console/templates/final_individual.inc.php:43
+#: console/templates/final_last_individual.inc.php:38
+#: console/templates/final_last_individual.inc.php:45
+#: console/templates/final_last_individual.inc.php:50
+#: console/templates/final_last_teams.inc.php:38
+#: console/templates/final_last_teams.inc.php:45
+#: console/templates/final_last_teams.inc.php:50
+#: console/templates/final_teams.inc.php:23 console/templates/final_teams.inc.php:25
+#: console/templates/final_teams.inc.php:27
+#: console/templates/parcial_individual.inc.php:36
+#: console/templates/parcial_last_individual.inc.php:38
+#: console/templates/parcial_last_teams.inc.php:38
+#: console/templates/parcial_teams.inc.php:17
 #: scripts/datagrid_formatters.js.php:269 scripts/results_and_scores.js.php:126
 #: scripts/results_and_scores.js.php:132 scripts/results_and_scores.js.php:136
 #: scripts/results_and_scores.js.php:199 server/pdf/print_clasificacion.php:176
@@ -2698,22 +2698,22 @@ msgstr "H/É"
 msgid "Time"
 msgstr "Idő"
 
-#: lib/templates/final_individual.inc.php:32
-#: lib/templates/final_individual.inc.php:39
-#: lib/templates/final_last_individual.inc.php:39
-#: lib/templates/final_last_individual.inc.php:46
-#: lib/templates/final_last_teams.inc.php:39
-#: lib/templates/final_last_teams.inc.php:46
-#: lib/templates/final_rounds_data.inc.php:20
-#: lib/templates/final_rounds_data.inc.php:28
-#: lib/templates/parcial_console_round_data.inc.php:17
-#: lib/templates/parcial_console_round_data.inc.php:26
-#: lib/templates/parcial_console_round_data.inc.php:35
-#: lib/templates/parcial_console_round_data.inc.php:44
-#: lib/templates/parcial_individual.inc.php:40
-#: lib/templates/parcial_last_individual.inc.php:42
-#: lib/templates/parcial_last_teams.inc.php:42
-#: lib/templates/parcial_round_data.inc.php:22
+#: console/templates/final_individual.inc.php:32
+#: console/templates/final_individual.inc.php:39
+#: console/templates/final_last_individual.inc.php:39
+#: console/templates/final_last_individual.inc.php:46
+#: console/templates/final_last_teams.inc.php:39
+#: console/templates/final_last_teams.inc.php:46
+#: console/templates/final_rounds_data.inc.php:20
+#: console/templates/final_rounds_data.inc.php:28
+#: console/templates/parcial_console_round_data.inc.php:17
+#: console/templates/parcial_console_round_data.inc.php:26
+#: console/templates/parcial_console_round_data.inc.php:35
+#: console/templates/parcial_console_round_data.inc.php:44
+#: console/templates/parcial_individual.inc.php:40
+#: console/templates/parcial_last_individual.inc.php:42
+#: console/templates/parcial_last_teams.inc.php:42
+#: console/templates/parcial_round_data.inc.php:22
 #: scripts/results_and_scores.js.php:127 scripts/results_and_scores.js.php:133
 #: scripts/results_and_scores.js.php:200 server/excel/scores_writer.php:94
 #: server/pdf/print_clasificacion.php:102
@@ -2736,13 +2736,13 @@ msgstr "Idő"
 msgid "Vel"
 msgstr "Seb"
 
-#: lib/templates/final_individual.inc.php:33
-#: lib/templates/final_individual.inc.php:40
-#: lib/templates/final_last_individual.inc.php:40
-#: lib/templates/final_last_individual.inc.php:47
-#: lib/templates/final_last_teams.inc.php:40
-#: lib/templates/final_last_teams.inc.php:47
-#: lib/templates/final_teams.inc.php:24 lib/templates/final_teams.inc.php:26
+#: console/templates/final_individual.inc.php:33
+#: console/templates/final_individual.inc.php:40
+#: console/templates/final_last_individual.inc.php:40
+#: console/templates/final_last_individual.inc.php:47
+#: console/templates/final_last_teams.inc.php:40
+#: console/templates/final_last_teams.inc.php:47
+#: console/templates/final_teams.inc.php:24 console/templates/final_teams.inc.php:26
 #: scripts/datagrid_formatters.js.php:269 scripts/results_and_scores.js.php:128
 #: scripts/results_and_scores.js.php:134 scripts/results_and_scores.js.php:201
 #: server/pdf/print_clasificacion.php:178
@@ -2756,32 +2756,32 @@ msgstr "Seb"
 msgid "Penal"
 msgstr "Hiba"
 
-#: lib/templates/final_individual.inc.php:34
-#: lib/templates/final_individual.inc.php:41
-#: lib/templates/final_last_individual.inc.php:41
-#: lib/templates/final_last_individual.inc.php:48
-#: lib/templates/final_last_teams.inc.php:41
-#: lib/templates/final_last_teams.inc.php:48
+#: console/templates/final_individual.inc.php:34
+#: console/templates/final_individual.inc.php:41
+#: console/templates/final_last_individual.inc.php:41
+#: console/templates/final_last_individual.inc.php:48
+#: console/templates/final_last_teams.inc.php:41
+#: console/templates/final_last_teams.inc.php:48
 #: scripts/results_and_scores.js.php:129 scripts/results_and_scores.js.php:135
 msgid "Cal"
 msgstr "Ért"
 
-#: lib/templates/final_individual.inc.php:35
-#: lib/templates/final_individual.inc.php:42
-#: lib/templates/final_last_individual.inc.php:42
-#: lib/templates/final_last_individual.inc.php:49
-#: lib/templates/final_last_teams.inc.php:42
-#: lib/templates/final_last_teams.inc.php:49
+#: console/templates/final_individual.inc.php:35
+#: console/templates/final_individual.inc.php:42
+#: console/templates/final_last_individual.inc.php:42
+#: console/templates/final_last_individual.inc.php:49
+#: console/templates/final_last_teams.inc.php:42
+#: console/templates/final_last_teams.inc.php:49
 #: videowall/vws_parcial_equipos.php:59 videowall/vws_parcial_individual.php:58
 msgid "Pos"
 msgstr "Hely"
 
-#: lib/templates/final_individual.inc.php:44
-#: lib/templates/final_last_individual.inc.php:51
-#: lib/templates/final_last_teams.inc.php:51
-#: lib/templates/parcial_individual.inc.php:41
-#: lib/templates/parcial_last_individual.inc.php:43
-#: lib/templates/parcial_last_teams.inc.php:43
+#: console/templates/final_individual.inc.php:44
+#: console/templates/final_last_individual.inc.php:51
+#: console/templates/final_last_teams.inc.php:51
+#: console/templates/parcial_individual.inc.php:41
+#: console/templates/parcial_last_individual.inc.php:43
+#: console/templates/parcial_last_teams.inc.php:43
 #: scripts/results_and_scores.js.php:137 server/pdf/print_clasificacion.php:193
 #: server/pdf/print_clasificacion_equipos.php:257
 #: server/pdf/print_clasificacion_equipos.php:263
@@ -2793,12 +2793,12 @@ msgstr "Hely"
 msgid "Penaliz"
 msgstr "Hibapontok"
 
-#: lib/templates/final_individual.inc.php:45
-#: lib/templates/final_last_individual.inc.php:52
-#: lib/templates/final_last_teams.inc.php:52
-#: lib/templates/parcial_individual.inc.php:42
-#: lib/templates/parcial_last_individual.inc.php:44
-#: lib/templates/parcial_last_teams.inc.php:44
+#: console/templates/final_individual.inc.php:45
+#: console/templates/final_last_individual.inc.php:52
+#: console/templates/final_last_teams.inc.php:52
+#: console/templates/parcial_individual.inc.php:42
+#: console/templates/parcial_last_individual.inc.php:44
+#: console/templates/parcial_last_teams.inc.php:44
 #: scripts/results_and_scores.js.php:138 scripts/results_and_scores.js.php:202
 #: server/pdf/print_clasificacion.php:179
 #: server/pdf/print_clasificacion.php:187
@@ -2808,12 +2808,12 @@ msgstr "Hibapontok"
 msgid "Calif"
 msgstr "Értékelés"
 
-#: lib/templates/final_individual.inc.php:46
-#: lib/templates/final_last_individual.inc.php:53
-#: lib/templates/final_last_teams.inc.php:53
-#: lib/templates/parcial_individual.inc.php:43
-#: lib/templates/parcial_last_individual.inc.php:45
-#: lib/templates/parcial_last_teams.inc.php:45
+#: console/templates/final_individual.inc.php:46
+#: console/templates/final_last_individual.inc.php:53
+#: console/templates/final_last_teams.inc.php:53
+#: console/templates/parcial_individual.inc.php:43
+#: console/templates/parcial_last_individual.inc.php:45
+#: console/templates/parcial_last_teams.inc.php:45
 #: scripts/results_and_scores.js.php:139 scripts/results_and_scores.js.php:203
 #: server/pdf/print_clasificacion.php:195
 #: server/pdf/print_clasificacion_equipos.php:259
@@ -2823,15 +2823,15 @@ msgstr "Értékelés"
 msgid "Position"
 msgstr "Helyezés"
 
-#: lib/templates/final_individual.inc.php:63
-#: lib/templates/final_last_individual.inc.php:70
-#: lib/templates/final_last_teams.inc.php:70
-#: lib/templates/final_teams.inc.php:43
+#: console/templates/final_individual.inc.php:63
+#: console/templates/final_last_individual.inc.php:70
+#: console/templates/final_last_teams.inc.php:70
+#: console/templates/final_teams.inc.php:43
 msgid "Updating final scores"
 msgstr "Végső eredmények frissítése"
 
-#: lib/templates/final_rounds_data.inc.php:10
-#: lib/templates/parcial_round_data.inc.php:11
+#: console/templates/final_rounds_data.inc.php:10
+#: console/templates/parcial_round_data.inc.php:11
 #: livestream/vwls_ordensalida.php:65 livestream/vwls_ordensalida.php:124
 #: livestream/vwls_parciales.php:68 livestream/vwls_parciales.php:160
 #: scripts/results_and_scores.js.php:55 scripts/results_and_scores.js.php:66
@@ -2841,15 +2841,15 @@ msgstr "Végső eredmények frissítése"
 msgid "No round selected"
 msgstr "Nincs futam kiválasztva"
 
-#: lib/templates/final_rounds_data.inc.php:15
-#: lib/templates/final_rounds_data.inc.php:23
+#: console/templates/final_rounds_data.inc.php:15
+#: console/templates/final_rounds_data.inc.php:23
 #: scripts/results_and_scores.js.php:69 scripts/results_and_scores.js.php:75
 msgid "Data info for round"
 msgstr "Futamhoz tartozó adatok"
 
-#: lib/templates/final_rounds_data.inc.php:16
-#: lib/templates/final_rounds_data.inc.php:24
-#: lib/templates/parcial_round_data.inc.php:18
+#: console/templates/final_rounds_data.inc.php:16
+#: console/templates/final_rounds_data.inc.php:24
+#: console/templates/parcial_round_data.inc.php:18
 #: server/excel/scores_writer.php:94 server/pdf/print_clasificacion.php:98
 #: server/pdf/print_clasificacion.php:112
 #: server/pdf/print_clasificacion_equipos.php:136
@@ -2861,9 +2861,9 @@ msgstr "Futamhoz tartozó adatok"
 msgid "Dist"
 msgstr "Hossz"
 
-#: lib/templates/final_rounds_data.inc.php:17
-#: lib/templates/final_rounds_data.inc.php:25
-#: lib/templates/parcial_round_data.inc.php:19
+#: console/templates/final_rounds_data.inc.php:17
+#: console/templates/final_rounds_data.inc.php:25
+#: console/templates/parcial_round_data.inc.php:19
 #: server/excel/scores_writer.php:94 server/pdf/print_clasificacion.php:99
 #: server/pdf/print_clasificacion.php:113
 #: server/pdf/print_clasificacion_equipos.php:137
@@ -2874,39 +2874,39 @@ msgstr "Hossz"
 msgid "Obst"
 msgstr "Akadályok"
 
-#: lib/templates/final_rounds_data.inc.php:18
-#: lib/templates/final_rounds_data.inc.php:26
-#: lib/templates/parcial_round_data.inc.php:20
+#: console/templates/final_rounds_data.inc.php:18
+#: console/templates/final_rounds_data.inc.php:26
+#: console/templates/parcial_round_data.inc.php:20
 msgid "S.C.T."
 msgstr "Szintidő"
 
-#: lib/templates/final_rounds_data.inc.php:19
-#: lib/templates/final_rounds_data.inc.php:27
-#: lib/templates/parcial_round_data.inc.php:21
+#: console/templates/final_rounds_data.inc.php:19
+#: console/templates/final_rounds_data.inc.php:27
+#: console/templates/parcial_round_data.inc.php:21
 msgid "M.C.T."
 msgstr "Maximum"
 
-#: lib/templates/final_teams.inc.php:10 videowall/vws_parcial_equipos.php:53
+#: console/templates/final_teams.inc.php:10 videowall/vws_parcial_equipos.php:53
 msgid "Team data"
 msgstr "Csapat adatok"
 
-#: lib/templates/final_teams.inc.php:28 lib/templates/parcial_teams.inc.php:18
+#: console/templates/final_teams.inc.php:28 console/templates/parcial_teams.inc.php:18
 msgid "Penalization"
 msgstr "Hibapontok"
 
-#: lib/templates/orden_salida.inc.php:56
+#: console/templates/orden_salida.inc.php:56
 #: console/dialogs/dlg_ordensalida.inc:151
 msgid "Updating starting order"
 msgstr "Rajtlista frissítése"
 
-#: lib/templates/parcial_console_round_data.inc.php:9
+#: console/templates/parcial_console_round_data.inc.php:9
 msgid "Technical data on selected round"
 msgstr "Technikai adatok a kiválasztott futamban"
 
-#: lib/templates/parcial_console_round_data.inc.php:16
-#: lib/templates/parcial_console_round_data.inc.php:25
-#: lib/templates/parcial_console_round_data.inc.php:34
-#: lib/templates/parcial_console_round_data.inc.php:43
+#: console/templates/parcial_console_round_data.inc.php:16
+#: console/templates/parcial_console_round_data.inc.php:25
+#: console/templates/parcial_console_round_data.inc.php:34
+#: console/templates/parcial_console_round_data.inc.php:43
 #: server/excel/scores_writer.php:94 server/pdf/print_clasificacion.php:101
 #: server/pdf/print_clasificacion.php:115
 #: server/pdf/print_clasificacion_equipos.php:139
@@ -2924,10 +2924,10 @@ msgstr "Technikai adatok a kiválasztott futamban"
 msgid "MCT"
 msgstr "MCT"
 
-#: lib/templates/parcial_individual.inc.php:62
-#: lib/templates/parcial_last_individual.inc.php:64
-#: lib/templates/parcial_last_teams.inc.php:64
-#: lib/templates/parcial_teams.inc.php:34
+#: console/templates/parcial_individual.inc.php:62
+#: console/templates/parcial_last_individual.inc.php:64
+#: console/templates/parcial_last_teams.inc.php:64
+#: console/templates/parcial_teams.inc.php:34
 msgid "Updating partial scores"
 msgstr "Részleges eredmények frissítése"
 

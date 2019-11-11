@@ -45,11 +45,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <span id="enumerateParciales" style="width:200px"></span>
             </span><br/>
             <!-- Datos de TRS y TRM -->
-            <?php include_once(__DIR__."/../lib/templates/parcial_round_data.inc.php");?>
+            <?php include_once(__DIR__ . "/../console/templates/parcial_round_data.inc.php");?>
         </div>
         <div id="pb_parciales-data" data-options="region:'center'" >
             <div class="scores_table">
-                <?php include_once(__DIR__."/../lib/templates/parcial_teams.inc.php");?>
+                <?php include_once(__DIR__ . "/../console/templates/parcial_teams.inc.php");?>
             </div>
         </div>
         <div id="pb_parciales-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">

@@ -20,7 +20,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 
-include_once(__DIR__."/../lib/templates/scores_mail.inc.php");
+include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
 ?>
 
 <!-- CLASIFICACIONES DE PRUEBA/JORNADA/RONDA -->

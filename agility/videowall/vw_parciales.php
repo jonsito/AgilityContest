@@ -48,7 +48,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 </tr>
                 <tr>
                     <td colspan="2" align="right" id="vw_parciales_trs-data">
-                        <?php include_once(__DIR__."/../lib/templates/parcial_round_data.inc.php"); ?>
+                        <?php include_once(__DIR__ . "/../console/templates/parcial_round_data.inc.php"); ?>
                     </td>
                 </tr>
             </table>
@@ -56,11 +56,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div id="vw_parciales-data" data-options="region:'center'" >
             <!-- datagrid para resultados individuales -->
             <div id="parciales_individual-table" class="scores_table" style="display:none;width:100%">
-                <?php include_once(__DIR__."/../lib/templates/parcial_individual.inc.php"); ?>
+                <?php include_once(__DIR__ . "/../console/templates/parcial_individual.inc.php"); ?>
             </div>
             <!-- datagrid para resultados por equipos -->
             <div id="parciales_equipos-table" class="scores_table" style="display:none;width:100%">
-                <?php include_once(__DIR__."/../lib/templates/parcial_teams.inc.php"); ?>
+                <?php include_once(__DIR__ . "/../console/templates/parcial_teams.inc.php"); ?>
             </div>
         </div>
         <div id="vw_parciales-footer" data-options="region:'south',split:false" class="vw_floatingfooter">

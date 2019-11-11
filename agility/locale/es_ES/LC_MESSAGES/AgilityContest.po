@@ -15,7 +15,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;_utf\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPath-1: lib/templates\n"
+"X-Poedit-SearchPath-1: console/templates\n"
 "X-Poedit-SearchPathExcluded-0: videos\n"
 "X-Poedit-SearchPathExcluded-1: images\n"
 
@@ -27,11 +27,11 @@ msgstr "en"
 #: console/dialogs/dlg_remotecontrol.inc:97
 #: console/dialogs/dlg_remotecontrol.inc:101
 #: console/dialogs/dlg_remotecontrol.inc:194
-#: lib/templates/final_games.inc.php:13
-#: lib/templates/final_individual.inc.php:12
-#: lib/templates/final_last_individual.inc.php:14
-#: lib/templates/final_last_teams.inc.php:14
-#: lib/templates/final_teams.inc.php:13 livestream/index.php:218
+#: console/templates/final_games.inc.php:13
+#: console/templates/final_individual.inc.php:12
+#: console/templates/final_last_individual.inc.php:14
+#: console/templates/final_last_teams.inc.php:14
+#: console/templates/final_teams.inc.php:13 livestream/index.php:218
 #: livestream/vwls_finales.php:66 livestream/vwls_finales.php:91
 #: public/index.php:162 public/index2.php:372 public/pb_finales.php:38
 #: public/pb_finales.php:44 public/pb_finales.php:53
@@ -169,14 +169,14 @@ msgid "T"
 msgstr "T"
 
 # Abreviatura de Rehuses
-#: chrono/chrono.inc.php:51 lib/templates/final_individual.inc.php:39
-#: lib/templates/final_last_individual.inc.php:45
-#: lib/templates/final_last_individual.inc.php:53
-#: lib/templates/final_last_teams.inc.php:39
-#: lib/templates/final_last_teams.inc.php:46
-#: lib/templates/parcial_individual.inc.php:32
-#: lib/templates/parcial_last_individual.inc.php:34
-#: lib/templates/parcial_last_teams.inc.php:36 livestream/vwls_osdvideo.php:68
+#: chrono/chrono.inc.php:51 console/templates/final_individual.inc.php:39
+#: console/templates/final_last_individual.inc.php:45
+#: console/templates/final_last_individual.inc.php:53
+#: console/templates/final_last_teams.inc.php:39
+#: console/templates/final_last_teams.inc.php:46
+#: console/templates/parcial_individual.inc.php:32
+#: console/templates/parcial_last_individual.inc.php:34
+#: console/templates/parcial_last_teams.inc.php:36 livestream/vwls_osdvideo.php:68
 #: scripts/results_and_scores.js.php:278 videowall/vwc_finales.php:93
 #: videowall/vwc_parciales.php:93 videowall/vws_parcial_individual.php:55
 msgid "R"
@@ -187,7 +187,7 @@ msgstr "R"
 #: console/dialogs/dlg_ordensalida.inc:122
 #: console/dialogs/dlg_ordensalida.inc:291 console/frm_equipos.php:125
 #: console/frm_equipos.php:254 console/frm_inscripciones2.php:271
-#: lib/templates/orden_salida.inc.php:24 livestream/vwls_osdvideo.php:89
+#: console/templates/orden_salida.inc.php:24 livestream/vwls_osdvideo.php:89
 #: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:150
 #: public/pbmenu_inscripciones.php:102
 #: public/pbmenu_inscripciones_equipos.php:145 scripts/competicion.js.php:1685
@@ -248,14 +248,14 @@ msgstr "Perro"
 #: console/dialogs/import_perros.inc.php:96
 #: console/dialogs/import_results.inc.php:91 console/frm_equipos.php:130
 #: console/frm_equipos.php:259 console/frm_inscripciones2.php:276
-#: console/frm_ligas.php:40 lib/templates/final_games.inc.php:27
-#: lib/templates/final_individual.inc.php:21
-#: lib/templates/final_last_individual.inc.php:34
-#: lib/templates/final_last_teams.inc.php:36
-#: lib/templates/orden_salida.inc.php:32 lib/templates/parcial_games.inc.php:28
-#: lib/templates/parcial_individual.inc.php:26
-#: lib/templates/parcial_last_individual.inc.php:28
-#: lib/templates/parcial_last_teams.inc.php:30 livestream/vwls_finales.php:98
+#: console/frm_ligas.php:40 console/templates/final_games.inc.php:27
+#: console/templates/final_individual.inc.php:21
+#: console/templates/final_last_individual.inc.php:34
+#: console/templates/final_last_teams.inc.php:36
+#: console/templates/orden_salida.inc.php:32 console/templates/parcial_games.inc.php:28
+#: console/templates/parcial_individual.inc.php:26
+#: console/templates/parcial_last_individual.inc.php:28
+#: console/templates/parcial_last_teams.inc.php:30 livestream/vwls_finales.php:98
 #: livestream/vwls_osdvideo.php:91 public/pb_inscripciones.php:108
 #: public/pb_inscripciones_equipos.php:157 public/pbmenu_inscripciones.php:108
 #: public/pbmenu_inscripciones_equipos.php:152 scripts/competicion.js.php:1685
@@ -319,12 +319,12 @@ msgstr "Gu&iacute;a"
 #: console/frm_equipos.php:260 console/frm_guias.php:99
 #: console/frm_inscripciones.php:80 console/frm_inscripciones2.php:277
 #: console/frm_ligas.php:42 console/frm_registration.php:64
-#: lib/templates/entrenamientos.inc.php:17 lib/templates/final_games.inc.php:28
-#: lib/templates/final_individual.inc.php:22
-#: lib/templates/final_last_individual.inc.php:35
-#: lib/templates/orden_salida.inc.php:33 lib/templates/parcial_games.inc.php:29
-#: lib/templates/parcial_individual.inc.php:27
-#: lib/templates/parcial_last_individual.inc.php:29
+#: console/templates/entrenamientos.inc.php:17 console/templates/final_games.inc.php:28
+#: console/templates/final_individual.inc.php:22
+#: console/templates/final_last_individual.inc.php:35
+#: console/templates/orden_salida.inc.php:33 console/templates/parcial_games.inc.php:29
+#: console/templates/parcial_individual.inc.php:27
+#: console/templates/parcial_last_individual.inc.php:29
 #: livestream/vwls_osdvideo.php:92 public/index.php:197
 #: scripts/competicion.js.php:1685 scripts/datagrid_formatters.js.php:173
 #: scripts/guias.js.php:208 scripts/guias.js.php:256 scripts/import.js.php:78
@@ -401,7 +401,7 @@ msgstr "Grado"
 #: console/dialogs/dlg_editInscripcion.inc:74
 #: console/dialogs/dlg_newInscripcion.inc:76
 #: console/dialogs/dlg_ordensalida.inc:297 console/frm_equipos.php:263
-#: console/frm_inscripciones2.php:278 lib/templates/orden_salida.inc.php:34
+#: console/frm_inscripciones2.php:278 console/templates/orden_salida.inc.php:34
 #: livestream/vwls_osdvideo.php:95 public/pb_inscripciones.php:111
 #: public/pb_inscripciones_equipos.php:160 public/pbmenu_inscripciones.php:111
 #: public/pbmenu_inscripciones_equipos.php:155
@@ -615,14 +615,14 @@ msgid "NoPr"
 msgstr "NoPr"
 
 #: chrono/chrono.js.php:153 chrono/chrono.js.php:247
-#: lib/templates/final_games.inc.php:20
-#: lib/templates/final_individual.inc.php:17
-#: lib/templates/final_last_individual.inc.php:27
-#: lib/templates/final_last_teams.inc.php:27
-#: lib/templates/parcial_games.inc.php:19
-#: lib/templates/parcial_individual.inc.php:19
-#: lib/templates/parcial_last_individual.inc.php:21
-#: lib/templates/parcial_last_teams.inc.php:21 livestream/vwls_finales.php:95
+#: console/templates/final_games.inc.php:20
+#: console/templates/final_individual.inc.php:17
+#: console/templates/final_last_individual.inc.php:27
+#: console/templates/final_last_teams.inc.php:27
+#: console/templates/parcial_games.inc.php:19
+#: console/templates/parcial_individual.inc.php:19
+#: console/templates/parcial_last_individual.inc.php:21
+#: console/templates/parcial_last_teams.inc.php:21 livestream/vwls_finales.php:95
 #: scripts/results_and_scores.js.php:262
 msgid "Dors"
 msgstr "Dors"
@@ -661,15 +661,15 @@ msgstr "Dors"
 #: console/frm_paises.php:82 console/frm_paises.php:140
 #: console/frm_paises.php:225 console/frm_perros.php:130
 #: console/frm_pruebas.php:160 console/frm_registration.php:56
-#: lib/templates/final_games.inc.php:21
-#: lib/templates/final_individual.inc.php:18
-#: lib/templates/final_last_individual.inc.php:28
-#: lib/templates/final_last_teams.inc.php:28
-#: lib/templates/orden_salida.inc.php:25 lib/templates/parcial_games.inc.php:20
-#: lib/templates/parcial_individual.inc.php:20
-#: lib/templates/parcial_last_individual.inc.php:22
-#: lib/templates/parcial_last_teams.inc.php:22
-#: lib/templates/scores_mail.inc.php:192 livestream/index.php:294
+#: console/templates/final_games.inc.php:21
+#: console/templates/final_individual.inc.php:18
+#: console/templates/final_last_individual.inc.php:28
+#: console/templates/final_last_teams.inc.php:28
+#: console/templates/orden_salida.inc.php:25 console/templates/parcial_games.inc.php:20
+#: console/templates/parcial_individual.inc.php:20
+#: console/templates/parcial_last_individual.inc.php:22
+#: console/templates/parcial_last_teams.inc.php:22
+#: console/templates/scores_mail.inc.php:192 livestream/index.php:294
 #: livestream/vwls_finales.php:97 livestream/vwls_osdvideo.php:90
 #: public/index.php:195 public/index.php:228 public/pb_inscripciones.php:103
 #: public/pb_inscripciones_equipos.php:152 public/pbmenu_inscripciones.php:103
@@ -743,16 +743,16 @@ msgstr "Gu&iacute;a"
 #: console/frm_equipos.php:177 console/frm_equipos.php:257
 #: console/frm_equipos.php:330 console/frm_guias.php:159
 #: console/frm_inscripciones2.php:274 console/frm_perros.php:136
-#: lib/templates/final_games.inc.php:23
-#: lib/templates/final_individual.inc.php:20
-#: lib/templates/final_last_individual.inc.php:30
-#: lib/templates/final_last_teams.inc.php:32
-#: lib/templates/final_teams.inc.php:24 lib/templates/orden_salida.inc.php:28
-#: lib/templates/parcial_games.inc.php:24
-#: lib/templates/parcial_individual.inc.php:22
-#: lib/templates/parcial_last_individual.inc.php:24
-#: lib/templates/parcial_last_teams.inc.php:26
-#: lib/templates/parcial_teams.inc.php:16 public/pb_inscripciones.php:106
+#: console/templates/final_games.inc.php:23
+#: console/templates/final_individual.inc.php:20
+#: console/templates/final_last_individual.inc.php:30
+#: console/templates/final_last_teams.inc.php:32
+#: console/templates/final_teams.inc.php:24 console/templates/orden_salida.inc.php:28
+#: console/templates/parcial_games.inc.php:24
+#: console/templates/parcial_individual.inc.php:22
+#: console/templates/parcial_last_individual.inc.php:24
+#: console/templates/parcial_last_teams.inc.php:26
+#: console/templates/parcial_teams.inc.php:16 public/pb_inscripciones.php:106
 #: public/pb_inscripciones_equipos.php:101
 #: public/pb_inscripciones_equipos.php:155 public/pbmenu_inscripciones.php:106
 #: public/pbmenu_inscripciones_equipos.php:96
@@ -783,10 +783,10 @@ msgstr "Grd"
 
 #: chrono/chrono.js.php:162 chrono/chrono.js.php:259
 #: console/dialogs/dlg_ordensalida.inc:290 console/frm_equipos.php:81
-#: lib/templates/final_last_teams.inc.php:37
-#: lib/templates/final_teams.inc.php:23 lib/templates/orden_salida.inc.php:23
-#: lib/templates/parcial_last_teams.inc.php:31
-#: lib/templates/parcial_teams.inc.php:15
+#: console/templates/final_last_teams.inc.php:37
+#: console/templates/final_teams.inc.php:23 console/templates/orden_salida.inc.php:23
+#: console/templates/parcial_last_teams.inc.php:31
+#: console/templates/parcial_teams.inc.php:15
 #: public/pb_inscripciones_equipos.php:100
 #: public/pbmenu_inscripciones_equipos.php:95
 #: server/database/classes/OrdenSalida.php:542
@@ -838,10 +838,10 @@ msgstr "Nombre de la pantalla"
 #: console/dialogs/dlg_remotecontrol.inc:509
 #: console/dialogs/dlg_remotecontrol.inc:612
 #: console/dialogs/dlg_remotecontrol.inc:684
-#: lib/templates/entrenamientos.inc.php:24
-#: lib/templates/entrenamientos.inc.php:26
-#: lib/templates/entrenamientos.inc.php:28
-#: lib/templates/entrenamientos.inc.php:30
+#: console/templates/entrenamientos.inc.php:24
+#: console/templates/entrenamientos.inc.php:26
+#: console/templates/entrenamientos.inc.php:28
+#: console/templates/entrenamientos.inc.php:30
 #: livestream/vwls_entrenamientos.php:64 livestream/vwls_finales.php:67
 #: livestream/vwls_ordensalida.php:63 livestream/vwls_parciales.php:66
 #: server/pdf/classes/PrintEntrenamientos.php:61
@@ -891,7 +891,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/frm_equipos.php:331 console/frm_guias.php:102
 #: console/frm_inscripciones2.php:73 console/frm_paises.php:143
 #: console/frm_pruebas.php:102 console/frm_pruebas.php:160
-#: lib/templates/orden_salida.inc.php:35 livestream/index.php:295
+#: console/templates/orden_salida.inc.php:35 livestream/index.php:295
 #: public/index.php:228 public/pb_inscripciones.php:112
 #: public/pb_inscripciones_equipos.php:102
 #: public/pb_inscripciones_equipos.php:161 public/pb_programa.php:102
@@ -953,7 +953,7 @@ msgstr "Limpiar"
 #: console/dialogs/dlg_guias.inc:37 console/dialogs/dlg_jueces.inc:52
 #: console/dialogs/dlg_pruebas.inc:287 console/dialogs/dlg_usuarios.inc:71
 #: console/frm_clubes.php:181 console/frm_jueces.php:101
-#: console/frm_paises.php:142 lib/templates/scores_mail.inc.php:193
+#: console/frm_paises.php:142 console/templates/scores_mail.inc.php:193
 msgid "Electronic mail"
 msgstr "Correo electr&oacute;nico"
 
@@ -999,7 +999,7 @@ msgstr "Reasignar"
 #: console/frm_inscripciones.php:44 console/frm_inscripciones2.php:48
 #: console/frm_login.php:83 console/frm_logout.php:37
 #: console/frm_myAdmin.php:65 console/frm_perros.php:34
-#: lib/templates/scores_mail.inc.php:89 tablet/tablet_main.php:63
+#: console/templates/scores_mail.inc.php:89 tablet/tablet_main.php:63
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -1025,7 +1025,7 @@ msgstr "Limpiar formulario"
 #: console/dialogs/dlg_usuarios.inc:146 console/frm_clasificaciones2.php:256
 #: console/frm_inscripciones2.php:329 console/frm_myAdmin.php:101
 #: console/frm_perros.php:165 console/frm_registration.php:177
-#: lib/templates/scores_mail.inc.php:98
+#: console/templates/scores_mail.inc.php:98
 msgid "Cancel operation. Close window"
 msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
 
@@ -1063,7 +1063,7 @@ msgstr "Hembra"
 #: console/dialogs/dlg_chperros.inc:64 console/dialogs/dlg_perros.inc:53
 #: console/frm_clubes.php:271 console/frm_guias.php:161
 #: console/frm_paises.php:230 console/frm_perros.php:132
-#: lib/templates/orden_salida.inc.php:27 public/pb_inscripciones.php:105
+#: console/templates/orden_salida.inc.php:27 public/pb_inscripciones.php:105
 #: public/pb_inscripciones_equipos.php:154 public/pbmenu_inscripciones.php:105
 #: public/pbmenu_inscripciones_equipos.php:149
 #: server/pdf/classes/PrintEquiposByJornada.php:80
@@ -1293,22 +1293,22 @@ msgstr "Toc"
 #: console/dialogs/dlg_competicion_games.inc:85
 #: console/dialogs/dlg_competicion_games.inc:182
 #: console/dialogs/dlg_competicion_games.inc:383
-#: lib/templates/final_games.inc.php:41 lib/templates/final_games.inc.php:48
-#: lib/templates/final_games.inc.php:53
-#: lib/templates/final_individual.inc.php:24
-#: lib/templates/final_individual.inc.php:40
-#: lib/templates/final_last_individual.inc.php:38
-#: lib/templates/final_last_individual.inc.php:46
-#: lib/templates/final_last_individual.inc.php:54
-#: lib/templates/final_last_teams.inc.php:40
-#: lib/templates/final_last_teams.inc.php:47
-#: lib/templates/final_last_teams.inc.php:52
-#: lib/templates/final_teams.inc.php:25 lib/templates/final_teams.inc.php:27
-#: lib/templates/final_teams.inc.php:29 lib/templates/parcial_games.inc.php:38
-#: lib/templates/parcial_individual.inc.php:36
-#: lib/templates/parcial_last_individual.inc.php:38
-#: lib/templates/parcial_last_teams.inc.php:40
-#: lib/templates/parcial_teams.inc.php:17 livestream/vwls_finales.php:99
+#: console/templates/final_games.inc.php:41 console/templates/final_games.inc.php:48
+#: console/templates/final_games.inc.php:53
+#: console/templates/final_individual.inc.php:24
+#: console/templates/final_individual.inc.php:40
+#: console/templates/final_last_individual.inc.php:38
+#: console/templates/final_last_individual.inc.php:46
+#: console/templates/final_last_individual.inc.php:54
+#: console/templates/final_last_teams.inc.php:40
+#: console/templates/final_last_teams.inc.php:47
+#: console/templates/final_last_teams.inc.php:52
+#: console/templates/final_teams.inc.php:25 console/templates/final_teams.inc.php:27
+#: console/templates/final_teams.inc.php:29 console/templates/parcial_games.inc.php:38
+#: console/templates/parcial_individual.inc.php:36
+#: console/templates/parcial_last_individual.inc.php:38
+#: console/templates/parcial_last_teams.inc.php:40
+#: console/templates/parcial_teams.inc.php:17 livestream/vwls_finales.php:99
 #: livestream/vwls_finales.php:102 livestream/vwls_finales.php:105
 #: scripts/datagrid_formatters.js.php:443 scripts/results_and_scores.js.php:273
 #: scripts/results_and_scores.js.php:279 scripts/results_and_scores.js.php:283
@@ -1466,10 +1466,10 @@ msgstr "Selecciona las categor&iacute;as a mostrar"
 
 #: console/dialogs/dlg_competicion_games.inc:31
 #: console/dialogs/dlg_competicion_games.inc:107
-#: lib/templates/final_games.inc.php:10
-#: lib/templates/final_individual.inc.php:11
-#: lib/templates/final_last_individual.inc.php:11
-#: lib/templates/final_last_teams.inc.php:11 livestream/vwls_finales.php:88
+#: console/templates/final_games.inc.php:10
+#: console/templates/final_individual.inc.php:11
+#: console/templates/final_last_individual.inc.php:11
+#: console/templates/final_last_teams.inc.php:11 livestream/vwls_finales.php:88
 #: server/pdf/classes/PrintClasificacion.php:217
 #: server/pdf/classes/PrintClasificacionExcel.php:151
 #: server/pdf/classes/PrintClasificacionGames.php:80
@@ -1493,7 +1493,7 @@ msgid "Bonus"
 msgstr "Bonus"
 
 #: console/dialogs/dlg_competicion_games.inc:182
-#: lib/templates/parcial_games.inc.php:32
+#: console/templates/parcial_games.inc.php:32
 #: server/pdf/classes/PrintEstadisticas.php:31
 #: server/pdf/classes/PrintEstadisticas.php:81
 #: server/pdf/classes/PrintEstadisticas.php:82
@@ -1511,8 +1511,8 @@ msgstr "Total"
 #: console/dialogs/dlg_competicion_games.inc:183
 #: console/dialogs/dlg_competicion_games.inc:205
 #: console/dialogs/dlg_competicion_games.inc:207
-#: lib/templates/final_games.inc.php:42 lib/templates/final_games.inc.php:49
-#: lib/templates/final_games.inc.php:54 server/modules/Competitions.php:20
+#: console/templates/final_games.inc.php:42 console/templates/final_games.inc.php:49
+#: console/templates/final_games.inc.php:54 server/modules/Competitions.php:20
 #: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:96
 #: server/pdf/classes/PrintClasificacionExcel.php:170
 #: server/pdf/classes/PrintClasificacionExcel.php:178
@@ -1534,7 +1534,7 @@ msgid "Gambler Scoring"
 msgstr "Puntos Gambler"
 
 #: console/dialogs/dlg_competicion_games.inc:380
-#: lib/templates/parcial_games.inc.php:30
+#: console/templates/parcial_games.inc.php:30
 #: server/pdf/classes/PrintClasificacionGames.php:153
 #: server/pdf/classes/PrintClasificacionGames.php:154
 msgid "Opening"
@@ -1543,7 +1543,7 @@ msgstr "Apertura"
 #: console/dialogs/dlg_competicion_games.inc:381
 #: console/dialogs/dlg_competicion_games.inc:417
 #: console/dialogs/dlg_resultados_games.inc:104
-#: lib/templates/parcial_games.inc.php:31
+#: console/templates/parcial_games.inc.php:31
 #: server/pdf/classes/PrintClasificacionGames.php:153
 msgid "Closing"
 msgstr "Cierre"
@@ -1810,7 +1810,7 @@ msgstr "Al finalizar la cuenta de 15 segundos"
 #: console/dialogs/import_ordensalida.inc.php:56
 #: console/dialogs/import_perros.inc.php:59
 #: console/dialogs/import_results.inc.php:56
-#: lib/templates/import_dialog.inc.php:49
+#: console/templates/import_dialog.inc.php:49
 msgid "Ignore"
 msgstr "Ignorar"
 
@@ -2305,7 +2305,7 @@ msgstr "Aplicaci&oacute;n"
 
 #: console/dialogs/dlg_configuracion.inc:535
 #: console/dialogs/dlg_entrenamientos.inc:55
-#: lib/templates/import_dialog.inc.php:37
+#: console/templates/import_dialog.inc.php:37
 msgid "Database"
 msgstr "Base de datos"
 
@@ -2371,9 +2371,9 @@ msgstr "Guardar configuraci&oacute;n en fichero"
 
 #: console/dialogs/dlg_configuracion.inc:571
 #: console/dialogs/dlg_entrenamientos.inc:30 console/dialogs/dlg_tools.inc:8
-#: lib/templates/import_dialog.inc.php:13
-#: lib/templates/import_ordensalida_dialog.inc.php:13
-#: lib/templates/import_results_dialog.inc.php:13
+#: console/templates/import_dialog.inc.php:13
+#: console/templates/import_ordensalida_dialog.inc.php:13
+#: console/templates/import_results_dialog.inc.php:13
 msgid "Backup"
 msgstr "Backup"
 
@@ -2547,7 +2547,7 @@ msgstr "Datos de la inscripci&oacute;n"
 #: console/dialogs/dlg_editInscripcion.inc:40
 #: console/dialogs/dlg_ordensalida.inc:293 console/frm_clubes.php:274
 #: console/frm_guias.php:164 console/frm_paises.php:232
-#: lib/templates/orden_salida.inc.php:26 scripts/perros.js.php:120
+#: console/templates/orden_salida.inc.php:26 scripts/perros.js.php:120
 #: scripts/perros.js.php:164 server/database/classes/Ligas.php:171
 #: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:85
 #: server/pdf/classes/PrintClasificacionExcel.php:159
@@ -2597,28 +2597,28 @@ msgid "Import training session timetable from Excel file"
 msgstr "Importar tabla de entrenamientos desde fichero Excel"
 
 #: console/dialogs/dlg_entrenamientos.inc:29
-#: lib/templates/import_dialog.inc.php:12
-#: lib/templates/import_ordensalida_dialog.inc.php:12
-#: lib/templates/import_results_dialog.inc.php:12
+#: console/templates/import_dialog.inc.php:12
+#: console/templates/import_ordensalida_dialog.inc.php:12
+#: console/templates/import_results_dialog.inc.php:12
 msgid "Database backup is recommended before import"
 msgstr "Se recomienda una copia de seguridad antes de la importacion"
 
 #: console/dialogs/dlg_entrenamientos.inc:34
-#: lib/templates/import_dialog.inc.php:17
+#: console/templates/import_dialog.inc.php:17
 msgid "Select Excel file to retrieve Dog data from"
 msgstr "Selecciona fichero Excel de donde importar datos de perros"
 
 #: console/dialogs/dlg_entrenamientos.inc:35
-#: lib/templates/import_dialog.inc.php:18
-#: lib/templates/import_ordensalida_dialog.inc.php:18
-#: lib/templates/import_results_dialog.inc.php:18
+#: console/templates/import_dialog.inc.php:18
+#: console/templates/import_ordensalida_dialog.inc.php:18
+#: console/templates/import_results_dialog.inc.php:18
 msgid "Press import to start, or cancel to abort import"
 msgstr "Puslsa Importar para empezar, o Cancelar para anular"
 
 #: console/dialogs/dlg_entrenamientos.inc:45
-#: lib/templates/import_dialog.inc.php:28
-#: lib/templates/import_ordensalida_dialog.inc.php:36
-#: lib/templates/import_results_dialog.inc.php:36
+#: console/templates/import_dialog.inc.php:28
+#: console/templates/import_ordensalida_dialog.inc.php:36
+#: console/templates/import_results_dialog.inc.php:36
 msgid "Blind (non-interactive) mode"
 msgstr "Importaci&oacute;n no interactiva"
 
@@ -2627,44 +2627,44 @@ msgid "Options for non-interactive import"
 msgstr "Configuraci&oacute;n"
 
 #: console/dialogs/dlg_entrenamientos.inc:53
-#: lib/templates/import_dialog.inc.php:35
+#: console/templates/import_dialog.inc.php:35
 msgid "Precedence on DB/Excel entry match"
 msgstr "Prioridad en caso de coincidencia"
 
 #: console/dialogs/dlg_entrenamientos.inc:57
-#: lib/templates/import_dialog.inc.php:39
+#: console/templates/import_dialog.inc.php:39
 msgid "Excel file"
 msgstr "Fichero excel"
 
 #: console/dialogs/dlg_entrenamientos.inc:59
-#: lib/templates/import_dialog.inc.php:41
+#: console/templates/import_dialog.inc.php:41
 msgid "Text Conversion"
 msgstr "Conversi&oacute;n del texto"
 
 #: console/dialogs/dlg_entrenamientos.inc:61
-#: lib/templates/import_dialog.inc.php:43
+#: console/templates/import_dialog.inc.php:43
 msgid "Capitalize words"
 msgstr "Inicial en may&uacute;sculas"
 
 #: console/dialogs/dlg_entrenamientos.inc:63
-#: lib/templates/import_dialog.inc.php:45
+#: console/templates/import_dialog.inc.php:45
 msgid "Leave as is"
 msgstr "Dejar como est&aacute;"
 
 #: console/dialogs/dlg_entrenamientos.inc:65
-#: lib/templates/import_dialog.inc.php:47
+#: console/templates/import_dialog.inc.php:47
 msgid "Action on empty fields"
 msgstr "Acci&oacute;n ante campos vac&iacute;os"
 
 #: console/dialogs/dlg_entrenamientos.inc:69
-#: lib/templates/import_dialog.inc.php:51
+#: console/templates/import_dialog.inc.php:51
 msgid "Overwrite"
 msgstr "Sobre-escribir"
 
 #: console/dialogs/dlg_entrenamientos.inc:75
-#: lib/templates/import_dialog.inc.php:64
-#: lib/templates/import_ordensalida_dialog.inc.php:61
-#: lib/templates/import_results_dialog.inc.php:61
+#: console/templates/import_dialog.inc.php:64
+#: console/templates/import_ordensalida_dialog.inc.php:61
+#: console/templates/import_results_dialog.inc.php:61
 msgid "Import status"
 msgstr "Importar estado"
 
@@ -2716,7 +2716,7 @@ msgstr "Actualizando sesi&oacute;n de entrenamientos de la prueba"
 #: console/frm_clasificaciones2.php:50
 #: console/frm_clasificaciones_equipos.php:49
 #: console/frm_inscripciones2.php:175 console/frm_pruebas.php:161
-#: lib/templates/entrenamientos.inc.php:18
+#: console/templates/entrenamientos.inc.php:18
 #: server/excel/classes/EntrenamientosWriter.php:54
 #: server/excel/classes/OrdenSalidaWriter.php:123
 #: server/excel/classes/XLSXWriter.php:124
@@ -2734,27 +2734,27 @@ msgid "Date"
 msgstr "Fecha"
 
 #: console/dialogs/dlg_entrenamientos.inc:190
-#: lib/templates/entrenamientos.inc.php:19
+#: console/templates/entrenamientos.inc.php:19
 #: server/excel/classes/EntrenamientosWriter.php:54
 msgid "Check-in"
 msgstr "Firma"
 
 #: console/dialogs/dlg_entrenamientos.inc:193
-#: lib/templates/entrenamientos.inc.php:20
+#: console/templates/entrenamientos.inc.php:20
 #: server/excel/classes/EntrenamientosWriter.php:54
 #: server/pdf/classes/PrintEntrenamientos.php:61
 msgid "Veterinary"
 msgstr "Veterinario"
 
 #: console/dialogs/dlg_entrenamientos.inc:196
-#: lib/templates/entrenamientos.inc.php:21
+#: console/templates/entrenamientos.inc.php:21
 #: server/excel/classes/EntrenamientosWriter.php:54
 #: server/pdf/classes/PrintEntrenamientos.php:61
 msgid "Start"
 msgstr "Inicio"
 
 #: console/dialogs/dlg_entrenamientos.inc:199
-#: lib/templates/entrenamientos.inc.php:22
+#: console/templates/entrenamientos.inc.php:22
 #: server/excel/classes/EntrenamientosWriter.php:54
 #: server/pdf/classes/PrintEntrenamientos.php:61
 msgid "Duration"
@@ -3009,13 +3009,13 @@ msgstr "Actualizando lista de perros"
 #: console/dialogs/import_perros.inc.php:92
 #: console/dialogs/import_results.inc.php:87 console/frm_equipos.php:256
 #: console/frm_inscripciones2.php:273 console/frm_ligas.php:32
-#: console/frm_perros.php:135 lib/templates/final_games.inc.php:22
-#: lib/templates/final_individual.inc.php:19
-#: lib/templates/final_last_individual.inc.php:29
-#: lib/templates/final_last_teams.inc.php:30
-#: lib/templates/parcial_individual.inc.php:21
-#: lib/templates/parcial_last_individual.inc.php:23
-#: lib/templates/parcial_last_teams.inc.php:24 public/pb_inscripciones.php:104
+#: console/frm_perros.php:135 console/templates/final_games.inc.php:22
+#: console/templates/final_individual.inc.php:19
+#: console/templates/final_last_individual.inc.php:29
+#: console/templates/final_last_teams.inc.php:30
+#: console/templates/parcial_individual.inc.php:21
+#: console/templates/parcial_last_individual.inc.php:23
+#: console/templates/parcial_last_teams.inc.php:24 public/pb_inscripciones.php:104
 #: public/pb_inscripciones_equipos.php:153 public/pbmenu_inscripciones.php:104
 #: public/pbmenu_inscripciones_equipos.php:148
 #: scripts/results_and_scores.js.php:265 scripts/results_and_scores.js.php:337
@@ -3167,7 +3167,7 @@ msgid "Def"
 msgstr "Def"
 
 #: console/dialogs/dlg_ordensalida.inc:280
-#: lib/templates/orden_salida.inc.php:55
+#: console/templates/orden_salida.inc.php:55
 msgid "Updating starting order"
 msgstr "Actualizando orden de salida"
 
@@ -3512,7 +3512,7 @@ msgstr ""
 msgid "Press double-click on club to set/change email"
 msgstr "DobleClick en club para indicar/cambiar correo"
 
-#: console/dialogs/dlg_pruebas.inc:37 lib/templates/scores_mail.inc.php:37
+#: console/dialogs/dlg_pruebas.inc:37 console/templates/scores_mail.inc.php:37
 msgid "Send email copy back to sender"
 msgstr "Enviar copia del correo al remitente"
 
@@ -3552,20 +3552,20 @@ msgstr "Enviando correo"
 msgid "Sending mail to"
 msgstr "Enviando correo a"
 
-#: console/dialogs/dlg_pruebas.inc:69 lib/templates/scores_mail.inc.php:60
+#: console/dialogs/dlg_pruebas.inc:69 console/templates/scores_mail.inc.php:60
 msgid "Text editor"
 msgstr "Editor de texto"
 
 #: console/dialogs/dlg_pruebas.inc:110 console/dialogs/dlg_remotecontrol.inc:49
 #: console/dialogs/dlg_remotecontrol.inc:141
 #: console/dialogs/dlg_remotecontrol.inc:284
-#: lib/templates/scores_mail.inc.php:81 public/public.js.php:232
+#: console/templates/scores_mail.inc.php:81 public/public.js.php:232
 msgid "Message"
 msgstr "Mensaje"
 
 #: console/dialogs/dlg_pruebas.inc:116
 #: console/dialogs/dlg_remotecontrol.inc:298
-#: lib/templates/scores_mail.inc.php:85
+#: console/templates/scores_mail.inc.php:85
 msgid "Send"
 msgstr "Enviar"
 
@@ -3606,7 +3606,7 @@ msgstr "URL del tr&iacute;ptico"
 msgid "Brochure URL"
 msgstr "URL del cartel"
 
-#: console/dialogs/dlg_pruebas.inc:207 lib/templates/scores_mail.inc.php:95
+#: console/dialogs/dlg_pruebas.inc:207 console/templates/scores_mail.inc.php:95
 msgid "Edit mail template text to be sent"
 msgstr "Editar el texto del mensaje a enviar"
 
@@ -3614,7 +3614,7 @@ msgstr "Editar el texto del mensaje a enviar"
 msgid "Remove mail sent mark from every clubs"
 msgstr "Marcar todos los clubes como `pendiente de env&iacute;o`"
 
-#: console/dialogs/dlg_pruebas.inc:209 lib/templates/scores_mail.inc.php:96
+#: console/dialogs/dlg_pruebas.inc:209 console/templates/scores_mail.inc.php:96
 msgid "Accept data. Start mailing procedure"
 msgstr "Aceptar datos. Comenzar envio de correo"
 
@@ -4470,10 +4470,10 @@ msgid "Ignore data. Do not import Excel result entry into database"
 msgstr "Ignorar entrada. No importar este resultado a la base de datos"
 
 #: console/dialogs/infomanga.php:46 console/dialogs/infomanga.php:50
-#: lib/templates/final_rounds_data.inc.php:11
-#: lib/templates/final_rounds_data.inc.php:12
-#: lib/templates/parcial_round_data.inc.php:14
-#: lib/templates/parcial_round_data.inc.php:15
+#: console/templates/final_rounds_data.inc.php:11
+#: console/templates/final_rounds_data.inc.php:12
+#: console/templates/parcial_round_data.inc.php:14
+#: console/templates/parcial_round_data.inc.php:15
 #: server/database/updater/Uploader.php:242
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/pdf/classes/PrintClasificacion.php:114
@@ -4513,11 +4513,11 @@ msgstr "Recorridos"
 #: console/dialogs/infomanga.php:89 console/dialogs/inforesultados.inc:43
 #: console/dialogs/inforesultados.inc:51 console/dialogs/inforesultados.inc:59
 #: console/dialogs/inforesultados.inc:67 console/dialogs/inforesultados.inc:75
-#: lib/templates/parcial_console_round_data.inc.php:13
-#: lib/templates/parcial_console_round_data.inc.php:22
-#: lib/templates/parcial_console_round_data.inc.php:31
-#: lib/templates/parcial_console_round_data.inc.php:40
-#: lib/templates/parcial_console_round_data.inc.php:49
+#: console/templates/parcial_console_round_data.inc.php:13
+#: console/templates/parcial_console_round_data.inc.php:22
+#: console/templates/parcial_console_round_data.inc.php:31
+#: console/templates/parcial_console_round_data.inc.php:40
+#: console/templates/parcial_console_round_data.inc.php:49
 #: server/pdf/classes/PrintParcialGeneral.php:100
 #: server/pdf/classes/PrintResultadosByEquipos3.php:115
 #: server/pdf/classes/PrintResultadosByEquipos4.php:107
@@ -4529,11 +4529,11 @@ msgstr "Distancia"
 #: console/dialogs/infomanga.php:90 console/dialogs/inforesultados.inc:44
 #: console/dialogs/inforesultados.inc:52 console/dialogs/inforesultados.inc:60
 #: console/dialogs/inforesultados.inc:68 console/dialogs/inforesultados.inc:76
-#: lib/templates/parcial_console_round_data.inc.php:14
-#: lib/templates/parcial_console_round_data.inc.php:23
-#: lib/templates/parcial_console_round_data.inc.php:32
-#: lib/templates/parcial_console_round_data.inc.php:41
-#: lib/templates/parcial_console_round_data.inc.php:50
+#: console/templates/parcial_console_round_data.inc.php:14
+#: console/templates/parcial_console_round_data.inc.php:23
+#: console/templates/parcial_console_round_data.inc.php:32
+#: console/templates/parcial_console_round_data.inc.php:41
+#: console/templates/parcial_console_round_data.inc.php:50
 #: server/pdf/classes/PrintParcialGeneral.php:102
 #: server/pdf/classes/PrintResultadosByEquipos3.php:117
 #: server/pdf/classes/PrintResultadosByEquipos4.php:109
@@ -4601,11 +4601,11 @@ msgstr "TRM fijo"
 #: console/dialogs/infomanga.php:390 console/dialogs/inforesultados.inc:45
 #: console/dialogs/inforesultados.inc:53 console/dialogs/inforesultados.inc:61
 #: console/dialogs/inforesultados.inc:69 console/dialogs/inforesultados.inc:77
-#: lib/templates/parcial_console_round_data.inc.php:15
-#: lib/templates/parcial_console_round_data.inc.php:24
-#: lib/templates/parcial_console_round_data.inc.php:33
-#: lib/templates/parcial_console_round_data.inc.php:42
-#: lib/templates/parcial_console_round_data.inc.php:51
+#: console/templates/parcial_console_round_data.inc.php:15
+#: console/templates/parcial_console_round_data.inc.php:24
+#: console/templates/parcial_console_round_data.inc.php:33
+#: console/templates/parcial_console_round_data.inc.php:42
+#: console/templates/parcial_console_round_data.inc.php:51
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:255
 #: server/excel/classes/PartialScoresWriter.php:88
@@ -4742,13 +4742,13 @@ msgstr ""
 
 #: console/dialogs/inforesultados.inc:32
 #: console/frm_clasificaciones_equipos.php:53
-#: lib/templates/final_games.inc.php:11 lib/templates/final_games.inc.php:12
-#: lib/templates/final_individual.inc.php:33
-#: lib/templates/final_last_individual.inc.php:12
-#: lib/templates/final_last_individual.inc.php:13
-#: lib/templates/final_last_teams.inc.php:12
-#: lib/templates/final_last_teams.inc.php:13
-#: lib/templates/final_teams.inc.php:11 lib/templates/final_teams.inc.php:12
+#: console/templates/final_games.inc.php:11 console/templates/final_games.inc.php:12
+#: console/templates/final_individual.inc.php:33
+#: console/templates/final_last_individual.inc.php:12
+#: console/templates/final_last_individual.inc.php:13
+#: console/templates/final_last_teams.inc.php:12
+#: console/templates/final_last_teams.inc.php:13
+#: console/templates/final_teams.inc.php:11 console/templates/final_teams.inc.php:12
 #: livestream/vwls_finales.php:89 livestream/vwls_finales.php:90
 #: livestream/vwls_osdvideo.php:56 public/pb_parciales.php:55
 #: public/pb_parciales_equipos.php:55 server/database/classes/Ligas.php:211
@@ -4778,11 +4778,11 @@ msgstr "Jueces"
 #: console/dialogs/inforesultados.inc:46 console/dialogs/inforesultados.inc:54
 #: console/dialogs/inforesultados.inc:62 console/dialogs/inforesultados.inc:70
 #: console/dialogs/inforesultados.inc:78
-#: lib/templates/parcial_console_round_data.inc.php:16
-#: lib/templates/parcial_console_round_data.inc.php:25
-#: lib/templates/parcial_console_round_data.inc.php:34
-#: lib/templates/parcial_console_round_data.inc.php:43
-#: lib/templates/parcial_console_round_data.inc.php:52
+#: console/templates/parcial_console_round_data.inc.php:16
+#: console/templates/parcial_console_round_data.inc.php:25
+#: console/templates/parcial_console_round_data.inc.php:34
+#: console/templates/parcial_console_round_data.inc.php:43
+#: console/templates/parcial_console_round_data.inc.php:52
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:258
 #: server/excel/classes/PartialScoresWriter.php:89
@@ -4808,22 +4808,22 @@ msgstr "TRM"
 #: console/dialogs/inforesultados.inc:47 console/dialogs/inforesultados.inc:55
 #: console/dialogs/inforesultados.inc:63 console/dialogs/inforesultados.inc:71
 #: console/dialogs/inforesultados.inc:79
-#: lib/templates/final_individual.inc.php:41
-#: lib/templates/final_last_individual.inc.php:47
-#: lib/templates/final_last_individual.inc.php:55
-#: lib/templates/final_last_teams.inc.php:41
-#: lib/templates/final_last_teams.inc.php:48
-#: lib/templates/final_rounds_data.inc.php:20
-#: lib/templates/final_rounds_data.inc.php:28
-#: lib/templates/parcial_console_round_data.inc.php:17
-#: lib/templates/parcial_console_round_data.inc.php:26
-#: lib/templates/parcial_console_round_data.inc.php:35
-#: lib/templates/parcial_console_round_data.inc.php:44
-#: lib/templates/parcial_console_round_data.inc.php:53
-#: lib/templates/parcial_individual.inc.php:40
-#: lib/templates/parcial_last_individual.inc.php:42
-#: lib/templates/parcial_last_teams.inc.php:44
-#: lib/templates/parcial_round_data.inc.php:22
+#: console/templates/final_individual.inc.php:41
+#: console/templates/final_last_individual.inc.php:47
+#: console/templates/final_last_individual.inc.php:55
+#: console/templates/final_last_teams.inc.php:41
+#: console/templates/final_last_teams.inc.php:48
+#: console/templates/final_rounds_data.inc.php:20
+#: console/templates/final_rounds_data.inc.php:28
+#: console/templates/parcial_console_round_data.inc.php:17
+#: console/templates/parcial_console_round_data.inc.php:26
+#: console/templates/parcial_console_round_data.inc.php:35
+#: console/templates/parcial_console_round_data.inc.php:44
+#: console/templates/parcial_console_round_data.inc.php:53
+#: console/templates/parcial_individual.inc.php:40
+#: console/templates/parcial_last_individual.inc.php:42
+#: console/templates/parcial_last_teams.inc.php:44
+#: console/templates/parcial_round_data.inc.php:22
 #: scripts/results_and_scores.js.php:274 scripts/results_and_scores.js.php:280
 #: scripts/results_and_scores.js.php:347
 #: server/excel/classes/ClasificacionesWriter.php:86
@@ -4978,8 +4978,8 @@ msgid "Mail"
 msgstr "Correo"
 
 #: console/frm_clasificaciones2.php:109
-#: lib/templates/final_rounds_data.inc.php:10
-#: lib/templates/parcial_round_data.inc.php:11
+#: console/templates/final_rounds_data.inc.php:10
+#: console/templates/parcial_round_data.inc.php:11
 #: livestream/vwls_entrenamientos.php:66 livestream/vwls_finales.php:69
 #: livestream/vwls_finales.php:209 livestream/vwls_ordensalida.php:65
 #: livestream/vwls_ordensalida.php:125 livestream/vwls_parciales.php:68
@@ -6294,41 +6294,41 @@ msgstr "Comprobar conexi&oacute;n con el servidor y la BBDD"
 msgid "Accept System Parameters. Start install"
 msgstr "Aceptar par&aacute;metros del sistema. Comenzar la instalaci&oacute;n"
 
-#: lib/templates/entrenamientos.inc.php:45
+#: console/templates/entrenamientos.inc.php:45
 msgid "Updating training session order"
 msgstr "Actualizando el orden de los entrenamientos"
 
-#: lib/templates/entrenamientos.inc.php:55
+#: console/templates/entrenamientos.inc.php:55
 msgid "This contest has no training session defined"
 msgstr "Esta prueba no tiene sesi&oacute;n de entrenamientos"
 
-#: lib/templates/final_games.inc.php:25
-#: lib/templates/final_last_individual.inc.php:32
-#: lib/templates/final_last_teams.inc.php:34
-#: lib/templates/parcial_games.inc.php:26
-#: lib/templates/parcial_individual.inc.php:24
-#: lib/templates/parcial_last_individual.inc.php:26
-#: lib/templates/parcial_last_teams.inc.php:28
+#: console/templates/final_games.inc.php:25
+#: console/templates/final_last_individual.inc.php:32
+#: console/templates/final_last_teams.inc.php:34
+#: console/templates/parcial_games.inc.php:26
+#: console/templates/parcial_individual.inc.php:24
+#: console/templates/parcial_last_individual.inc.php:26
+#: console/templates/parcial_last_teams.inc.php:28
 #: server/pdf/classes/PrintClasificacionGeneral.php:209
 msgid "Grd"
 msgstr "Grd"
 
-#: lib/templates/final_games.inc.php:39 lib/templates/final_games.inc.php:46
+#: console/templates/final_games.inc.php:39 console/templates/final_games.inc.php:46
 #: server/pdf/classes/PrintResultadosGames.php:64
 msgid "Opening Seq"
 msgstr "Apertura"
 
-#: lib/templates/final_games.inc.php:40
+#: console/templates/final_games.inc.php:40
 #: server/pdf/classes/PrintResultadosGames.php:62
 msgid "Closing Seq"
 msgstr "Cierre"
 
-#: lib/templates/final_games.inc.php:43 lib/templates/final_games.inc.php:50
-#: lib/templates/final_individual.inc.php:44
-#: lib/templates/final_last_individual.inc.php:50
-#: lib/templates/final_last_individual.inc.php:58
-#: lib/templates/final_last_teams.inc.php:44
-#: lib/templates/final_last_teams.inc.php:51 livestream/vwls_finales.php:101
+#: console/templates/final_games.inc.php:43 console/templates/final_games.inc.php:50
+#: console/templates/final_individual.inc.php:44
+#: console/templates/final_last_individual.inc.php:50
+#: console/templates/final_last_individual.inc.php:58
+#: console/templates/final_last_teams.inc.php:44
+#: console/templates/final_last_teams.inc.php:51 livestream/vwls_finales.php:101
 #: livestream/vwls_finales.php:104
 #: server/pdf/classes/PrintClasificacion.php:254
 #: server/pdf/classes/PrintClasificacion.php:267
@@ -6353,20 +6353,20 @@ msgstr "Cierre"
 msgid "Pos"
 msgstr "Pos"
 
-#: lib/templates/final_games.inc.php:47 server/database/classes/poedit.php:51
+#: console/templates/final_games.inc.php:47 server/database/classes/poedit.php:51
 #: server/pdf/classes/PrintClasificacionGames.php:154
 #: server/pdf/classes/PrintEntradaDeDatosGames.php:302
 msgid "Gambler"
 msgstr "Gambler"
 
-#: lib/templates/final_games.inc.php:55
-#: lib/templates/final_individual.inc.php:27
-#: lib/templates/final_last_individual.inc.php:41
-#: lib/templates/final_last_teams.inc.php:55
-#: lib/templates/parcial_games.inc.php:44
-#: lib/templates/parcial_individual.inc.php:43
-#: lib/templates/parcial_last_individual.inc.php:45
-#: lib/templates/parcial_last_teams.inc.php:47 livestream/vwls_finales.php:107
+#: console/templates/final_games.inc.php:55
+#: console/templates/final_individual.inc.php:27
+#: console/templates/final_last_individual.inc.php:41
+#: console/templates/final_last_teams.inc.php:55
+#: console/templates/parcial_games.inc.php:44
+#: console/templates/parcial_individual.inc.php:43
+#: console/templates/parcial_last_individual.inc.php:45
+#: console/templates/parcial_last_teams.inc.php:47 livestream/vwls_finales.php:107
 #: scripts/results_and_scores.js.php:286 scripts/results_and_scores.js.php:350
 #: server/pdf/classes/PrintClasificacion.php:288
 #: server/pdf/classes/PrintClasificacionExcel.php:184
@@ -6380,20 +6380,20 @@ msgstr "Gambler"
 msgid "Position"
 msgstr "Puesto"
 
-#: lib/templates/final_games.inc.php:72
-#: lib/templates/final_individual.inc.php:62
-#: lib/templates/final_last_individual.inc.php:75
-#: lib/templates/final_last_teams.inc.php:72
-#: lib/templates/final_teams.inc.php:46 livestream/vwls_finales.php:157
+#: console/templates/final_games.inc.php:72
+#: console/templates/final_individual.inc.php:62
+#: console/templates/final_last_individual.inc.php:75
+#: console/templates/final_last_teams.inc.php:72
+#: console/templates/final_teams.inc.php:46 livestream/vwls_finales.php:157
 msgid "Updating final scores"
 msgstr "Actualizando clasificaci&oacute;n final"
 
-#: lib/templates/final_individual.inc.php:25
-#: lib/templates/final_last_individual.inc.php:39
-#: lib/templates/final_last_teams.inc.php:53
-#: lib/templates/parcial_individual.inc.php:41
-#: lib/templates/parcial_last_individual.inc.php:43
-#: lib/templates/parcial_last_teams.inc.php:45 livestream/vwls_finales.php:106
+#: console/templates/final_individual.inc.php:25
+#: console/templates/final_last_individual.inc.php:39
+#: console/templates/final_last_teams.inc.php:53
+#: console/templates/parcial_individual.inc.php:41
+#: console/templates/parcial_last_individual.inc.php:43
+#: console/templates/parcial_last_teams.inc.php:45 livestream/vwls_finales.php:106
 #: scripts/results_and_scores.js.php:284
 #: server/pdf/classes/PrintClasificacion.php:286
 #: server/pdf/classes/PrintClasificacionExcel.php:168
@@ -6407,13 +6407,13 @@ msgstr "Actualizando clasificaci&oacute;n final"
 msgid "Penaliz"
 msgstr "Penal"
 
-#: lib/templates/final_individual.inc.php:26
-#: lib/templates/final_last_individual.inc.php:40
-#: lib/templates/final_last_teams.inc.php:54
-#: lib/templates/parcial_games.inc.php:43
-#: lib/templates/parcial_individual.inc.php:42
-#: lib/templates/parcial_last_individual.inc.php:44
-#: lib/templates/parcial_last_teams.inc.php:46
+#: console/templates/final_individual.inc.php:26
+#: console/templates/final_last_individual.inc.php:40
+#: console/templates/final_last_teams.inc.php:54
+#: console/templates/parcial_games.inc.php:43
+#: console/templates/parcial_individual.inc.php:42
+#: console/templates/parcial_last_individual.inc.php:44
+#: console/templates/parcial_last_teams.inc.php:46
 #: scripts/results_and_scores.js.php:285 scripts/results_and_scores.js.php:349
 #: server/pdf/classes/PrintClasificacion.php:253
 #: server/pdf/classes/PrintClasificacion.php:266
@@ -6426,14 +6426,14 @@ msgid "Calif"
 msgstr "Calif"
 
 # Abrev de Faltas/Tocados
-#: lib/templates/final_individual.inc.php:38
-#: lib/templates/final_last_individual.inc.php:44
-#: lib/templates/final_last_individual.inc.php:52
-#: lib/templates/final_last_teams.inc.php:38
-#: lib/templates/final_last_teams.inc.php:45
-#: lib/templates/parcial_individual.inc.php:28
-#: lib/templates/parcial_last_individual.inc.php:30
-#: lib/templates/parcial_last_teams.inc.php:32
+#: console/templates/final_individual.inc.php:38
+#: console/templates/final_last_individual.inc.php:44
+#: console/templates/final_last_individual.inc.php:52
+#: console/templates/final_last_teams.inc.php:38
+#: console/templates/final_last_teams.inc.php:45
+#: console/templates/parcial_individual.inc.php:28
+#: console/templates/parcial_last_individual.inc.php:30
+#: console/templates/parcial_last_teams.inc.php:32
 #: scripts/results_and_scores.js.php:271 scripts/results_and_scores.js.php:277
 #: scripts/results_and_scores.js.php:343
 #: server/pdf/classes/PrintClasificacion.php:248
@@ -6447,12 +6447,12 @@ msgstr "Calif"
 msgid "F/T"
 msgstr "F/T"
 
-#: lib/templates/final_individual.inc.php:42
-#: lib/templates/final_last_individual.inc.php:48
-#: lib/templates/final_last_individual.inc.php:56
-#: lib/templates/final_last_teams.inc.php:42
-#: lib/templates/final_last_teams.inc.php:49
-#: lib/templates/final_teams.inc.php:26 lib/templates/final_teams.inc.php:28
+#: console/templates/final_individual.inc.php:42
+#: console/templates/final_last_individual.inc.php:48
+#: console/templates/final_last_individual.inc.php:56
+#: console/templates/final_last_teams.inc.php:42
+#: console/templates/final_last_teams.inc.php:49
+#: console/templates/final_teams.inc.php:26 console/templates/final_teams.inc.php:28
 #: livestream/vwls_finales.php:100 livestream/vwls_finales.php:103
 #: scripts/datagrid_formatters.js.php:443 scripts/results_and_scores.js.php:275
 #: scripts/results_and_scores.js.php:281 scripts/results_and_scores.js.php:348
@@ -6482,24 +6482,24 @@ msgstr "F/T"
 msgid "Penal"
 msgstr "Penal"
 
-#: lib/templates/final_individual.inc.php:43
-#: lib/templates/final_last_individual.inc.php:49
-#: lib/templates/final_last_individual.inc.php:57
-#: lib/templates/final_last_teams.inc.php:43
-#: lib/templates/final_last_teams.inc.php:50
+#: console/templates/final_individual.inc.php:43
+#: console/templates/final_last_individual.inc.php:49
+#: console/templates/final_last_individual.inc.php:57
+#: console/templates/final_last_teams.inc.php:43
+#: console/templates/final_last_teams.inc.php:50
 #: scripts/results_and_scores.js.php:276 scripts/results_and_scores.js.php:282
 msgid "Cal"
 msgstr "Cal"
 
-#: lib/templates/final_rounds_data.inc.php:15
-#: lib/templates/final_rounds_data.inc.php:23
+#: console/templates/final_rounds_data.inc.php:15
+#: console/templates/final_rounds_data.inc.php:23
 #: scripts/results_and_scores.js.php:216 scripts/results_and_scores.js.php:222
 msgid "Data info for round"
 msgstr "Datos de la manga"
 
-#: lib/templates/final_rounds_data.inc.php:16
-#: lib/templates/final_rounds_data.inc.php:24
-#: lib/templates/parcial_round_data.inc.php:18
+#: console/templates/final_rounds_data.inc.php:16
+#: console/templates/final_rounds_data.inc.php:24
+#: console/templates/parcial_round_data.inc.php:18
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:249
 #: server/excel/classes/PartialScoresWriter.php:86
@@ -6519,9 +6519,9 @@ msgstr "Datos de la manga"
 msgid "Dist"
 msgstr "Dist"
 
-#: lib/templates/final_rounds_data.inc.php:17
-#: lib/templates/final_rounds_data.inc.php:25
-#: lib/templates/parcial_round_data.inc.php:19
+#: console/templates/final_rounds_data.inc.php:17
+#: console/templates/final_rounds_data.inc.php:25
+#: console/templates/parcial_round_data.inc.php:19
 #: server/excel/classes/ClasificacionesWriter.php:86
 #: server/excel/classes/PartialScoresReader.php:252
 #: server/excel/classes/PartialScoresWriter.php:87
@@ -6540,169 +6540,169 @@ msgstr "Dist"
 msgid "Obst"
 msgstr "Obst"
 
-#: lib/templates/final_rounds_data.inc.php:18
-#: lib/templates/final_rounds_data.inc.php:26
-#: lib/templates/parcial_round_data.inc.php:20
+#: console/templates/final_rounds_data.inc.php:18
+#: console/templates/final_rounds_data.inc.php:26
+#: console/templates/parcial_round_data.inc.php:20
 msgid "S.C.T."
 msgstr "T.R.S."
 
-#: lib/templates/final_rounds_data.inc.php:19
-#: lib/templates/final_rounds_data.inc.php:27
-#: lib/templates/parcial_round_data.inc.php:21
+#: console/templates/final_rounds_data.inc.php:19
+#: console/templates/final_rounds_data.inc.php:27
+#: console/templates/parcial_round_data.inc.php:21
 msgid "M.C.T."
 msgstr "T.R.M."
 
-#: lib/templates/final_teams.inc.php:10 videowall/vws_final_equipos.php:53
+#: console/templates/final_teams.inc.php:10 videowall/vws_final_equipos.php:53
 #: videowall/vws_parcial_equipos.php:53
 msgid "Team data"
 msgstr "Datos del equipo"
 
-#: lib/templates/final_teams.inc.php:30 lib/templates/parcial_teams.inc.php:18
+#: console/templates/final_teams.inc.php:30 console/templates/parcial_teams.inc.php:18
 #: server/pdf/classes/PrintClasificacionGames.php:90
 #: server/pdf/classes/PrintClasificacionGames.php:123
 msgid "Penalization"
 msgstr "Penalizaci&oacute;n"
 
-#: lib/templates/import_dialog.inc.php:10
+#: console/templates/import_dialog.inc.php:10
 msgid "Current federation to import data into"
 msgstr "Federaci&oacute;n donde importar datos"
 
-#: lib/templates/import_dialog.inc.php:34
-#: lib/templates/import_ordensalida_dialog.inc.php:41
-#: lib/templates/import_results_dialog.inc.php:50
+#: console/templates/import_dialog.inc.php:34
+#: console/templates/import_ordensalida_dialog.inc.php:41
+#: console/templates/import_results_dialog.inc.php:50
 msgid "Excel import options"
 msgstr "Opciones de importaci&oacute;n"
 
-#: lib/templates/import_dialog.inc.php:55
-#: lib/templates/import_results_dialog.inc.php:51
+#: console/templates/import_dialog.inc.php:55
+#: console/templates/import_results_dialog.inc.php:51
 msgid "Also read (if available) course data"
 msgstr "Importar datos de pista si est&aacute;n disponibles"
 
-#: lib/templates/import_dialog.inc.php:57
+#: console/templates/import_dialog.inc.php:57
 msgid "Try to deal entry when no license provided"
 msgstr "Buscar perro si no se proporciona licencia"
 
-#: lib/templates/import_dialog.inc.php:80
+#: console/templates/import_dialog.inc.php:80
 msgid "Assume no coherency errors with current database data"
 msgstr "Asumir que no hay incoherencias con los datos existentes en la BBDD"
 
-#: lib/templates/import_ordensalida_dialog.inc.php:10
-#: lib/templates/import_results_dialog.inc.php:10
+#: console/templates/import_ordensalida_dialog.inc.php:10
+#: console/templates/import_results_dialog.inc.php:10
 msgid "Current round to import data into"
 msgstr "Manga actual donde importar los datos"
 
-#: lib/templates/import_ordensalida_dialog.inc.php:17
+#: console/templates/import_ordensalida_dialog.inc.php:17
 msgid "Select Excel file to retrieve round starting order data from"
 msgstr "Seleccione fichero Excel de donde importar el orden de salida"
 
-#: lib/templates/import_ordensalida_dialog.inc.php:43
+#: console/templates/import_ordensalida_dialog.inc.php:43
 msgid "Process (if available) starting order field"
 msgstr "Procesar columna `Orden` si est&aacute; disponible"
 
-#: lib/templates/import_ordensalida_dialog.inc.php:75
+#: console/templates/import_ordensalida_dialog.inc.php:75
 msgid "Silently ignore result when no license/name/grade match found"
 msgstr ""
 "Ignorar entrada cuando no haya coincidencia de licencia/nombre/categoria"
 
-#: lib/templates/import_results_dialog.inc.php:17
+#: console/templates/import_results_dialog.inc.php:17
 msgid "Select Excel file to retrieve round result data from"
 msgstr "Selecciona fichero Excel de donde importar resultados parciales"
 
-#: lib/templates/import_results_dialog.inc.php:54
+#: console/templates/import_results_dialog.inc.php:54
 msgid "Ignore excel entries marked as 'Not Present'"
 msgstr "Omitir entradas excel marcadas como 'No Presentado'"
 
-#: lib/templates/import_results_dialog.inc.php:75
+#: console/templates/import_results_dialog.inc.php:75
 msgid "Silently ignore result when no license/name match found"
 msgstr "Ignorar entradas cuando no coincide ni la licencia ni el nombre"
 
-#: lib/templates/parcial_console_round_data.inc.php:9
+#: console/templates/parcial_console_round_data.inc.php:9
 msgid "Technical data on selected round"
 msgstr "Datos t&eacute;cnicos de la manga"
 
-#: lib/templates/parcial_games.inc.php:64
-#: lib/templates/parcial_individual.inc.php:63
-#: lib/templates/parcial_last_individual.inc.php:64
-#: lib/templates/parcial_last_teams.inc.php:66
-#: lib/templates/parcial_teams.inc.php:34
+#: console/templates/parcial_games.inc.php:64
+#: console/templates/parcial_individual.inc.php:63
+#: console/templates/parcial_last_individual.inc.php:64
+#: console/templates/parcial_last_teams.inc.php:66
+#: console/templates/parcial_teams.inc.php:34
 msgid "Updating partial scores"
 msgstr "Actualizando resultados de la manga"
 
-#: lib/templates/scores_mail.inc.php:26
+#: console/templates/scores_mail.inc.php:26
 msgid "Before sending email with contest results to judge(s), please:"
 msgstr "Antes de enviar correo con los resultados a los jueces, por favor:"
 
-#: lib/templates/scores_mail.inc.php:28
+#: console/templates/scores_mail.inc.php:28
 msgid "Revise email addresses and select judge(s) to send email to"
 msgstr "Seleccione destinatarios y compruebe las direcciones de correo"
 
-#: lib/templates/scores_mail.inc.php:29
+#: console/templates/scores_mail.inc.php:29
 msgid "Also decide whether to send mail copy to Federation"
 msgstr "Indique si desea enviar copia a la federaci&oacute;n"
 
-#: lib/templates/scores_mail.inc.php:30
+#: console/templates/scores_mail.inc.php:30
 msgid "Choose also if you want to send partial (round) scores"
 msgstr ""
 "Indique tambi&eacute;n si desea enviar resultados parciales (por mangas)"
 
-#: lib/templates/scores_mail.inc.php:31
+#: console/templates/scores_mail.inc.php:31
 msgid "Choose if sending every results in a single '.zip' file"
 msgstr ""
 "Decidir si se env&iacute;a un &uacute;nico fichero .zip o ficheros separados"
 
-#: lib/templates/scores_mail.inc.php:32
+#: console/templates/scores_mail.inc.php:32
 msgid "Revise and edit message body"
 msgstr "Revisar y si es necesario editar el mensaje"
 
-#: lib/templates/scores_mail.inc.php:33
+#: console/templates/scores_mail.inc.php:33
 msgid "Press double-click on judge to set/change email"
 msgstr "DobleClick en el juez para ajustar/cambiar correo"
 
-#: lib/templates/scores_mail.inc.php:39
+#: console/templates/scores_mail.inc.php:39
 msgid "Include pre agility results"
 msgstr "Incluir resultados de pre-agility"
 
-#: lib/templates/scores_mail.inc.php:41
+#: console/templates/scores_mail.inc.php:41
 msgid "Also send scores for each separate round"
 msgstr "Incluir tambien puntuaciones por mangas separadas"
 
-#: lib/templates/scores_mail.inc.php:43
+#: console/templates/scores_mail.inc.php:43
 msgid "Attach single zip file"
 msgstr "Enviar resultados en un fichero .zip"
 
-#: lib/templates/scores_mail.inc.php:45
+#: console/templates/scores_mail.inc.php:45
 msgid "Separate files"
 msgstr "Ficheros separados"
 
-#: lib/templates/scores_mail.inc.php:47
+#: console/templates/scores_mail.inc.php:47
 msgid "Send a copy to federation"
 msgstr "Enviar copia a la federaci&oacute;n"
 
-#: lib/templates/scores_mail.inc.php:49
+#: console/templates/scores_mail.inc.php:49
 msgid "Federation Email"
 msgstr "Correo de la federaci&oacute;n"
 
-#: lib/templates/scores_mail.inc.php:87
+#: console/templates/scores_mail.inc.php:87
 msgid "Get Zip"
 msgstr "Fich. Zip"
 
-#: lib/templates/scores_mail.inc.php:97
+#: console/templates/scores_mail.inc.php:97
 msgid "Download zip file with scores instead of send mail"
 msgstr "Descargar fichero zip con los resultados en lugar de enviar correo"
 
-#: lib/templates/scores_mail.inc.php:168
+#: console/templates/scores_mail.inc.php:168
 msgid "Judges for this journey"
 msgstr "Jueces de esta jornada"
 
-#: lib/templates/scores_mail.inc.php:169
+#: console/templates/scores_mail.inc.php:169
 msgid "Updating judge(s) list"
 msgstr "Actualizando lista de jueces"
 
-#: lib/templates/scores_mail.inc.php:194
+#: console/templates/scores_mail.inc.php:194
 msgid "International"
 msgstr "Internacional"
 
-#: lib/templates/scores_mail.inc.php:195
+#: console/templates/scores_mail.inc.php:195
 msgid "Learning"
 msgstr "Pr&aacute;cticas"
 

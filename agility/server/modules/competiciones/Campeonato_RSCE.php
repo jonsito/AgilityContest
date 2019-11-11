@@ -23,6 +23,8 @@ class Campeonato_RSCE extends Competitions {
         $this->federationLogoAllowed=true;
     }
 
+    function getRoundHeights($manga){ return 3; }
+
     function useLongNames() { return true; }
 
     /**

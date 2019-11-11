@@ -54,7 +54,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </span>
 		</div>
 		<div id="team_table" data-options="region:'center'">
-            <?php include_once(__DIR__."/../lib/templates/orden_salida.inc.php");?>
+            <?php include_once(__DIR__ . "/../console/templates/orden_salida.inc.php");?>
 		</div>
         <div id="pb_ordensalida-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>

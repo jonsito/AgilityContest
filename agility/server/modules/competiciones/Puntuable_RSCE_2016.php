@@ -14,6 +14,10 @@ class Puntuable_RSCE_2016 extends Competitions {
         $this->federationLogoAllowed=true;
     }
 
+    function getRoundHeights($manga) {
+        return 3; // old RSCE Seasons had 3 heights
+    }
+
     /**
      * Evaluate if a dog has a mixBreed License
      * @param $lic
