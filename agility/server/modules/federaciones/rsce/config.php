@@ -73,7 +73,14 @@ class RSCE extends Federations {
                 'R' => 'Retirado',
                 'P' => 'Para-Agility',
             ),
-            'InfoManga' => array(
+            'InfoManga3' => array( // 3 alturas
+                array('L' => 'Large',   'M' => 'Medium',      'S' => 'Small',       'T' => '',    'X' => ''), // separate courses
+                array('L' => 'Large',   'M' => 'Medium+Small', 'S' => '',           'T' => '',    'X' => ''), // mixed 2 courses
+                array('L' => 'Recorrido comun','M' => '',      'S' => '',           'T' => '',    'X' => ''), // common
+                array('L' => '',            'M' => '',         'S' => '',           'T' => '',    'X' => '') // mixed 3 courses
+            ),
+            // RSCE no tiene recorridos a cuatro alturas
+            'InfoManga5' => array( // 5 alturas
                 array('L' => 'Large',   'M' => 'Medium',      'S' => 'Small',       'T' => 'XSmall',    'X' => 'XLarge'), // separate courses
                 array('L' => '',        'M' => 'Med+Sml+XSml','S' => '',            'T' => '',          'X' => 'XLarge+Large'), // mixed 2 courses
                 array('L' => '',        'M' => '',            'S' => '',            'T' => '',          'X' => 'XL+L+M+S+XS'), // common

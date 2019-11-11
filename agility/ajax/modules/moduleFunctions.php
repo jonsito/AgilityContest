@@ -35,7 +35,6 @@ try {
         case "list": $result= Federations::getFederationList(); break;
         case "info": $result= Federations::getFederation($federation); break;
         case "enumerate": $result= Federations::enumerate(); break;
-        case "infomanga": $result= Federations::infomanga($federation,$recorrido); break;
         case "competitions": $result=Competitions::getAvailableCompetitions($federation); break;
         case "moduleinfo":
             $result=Competitions::moduleInfo($federation,$competition,$prueba,$jornada,$manga);

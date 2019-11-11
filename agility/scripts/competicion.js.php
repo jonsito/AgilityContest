@@ -151,7 +151,7 @@ function getMangaMode(fed,recorrido,categoria) {
         $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid or undefined Federation'); ?>', title: 'Error'});
         return -1;
     }
-    if (typeof (ac_fedInfo[f]['InfoManga'][rec]) === "undefined") {
+    if (typeof (ac_fedInfo[f].Modes[rec]) === "undefined") {
         $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid course mode'); ?>', title: 'Error'});
         return -1;
     }
@@ -171,7 +171,6 @@ function getMangaMode(fed,recorrido,categoria) {
         // numerical index may also be requested
         default: return ac_fedInfo[f].Modes[rec][parseInt(categoria)];
     }
-    return -1;
 }
 
 function getModeString(fed,mode) {
@@ -430,17 +429,21 @@ function dmanga_setRecorridos() {
 
     var fed=workingData.federation;
     var rec=$("input[name='Recorrido']:checked").val();
+    var heights=howManyHeights(fed);
     if (typeof (ac_fedInfo[fed]) === "undefined") {
         $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid or undefined Federation'); ?>', title: 'Error'});
         return false;
     }
-    if (typeof (ac_fedInfo[fed]['InfoManga'][rec]) === "undefined") {
-        $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid course mode'); ?>', title: 'Error'});
+    var data=null;
+    if (typeof (ac_fedInfo[fed]['InfoManga'+heights][rec]) !== "undefined") {
+        data=ac_fedInfo[fed]['InfoManga'+heights][rec];// {object{L,M,S,T,X} } data
+    } else if (typeof (ac_fedInfo[fed]['InfoManga'][rec]) !== "undefined"){
+        data=ac_fedInfo[fed]['InfoManga'][rec];// {object{L,M,S,T,X} } data
+    } else {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Cannot find round info data for provided course mode'); ?>', title: 'Error'});
         return false;
     }
-
     // first row (EXtra-Large) allways use own values, but may be not shown
-    var data=ac_fedInfo[fed]['InfoManga'][rec];// {object{L,M,S,T,X} } data
     var last=data.X;
 
     // default values
@@ -635,7 +638,17 @@ function save_manga(id) {
 
     var missing=false;
     var rec=$("input:radio[name=Recorrido]:checked").val();
-    var data=ac_fedInfo[workingData.federation]['InfoManga'][rec];// {object{L,M,S,T,X} } data
+    var fed=workingData.federation;
+    var heights=howManyHeights(fed);
+    var data=null;
+    if (typeof (ac_fedInfo[fed]['InfoManga'+heights][rec]) !== "undefined") {
+        data=ac_fedInfo[fed]['InfoManga'+heights][rec];// {object{L,M,S,T,X} } data
+    } else if (typeof (ac_fedInfo[fed]['InfoManga'][rec]) !== "undefined"){
+        data=ac_fedInfo[fed]['InfoManga'][rec];// {object{L,M,S,T,X} } data
+    } else {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Cannot find round info data for provided course mode'); ?>', title: 'Error'});
+        return false;
+    }
     $('#dmanga_Operation').val('update');
     $('#dmanga_Jornada').val(workingData.jornada);
     $('#dmanga_Manga').val(id);
@@ -1190,6 +1203,8 @@ function getPuestoParcial(datos,callback) { return __getPuesto(datos,callback,fa
  */
 function setupResultadosWindow(recorrido) {
 	var fed= parseInt(workingData.datosPrueba.RSCE);
+	var heights=howManyHeights(fed);
+	var rec=parseInt(recorrido);
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
     if (typeof (ac_fedInfo[fed])==="undefined") return;
@@ -1203,7 +1218,16 @@ function setupResultadosWindow(recorrido) {
     if (isJornadaEquipos(null)) $('#parciales_equipos-datagrid').datagrid('loadData',{total:0, rows:{}});
     else $('#parciales_individual-datagrid').datagrid('loadData',{total:0, rows:{}});
     // actualizamos la informacion del panel de informacion de trs/trm
-    var infomanga=ac_fedInfo[fed].InfoManga[parseInt(recorrido)];
+    var infomanga=null;
+    if (typeof (ac_fedInfo[fed]['InfoManga'+heights][rec]) !== "undefined") {
+        infomanga=ac_fedInfo[fed]['InfoManga'+heights][rec];// {object{L,M,S,T,X} } data
+    } else if (typeof (ac_fedInfo[fed]['InfoManga'][rec]) !== "undefined"){
+        infomanga=ac_fedInfo[fed]['InfoManga'][rec];// {object{L,M,S,T,X} } data
+    } else {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Cannot find round info data for provided course mode'); ?>', title: 'Error'});
+        return false;
+    }
+
     // visibilidad
     $('#resultadosmanga-XLargeRow').css('display',(infomanga['X']==="")?'none':'table-row');
     $('#resultadosmanga-LargeRow').css('display',(infomanga['L']==="")?'none':'table-row');
@@ -1602,7 +1626,16 @@ function resultados_doSelectRonda(row) {
     // Recordatorio: ambas mangas tienen siempre el mismo tipo de recorrido
     var fedinfo=ac_fedInfo[fed];
     var rec=parseInt(row.Recorrido1);
-    var infomanga=fedinfo.InfoManga[rec];
+    var heights=howManyHeights(fed);
+    var infomanga=null;
+    if (typeof (fedinfo['InfoManga'+heights][rec]) !== "undefined") {
+        infomanga=fedinfo['InfoManga'+heights][rec];// {object{L,M,S,T,X} } data
+    } else if (typeof (fedinfo['InfoManga'][rec]) !== "undefined"){
+        infomanga=fedinfo['InfoManga'][rec];// {object{L,M,S,T,X} } data
+    } else {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Cannot find round info data for provided course mode'); ?>', title: 'Error'});
+        return false;
+    }
 
     // contenido del combobox de seleccion de ronda
     // un poco tricky: hay que buscar todos los modos del recorrido,

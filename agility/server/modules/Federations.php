@@ -92,11 +92,27 @@ class Federations {
                 'R' => 'Retired',
                 'P' => 'Para-Agility',
             ),
-            'InfoManga' => array(
-                array('L' => 'Large', 'M' => 'Medium', 'S' => 'Small', 'T' => 'Tiny', 'X' => ''), // separate courses
-                array('L' => 'Large+Medium', 'M' => '', 'S' => 'Small+Tiny', 'T' => '', 'X' => ''), // 2 group courses
+            // la información sobre las posibles mangas se obtiene de la siguiente manera:
+            // - se obtiene el numero de alturas N de la manga deseada
+            // - se busca el array "InfoManga"+N
+            // - si no se encuentra, se busca el array "InfoManga"
+            'InfoManga3' => array( // 3 alturas
+                array('L' => 'Large', 'M' => 'Medium', 'S' => 'Small', 'T' => '', 'X' => ''), // separate courses
+                array('L' => 'Large', 'M' => 'Medium+Small', 'S' => '', 'T' => '', 'X' => ''), // 2 group courses
                 array('L' => 'Common course', 'M' => '', 'S' => '', 'T' => '', 'X' => ''), // common
-                array('L' => '', 'M' => 'Medium', 'S' => 'Small+Tiny', 'T' => '', 'X' => 'XL+Large') //3 group courses ( 5 heights )
+                array('L' => '', 'M' => '', 'S' => '', 'T' => '', 'X' => '') // 3 group courses ( 5 heights )
+            ),
+            'InfoManga4' => array( // 4 alturas
+                array('L' => 'Large', 'M' => 'Medium', 'S' => 'Small', 'T' => 'Tiny', 'X' => ''), // separate courses
+                array('L' => 'Large+Medium', 'M' => '', 'S' => 'Small+toy', 'T' => '', 'X' => ''), // 2 group courses
+                array('L' => 'Common course', 'M' => '', 'S' => '', 'T' => '', 'X' => ''), // common
+                array('L' => '', 'M' => '', 'S' => '', 'T' => '', 'X' => '') //3 group courses ( 5 heights )
+            ),
+            'InfoManga5' => array( // 5 alturas
+                array('L' => 'Large', 'M' => 'Medium', 'S' => 'Small', 'T' => 'Tiny', 'X' => 'XLarge'), // separate courses
+                array('L' => '', 'M' => 'Medium+Small+Tiny', 'S' => '', 'T' => '', 'X' => 'XLarge+Large'), // 2 group courses
+                array('L' => 'Common course', 'M' => '', 'S' => '', 'T' => '', 'X' => ''), // common
+                array('L' => '', 'M' => 'Medium', 'S' => 'Small+Tiny', 'T' => '', 'X' => 'XLarge+Large') //3 group courses ( 5 heights )
             ),
             'Modes' => array(
                 array(/* separado */ 0, 1, 2, -1, -1),
@@ -427,16 +443,6 @@ class Federations {
     }
 
     /**
-     * Retrieve text to be shown according course mode/category
-     * @param {integer} 0:separate 1:mixed 2:common course
-     * @return array requested data or error message
-     */
-    public function getInfoManga($rec) {
-        if (!array_key_exists(intval($rec),$this->config->InfoManga) ) return array('errorMsg' => "Invalid recorrido: $rec");
-        return $this->config->InfoManga[$rec];
-    }
-
-    /**
      * Search federation data by providing ID/Name
      * @param {int} $id Federation ID
      * @return {object} requested federation or null if not found
@@ -497,15 +503,6 @@ class Federations {
             if(intval($fed['International'])==1) $data |= (1<< intval($fed['ID']));
         }
         return $data;
-    }
-
-    /*
-     * Retrieve text and visibility info according federation and recorrido
-     */
-    static function infomanga($fed,$rec) {
-        $fed=Federations::getFederation($fed);
-        if (!$fed) return array('errorMsg' => 'Invalid federation ID');
-        return $fed->getInfoManga($rec);
     }
 
     /**
