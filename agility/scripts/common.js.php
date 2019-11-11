@@ -400,8 +400,9 @@ function howManyGrades(fed) {
 }
 
 function howManyHeights(fed) {
+    if (typeof(workingData.datosCompeticion.Data) !== 'undefined')
+        return workingData.datosCompeticion.Data.Heights;
 	return parseInt(ac_fedInfo[fed].Heights);
-
 }
 
 function useLongNames() {

@@ -33,6 +33,9 @@ class Puntuable_RSCE_2017 extends Competitions {
         );
     }
 
+    function getRoundHeights($manga) {
+        return 3; // old RSCE Seasons had 3 heights
+    }
     /**
      * Provide default TRS/TRM/Recorrido values for a given competitiona at
      * Round creation time

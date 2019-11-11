@@ -166,6 +166,8 @@ $('#competicion-listamangas').datagrid({
             return; 
         }
         // guardamos el id y el nombre de la manga
+        row.Manga=row.ID;
+        row.Nombre=row.Description;
         setManga(row);
         // cannot use loadcontents, because need to execute commands, _after_ html document load success
         var infomanga="../console/dialogs/infomanga.php?Federation="+workingData.federation+"&Manga="+workingData.manga;
