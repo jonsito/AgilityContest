@@ -399,10 +399,10 @@ function howManyGrades(fed) {
 	return parseInt(ac_fedInfo[fed].Grades);
 }
 
-function howManyHeights(fed) {
+function howManyHeights() {
     if (typeof(workingData.datosCompeticion.Data) !== 'undefined')
         return workingData.datosCompeticion.Data.Heights;
-	return parseInt(ac_fedInfo[fed].Heights);
+	return parseInt(ac_fedInfo[workingData.federation].Heights);
 }
 
 function useLongNames() {
@@ -585,7 +585,11 @@ function getFederationInfo() {
  * para mostrar en la ventana de ajuste del orden de salida
  */
 function getOrdenSalidaCategorias() {
-	var cats=workingData.datosFederation.ListaCategorias;
+    var heights=howManyHeights();
+    var cats=workingData.datosFederation.ListaCategorias;
+    if (typeof(workingData.datosFederation['ListaCategorias'+heights]) !== undefined ) {
+        cats=workingData.datosFederation['ListaCategorias'+heights];
+    }
 	var res=[];
 	$.each(cats,function(key,val){ res.push({Categoria:key,Nombre:val}); });
 	return res;

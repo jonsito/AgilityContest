@@ -64,6 +64,22 @@ class RSCE extends Federations {
                 'S' => 'Small',
                 'T' => 'Extra Small'
             ),
+            'ListaCategoriasShort3' => array (
+                '-' => '-',
+                // 'X' => 'XL',
+                'L' => 'Lrg',
+                'M' => 'Med',
+                'S' => 'Sml',
+                // 'T' => 'XS'
+            ),
+            'ListaCategorias3' => array (
+                '-' => 'Sin especificar',
+                // 'X' => 'Extra Large',
+                'L' => 'Large',
+                'M' => 'Medium',
+                'S' => 'Small',
+                // 'T' => 'Extra Small'
+            ),
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
                 'I' => 'Infantil',

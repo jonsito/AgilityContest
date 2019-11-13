@@ -629,7 +629,7 @@ function vw_setTrainingLayout(dg) {
     // fix country/club and reload datagrid
     dg.datagrid('setFieldTitle',{'field':'NombreClub','title':clubOrCountry()});
     // en funcion de la federacion se ajusta el numero de categorias
-    var cats=howManyHeights(workingData.federation);
+    var cats=howManyHeights();
     dg.datagrid((cats==3)?'hideColumn':'showColumn','Value4');
     dg.datagrid('fitColumns');
 }

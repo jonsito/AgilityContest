@@ -231,7 +231,7 @@ function dmanga_evalTimeSpeed() {
     var time_x=-1;
     var speed_x=-1;
     var tspeed_x="-";
-    if ( howManyHeights(workingData.federation) > 4 ) {
+    if ( howManyHeights() > 4 ) {
         switch ($("#dmanga_TRS_X_Tipo").textbox('getValue')) {
             case "0": // tipo fijo X segundos
                 time_x= f; speed_x= (f==0)? 0: d/time_x; tspeed_x = toFixedT(speed_x,2)+" m/s";
@@ -360,7 +360,7 @@ function dmanga_evalTimeSpeed() {
     }
     $("#dmanga_TRS_S_TimeSpeed").textbox('setValue',tspeed_s);
 
-    if ( howManyHeights(workingData.federation)<4 ) return;
+    if ( howManyHeights()<4 ) return;
 
     // fase 4: evaluamos datos de categoria Toy
     d=parseInt($("#dmanga_DistT").textbox('getValue'));
@@ -421,15 +421,15 @@ function dmanga_setRecorridos() {
 
     function setDistObstBg(dist,obst,cat) {
         //setting css of unexistent element id throws javascript exception
-        if ( (cat==="T") && (howManyHeights(workingData.federation)==3) ) return;
-        if ( (cat==="X") && (howManyHeights(workingData.federation)!=5) ) return;
+        if ( (cat==="T") && (howManyHeights()==3) ) return;
+        if ( (cat==="X") && (howManyHeights()!=5) ) return;
         $('#dmanga_Dist'+cat).textbox('textbox').css('background',(dist==0)?'#ffcccc':'white');
         $('#dmanga_Obst'+cat).textbox('textbox').css('background',(obst==0)?'#ffcccc':'white');
     }
 
     var fed=workingData.federation;
     var rec=$("input[name='Recorrido']:checked").val();
-    var heights=howManyHeights(fed);
+    var heights=howManyHeights();
     if (typeof (ac_fedInfo[fed]) === "undefined") {
         $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid or undefined Federation'); ?>', title: 'Error'});
         return false;
@@ -650,7 +650,7 @@ function save_manga(id) {
     var missing=false;
     var rec=$("input:radio[name=Recorrido]:checked").val();
     var fed=workingData.federation;
-    var heights=howManyHeights(fed);
+    var heights=howManyHeights();
     var data=null;
     if (typeof (ac_fedInfo[fed]['InfoManga'+heights][rec]) !== "undefined") {
         data=ac_fedInfo[fed]['InfoManga'+heights][rec];// {object{L,M,S,T,X} } data
@@ -1223,7 +1223,7 @@ function getPuestoParcial(datos,callback) { return __getPuesto(datos,callback,fa
  */
 function setupResultadosWindow(recorrido) {
 	var fed= parseInt(workingData.datosPrueba.RSCE);
-	var heights=howManyHeights(fed);
+	var heights=howManyHeights();
 	var rec=parseInt(recorrido);
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
@@ -1528,8 +1528,8 @@ function competicionDialog(name) {
         // marcamos la primera opcion como seleccionada
         $('#resultadosmanga-LargeBtn').prop('checked','checked');
         // refrescamos datos de TRS y TRM
-        if (howManyHeights(workingData.datosPrueba.RSCE)==5) consoleReloadParcial(4,false); // X
-        if (howManyHeights(workingData.datosPrueba.RSCE)>3) consoleReloadParcial(3,false); // T
+        if (howManyHeights()==5) consoleReloadParcial(4,false); // X
+        if (howManyHeights()>3) consoleReloadParcial(3,false); // T
         consoleReloadParcial(2,false); // S
         consoleReloadParcial(1,false); // M
         consoleReloadParcial(0,true); // L pintamos el datagrid con los datos de categoria "large"
@@ -1646,7 +1646,7 @@ function resultados_doSelectRonda(row) {
     // Recordatorio: ambas mangas tienen siempre el mismo tipo de recorrido
     var fedinfo=ac_fedInfo[fed];
     var rec=parseInt(row.Recorrido1);
-    var heights=howManyHeights(fed);
+    var heights=howManyHeights();
     var infomanga=null;
     if (typeof (fedinfo['InfoManga'+heights][rec]) !== "undefined") {
         infomanga=fedinfo['InfoManga'+heights][rec];// {object{L,M,S,T,X} } data

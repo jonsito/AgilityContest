@@ -240,7 +240,7 @@ $('#entrenamientos-datagrid').datagrid({
 			$(this).datagrid('beginEdit',index);
 		},
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
-		var cats=howManyHeights(workingData.federation);
+		var cats=howManyHeights();
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 		$(this).datagrid((cats==4)?'showColumn':'hideColumn','Key4');
 		$(this).datagrid((cats==4)?'showColumn':'hideColumn','Value4');

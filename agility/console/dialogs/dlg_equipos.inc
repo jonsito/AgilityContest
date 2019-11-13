@@ -81,7 +81,7 @@ $('#team_edit_dialog').dialog({
 	buttons:'#team_dialog-buttons',
 	onBeforeOpen:function(){
 		// hide tiny and xlarge button on affected federations
-		var heights=howManyHeights(workingData.datosPrueba.RSCE);
+		var heights=howManyHeights();
         $('#team_edit_dialog-tiny').css('display',(parseInt(heights)!==3)?'inline':'none');
         $('#team_edit_dialog-xlarge').css('display',(parseInt(heights)===5)?'inline':'none');
 	}
