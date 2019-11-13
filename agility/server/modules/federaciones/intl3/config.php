@@ -108,19 +108,19 @@ class INTL3 extends Federations {
                 "L"=>"Large",
                 "M"=>"Medium",
                 "S"=>"Small",
-                "T"=>"Tiny", // invalid
-                "LM"=>"Large/Medium", // invalid
-                "ST"=>"Small/Tiny", // invalid
+                "T"=>"Tiny",
+                "LM"=>"Large/Medium",
+                "ST"=>"Small/Tiny",
                 "MS"=>"Medium/Small",
                 "LMS" => 'Common LMS',
                 "-LMS" => 'Common LMS',
                 "LMST" => 'Common LMST',
                 "-LMST" => 'Common LMST',
-                "X" => '', // invalid
-                "XL" => '', // invalid
-                "MST" => '', // invalid
-                "XLMST" => '', // invalid
-                "-XLMST" => ''
+                "X" => 'Extra Large',
+                "XL" => 'XLarge/Large',
+                "MST" => 'Med/Sml/XSml',
+                "XLMST" => 'XL/L/M/S/XS',
+                "-XLMST" => 'XL/L/M/S/XS'
             )
         ));
     }

@@ -68,7 +68,7 @@ class PrintOrdenSalida extends PrintCommon {
 		$o = Competitions::getOrdenSalidaInstance("printOrdenDeSalida",$data['manga']);
         $os= $o->getData(/*false,8,null*/); // no team view, no categories, no previous resultset
 		$this->orden=$os['rows'];
-		$this->categoria="L";
+		$this->categoria="X";
         $this->cellHeader =
          //                0            1       2         3        4           5           6           7              8          9
                 array(_('Order'),_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Gender'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
@@ -79,14 +79,15 @@ class PrintOrdenSalida extends PrintCommon {
 		$eq=new Equipos("print_ordenDeSalida",$data['prueba'],$data['jornada']);
         $this->teams=array();
         foreach($eq->getTeamsByJornada() as $team) $this->teams[$team['ID']]=$team;
-		$this->validcats=$data['categorias'];
         $this->rango= (preg_match('/^\d+-\d+$/',$data['rango']))? $data['rango'] : "1-99999";
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
-        $cat=$this->validcats; // categorias del listado
-        $str=($cat=='-')?$grad:"{$grad}_{$cat}";
+        $str=($data['categorias']=='-')?$grad:"{$grad}_{$data['categorias']}";  // categorias del listado
         $res=normalize_filename($str);
         $this->set_FileName("OrdenDeSalida_{$res}.pdf");
+        // set categories to compare against
+        $this->heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->manga->ID);
+        $this->validcats=compatible_categories($this->heights,$data['categorias']);
         // fix name field length according parameters
         if ($this->useLongNames) {
             $this->pos[2]+=15; // increase name width
@@ -113,7 +114,7 @@ class PrintOrdenSalida extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		$this->print_commonHeader(_("Starting order"));
-		$this->print_identificacionManga($this->manga,$this->getCatString($this->categoria));
+		$this->print_identificacionManga($this->manga,$this->getCatString($this->categoria,$this->heights));
 	}
 	
 	// Pie de página
@@ -177,21 +178,25 @@ class PrintOrdenSalida extends PrintCommon {
 		$rowcount=0;
 		$order=0;
 		$lastTeam=0;
-		$heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->manga->ID);
 		foreach($this->orden as $row) {
-			if (!category_match($row['Categoria'],$heights,$this->validcats)) continue;
+		    // elimina todos los perros que no entran en las categorias a imprimir
+			if (!category_match($row['Categoria'],$this->heights,$this->validcats)) continue;
+
 			$newTeam=intval($row['Equipo']);
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+
 			// if change in categoria, reset orden counter.
-			if ($row['Categoria'] !== $this->categoria) {
+            $ccats=compatible_categories($this->heights,$this->categoria);
+            if (!category_match($row['Categoria'],$this->heights,$ccats)) {
                 $this->categoria = $row['Categoria'];
                 $this->Cell(array_sum($this->pos),0,'','T'); // forzamos linea de cierre
+
 			    // if new category header fits in page show it; else force new page
                 if($rowcount > 32) {
                     $rowcount=$rowsperpage;
                 } else if ($rowcount!=0) {
                     $this->Ln(10);
-                    $this->print_identificacionManga($this->manga,$this->getCatString($this->categoria));
+                    $this->print_identificacionManga($this->manga,$this->getCatString($this->categoria,$this->heights));
                     $this->writeTableHeader();
                     $rowcount+=4;
                 }

@@ -372,7 +372,10 @@ class PrintCommon extends FPDF {
     }
 
     // several functions to stringify modes cat and grades
-	function getCatString($cat) {
+	function getCatString($cat,$heights=0) {
+		if ($heights==3 && $cat=='X') $cat='L';
+		if ($heights==3 && $cat=='T') $cat='S';
+		if ($heights==4 && $cat=='X') $cat='L';
 		$catstr=$this->federation->get('IndexedModeStrings');
 		return $catstr[$cat];
 	}

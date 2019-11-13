@@ -476,8 +476,16 @@ function checkAndPrintParcial(recorrido) {
 					}
 				);
 				str+="</table><br /><?php _e('Print anyway'); ?>?";
-				var w=$.messager.confirm('<?php _e('Incomplete data'); ?>',str,function(r){if (r) print_parcial(mode);});
-				w.window('resize',{width:600,height:550}).window('center');
+				var w=$.messager.confirm({
+                    padding:'5px',
+                    width:640,
+                    height:'auto',
+                    maxHeight:400, // PENDING: this doesn't work
+				    title: '<?php _e('Incomplete data'); ?>',
+                    msg: str,
+                    fn: function(r){if (r) print_parcial(mode);}
+                });
+				w.window('center');
 			}
 		}
 	});
