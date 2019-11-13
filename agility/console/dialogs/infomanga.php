@@ -51,8 +51,11 @@ do_log("hola manga:{$m} alturas:{$heights}");
 				<label for="dmanga_Juez2"><span style="text-align:right"><?php _e('Judge'); ?> 2:</span></label>
 				<select id="dmanga_Juez2" name="Juez2" style="width:165px"></select>
 			</td>
-			<td>&nbsp;</td>
-			<td colspan="2" align="left">
+			<td align="left">
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'"
+                   id="dmanga_AddJuez" onclick="newJuez('','')"><?php _e("New");?></a>
+            </td>
+			<td colspan="2" align="center">
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-whistle'" 
 					id="dmanga_SameJuez" onclick="dmanga_shareJuez();"><?php _e('Replicate'); ?></a>
 			</td>
@@ -416,18 +419,18 @@ do_log("hola manga:{$m} alturas:{$heights}");
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
                    id="dmanga_Templates" onclick="print_commonDesarrollo(3);"><?php _e('Templates'); ?></a>
             </td>
-			<td colspan="2">&nbsp&nbsp;</td>
+			<td colspan="2">&nbsp;</td>
             <td>
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-flag'"
                    id="dmanga_Clasificaciones" onclick="open_clasificaciones();"><?php _e('Scores'); ?></a>
             </td>
             <td colspan="2">&nbsp;</td>
-			<td>
+			<td align="center">
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" 
 					id="dmanga_Restaurar" onclick="reload_manga(workingData.manga);"><?php _e('Restore'); ?></a>
 			</td>
-			<td colspan="2">&nbsp;</td>
-			<td>
+			<td colspan="1">&nbsp;</td>
+			<td colspan="2" align="left">
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" 
 					id="dmanga_Guardar" onclick="save_manga(workingData.manga);"><?php _e('Save'); ?></a>
 			</td>
@@ -442,6 +445,9 @@ do_log("hola manga:{$m} alturas:{$heights}");
     <span id="infomanga_closed" class="blink" style="display:none;color:#ff0000;text-align:center;font-size:17px">
 		<?php _e('Journey closed. CANNOT ADD/MODIFY DATA');?>
 	</span>
+    <span id="infomanga_description" style="display:inline-block;font-size:1.1vw;text-align:center;width:50%">
+        <br/><span id="infomanga_tipo"></span> - <span id="infomanga_alturas"></span>
+    </span>
 </p>
 <script type="text/javascript">
     var myKeyHandler = $.extend({},$.fn.combobox.defaults.keyHandler,{
@@ -527,7 +533,8 @@ $('#dmanga_Juez1').combogrid({
 	fitColumns: true,
 	selectOnNavigation: false,
     onChange: function(newval,oldval) {
-	    $('#dmanga_Juez1').combogrid('textbox').css('background',(newval<2)?'#ffcccc':'white');
+        var valid= $.isNumeric(newval) && (parseInt(newval)>=2); // in juez1 "-- Sin asignar --" is not valid
+        $('#dmanga_Juez1').combogrid('textbox').css('background',(valid)?'white':'#ffcccc');
     }
 });
 
@@ -553,7 +560,11 @@ $('#dmanga_Juez2').combogrid({
     ]],
 	multiple: false,
 	fitColumns: true,
-	selectOnNavigation: false
+	selectOnNavigation: false,
+    onChange: function(newval,oldval) {
+        var valid= $.isNumeric(newval) && (parseInt(newval)>=1); // in juez2 "-- Sin asignar --" is valid
+        $('#dmanga_Juez2').combogrid('textbox').css('background',(valid)?'white':'#ffcccc');
+    }
 });
 
 $('#competicion-formdatosmanga').form({
@@ -589,10 +600,13 @@ addTooltip($('#dmanga_Restaurar').linkbutton(),'<?php _e("Restore original round
 addTooltip($('#dmanga_Templates').linkbutton(),'<?php _e("Open print form selection dialog"); ?>');
 addTooltip($('#dmanga_Clasificaciones').linkbutton(),'<?php _e("Jump to Result and Scores window"); ?>');
 addTooltip($('#dmanga_Guardar').linkbutton(),'<?php _e("Save round technical data into database"); ?>');
+addTooltip($('#dmanga_AddJuez').linkbutton(),'<?php _e("Add a new judge into database"); ?>');
 addTooltip($('#dmanga_SameJuez').linkbutton(),'<?php _e("Clone judge information on every rounds for this journey"); ?>');
 
 // if user has no write permission, show proper message info
 // TODO: force reload on logout session
 $('#infomanga_readonly').css('display',(check_softLevel(access_level.PERMS_OPERATOR,null))?'none':'inline-block');
 $('#infomanga_closed').css('display',(parseInt(workingData.datosJornada.Cerrada)===0)?'none':'inline-block');
+$('#infomanga_tipo').html(workingData.datosCompeticion.Nombre);
+$('#infomanga_alturas').html('<?php echo $heights ." ". _("Heights");?>');
 </script>

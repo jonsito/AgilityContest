@@ -636,6 +636,17 @@ function save_manga(id) {
         if (trst === 6 && trsf >10) missing = true; // speed based sct and empty or invalid data
     }
 
+    // check that judge has a valid selection from combogrid
+    function check_jueces() {
+        var j1=$('#dmanga_Juez1').combogrid('getValue');
+        var j2=$('#dmanga_Juez2').combogrid('getValue');
+        if (!$.isNumeric(j1)) return false
+        if (!$.isNumeric(j2)) return false
+        if (parseInt(j1)<1 ) return false;
+        if (parseInt(j2)<1 ) return false;
+        return true;
+    }
+
     var missing=false;
     var rec=$("input:radio[name=Recorrido]:checked").val();
     var fed=workingData.federation;
@@ -660,6 +671,15 @@ function save_manga(id) {
     if (data['T']!=='') check_dmanga('T');
     if (missing===false ) { real_saveManga(); return false; }
 
+    if (!check_jueces() ) {
+        $.messager.alert(
+            '<?php _e("Data error"); ?>',
+            '<?php _e("Judge names must be selected from list"); ?><br/>'+
+            '<?php _e("To add a new one, please use judge handling menu dialog");?>',
+            'error'
+        );
+        return false;
+    }
     // missing data found: warn user before continue
     var ok=$.messager.defaults.ok;
     var cancel=$.messager.defaults.cancel;

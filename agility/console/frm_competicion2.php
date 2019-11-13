@@ -24,6 +24,7 @@ require_once("dialogs/dlg_printer.inc");
 require_once("dialogs/dlg_entrenamientos.inc");
 require_once("dialogs/dlg_ordentandas.inc");
 require_once("dialogs/dlg_ordensalida.inc");
+require_once("dialogs/dlg_jueces.inc");
 switch(http_request("tipo","s","std")) {
     case "eq3":
     case "eq4":
@@ -71,11 +72,11 @@ switch(http_request("tipo","s","std")) {
 
 	<!-- paneles de lista de mangas y datos de cada manga -->
 	<div id="competicion_infolayout" class="easyui-layout" style="height:400px">
-		<div data-options="region:'west',title:'<?php _e('Journey rounds');?>',split:true,collapsed:false" style="width:23%">
+		<div data-options="region:'west',title:'<?php _e('Journey rounds');?>',split:true,collapsed:false" style="width:20%">
 			<!-- Tabla que contiene la lista de Mangas de la jornada -->
-			<table id="competicion-listamangas" style="padding:50px"></table>
+			<table id="competicion-listamangas" style="padding:20px"></table>
 		</div>
-		<div data-options="region:'center',title:'<?php _e('Round data');?>'" style="width:600px;">
+		<div data-options="region:'center',title:'<?php _e('Round data');?>'" style="width:650px;">
 			<span id="competicion-datosmanga" class="c_competicion-datosmanga" style="font-size:11px"></span>
 		</div> <!-- datos de la manga -->
 	</div> <!-- informacion de layout -->
@@ -83,7 +84,7 @@ switch(http_request("tipo","s","std")) {
 
 <!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
 <div id="competicion-listamanga-toolbar" style="width:100%;display:inline-block">
-	<span style="float:left;padding:10px">
+	<span style="float:left;padding:5px">
 		<a id="competicion-entrenamientosBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-tools'" style="width:185px"
            onclick="competicionDialog('entrenamientos');"><?php _e('Training');?></a>
@@ -167,7 +168,7 @@ $('#competicion-listamangas').datagrid({
         }
         // guardamos el id y el nombre de la manga
         row.Manga=row.ID;
-        row.Nombre=row.Description;
+        row.Nombre=row.Descripcion;
         setManga(row);
         // cannot use loadcontents, because need to execute commands, _after_ html document load success
         var infomanga="../console/dialogs/infomanga.php?Federation="+workingData.federation+"&Manga="+workingData.manga;
