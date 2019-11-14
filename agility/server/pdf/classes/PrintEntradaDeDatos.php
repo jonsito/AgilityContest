@@ -39,6 +39,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 	protected $validcats; // lista de categorias solicitadas
 	protected $fillData=false; // populate sheets with result data
 	protected $rango; // data item to be printed
+	protected $heights;
 
 	// geometria de las celdas
 	protected $cellHeader
@@ -75,15 +76,16 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$this->numrows=$data['numrows'];
 		$this->categoria="L";
 		$this->cellHeader[4]=$this->strClub; // fix country/club text
-		$this->validcats=$data['cats'];
 		$this->fillData=($data['fill']!=0)?true:false;
         $this->rango= (preg_match('/^\d+-\d+$/',$data['rango']))? $data['rango'] : "1-99999";
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
-        $cat=$this->validcats; // categorias del listado
-        $str=($cat=='-')?$grad:"{$grad}_{$cat}";
+        $str=($data['cats']=='-')?$grad:"{$grad}_{$data['cats']}";
         $res=normalize_filename($str);
         $this->set_FileName("HojasAsistente_{$res}.pdf");
+		// set categories to compare against
+		$this->heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->manga->ID);
+		$this->validcats=compatible_categories($this->heights,$data['cats']);
 		// do not show fed icon in pre-agility, special, or ko
 		if (in_array($this->manga->Tipo,array(0,1,2,15,16,18,19,20,21,22,23,24,))) {
 			$this->icon2=getIconPath($this->federation->get('Name'),"null.png");
@@ -99,9 +101,8 @@ class PrintEntradaDeDatos extends PrintCommon {
 			// en pruebas por equipos conjuntas mixtas no se pone la categoria individual
 			// sino la asociada al tipo de recorrido
             if (in_array($this->manga->Tipo,array(9,14))) {
-                $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->manga->ID);
                 if ($this->manga->Recorrido==1) {
-                    if ($heights==3) { // L+MS
+                    if ($this->heights==3) { // L+MS
                         switch ($cat) {
                             case '-': $cat= ""; break;// cualquier categoria es valida: no cambia pagina
                             // 'X' no existe en tres alturas
@@ -112,7 +113,7 @@ class PrintEntradaDeDatos extends PrintCommon {
                             default: $cat=$this->categoria; break; // should not happen
                         }
                     }
-                    if ($heights==4) { // LM+ST
+                    if ($this->heights==4) { // LM+ST
                         switch ($cat) {
                             case '-': $cat= ""; break;// cualquier categoria es valida: no cambia pagina
                             // 'X' no existe en tres alturas
@@ -123,7 +124,7 @@ class PrintEntradaDeDatos extends PrintCommon {
                             default: $cat=$this->categoria; break; // should not happen
                         }
                     }
-                    if ($heights==5) { // XL+MST
+                    if ($this->heights==5) { // XL+MST
                         switch ($cat) {
                             case '-': $cat= ""; break;// cualquier categoria es valida: no cambia pagina
                             case 'X': $cat='XL'; break;
@@ -149,7 +150,7 @@ class PrintEntradaDeDatos extends PrintCommon {
                 }
                 // recorridos tipo 0 ( comun ) y 2 ( separados ) no necesitan agrupamiento de categorias
             }
-			$this->print_identificacionManga($this->manga,$this->getCatString($cat));
+			$this->print_identificacionManga($this->manga,$this->getCatString($cat,$this->heights));
 		} else {
 			// modo extendido: pinta solo identificacion de la jornada
 			$this->SetFont($this->getFontName(),'B',12); // bold 15
@@ -606,16 +607,19 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$orden=1;
 		$rowcount=0;
 		$mid=($this->manga!=null)? $this->manga->ID: ($this->manga2!=null)?$this->manga2->ID:0;
-		$heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$mid);
 		foreach($this->orden as $row) {
-			if (!category_match($row['Categoria'],$heights,$this->validcats)) continue;
+			// elimina todos los perros que no entran en las categorias a imprimir
+			if (!category_match($row['Categoria'],$this->heights,$this->validcats)) continue;
+			if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
+
 			// if change in categoria, reset orden counter and force page change
-			if ($this->category_needsNewPage($this->categoria,$row['Categoria'],$this->manga)===true) {
-                $rowcount=0;
-                $orden=1;
+            $ccats=compatible_categories($this->heights,$this->categoria);
+            if (!category_match($row['Categoria'],$this->heights,$ccats)) {
+				$rowcount=0;
+				$orden=1;
+				$this->categoria = $row['Categoria'];
 			}
-			$this->categoria = $row['Categoria'];
-            if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
+
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			if( ($rowcount % $this->numrows) == 0 ) { // assume $numrows entries per page 
 				$this->AddPage();

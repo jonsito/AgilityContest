@@ -220,18 +220,19 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         $rowcount=0;
         $this->categoria="-";
 		foreach($this->equipos as $equipo) {
+		    // if category is not in selected skip
             if(!category_match($equipo['Categorias'],$this->heights,$this->validcats)) continue;
-            if ( (($index+1)<$fromItem) || (($index+1)>$toItem) ) { $index++; continue; } // not in range; skip
-            $miembros=$equipo['Perros'];
-            $num=count($miembros);
-            if ($num==0) continue; // skip empty teams
+            // if dogs not in range skip
+            if ( (($index+1)<$fromItem) || (($index+1)>$toItem) ) { $index++; continue; }
+            // if team has no dogs skip
+            if (count($equipo['Perros'])==0) continue;
             if ( ($rowcount%10==0) || ($equipo['Categorias']!=$this->categoria)) {
                 $rowcount=0;
                 $this->categoria=$equipo['Categorias'];
                 $this->AddPage();
             }
             // pintamos el aspecto general de la celda
-            $this->printTeamInfo($rowcount,$index,$equipo,$miembros);
+            $this->printTeamInfo($rowcount,$index,$equipo,$equipo['Perros']);
             $rowcount++;
             $index++;
 		}
