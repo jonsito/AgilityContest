@@ -479,13 +479,13 @@ function checkAndPrintParcial(recorrido) {
 				var w=$.messager.confirm({
                     padding:'5px',
                     width:640,
-                    height:'auto',
+                    height:400,
                     maxHeight:400, // PENDING: this doesn't work
 				    title: '<?php _e('Incomplete data'); ?>',
                     msg: str,
                     fn: function(r){if (r) print_parcial(mode);}
                 });
-				w.window('center');
+				w.window('center').css('overflow-y','auto')
 			}
 		}
 	});
