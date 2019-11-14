@@ -1,3 +1,20 @@
+Version 4.1.0 20191114_1444
+    - Support for 5 heihgts in RSCE
+    - Modules "Temporada_RSCE_2020" and "Selectiva_RSCE_2020"
+    - Allow to print all heights together in listings ( parcial,final,labels )
+    - Now doc finally works
+    - Include docs in installer
+    - Allow on-line documentation updates
+    - Allow login on license faillure
+    - Add handler category in printings
+    - New "Clear Journey" button in Contest dialogs
+    - New Duplicate dogs/handlers dialog
+    - Allow handle duplicate dogs from inscription menu
+    - Use logo from license file
+    - Make labels thinner to allow page missalignment
+    - add option to multiple-select deletion on handlers and dogs
+    - Now heights is round dependend ( journey / contest in turn when not declared )
+    - Replace cipher and rework license generation
 Version 4.0.1 20191008_1234
     - Last time fixes for Balear league (again)
     - Fix printing judge score table for 5 heights
