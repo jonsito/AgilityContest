@@ -25,7 +25,7 @@ EXTRA_DIR=/home/jantonio/work/agility/extra-pkgs
 CONF_DIR=${BASE_DIR}/extras
 NSIS=${BASE_DIR}/build/AgilityContest.nsi
 XAMPP=xampp-portable-win32-7.2.6-0-VC15.zip
-DROPBOX=${HOME}/Dropbox/Public/AgilityContest
+DROPBOX='${HOME}/pCloudDrive/Public Folder/AgilityContest'
 
 # make sure that build dir exists and is clean
 mkdir -p ${BUILD_DIR}
@@ -102,7 +102,7 @@ unix2dos ${BUILD_DIR}/xampp/mysql/my.ini
 
 # ok. time to add AgilityContest files
 echo "Copying AgilityContest files ..."
-(cd ${BASE_DIR}; tar cfBp - .htaccess index.html agility server applications extras logs config AgilityContest.exe COPYING README.md Contributors ChangeLog) |\
+(cd ${BASE_DIR}; tar cfBp - .htaccess index.html agility server applications extras logs config AgilityContest.exe COPYING README.md Contributors ChangeLog ) |\
     ( cd ${BUILD_DIR}; tar xfBp - )
 # set first install mark and properly edit .htaccess
 touch ${BUILD_DIR}/logs/first_install
@@ -113,7 +113,7 @@ sed -i -e "s|__HTTP_BASEDIR__|C:/|g" \
 
 # create directory for docs (some day...)
 mkdir -p ${BUILD_DIR}/docs
-if [ -d ${DROPBOX} ]; then
+if [ -d "${DROPBOX}" ]; then
     echo "Adding a bit of documentation ..."
     for i in ac_despliegue.pdf ReferenciasPegatinas.txt AgilityContest-1000x800.png Tarifas_2017.pdf ac_obs_livestreaming.pdf; do
     cp ${DROPBOX}/${i} ${BUILD_DIR}/docs
@@ -158,7 +158,7 @@ cp -r COPYING License.txt ChangeLog agility config logs applications extras serv
 cp ${BASE_DIR}/.htaccess AgilityContest-master
 # do not include build and web dir in destination zipfile
 zip -q -r AgilityContest-master.zip AgilityContest-master/{agility,applications,server,extras,logs,config,COPYING,index.html,.htaccess,ChangeLog}
-FILES="osx_install.command create_certificate.command COPYING License.txt AgilityContest-master.zip"
+FILES="osx_install.command create_certificate.command COPYING ChangeLog License.txt AgilityContest-master.zip"
 mkisofs -quiet -A AgilityContest \
     -P jonsito@gmail.com \
     -V ${AC_VERSION}_${AC_REVISION} \
