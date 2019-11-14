@@ -49,7 +49,7 @@ onmessage = function (event) {\
 		lastFakeId = 0,
 		maxFakeId = 0x7FFFFFFF, // 2 ^ 31 - 1, 31 bit, positive values of signed 32 bit integer
 		logPrefix = 'HackTimer.js by turuslan: ';
-	if (typeof (Worker) !== 'undefined') {
+	if (typeof (Worker) !== "undefined") {
 		function getFakeId () {
 			do {
 				if (lastFakeId == maxFakeId) {

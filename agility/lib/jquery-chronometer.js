@@ -61,7 +61,7 @@
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',false);
 				localTime=Date.now();
-				if(typeof timestamp === 'undefined') startTime=localTime;
+				if(typeof timestamp === "undefined") startTime=localTime;
 				else startTime=timestamp;
 				stopTime=startTime;
 				pauseTime=startTime;
@@ -78,7 +78,7 @@
 				$(config.stop).attr('disabled',true);
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',true);
-				if(typeof timestamp === 'undefined') stopTime=Date.now();
+				if(typeof timestamp === "undefined") stopTime=Date.now();
 				else stopTime=timestamp;
 				running = false;
 				paused = false;
@@ -92,7 +92,7 @@
 				$(config.stop).attr('disabled',true);
 				$(config.resume).attr('disabled',false);
 				$(config.pause).attr('disabled',true);
-				if(typeof timestamp === 'undefined') pauseTime=Date.now();
+				if(typeof timestamp === "undefined") pauseTime=Date.now();
 				else pauseTime=timestamp;
 				running = false;
 				paused = true;

@@ -325,12 +325,13 @@ $('#competicion-dialog').dialog({
     }
 });
 
+var cats=getOrdenSalidaCategorias();
 $('#competicion-categoria').combobox({
 	value: '-',
 	panelHeight: 'auto',
 	valueField: 'Categoria',
 	textField: 'Nombre',
-	data: getOrdenSalidaCategorias(),
+	data: cats,
 	onChange: function(newValue,oldValue) { reloadCompeticion(); }
 });
 

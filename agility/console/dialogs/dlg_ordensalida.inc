@@ -187,7 +187,7 @@ $('#ordensalida-selection').combobox({
         evalOrdenSalida(nuevo);
     }
 });
-
+var cats=getOrdenSalidaCategorias();
 $('#ordensalida-categoria').combobox({
     width:80,
     value: '-',
@@ -195,7 +195,7 @@ $('#ordensalida-categoria').combobox({
     panelHeight: 'auto',
     valueField: 'Categoria',
     textField: 'Nombre',
-    data: getOrdenSalidaCategorias(),
+    data: cats,
     onSelect: function(rec) { reloadOrdenSalida(); }
 });
 

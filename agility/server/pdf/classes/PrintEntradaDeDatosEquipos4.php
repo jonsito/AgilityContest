@@ -157,7 +157,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
             $this->SetFont($this->getFontName(),'B',8);
             $this->Cell(13,4,$perro['Nombre'],'LTBR',0,'C',true);
             $this->SetFont($this->getFontName(),'',7);
-            $this->Cell(28,4,$this->getHandlerName($row),'LTBR',0,'R',true);
+            $this->Cell(28,4,$this->getHandlerName($perro),'LTBR',0,'R',true);
             $this->Ln(4);
         }
         // caja de datos del equipo

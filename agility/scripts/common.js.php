@@ -256,8 +256,8 @@ function passwordMatch(p1,p2,target) {
  * @returns {string} requested result, or original one if not found
  */
 function toLongCategoria(cat,fed) {
-    if (typeof(ac_fedInfo[parseInt(fed)])==='undefined') return cat;
-    if (typeof(ac_fedInfo[parseInt(fed)].ListaCategorias[cat])==='undefined') return cat;
+    if (typeof(ac_fedInfo[parseInt(fed)])==="undefined") return cat;
+    if (typeof(ac_fedInfo[parseInt(fed)].ListaCategorias[cat])==="undefined") return cat;
     return ac_fedInfo[parseInt(fed)].ListaCategorias[cat];
 }
 
@@ -268,8 +268,8 @@ function toLongCategoria(cat,fed) {
  * @returns {string} requested result, or original one if not found
  */
 function toHandlerCategoria(cat,fed) {
-    if (typeof(ac_fedInfo[parseInt(fed)])==='undefined') return cat;
-    if (typeof(ac_fedInfo[parseInt(fed)].ListaCatGuias[cat])==='undefined') return cat;
+    if (typeof(ac_fedInfo[parseInt(fed)])==="undefined") return cat;
+    if (typeof(ac_fedInfo[parseInt(fed)].ListaCatGuias[cat])==="undefined") return cat;
     return ac_fedInfo[parseInt(fed)].ListaCatGuias[cat];
 }
 
@@ -400,7 +400,7 @@ function howManyGrades(fed) {
 }
 
 function howManyHeights() {
-    if (typeof(workingData.datosCompeticion.Data) !== 'undefined')
+    if (typeof(workingData.datosCompeticion.Data) !== "undefined")
         return workingData.datosCompeticion.Data.Heights;
 	return parseInt(ac_fedInfo[workingData.federation].Heights);
 }
@@ -586,12 +586,15 @@ function getFederationInfo() {
  */
 function getOrdenSalidaCategorias() {
     var heights=howManyHeights();
-    var cats=workingData.datosFederation.ListaCategorias;
-    if (typeof(workingData.datosFederation['ListaCategorias'+heights]) !== undefined ) {
+    var cats=workingData.datosFederation['ListaCategorias'];
+    if (typeof(workingData.datosFederation['ListaCategorias'+heights]) !== "undefined" ) {
         cats=workingData.datosFederation['ListaCategorias'+heights];
     }
 	var res=[];
-	$.each(cats,function(key,val){ res.push({Categoria:key,Nombre:val}); });
+    for (let key in cats) {
+        if (cats.hasOwnProperty(key)) res.push({Categoria:key,Nombre:cats[key]});
+    }
+	// $.each(cats,function(key,val){ res.push({Categoria:key,Nombre:val}); });
 	return res;
 }
 
@@ -614,7 +617,7 @@ function loadContents(page,title,slaves) {
 	$.each(slaveDialogs,function(key,val) {
 		$(val).dialog('panel').panel('clear'); 
 	} ); 
-	slaveDialogs=(typeof(slaves)==='undefined')?{}:slaves;
+	slaveDialogs=(typeof(slaves)==="undefined")?{}:slaves;
 	cont.panel('clear');
 	cont.panel('refresh',page);
 	setHeader(title);
@@ -709,7 +712,7 @@ function Countdown(options) {
 
 	// get/set start count. DO NOT STOP
 	this.reset = function (secs) {
-		if (typeof(secs) === 'undefined') return seconds;
+		if (typeof(secs) === "undefined") return seconds;
 		var s=parseInt(secs);
 		if (s>0) seconds=s;
 		return seconds;
@@ -717,7 +720,7 @@ function Countdown(options) {
 
 	// get/set current count DO NOT STOP
 	this.val = function(secs) {
-		if (typeof(secs) !== 'undefined') count=secs*10;
+		if (typeof(secs) !== "undefined") count=secs*10;
 		return count;
 	};
 	// very dirty pause and resume
@@ -799,9 +802,9 @@ function isMobileDevice() {
 function setupWorkingData(prueba,jornada,manga,callback) {
 
 	// set default values that allways should exist (default, un-erasable, and closed contest)
-	if (typeof(prueba) === 'undefined') prueba = 1;
-	if (typeof(jornada) === 'undefined') jornada = 1;
-	if (typeof(manga) === 'undefined') manga = 1;
+	if (typeof(prueba) === "undefined") prueba = 1;
+	if (typeof(jornada) === "undefined") jornada = 1;
+	if (typeof(manga) === "undefined") manga = 1;
 
 	// obtenemos datos de la manga
 	$.ajax({
@@ -855,7 +858,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 						return false; // prevent default fireup of event trigger
 					}
 				}).always(function() {
-					if (typeof(callback) !=='undefined') callback();
+					if (typeof(callback) !=="undefined") callback();
 				});
 			});
 		});
@@ -921,7 +924,7 @@ function setJornada(data) {
 	workingData.nombreJornada="";
     workingData.datosJornada={};
     workingData.datosCompeticion={};
-	if ( (typeof(data) === 'undefined') || (data==null) ) return;
+	if ( (typeof(data) === "undefined") || (data==null) ) return;
 	workingData.jornada=parseInt(data.ID);
 	workingData.nombreJornada=data.Nombre;
 	workingData.datosJornada=data;
@@ -947,7 +950,7 @@ function setManga(data) {
 	workingData.manga = 0;
 	workingData.nombreManga = "";
 	workingData.datosManga = {};
-    if ( (typeof(data) === 'undefined') || (data==null)) return;
+    if ( (typeof(data) === "undefined") || (data==null)) return;
     workingData.manga = parseInt(data.Manga); // do not use data.ID as contains extra info
     workingData.nombreManga = data.Nombre;
     workingData.datosManga = data;
@@ -972,7 +975,7 @@ function setTanda(data) {
 	workingData.tanda = 0;
 	workingData.nombreTanda = "";
 	workingData.datosTanda = {};
-	if ((typeof(data) === 'undefined') || (data==null) ) return;
+	if ((typeof(data) === "undefined") || (data==null) ) return;
 	workingData.tanda = parseInt(data.ID);
 	workingData.nombreTanda = data.Nombre;
 	workingData.datosTanda =data;
@@ -981,7 +984,7 @@ function setTanda(data) {
 function setRonda(data) {
 	workingData.nombreRonda = "";
 	workingData.datosRonda = {};
-	if ( (typeof(data) === 'undefined') || (data==null) ) return;
+	if ( (typeof(data) === "undefined") || (data==null) ) return;
 	if (data==null) return;
 	workingData.nombreRonda = data.Nombre;
 	workingData.datosRonda=data;
@@ -1262,7 +1265,7 @@ function addSimpleKeyHandler(datagrid,dialog,onEnter){
                 displayRowData(t);
                 return false;
             }
-	    	if (typeof(onEnter)!=='undefined') {
+	    	if (typeof(onEnter)!=="undefined") {
 	            onEnter(datagrid,$(datagrid).datagrid('getSelected'));
                 return false;
             }

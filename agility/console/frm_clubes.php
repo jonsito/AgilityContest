@@ -65,7 +65,7 @@ $config =Config::getInstance();
 		var fnames=[];
 		for (var n=0; n<10;n++) {
 		    fnames[n]={'Title':'','Hidden':true,'Width':0};
-			if (typeof(ac_fedInfo[n])!=='undefined') { // on declared feds, fill with propper data
+			if (typeof(ac_fedInfo[n])!=="undefined") { // on declared feds, fill with propper data
 				fnames[n].Title=ac_fedInfo[n].Name;  //change column name to proper federation name
 				fnames[n].Hidden=false;
 				fnames[n].Width=4;

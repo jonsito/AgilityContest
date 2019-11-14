@@ -279,13 +279,13 @@ function formatTP(val,row,idx) {
  * @returns {string} requested value or index if not found
  */
 function formatFederation(val,row,idx) {
-    if (typeof(val)==='undefined') return "";
+    if (typeof(val)==="undefined") return "";
     var v=parseInt(val);
     if (typeof(ac_fedInfo[v])==="undefined") return val;
     return ac_fedInfo[v].Name;
 }
 function formatModuleID(val,row,idx) {
-    if (typeof(val)==='undefined') return "";
+    if (typeof(val)==="undefined") return "";
     return ""+row.FederationID+" / "+val;
 }
 /* stylers para formateo de celdas especificas */
@@ -324,7 +324,7 @@ function formatTrainingTime(val,row,idx) { return toHMS(val * ac_config.training
  */
 function formatLogo(val,row,idx) {
     // TODO: no idea why idx:0 has no logo declared
-    if (typeof(val)==='undefined') val="empty.png";
+    if (typeof(val)==="undefined") val="empty.png";
     var fed=workingData.federation;
     return '<img src="../ajax/images/getLogo.php?Fed='+fed+'&Logo='+val+'" width="30" height="30" alt="'+val+'"/>\n';
 }
@@ -339,7 +339,7 @@ function formatLogo(val,row,idx) {
  */
 function formatTeamLogos(val,row,idx) {
     var logos=[];
-    if (typeof (workingData.individual) === 'undefined' ) return "logo logo logo logo";
+    if (typeof (workingData.individual) === "undefined" ) return "logo logo logo logo";
     for(var n=0; n<workingData.individual.length;n++) {
         var competitor=workingData.individual[n];
         if (competitor['Equipo']!=row.ID) continue;
@@ -380,7 +380,7 @@ function formatTeamResults( name,value , rows ) {
         logos = logos + '&nbsp;<img height="40px" src="../images/logos/'+ logo + '"/>';
     }
     for (var n=0;n<mindogs;n++) {
-        if ( typeof(rows[n])==='undefined') {
+        if ( typeof(rows[n])==="undefined") {
             penal+=400.0;
             addLogo('null.png');
         } else {
@@ -415,7 +415,7 @@ function formatTeamClasificaciones(dgname,value,rows) {
     var manga1={ time:0.0, penal:0.0, perros:[] };
     var manga2={ time:0.0, penal:0.0, perros:[] };
     for (var n=0;n<4;n++) {
-        if (typeof(rows[n]) === 'undefined') {
+        if (typeof(rows[n]) === "undefined") {
             manga1.perros[n] = {time: parseFloat(0.0), penal: parseFloat(400.0)};
             manga2.perros[n] = {time: parseFloat(0.0), penal: parseFloat(400.0)};
             addLogo('null.png');
