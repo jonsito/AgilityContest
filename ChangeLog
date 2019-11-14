@@ -15,6 +15,7 @@ Version 4.1.0 20191114_1444
     - add option to multiple-select deletion on handlers and dogs
     - Now heights is round dependend ( journey / contest in turn when not declared )
     - Replace cipher and rework license generation
+    - Button to create judges from infomanga dialog
 Version 4.0.1 20191008_1234
     - Last time fixes for Balear league (again)
     - Fix printing judge score table for 5 heights
