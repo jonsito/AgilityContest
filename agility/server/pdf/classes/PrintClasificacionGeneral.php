@@ -77,7 +77,7 @@ class PrintClasificacionGeneral extends PrintCommon {
         $cat= $this->federation->getMangaMode($data['Mode'],0);
         // objeto para buscar jueces
         $jobj=new Jueces("print_Clasificaciones");
-        $r_offset= ($this->manga3!=null)?10:18 ;
+        $r_offset= ($this->manga3!=null)?1:9;
 
         $y=$this->GetY();
         // imprimimos informacion de la manga
@@ -376,9 +376,10 @@ class PrintClasificacionGeneral extends PrintCommon {
         $this->AddPage();
         $this->print_InfoJornada();
 		foreach($this->resultados as $data) {
+		    if (count($data['Data'])==0) continue; // la altura no tiene resultados
 		    // si el comienzo de la categoria esta cerca del final de la pagina
             // salta a la pagina siguiente
-            if ($this->GetY()>170) {
+            if ($this->GetY()>165) {
 		        $this->AddPage();
 		        $this->print_InfoJornada(); // nombre de la jornada y fecha
             }
