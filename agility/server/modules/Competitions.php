@@ -414,7 +414,6 @@ class Competitions {
         $federation=null;
         $competition=null;
         $myDBObject=new DBObject("Competitions::getHeights()");
-
         // primeramente obtenemos federacion y modalidad de competicion
         if ($manga != 0) {
             $data=$myDBObject->__select(

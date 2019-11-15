@@ -973,7 +973,7 @@ class Jornadas extends DBObject {
 	}
 
 	static function __compose(&$data,$prueba,$jornada,$tiporonda,$m1,$m2=null,$m3=null,$m4=null,$m5=null,$m6=null,$m7=null,$m8=null){
-	    $heights=Competitions::getHeights($prueba->ID,$jornada->ID,$m1['ID']);
+	    $heights=Competitions::getHeights($prueba,$jornada,$m1['ID']);
 		switch(intval($m1['Recorrido'])){ // should be the same than $m2['Recorrido']
 			case 0: // separado
                 // shared on all heights

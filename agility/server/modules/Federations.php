@@ -131,192 +131,203 @@ class Federations {
                     "Invalid", "Medium", "Medium+Small", "Invalid","XL+Large"),
             ),
             'IndexedModes' => array(
-                "Large", "Medium", "Small", "Medium+Small", "Common L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T",
-                "Extra Large","Large + XL", "Medium+Small+Tiny","Common X/L/M/S/T"
-            ),
-            'IndexedModeStrings' => array(
-                "-" => "",
-                "L" => "Large",
-                "M" => "Medium",
-                "S" => "Small",
-                "T" => "Tiny",
-                "LM" => "Large/Medium",
-                "ST" => "Small/Tiny",
-                "MS" => "Medium/Small",
-                "LMS" => 'Common LMS',
-                "-LMS" => 'Common LMS',
-                "LMST", 'Common LMST',
-                "-LMST", 'Common LMST',
-                "X" => "Extra Large",
-                "XL" => "X-Large/Large",
-                "MST" => "Med/Small/Tiny",
-                "XLMST" => "Common XLMST",
-                "-XLMST" => ''
-            ),
-            'NombreTandas' => array(
-                0 => '-- Sin especificar --',
-                1 => 'Pre-Agility 1',
-                2 => 'Pre-Agility 2',
-                3 => 'Agility-1 GI Large',
-                4 => 'Agility-1 GI Medium',
-                5 => 'Agility-1 GI Small',
-                6 => 'Agility-2 GI Large',
-                7 => 'Agility-2 GI Medium',
-                8 => 'Agility-2 GI Small',
-                9 => 'Agility GII Large',
-                10 => 'Agility GII Medium',
-                11 => 'Agility GII Small',
-                12 => 'Agility GIII Large',
-                13 => 'Agility GIII Medium',
-                14 => 'Agility GIII Small',
-                15 => 'Agility Large', //  Individual-Open
-                16 => 'Agility Medium',    //  Individual-Open
-                17 => 'Agility Small', //  Individual-Open
-                18 => 'Agility team Large', // team best
-                19 => 'Agility team Medium',// team best
-                20 => 'Agility team Small',     // team best
-                // en jornadas por equipos conjunta tres alturas se mezclan categorias M y S
-                21 => 'Ag. Teams Large',// team combined
-                22 => 'Ag. Teams Med/Small', // team combined
-                23 => 'Jumping GII Large',
-                24 => 'Jumping GII Medium',
-                25 => 'Jumping GII Small',
-                26 => 'Jumping GIII Large',
-                27 => 'Jumping GIII Medium',
-                28 => 'Jumping GIII Small',
-                29 => 'Jumping Large',//  Individual-Open
-                30 => 'Jumping Medium',    //  Individual-Open
-                31 => 'Jumping Small', //  Individual-Open
-                32 => 'Jumping team Large',    // team best
-                33 => 'Jumping team Medium',// team best
-                34 => 'Jumping team Small',    // team best
-                // en jornadas por equipos conjunta 3 alturas se mezclan categorias M y S
-                35 => 'Jp. Teams Large',// team combined
-                36 => 'Jp. Teams Med/Small', // team combined
-                // en las rondas KO, los perros compiten todos contra todos
-                37 => 'K.O. Round 1',
-                38 => 'Special Round Large',
-                39 => 'Special Round Medium',
-                40 => 'Special Round Small',
+                /* 0*/ "Large",
+                /* 1*/ "Medium",
+                /* 2*/ "Small",
+                /* 3*/ "Medium+Small",
+                /* 4*/ "Common L/M/S",
+                /* 5*/ "Tiny",
+                /* 6*/ "Large+Medium",
+                /* 7*/ "Small+Tiny",
+                /* 8*/ "Common L/M/S/T",
+                /* 9*/ "Extra Large",
+                /* 10*/ "Large + XL",
+                /* 11*/ "Medium+Small+Tiny",
+                /* 12*/ "Common X/L/M/S/T"
+           ),
+           'IndexedModeStrings' => array(
+               "-" => "",
+               "L" => "Large",
+               "M" => "Medium",
+               "S" => "Small",
+               "T" => "Tiny",
+               "LM" => "Large/Medium",
+               "ST" => "Small/Tiny",
+               "MS" => "Medium/Small",
+               "LMS" => 'Common LMS',
+               "-LMS" => 'Common LMS',
+               "LMST", 'Common LMST',
+               "-LMST", 'Common LMST',
+               "X" => "Extra Large",
+               "XL" => "X-Large/Large",
+               "MST" => "Med/Small/Tiny",
+               "XLMST" => "Common XLMST",
+               "-XLMST" => ''
+           ),
+           'NombreTandas' => array(
+               0 => '-- Sin especificar --',
+               1 => 'Pre-Agility 1',
+               2 => 'Pre-Agility 2',
+               3 => 'Agility-1 GI Large',
+               4 => 'Agility-1 GI Medium',
+               5 => 'Agility-1 GI Small',
+               6 => 'Agility-2 GI Large',
+               7 => 'Agility-2 GI Medium',
+               8 => 'Agility-2 GI Small',
+               9 => 'Agility GII Large',
+               10 => 'Agility GII Medium',
+               11 => 'Agility GII Small',
+               12 => 'Agility GIII Large',
+               13 => 'Agility GIII Medium',
+               14 => 'Agility GIII Small',
+               15 => 'Agility Large', //  Individual-Open
+               16 => 'Agility Medium',    //  Individual-Open
+               17 => 'Agility Small', //  Individual-Open
+               18 => 'Agility team Large', // team best
+               19 => 'Agility team Medium',// team best
+               20 => 'Agility team Small',     // team best
+               // en jornadas por equipos conjunta tres alturas se mezclan categorias M y S
+               21 => 'Ag. Teams Large',// team combined
+               22 => 'Ag. Teams Med/Small', // team combined
+               23 => 'Jumping GII Large',
+               24 => 'Jumping GII Medium',
+               25 => 'Jumping GII Small',
+               26 => 'Jumping GIII Large',
+               27 => 'Jumping GIII Medium',
+               28 => 'Jumping GIII Small',
+               29 => 'Jumping Large',//  Individual-Open
+               30 => 'Jumping Medium',    //  Individual-Open
+               31 => 'Jumping Small', //  Individual-Open
+               32 => 'Jumping team Large',    // team best
+               33 => 'Jumping team Medium',// team best
+               34 => 'Jumping team Small',    // team best
+               // en jornadas por equipos conjunta 3 alturas se mezclan categorias M y S
+               35 => 'Jp. Teams Large',// team combined
+               36 => 'Jp. Teams Med/Small', // team combined
+               // en las rondas KO, los perros compiten todos contra todos
+               37 => 'K.O. Round 1',
+               38 => 'Special Round Large',
+               39 => 'Special Round Medium',
+               40 => 'Special Round Small',
 
-                // "Tiny" support for Pruebas de cuatro alturas
-                41 => 'Agility-1 GI Tiny',
-                42 => 'Agility-2 GI Tiny',
-                43 => 'Agility GII Tiny',
-                44 => 'Agility GIII Tiny',    // no existe
-                45 => 'Agility Tiny', //  Individual-Open
-                46 => 'Agility team Tiny',// team best
-                // en equipos4  cuatro alturas  agrupamos por LM y ST
-                47 => 'Ag. teams Large/Medium', // team combined
-                48 => 'Ag. teams Small/Tiny', // team combined
+               // "Tiny" support for Pruebas de cuatro alturas
+               41 => 'Agility-1 GI Tiny',
+               42 => 'Agility-2 GI Tiny',
+               43 => 'Agility GII Tiny',
+               44 => 'Agility GIII Tiny',    // no existe
+               45 => 'Agility Tiny', //  Individual-Open
+               46 => 'Agility team Tiny',// team best
+               // en equipos4  cuatro alturas  agrupamos por LM y ST
+               47 => 'Ag. teams Large/Medium', // team combined
+               48 => 'Ag. teams Small/Tiny', // team combined
 
-                49 => 'Jumping GII Tiny',
-                50 => 'Jumping GIII Tiny', // no existe
-                51 => 'Jumping Tiny', //  Individual-Open
-                52 => 'Jumping team Tiny',     // team best
-                53 => 'Jp. teams Large/Medium',  // team combined
-                54 => 'Jp. teams Small/Tiny',// team combined
-                55 => 'Special round Tiny',
-                56 => 'Agility-3 GI Large',     // extra rounds for GI RFEC
-                57 => 'Agility-3 GI Medium',
-                58 => 'Agility-3 GI Small',
-                59 => 'Agility-3 GI Tiny',
-                // resto de las rondas KO. Los perros compiten todos contra todos
-                60 => 'K.O. Round 2',
-                61 => 'K.O. Round 3',
-                62 => 'K.O. Round 4',
-                63 => 'K.O. Round 5',
-                64 => 'K.O. Round 6',
-                65 => 'K.O. Round 7',
-                66 => 'K.O. Round 8',
-                // tandas para games/wao ( cuatro categorias, siete mangas distintas )
-                67 => 'Agility A 650',
-                68 => 'Agility A 525',
-                69 => 'Agility A 400',
-                70 => 'Agility A 300',
-                71 => 'Agility B 650',
-                72 => 'Agility B 525',
-                73 => 'Agility B 400',
-                74 => 'Agility B 300',
-                75 => 'Jumping A 650',
-                76 => 'Jumping A 525',
-                77 => 'Jumping A 400',
-                78 => 'Jumping A 300',
-                79 => 'Jumping B 650',
-                80 => 'Jumping B 525',
-                81 => 'Jumping B 400',
-                82 => 'Jumping B 300',
-                83 => 'Snooker 650',
-                84 => 'Snooker 525',
-                85 => 'Snooker 400',
-                86 => 'Snooker 300',
-                87 => 'Gambler 650',
-                88 => 'Gambler 525',
-                89 => 'Gambler 400',
-                90 => 'Gambler 300',
-                91 => 'SpeedStakes 650',
-                92 => 'SpeedStakes 525',
-                93 => 'SpeedStakes 400',
-                94 => 'SpeedStakes 300',
-                95 => 'Junior 1 Large',
-                96 => 'Junior 1 Medium',
-                97 => 'Junior 1 Small',
-                98 => 'Junior 1 Toy',
-                99 => 'Junior 2 Large',
-                100 => 'Junior 2 Medium',
-                101 => 'Junior 2 Small',
-                102 => 'Junior 2 Toy',
-                103 => 'Senior 1 Large',
-                104 => 'Senior 1 Medium',
-                105 => 'Senior 1 Small',
-                106 => 'Senior 1 Toy',
-                107 => 'Senior 2 Large',
-                108 => 'Senior 2 Medium',
-                109 => 'Senior 2 Small',
-                110 => 'Senior 2 Toy'
-            ),
-            'TipoMangas' => array(
-                0 => array(0, 'Nombre Manga largo', 'Grado corto', 'Nombre manga', 'Grado largo', 'IsAgility'),
-                1 => array(1, 'Pre-Agility Round 1', 'P.A.', 'PreAgility 1', 'Pre-Agility', 1),
-                2 => array(2, 'Pre-Agility Round 2', 'P.A.', 'PreAgility 2', 'Pre-Agility', 2),
-                3 => array(3, 'Agility Grade I Round 1', 'GI', 'Agility-1 GI', 'Grade I', 1),
-                4 => array(4, 'Agility Grade I Round 2', 'GI', 'Agility-2 GI', 'Grade I', 2),
-                5 => array(5, 'Agility Grade II', 'GII', 'Agility GII', 'Grade II', 1),
-                6 => array(6, 'Agility Grade III', 'GIII', 'Agility GIII', 'Grade III', 1),
-                7 => array(7, 'Agility', '-', 'Agility', 'Individual', 1), // Open
-                8 => array(8, 'Agility Teams', '-', 'Ag. Teams', 'Teams', 1), // team best
-                9 => array(9, 'Agility Teams', '-', 'Ag. Teams.', 'Teams', 1), // team combined
-                10 => array(10, 'Jumping Grade II', 'GII', 'Jumping GII', 'Grade II', 2),
-                11 => array(11, 'Jumping Grade III', 'GIII', 'Jumping GIII', 'Grade III', 2),
-                12 => array(12, 'Jumping', '-', 'Jumping', 'Individual', 2), // Open
-                13 => array(13, 'Jumping Teams', '-', 'Jmp. Teams', 'Teams', 2), // team best
-                14 => array(14, 'Jumping Teams', '-', 'Jmp. Teams', 'Teams', 2), // team combined
-                15 => array(15, 'K.O. First Round', '-', 'K.O. Round 1', 'K.O.', 1),
-                16 => array(16, 'Special Round', '-', 'Special Round', 'Individual', 1), // special round, no grades
-                17 => array(17, 'Agility Grade I Round 3', 'GI', 'Agility-3 GI', 'Grade I', 3), // on RFEC special G1 3rd round
-                // mangas extra para K.O.
-                18 => array(18, 'K.O. Second round', '-', 'K.O. Round 2', 'K.O. R2', 2),
-                19 => array(19, 'K.O. Third round', '-', 'K.O. Round 3', 'K.O. R3', 3),
-                20 => array(20, 'K.O. Fourth round', '-', 'K.O. Round 4', 'K.O. R4', 4),
-                21 => array(21, 'K.O. Fifth round', '-', 'K.O. Round 5', 'K.O. R5', 5),
-                22 => array(22, 'K.O. Sixth round', '-', 'K.O. Round 6', 'K.O. R6', 6),
-                23 => array(23, 'K.O. Seventh round', '-', 'K.O. Round 7', 'K.O. R7', 7),
-                24 => array(24, 'K.O. Eight round', '-', 'K.O. Round 8', 'K.O. R8', 8),
-                // mandas extras para wao
-                25 => array(25, 'Agility A', '-', 'Agility A', 'Ag. A', 1),
-                26 => array(26, 'Agility B', '-', 'Agility B', 'Ag. B', 3),
-                27 => array(27, 'Jumping A', '-', 'Jumping A', 'Jp. A', 2),
-                28 => array(28, 'Jumping B', '-', 'Jumping B', 'Jp. B', 4),
-                29 => array(29, 'Snooker', '-', 'Snooker', 'Snkr', 5),
-                30 => array(30, 'Gambler', '-', 'Gambler', 'Gmblr', 6),
-                31 => array(31, 'SpeedStakes', '-', 'SpeedStakes', 'SpdStk', 7), // single round
-                32 => array(32, 'Junior Round 1', 'Jr', 'Junior 1', 'Jr. 1', 1),
-                33 => array(33, 'Junior Round 2', 'Jr', 'Junior 2', 'Jr. 2', 2),
-                34 => array(34, 'Senior Round 1', 'Sr', 'Senior 1', 'Sr. 1', 1),
-                35 => array(35, 'Senior Round 2', 'Sr', 'Senior 2', 'Sr. 2', 2)
-            ),
-            'TipoRondas' => array(
-                /* 0 */ array(/* 0x0000 */ 0,	''),
+               49 => 'Jumping GII Tiny',
+               50 => 'Jumping GIII Tiny', // no existe
+               51 => 'Jumping Tiny', //  Individual-Open
+               52 => 'Jumping team Tiny',     // team best
+               53 => 'Jp. teams Large/Medium',  // team combined
+               54 => 'Jp. teams Small/Tiny',// team combined
+               55 => 'Special round Tiny',
+               56 => 'Agility-3 GI Large',     // extra rounds for GI RFEC
+               57 => 'Agility-3 GI Medium',
+               58 => 'Agility-3 GI Small',
+               59 => 'Agility-3 GI Tiny',
+               // resto de las rondas KO. Los perros compiten todos contra todos
+               60 => 'K.O. Round 2',
+               61 => 'K.O. Round 3',
+               62 => 'K.O. Round 4',
+               63 => 'K.O. Round 5',
+               64 => 'K.O. Round 6',
+               65 => 'K.O. Round 7',
+               66 => 'K.O. Round 8',
+               // tandas para games/wao ( cuatro categorias, siete mangas distintas )
+               67 => 'Agility A 650',
+               68 => 'Agility A 525',
+               69 => 'Agility A 400',
+               70 => 'Agility A 300',
+               71 => 'Agility B 650',
+               72 => 'Agility B 525',
+               73 => 'Agility B 400',
+               74 => 'Agility B 300',
+               75 => 'Jumping A 650',
+               76 => 'Jumping A 525',
+               77 => 'Jumping A 400',
+               78 => 'Jumping A 300',
+               79 => 'Jumping B 650',
+               80 => 'Jumping B 525',
+               81 => 'Jumping B 400',
+               82 => 'Jumping B 300',
+               83 => 'Snooker 650',
+               84 => 'Snooker 525',
+               85 => 'Snooker 400',
+               86 => 'Snooker 300',
+               87 => 'Gambler 650',
+               88 => 'Gambler 525',
+               89 => 'Gambler 400',
+               90 => 'Gambler 300',
+               91 => 'SpeedStakes 650',
+               92 => 'SpeedStakes 525',
+               93 => 'SpeedStakes 400',
+               94 => 'SpeedStakes 300',
+               95 => 'Junior 1 Large',
+               96 => 'Junior 1 Medium',
+               97 => 'Junior 1 Small',
+               98 => 'Junior 1 Toy',
+               99 => 'Junior 2 Large',
+               100 => 'Junior 2 Medium',
+               101 => 'Junior 2 Small',
+               102 => 'Junior 2 Toy',
+               103 => 'Senior 1 Large',
+               104 => 'Senior 1 Medium',
+               105 => 'Senior 1 Small',
+               106 => 'Senior 1 Toy',
+               107 => 'Senior 2 Large',
+               108 => 'Senior 2 Medium',
+               109 => 'Senior 2 Small',
+               110 => 'Senior 2 Toy'
+           ),
+           'TipoMangas' => array(
+               0 => array(0, 'Nombre Manga largo', 'Grado corto', 'Nombre manga', 'Grado largo', 'IsAgility'),
+               1 => array(1, 'Pre-Agility Round 1', 'P.A.', 'PreAgility 1', 'Pre-Agility', 1),
+               2 => array(2, 'Pre-Agility Round 2', 'P.A.', 'PreAgility 2', 'Pre-Agility', 2),
+               3 => array(3, 'Agility Grade I Round 1', 'GI', 'Agility-1 GI', 'Grade I', 1),
+               4 => array(4, 'Agility Grade I Round 2', 'GI', 'Agility-2 GI', 'Grade I', 2),
+               5 => array(5, 'Agility Grade II', 'GII', 'Agility GII', 'Grade II', 1),
+               6 => array(6, 'Agility Grade III', 'GIII', 'Agility GIII', 'Grade III', 1),
+               7 => array(7, 'Agility', '-', 'Agility', 'Individual', 1), // Open
+               8 => array(8, 'Agility Teams', '-', 'Ag. Teams', 'Teams', 1), // team best
+               9 => array(9, 'Agility Teams', '-', 'Ag. Teams.', 'Teams', 1), // team combined
+               10 => array(10, 'Jumping Grade II', 'GII', 'Jumping GII', 'Grade II', 2),
+               11 => array(11, 'Jumping Grade III', 'GIII', 'Jumping GIII', 'Grade III', 2),
+               12 => array(12, 'Jumping', '-', 'Jumping', 'Individual', 2), // Open
+               13 => array(13, 'Jumping Teams', '-', 'Jmp. Teams', 'Teams', 2), // team best
+               14 => array(14, 'Jumping Teams', '-', 'Jmp. Teams', 'Teams', 2), // team combined
+               15 => array(15, 'K.O. First Round', '-', 'K.O. Round 1', 'K.O.', 1),
+               16 => array(16, 'Special Round', '-', 'Special Round', 'Individual', 1), // special round, no grades
+               17 => array(17, 'Agility Grade I Round 3', 'GI', 'Agility-3 GI', 'Grade I', 3), // on RFEC special G1 3rd round
+               // mangas extra para K.O.
+               18 => array(18, 'K.O. Second round', '-', 'K.O. Round 2', 'K.O. R2', 2),
+               19 => array(19, 'K.O. Third round', '-', 'K.O. Round 3', 'K.O. R3', 3),
+               20 => array(20, 'K.O. Fourth round', '-', 'K.O. Round 4', 'K.O. R4', 4),
+               21 => array(21, 'K.O. Fifth round', '-', 'K.O. Round 5', 'K.O. R5', 5),
+               22 => array(22, 'K.O. Sixth round', '-', 'K.O. Round 6', 'K.O. R6', 6),
+               23 => array(23, 'K.O. Seventh round', '-', 'K.O. Round 7', 'K.O. R7', 7),
+               24 => array(24, 'K.O. Eight round', '-', 'K.O. Round 8', 'K.O. R8', 8),
+               // mandas extras para wao
+               25 => array(25, 'Agility A', '-', 'Agility A', 'Ag. A', 1),
+               26 => array(26, 'Agility B', '-', 'Agility B', 'Ag. B', 3),
+               27 => array(27, 'Jumping A', '-', 'Jumping A', 'Jp. A', 2),
+               28 => array(28, 'Jumping B', '-', 'Jumping B', 'Jp. B', 4),
+               29 => array(29, 'Snooker', '-', 'Snooker', 'Snkr', 5),
+               30 => array(30, 'Gambler', '-', 'Gambler', 'Gmblr', 6),
+               31 => array(31, 'SpeedStakes', '-', 'SpeedStakes', 'SpdStk', 7), // single round
+               32 => array(32, 'Junior Round 1', 'Jr', 'Junior 1', 'Jr. 1', 1),
+               33 => array(33, 'Junior Round 2', 'Jr', 'Junior 2', 'Jr. 2', 2),
+               34 => array(34, 'Senior Round 1', 'Sr', 'Senior 1', 'Sr. 1', 1),
+               35 => array(35, 'Senior Round 2', 'Sr', 'Senior 2', 'Sr. 2', 2)
+           ),
+           'TipoRondas' => array(
+               /* 0 */ array(/* 0x0000 */ 0,	''),
                 /* 1 */ array(/* 0x0001 */ 1,	    _('Pre-Agility') ),
                 /* 2 */ array(/* 0x0002 */ 2,	    _('Pre-Agility') ), // 2-rounds pre-agility. No longer use since 3.4.X
                 /* 3 */ array(/* 0x0004 */ 4,	    _('Grade I') ),
@@ -363,6 +374,7 @@ class Federations {
      * @return {string} requested data
      */
     public function getMangaMode($mode,$idx=0) {
+        // on idx==1 every data have same name, so use global to avoid errors
         if ($idx!=0) return Mangas::$manga_modes[$mode][$idx];
         if (!array_key_exists('IndexedModes',$this->config)) return Mangas::$manga_modes[$mode][$idx];
         if (!array_key_exists($mode,$this->config['IndexedModes'])) return Mangas::$manga_modes[$mode][$idx];

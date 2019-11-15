@@ -800,69 +800,83 @@ function isMobileDevice() {
  * @param {function} callback what to do when finished
  */
 function setupWorkingData(prueba,jornada,manga,callback) {
-
-	// set default values that allways should exist (default, un-erasable, and closed contest)
-	if (typeof(prueba) === "undefined") prueba = 1;
-	if (typeof(jornada) === "undefined") jornada = 1;
-	if (typeof(manga) === "undefined") manga = 1;
-
-	// obtenemos datos de la manga
-	$.ajax({
-		type: 'GET',
-		url: "../ajax/database/mangaFunctions.php",
-		dataType: 'json',
-		data: {Operation: 'getbyid', Jornada: jornada, Manga: manga},
-		success: function (data) {
-			if (data.errorMsg) {$.messager.alert('<?php _e("Error"); ?>', data.errorMsg, "error");	return false; }
-			setManga(data);
-			return false;
-		}
-	}).always(function(){
-		// obtenemos datos de la jornada
-		$.ajax({
-			type: 'GET',
-			url: '../ajax/database/jornadaFunctions.php',
-			dataType: 'json',
-			data: {Operation: 'getbyid', Prueba: prueba, ID: jornada},
-			success: function (data) {
-				if (data.errorMsg) { $.messager.alert('<?php _e("Error"); ?>', data.errorMsg, "error"); return false; }
-				setJornada(data);
-				return false;
-			}
-		}).always(function(){
-			// obtenemos datos de los equipos de la jornada
-			$.ajax({
-				type: 'GET',
-				url: "../ajax/database/equiposFunctions.php",
-				dataType: 'json',
-				data: {Operation: 'enumerate', Prueba: prueba, Jornada: jornada},
-				success: function (teams) {
-					if (teams.errorMsg) { $.messager.alert('<?php _e("Error"); ?>', teams.errorMsg, "error"); return false; }
-					workingData.teamsByJornada = {};
-					$.each(teams.rows, function (idx, row) {
-						workingData.teamsByJornada[row.ID] = row;
-					});
-					return false; // prevent default fireup of event trigger
-				}
-			}).always(function() {
-				// obtenemos datos de la prueba
-				$.ajax({
-					type: 'GET',
-					url: "../ajax/database/pruebaFunctions.php",
-					dataType: 'json',
-					data: {Operation: 'getbyid', ID: prueba},
-					success: function (prueba) {
-						if (prueba.errorMsg) { $.messager.alert('<?php _e("Error"); ?>', prueba.errorMsg, "error"); return false; }
-						// store prueba data
-						setPrueba(prueba);
-						return false; // prevent default fireup of event trigger
-					}
-				}).always(function() {
-					if (typeof(callback) !=="undefined") callback();
-				});
-			});
-		});
-	});
+    // set default values that allways should exist (default, un-erasable, and closed contest)
+    if (typeof(prueba) === "undefined") prueba = 1;
+    if (typeof(jornada) === "undefined") jornada = 0;
+    if (typeof(manga) === "undefined") manga = 0;
+    if (prueba<=0) {
+        $.messager.alert('<?php _e("Error"); ?>', "No contest information", "error");
+        setPrueba(null);
+        return false;
+    }
+    // obtenemos datos de la prueba
+    $.ajax({
+        type: 'GET',
+        url: "../ajax/database/pruebaFunctions.php",
+        dataType: 'json',
+        data: {Operation: 'getbyid', ID: prueba, Jornada: jornada, Manga: manga},// notice "ID" instead of "Prueba"
+        success: function (data) {
+            if (data.errorMsg) {$.messager.alert('<?php _e("Error"); ?>', data.errorMsg, "error");	return false; }
+            setPrueba(data);
+            return false;
+        }
+    }).always(function() {
+        // obtenemos datos de la jornada
+        if (jornada<=0) {
+            $.messager.alert('<?php _e("Error"); ?>', "No journey information", "error");
+            setJornada(null);
+            return false;
+        }
+        $.ajax({
+            type: 'GET',
+            url: '../ajax/database/jornadaFunctions.php',
+            dataType: 'json',
+            data: {Operation: 'getbyid', Prueba: prueba, ID: jornada, Manga: manga}, // notice "ID" instead of "Jornada"
+            success: function (data) {
+                if (data.errorMsg) { $.messager.alert('<?php _e("Error"); ?>', data.errorMsg, "error"); return false; }
+                setJornada(data);
+                return false;
+            }
+        }).always(function(){
+            // obtenemos datos de los equipos de la jornada
+            $.ajax({
+                type: 'GET',
+                url: "../ajax/database/equiposFunctions.php",
+                dataType: 'json',
+                data: {Operation: 'enumerate', Prueba: prueba, Jornada: jornada, Manga: manga},
+                success: function (teams) {
+                    if (teams.errorMsg) { $.messager.alert('<?php _e("Error"); ?>', teams.errorMsg, "error"); return false; }
+                    workingData.teamsByJornada = {};
+                    $.each(teams.rows, function (idx, row) {
+                        workingData.teamsByJornada[row.ID] = row;
+                    });
+                    return false; // prevent default fireup of event trigger
+                }
+            }).always(function() {
+                // obtenemos datos de la manga
+                if (manga<=0) {
+                    $.messager.alert('<?php _e("Error"); ?>', "No round information", "error");
+                    setManga(null);
+                    return false;
+                }
+                // obtenemos datos de la manga
+                $.ajax({
+                    type: 'GET',
+                    url: "../ajax/database/mangaFunctions.php",
+                    dataType: 'json',
+                    data: {Operation: 'getbyid', Prueba: prueba, Jornada: jornada, Manga: manga},
+                    success: function (data) {
+                        if (data.errorMsg) {$.messager.alert('<?php _e("Error"); ?>', data.errorMsg, "error");	return false; }
+                        setManga(data);
+                        return false;
+                    }
+                }).always(function() {
+                    if (typeof(callback) !=="undefined") callback();
+                    return false;
+                }); // manga
+            }); // equipos jornada
+        }); //jornada
+    }); // prueba
 }
 
 /**
