@@ -1,3 +1,7 @@
+Version 4.1.0 20191115_2200
+    - Fixes on videowall for 5 heights
+    - Add module: Selectiva EO 2020
+    - Fix global clasification PDF printout
 Version 4.1.0 20191114_1444
     - Support for 5 heihgts in RSCE
     - Modules "Temporada_RSCE_2020" and "Selectiva_RSCE_2020"
