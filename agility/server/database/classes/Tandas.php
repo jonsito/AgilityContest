@@ -42,8 +42,8 @@ class Tandas extends DBObject {
 	 static $tipo_tanda = array (
 			0	=> array('Tipo'=>0,		'TipoManga'=>0,		'Nombre'=>'-- Sin especificar --',  'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-',	'Grado'=>'-'),
 			// en pre-agility no hay categorias
-			1	=> array('Tipo'=>1,		'TipoManga'=> 1,	'Nombre'=>'Pre-Agility 1',			'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'P.A.'),
-			2	=> array('Tipo'=>2,		'TipoManga'=> 2,	'Nombre'=>'Pre-Agility 2',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'P.A.'),
+			1	=> array('Tipo'=>1,		'TipoManga'=> 1,	'Nombre'=>'Pre-Agility 1',			'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'-','Grado'=>'P.A.'),
+			2	=> array('Tipo'=>2,		'TipoManga'=> 2,	'Nombre'=>'Pre-Agility 2',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-','Grado'=>'P.A.'),
 			3	=> array('Tipo'=>3,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Large',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'GI'),
 			4	=> array('Tipo'=>4,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'GI'),
 			5	=> array('Tipo'=>5,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GI'),
@@ -81,7 +81,7 @@ class Tandas extends DBObject {
 			35	=> array('Tipo'=>35,	'TipoManga'=> 14,	'Nombre'=>'Jp. Teams Large',		'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'L',	'Grado'=>'-'), // team combined
 			36	=> array('Tipo'=>36,	'TipoManga'=> 14,	'Nombre'=>'Jp. Teams Med/Small',	'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'MS',	'Grado'=>'-'), // team combined
 			// en las rondas KO, los perros compiten todos contra todos
-			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O. 1',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
+			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O. 1',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-','Grado'=>'-'),
 			38	=> array('Tipo'=>38,	'TipoManga'=> 16,	'Nombre'=>'Special Round Large',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L',	'Grado'=>'-'),
 			39	=> array('Tipo'=>39,	'TipoManga'=> 16,	'Nombre'=>'Special Round Medium',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M',	'Grado'=>'-'),
 			40	=> array('Tipo'=>40,	'TipoManga'=> 16,	'Nombre'=>'Special Round Small',	'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'-'),
@@ -108,13 +108,13 @@ class Tandas extends DBObject {
             58	=> array('Tipo'=>58,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Small',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S',	'Grado'=>'GI'),
             59	=> array('Tipo'=>59,	'TipoManga'=> 17,	'Nombre'=>'Agility-3 GI Tiny',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T',	'Grado'=>'GI'),
             // resto de las rondas KO. Los perros compiten todos contra todos
-            60	=> array('Tipo'=>60,	'TipoManga'=> 18,	'Nombre'=>'Manga K.O. 2',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
-            61	=> array('Tipo'=>61,	'TipoManga'=> 19,	'Nombre'=>'Manga K.O. 3',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
-            62	=> array('Tipo'=>62,	'TipoManga'=> 20,	'Nombre'=>'Manga K.O. 4',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
-            63	=> array('Tipo'=>63,	'TipoManga'=> 21,	'Nombre'=>'Manga K.O. 5',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
-            64	=> array('Tipo'=>64,	'TipoManga'=> 22,	'Nombre'=>'Manga K.O. 6',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
-            65	=> array('Tipo'=>65,	'TipoManga'=> 23,	'Nombre'=>'Manga K.O. 7',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
-            66	=> array('Tipo'=>66,	'TipoManga'=> 24,	'Nombre'=>'Manga K.O. 8',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-XLMST','Grado'=>'-'),
+            60	=> array('Tipo'=>60,	'TipoManga'=> 18,	'Nombre'=>'Manga K.O. 2',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-','Grado'=>'-'),
+            61	=> array('Tipo'=>61,	'TipoManga'=> 19,	'Nombre'=>'Manga K.O. 3',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-','Grado'=>'-'),
+            62	=> array('Tipo'=>62,	'TipoManga'=> 20,	'Nombre'=>'Manga K.O. 4',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-','Grado'=>'-'),
+            63	=> array('Tipo'=>63,	'TipoManga'=> 21,	'Nombre'=>'Manga K.O. 5',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-','Grado'=>'-'),
+            64	=> array('Tipo'=>64,	'TipoManga'=> 22,	'Nombre'=>'Manga K.O. 6',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-','Grado'=>'-'),
+            65	=> array('Tipo'=>65,	'TipoManga'=> 23,	'Nombre'=>'Manga K.O. 7',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-','Grado'=>'-'),
+            66	=> array('Tipo'=>66,	'TipoManga'=> 24,	'Nombre'=>'Manga K.O. 8',			'isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'-','Grado'=>'-'),
             // tandas para games ( cuatro categorias, siete mangas distintas
             67	=> array('Tipo'=>67,	'TipoManga'=> 25,	'Nombre'=>'Agility A 650',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'-'),
             68	=> array('Tipo'=>68,	'TipoManga'=> 25,	'Nombre'=>'Agility A 525',		'isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'-'),

@@ -150,7 +150,8 @@ class PrintEntradaDeDatos extends PrintCommon {
                 }
                 // recorridos tipo 0 ( comun ) y 2 ( separados ) no necesitan agrupamiento de categorias
             }
-			$this->print_identificacionManga($this->manga,$this->getCatString($cat,$this->heights));
+            if ($this->validcats=="XLMST") $this->print_identificacionManga($this->manga,"");
+            else	$this->print_identificacionManga($this->manga,$this->getCatString($cat,$this->heights));
 		} else {
 			// modo extendido: pinta solo identificacion de la jornada
 			$this->SetFont($this->getFontName(),'B',12); // bold 15
@@ -217,7 +218,7 @@ class PrintEntradaDeDatos extends PrintCommon {
         if ($wide) {
             $this->Cell(50,4,$row['Nombre'],		'',0,'R',false);
         } else {
-            $this->Cell(20,4,$row['Licencia'],		'',0,'R',false);
+            $this->Cell(20,4,"{$row['Licencia']} - {$row['Categoria']}",'',0,'R',false);
             $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
         }
 		$this->Cell(60,4,$this->getHandlerName($row),	'',0,'R',false);
@@ -319,7 +320,7 @@ class PrintEntradaDeDatos extends PrintCommon {
         if ($wide) {
             $this->Cell(50,4,$row['Nombre'],		'',0,'R',false);
         } else {
-            $this->Cell(20,4,$row['Licencia'],		'',0,'R',false);
+            $this->Cell(20,4,"{$row['Licencia']} - {$row['Categoria']}",'',0,'R',false);
             $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
         }
         $this->Cell(60,4,$this->getHandlerName($row),	'',0,'R',false);
@@ -604,20 +605,23 @@ class PrintEntradaDeDatos extends PrintCommon {
             $toItem=intval($a[1]);
         }
 		// Datos
+		$numentries=count($this->orden);
 		$orden=1;
 		$rowcount=0;
-		$mid=($this->manga!=null)? $this->manga->ID: ($this->manga2!=null)?$this->manga2->ID:0;
 		foreach($this->orden as $row) {
 			// elimina todos los perros que no entran en las categorias a imprimir
 			if (!category_match($row['Categoria'],$this->heights,$this->validcats)) continue;
 			if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
 
-			// if change in categoria, reset orden counter and force page change
-            $ccats=compatible_categories($this->heights,$this->categoria);
-            if (!category_match($row['Categoria'],$this->heights,$ccats)) {
-				$rowcount=0;
-				$orden=1;
-				$this->categoria = $row['Categoria'];
+			// if number of entries is lower than rows per page, print every entries in just one page
+			if ( ($this->validcats!="XLMST") || ($numentries > $this->numrows) ) {
+				// if change in categoria, reset orden counter and force page change
+				$ccats=compatible_categories($this->heights,$this->categoria);
+				if (!category_match($row['Categoria'],$this->heights,$ccats)) {
+					$rowcount=0;
+					$orden=1;
+					$this->categoria = $row['Categoria'];
+				}
 			}
 
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)

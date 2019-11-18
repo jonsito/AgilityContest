@@ -678,6 +678,7 @@ function compatible_categories($height,$cat) {
     switch ($height) {
         case 3: // join XL and ST
             switch($cat) {
+                case '-': return 'XLMST';
                 case 'X': return 'XL';
                 case 'L': return 'XL';
                 case 'M': return 'M';
@@ -687,6 +688,7 @@ function compatible_categories($height,$cat) {
             break;
         case 4: // join XL
             switch($cat) {
+                case '-': return 'XLMST';
                 case 'X': return 'XL';
                 case 'L': return 'XL';
                 case 'M': return 'M';
@@ -695,10 +697,10 @@ function compatible_categories($height,$cat) {
             }
             break;
         case 5: // do not join
-            return $cat;
+            return ($cat==="-")?'XLMST':$cat;
     }
-    // arriving here retunrs default
-    return '-XLMST';
+    // arriving here returns default
+    return 'XLMST';
 }
 
 /**
