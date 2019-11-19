@@ -152,7 +152,7 @@ class PrintOrdenSalida extends PrintCommon {
 	function printTeamInformation($team) {
 		$this->ac_header(2,9);
 		$nombre=$this->teams[$team]['Nombre'];
-		$this->Cell(185,6,$nombre,'LTBR',0,'R',true);
+		$this->Cell(190,6,$nombre,'LTBR',0,'R',true);
 		$this->ac_row(2,9);
 		$this->Ln();
 	}
