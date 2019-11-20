@@ -824,6 +824,9 @@ function isMangaGames($tipo) { return in_array($tipo,array(29,30)); }
 function isMangaEquipos3($tipo) { return in_array($tipo,array(8,13)); }
 function isMangaEquipos4($tipo) { return in_array($tipo,array(9,14)); }
 function isMangaEquipos($tipo) { return in_array($tipo,array(8,9,13,14)); }
+function isMangaPreAgility($tipo) { return in_array($tipo,array(1,2)); }
+function isMangaJunior($tipo) { return in_array($tipo,array(32,33)); }
+function isMangaSenior($tipo) { return in_array($tipo,array(34,35)); }
 
 function assertClosedJourney($jornada) {
     $msg=_("Current journey is closed. cannot modify");

@@ -779,13 +779,22 @@ function reorder_check(current,obj) {
     var rows=$('#ordensalida-datagrid').datagrid('getRows');
     var src=rows[c-1];
     var dst=rows[n-1];
+    var fcat=src.Categoria;
+    var tcat=dst.Categoria;
+    var heights=howManyHeights();
+    if ( (heights==3) && (fcat=='X') ) fcat='L';
+    if ( (heights==3) && (fcat=='T') ) fcat='S';
+    if ( (heights==3) && (tcat=='X') ) tcat='L';
+    if ( (heights==3) && (tcat=='T') ) tcat='S';
+    if ( (heights==4) && (fcat=='X') ) fcat='L';
+    if ( (heights==4) && (tcat=='X') ) tcat='L';
     if ((n<1) || (n>rows.length)) {
         $.messager.alert("Error","<?php _e('New position is out of range');?>","error");
         obj.value=current; // restore old value
         return false;
     }
-    var from=":"+src.Equipo+":"+src.Categoria+":"+src.Celo+":";
-    var to=":"+dst.Equipo+":"+dst.Categoria+":"+dst.Celo+":";
+    var from=":"+src.Equipo+":"+fcat+":"+src.Celo+":";
+    var to=":"+dst.Equipo+":"+tcat+":"+dst.Celo+":";
     if (isJornadaEqConjunta()) {
         // en jornadas por equipos conjunta, no hay que tener en cuenta ni categoria ni celo
         from=":"+src.Equipo+":";

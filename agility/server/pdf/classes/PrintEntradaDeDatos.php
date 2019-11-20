@@ -612,9 +612,12 @@ class PrintEntradaDeDatos extends PrintCommon {
 			// elimina todos los perros que no entran en las categorias a imprimir
 			if (!category_match($row['Categoria'],$this->heights,$this->validcats)) continue;
 			if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
-
 			// if number of entries is lower than rows per page, print every entries in just one page
-			if ( ($this->validcats!="XLMST") || ($numentries > $this->numrows) ) {
+			$page=true; // check for need to page categories
+			if ($numentries <= $this->numrows) $page=false; // every dogs fits in one sheet
+			if ( isMangaPreAgility($this->manga->Tipo)) $page=false; // pre-agility rounds does not page heights
+			// if ($this->validcats=="XLMST") $page=false; // any height is allowed: do not page
+			if ( $page ) {
 				// if change in categoria, reset orden counter and force page change
 				$ccats=compatible_categories($this->heights,$this->categoria);
 				if (!category_match($row['Categoria'],$this->heights,$ccats)) {

@@ -401,7 +401,7 @@ function howManyGrades(fed) {
 
 function howManyHeights() {
     if (typeof(workingData.datosCompeticion.Data) !== "undefined")
-        return workingData.datosCompeticion.Data.Heights;
+        return parseInt(workingData.datosCompeticion.Data.Heights);
 	return parseInt(ac_fedInfo[workingData.federation].Heights);
 }
 

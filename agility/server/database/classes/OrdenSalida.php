@@ -508,7 +508,7 @@ class OrdenSalida extends DBObject {
             $p5=array();
             foreach ($res['rows'] as $item) {
             	// hack to get compatibility with oldest database entries that stored "no_cats" tanda categories as LMS
-            	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-XLMST";
+            	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-";
             	// si la tanda tiene mas de una categoria, hacemos un split y separamos internamente
 				$cats=str_split(($item['Categoria']));
 				foreach($cats as $cat) {
