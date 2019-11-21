@@ -181,7 +181,11 @@ class PrintClasificacionGames extends PrintCommon {
                 throw new Exception("PrintClasificationGames: Invalid Competition type: ".$this->jornada->Tipo_Competicion);
         }
 	}
-	
+
+	function print_stats() {
+	    /* emtpy, just for compatibility */
+    }
+
 	function print_datosMangas() {
 
 	    // objeto para buscar jueces

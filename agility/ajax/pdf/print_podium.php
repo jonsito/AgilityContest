@@ -30,10 +30,19 @@ require_once(__DIR__ . '/../../server/pdf/classes/PrintClasificacionGeneral.php'
 require_once(__DIR__ . '/../../server/pdf/classes/PrintPodium.php');
 
 function pp_getArray($mode,$data) {
+    $trs=array();
+    $trs[0]=array_key_exists('trs1',$data)?$data['trs1']:null;
+    $trs[1]=array_key_exists('trs2',$data)?$data['trs2']:null;
+    $trs[2]=array_key_exists('trs3',$data)?$data['trs3']:null;
+    $trs[3]=array_key_exists('trs4',$data)?$data['trs4']:null;
+    $trs[4]=array_key_exists('trs5',$data)?$data['trs5']:null;
+    $trs[5]=array_key_exists('trs6',$data)?$data['trs6']:null;
+    $trs[6]=array_key_exists('trs7',$data)?$data['trs7']:null;
+    $trs[7]=array_key_exists('trs8',$data)?$data['trs8']:null;
     $result = array(
         'Mode' => $mode,
         'Data' => $data['rows'],
-        'TRS'  => array($data['trs1'],$data['trs2'],$data['trs3'],$data['trs4'],$data['trs5'],$data['trs6'],$data['trs7'],$data['trs8'] ),
+        'TRS'  => array($trs[0], $trs[1], $trs[2], $trs[3], $trs[4], $trs[5], $trs[6], $trs[7] ),
         'Jueces' => $data['jueces']
     );
     return $result;
