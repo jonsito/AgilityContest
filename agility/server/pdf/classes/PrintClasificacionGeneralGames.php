@@ -33,7 +33,7 @@ require_once(__DIR__.'/../../database/classes/Resultados.php');
 require_once(__DIR__.'/../../database/classes/Clasificaciones.php');
 require_once(__DIR__."/../print_common.php");
 
-class PrintClasificacionGames extends PrintCommon {
+class PrintClasificacionGeneralGames extends PrintCommon {
 
     protected $mangas=array();
     protected $tipo_mangas=array();
@@ -42,6 +42,7 @@ class PrintClasificacionGames extends PrintCommon {
 	protected $categoria;
 	protected $hasGrades;
 	protected $mname;
+	protected $isPodium;
 
     protected $cell_header=array();
     protected $cell_width=array();
@@ -54,16 +55,24 @@ class PrintClasificacionGames extends PrintCommon {
 	 /** Constructor
       * @param {int} $prueba prueba id
       * @param {int} $jornada jornada id
-      * @param {array} $mangas datos de las mangas
+      * @param {array} $mangas datos de la manga
 	  * @param {array} $results resultados asociados a la manga/categoria pedidas
       * @param {int} $mode manga mode
       * @param {int} $podium just print 3 first results and no round data
 	  * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$mangas,$results,$mode) {
-		parent::__construct('Landscape',"print_clasificacion_games",$prueba,$jornada);
-		$dbobj=new DBObject("print_clasificacion_games");
-		$this->resultados=$results['rows'];
+	function __construct($prueba,$jornada,$mangas,$results,$podium) {
+		parent::__construct('Landscape',"print_cl_general_games",$prueba,$jornada);
+		$dbobj=new DBObject("print_cl_general_games");
+		/*
+		 * result is an arrray of objets like:
+		 *  'Mode' => $mode,
+		 *  'Data' => $data['rows'],
+		 *  'TRS'  => array($trs[0], $trs[1], $trs[2], $trs[3], $trs[4], $trs[5], $trs[6], $trs[7] ),
+            'Jueces' => $data['jueces']
+		 */
+		$this->resultados=$results;
+		$this->isPodium=$podium;
 		for($n=0;$n<8;$n++){
 		    $this->mangas[$n]=($mangas[$n]!=0)?$dbobj->__getObject("mangas",$mangas[$n]):null;
 		    $this->trs_data[$n]=null;
@@ -71,7 +80,6 @@ class PrintClasificacionGames extends PrintCommon {
 		    if ($results!=null) if (array_key_exists($k,$results))  $this->trs_data[$n]=$results[$k];
             $this->tipo_mangas[$n]=($mangas[$n]!=0)?_(Mangas::getTipoManga($this->mangas[$n]->Tipo,3,$this->federation)):"";
         }
-		$this->categoria=$this->getModeString(intval($mode));
 		$this->hasGrades=false; // games has no grades
         // evaluamos array de contenidos
         switch (intval($this->jornada->Tipo_Competicion)) {
@@ -181,6 +189,8 @@ class PrintClasificacionGames extends PrintCommon {
             default:
                 throw new Exception("PrintClasificationGames: Invalid Competition type: ".$this->jornada->Tipo_Competicion);
         }
+        if ($podium) $this->set_FileName("Podium_{$this->mname}.pdf");
+        else  $this->set_FileName("Clasificacion_{$this->mname}.pdf");
 	}
 
 	function setResultados($result) {
@@ -200,13 +210,17 @@ class PrintClasificacionGames extends PrintCommon {
 		$jobj=new Jueces("print_Clasificaciones");
 
         // imprimimos informacion de la manga
-        $this->setXY(10,40);
+        if (! $this->isPodium) $this->setXY(10,40);
 		$this->SetFont($this->getFontName(),'B',11); // bold 9px
 		$this->Cell(80,6,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
-		$this->Ln(6);
+		if (!$this->isPodium) $this->Ln(6);
         $this->Cell(80,6,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
-        $this->Ln(6);
+        if (!$this->isPodium) $this->Ln(6);
         $this->Cell(80,6,_('Round').": {$this->mname} - {$this->categoria}",0,0,'',false);
+        if ($this->isPodium) { // podium print has no round data
+            $this->Ln(7);
+            return;
+        }
 
         // ahora los datos de cada manga individual
         $valid=array(); // lista de mangas de las que hay que presentar datos
@@ -246,7 +260,7 @@ class PrintClasificacionGames extends PrintCommon {
 	}
 
 	function Header() {
-		$this->print_commonHeader(_("Final scores"));
+		$this->print_commonHeader(($this->isPodium)?_("Podium"):_("Final scores"));
 		$this->Ln(7);
 	}
 	
@@ -310,35 +324,43 @@ class PrintClasificacionGames extends PrintCommon {
 		$this->SetFont($this->getFontName(),'',8); // default font
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 		$this->SetLineWidth(.5);
-		
-		$rowcount=0;
-		$this->AddPage();
-		$this->print_datosMangas();
-		switch(intval($this->jornada->Tipo_Competicion)) {
-            case 1: $numrows=16; break;//penthathlon
-            case 2: $numrows=17; break;//biathlon
-            case 3: $numrows=19; break;//games
-            default:$numrows=23; break; // should not happen
+
+        $this->AddPage();
+        $this->setXY(10,40); // needed casuse print_datos_mangas ignores x.y in podium mode
+		for($n=0;$n<count($this->resultados);$n++) {
+            $item=$this->resultados[$n];
+            $this->categoria=$this->getModeString(intval($item['Mode']));
+            $rowcount=0;$this->print_datosMangas();
+            switch(intval($this->jornada->Tipo_Competicion)) {
+                case 1: $numrows=16; break;//penthathlon
+                case 2: $numrows=17; break;//biathlon
+                case 3: $numrows=19; break;//games
+                default:$numrows=23; break; // should not happen
+            }
+            foreach($item['Data'] as $row) {
+                if ($this->isPodium && $rowcount>=3) break;
+                if ($rowcount==0) $this->writeTableHeader();
+                $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+                $this->writeCell( $rowcount % $numrows,$row);
+                $rowcount++;
+                if ($rowcount>=$numrows) {
+                    // pintamos linea de cierre
+                    $this->setX(10);
+                    $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+                    $this->cell($len,0,'','T'); // celda sin altura y con raya
+                    $this->AddPage();
+                    $numrows=23;
+                    $rowcount=0;
+                }
+            }
+            // pintamos linea de cierre final
+            $this->setX(10);
+            $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+            $this->cell($len,0,'','T'); // celda sin altura y con raya
+            // next height
+            if ($this->isPodium) $this->Ln(2);
+            else if ($n<count($this->resultados)-1)$this->AddPage();
         }
-		foreach($this->resultados as $row) {
-			if($rowcount==0) $this->writeTableHeader();	
-			$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-			$this->writeCell( $rowcount % $numrows,$row);
-			$rowcount++;
-			if ($rowcount>=$numrows) {
-				// pintamos linea de cierre 	
-				$this->setX(10);
-				$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-				$this->cell($len,0,'','T'); // celda sin altura y con raya
-				$this->AddPage();
-                $numrows=23;
-				$rowcount=0;
-			}
-		}
-		// pintamos linea de cierre final
-		$this->setX(10);
-		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-		$this->cell($len,0,'','T'); // celda sin altura y con raya
 		$this->myLogger->leave();
 	}
 }

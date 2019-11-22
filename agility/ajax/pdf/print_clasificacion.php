@@ -53,7 +53,7 @@ try {
     $split= ( ($children!==0) && ($rondas&16384)!==0 )?1:0;
 	// Creamos generador de documento
     if (intval($c->getJornada()->Games)!==0)
-        $pdf=new PrintClasificacionGames($prueba,$jornada,$mangas,$result,$mode);
+        $pdf=new PrintClasificacionGames($prueba,$jornada,$mangas,$result,$mode,0);
 	else $pdf = new PrintClasificacion($prueba,$jornada,$mangas,$result,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable($split);

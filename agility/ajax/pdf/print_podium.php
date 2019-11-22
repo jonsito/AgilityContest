@@ -27,6 +27,7 @@ require_once(__DIR__ . "/../../server/modules/Federations.php");
 require_once(__DIR__ . '/../../server/modules/Competitions.php');
 require_once(__DIR__ . '/../../server/database/classes/DBObject.php');
 require_once(__DIR__ . '/../../server/pdf/classes/PrintClasificacionGeneral.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintClasificacionGeneralGames.php');
 require_once(__DIR__ . '/../../server/pdf/classes/PrintPodium.php');
 
 function pp_getArray($mode,$data) {
@@ -140,13 +141,17 @@ try {
             $result[] = pp_getArray(7,$st);
             break;
 	}
-	
-	// Creamos generador de documento
-    if ($podium==1) $pdf = new PrintPodium($prueba,$jornada,$mangas,$result);
-    else $pdf = new PrintClasificacionGeneral($prueba,$jornada,$mangas,$result);
-	$pdf->AliasNbPages();
-	$pdf->composeTable();
-	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
+	// en las mangas de games tenemos que usar otro sistema
+    if (isMangaWAO($mangasInfo->Manga->Tipo)) {
+        $pdf = new PrintClasificacionGeneralGames($prueba,$jornada,$mangas,$result,$podium);
+    } else {
+        // Creamos generador de documento
+        if ($podium==1) $pdf = new PrintPodium($prueba,$jornada,$mangas,$result);
+        else $pdf = new PrintClasificacionGeneral($prueba,$jornada,$mangas,$result);
+    }
+    $pdf->AliasNbPages();
+    $pdf->composeTable();
+    $pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());
