@@ -267,7 +267,9 @@ class PrintCommon extends FPDF {
 		date_default_timezone_set('Europe/Madrid');
         parent::__construct($orientacion,'mm','A4'); // Portrait or Landscape
 		// register in-memory images streams
-		stream_wrapper_register('var', 'VariableStream');
+		if (!in_array('var',stream_get_wrappers())) {
+			stream_wrapper_register('var', 'VariableStream');
+		}
 		$this->config=Config::getInstance();
 		$this->myLogger= new Logger($file,$this->config->getEnv("debug_level"));
 		$this->SetAutoPageBreak(true,1.7); // default margin is 2cm. so enlarge a bit

@@ -52,9 +52,11 @@ class PrintResultadosKO extends PrintCommon {
      * @param integer $jornada Jornada ID
      * @param array $manga datos tecnicos de la manga
 	 * @param array $resultados resultados asociados a la manga/categoria pedidas
+     * @param int|array $modes lista de mangas/alturas a imprimir. si es un entero es una simple manga/categoria
+     * @param string $title
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$resultados) {
+	function __construct($prueba,$jornada,$manga,$resultados,$modes,$title) {
 		parent::__construct('Portrait',"print_resultadosKO",$prueba,$jornada);
 		$this->manga=$manga;
 		$this->resultados=$resultados;

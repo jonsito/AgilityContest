@@ -35,7 +35,9 @@ class PrintResultadosGames extends PrintCommon {
 	
 	protected $manga;
 	protected $resultados;
-	protected $mode;
+    protected $modes; // list of categories to print
+    protected $mode; // current working category
+    protected $catpage; // page number for each category
 	protected $hasGrades;
 	
 	// geometria de las celdas
@@ -50,14 +52,21 @@ class PrintResultadosGames extends PrintCommon {
      * @param integer $jornada Jornada ID
      * @param object $manga datos tecnicos de la manga
 	 * @param array $resultados resultados asociados a la manga/categoria pedidas
+     * @param int|array $modes modos de manga/categoria. Si entero imprime unica manga categoria
+     * @param string $title // not used. just for compatibility
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$resultados,$mode) {
+	function __construct($prueba,$jornada,$manga,$resultados,$modes,$title) {
 		parent::__construct('Portrait',"print_resultadosGames",$prueba,$jornada);
 		$name=(intval($manga->Tipo)==29)?'Snooker':'Gambler';
 		$this->manga=$manga;
-        $this->mode=$mode;
-		$this->resultados=$resultados;
+		if(! is_array($modes) ) {
+		    $this->modes=array($modes);
+		    $this->resultados=array($resultados);
+        } else {
+		    $this->modes=$modes;
+            $this->resultados=$resultados;
+        }
         $this->hasGrades=Jornadas::hasGrades($this->jornada);
 		$seqname=(intval($manga->Tipo)==29)?_('Closing Seq'):'Gambler';
 		$this->cellHeader=
@@ -78,7 +87,7 @@ class PrintResultadosGames extends PrintCommon {
         $this->print_identificacionManga($this->manga,$this->getModeString(intval($this->mode)));
 
         // Si es la primera hoja pintamos datos tecnicos de la manga
-        if ($this->PageNo()!==1) return;
+        if ($this->catpage!==0) return;
 
 	    $this->myLogger->enter();
 		$this->SetFont($this->getFontName(),'B',9); // bold 9px
@@ -148,23 +157,28 @@ class PrintResultadosGames extends PrintCommon {
     function composeTable() {
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
         $this->SetLineWidth(.3);
-	    $page=0;
-	    $rowcount=36;
-        $this->AddPage();
-	    $this->writeTableHeader();
-	    foreach($this->resultados['rows'] as $row) {
-	        if($rowcount===0) {
-	            $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
-	            $this->AddPage();
-                $this->writeTableHeader();
-	            $page++;
-                $rowcount=39;
-	        }
-	        $this->writeCell($row,$rowcount);
-	        $rowcount --;
+	    for ($n=0;$n<count($this->resultados);$n++) {
+	        $resultado=$this->resultados[$n];
+	        $this->mode=$this->modes[$n];
+            $rowcount=36;
+            $this->catpage=0;
+            $this->AddPage();
+            $this->writeTableHeader();
+            foreach($resultado['rows'] as $row) {
+                if($rowcount===0) {
+                    $this->catpage++;
+                    $rowcount=39;
+                    $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
+                    $this->AddPage();
+                    $this->writeTableHeader();
+                }
+                $this->writeCell($row,$rowcount);
+                $rowcount --;
+            }
+            // linea final de cierre
+            $this->Cell(array_sum($this->pos),0,'','T');
         }
-        // linea final de cierre
-        $this->Cell(array_sum($this->pos),0,'','T');
+
     }
 }
 ?>
