@@ -216,7 +216,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
 		$this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
         if ($wide) {
-            $this->Cell(50,4,$row['Nombre'],		'',0,'R',false);
+            $this->Cell(50,4,"{$row['Nombre']} - {$row['Categoria']}",		'',0,'R',false);
         } else {
             $this->Cell(20,4,"{$row['Licencia']} - {$row['Categoria']}",'',0,'R',false);
             $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
@@ -318,7 +318,7 @@ class PrintEntradaDeDatos extends PrintCommon {
         $this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
         $this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
         if ($wide) {
-            $this->Cell(50,4,$row['Nombre'],		'',0,'R',false);
+            $this->Cell(50,4,"{$row['Nombre']} - {$row['Categoria']}",		'',0,'R',false);
         } else {
             $this->Cell(20,4,"{$row['Licencia']} - {$row['Categoria']}",'',0,'R',false);
             $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
