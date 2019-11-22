@@ -1,3 +1,9 @@
+Version 4.1.1 20191122_1920
+    - Fixes on Pre-Agility 5 heights
+    - Add podium, parcial and global listings to WAO modules
+    - allow one-sheet printing on pre-Agility and <15 dogs
+      contests on assistant sheets
+    - Add Dog height in assistant sheets
 Version 4.1.0 20191115_2200
     - Fixes on videowall for 5 heights
     - Add module: Selectiva EO 2020
