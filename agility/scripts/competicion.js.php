@@ -651,6 +651,29 @@ function save_manga(id) {
     var rec=$("input:radio[name=Recorrido]:checked").val();
     var fed=workingData.federation;
     var heights=howManyHeights();
+    // fix empty fields when not in 5 heights
+    switch (heights) {
+        case 3: //join xs/s
+            $('#dmanga_DistT').textbox('setValue',$('#dmanga_DistS').textbox('getValue'));
+            $('#dmanga_ObstT').textbox('setValue',$('#dmanga_ObstS').textbox('getValue'));
+            $('#dmanga_TRS_T_Tipo').combobox('setValue',$('#dmanga_TRS_S_Tipo').combobox('getValue'));
+            $('#dmanga_TRS_T_Factor').textbox('setValue',$('#dmanga_TRS_S_Factor').textbox('getValue'));
+            $('#dmanga_TRS_T_Unit').combobox('setValue',$('#dmanga_TRS_S_Unit').combobox('getValue'));
+            $('#dmanga_TRM_T_Tipo').combobox('setValue',$('#dmanga_TRM_S_Tipo').combobox('getValue'));
+            $('#dmanga_TRM_T_Factor').textbox('setValue',$('#dmanga_TRM_S_Factor').textbox('getValue'));
+            $('#dmanga_TRM_T_Unit').combobox('setValue',$('#dmanga_TRM_S_Unit').combobox('getValue'));
+            //no break
+        case 4: // join xl/l
+            $('#dmanga_DistX').textbox('setValue',$('#dmanga_DistL').textbox('getValue'));
+            $('#dmanga_ObstX').textbox('setValue',$('#dmanga_ObstL').textbox('getValue'));
+            $('#dmanga_TRS_X_Tipo').combobox('setValue',$('#dmanga_TRS_L_Tipo').combobox('getValue'));
+            $('#dmanga_TRS_X_Factor').textbox('setValue',$('#dmanga_TRS_L_Factor').textbox('getValue'));
+            $('#dmanga_TRS_X_Unit').combobox('setValue',$('#dmanga_TRS_L_Unit').combobox('getValue'));
+            $('#dmanga_TRM_X_Tipo').combobox('setValue',$('#dmanga_TRM_L_Tipo').combobox('getValue'));
+            $('#dmanga_TRM_X_Factor').textbox('setValue',$('#dmanga_TRM_L_Factor').textbox('getValue'));
+            $('#dmanga_TRM_X_Unit').combobox('setValue',$('#dmanga_TRM_L_Unit').combobox('getValue'));
+            break;
+    }
     var data=null;
     if (typeof (ac_fedInfo[fed]['InfoManga'+heights][rec]) !== "undefined") {
         data=ac_fedInfo[fed]['InfoManga'+heights][rec];// {object{L,M,S,T,X} } data

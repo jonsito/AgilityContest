@@ -400,7 +400,7 @@ function consoleReloadParcial(val,fill) {
                 case 1: case 3: case 11: suffix='M'; break; // M MS MST
                 case 2: case 7: suffix='S'; break; // S ST
                 case 5: suffix='T'; break; // T
-                case 9: case 10: case 12: suffix='X'; break; // X XL XLMST
+                case 9: case 10: case 12: suffix='X';  break; // X XL XLMST
             }
             $('#rm_DIST_'+suffix).textbox('setValue',dat['trs'].dist);
             $('#rm_DIST_'+suffix).textbox('textbox').css('background',(dat['trs'].dist==0)?'#ffcccc':'white');
