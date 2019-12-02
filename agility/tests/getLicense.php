@@ -4,6 +4,7 @@
 define ("PRIVATE_KEY","/etc/AgilityContest/AgilityContest.key");
 define ("PUBLIC_KEY","/etc/AgilityContest/AgilityContest_puk.pem");
 define ("LICENSES","/etc/AgilityContest/Licencias.txt");
+define ("BLACKLIST","/etc/AgilityContest/blacklist.txt");
 define ("LOGOS","/var/www/html/AgilityContest/agility/images/logos");
 
 require_once("/var/www/html/AgilityContest/agility/server/auth/SymmetricCipher.php");
@@ -132,6 +133,27 @@ function logAndDie($msg) {
 
 // activate logging
 openlog("AgilityContest", LOG_PID | LOG_PERROR, LOG_LOCAL0);
+if ($argc == 1) {  // generate black list
+    // read black list from file. data is json encoded
+    $data=file(BLACKLIST,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $bl=array();
+    foreach ($data as $item) $bl[]=json_decode($item,true);
+    // ok. now ready to crypt
+    $cipher=new Cipher();
+    $result=$cipher->encrypt(json_encode($data),PRIVATE_KEY,"","00000000");
+    if (!$result) logAndDie("BlackList encryption failed");
+
+    // now try to decrypt to make sure data is ok
+    $decrypted=$cipher->decrypt($result,"","00000000");
+    if (!$decrypted) logAndDie("Crypt(): Cannot unencrypt blacklist data");
+    $ddata=json_decode($decrypted,true);
+    if (!is_array($ddata)) logAndDie("Crypt(): unencrypted data has invalid blacklist contents");
+
+    // fine. so echo result
+    echo $result;
+    return 0;
+}
+
 // invocation: getLicense email uniqueID activationKey
 if ($argc == 5) { // encrypt
     $serial = $argv[1]; // who is requesting the license
@@ -181,7 +203,7 @@ if ($argc == 5) { // encrypt
         $decrypted=$cipher->decrypt($result,$uniqueID,$serial);
         if (!$decrypted) logAndDie("Crypt(): Cannot unencrypt resulting data");
         $ddata=json_decode($decrypted,true);
-        if (!is_array($ddata)) logAndDie("Crypt(): unencrypted data has novalid license contents");
+        if (!is_array($ddata)) logAndDie("Crypt(): unencrypted data has no valid license contents");
 
         // fine. so echo result
         echo $result;

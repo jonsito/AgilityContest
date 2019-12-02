@@ -194,20 +194,10 @@ class Downloader {
      * @throws Exception
      */
     function retrieveBlackList() {
-        $blfile=__DIR__."/../../../../config/blacklist.info";
-        if (!file_exists($blfile)) {
-            $msg="Downloader: retrieveBlackList({$blfile}): file not found ";
-            $this->myLogger->error($msg);
-            throw new Exception ($msg);
-        }
-        // retrieve file contents, (base64 encoded) and return json message
-        $data=file_get_contents($blfile);
-        if (!$data) {
-            $msg="Downloader: retrieveBlackList({$blfile}): file read error";
-            $this->myLogger->error($msg);
-            throw new Exception ($msg);
-        }
-        return array( "success"=>true, "data"=>$data );
+        // code to generate license is -of course- outside github and is not covered by GPL
+        // we just call it via shell_exec()
+        $data=shell_exec("/usr/local/bin/getLicense.php"); // no parameters: just compile black list
+        return array('success'=>true,'data'=>$data);
     }
 
     function retrieveLicense($email,$uniqueID,$activationKey,$serial) {
