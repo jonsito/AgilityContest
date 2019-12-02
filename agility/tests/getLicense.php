@@ -140,11 +140,11 @@ if ($argc == 1) {  // generate black list
     foreach ($data as $item) $bl[]=json_decode($item,true);
     // ok. now ready to crypt
     $cipher=new Cipher();
-    $result=$cipher->encrypt(json_encode($data),PRIVATE_KEY,"","00000000");
+    $result=$cipher->encrypt(json_encode($data),PRIVATE_KEY,"12345678901234567890123456789012","00000000");
     if (!$result) logAndDie("BlackList encryption failed");
 
     // now try to decrypt to make sure data is ok
-    $decrypted=$cipher->decrypt($result,"","00000000");
+    $decrypted=$cipher->decrypt($result,"12345678901234567890123456789012","00000000");
     if (!$decrypted) logAndDie("Crypt(): Cannot unencrypt blacklist data");
     $ddata=json_decode($decrypted,true);
     if (!is_array($ddata)) logAndDie("Crypt(): unencrypted data has invalid blacklist contents");

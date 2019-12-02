@@ -374,7 +374,7 @@ class AuthManager {
 	function retrieveBlackList() {
 		$this->myLogger->enter();
         $encdata=$this->readBlackListFromFile();
-        $data=$this->decrypt('Black List',$encdata,""); // receive decrypted data as object
+        $data=$this->decrypt('Black List',$encdata,"12345678901234567890123456789012");
 		$this->myLogger->leave();
         return $data;
 	}
@@ -390,7 +390,10 @@ class AuthManager {
             $this->blackList=$this->retrieveBlackList();
         }
         if ($this->blackList===null) return false; // no blacklist: block
-        foreach($this->blackList as $item){ if ($item['Serial']===$serial) return true; }
+        foreach($this->blackList as $item){
+        	$entry=json_decode($item,true);
+        	if ($entry['Serial']===$serial) return true;
+        }
         return false;
     }
 
