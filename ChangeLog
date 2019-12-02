@@ -1,7 +1,11 @@
+Version 4.1.2 20191202_2345
+    - Fix generation/decrypt of blacklists
+    - Fix some logo sizes
+    - Clone TRS data on from L to XL and from S to XS in 3-heights rounds
 Version 4.1.1 20191122_1920
     - Fixes on Pre-Agility 5 heights
     - Add podium, parcial and global listings to WAO modules
-    - allow one-sheet printing on pre-Agility and <15 dogs
+    - Allow one-sheet printing on pre-Agility and <15 dogs
       contests on assistant sheets
     - Add Dog height in assistant sheets
 Version 4.1.0 20191115_2200
