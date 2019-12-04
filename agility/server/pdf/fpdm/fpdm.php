@@ -277,9 +277,9 @@ if (!call_user_func_array('class_exists', $__tmp)) {
 		function Info($asArray=false) {
 		//----------------------
 			$info=$this->info;
-			$info["Reader"]=($this->support == "native") ?  'FPDF-Merge '.FPDM_VERSION: $this->support;
-			$info["Fields"]=$this->fields;
-			$info["Modes"]=array(
+			$info['Reader']=($this->support == "native") ?  'FPDF-Merge '.FPDM_VERSION: $this->support;
+			$info['Fields']=$this->fields;
+			$info['Modes']=array(
 				'safe'=>($this->safe_mode)? 'Yes' :'No',
 				'check'=>($this->check_mode) ? 'Yes': 'No',
 				'flatten'=>($this->flatten_mode)  ? 'Yes': 'No',

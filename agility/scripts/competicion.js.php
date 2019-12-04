@@ -22,6 +22,34 @@ require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 ?>
 
+/*
+ * Comodity function to retrieve mode by fed by recorrido by cat
+ *@param {integer} cat 0:L 1:M 2:S 3:T 4:X
+ *@param {integer} rec 0:comun 1:2groups 2:separado 3:3groups
+ *@param {integer} fed federation id. if null use default from global vars
+ */
+function getModeByCatRecFed(cat,rec,fed) {
+    var h=howManyHeights();
+    if ( (typeof(fed)==="undefined") || (fed==null) ) fed=workingData.federation;
+    if (typeof(ac_fedInfo[fed]['Modes'+h])!=="undefined") return ac_fedInfo[fed]['Modes'+h][rec][cat];
+    if (typeof(ac_fedInfo[fed]['Modes'])!=="undefined") return ac_fedInfo[fed]['Modes'][rec][cat];
+    return -1;
+}
+
+/*
+ * Comodity function to retrieve mode string by fed by recorrido by cat
+ *@param {integer} cat 0:L 1:M 2:S 3:T 4:X
+ *@param {integer} rec 0:comun 1:2groups 2:separado 3:3groups
+ *@param {integer} fed federation id. if null use default from global vars
+ */
+function getModeStringByCatRecFed(cat,rec,fed) {
+    var h=howManyHeights();
+    if ( (typeof(fed)==="undefined") || (fed==null) ) fed=workingData.federation;
+    if (typeof(ac_fedInfo[fed]['ModeStrings'+h])!=="undefined") return ac_fedInfo[fed]['ModeStrings'+h][rec][cat];
+    if (typeof(ac_fedInfo[fed]['ModeStrings'])!=="undefined") return ac_fedInfo[fed]['ModeStrings'][rec][cat];
+    return "Undefined ModeString";
+}
+
 /**
  * Funciones relacionadas con la ventana de competicion
  */
@@ -157,19 +185,19 @@ function getMangaMode(fed,recorrido,categoria) {
     }
     switch(categoria) {
         case 'XLMST':
-        case '-XLMST': return ac_fedInfo[f].Modes[rec][4] // ExtraLarge mode when 5heights-CommonCourse
+        case '-XLMST': return getModeByCatRecFed(4,rec,f); // ExtraLarge mode when 5heights-CommonCourse
         case '-':
         case 'LMS':
         case '-LMS':
         case 'LMST':
-        case '-LMST':return ac_fedInfo[f].Modes[2][0]; // common for all categories in 3/4 heights; just use first mode (standard )
-        case 'L':return ac_fedInfo[f].Modes[rec][0];
-        case 'M':return ac_fedInfo[f].Modes[rec][1];
-        case 'S':return ac_fedInfo[f].Modes[rec][2];
-        case 'T':return ac_fedInfo[f].Modes[rec][3];
-        case 'X':return ac_fedInfo[f].Modes[rec][4];
+        case '-LMST':return getModeByCatRecFed(0,2,f); // common for all categories in 3/4 heights; just use first mode (standard )
+        case 'L':return getModeByCatRecFed(0,rec,f);
+        case 'M':return getModeByCatRecFed(1,rec,f);
+        case 'S':return getModeByCatRecFed(2,rec,f);
+        case 'T':return getModeByCatRecFed(3,rec,f);
+        case 'X':return getModeByCatRecFed(4,rec,f);
         // numerical index may also be requested
-        default: return ac_fedInfo[f].Modes[rec][parseInt(categoria)];
+        default: return getModeByCatRecFed(parseInt(categoria),rec,f);
     }
 }
 
@@ -207,16 +235,16 @@ function getMangaModeString(fed,recorrido,categoria) {
     }
     switch(categoria) {
         case 'XLMST':
-        case '-XLMST':return ac_fedInfo[f].ModeStrings[rec][4]; // common for all categories in 5 heigh use X mode
+        case '-XLMST':return getModeStringByCatRecFed(4,rec,f); // common for all categories in 5 heigh use X mode
         case '-':
-        case '-LMST':return ac_fedInfo[f].ModeStrings[rec][0]; // common for all categories in 3/4 heights; use first mode (standard )
-        case 'L':return ac_fedInfo[f].ModeStrings[rec][0];
-        case 'M':return ac_fedInfo[f].ModeStrings[rec][1];
-        case 'S':return ac_fedInfo[f].ModeStrings[rec][2];
-        case 'T':return ac_fedInfo[f].ModeStrings[rec][3];
-        case 'X':return ac_fedInfo[f].ModeStrings[rec][4];
+        case '-LMST':return getModeStringByCatRecFed(0,rec,f); // common for all categories in 3/4 heights; use first mode (standard )
+        case 'L':return getModeStringByCatRecFed(0,rec,f);
+        case 'M':return getModeStringByCatRecFed(1,rec,f);
+        case 'S':return getModeStringByCatRecFed(2,rec,f);
+        case 'T':return getModeStringByCatRecFed(3,rec,f);
+        case 'X':return getModeStringByCatRecFed(4,rec,f);
         // numerical index may also be requested
-        default: return ac_fedInfo[f].ModeStrings[rec][parseInt(categoria)];
+        default: return getModeStringByCatRecFed(parseInt(categoria),rec,f);;
     }
     return 'Undefined';
 }
@@ -1700,11 +1728,11 @@ function resultados_doSelectRonda(row) {
     var orden=[4,0,1,2,3];
     for (var i=0; i<5; i++) {
         var n=orden[i];
-        var mode=fedinfo.Modes[rec][n];
+        var mode=getModeByCatRecFed(n,rec,fed);
         if (mode < 0) continue;
         if (mode==last) continue;
         last=mode;
-        rondas[count]={'mode':mode,'text':fedinfo.ModeStrings[rec][n]};
+        rondas[count]={ 'mode':mode, 'text':getModeStringByCatRecFed(n,rec,fed) };
         count++;
     }
     $('#resultados-selectCategoria').combobox('loadData',rondas);
@@ -1733,11 +1761,11 @@ function resultados_doSelectRonda(row) {
             $('#dm'+nmanga+'_Juez2').textbox('setValue',row['Juez'+nmanga+'2']);
             // datos evaluados de TRS y TRM de segunda manga
             // si fedinfo.Modes[rec][i] resultados_fillForm no hace nada
-            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][4]); // X
-            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][0]); // L
-            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][1]); // M
-            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][2]); // S
-            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,fedinfo.Modes[rec][3]); // T
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,getModeByCatRecFed(4,rec,fed)); // X
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,getModeByCatRecFed(0,rec,fed)); // L
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,getModeByCatRecFed(1,rec,fed)); // M
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,getModeByCatRecFed(2,rec,fed)); // S
+            resultados_fillForm(resultados,row['Manga'+nmanga],''+nmanga,getModeByCatRecFed(3,rec,fed)); // T
         }
     }
 
