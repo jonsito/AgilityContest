@@ -1179,32 +1179,50 @@ class Jornadas extends DBObject {
 
 	/**
 	 * Evalua en numero minimo y maximo de perros por equipo y jornada
+     *
+     * In versions pre-4.1, Equipos3 and Equipos4 was used to handle 3-best or 4-all rounds
+     * Newer versions use these fields to store mindogs and maxdogs in a team journey
+     * So need to keep backward compatibility
+     *
 	 * @param {mixed} $jobj objeto/array de tipo jornada
 	 * @return {array} (mindogs,maxdogs)
 	 */
 	static function getTeamDogs($jornada) {
-		$eq3=0;$eq4=0;
-		if (is_object($jornada)) {
-			$eq3=$jornada->Equipos3;
-			$eq4=$jornada->Equipos4;
-		}
-		if (is_array($jornada)) {
-			$eq3=$jornada['Equipos3'];
-			$eq4=$jornada['Equipos4'];
-		}
-		switch ($eq3) {
-			case 1: return array(3,4); // old style 3 mejores de cuatro
-			case 2: return array(2,3); // 2 best of 3
-			case 3: return array(3,4); // 3 best of 4
-		}
-		switch($eq4) {
-			case 1: return array(4,4); // old style 4 conjunta
-			case 2: return array(2,2); // 2 conjunta
-			case 3: return array(3,3); // 3 conjunta
-			case 4: return array(4,4); // 4 conjunta
-		}
-		// arriving here means no team journey or invalid team mode
-		return array(1,1);
+	    $data=0;
+	    if (is_numeric($jornada)) {
+            $obj=new DBObject("getTeamDogs");
+            $jobj=$obj->__selectObject("*","jornadas","ID={$jornada}");
+            if (!is_object($jobj)){
+                do_log("getTeamDogs(): Invalid Jornada ID:{$jornada}");
+                return array(1,1);
+            }
+            $jornada=$jobj;
+        }
+        if (is_object($jornada)) $data= (intval($jornada->Equipos3)<<4) + intval($jornada->Equipos4);
+        if (is_array($jornada)) $data= (intval($jornada['Equipos3'])<<4)+ intval($jornada['Equipos4']);
+        switch($data) {
+            case 0x00: // no team journey
+                do_log("Provided Journey is not a Team Journey");
+                return array(1,1);
+            case 0x10: return array(3,4); // very-old style 3 mejores de cuatro
+            case 0x20: return array(2,3); // 2 best of 3
+            case 0x30: return array(3,4); // 3 best of 4
+            case 0x40: return array(4,5); // 4 best of 5
+            case 0x50: return array(3,5); // 3 best of 5 -- should use new style
+            case 0x01: return array(4,4); // very-old style 4 conjunta
+            case 0x02: return array(2,2); // 2 conjunta
+            case 0x03: return array(3,3); // 3 conjunta
+            case 0x04: return array(4,4); // 4 conjunta
+            case 0x05: return array(5,5); // 5 conjunta
+            default: // new style generic min/max
+                $mindogs=$data >> 4;
+                $maxdogs=$data & 0x0F;
+                if (($mindogs<=0) || ($maxdogs<=0) || ($mindogs>$maxdogs)) {
+                    do_log("Invalid mindogs/maxdogs combination: {$mindogs}/{$maxdogs}");
+                    return array(1,1);
+                }
+                return array($mindogs,$maxdogs);
+        }
 	}
 }
 ?>

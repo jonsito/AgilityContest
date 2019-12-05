@@ -335,8 +335,17 @@ function hasGames(fed) {
 function isJornadaOpen() { return (workingData.datosJornada.Open!=0); }
 function isJornadaKO() { return (workingData.datosJornada.KO!=0); }
 function isJornadaGames() { return (workingData.datosJornada.Games!=0); }
-function isJornadaEqMejores() { return (workingData.datosJornada.Equipos3!=0); }
-function isJornadaEqConjunta() { return (workingData.datosJornada.Equipos4!=0); }
+function isJornadaEqMejores() {
+    var data=getTeamDogs(); // get mindogs/maxdogs
+    if ( (data[0]<=1) || (data[1]<=1) ) return false;
+    return data[0] != data[1]
+}
+function isJornadaEqConjunta() {
+    var data=getTeamDogs(); // get mindogs/maxdogs
+    if ( (data[0]<=1) || (data[1]<=1) ) return false;
+    return data[0] == data[1];
+}
+
 // notice numeric/string dual usage ( stupid javascript )
 function isMangaGames() { return ( $.inArray(workingData.datosManga.Tipo,["29","30",29,30]) >=0 ); }
 function isMangaJunior() { return ( $.inArray(workingData.datosManga.Tipo,["32","33",32,33]) >=0 ); }
@@ -355,49 +364,49 @@ function isJornadaEquipos(datosJornada) {
 	return false;
 }
 
-function getMinDogsByTeam() {
-	var mindogs=4;
-	switch(parseInt(workingData.datosJornada.Equipos3)) {
-		case 1:	return 3; // old style 3 best of 4
-		case 2:	return 2; // 2 best of 3
-		case 3: return 3; // 3 best of 4
-		default: break;
-	}
-	switch(parseInt(workingData.datosJornada.Equipos4)) {
-		case 1:	return 4; // old style 4 combined
-		case 2:	return 2; // 2 combined
-		case 3: return 3; // 3 combined
-		case 4: return 4; // 4 combined
-		default: break;
-	}
-	return mindogs;
+/**
+ * Evalua en numero minimo y maximo de perros por equipo y jornada
+ *
+ * In versions pre-4.1, Equipos3 and Equipos4 was used to handle 3-best or 4-all rounds
+ * Newer versions use these fields to store mindogs and maxdogs in a team journey
+ * So need to keep backward compatibility
+ *
+ * @return {array} (mindogs,maxdogs)
+ */
+function getTeamDogs(djornada) {
+    if (typeof(djornada)===undefined) djornada=workingData.datosJornada;
+    var data= parseInt(djornada.Equipos3)<<4 + parseInt(djornada.Equipos4);
+    switch (data) {
+        case 0x00: // no team journey
+            console.log("Current Journey is not a Team Journey");
+            return [1,1];
+        case 0x10: return [3,4]; // very-old style 3 mejores de cuatro
+        case 0x20: return [2,3]; // 2 best of 3
+        case 0x30: return [3,4]; // 3 best of 4
+        case 0x40: return [4,5]; // 4 best of 5
+        case 0x50: return [3,5]; // 3 best of 5 -- should use new style
+        case 0x01: return [4,4]; // very-old style 4 conjunta
+        case 0x02: return [2,2]; // 2 conjunta
+        case 0x03: return [3,3]; // 3 conjunta
+        case 0x04: return [4,4]; // 4 conjunta
+        case 0x05: return [5,5]; // 5 conjunta
+        default: // new style generic min/max
+            var mindogs=data >> 4;
+            var maxdogs=data & 0x0F;
+            if ((mindogs<=0) || (maxdogs<=0) || (mindogs>maxdogs)) {
+                console.log("Invalid mindogs/maxdogs combination: "+mindogs+"/"+maxdogs);
+                return [1,1];
+            }
+            return [mindogs,maxdogs];
+    }
 }
 
-function getMaxDogsByTeam() {
-	var maxdogs=4;
-	switch(parseInt(workingData.datosJornada.Equipos3)) {
-		case 1:	return 4; // old style 3 best of 4
-		case 2:	return 3; // 2 best of 3
-		case 3: return 4; // 3 best of 4
-		default: break;
-	}
-	switch(parseInt(workingData.datosJornada.Equipos4)) {
-		case 1:	return 4; // old style 4 combined
-		case 2:	return 2; // 2 combined
-		case 3: return 3; // 3 combined
-		case 4: return 4; // 4 combined
-		default: break;
-	}
-	return maxdogs;
-}
+function getMinDogsByTeam() { return getTeamDogs()[0]; }
+function getMaxDogsByTeam() { return getTeamDogs()[1]; }
 
-function fedName(fed) {
-	return ac_fedInfo[fed].Name;
-}
+function fedName(fed) {	return ac_fedInfo[fed].Name; }
 
-function howManyGrades(fed) {
-	return parseInt(ac_fedInfo[fed].Grades);
-}
+function howManyGrades(fed) { return parseInt(ac_fedInfo[fed].Grades); }
 
 function howManyHeights() {
     if (typeof(workingData.datosCompeticion.Data) !== "undefined")
