@@ -94,8 +94,9 @@ $config =Config::getInstance();
             </div>
     
              <div class="fitem">
-            	<input type="hidden" id="jornadas-Equipos3" name="Equipos3" value="4">
-            	<input type="hidden" id="jornadas-Equipos4" name="Equipos4" value="7">
+                <!-- new style teams is 3->Min 4->Max, so default to 0x34 -->
+            	<input type="hidden" id="jornadas-Equipos3" name="Equipos3" value="3">
+            	<input type="hidden" id="jornadas-Equipos4" name="Equipos4" value="4">
                 <label for="jornadas-EquiposChk" style="width:150px" ><?php _e('Teams'); ?></label>
                 <input id="jornadas-EquiposChk" name="EquiposChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x1CC0)"/>
@@ -237,17 +238,30 @@ $config =Config::getInstance();
             	$('#jornadas-Grado3').prop('disabled',true).prop('checked',false);
             }
 
-            // equipos-3
-            if (parseInt(data.Equipos3)!==0) {
-                $('#jornadas-EquiposChk').prop('checked',true);
-                $('#jornadas-MangasEquipos').combobox('enable').combobox('setValue',(parseInt(data.Equipos3)===2)?3:4); // 0:noteam 1:3of4 2:2of3 3:3of4
-            } else if (parseInt(data.Equipos4)!==0) {
-                var val=parseInt(data.Equipos4); // 0:noteam 1:4combined 2:2combined 3:3combined 4:4combined
-                $('#jornadas-EquiposChk').prop('checked',true);
-            	$('#jornadas-MangasEquipos').combobox('enable').combobox('setValue',(val===1)?7:(val===2)?5:(val===3)?6:7);
-            } else {
+            // equipos
+            var teams=parseInt(data.Equipos3)<<4+parseInt(data.Equipos4);
+            var val=0x00;
+            switch (teams) {
+                case 0x00: val=0x00; break; // no teams
+                case 0x11: val=0x00; break; // invalid
+                case 0x10: val=0x34; break; // very-old style 3 mejores de cuatro
+                case 0x20: val=0x23; break; // 2 best of 3
+                case 0x30: val=0x34; break; // 3 best of 4
+                case 0x40: val=0x45; break; // 4 best of 5
+                case 0x50: val=0x35; break; // 3 best of 5 -- should use new style
+                case 0x01: val=0x44; break; // very-old style 4 conjunta
+                case 0x02: val=0x22; break; // 2 conjunta
+                case 0x03: val=0x33; break; // 3 conjunta
+                case 0x04: val=0x44; break; // 4 conjunta
+                case 0x05: val=0x55; break; // 5 conjunta
+                default:   val=teams; break; // 0xMinMax new style
+            }
+            if(val===0) {
                 $('#jornadas-EquiposChk').prop('checked',false);
-            	$('#jornadas-MangasEquipos').combobox('disable');
+                $('#jornadas-MangasEquipos').combobox('disable');
+            } else {
+                $('#jornadas-EquiposChk').prop('checked',true);
+                $('#jornadas-MangasEquipos').combobox('enable').combobox('setValue',val);
             }
 
             if ( (parseInt(ac_regInfo.Options,2) & access_perms.ENABLE_TEAMS) === 0 ){
@@ -349,11 +363,14 @@ $config =Config::getInstance();
         textField: 'text',
         data: [
             // reserve values 1,2 for backward compatibility
-            {text:'<?php _e("2 best of 3"); ?>',value:'3'},
-            {text:'<?php _e("3 best of 4"); ?>',value:'4',selected:true},
-            {text:'<?php _e("2 combined"); ?>',value:'5'},
-            {text:'<?php _e("3 combined"); ?>',value:'6'},
-            {text:'<?php _e("4 combined"); ?>',value:'7'}
+            {text:'<?php _e("2 best of 3"); ?>',value:0x23},
+            {text:'<?php _e("3 best of 4"); ?>',value:0x34,selected:true},
+            {text:'<?php _e("3 best of 5"); ?>',value:0x35},
+            {text:'<?php _e("4 best of 5"); ?>',value:0x45},
+            {text:'<?php _e("2 combined"); ?>',value:0x02},
+            {text:'<?php _e("3 combined"); ?>',value:0x03},
+            {text:'<?php _e("4 combined"); ?>',value:0x04},
+            {text:'<?php _e("5 combined"); ?>',value:0x05}
         ]
     });
 

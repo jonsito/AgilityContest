@@ -547,21 +547,25 @@ function saveJornada(){
     $('#jornadas-Open').val( $('#jornadas-Open').is(':checked')?'1':'0');
     var eq3=$('#jornadas-Equipos3');
     var eq4=$('#jornadas-Equipos4');
+    eq3.val(0);
+    eq4.val(0); // default: no teams
     if ($('#jornadas-EquiposChk').is(':checked')) {
         var val=$('#jornadas-MangasEquipos').combobox('getValue');
         switch (parseInt(val)) {
-            case 1: /* old 3best */     eq3.val(3); eq4.val(0); break;
-            case 2: /* old 4combined */ eq3.val(0); eq4.val(4); break;
-            case 3: /* 2 best of 3 */   eq3.val(2); eq4.val(0); break;
-            case 4: /* 3 best of 4 */   eq3.val(3); eq4.val(0); break;
-            case 5: /* 2 combined */    eq3.val(0); eq4.val(2); break;
-            case 6: /* 3 combined */    eq3.val(0); eq4.val(3); break;
-            case 7: /* 4 combined */    eq3.val(0); eq4.val(4); break;
-            default: eq3.val(0); eq4.val(0); break;
+            case 0x00: eq3.val(0); eq4.val(0); break; // no teams
+            case 0x11: eq3.val(0); eq4.val(0); break; // invalid
+            case 0x10: eq3.val(3); eq4.val(4); break; // very-old style 3 mejores de cuatro
+            case 0x20: eq3.val(2); eq4.val(2); break; // 2 best of 3
+            case 0x30: eq3.val(3); eq4.val(4); break; // 3 best of 4
+            case 0x40: eq3.val(4); eq4.val(5); break; // 4 best of 5
+            case 0x50: eq3.val(3); eq4.val(5); break; // 3 best of 5 -- should use new style
+            case 0x01: eq3.val(4); eq4.val(4); break; // very-old style 4 conjunta
+            case 0x02: eq3.val(2); eq4.val(2); break; // 2 conjunta
+            case 0x03: eq3.val(3); eq4.val(3); break; // 3 conjunta
+            case 0x04: eq3.val(4); eq4.val(4); break; // 4 conjunta
+            case 0x05: eq3.val(5); eq4.val(5); break; // 5 conjunta
+            default: eq3.val((val&0xF0)>>4); eq4.val(val&0x0F); break; // 0xMinMax new style
         }
-    } else {
-        eq3.val(0);
-        eq4.val(0);
     }
     $('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?'1':'0');
     $('#jornadas-Games').val( $('#jornadas-Games').is(':checked')?'1':'0');
