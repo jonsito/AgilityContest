@@ -534,8 +534,8 @@ class Mangas extends DBObject {
      * @param {integer} $junior la jornada tiene (1) o no (0) mangas de categoria infantil/junior
      * @param {integer} $senior la jornada tiene (1) o no (0) mangas de categoria senior
      * @param {integer} $open la jornada tiene (1) o no (0) una prueba abierta
-	 * @param {integer} $equipos3 la jornada tiene (1) o no (0) una manga por equipos (3 de 4)
-	 * @param {integer} $equipos4 la jornada tiene (1) o no (0) una manga por equipos (conjunta)
+	 * @param {integer} $equipos3 mindogs en manga por equipos; 0: no team ( since 4.2.x )
+	 * @param {integer} $equipos4 maxdogs en manga por equipos: 0: no team ( since 4.2.x )
 	 * @param {integer} $preagility la jornada tiene (1/2) o no (0) mangas de preagility
      * @param {integer} $ko la jornada contiene (1) o no (0) una prueba k0
      * @param {integer} $games la jornada contiene (1) o no (0) una sesion games/wao
@@ -595,11 +595,12 @@ class Mangas extends DBObject {
 		/* 13,'Jumping Equipos (3 mejores)', '-' */
         /* 9, 'Agility Equipos (Conjunta)', '-' */
         /* 14,'Jumping Equipos (Conjunta)', '-' */
-		if ( ($equipos3!=0) || ($equipos4!=0) )  { // trick to allow change team round type "on the fly"
-            if ($equipos3) { $this->insert(8,'-');	$this->insert(13,'-'); }
-            if ($equipos4) { $this->insert(9,'-');	$this->insert(14,'-'); }
-        }
-		else { $this->delete(8); $this->delete(9); $this->delete(13);	$this->delete(14);}
+        /* PENDING: revise if we should delete round when change from best to all team mode */
+        $minmax=Jornadas::getTeamDogs($id);
+        if ($minmax[0]>1) {
+            if ($minmax[0]!=$minmax[1]) { $this->insert(8,'-');	$this->insert(13,'-'); }
+            if ($minmax[0]==$minmax[1]) { $this->insert(9,'-');	$this->insert(14,'-'); }
+        } else { $this->delete(8); $this->delete(9); $this->delete(13);	$this->delete(14);}
 
 		/* 16,'Ronda de Exhibición', '-' */
 		if ($especial!=0) { $this->insert(16,'-');}

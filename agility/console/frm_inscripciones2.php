@@ -177,8 +177,8 @@ $('#inscripciones-jornadas').datagrid({
 			{ field:'Grado1',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-I   ');?>' },
 			{ field:'Grado2',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-II  ');?>' },
 			{ field:'Grado3',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-III ');?>' },
-			{ field:'Equipos3',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Team3 ');?>' },
-			{ field:'Equipos4',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Team4 ');?>' },
+			{ field:'Equipos3',		width:20, sortable:false, formatter: formatTeamDogs,align:'center', title: '<?php _e('Teams ');?>' },
+			{ field:'Equipos4',		hidden:true }, // since 4.2.x Equipos3/Equipos4 becomes minDogs/maxDogs
 			{ field:'Open',			width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Open  ');?>' },
 			{ field:'PreAgility',	width:14, sortable:false, formatter: formatPreAgility,	align:'center', title: '<?php _e('PreAg.');?>' },
             { field:'Junior',	    width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Junior');?>' },

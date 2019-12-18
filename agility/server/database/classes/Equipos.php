@@ -411,22 +411,8 @@ class Equipos extends DBObject {
         $this->myLogger->enter();
         // comprobamos que la jornada sea correcta
         $j=$this->__getObject("jornadas",$this->jornadaID);
-        $max=4;
-        $min=0;
-		switch(intval($j->Equipos3)) {
-			case 1:$min=3;$max=4; break; // old style 3 best of 4
-			case 2:$min=2;$max=3; break; // 2 besto of 3
-			case 3:$min=3;$max=4; break; // 3 best of 4
-			default: break;
-		}
-		switch(intval($j->Equipos4)) {
-			case 1:$min=4;$max=4; break; // old style 4 combined
-			case 2:$min=2;$max=2; break; // 2 combined
-			case 3:$min=3;$max=3; break; // 3 combined
-			case 4:$min=4;$max=4; break; // 4 combined
-			default: break;
-		}
-        if ($min==0) return "La jornada {$j->jornadaID} - '{$j->Nombre}' no tiene declaradas pruebas por equipos";
+        $minmax=Jornadas::getTeamDogs($j);
+        if ($minmax[0]<=1) return "La jornada {$j->jornadaID} - '{$j->Nombre}' no tiene declaradas pruebas por equipos";
         $res=array();
         $res['default']=array();
         $res['teams']=array();
@@ -448,11 +434,11 @@ class Equipos extends DBObject {
                 array_push($res['default'],$team);
                 continue;
             }
-            if ($team['Numero']>$max) { // si el equipo pasa de 4 perros tomamos nota
+            if ($team['Numero']>$minmax[1]) { // si el equipo pasa de max perros tomamos nota
                 array_push($res['more'],$team);
                 continue;
             }
-            if ($team['Numero']<$min) { // si el equipo tiene menos de "min" perros tomamos nota
+            if ($team['Numero']<$minmax[0]) { // si el equipo tiene menos de "min" perros tomamos nota
                 array_push($res['less'],$team);
                 continue;
             }

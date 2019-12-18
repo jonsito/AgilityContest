@@ -334,14 +334,14 @@ class Federations {
                 /* 4 */ array(/* 0x0008 */ 8,	    _('Grade II') ),
                 /* 5 */ array(/* 0x0010 */ 16,	    _('Grade III') ),
                 /* 6 */ array(/* 0x0020 */ 32,	    _('Individual') ), // Open
-                /* 7 */ array(/* 0x0040 */ 64,	    _('Teams 3best') ),
-                /* 8 */ array(/* 0x0080 */ 128,	    _('Teams 4') ),
+                /* 7 */ array(/* 0x0040 */ 64,	    _('Teams Best') ),
+                /* 8 */ array(/* 0x0080 */ 128,	    _('Teams All') ),
                 /* 9 */ array(/* 0x0100 */ 256,	    _('K.O. Round') ),
                 /*10 */ array(/* 0x0200 */ 512,	    _('Special Round') ),
                 /*11 */ array(/* 0x0018 */ 24,	    _('Grade II-III') ),
-                /*12 */ array(/* 0x0400 */ 1024,	_('Teams 2best') ),
-                /*13 */ array(/* 0x0800 */ 2048,	_('Teams 2') ),
-                /*14 */ array(/* 0x1000 */ 4096,	_('Teams 3') ),
+                /*12 */ array(/* 0x0400 */ 1024,	_('Teams 2best') ), // not used since 4.2.x
+                /*13 */ array(/* 0x0800 */ 2048,	_('Teams 2') ), // not used since 4.2.x
+                /*14 */ array(/* 0x1000 */ 4096,	_('Teams 3') ), // not used since 4.2.x
                 /*15 */ array(/* 0x2000 */ 8192,	_('Games / WAO') ),
                 /*16 */ array(/* 0x4000 */ 16384,   _('Children / Young') ),
                 /*17 */ array(/* 0x8000 */ 32768,   _('Senior') )

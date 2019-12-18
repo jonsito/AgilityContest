@@ -768,7 +768,9 @@ class OrdenSalida extends DBObject {
 		$this->setOrden($ordensalida);
 
         // FASE 2: ahora invertimos el orden de los equipos en funcion del resultado
-        if (intval($this->jornada->Equipos3)==0 ) return;
+		$minmax=Jornadas::getTeamDogs($this->jornada);
+		if ($minmax[0]<=1 || $minmax[0]==$minmax[1]) return; // si no estamos en team best, return
+
         $this->myLogger->trace("invirtiendo orden de equipos");
         $res=$r->getResultadosEquipos($res);
         $size= count($res);

@@ -167,8 +167,8 @@ $config =Config::getInstance();
             		{ field:'Grado2',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'G-II   ' },
             		{ field:'Grado3',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'G-III  ' },
             		{ field:'Open',			width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'Open   ' },
-            		{ field:'Equipos3',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'Eq.Best' },
-            		{ field:'Equipos4',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'Eq.Comb' },
+            		{ field:'Equipos3',		width:12, sortable:false, formatter:formatTeamDogs,	align:'center', title: 'Teams' },
+            		{ field:'Equipos4',		hidden:true }, // since 4.2.x Equipos3/Equipos4 becomes mindogs/maxdogs teams
                     { field:'KO',			width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'K.O.   ' },
                     { field:'Games',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'Games  ' },
             		{ field:'Especial',	    width:8, sortable:false, formatter:	formatOk,	align:'center',     title: '<?php _e('Special'); ?>'},

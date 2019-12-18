@@ -289,14 +289,14 @@ class RFEC extends Federations {
                 /* 4 */ array(8,	_('Competicion') ),
                 /* 5 */ array(16,	_('Grade III') ),   // not used in RFEC
                 /* 6 */ array(32,	_('Individual') ), // Open
-                /* 7 */ array(64,	_('Teams 3best') ),
-                /* 8 */ array(128,	_('Teams 4') ),
+                /* 7 */ array(64,	_('Teams Best') ),
+                /* 8 */ array(128,	_('Teams All') ),
                 /* 9 */ array(256,	_('K.O. Round') ),
                 /*10 */ array(512,	_('Special Round') ),
                 /*11 */ array(24,	_('Grade II-III') ), // not used in RFEC
-                /*12 */ array(1024,	_('Teams 2best') ),
-                /*13 */ array(2048,	_('Teams 2') ),
-                /*14 */ array(4096,	_('Teams 3') ),
+                /*12 */ array(1024,	_('Teams 2best') ), // not used since 4.2.x
+                /*13 */ array(2048,	_('Teams 2') ), // not used since 4.2.x
+                /*14 */ array(4096,	_('Teams 3') ), // not used since 4.2.x
                 /*15 */ array(8192,	_('Games / WAO') ),
                 /*16 */ array(16384,_('Children / Young') ),
                 /*17 */ array(32768,_('Senior') ),

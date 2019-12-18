@@ -99,7 +99,7 @@ $config =Config::getInstance();
             	<input type="hidden" id="jornadas-Equipos4" name="Equipos4" value="4">
                 <label for="jornadas-EquiposChk" style="width:150px" ><?php _e('Teams'); ?></label>
                 <input id="jornadas-EquiposChk" name="EquiposChk" class="easyui-checkbox" 
-                	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x1CC0)"/>
+                	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x00C0)"/>
                 <input id="jornadas-MangasEquipos" name="MangasEquipos" style="width:140px"/>
             </div>
             
@@ -271,8 +271,8 @@ $config =Config::getInstance();
             }
 
             // el resto de mangas son "normales" ( estan siempre presentes )
-            $('#jornadas-Equipos3').prop('checked',(parseInt(data.Equipos3) !== 0));
-            $('#jornadas-Equipos4').prop('checked',(parseInt(data.Equipos4) !== 0));
+            $('#jornadas-Equipos3').prop('checked',( val&0xF0 !== 0) );
+            $('#jornadas-Equipos4').prop('checked',( val&0x0F !== 0) );
             $('#jornadas-Open').prop('checked',(parseInt(data.Open) === 1));
 
             $('#jornadas-KO').prop('checked',(parseInt(data.KO) === 1));

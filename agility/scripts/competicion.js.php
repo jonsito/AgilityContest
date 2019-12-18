@@ -120,14 +120,16 @@ function loadCompetitionWindow() {
         'e2':'#resultadosmanga-excel-dialog',
         'os':'#ordensalida-excel-dialog'
     };
-    if (parseInt(workingData.datosJornada.Equipos3)!==0) {
-        page="../console/frm_competicion2.php?tipo=eq3";
-        extra=" ( <?php _e('Teams 3');?> )";
-        // use default dialogs
-    }
-    if (parseInt(workingData.datosJornada.Equipos4)!==0) {
-        page="../console/frm_competicion2.php?tipo=eq4";
-        extra=" ( <?php _e('Teams 4');?> )";
+    // since 4.2.x Equipos3/Equipos4 becomes mindogs/maxdogs
+    var minmax=getTeamDogs();
+    if (minmax[0]>1) {
+        if (minmax[0]!=minmax[1]) {
+            page="../console/frm_competicion2.php?tipo=eq3";
+            extra=" ( <?php _e('Teams');?> ) "+minmax[0]+"/"+minmax[1];
+        } else {
+            page="../console/frm_competicion2.php?tipo=eq4";
+            extra=" ( <?php _e('Teams All');?> )";
+        }
         // use default dialogs
     }
     if (parseInt(workingData.datosJornada.Open)!==0) {

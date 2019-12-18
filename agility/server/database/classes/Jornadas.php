@@ -616,57 +616,48 @@ class Jornadas extends DBObject {
                 "Juez22" => $this->fetchJuez($manga2['Juez2'])
             ) );
 		}
-		if ($row->Equipos3!=0) {
-			switch($row->Equipos3) {
-				case 1: /* 3 best of 4 (compatibility mode)  */ $idx=7; break;
-				case 2: /* 2 best of 3	*/ $idx=12; break;
-				case 3: /* 3 best of 4  */ $idx=7; break;
-				default: $idx=7; break;
-			}
-			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,8); // 'Agility Equipos (3 mejores)'
-			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,13); // 'Jumping Equipos (3 mejores)'
-            array_push($data,array(
-                "Rondas" => $this->federation->getTipoRondas()[$idx][0],
-                "Nombre" => $this->federation->getTipoRondas()[$idx][1],
-                "Manga1" => $manga1['ID'],
-                "Manga2" => $manga2['ID'],
-                "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
-                "NombreManga1" => $this->federation->getTipoManga(8,3), // 'Agility Eq.',
-                "NombreManga2" => $this->federation->getTipoManga(13,3), // 'Jumping Eq.',
-                "Recorrido1" => $manga1['Recorrido'],
-                "Recorrido2" => $manga2['Recorrido'],
-                "Juez11" => $this->fetchJuez($manga1['Juez1']),
-                "Juez12" => $this->fetchJuez($manga1['Juez2']),
-                "Juez21" => $this->fetchJuez($manga2['Juez1']),
-                "Juez22" => $this->fetchJuez($manga2['Juez2'])
-            ) );
-		}
-		if ($row->Equipos4!=0) {
-			switch($row->Equipos4) {
-				case 1: /* 4 combined (compatibility mode)  */ $idx=8; break;
-				case 2: /* 2 combined	*/ $idx=13; break;
-				case 3: /* 3 combined  */ $idx=14; break;
-				case 4: /* 4 combined  */ $idx=8; break;
-				default: $idx=8; break;
-			}
-			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,9); // 'Agility Equipos (conjunta)'
-			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,14); // 'Jumping Equipos (conjunta)'
-            array_push($data,array(
-                "Rondas" => $this->federation->getTipoRondas()[$idx][0],
-                "Nombre" => $this->federation->getTipoRondas()[$idx][1],
-                "Manga1" => $manga1['ID'],
-                "Manga2" => $manga2['ID'],
-                "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
-                "NombreManga1" => $this->federation->getTipoManga(9,3), // 'Agility Eq.',
-                "NombreManga2" => $this->federation->getTipoManga(14,3), // 'Jumping Eq.',
-                "Recorrido1" => $manga1['Recorrido'],
-                "Recorrido2" => $manga2['Recorrido'],
-                "Juez11" => $this->fetchJuez($manga1['Juez1']),
-                "Juez12" => $this->fetchJuez($manga1['Juez2']),
-                "Juez21" => $this->fetchJuez($manga2['Juez1']),
-                "Juez22" => $this->fetchJuez($manga2['Juez2'])
-            ) );
-		}
+        $eq=self::getTeamDogs($row);
+        if( $eq[0]>1 ) {
+           if ($eq[0]!=$eq[1]) { // x mejores
+               $idx=7; // TeamBest. old TipoRonda 12 is no longer used since 4.2.x
+               $manga1= $this->fetchManga($mangas['rows'],$jornadaid,8); // 'Agility Equipos (3 mejores)'
+               $manga2= $this->fetchManga($mangas['rows'],$jornadaid,13); // 'Jumping Equipos (3 mejores)'
+               array_push($data,array(
+                   "Rondas" => $this->federation->getTipoRondas()[$idx][0],
+                   "Nombre" => $this->federation->getTipoRondas()[$idx][1],
+                   "Manga1" => $manga1['ID'],
+                   "Manga2" => $manga2['ID'],
+                   "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
+                   "NombreManga1" => $this->federation->getTipoManga(8,3), // 'Agility Eq.',
+                   "NombreManga2" => $this->federation->getTipoManga(13,3), // 'Jumping Eq.',
+                   "Recorrido1" => $manga1['Recorrido'],
+                   "Recorrido2" => $manga2['Recorrido'],
+                   "Juez11" => $this->fetchJuez($manga1['Juez1']),
+                   "Juez12" => $this->fetchJuez($manga1['Juez2']),
+                   "Juez21" => $this->fetchJuez($manga2['Juez1']),
+                   "Juez22" => $this->fetchJuez($manga2['Juez2'])
+               ) );
+           } else { // conjunta
+               $idx=8; // TeamAll. old TipoRonda 13 and 14 are no longer used since 4.2.x
+               $manga1= $this->fetchManga($mangas['rows'],$jornadaid,9); // 'Agility Equipos (conjunta)'
+               $manga2= $this->fetchManga($mangas['rows'],$jornadaid,14); // 'Jumping Equipos (conjunta)'
+               array_push($data,array(
+                   "Rondas" => $this->federation->getTipoRondas()[$idx][0],
+                   "Nombre" => $this->federation->getTipoRondas()[$idx][1],
+                   "Manga1" => $manga1['ID'],
+                   "Manga2" => $manga2['ID'],
+                   "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
+                   "NombreManga1" => $this->federation->getTipoManga(9,3), // 'Agility Eq.',
+                   "NombreManga2" => $this->federation->getTipoManga(14,3), // 'Jumping Eq.',
+                   "Recorrido1" => $manga1['Recorrido'],
+                   "Recorrido2" => $manga2['Recorrido'],
+                   "Juez11" => $this->fetchJuez($manga1['Juez1']),
+                   "Juez12" => $this->fetchJuez($manga1['Juez2']),
+                   "Juez21" => $this->fetchJuez($manga2['Juez1']),
+                   "Juez22" => $this->fetchJuez($manga2['Juez2'])
+               ) );
+           }
+        }
 		if ($row->KO!=0) {
             $manga1= $this->fetchManga($mangas['rows'],$jornadaid,15); // Ronda K.O. 1
             $manga2= $this->fetchManga($mangas['rows'],$jornadaid,18); // Ronda K.O. 2
@@ -1084,16 +1075,18 @@ class Jornadas extends DBObject {
 			$m2 = Jornadas::__searchManga(12, $mangas); // Jumping Individual
 			Jornadas::__compose($data, $prueba, $jornada, 6, $m1, $m2);
 		}
-		if ($jornada['Equipos3']!=0) { // Jornadas::tiporonda=7
-			$m1 = Jornadas::__searchManga(8, $mangas); // Agility Equipos3
-			$m2 = Jornadas::__searchManga(13, $mangas); // Jumping Equipos3
-			Jornadas::__compose($data, $prueba, $jornada, 7, $m1, $m2);
-		}
-		if ($jornada['Equipos4']!=0) { // Jornadas::tiporonda=8
-			$m1 = Jornadas::__searchManga(9, $mangas); // Agility Equipos3
-			$m2 = Jornadas::__searchManga(14, $mangas); // Jumping Equipos3
-			Jornadas::__compose($data, $prueba, $jornada, 8, $m1, $m2);
-		}
+		$teams=self::getTeamDogs($jornada);
+		if ($teams[0]>1) {
+		    if ($teams[0]!=$teams[1]){// Jornadas::tiporonda=7 TeamBest
+                $m1 = Jornadas::__searchManga(8, $mangas); // Agility Equipos3
+                $m2 = Jornadas::__searchManga(13, $mangas); // Jumping Equipos3
+                Jornadas::__compose($data, $prueba, $jornada, 7, $m1, $m2);
+            } else { // Jornadas::tiporonda=8 TeamAll
+                $m1 = Jornadas::__searchManga(9, $mangas); // Agility Equipos4
+                $m2 = Jornadas::__searchManga(14, $mangas); // Jumping Equipos4
+                Jornadas::__compose($data, $prueba, $jornada, 8, $m1, $m2);
+            }
+        }
 		if ($jornada['KO']!=0) { // Jornadas::tiporonda=9
             $m1 = Jornadas::__searchManga(15, $mangas); // KO manga 1
             $m2 = Jornadas::__searchManga(18, $mangas); // KO manga 2

@@ -607,20 +607,20 @@ function saveJornada(){
 /**
  * Comprueba si se puede seleccionar la prueba elegida en base a las mangas pre-existentes
  * @param {checkbox} id checkbox que se acaba de (de) seleccionar
- * @param {bitmap} mask mascara de la prueba marcada (seleccionada o de-seleccionada)
+ * @param {int} mask bitmask de la prueba marcada (seleccionada o de-seleccionada)
  * 0x0001, 'PreAgility 1 Manga'
  * 0x0002, 'PreAgility 2 Mangas' // not used since 3.4
  * 0x0004, 'Grado1',
  * 0x0008, 'Grado2',
  * 0x0010, 'Grado3',
  * 0x0020, 'Individual', (open)
- * 0x0040, 'Equipos3',
- * 0x0080, 'Equipos4',
+ * 0x0040, 'Equipos3',      // 4.2.x TeamBest
+ * 0x0080, 'Equipos4',      // 4.2.x TeamAll
  * 0x0100, 'KO',
- * 0x0200, 'Especial'
- * 0x0400, 'eq 2of3'
- * 0x0800, 'eq 2combined'
- * 0x1000, 'eq 3combined'
+ * 0x0200, 'Especial'       // single round
+ * 0x0400, 'eq 2of3'        // 4.2.x no longer used
+ * 0x0800, 'eq 2combined'   // 4.2.x no longer used
+ * 0x1000, 'eq 3combined'   // 4.2.x no longer used
  * 0x2000, 'wao/games'
  * 0x4000, 'Junior'
  * 0x8000, 'Senior'
@@ -655,12 +655,11 @@ function checkPrueba(id,mask) {
 
 	if ( $('#jornadas-EquiposChk').is(':checked') ) {
 		$('#jornadas-MangasEquipos').combobox('enable');
-        pruebas |= 0x1CC0; // eq3o4:64 eq4c:128 eq2o3:1024 eq2c:2048 eq3c:4096
+        // pruebas |= 0x1CC0; // old eq3o4:64 eq4c:128 eq2o3:1024 eq2c:2048 eq3c:4096
+        pruebas |= 0x00C0; // since 4.2.x TeamBest:64 TeamAll:128
 	} else {
 		$('#jornadas-MangasEquipos').combobox('disable');
 	}
-	// pruebas |= $('#jornadas-Equipos3').is(':checked')?0x0040:0;
-	// pruebas |= $('#jornadas-Equipos4').is(':checked')?0x0080:0;
     pruebas |= $('#jornadas-KO').is(':checked')?0x0100:0;
     pruebas |= $('#jornadas-Games').is(':checked')?0x2000:0;
 

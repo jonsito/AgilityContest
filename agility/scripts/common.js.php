@@ -367,7 +367,7 @@ function isJornadaEquipos(datosJornada) {
 /**
  * Evalua en numero minimo y maximo de perros por equipo y jornada
  *
- * In versions pre-4.1, Equipos3 and Equipos4 was used to handle 3-best or 4-all rounds
+ * In versions pre-4.2, Equipos3 and Equipos4 was used to handle 3-best or 4-all rounds
  * Newer versions use these fields to store mindogs and maxdogs in a team journey
  * So need to keep backward compatibility
  *

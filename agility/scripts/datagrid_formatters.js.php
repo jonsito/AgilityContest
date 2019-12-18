@@ -157,6 +157,22 @@ function formatCatGrad(val,row,idx) {
     return row.Categoria+"-"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
 }
 
+function formatTeamDogs(val,row,idx) {
+    var dogs=getTeamDogs(row);
+    return (dogs[0]<=1)?"   ":""+dogs[0]+"/"+dogs[1]
+}
+
+/** convierte Equipos3/Equipos4 en mindogs */
+function formatMinDogs(val,row,idx) {
+    var d=getTeamDogs(row)[0];
+    return (d<=1)?' ':d;
+}
+/** convierte Equipos3/Equipos4 en maxdogs */
+function formatMaxDogs(val,row,idx) {
+    var d=getTeamDogs(row)[1];
+    return (d<=1)?' ':d;
+}
+
 /** categoria:numdogs */
 function formatTrainingCell1(val,row,idx) { return row.Key1+" - "+val; }
 function formatTrainingCell2(val,row,idx) { return row.Key2+" - "+val; }

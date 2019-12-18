@@ -585,16 +585,15 @@ class Clasificaciones extends DBObject {
 			case 0x0200: // manga especial (una vuelta)
 				$this->errormsg= "ClasificacionEquipos(): choosen series ($rondas) is not a Team Series";
 				return null;
-			case 0x0400: // equipos 2 mejores de 3
-                $mindogs=2;$maxdogs=3;break;
-			case 0x0040: // equipos 3 mejores de 4
-                $mindogs=3;$maxdogs=4;break;
-			case 0x0800: // equipos 2 conjunta
-                $mindogs=2;$maxdogs=2;break;
-			case 0x1000: // equipos 3 conjunta
-                $mindogs=3;$maxdogs=3;break;
-			case 0x0080: // equipos 4 conjunta
-                $mindogs=4;$maxdogs=4;break;
+            case 0x0040: // equipos 3 mejores de 4  // TeamBest since 4.2.x
+            case 0x0080: // equipos 4 conjunta      // TeamAll since 4.2.x
+            case 0x0400: // equipos 2 mejores de 3  // not used since 4.2.x
+            case 0x0800: // equipos 2 conjunta      // not used since 4.2.x
+            case 0x1000: // equipos 3 conjunta      // not used since 4.2.x
+                $a=Jornadas::getTeamDogs($this->getJornada());
+                $mindogs=$a[0];
+                $maxdogs=$a[1];
+                break;
             default:
                 // arriving here means error
                 $this->errormsg= "ClasificacionEquipos(): Unknown series type ($rondas)";
@@ -667,18 +666,13 @@ class Clasificaciones extends DBObject {
 				$c1=$this->combina( $r1->getResultadosIndividual($mode), $r3->getResultadosIndividual($mode));
 				$c2=$this->combina( $r2->getResultadosIndividual($mode), $r4->getResultadosIndividual($mode));
                 return $this->evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
-			case 0x0400: // 1024- equipos 2 mejores de 3
-			case 0x0040: // 64- equipos 3 mejores de 4
-                $r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$idmangas[0]); // Agility Equipos best
-                $r2=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$idmangas[1]); // Jumping Equipos best
-                $c1=$r1->getResultadosIndividual($mode);
-                $c2=$r2->getResultadosIndividual($mode);
-                return $this->evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
-			case 0x0800: // 2048- equipos 2 conjunta
-			case 0x1000: // 4096- equipos 3 conjunta
-			case 0x0080: // 128- equipos 4 conjunta
-                $r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$idmangas[0]); // Agility Equipos combined
-                $r2=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$idmangas[1]); // Jumping Equipos combined
+			case 0x0040: // 64- equipos 3 mejores de 4  // TeamBest since 4.2.x
+            case 0x0080: // 128- equipos 4 conjunta     // TeamAll since 4.2.x
+            case 0x0400: // 1024- equipos 2 mejores de 3    // not used since 4.2.x
+            case 0x0800: // 2048- equipos 2 conjunta        // not used since 4.2.x
+            case 0x1000: // 4096- equipos 3 conjunta        // not used since 4.2.x
+                $r1=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$idmangas[0]); // Agility Equipos
+                $r2=Competitions::getResultadosInstance("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$idmangas[1]); // Jumping Equipos
                 $c1=$r1->getResultadosIndividual($mode);
                 $c2=$r2->getResultadosIndividual($mode);
                 return $this->evalFinal($idmangas,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);

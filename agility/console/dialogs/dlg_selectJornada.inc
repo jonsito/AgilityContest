@@ -129,8 +129,8 @@ $('#seljornada-Jornada').combogrid({
 		{ field:'Grado2',		width:8, sortable:false,	align:'center', title: 'G-II   ' },
 		{ field:'Grado3',		width:8, sortable:false,	align:'center', title: 'G-III  ' },
 		{ field:'Open',		    width:8, sortable:false,	align:'center', title: 'Open   ' },
-		{ field:'Equipos3',		width:8, sortable:false,	align:'center', title: 'Eq.Best' },
-		{ field:'Equipos4',		width:8, sortable:false,	align:'center', title: 'Eq.Comb' },
+		{ field:'Equipos3',		width:12, sortable:false,	align:'center', title: 'Teams', formater:formatTeamDogs },
+		{ field:'Equipos4',		hidden:true }, // since 4.2.x Equipos3/Equipos4 becomes mindogs/maxdogs
 		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'PreAg. ' },
         { field:'Junior',	    width:8, sortable:false,	align:'center', title: 'Junior ' },
         { field:'Senior',	    width:8, sortable:false,	align:'center', title: 'Senior ' },

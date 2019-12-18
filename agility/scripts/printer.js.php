@@ -384,13 +384,14 @@ function print_parcial(mode) {
                     // no break;
                 case 0: // create pdf
                     // generic, ko, games
-                    url = '../ajax/pdf/print_resultadosByManga.php';
-                    // team best
-                    if (parseInt(workingData.datosJornada.Equipos3) != 0)
-                        url = '../ajax/pdf/print_resultadosByEquipos.php';
-                    // team combined
-                    if (parseInt(workingData.datosJornada.Equipos4) != 0)
-                        url = '../ajax/pdf/print_resultadosByEquipos4.php';
+                    url = '../ajax/pdf/print_resultadosByManga.php'; // default
+                    // since 4.2.x Equipos3/Equipos4 becomes mindogs/maxdogs for team journeys
+                    minmax=getTeamDogs();
+                    if (minmax[0]>1) {
+                        if (minmax[0]!=minmax[1]) url = '../ajax/pdf/print_resultadosByEquipos.php'; // team best
+                        else url = '../ajax/pdf/print_resultadosByEquipos4.php'; // team All
+
+                    }
                     // no break
                 case 1: // on x-of-y best team contests extra option to print individual results
                     if (url==="") url = '../ajax/pdf/print_resultadosByManga.php';
