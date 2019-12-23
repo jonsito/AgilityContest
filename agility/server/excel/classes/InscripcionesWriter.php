@@ -154,7 +154,7 @@ class InscripcionesWriter extends XLSX_Writer {
 					continue;
 				}
 				// si Estamos en una jornada por equipos, ponemos el nombre del equipo
-                if( ($jornada['Equipos3']!=0) || ($jornada['Equipos4']!=0) ){
+                if( Jornadas::isJornadaEquipos($jornada) ){
                     $eqobj=new Equipos("excel_printInscripciones",$this->prueba['ID'],$jornada['ID']);
                     $equipo=$eqobj->getTeamByPerro($perro['Perro']);
                     $row[]=$equipo['Nombre'];

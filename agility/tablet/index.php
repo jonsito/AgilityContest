@@ -335,8 +335,8 @@ $('#seltablet-Jornada').combogrid({
 		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II   ', formatter:formatOk },
 		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III  ', formatter:formatOk },
 		{ field:'Open',		    width:7, sortable:false,	align:'center', title: 'Open   ', formatter:formatOk },
-		{ field:'Equipos3',		width:7, sortable:false,	align:'center', title: 'Eq.Best', formatter:formatOk },
-		{ field:'Equipos4',		width:7, sortable:false,	align:'center', title: 'Eq.Comb', formatter:formatOk },
+		{ field:'Equipos3',		width:11, sortable:false,	align:'center', title: 'Equipos', formatter:formatTeamDogs },
+		{ field:'Equipos4',		hidden:true},
 		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.   ', formatter:formatOk },
 		{ field:'Especial',		width:6, sortable:false,	align:'center', title: 'Show   ', formatter:formatOk }
 	]],
@@ -412,7 +412,7 @@ function tablet_acceptSelectJornada() {
                         // jornadas "normales", equipos3 e Individual-Open comparten el mismo fichero
         	    		var page="../tablet/tablet_main.php";
         	    		if (parseInt(workingData.datosJornada.Equipos4)>1) {
-        	    			page="../tablet/tablet_main.php"; // parche temporal
+        	    			page="../tablet/tablet_main.php"; // parche temporal. Pendiente de implementar tablet Equipos4
         	    		}
         	    		if (parseInt(workingData.datosJornada.KO)===1) {
         	    		    $.messager.alert("Not available yet","Tablet layout for KO rounds is not yet available<br/>Usin std one","info");

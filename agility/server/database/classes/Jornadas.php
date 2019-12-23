@@ -386,8 +386,7 @@ class Jornadas extends DBObject {
         $j=$this->__getObject("jornadas",$id);
         if (intval($perms)!=0) $res=$am->allowed($perms); // check against user provided check access
         // else check against jornada-dependent access permissions
-        else if (intval($j->Equipos3)!=0) $res=$am->allowed(ENABLE_TEAMS);
-        else if (intval($j->Equipos4)!=0) $res=$am->allowed(ENABLE_TEAMS);
+        else if (Jornadas::isJornadaEquipos($j)) $res=$am->allowed(ENABLE_TEAMS);
         else if (intval($j->KO)!=0) $res=$am->allowed(ENABLE_KO);
         else if (intval($j->Games)!=0) $res=$am->allowed(ENABLE_SPECIAL); // mangas multiples/games
         else $res=true;
@@ -1123,9 +1122,9 @@ class Jornadas extends DBObject {
      * @param {mixed} $jobj JornadaID or JornadaObject as returned by _getObject() / _getArray()
      * @return bool true or false
      */
-	static function hasTeams($jobj) {
+    static function isJornadaEquipos($jobj) {
         if (is_numeric($jobj)) {
-            $obj=new DBObject("hasTeams");
+            $obj=new DBObject("isJornadaEquipos");
             $jobj=$obj->__selectObject("*","jornadas","ID=$jobj");
         }
         $flag=false;
@@ -1173,7 +1172,7 @@ class Jornadas extends DBObject {
 	/**
 	 * Evalua en numero minimo y maximo de perros por equipo y jornada
      *
-     * In versions pre-4.1, Equipos3 and Equipos4 was used to handle 3-best or 4-all rounds
+     * In versions pre-4.2, Equipos3 and Equipos4 was used to handle 3-best or 4-all rounds
      * Newer versions use these fields to store mindogs and maxdogs in a team journey
      * So need to keep backward compatibility
      *
@@ -1217,5 +1216,17 @@ class Jornadas extends DBObject {
                 return array($mindogs,$maxdogs);
         }
 	}
+
+    static function isJornadaEqMejores($jornada) {
+	    $teams=Jornadas::getTeamDogs($jornada);
+	    if ($teams[0]<=1) return false;
+	    return ($teams[0]!=$teams[1]);
+    }
+    static function isJornadaEqConjunta($jornada) {
+        $teams=Jornadas::getTeamDogs($jornada);
+        if ($teams[0]<=1) return false;
+        return ($teams[0]==$teams[1]);
+    }
 }
+
 ?>

@@ -520,8 +520,7 @@ function canInscribe(jornada,grado) {
     if (jornada.Games!=0) return true;
     if (jornada.KO!=0) return true;
     if (jornada.Especial!=0) return true;
-    if (jornada.Equipos3!=0) return true;
-    if (jornada.Equipos4!=0) return true;
+    if (isJornadaEquipos(jornada)) return true;
     // En demas pruebas se comprueba la el grado del perro
     if ( (grado==="Jr") && (jornada.Junior==0) ) return false;
     if ( (grado==="Sr") && (jornada.Senior==0) ) return false;

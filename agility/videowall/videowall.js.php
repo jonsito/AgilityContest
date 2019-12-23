@@ -95,11 +95,10 @@ function vw_updateWorkingData(evt,callback) {
  * @param {function} formatter: function to call for group formatter, or null
  */
 function vw_formatClasificacionesDatagrid(dg,evt,data,formatter) {
-	var team=false;
-	if (parseInt(data.Jornada.Equipos3)!=0) { team=true; }
-	if (parseInt(data.Jornada.Equipos4)!=0) { team=true;  }
 	// clear datagrid as data no longer valid
-	if (team){
+	if (isJornadaEquipos(data.Jornada)){
+	    if (formatter) dg.datagrid({ view: gview, groupField: 'NombreEquipo', groupFormatter: formatter });
+        dg.datagrid('hideColumn',"LogoClub");
 	} else {
 		if (formatter) dg.datagrid({view:$.fn.datagrid.defaults.view});
 		dg.datagrid('showColumn',"LogoClub");

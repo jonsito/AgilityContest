@@ -719,7 +719,7 @@ class Inscripciones extends DBObject {
         $defteam=$this->__selectAsArray("*","equipos","Jornada={$jornada} AND DefaultTeam=1");
         // si la jornada destino no tiene pruebas por equipos,
         // entonces NO clonamos los equipos de la jornada original
-        if (Jornadas::hasTeams($jornada)) {
+        if (Jornadas::isJornadaEquipos($jornada)) {
             // obtenemos la lista de equipos de la jornada antigua
             $equipos=$this->__select("*","equipos","Jornada={$from}");
             $ordenEquipos="BEGIN,";

@@ -57,8 +57,7 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
 			throw new Exception($this->errormsg);
 		}
         // comprobamos que estamos en una jornada por equipos
-        $flag=intval($this->jornada->Equipos3)+intval($this->jornada->Equipos4);
-        if ($flag==0) {
+        if (!Jornadas::isJornadaEquipos($this->jornada)) {
             $this->errormsg="print_ordenDeSalidaEquipos4: Jornada {$data['jornada']} has no Team competition declared";
             throw new Exception($this->errormsg);
         }

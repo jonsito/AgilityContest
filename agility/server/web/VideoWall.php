@@ -112,15 +112,8 @@ class VideoWall {
 		// $this->myLogger->info("sesion:$sessionid prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} tanda:{$this->tandatype} mode:$mode");
 	}
 
-    function isTeam() {
-        if (intval($this->jornada['Equipos3'])!=0) return true;
-        if (intval($this->jornada['Equipos4'])!=0) return true;
-        return false;
-    }
-
     function hasGrades() {
-        if (intval($this->jornada['Equipos3'])!=0) return false;
-        if (intval($this->jornada['Equipos4'])!=0) return false;
+        if (Jornadas::isJornadaEquipos($this->jornada)) return false;
         if (intval($this->jornada['Open'])!=0) return false;
         if (intval($this->jornada['KO'])!=0) return false;
         return true;
@@ -143,7 +136,7 @@ class VideoWall {
                     "Raza","Categoria" => "&nbsp","Grado" => "---","NombreGuia" => $lastTanda,"NombreClub" => "---","Celo" => 0 );
                 array_push($data,$item);
             }
-            if ( $this->isTeam() && ($lastTeam!==$participante['Equipo']) ){
+            if ( Jornadas::isJornadaEquipos($this->jornada) && ($lastTeam!==$participante['Equipo']) ){
                 $lastTeam=$participante['Equipo'];
                 $team=$this->myDBObject->__getObject("equipos",$lastTeam);
                 // orden 0 means new team

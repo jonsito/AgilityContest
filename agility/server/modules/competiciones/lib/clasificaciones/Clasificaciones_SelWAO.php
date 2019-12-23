@@ -253,8 +253,7 @@ class Clasificaciones_SelWAO extends Clasificaciones {
             $final[$idx]['Pcat']=$puestocat[$cat];
 
             // on special journeys do not evaluate calification
-            if($this->jornada->Equipos3!=0) continue;
-            if($this->jornada->Equipos4!=0) continue;
+            if (Jornadas::isJornadaEquipos($this->jornada)) continue;
             if($this->jornada->KO!=0) continue;
             // call to competition module to get calification points and related data
             $comp->evalFinalCalification($mangas,$resultados,$final[$idx],$puestocat);
