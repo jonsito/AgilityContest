@@ -198,16 +198,16 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
 
     /**
      * Evalua el resultado de una competicion por equipos
-     * @param {array} $r1 datos de la manga 1
-     * @param {array} $r2 datos de la manga 2
+     * @param {array} $r1 resultados de la manga 1
+     * @param {array} $r2 resultados de la manga 2
      * @param {array} $c clasificacion final (individual)
      * @param {integer} $mindogs perros que contabilizan
      * @param {integer} $maxdogs perros que contabilizan
      * @param {integer} $mode modo de la prueba
      */
 	function evalFinalEquipos($r1,$r2,&$c,$mindogs,$maxdogs,$mode) {
-	    $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$r1['rows'][0]['Manga']);
-        // Datos de equipos de la jornada
+	    // Datos de equipos de la jornada
+	    $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,0/* no manga info */);
         $eobj=new Equipos("evalFinalEquipos",$this->prueba->ID,$this->jornada->ID);
         $tbj=$eobj->getTeamsByJornada();
         // reindexamos equipos por ID y aniadimos campos para evaluar clasificacion

@@ -239,7 +239,7 @@ $config =Config::getInstance();
             }
 
             // equipos
-            var teams=parseInt(data.Equipos3)<<4+parseInt(data.Equipos4);
+            var teams=(parseInt(data.Equipos3)<<4)+parseInt(data.Equipos4);
             var val=0x00;
             switch (teams) {
                 case 0x00: val=0x00; break; // no teams
