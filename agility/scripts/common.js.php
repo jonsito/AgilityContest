@@ -374,7 +374,7 @@ function isJornadaEquipos(datosJornada) {
  * @return {array} (mindogs,maxdogs)
  */
 function getTeamDogs(djornada) {
-    if (typeof(djornada)===undefined) djornada=workingData.datosJornada;
+    if (typeof(djornada)==="undefined") djornada=workingData.datosJornada;
     var data= parseInt(djornada.Equipos3)<<4 + parseInt(djornada.Equipos4);
     switch (data) {
         case 0x00: // no team journey
