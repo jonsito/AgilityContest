@@ -379,9 +379,19 @@ function round_setUnit(unit,dest) {
 
 /* comodity function to set up round SCT mode based on SCT unit */
 function round_setMode(tipo,dest) {
-    if (tipo==='s') $(dest).combobox('setValue',0); // on change to seconds assume fixed sct (most of the cases will match)
-    if (tipo==='m') $(dest).combobox('setValue',6); // on change to m/s force speed defined sct
-    if (tipo==='%') $(dest).combobox('setValue',1); // on percentage: assume result plus something
+    var current=parseInt($(dest).combobox('getValue'));
+    if ((tipo==='s')&&(current==6) ){
+        // on change to seconds assume fixed sct when current is speed
+        $(dest).combobox('setValue',0);
+    }
+    if (tipo==='m') {
+        // on change to m/s force speed defined sct
+        $(dest).combobox('setValue',6);
+    }
+    if (tipo==='%') {
+        // on percentage: assume result plus something when in fixed/speed mode; else dont change
+        if ( (current==0) || (current==6) ) $(dest).combobox('setValue',1);
+    }
 }
 
 function formatTeamResults( name,value , rows ) {

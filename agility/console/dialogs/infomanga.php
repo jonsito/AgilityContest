@@ -500,7 +500,7 @@ $heights=Competitions::getHeights(0,0,$m);
     $('#dmanga_TRM_M_Factor').textbox();
     $('#dmanga_TRM_S_Factor').textbox();
     $('#dmanga_TRM_T_Factor').textbox();
-    $('#dmanga_TRM_X_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_L_Tipo')}});
+    $('#dmanga_TRM_X_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_X_Tipo')}});
     $('#dmanga_TRM_L_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_L_Tipo')}});
     $('#dmanga_TRM_M_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_M_Tipo')}});
     $('#dmanga_TRM_S_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_S_Tipo')}});
