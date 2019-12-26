@@ -87,7 +87,7 @@ class PrintClasificacionTeam extends PrintCommon {
             $equipo['Perros']=array();
             $teams[$equipo['ID']]=$equipo;
         }
-        // iteramos los perros insertandolos en el equipo. Recuerda que los perros ya vienen ordenados
+        // iteramos los perros insertandolos en el equipo. Recuerda que los perros ya vienen ordenados por resultados
         foreach($results['individual'] as &$perro) {
             if (!array_key_exists($perro['Equipo'],$teams)) {
                 $this->myLogger->error("Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} ".
@@ -115,11 +115,11 @@ class PrintClasificacionTeam extends PrintCommon {
         $jobj=new Jueces("print_Clasificaciones");
 
         // imprimimos informacion de la manga
-        $this->setXY(10,40);
+        $this->setXY(10,37);
         $this->SetFont($this->getFontName(),'B',11); // bold 9px
-        $this->Cell(80,6,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
+        $this->Cell(80,5,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
         $this->Ln(6);
-        $this->Cell(80,6,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
+        $this->Cell(80,5,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
         $this->Ln(6);
         // as some round can be null check both them to try to retrieve "Tipo"
         if ($this->manga1!==null)
@@ -127,14 +127,14 @@ class PrintClasificacionTeam extends PrintCommon {
         else if ($this->manga2!==null)
             $ronda=_(Mangas::getTipoManga($this->manga2->Tipo,4,$this->federation)); // la misma que la manga 1
         else $ronda= "(undefined)";
-        $this->Cell(80,6,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
+        $this->Cell(80,5,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
 
         // ahora los datos de cada manga individual
         // manga 1:
         if ($this->manga1!=null) {
             // pintamos los datos de TRS
             $trs=$this->trs1;
-            $this->setXY(80,40);
+            $this->setXY(80,37);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell(90,8,"","LTB",0,'L',false);// caja vacia
             $this->Cell(20,8,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
@@ -145,10 +145,10 @@ class PrintClasificacionTeam extends PrintCommon {
             // ahora el nombre de la manga y los jueces
             $nmanga=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria;
             $juez1=$jobj->selectByID($this->manga1->Juez1); $juez2=$jobj->selectByID($this->manga1->Juez2);
-            $this->setXY(81,41);
+            $this->setXY(81,38);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell( 88,4,$nmanga,"",0,'L',false);
-            $this->setXY(81,44);
+            $this->setXY(81,41);
             $this->SetFont($this->getFontName(),'I',8); // bold 9px
             $jueces = _('Judge') .": ". $juez1['Nombre'];
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
@@ -158,7 +158,7 @@ class PrintClasificacionTeam extends PrintCommon {
         if ($this->manga2!=null) {
             // pintamos los datos de TRS
             $trs = $this->trs2;
-            $this->setXY(80, 48);
+            $this->setXY(80, 45);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell(90,8,"","LTB",0,'L',false);// caja vacia
             $this->Cell(20, 8, _('Dist') . ".: {$trs['dist']}m", "LTB", 0, 'L', false);
@@ -169,10 +169,10 @@ class PrintClasificacionTeam extends PrintCommon {
             // ahora el nombre de la manga y los jueces
             $nmanga=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $this->categoria;
             $juez1=$jobj->selectByID($this->manga2->Juez1); $juez2=$jobj->selectByID($this->manga2->Juez2);
-            $this->setXY(81,49);
+            $this->setXY(81,46);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell( 88,4,$nmanga,"",0,'L',false);
-            $this->setXY(81,52);
+            $this->setXY(81,49);
             $this->SetFont($this->getFontName(),'I',8); // bold 9px
             $jueces = _('Judge') .": ". $juez1['Nombre'];
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
@@ -239,14 +239,14 @@ class PrintClasificacionTeam extends PrintCommon {
 		for ($n=0;$n<$this->getMaxDogs();$n++) {
 			if ($logos[$n]==="null.png") {
 				$this->SetX($x+10*$n);
-				$this->Cell(10,8,"",'T',0,'C',true);
+				$this->Cell(10,7,"",'T',0,'C',true);
 			} else {
-				$this->Image($logos[$n],$x+10*$n,$y,8);
+				$this->Image($logos[$n],$x+10*$n,$y,7);
 			}
 		}
 		$this->SetX($x+40);
-        $this->Cell(212,8,$team['Nombre'],'T',0,'R',true);
-        $this->Cell(8,8,'','TR',0,'R',true); // empty space at right of page
+        $this->Cell(212,7,$team['Nombre'],'T',0,'R',true);
+        $this->Cell(8,7,'','TR',0,'R',true); // empty space at right of page
         $this->Ln();
     }
 
@@ -417,6 +417,8 @@ class PrintClasificacionTeam extends PrintCommon {
                 $this->Cell(12,4,"",'B',0,'R',true);	// tiempo final
                 $this->Cell(12,4,$team['Puntos'],'RB',0,'R',true);	// penalizacion final
                 break;
+            case 4: // no usada. sirve para pruebas de cinco perros/equipo
+                break;
         }
 		$this->Ln(4);
 	}
@@ -452,17 +454,18 @@ class PrintClasificacionTeam extends PrintCommon {
             // $this->myLogger->trace("imprimiendo datos del equipo {$equipo['ID']} - {$equipo['Nombre']}");
             $this->printTeamInformation($teamcount,$equipo);
             $this->writeTableHeader(); // print team header/data
-            $count=max(4,count($equipo['Perros']));
-            for ($n=0;$n<$count;$n++) { // allways use at least 4 cells
-                // con independencia de los perros del equipo imprimiremos siempre 4 columnas
+            // con independencia de los perros del equipo - normalmente $this->getMaxDogs()
+            // imprimiremos siempre al menos 4 columnas (ag,jp,final,puntos)
+            $count=max(4,count($equipo['Perros'])); // allways use at least 4 cells
+            for ($n=0;$n<$count;$n++) {
                 $row=$this->defaultPerro;
                 if (array_key_exists($n,$equipo['Perros'])) $row=$equipo['Perros'][$n];
                 // print team member's result
                 // $this->myLogger->trace("imprimiendo datos del perro {$row['Perro']} - {$row['Nombre']}");
                 $this->writeCell($n,$row,$equipo);
             }
-            $teamcount++;
-            $this->Ln(2); // extra space between teams
+            $teamcount++; // extra space between teams depends of max dogx to use the entire page
+            $this->Ln(2*(6-$this->getMaxDogs()) );
         }
         $this->myLogger->leave();
     }

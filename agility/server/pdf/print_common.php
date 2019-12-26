@@ -286,10 +286,15 @@ class PrintCommon extends FPDF {
 		$this->club=$this->myDBObject->__getObject("clubes",$this->prueba->Club); // club organizador
 		$this->federation=Federations::getFederation(intval($this->prueba->RSCE));
 		$this->strClub=($this->federation->isInternational())?_('Country'):_('Club');
-		$this->jornada=null;
 		$this->useLongNames=false;
+		$this->jornada=null;
 		if (is_numeric($jornada) && ($jornada!=0) ) {
 			$this->jornada=$this->myDBObject->__getObject("jornadas",$jornada);
+		}
+		if (is_object($jornada)) {
+			$this->jornada=$jornada;
+		}
+		if ($this->jornada!=null) {
 			$this->useLongNames=Competitions::getCompetition($this->prueba,$this->jornada)->useLongNames();
 		}
 		$this->authManager=AuthManager::getInstance("print_common");
