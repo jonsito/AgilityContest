@@ -220,7 +220,7 @@ class PrintClasificacionTeam extends PrintCommon {
 
     function printTeamInformation($teamcount,$team) {
         // evaluate logos
-        $logos=array('null.png','null.png','null.png','null.png');
+        $logos=array('null.png','null.png','null.png','null.png','null.png');
         if ($team['Nombre']==="-- Sin asignar --") {
             $logos[0]=getIconPath($this->federation->get('Name'),"agilitycontest.png");
         } else {
@@ -228,7 +228,7 @@ class PrintClasificacionTeam extends PrintCommon {
             for ($n=0;$n<count($team['Perros']);$n++) {
                 $miembro=$team['Perros'][$n]['Perro'];
                 $logo=$this->getLogoName(intval($miembro));
-                if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
+                if ( ( ! in_array($logo,$logos) ) && ($count<5) ) $logos[$count++]=$logo;
             }
         }
         $this->ac_header(1,18);
