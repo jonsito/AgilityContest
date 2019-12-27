@@ -78,7 +78,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 </div>
 
                 <!-- tabla de datos: se cargan la de individual y de equipos, y en runtime se selecciona una u otra -->
-                <div id="vw_table" data-options="region:'center'" style="background-color:transparent">
+                <div id="vw_table" data-options="region:'center'" style="background-color:transparent;">
 
                     <!-- datagrid para resultados individuales -->
                     <div id="finales_individual-table" class="scores_table" style="display:none;width:98%;">

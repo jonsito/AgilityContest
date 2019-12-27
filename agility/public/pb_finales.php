@@ -57,10 +57,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <!-- Datos de TRS y TRM -->
             <?php include_once(__DIR__ . "/../console/templates/final_rounds_data.inc.php"); ?>
         </div>
-        <div id="pb_table" data-options="region:'center'">
-            <div class="scores_table">
-                <?php include_once(__DIR__ . "/../console/templates/final_individual.inc.php"); ?>
-            </div>
+        <div id="pb_table" data-options="region:'center'" class="scores_table">
+            <?php include_once(__DIR__ . "/../console/templates/final_individual.inc.php"); ?>
         </div>
         <div id="pb_finales-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>

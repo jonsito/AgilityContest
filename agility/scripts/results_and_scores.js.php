@@ -261,7 +261,7 @@ function showFinalScoresByTeam(parent,idx,row) {
             {field:'Equipo',	hidden:true },
             {field:'Dorsal',	width:'4%', align:'left',     title:"<?php _e('Dors'); ?>" },
             {field:'LogoClub',	hidden:true },
-            {field:'Nombre',	width:'8%', align:'center',   title:"<?php _e('Name'); ?>",   formatter:formatBold},
+            {field:'Nombre',	width:'8%', align:'center',   title:"<?php _e('Name'); ?>",   formatter:formatDogName},
             // {field:'Licencia',	width:'4%', align:'center',   title:"<?php _e('Lic'); ?>." },
             {field:'Categoria',	width:'4%', align:'center',   title:"<?php _e('Cat'); ?>.",   formatter:formatCategoria },
             {field:'Grado',	hidden:true },

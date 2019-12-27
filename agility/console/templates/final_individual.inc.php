@@ -15,7 +15,7 @@ $nmangas=http_request("NumMangas","i","2");
         <!-- datos identificativos -->
         <th width="3%" data-options="field:'LogoClub',		align:'left',formatter:formatLogo" > &nbsp;</th>
         <th width="3%" data-options="field:'Dorsal',		align:'left'" > <?php _e('Dors'); ?>.</th>
-        <th width="7%" data-options="field:'Nombre',		align:'left',formatter:formatDogName"> <?php _e('Name'); ?></th>
+        <th width="7%" data-options="field:'Nombre',		align:'left',formatter:formatBold"> <?php _e('Name'); ?></th>
         <th width="4%" data-options="field:'Licencia',		align:'center'" > <?php _e('Lic'); ?>.</th>
         <th width="5%" data-options="field:'Categoria',	    align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
         <th width="9%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>

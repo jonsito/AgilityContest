@@ -20,7 +20,7 @@ $config =Config::getInstance();
         <th data-options="field:'Outs2',			hidden:true"></th>
          -->
         <th data-options="field:'Logo',		    width:'19%', sortable:false, formatter:formatTeamLogos">&nbsp</th>
-        <th data-options="field:'Nombre',		width:'20.5%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
+        <th data-options="field:'Nombre',		width:'20.5%', sortable:false, formatter:formatDogName"><?php _e('Team'); ?></th>
         <th data-options="field:'Categorias',	width:'4%', sortable:false, formatter:formatCategoria"><?php _e('Cat'); ?></th>
         <th data-options="field:'T1',		    align:'center', width:'9.5%', formatter:formatTiempoEquipos1"><?php _e('Time'); ?> 1</th>
         <th data-options="field:'P1',		    align:'center',width:'10%', formatter:formatPenalizacion"><?php _e('Penal'); ?> 1</th>
