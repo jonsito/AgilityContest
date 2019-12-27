@@ -513,10 +513,10 @@ function vwcf_configureScreenLayout() {
         lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
     }
     // individual or team view
-    $("#finales_individual-table").css("display",(team)?'none':'inherit');
-    $("#finales_last_individual-table").css("display",(team)?'none':'inherit');
-    $("#finales_equipos-table").css("display",(team)?'inherit':'none');
-    $("#finales_last_equipos-table").css("display",(team)?'inherit':'none');
+    resdg.datagrid('getPanel').panel((team)?'close':'open');
+    lastdg.datagrid('getPanel').panel((team)?'close':'open');
+    restdg.datagrid('getPanel').panel((team)?'open':'close');
+    lasttdg.datagrid('getPanel').panel((team)?'open':'close');
     calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
     calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
 
@@ -556,10 +556,11 @@ function vwcp_configureScreenLayout() {
         lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
     }
     // individual or team view
-    $("#parciales_individual-table").css("display",(team)?'none':'inherit');
-    $("#parciales_last_individual-table").css("display",(team)?'none':'inherit');
-    $("#parciales_equipos-table").css("display",(team)?'inherit':'none');
-    $("#parciales_last_equipos-table").css("display",(team)?'inherit':'none');
+
+    resdg.datagrid('getPanel').panel((team)?'close':'open');
+    lastdg.datagrid('getPanel').panel((team)?'close':'open');
+    restdg.datagrid('getPanel').panel((team)?'open':'close');
+    lasttdg.datagrid('getPanel').panel((team)?'open':'close');
     calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
     calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
     // show hide license according national or international

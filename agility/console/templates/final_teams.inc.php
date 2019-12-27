@@ -45,7 +45,7 @@ $config =Config::getInstance();
         // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
         loadMsg:  "<?php _e('Updating final scores');?>...",
         // propiedades del datagrid
-        width:'99%',
+        height:2048, // enought big to assure overflow
         pagination: false,
         rownumbers: true,
         fitColumns: true,
