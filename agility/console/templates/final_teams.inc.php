@@ -37,7 +37,7 @@ $config =Config::getInstance();
     $('#finales_equipos-datagrid').datagrid({
         expandCount: 0,
         // propiedades del panel asociado
-        fit: false, // do not set to true to take care on extra elements in panel
+        fit: true,
         border: false,
         closable: false,
         collapsible: false,
@@ -46,7 +46,6 @@ $config =Config::getInstance();
         loadMsg:  "<?php _e('Updating final scores');?>...",
         // propiedades del datagrid
         width:'99%',
-        height:2048, // enought big to assure overflow
         pagination: false,
         rownumbers: true,
         fitColumns: true,
@@ -58,6 +57,7 @@ $config =Config::getInstance();
         // columns declared at html section to show additional headers
         // especificamos un formateador especial para desplegar la tabla de perros por equipos
         view:detailview,
+        toolbar: '#resultados-toolbar',
         detailFormatter:function(idx,row){
             var dgname="finales_equipos-datagrid-"+parseInt(row.ID);
             return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';

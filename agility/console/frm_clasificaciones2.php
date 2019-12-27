@@ -61,7 +61,8 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
 			</table>
 			</form>
 		</div> <!-- Datos de Prueba/Jornada/Ronda -->
-	
+
+        <!-- PANEL DERECHO: DATOS DE TRS/TRM DE LAS MANGAS -->
 		<div data-options="region:'center',title:'<?php _e('Technical data on current round series'); ?>',split:true,collapsed:false,collapsible:false" style="width:70%;font-size:9px">
 			<?php
                 $mode=http_request("Mode","s","");
@@ -71,48 +72,50 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
             ?>
 		</div> <!-- Layout: center -->
 
-		<div id="resultados-dataregion" class="scores_table" data-options="region:'south',split:true,collapsed:false,collapsible:false" style="height:70%;">
-            <div id="resultados-toolbar" style="width:100%;display:none"> <!-- hide until datagrid gets loaded -->
-                <table style="width:100%;padding:2px;">
-                    <tr>
-                        <td><label for="resultados-selectCategoria"><?php _e('Category');?></label></td>
-                        <td>
-                            <input id="resultados-selectCategoria" name="Categoria">
-                        </td>
-                        <td style="width:10%">&nbsp;</td>
-                        <td>
-                            <a id="resultados-competicionBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-endflag'" onclick="loadCompetitionWindow();"><?php _e('Competition'); ?></a>
-                        </td>
-                        <td style="width:10%">&nbsp;</td>
-                        <td>
-                            <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();"><?php _e('Refresh'); ?></a>
-                        </td>
-                        <td>
-                            <a id="resultados-verifyBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-search'" onclick="verifyClasificaciones();"><?php _e('Verify'); ?></a>
-                        </td>
-                        <td>
-                            <a id="resultados-emailBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-mail'" onclick="emailClasificaciones(false);"><?php _e('Mail'); ?></a>
-                        </td>
-                        <td>
-                            <a id="resultados-printBtn" href="#" class="easyui-linkbutton"
-                               data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');"><?php _e('Reports'); ?></a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+        <!-- PANEL INFERIOR: CLASIFICACIONES -->
+		<div id="resultados-data" class="scores_table"
+             data-options="region:'south',split:true,collapsed:false,collapsible:false"
+             style="height:70%;">
+
 			<!-- tabla con las clasificaciones. se carga dinamicamente -->
-            <div id="resultados-data" class="scores_table">
-                <?php _e('No round selected');?>
-            </div>
+            <?php _e('No round selected');?>
 		</div>
 	</div> <!-- informacion de layout -->
 	
 </div> <!-- panel de informacion -->
 
+<div id="resultados-toolbar" style="width:100%;display:none"> <!-- hide until datagrid gets loaded -->
+    <table style="width:100%;padding:2px;">
+        <tr>
+            <td><label for="resultados-selectCategoria"><?php _e('Category');?></label></td>
+            <td>
+                <input id="resultados-selectCategoria" name="Categoria">
+            </td>
+            <td style="width:10%">&nbsp;</td>
+            <td>
+                <a id="resultados-competicionBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-endflag'" onclick="loadCompetitionWindow();"><?php _e('Competition'); ?></a>
+            </td>
+            <td style="width:10%">&nbsp;</td>
+            <td>
+                <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();"><?php _e('Refresh'); ?></a>
+            </td>
+            <td>
+                <a id="resultados-verifyBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-search'" onclick="verifyClasificaciones();"><?php _e('Verify'); ?></a>
+            </td>
+            <td>
+                <a id="resultados-emailBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-mail'" onclick="emailClasificaciones(false);"><?php _e('Mail'); ?></a>
+            </td>
+            <td>
+                <a id="resultados-printBtn" href="#" class="easyui-linkbutton"
+                   data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');"><?php _e('Reports'); ?></a>
+            </td>
+        </tr>
+    </table>
+</div>
 
 <div id="resultados-printDialog">
 	<form style="padding:10px" id="resultados-printForm">

@@ -25,8 +25,9 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
 
 <!-- CLASIFICACIONES DE PRUEBA/JORNADA/RONDA -->
 <div id="resultados-info" style="width:100%;height:550px">
-
 	<div id="resultados-infolayout" class="easyui-layout" data-options="fit:true,border:true" style="padding:10px;">
+
+        <!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
 		<div data-options="region:'west',title:'<?php _e('Contests data'); ?>',split:true,collapsed:false,collapsible:false"
 			 style="width:30%;padding:10px;font-size:9px">
 			<form class="result_forms" id="resultados-info-prueba" method="get">
@@ -61,22 +62,23 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
 			</form>
 		</div> <!-- Datos de Prueba/Jornada/Ronda -->
 
-		<!-- PANEL DERECHO: LISTA DE JORNADAS -->
+		<!-- PANEL DERECHO: DATOS DE TRS/TRM DE LAS MANGAS -->
 		<div data-options="region:'center',title:'<?php _e('Technical data on current round series'); ?>',split:true,collapsed:false,collapsible:false" style="width:70%;font-size:9px">
 			<?php require('dialogs/inforesultados.inc')?>
 		</div> <!-- Layout: center -->
 
 		<!-- PANEL INFERIOR: CLASIFICACIONES -->
 		<div id="resultados-data" class="scores_table"
-             data-options="region:'south',split:true,collapsed:false,collapsible:false" style="height:70%;">
-			<!-- tabla con las clasificaciones -->
-			<?php include(__DIR__ . "/../console/templates/final_teams.inc.php"); ?>
+             data-options="region:'south',split:true,collapsed:false,collapsible:false"
+             style="height:70%;">
+			<!-- tabla con las clasificaciones por equipos. se carga dinamicamente -->
+            <?php _e('No round selected');?>
 		</div>
 	</div> <!-- informacion de layout -->
 	
 </div> <!-- panel de informacion -->
 
-<div id="resultados-toolbar" style="width:100%;display:inline-block">
+<div id="resultados-toolbar" style="width:100%;display:none"> <!-- enable on datagrid load -->
     <table style="width:100%;padding:2px;">
         <tr>
             <td><?php _e('Category');?></td>
@@ -107,21 +109,6 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
             </td>
         </tr>
     </table>
-    <!--
-   	<span style="float:left;padding:5px">
-   	    <input id="resultados-selectCategoria" name="Categoria">
-   	</span>
-   	<span style="float:right;padding:5px">
-   		<a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();"><?php _e('Refresh'); ?></a>
-   		<a id="resultados-verifyBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-search'" onclick="verifyClasificaciones();"><?php _e('Verify'); ?></a>
-   		<a id="resultados-emailBtn" href="#" class="easyui-linkbutton"
-            data-options="iconCls:'icon-mail'" onclick="emailClasificaciones(true);"><?php _e('Mail'); ?></a>
-   		<a id="resultados-printBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');"><?php _e('Reports'); ?></a>
-   	</span>
-   	-->
 </div>
 
 <div id="resultados-printDialog">
@@ -182,6 +169,7 @@ $('#r_prfirst').numberspinner({
 });
 
 $('#resultados-selectCategoria').combobox({
+        width: 125,
 		valueField:'mode',
 		textField:'text',
 		panelHeight:75,
@@ -257,7 +245,4 @@ addTooltip($('#resultados-printBtn').linkbutton(),'<?php _e("Print scores on cur
 addTooltip($('#resultados-printDlgBtn').linkbutton(),'<?php _e("Print data in selected format"); ?>');
 addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels sheet"); ?>');
 addTooltip($('#r_prlistLbl'),'<?php _e("Comma separated list of dorsals to be printed"); ?>');
-// amyadimos toolbar y keyhandler al datagrid de clasificaciones
-$('#finales_equipos-datagrid').datagrid({toolbar: '#resultados-toolbar'});
-addSimpleKeyHandler('#finales_equipos-datagrid',"");
 </script>

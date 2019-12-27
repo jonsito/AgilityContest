@@ -887,7 +887,7 @@ class Resultados extends DBObject {
                 $this->myLogger->warn("Team {$equipo['ID']}:'{$equipo['Nombre']}' exceeds maxdogs:".count($equipo['Resultados']));
             }
             // add NP for every missing dog
-            for ($n=$numdogs;$n<$mindogs;$n++) $equipo['Penalización']+=400.0;
+            for ($n=$numdogs;$n<$mindogs;$n++) $equipo['Penalizacion']+=400.0;
             // in team4 check what to do in Team4mode when a team member is eliminated
             if ( ($mindogs==$maxdogs) && ($equipo['Eliminados']>0) ) {
                 $t4m=intval($this->myConfig->getEnv('team4_mode'));

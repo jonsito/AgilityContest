@@ -98,7 +98,7 @@ class Resultados_EO_Team_Qualifications extends Resultados {
             $numdogs=count($equipo['Resultados']);
             if ($numdogs==0) continue; // team with no dogs: ignore
             if ($numdogs>$maxdogs) continue; // too many dogs: disqualify and ignore
-            for ($n=$numdogs;$n<$mindogs;$n++) $equipo['Penalización']+=400.0;
+            for ($n=$numdogs;$n<$mindogs;$n++) $equipo['Penalizacion']+=400.0;
             array_push($teams,$equipo); // add team to result to remove unused/empty teams
         }
         // re-ordenamos los datos en base a la puntuacion
