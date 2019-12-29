@@ -132,7 +132,9 @@ class PrintResultadosByEquipos3 extends PrintCommon {
 
     function printTeamInformation($teamcount,$team) {
         // evaluate logos
-        $logos=array('null.png','null.png','null.png','null.png');
+        $logos=array();
+        $maxdogs=$this->getMaxDogs();
+        for($n=0;$n<$maxdogs;$n++) $logos[]='null.png';
         if ($team['Nombre']==="-- Sin asignar --") {
             $logos[0]=getIconPath($this->federation->get('Name'),"agilitycontest.png");
         } else {
@@ -140,7 +142,7 @@ class PrintResultadosByEquipos3 extends PrintCommon {
             $count=0;
             for ($n=0;$n<count($miembros);$n++) {
                 $logo=getIconPath($this->federation->get('Name'),$miembros[$n]['LogoClub']);
-                if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
+                if ( ( ! in_array($logo,$logos) ) && ($count<$maxdogs) ) $logos[$count++]=$logo;
             }
         }
         $offset=($this->PageNo()==1)?57:45;
@@ -150,7 +152,7 @@ class PrintResultadosByEquipos3 extends PrintCommon {
         $x=$this->getX();
         $y=$this->getY();
         // if no logo is "null.png" don't try to insert logo, just add empty text with parent background
-        for ($n=0;$n<4;$n++) {
+        for ($n=0;$n<$maxdogs;$n++) {
             if ($logos[$n]==="null.png") {
                 $this->SetX($x+10*$n);
                 $this->Cell(10,10,"",'T',0,'C',true);
@@ -196,9 +198,10 @@ class PrintResultadosByEquipos3 extends PrintCommon {
             $this->myLogger->trace("Equipo: ".json_encode($equipo));
             $this->printTeamInformation($teamcount,$equipo);
             // print team header/data
-            for ($n=0;$n<4;$n++) {
+            $maxdogs=$this->getMaxDogs();
+            for ($n=0;$n<$maxdogs;$n++) {
                 $this->ac_row($n,9);
-                // con independencia de los perros del equipo imprimiremos siempre 4 columnas
+                // PENDING: ajustar altura de celdas al numero de perros del equipo
                 $row=$this->defaultPerro;
                 if (array_key_exists($n,$equipo['Resultados'])) $row=$equipo['Resultados'][$n];
                 // print team member's result

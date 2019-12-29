@@ -436,9 +436,10 @@ function vws_updateLlamada(evt,data,callback) {
             }
             // fill "current" columns
             if(team) {
+                var maxdogs=getMaxDogsByTeam();
                 workingData.vws_currentRow="";
                 dat['results'][0]['Orden']=dat['current'][0]['Orden']; // to properly fill form field
-                for (n=0;n<4;n++) {
+                for (n=0;n<maxdogs;n++) {
                     var cur='_'+n;
                     // check for current dot to mark proper "current" row form as active
                     if (dat['results'][n]['Perro']==evt['Dog']) {
@@ -448,14 +449,13 @@ function vws_updateLlamada(evt,data,callback) {
                     // notice 'results' and 'LogoClub' as we need dog data, not team data
                     $('#vws_current'+cur).form('load',dat['results'][n]);
                     vws_displayData(cur,true);
-                    if (n==3) {  // check for test dog on last row and fix team logo
-                        if (evt['Nombre']==="<?php _e('Test dog');?>") {
-                            $('#vws_current_Nombre_3').val(evt['Nombre']);
-                            workingData.vws_currentRow='_3';
-                            logo="agilitycontest.png";
-                        } else {
-                            logo=dat['current'][0]['LogoTeam'];
-                        }
+                    // check for test dog on last row and fix team logo
+                    if (evt['Nombre']==="<?php _e('Test dog');?>") {
+                        $('#vws_current_Nombre_'+n).val(evt['Nombre']);
+                        workingData.vws_currentRow='_'+n;
+                        logo="agilitycontest.png";
+                    } else {
+                        logo=dat['current'][0]['LogoTeam'];
                     }
                 }
                 // set team icon. on test dog use AC logo
@@ -568,7 +568,8 @@ function vws_updateFinales(perro,data) {
             for (n=0;n<individual.length;n++) dogsByID[parseInt(individual[n]['Perro'])]=individual[n];
             var evalToBeFirst=(typeof(dat.current)!=="undefined");
             if (team) {
-                for (i=0;i<4;i++) {
+                var maxdogs=getMaxDogsByTeam();
+                for (i=0;i<$maxdogs;i++) {
                     curdog=parseInt($('#vws_current_Perro_' + i).val());
                     if (typeof (dogsByID[curdog])!=="undefined")
                          $('#vws_current_Puesto_'+i).val(dogsByID[curdog]['Puesto']);
@@ -675,7 +676,8 @@ function vws_updateParciales(data) {
             for (n = 0; n < individual.length; n++) {
                 var perro = individual[n]['Perro'];
                 if (team) {
-                    for (i = 0; i < 4; i++) {
+                    var maxdogs=getMaxDogsByTeam();
+                    for (i = 0; i < maxdogs; i++) {
                         if ($('#vws_current_Perro_' + i).val() != perro) continue;
                         $('#vws_current_Puesto_' + i).val(individual[n]['Puesto']);
                         vws_displayData("_"+i,false);
