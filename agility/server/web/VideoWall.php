@@ -399,8 +399,9 @@ class VideoWall {
         }
         // if team is not provided nor found matching dog, just assume default
         if ($found<0) $found=$before;
-        // fill $foundteam to fit 4 entries
-        for (;count($foundTeam)<4;) array_push($foundTeam,$this->getEmptyData());
+        // fill $foundteam to fit mindogs entries
+        $maxdogs=Jornadas::getTeamDogs($this->jornada)[1];
+        for (;count($foundTeam)<$maxdogs;) array_push($foundTeam,$this->getEmptyData());
         // and return 4 arrays:
         $res=array(
             // "total" => count($res),

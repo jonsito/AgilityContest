@@ -349,8 +349,9 @@ function vwsp_updateHeader(mode,data) {
  */
 function vws_setFinalIndividualOrTeamView(data) {
     var team=isJornadaEquipos(data.Jornada);
+    var maxdogs=getMaxDogsByTeam(data.Jornada);
     // cargamos la pagina adecuada en funcion del tipo de evento
-    var page='../videowall/'+((team==true)?'vws_final_equipos.php':'vws_final_individual.php');
+    var page='../videowall/'+((team==true)?'vws_final_equipos.php?maxdogs='+maxdogs:'vws_final_individual.php');
     $('#vws-window').window('refresh',page);
 }
 
@@ -360,8 +361,9 @@ function vws_setFinalIndividualOrTeamView(data) {
 */
 function vws_setPartialIndividualOrTeamView(data) {
     var team=isJornadaEquipos(data.Jornada);
+    var maxdogs=getMaxDogsByTeam(data.Jornada);
     // cargamos la pagina adecuada en funcion del tipo de evento
-    var page='../videowall/'+((team==true)?'vws_parcial_equipos.php':'vws_parcial_individual.php');
+    var page='../videowall/'+((team==true)?'vws_parcial_equipos.php?maxdogs='+maxdogs:'vws_parcial_individual.php');
     $('#vws-window').window('refresh',page);
 }
 

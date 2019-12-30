@@ -8,7 +8,7 @@ require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = AuthManager::getInstance("Videowall::combinada");
 if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.php"); return 0;}
-
+$maxdogs=http_request("maxdogs","i",1);
 ?>
 <!--
 vws_parcial_equipos.php
@@ -95,7 +95,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     
     <div id="vws_equipo_en_pista">
 <?php
-for($n=0;$n<4;$n++) {
+for($n=0;$n<$maxdogs;$n++) {
     echo '<form id= "vws_current_'.$n.'" class="vws_css_current_'.($n%2).' vws_entry">';
     if ($n==0) {
         echo '<input type="text" class="vws_css_current_'.($n%2).'" id="vws_current_Orden_'.$n.'" name="Orden" value="Orden '.$n.'"/>';
@@ -201,7 +201,7 @@ for($n=0;$n<4;$n++) {
     }
     
     // perros del equipo en pista
-    for (n=0;n<4;n++) {
+    for (n=0;n<getMaxDogsByTeam();n++) {
         var y=(n==0)?1:0;
         var dy=((n==0) || (n==3))?1:0;
         if (n==0) { // orden, logo, dorsal
