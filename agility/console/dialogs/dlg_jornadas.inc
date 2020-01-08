@@ -1,7 +1,7 @@
  <!-- 
 dlg_jornadas.inc
 
-Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms 
 of the GNU General Public License as published by the Free Software Foundation; 
@@ -239,7 +239,7 @@ $config =Config::getInstance();
             }
 
             // equipos
-            var teams=parseInt(data.Equipos3)<<4+parseInt(data.Equipos4);
+            var teams=(parseInt(data.Equipos3)<<4)+parseInt(data.Equipos4);
             var val=0x00;
             switch (teams) {
                 case 0x00: val=0x00; break; // no teams

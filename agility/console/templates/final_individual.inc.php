@@ -15,7 +15,7 @@ $nmangas=http_request("NumMangas","i","2");
         <!-- datos identificativos -->
         <th width="3%" data-options="field:'LogoClub',		align:'left',formatter:formatLogo" > &nbsp;</th>
         <th width="3%" data-options="field:'Dorsal',		align:'left'" > <?php _e('Dors'); ?>.</th>
-        <th width="7%" data-options="field:'Nombre',		align:'left',formatter:formatDogName"> <?php _e('Name'); ?></th>
+        <th width="7%" data-options="field:'Nombre',		align:'left',formatter:formatBold"> <?php _e('Name'); ?></th>
         <th width="4%" data-options="field:'Licencia',		align:'center'" > <?php _e('Lic'); ?>.</th>
         <th width="5%" data-options="field:'Categoria',	    align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
         <th width="9%" data-options="field:'NombreGuia',	align:'right'" > <?php _e('Handler'); ?></th>
@@ -48,11 +48,10 @@ $nmangas=http_request("NumMangas","i","2");
 </table>
 
 <script type="text/javascript">
-
     $('#finales_individual-datagrid').datagrid({
         expandCount: 0,
         // propiedades del panel asociado
-        fit: false, // set to false as we used thead to declare columns, and they have their own width
+        fit: true,
         border: false,
         closable: false,
         collapsible: false,
@@ -60,15 +59,17 @@ $nmangas=http_request("NumMangas","i","2");
         // propiedades del datagrid
         // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
         loadMsg: "<?php _e('Updating final scores');?>...",
-        width:'100%',
+        width:'99%',
         pagination: false,
         rownumbers: false,
-        fitColumns: false,
+        fitColumns: true,
         singleSelect: true,
         rowStyler:myRowStyler,
         autoRowHeight:false,
         idField: 'ID',
+        toolbar: '#resultados-tooolbar',
         pageSize: 500 // enought bit to make it senseless
         // columns declared at html section to show additional headers
     });
+
 </script>

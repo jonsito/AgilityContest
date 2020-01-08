@@ -2,7 +2,7 @@
 /*
 Resultados_EO_Team_Qualifications.php
 
-Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms 
 of the GNU General Public License as published by the Free Software Foundation; 
@@ -41,8 +41,10 @@ class Resultados_EO_Team_Qualifications extends Resultados {
      */
     function getResultadosEquipos($results) {
         $resultados=$results['rows'];
-        // evaluamos mindogs
+        // evaluamos mindogs/maxdogs
         $mindogs=Jornadas::getTeamDogs($this->getDatosJornada())[0]; // get mindogs
+        $maxdogs=Jornadas::getTeamDogs($this->getDatosJornada())[1]; // get maxdogs
+
         // Datos de equipos de la jornada. obtenemos prueba y jornada del primer elemento del array
         $m=new Equipos("getResultadosEquipos",$this->IDPrueba,$this->IDJornada);
         $teams=$m->getTeamsByJornada();
@@ -66,14 +68,26 @@ class Resultados_EO_Team_Qualifications extends Resultados {
             $equipo=&$equipos[$teamid];
             array_push($equipo['Resultados'],$result);
             // suma el tiempo y penalizaciones de los tres/cuatro primeros
-            // almacena los puntos del mejor y del cuarto
-            if (count($equipo['Resultados'])<=$mindogs) {
+            $numdogs=count($equipo['Resultados']);
+            if(($numdogs>$maxdogs) && ($result['Penalizacion']<200)) {
+                $this->myLogger->info("Team {$equipo['Nombre']} excess Dogs:{$numdogs}. Disqualified");
+                $equipo['Tiempo']=0.0;
+                $equipo['Puntos']=0;
+                $equipo['Extra']=0;
+                $equipo['Penalizacion']=400*$mindogs; // todos no presentados, por listos
+                continue;
+            }
+            if ($numdogs<=$mindogs) {
+                // almacena los puntos de los tres mejores
                 $equipo['Tiempo']+=floatval($result['Tiempo']);
                 $equipo['Penalizacion']+=floatval($result['Penalizacion']);
                 $equipo['Puntos']+=$result['Puntos'];
+                // guardamos el mejor para el caso de empate a puntos y a cuarto puesto
                 if (count($equipo['Resultados'])==1) $equipo['Best']=$result['Puntos'];
             } else {
-                $equipo['Extra']=+$result['Puntos'];
+                // en el EO se usa el cuarto perro en caso de empate, por lo que se almacena
+                // si hay mas perros (p.e. en modo 3de5) no se toma el dato
+                if ($equipo['Extra']==0) $equipo['Extra']=+$result['Puntos'];
             }
         }
 
@@ -81,23 +95,11 @@ class Resultados_EO_Team_Qualifications extends Resultados {
         // no presentados
         $teams=array();
         foreach($equipos as &$equipo) {
-            switch(count($equipo['Resultados'])){
-                case 0: continue; // ignore team (category doesnt match with results )
-					break;
-                case 1: $equipo['Penalizacion']+=400.0; // required team member undeclared
-                    // no break
-                case 2: if ($mindogs==3) $equipo['Penalizacion']+=400.0; // required team member undeclared
-                    // no break;
-                case 3: if ($mindogs==4) $equipo['Penalizacion']+=400.0; // required team member undeclared
-                    // no break;
-                case 4:
-                    array_push($teams,$equipo); // add team to result to remove unused/empty teams
-                    break;
-                default:
-                    $myLogger=new Logger("Resultados::getTreamResults()");
-                    $myLogger->error("Equipo {$equipo['ID']} : '{$equipo['Nombre']}' con exceso de participantes:".count($equipo['Resultados']));
-                    break;
-            }
+            $numdogs=count($equipo['Resultados']);
+            if ($numdogs==0) continue; // team with no dogs: ignore
+            if ($numdogs>$maxdogs) continue; // too many dogs: disqualify and ignore
+            for ($n=$numdogs;$n<$mindogs;$n++) $equipo['Penalizacion']+=400.0;
+            array_push($teams,$equipo); // add team to result to remove unused/empty teams
         }
         // re-ordenamos los datos en base a la puntuacion
         usort($teams, function($a, $b) {

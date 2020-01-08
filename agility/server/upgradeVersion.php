@@ -426,10 +426,11 @@ class Updater {
     }
 
     function upgradeTeams() {
+        // since 4.2.x use new mindogs/maxdogs style
         $this->myLogger->enter();
         $cmds= array(
-            "UPDATE `jornadas` SET `Equipos3`=3 WHERE (`Equipos3`=1);",
-            "UPDATE `jornadas` SET `Equipos4`=4 WHERE (`Equipos4`=1);"
+            "UPDATE `jornadas` SET `Equipos3`=3, `Equipos4`=4 WHERE (`Equipos3`=1) AND (`Equipos4`=0);",
+            "UPDATE `jornadas` SET `Equipos3`=4, `Equipos4`=4 WHERE (`Equipos3`=0) AND (`Equipos4`=1);"
         );
         foreach ($cmds as $query) { $this->conn->query($query); }
         return 0;

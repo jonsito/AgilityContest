@@ -2,7 +2,7 @@
 /*
 Tandas.php
 
-Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms 
 of the GNU General Public License as published by the Free Software Foundation; 
@@ -873,16 +873,24 @@ class Tandas extends DBObject {
         // open
 		$this->insert_remove($f,7,($j->Open != 0)?true:false);			// Agility Abierta
 		$this->insert_remove($f,12,($j->Open != 0)?true:false);			// Jumping Abierta
-        // equipos (mejores)
-        // a efectos practicos las mangas de equipos en modalidad tres mejores
-        // son como pruebas open, en las que los resultados se agrupan
-		$this->insert_remove($f,8,($j->Equipos3 != 0)?true:false);		// Agility Equipos (3 mejores)
-		$this->insert_remove($f,13,($j->Equipos3 != 0)?true:false);		// Jumping Equipos (3 mejores)
-        // equipos (conjunta)
-        // en cambio las pruebas de equipos conjunta necesitan tratamiento
-        // especial para agrupar las categorias en función de las alturas
-		$this->insert_remove($f,9,($j->Equipos4 != 0)?true:false);		// Agility Equipos (Conjunta)
-		$this->insert_remove($f,14,($j->Equipos4 != 0)?true:false);		// Jumping Equipos (Conjunta)
+        if (Jornadas::isJornadaEquipos($j)) {
+            if (Jornadas::isJornadaEqConjunta($j)) { // conjunta
+                $this->insert_remove($f,8,false);		// Agility Equipos (3 mejores)
+                $this->insert_remove($f,13,false);		// Jumping Equipos (3 mejores)
+                $this->insert_remove($f,9,true);		// Agility Equipos (Conjunta)
+                $this->insert_remove($f,14,true);		// Jumping Equipos (Conjunta)
+            } else { // x mejores de y
+                $this->insert_remove($f,8,true);		// Agility Equipos (3 mejores)
+                $this->insert_remove($f,13,true);		// Jumping Equipos (3 mejores)
+                $this->insert_remove($f,9,false);		// Agility Equipos (Conjunta)
+                $this->insert_remove($f,14,false);		// Jumping Equipos (Conjunta)
+            }
+        } else { // no hay jornada equipos
+            $this->insert_remove($f,8,false);		// Agility Equipos (3 mejores)
+            $this->insert_remove($f,13,false);		// Jumping Equipos (3 mejores)
+            $this->insert_remove($f,9,false);		// Agility Equipos (Conjunta)
+            $this->insert_remove($f,14,false);		// Jumping Equipos (Conjunta)
+        }
         // mangas para prueba ko
         $this->insert_remove($f,15,($j->KO != 0)?true:false);			// Ronda K.O. 1
         $this->insert_remove($f,18,($j->KO != 0)?true:false);			// Ronda K.O. 2

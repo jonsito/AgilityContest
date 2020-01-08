@@ -1772,27 +1772,23 @@ function resultados_doSelectRonda(row) {
     }
 
     // FASE 2: si estamos en individual, descargamos el datagrid con el numero de mangas apropiado
+    var page = "";
     if (isJornadaEquipos(null)) {
-        $('#resultados-toolbar').css('display','inline-block');
-        populate_clasificacion();
+        page="../console/templates/final_teams.inc.php";
+    } else if ( (parseInt(workingData.datosJornada.Games)!==0) && parseInt(workingData.datosCompeticion.ModuleID)===3) {
+        page="../console/templates/final_games.inc.php";
     } else {
-        var page="";
-        if ( (parseInt(workingData.datosJornada.Games)!==0) && parseInt(workingData.datosCompeticion.ModuleID)===3) {
-            page="../console/templates/final_games.inc.php";
-        } else {
-            var nmangas=0;
-            for(n=8;n>0;n--) if (row['Manga'+n]!=0) {nmangas=n; break } // numero de mangas
-            page="../console/templates/final_individual.inc.php?NumMangas="+nmangas;
-        }
-        $('#resultados-data').load(page,
-            function() {
-                // anyadimos toolbar y keyhandler al datagrid de clasificaciones
-                // $('#finales_individual-datagrid').datagrid({toolbar: '#resultados-toolbar'});
-                $('#resultados-toolbar').css('display','inline-block');
-                addSimpleKeyHandler('#finales_individual-datagrid',"");
-                populate_clasificacion();
-            });
+        var nmangas=0;
+        for(n=8;n>0;n--) if (row['Manga'+n]!=0) {nmangas=n; break } // numero de mangas
+        page="../console/templates/final_individual.inc.php?NumMangas="+nmangas;
     }
+    $('#resultados-data').load(page,
+        function() {
+            // activamos toolbar anyadimos keyhandler en el datagrid de clasificaciones
+            $('#resultados-toolbar').css('display','inline-block');
+            addSimpleKeyHandler('#finales_individual-datagrid',"");
+            populate_clasificacion();
+        });
 }
 
 function verifyCompose(data,manga,nombre) {

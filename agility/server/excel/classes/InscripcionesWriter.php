@@ -2,7 +2,7 @@
 /*
 InscripcionesWriter.php
 
-Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms 
 of the GNU General Public License as published by the Free Software Foundation; 
@@ -154,7 +154,7 @@ class InscripcionesWriter extends XLSX_Writer {
 					continue;
 				}
 				// si Estamos en una jornada por equipos, ponemos el nombre del equipo
-                if( ($jornada['Equipos3']!=0) || ($jornada['Equipos4']!=0) ){
+                if( Jornadas::isJornadaEquipos($jornada) ){
                     $eqobj=new Equipos("excel_printInscripciones",$this->prueba['ID'],$jornada['ID']);
                     $equipo=$eqobj->getTeamByPerro($perro['Perro']);
                     $row[]=$equipo['Nombre'];

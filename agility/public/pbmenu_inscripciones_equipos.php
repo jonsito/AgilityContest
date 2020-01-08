@@ -37,7 +37,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		    <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
 			<span style="float:right;" id="pb_header-texto"><?php _e('Inscription list'); ?></span>
 		</div>
-		<div id="pb_inscripciones-data" data-options="region:'center'"  class="scores_table">
+		<div id="pb_inscripciones-data" data-options="region:'center'" class="scores_table">
 			<table id="pb_inscripciones_eq3-datagrid"></table>
 		</div>
         <div id="pb_inscripciones-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">

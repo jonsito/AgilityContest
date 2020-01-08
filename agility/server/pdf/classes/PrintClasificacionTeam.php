@@ -2,7 +2,7 @@
 /*
 PrintClasificacionTeam.php
 
-Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms 
 of the GNU General Public License as published by the Free Software Foundation; 
@@ -87,7 +87,7 @@ class PrintClasificacionTeam extends PrintCommon {
             $equipo['Perros']=array();
             $teams[$equipo['ID']]=$equipo;
         }
-        // iteramos los perros insertandolos en el equipo. Recuerda que los perros ya vienen ordenados
+        // iteramos los perros insertandolos en el equipo. Recuerda que los perros ya vienen ordenados por resultados
         foreach($results['individual'] as &$perro) {
             if (!array_key_exists($perro['Equipo'],$teams)) {
                 $this->myLogger->error("Prueba:{$this->prueba->ID} Jornada:{$this->jornada->ID} ".
@@ -115,11 +115,11 @@ class PrintClasificacionTeam extends PrintCommon {
         $jobj=new Jueces("print_Clasificaciones");
 
         // imprimimos informacion de la manga
-        $this->setXY(10,40);
+        $this->setXY(10,37);
         $this->SetFont($this->getFontName(),'B',11); // bold 9px
-        $this->Cell(80,6,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
+        $this->Cell(80,5,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
         $this->Ln(6);
-        $this->Cell(80,6,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
+        $this->Cell(80,5,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
         $this->Ln(6);
         // as some round can be null check both them to try to retrieve "Tipo"
         if ($this->manga1!==null)
@@ -127,14 +127,14 @@ class PrintClasificacionTeam extends PrintCommon {
         else if ($this->manga2!==null)
             $ronda=_(Mangas::getTipoManga($this->manga2->Tipo,4,$this->federation)); // la misma que la manga 1
         else $ronda= "(undefined)";
-        $this->Cell(80,6,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
+        $this->Cell(80,5,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
 
         // ahora los datos de cada manga individual
         // manga 1:
         if ($this->manga1!=null) {
             // pintamos los datos de TRS
             $trs=$this->trs1;
-            $this->setXY(80,40);
+            $this->setXY(80,37);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell(90,8,"","LTB",0,'L',false);// caja vacia
             $this->Cell(20,8,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
@@ -145,10 +145,10 @@ class PrintClasificacionTeam extends PrintCommon {
             // ahora el nombre de la manga y los jueces
             $nmanga=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $this->categoria;
             $juez1=$jobj->selectByID($this->manga1->Juez1); $juez2=$jobj->selectByID($this->manga1->Juez2);
-            $this->setXY(81,41);
+            $this->setXY(81,38);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell( 88,4,$nmanga,"",0,'L',false);
-            $this->setXY(81,44);
+            $this->setXY(81,41);
             $this->SetFont($this->getFontName(),'I',8); // bold 9px
             $jueces = _('Judge') .": ". $juez1['Nombre'];
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
@@ -158,7 +158,7 @@ class PrintClasificacionTeam extends PrintCommon {
         if ($this->manga2!=null) {
             // pintamos los datos de TRS
             $trs = $this->trs2;
-            $this->setXY(80, 48);
+            $this->setXY(80, 45);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell(90,8,"","LTB",0,'L',false);// caja vacia
             $this->Cell(20, 8, _('Dist') . ".: {$trs['dist']}m", "LTB", 0, 'L', false);
@@ -169,10 +169,10 @@ class PrintClasificacionTeam extends PrintCommon {
             // ahora el nombre de la manga y los jueces
             $nmanga=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $this->categoria;
             $juez1=$jobj->selectByID($this->manga2->Juez1); $juez2=$jobj->selectByID($this->manga2->Juez2);
-            $this->setXY(81,49);
+            $this->setXY(81,46);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
             $this->Cell( 88,4,$nmanga,"",0,'L',false);
-            $this->setXY(81,52);
+            $this->setXY(81,49);
             $this->SetFont($this->getFontName(),'I',8); // bold 9px
             $jueces = _('Judge') .": ". $juez1['Nombre'];
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
@@ -220,7 +220,7 @@ class PrintClasificacionTeam extends PrintCommon {
 
     function printTeamInformation($teamcount,$team) {
         // evaluate logos
-        $logos=array('null.png','null.png','null.png','null.png');
+        $logos=array('null.png','null.png','null.png','null.png','null.png');
         if ($team['Nombre']==="-- Sin asignar --") {
             $logos[0]=getIconPath($this->federation->get('Name'),"agilitycontest.png");
         } else {
@@ -228,7 +228,7 @@ class PrintClasificacionTeam extends PrintCommon {
             for ($n=0;$n<count($team['Perros']);$n++) {
                 $miembro=$team['Perros'][$n]['Perro'];
                 $logo=$this->getLogoName(intval($miembro));
-                if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
+                if ( ( ! in_array($logo,$logos) ) && ($count<5) ) $logos[$count++]=$logo;
             }
         }
         $this->ac_header(1,18);
@@ -239,14 +239,14 @@ class PrintClasificacionTeam extends PrintCommon {
 		for ($n=0;$n<$this->getMaxDogs();$n++) {
 			if ($logos[$n]==="null.png") {
 				$this->SetX($x+10*$n);
-				$this->Cell(10,8,"",'T',0,'C',true);
+				$this->Cell(10,7,"",'T',0,'C',true);
 			} else {
-				$this->Image($logos[$n],$x+10*$n,$y,8);
+				$this->Image($logos[$n],$x+10*$n,$y,7);
 			}
 		}
 		$this->SetX($x+40);
-        $this->Cell(212,8,$team['Nombre'],'T',0,'R',true);
-        $this->Cell(8,8,'','TR',0,'R',true); // empty space at right of page
+        $this->Cell(212,7,$team['Nombre'],'T',0,'R',true);
+        $this->Cell(8,7,'','TR',0,'R',true); // empty space at right of page
         $this->Ln();
     }
 
@@ -313,11 +313,13 @@ class PrintClasificacionTeam extends PrintCommon {
 		$this->Ln();
 	}
 	
-	function writeCell($idx,$row,$team) {
+	function writeCell($idx,$row,$team,$last) {
 	    // $this->myLogger->trace("row: ".json_encode($row));
 		$wide=$this->federation->get('WideLicense');
 		if ($this->useLongNames) $wide=false;
         $this->ac_row($idx,8);
+        $border=($idx==$last)?'B':'';
+        $borderl=($idx==$last)?'LB':'L';
 		if ( ($row==$this->defaultPerro) && ($idx>=$this->getMinDogs() ) ){
 			// no dogs, and no dog to show as "no inscrito"
 			$this->Cell(230,4,'',0,0,'',false);
@@ -337,52 +339,52 @@ class PrintClasificacionTeam extends PrintCommon {
 
 			$this->SetFont($this->getFontName(),'',8); // default font
 			// datos del participante
-			$this->Cell(8,4,$row['Dorsal'],'L',0,'L',true); 	// dorsal
+			$this->Cell(8,4,$row['Dorsal'],$borderl,0,'L',true); 	// dorsal
             if ($this->useLongNames) {
                 $this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
                 $nombre=$row['Nombre']." - ".$row['NombreLargo'];
-                $this->Cell(40,4,$nombre,0,0,'L',true);	// nombre (20,y
+                $this->Cell(40,4,$nombre,$border,0,'L',true);	// nombre (20,y
             } else {
                 $this->SetFont($this->getFontName(),'B',8); // Display Nombre in bold typeface
-                $this->Cell(($wide)?15:25,4,$row['Nombre'],0,0,'L',true);	// nombre (20,y
+                $this->Cell(($wide)?15:25,4,$row['Nombre'],$border,0,'L',true);	// nombre (20,y
                 $this->SetFont($this->getFontName(),'',($wide)?6:8); // default font for licencia
-                $this->Cell(($wide)?25:15,4,$row['Licencia'],0,0,'C',true);	// licencia
+                $this->Cell(($wide)?25:15,4,$row['Licencia'],$border,0,'C',true);	// licencia
             }
 			$this->SetFont($this->getFontName(),'',8); // default font
-			$this->Cell(8,4,"{$row['Categoria']}",0,0,'C',true);	// categoria/grado
-			$this->Cell(30,4,$this->getHandlerName($row),0,0,'R',true);	// nombreGuia
-			$this->Cell(16,4,$row['NombreClub'],0,0,'R',true);	// nombreClub
+			$this->Cell(8,4,"{$row['Categoria']}",$border,0,'C',true);	// categoria/grado
+			$this->Cell(30,4,$this->getHandlerName($row),$border,0,'R',true);	// nombreGuia
+			$this->Cell(16,4,$row['NombreClub'],$border,0,'R',true);	// nombreClub
 			// manga 1
 			if ($this->manga1!==null) {
 			    $this->SetTextColor( ($row['Out1']==0)?0:128 );
-				$this->Cell(5,4,$row['F1'],'L',0,'C',true);	// 1- Faltas+Tocados
-				$this->Cell(5,4,$row['R1'],0,0,'C',true);	// 1- Rehuses
-				$this->Cell(10,4,$t1,0,0,'C',true);	// 1- Tiempo
-				$this->Cell(7,4,$v1,0,0,'C',true);	// 1- Velocidad
-				$this->Cell(10,4,$p1,0,0,'C',true);	// 1- Penalizacion
-				$this->Cell(10,4,$row['C1'],0,0,'C',true);	// 1- calificacion
+				$this->Cell(5,4,$row['F1'],$borderl,0,'C',true);	// 1- Faltas+Tocados
+				$this->Cell(5,4,$row['R1'],$border,0,'C',true);	// 1- Rehuses
+				$this->Cell(10,4,$t1,$border,0,'C',true);	// 1- Tiempo
+				$this->Cell(7,4,$v1,$border,0,'C',true);	// 1- Velocidad
+				$this->Cell(10,4,$p1,$border,0,'C',true);	// 1- Penalizacion
+				$this->Cell(10,4,$row['C1'],$borderl,0,'C',true);	// 1- calificacion
 			} else {
-				$this->Cell(47,4,'','L',0,'C',true);	// espacio en blanco
+				$this->Cell(47,4,'',$borderl,0,'C',true);	// espacio en blanco
 			}
 			// manga 2
 			if ($this->manga2!==null) {
                 $this->SetTextColor( ($row['Out2']==0)?0:128 );
-				$this->Cell(5,4,$row['F2'],'L',0,'C',true);	// 2- Faltas+Tocados
-				$this->Cell(5,4,$row['R2'],0,0,'C',true);	// 2- Rehuses
-				$this->Cell(10,4,$t2,0,0,'C',true);	// 2- Tiempo
-				$this->Cell(7,4,$v2,0,0,'C',true);	// 2- Velocidad
-				$this->Cell(10,4,$p2,0,0,'C',true);	// 2- Penalizacion
-				$this->Cell(10,4,$row['C2'],0,0,'C',true);	// 2- calificacion
+				$this->Cell(5,4,$row['F2'],$borderl,0,'C',true);	// 2- Faltas+Tocados
+				$this->Cell(5,4,$row['R2'],$border,0,'C',true);	// 2- Rehuses
+				$this->Cell(10,4,$t2,$border,0,'C',true);	// 2- Tiempo
+				$this->Cell(7,4,$v2,$border,0,'C',true);	// 2- Velocidad
+				$this->Cell(10,4,$p2,$border,0,'C',true);	// 2- Penalizacion
+				$this->Cell(10,4,$row['C2'],$border,0,'C',true);	// 2- calificacion
 			} else {
-				$this->Cell(47,4,'','L',0,'C',true);	// espacio en blanco
+				$this->Cell(47,4,'',$borderl,0,'C',true);	// espacio en blanco
 			}
 			// global
             $this->SetTextColor(0);
-			$this->Cell(9,4,number_format2($row['Tiempo'],$this->timeResolution),'L',0,'C',true);	// Tiempo
-			$this->Cell(9,4,number_format2($penal,$this->timeResolution),0,0,'C',true);	// Penalizacion
-			$this->Cell(9,4,$row['Calificacion'],0,0,'C',true);	// Calificacion
+			$this->Cell(9,4,number_format2($row['Tiempo'],$this->timeResolution),$borderl,0,'C',true);	// Tiempo
+			$this->Cell(9,4,number_format2($penal,$this->timeResolution),$border,0,'C',true);	// Penalizacion
+			$this->Cell(9,4,$row['Calificacion'],$borderl,0,'C',true);	// Calificacion
 			$this->SetFont($this->getFontName(),'B',8); // mark "puesto" in bold typeface
-			$this->Cell(7,4,$puesto,'R',0,'C',true);	// Puesto
+			$this->Cell(7,4,$puesto,$borderl.'R',0,'C',true);	// Puesto
 		}
         // datos de la global por equipos
         $this->ac_header(2,8);
@@ -417,6 +419,8 @@ class PrintClasificacionTeam extends PrintCommon {
                 $this->Cell(12,4,"",'B',0,'R',true);	// tiempo final
                 $this->Cell(12,4,$team['Puntos'],'RB',0,'R',true);	// penalizacion final
                 break;
+            case 4: // no usada. sirve para pruebas de cinco perros/equipo
+                break;
         }
 		$this->Ln(4);
 	}
@@ -441,7 +445,7 @@ class PrintClasificacionTeam extends PrintCommon {
             $this->myLogger->trace("Equipo: {$equipo['Nombre']} numdogs: {$numdogs}");
             // si el equipo no tiene participantes es que la categoria no es válida: skip
             if ($numdogs==0) continue;
-            $size=2/*newline*/+8/*teaminfo*/+8/*header*/+4*$numdogs;
+            $size=2/*newline*/+7/*teaminfo*/+8/*header*/+4*$numdogs;
             // si no nos va a caber el equipo, saltamos pagina
             $y=$this->GetY();
 
@@ -452,17 +456,18 @@ class PrintClasificacionTeam extends PrintCommon {
             // $this->myLogger->trace("imprimiendo datos del equipo {$equipo['ID']} - {$equipo['Nombre']}");
             $this->printTeamInformation($teamcount,$equipo);
             $this->writeTableHeader(); // print team header/data
-            $count=max(4,count($equipo['Perros']));
-            for ($n=0;$n<$count;$n++) { // allways use at least 4 cells
-                // con independencia de los perros del equipo imprimiremos siempre 4 columnas
+            // con independencia de los perros del equipo - normalmente $this->getMaxDogs()
+            // imprimiremos siempre al menos 4 columnas (ag,jp,final,puntos)
+            $count=max(4,count($equipo['Perros'])); // allways use at least 4 cells
+            for ($n=0;$n<$count;$n++) {
                 $row=$this->defaultPerro;
                 if (array_key_exists($n,$equipo['Perros'])) $row=$equipo['Perros'][$n];
                 // print team member's result
                 // $this->myLogger->trace("imprimiendo datos del perro {$row['Perro']} - {$row['Nombre']}");
-                $this->writeCell($n,$row,$equipo);
+                $this->writeCell($n,$row,$equipo,$count-1);
             }
-            $teamcount++;
-            $this->Ln(2); // extra space between teams
+            $teamcount++; // extra space between teams depends of max dogx to use the entire page
+            $this->Ln(2*(6-$this->getMaxDogs()) );
         }
         $this->myLogger->leave();
     }

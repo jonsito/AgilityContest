@@ -21,7 +21,7 @@ require_once __DIR__.'/MacroParser.php';
 /*
 mailManager.php
 
-Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms
 of the GNU General Public License as published by the Free Software Foundation;
@@ -371,7 +371,7 @@ class MailManager {
         $version = $this->myConfig->getEnv("version_name");
         $release = $this->myConfig->getEnv("version_date");
         $htmlmsg .= "<hr/><p>". _("Email sent with") .  "AgilityContest-$version $release at $d</p> ";
-        $htmlmsg .= "<p>CopyRight &copy; 2013-2019 by Juan Antonio Martinez &lt; jonsito at gmail dot com &gt;</p>";
+        $htmlmsg .= "<p>CopyRight &copy; 2013-2020 by Juan Antonio Martinez &lt; jonsito at gmail dot com &gt;</p>";
         $myMailer->msgHTML($macro->compile($htmlmsg));
         // set plain text to notify to use an html-enabled email browser
         $myMailer->AltBody = _("Please enable HTML view in your email application");
@@ -649,7 +649,7 @@ class MailManager {
         $version = $this->myConfig->getEnv("version_name");
         $release = $this->myConfig->getEnv("version_date");
         $htmlmsg .= "<hr/><p>". _("Email sent with") .  "AgilityContest-$version $release at $d</p> ";
-        $htmlmsg .= "<p>CopyRight &copy; 2013-2019 by Juan Antonio Martinez &lt; jonsito at gmail dot com &gt;</p>";
+        $htmlmsg .= "<p>CopyRight &copy; 2013-2020 by Juan Antonio Martinez &lt; jonsito at gmail dot com &gt;</p>";
         $myMailer->msgHTML($macro->compile($htmlmsg));
         // set plain text to notify to use an html-enabled email browser
         $myMailer->AltBody = _("Please enable HTML view in your email application");

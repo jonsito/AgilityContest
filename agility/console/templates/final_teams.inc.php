@@ -20,7 +20,7 @@ $config =Config::getInstance();
         <th data-options="field:'Outs2',			hidden:true"></th>
          -->
         <th data-options="field:'Logo',		    width:'19%', sortable:false, formatter:formatTeamLogos">&nbsp</th>
-        <th data-options="field:'Nombre',		width:'20.5%', sortable:false, formatter:formatBold"><?php _e('Team'); ?></th>
+        <th data-options="field:'Nombre',		width:'20.5%', sortable:false, formatter:formatDogName"><?php _e('Team'); ?></th>
         <th data-options="field:'Categorias',	width:'4%', sortable:false, formatter:formatCategoria"><?php _e('Cat'); ?></th>
         <th data-options="field:'T1',		    align:'center', width:'9.5%', formatter:formatTiempoEquipos1"><?php _e('Time'); ?> 1</th>
         <th data-options="field:'P1',		    align:'center',width:'10%', formatter:formatPenalizacion"><?php _e('Penal'); ?> 1</th>
@@ -37,7 +37,7 @@ $config =Config::getInstance();
     $('#finales_equipos-datagrid').datagrid({
         expandCount: 0,
         // propiedades del panel asociado
-        fit: false, // do not set to true to take care on extra elements in panel
+        fit: true,
         border: false,
         closable: false,
         collapsible: false,
@@ -45,7 +45,6 @@ $config =Config::getInstance();
         // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
         loadMsg:  "<?php _e('Updating final scores');?>...",
         // propiedades del datagrid
-        width:'99%',
         height:2048, // enought big to assure overflow
         pagination: false,
         rownumbers: true,
@@ -58,6 +57,7 @@ $config =Config::getInstance();
         // columns declared at html section to show additional headers
         // especificamos un formateador especial para desplegar la tabla de perros por equipos
         view:detailview,
+        toolbar: '#resultados-toolbar',
         detailFormatter:function(idx,row){
             var dgname="finales_equipos-datagrid-"+parseInt(row.ID);
             return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';

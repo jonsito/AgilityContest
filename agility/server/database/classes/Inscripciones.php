@@ -2,7 +2,7 @@
 /*
 Inscripciones.php
 
-Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms 
 of the GNU General Public License as published by the Free Software Foundation; 
@@ -719,7 +719,7 @@ class Inscripciones extends DBObject {
         $defteam=$this->__selectAsArray("*","equipos","Jornada={$jornada} AND DefaultTeam=1");
         // si la jornada destino no tiene pruebas por equipos,
         // entonces NO clonamos los equipos de la jornada original
-        if (Jornadas::hasTeams($jornada)) {
+        if (Jornadas::isJornadaEquipos($jornada)) {
             // obtenemos la lista de equipos de la jornada antigua
             $equipos=$this->__select("*","equipos","Jornada={$from}");
             $ordenEquipos="BEGIN,";

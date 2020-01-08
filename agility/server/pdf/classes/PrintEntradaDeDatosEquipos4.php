@@ -64,8 +64,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
 			throw new Exception($this->errormsg);
 		}
         // comprobamos que estamos en una jornada por equipos
-        $flag=intval($this->jornada->Equipos3)+intval($this->jornada->Equipos4);
-        if ($flag==0) {
+        if (!Jornadas::isJornadaEquipos($this->jornada)) {
             $this->errormsg="print_entradaDeDatosEquipos4: Jornada {$data['jornada']} has no Team competition declared";
             throw new Exception($this->errormsg);
         }
@@ -131,14 +130,16 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
 	function printTeamInfo($rowcount,$index,$team,$members) {
         // evaluate logos
         $nullpng=getIconPath($this->federation->get('Name'),'null.png');
-        $logos=array($nullpng,$nullpng,$nullpng,$nullpng);
+        $logos=array();
+        $maxdogs=$this->getMaxDogs();
+        for($n=0;$n<$maxdogs;$n++) $logos[]=$nullpng;
         if ($team['Nombre']==="-- Sin asignar --") {
             $logos[0]=getIconPath($this->federation->get('Name'),'agilitycontest.png');
         } else {
             $count=0;
             foreach($members as $miembro) {
                 $logo=$this->getLogoName($miembro['Perro']);
-                if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
+                if ( ( ! in_array($logo,$logos) ) && ($count<$maxdogs) ) $logos[$count++]=$logo;
             }
         }
         // posicion de la celda

@@ -458,7 +458,7 @@ class Resultados extends DBObject {
             // comprobamos la coherencia de los datos recibidos y ajustamos
             // NOTA: el orden de estas comprobaciones es MUY importantee
             $djornada=$this->getDatosJornada();
-            if (intval($djornada->Equipos4)!==0) { // pruebas por equipos en modalidad de cuatro conjunta
+            if ( Jornadas::isJornadaEqConjunta($djornada) ){ // pruebas por equipos en modalidad de cuatro conjunta
                 if ($rehuses>=3) { $tiempo=0; $tintermedio=0; $faltas=0; $tocados=0; $eliminado=1; $nopresentado=0;}
                 if ($tiempo>0) {$nopresentado=0;}
                 if ($eliminado==1) { $tiempo=0; $tintermedio=0; $faltas=0; $tocados=0; $rehuses=0; $nopresentado=0; }
@@ -833,7 +833,7 @@ class Resultados extends DBObject {
      */
     function getResultadosEquipos($results) {
         $resultados=$results['rows'];
-        // evaluamos mindogs
+        // evaluamos mindogs/maxdogs
         $mindogs=Jornadas::getTeamDogs($this->getDatosJornada())[0]; // get mindogs
         $maxdogs=Jornadas::getTeamDogs($this->getDatosJornada())[1]; // get maxdogs
 
@@ -847,6 +847,7 @@ class Resultados extends DBObject {
             $equipo['Resultados']=array();
             $equipo['Tiempo']=0.0;
             $equipo['Penalizacion']=0.0;
+            $equipo['Puntos']=0; // points are not used here, but...
             $equipo['Eliminados']=0;
             $equipos[$equipo['ID']]=$equipo;
         }
@@ -880,38 +881,24 @@ class Resultados extends DBObject {
         $teams=array();
         foreach($equipos as &$equipo) {
             $numdogs=count($equipo['Resultados']);
-            $this->myLogger->trace("Checking NumDogs {$equipo['Nombre']} : {$numdogs}");
-            switch($numdogs){
-                case 0: // ignore team
-					break;
-                case 1: $equipo['Penalizacion']+=400.0; // required team member undeclared
-                // no break
-                case 2: if ($mindogs==3) $equipo['Penalizacion']+=400.0; // required team member undeclared
-                // no break;
-                case 3: if ($mindogs==4) $equipo['Penalizacion']+=400.0; // required team member undeclared
-                // no break;
-                default:
-                    if($numdogs>$maxdogs) {
-                        $this->myLogger->warn("Equipo {$equipo['ID']} : '{$equipo['Nombre']}' con exceso de participantes:".count($equipo['Resultados']));
-                    }
-                    $t4m=intval($this->myConfig->getEnv('team4_mode'));
-                    $this->myLogger->trace("team4 mode is: $t4m");
-                    // in team4 check what to do in Team4mode when a team member is eliminated
-                    if ( ($mindogs==$maxdogs) && ($equipo['Eliminados']>0) ) {
-                        // 0: 100 penalty points. Team time goes on. Nothing to do
-
-                        // 1: 100 penalty points. Team time set to MCT ( European open mode )
-                        if ($t4m===1){
-                            $equipo['Tiempo']=$results['trs']['trm'];
-                        }
-                        // 2: entire team is eliminated
-                        if ($t4m===2){
-                            $equipo['Penalizacion']=max(100*$mindogs,$equipo['Penalizacion']);
-                        }
-                    }
-                    array_push($teams,$equipo); // add team to result to remove unused/empty teams
-                    break;
+            $this->myLogger->trace("Team {$equipo['ID']}:'{$equipo['Nombre']}' numdogs:{$numdogs} mindogs:{$mindogs} maxdogs{$maxdogs}");
+            if ($numdogs==0) continue; // team with no dogs: ignore
+            if($numdogs>$maxdogs) {
+                $this->myLogger->warn("Team {$equipo['ID']}:'{$equipo['Nombre']}' exceeds maxdogs:".count($equipo['Resultados']));
             }
+            // add NP for every missing dog
+            for ($n=$numdogs;$n<$mindogs;$n++) $equipo['Penalizacion']+=400.0;
+            // in team4 check what to do in Team4mode when a team member is eliminated
+            if ( ($mindogs==$maxdogs) && ($equipo['Eliminados']>0) ) {
+                $t4m=intval($this->myConfig->getEnv('team4_mode'));
+                $this->myLogger->trace("team4 mode is: $t4m");
+                // 0: 100 penalty points. Team time goes on. Nothing to do
+                // 1: 100 penalty points. Team time set to MCT ( European open mode )
+                if ($t4m===1)$equipo['Tiempo']=$results['trs']['trm'];
+                // 2: entire team is eliminated
+                if ($t4m===2) $equipo['Penalizacion']=max(100*$mindogs,$equipo['Penalizacion']);
+            }
+            array_push($teams,$equipo); // add team to result to remove unused/empty teams
         }
 
         // finally sort equipos by result instead of id

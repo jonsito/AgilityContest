@@ -304,8 +304,7 @@ function modeToCats(mode) {
  * @returns {boolean}
  */
 function hasGradosByJornada(jornada) {
-    if (parseInt(jornada.Equipos3)!=0) return false;
-    if (parseInt(jornada.Equipos4)!=0) return false;
+    if (isJornadaEquipos(jornada)) return false;
     if (parseInt(jornada.Open)!=0) return false;
     if (parseInt(jornada.KO)!=0) return false;
     if (parseInt(jornada.Especial)!=0) return false;
@@ -359,6 +358,7 @@ function isMangaSenior() { return ( $.inArray(workingData.datosManga.Tipo,["34",
 function isJornadaEquipos(datosJornada) {
 	if (typeof(datosJornada)==="undefined") datosJornada=workingData.datosJornada;
 	else if (datosJornada===null) datosJornada=workingData.datosJornada;
+	// notice that since 4.2.x Equipos3/Equipos4 becomes mindogs/maxdogs
 	if (datosJornada.Equipos3!=0) return true;
 	if (datosJornada.Equipos4!=0) return true;
 	return false;
@@ -375,7 +375,7 @@ function isJornadaEquipos(datosJornada) {
  */
 function getTeamDogs(djornada) {
     if (typeof(djornada)==="undefined") djornada=workingData.datosJornada;
-    var data= parseInt(djornada.Equipos3)<<4 + parseInt(djornada.Equipos4);
+    var data= (parseInt(djornada.Equipos3)<<4)  + parseInt(djornada.Equipos4);
     switch (data) {
         case 0x00: // no team journey
             console.log("Current Journey is not a Team Journey");

@@ -2,7 +2,7 @@
 /*
 clasificaciones.php
 
-Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms 
 of the GNU General Public License as published by the Free Software Foundation; 
@@ -218,8 +218,7 @@ class Clasificaciones extends DBObject {
             $final[$idx]['Pcat']=$puestocat[$cat];
 
 			// on special journeys do not evaluate calification
-			if($this->jornada->Equipos3!=0) continue;
-			if($this->jornada->Equipos4!=0) continue;
+            if (Jornadas::isJornadaEquipos($this->jornada)) continue;
 			if($this->jornada->KO!=0) continue;
             // call to competition module to get calification points and related data
 			$comp->evalFinalCalification($mangas,$resultados,$final[$idx],$puestocat);

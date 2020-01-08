@@ -53,8 +53,7 @@ class PrintEquiposByJornada extends PrintCommon {
 			throw new Exception($this->errormsg);
 		}
         // comprobamos que estamos en una jornada por equipos
-        $flag=intval($this->jornada->Equipos3)+intval($this->jornada->Equipos4);
-        if ($flag==0) {
+        if (! Jornadas::isJornadaEquipos($this->jornada) ) {
             $this->errormsg="print_teamsByJornada: Jornada $jornada has no Team competition declared";
             throw new Exception($this->errormsg);
         }
@@ -103,15 +102,16 @@ class PrintEquiposByJornada extends PrintCommon {
 	function printTeamInformation($rowcount,$team) {
         $fed=$this->federation->get('Name');
         $nl=getIconPath($fed,'null.png');
+        $maxdogs=Jornadas::getTeamDogs($this->jornada)[1];
         // evaluate logos
-        $logos=array($nl,$nl,$nl,$nl);
+        $logos=array(); for ($n=0;$n<$maxdogs;$n++) $logos[]=$nl;
         if ($team['Nombre']==="-- Sin asignar --") {
             $logos[0]=getIconPath($fed,'agilitycontest.png');
         } else {
             $count=0;
             foreach($team['Perros'] as $miembro) {
                 $logo=getIconPath($fed,$miembro['LogoClub']);
-                if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
+                if ( ( ! in_array($logo,$logos) ) && ($count<$maxdogs) ) $logos[$count++]=$logo;
             }
         }
         $this->SetXY(10,45+5*$rowcount);

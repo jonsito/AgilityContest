@@ -58,11 +58,10 @@ $config =Config::getInstance();
 </table>
 
 <script type="text/javascript">
-
     $('#finales_individual-datagrid').datagrid({
         expandCount: 0,
         // propiedades del panel asociado
-        fit: false, // set to false as we used thead to declare columns, and they have their own width
+        fit: true,
         border: false,
         closable: false,
         collapsible: false,
@@ -70,7 +69,7 @@ $config =Config::getInstance();
         // propiedades del datagrid
         // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
         loadMsg: "<?php _e('Updating final scores');?>...",
-        width:'100%',
+        width:'99%',
         pagination: false,
         rownumbers: false,
         fitColumns: false,
@@ -78,7 +77,9 @@ $config =Config::getInstance();
         rowStyler:myRowStyler,
         autoRowHeight:false,
         idField: 'ID',
+        toolbar: '#resultados-tooolbar',
         pageSize: 500 // enought bit to make it senseless
         // columns declared at html section to show additional headers
     });
+
 </script>

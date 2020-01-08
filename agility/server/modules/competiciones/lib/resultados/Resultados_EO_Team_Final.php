@@ -2,7 +2,7 @@
 /*
 Resultados_EO_Team_Final.php
 
-Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms 
 of the GNU General Public License as published by the Free Software Foundation; 
@@ -51,8 +51,10 @@ class Resultados_EO_Team_Final extends Resultados {
      */
     function getResultadosEquipos($results) {
         $resultados=$results['rows'];
-        // evaluamos mindogs
+        // evaluamos mindogs/maxdogs ( en una final EO deben coincidir )
+        $mindogs=Jornadas::getTeamDogs($this->getDatosJornada())[0]; // get mindogs
         $maxdogs=Jornadas::getTeamDogs($this->getDatosJornada())[1]; // get maxdogs
+
         // Datos de equipos de la jornada. obtenemos prueba y jornada del primer elemento del array
         $m=new Equipos("getResultadosEquipos",$this->IDPrueba,$this->IDJornada);
         $teams=$m->getTeamsByJornada();
@@ -64,7 +66,7 @@ class Resultados_EO_Team_Final extends Resultados {
             $equipo['Resultados']=array();
             $equipo['Tiempo']=0.0;
             $equipo['Penalizacion']=0.0;
-            $equipo['Puntos']=0; // points are not used here
+            $equipo['Puntos']=0; // points are not used here, but...
             $equipo['Eliminados']=0;
             $equipos[$equipo['ID']]=$equipo;
         }
@@ -72,27 +74,30 @@ class Resultados_EO_Team_Final extends Resultados {
         // notice that $resultados is already sorted by individual results
         foreach($resultados as &$result) {
             $teamid=$result['Equipo'];
-            array_push($equipos[$teamid]['Resultados'],$result);
-            // suma el tiempo y penalizaciones de los tres/cuatro primeros
-            // almacena los puntos del mejor y del cuarto
-            if (count($equipos[$teamid]['Resultados'])>$maxdogs) { // hey! more dogs in team than required
-                $this->myLogger->notice("Team {$equipos[$teamid]['ID']} has more than {$maxdogs} dogs");
+            $equipo=&$equipos[$teamid];
+            array_push($equipo['Resultados'],$result);
+            // suma el tiempo y penalizaciones de los participantes del equipo
+            // descarta los binomios que sobrepasen maxdogs
+            if (count($equipo['Resultados'])>$maxdogs) { // hey! more dogs in team than required
+                $this->myLogger->notice("Team {$equipo['ID']} has more than {$maxdogs} dogs");
                 continue;
             }
             if ($result['Penalizacion']>=200) continue; // not present or not yet run
             if ($result['Penalizacion']>=100) {
-                $equipos[$teamid]['Eliminados']++;
-                $equipos[$teamid]['Penalizacion']+=100.0; // question to ask: eliminated clears other penalizations ???
+                $equipo['Eliminados']++;
+                $equipo['Penalizacion']+=100.0; // question to ask: eliminated clears other penalizations ???
                 continue;
             }
-            $equipos[$teamid]['Tiempo']+=floatval($result['Tiempo']);
-            $equipos[$teamid]['Penalizacion']+=floatval($result['Penalizacion']);
+            $equipo['Tiempo']+=floatval($result['Tiempo']);
+            $equipo['Penalizacion']+=floatval($result['Penalizacion']);
         }
         // iterate teams to check/parse eliminated and remove every unwanted teams
         $final=array();
         foreach($equipos as $equipo) { // pass by refence as need to modify inner data
             if (count($equipo['Resultados'])==0) continue; // skip empty teams
-            // on one or more eliminated, set tiempo as TRM
+            if (count($equipo['Resultados'])<$mindogs) continue; // skip incomplete teams
+            if (count($equipo['Resultados'])>$maxdogs) continue; // skip teams exceeding maxdogs
+            // on one or more eliminated, set tiempo as TRM ( as eo rules states )
             if ($equipo['Eliminados']>0) $equipo['Tiempo']=floatval($results['trs']['trm']);
             $final[]=$equipo;
         }
@@ -104,6 +109,5 @@ class Resultados_EO_Team_Final extends Resultados {
         // retornamos el resultado final
         return $final;
     }
-
 }
 ?>

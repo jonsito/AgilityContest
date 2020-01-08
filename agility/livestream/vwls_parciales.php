@@ -77,16 +77,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 </div>
 
                 <!-- tabla de datos: se cargan la de individual y de equipos, y en runtime se selecciona una u otra -->
-                <div id="vw_table" data-options="region:'center'" style="background-color:transparent">
-
+                <div id="vw_table" data-options="region:'center'" class="scores_table" style="background-color:transparent;">
                     <!-- datagrid para resultados individuales -->
-                    <div id="parciales_individual-table" class="scores_table" style="display:none;width:100%;">
                         <?php include_once(__DIR__ . "/../console/templates/parcial_individual.inc.php"); ?>
-                    </div>
                     <!-- datagrid para resultados por equipos -->
-                    <div id="parciales_equipos-table" class="scores_table" style="display:none;width:100%;">
                         <?php include_once(__DIR__ . "/../console/templates/parcial_teams.inc.php"); ?>
-                    </div>
                 </div>
 
                 <!-- Pie de pagina -->

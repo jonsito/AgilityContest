@@ -7,7 +7,7 @@
  * Time: 16:20
 InscriptionReader.php
 
-Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms
 of the GNU General Public License as published by the Free Software Foundation;
@@ -88,8 +88,7 @@ class InscriptionReader extends DogReader {
         $this->saveStatus("Looking for teams");
         foreach ($this->jornadas as $jornada) {
             // check for team journey
-            $team = intval($jornada['Equipos3']) + intval($jornada['Equipos4']);
-            if($team==0) continue; // not a team journey: skip
+            if (!Jornadas::isJornadaEquipos($jornada)) continue; // not a team journey: skip
 
             // if team journey retrieve all team names and create them
             $jname=$jornada['Nombre'];
@@ -162,7 +161,7 @@ class InscriptionReader extends DogReader {
                 foreach ($this->jornadas as $jornada) {
 
                     // check if a given journey has teams and if dog is inscribed
-                    if ( (intval($jornada['Equipos3']) + intval($jornada['Equipos4']))==0) continue; // not team journey
+                    if (!Jornadas::isJornadaEquipos($jornada)) continue; // not team journey
                     $name=preg_replace('/\s+/', '', $jornada['Nombre']); // remove spaces to get friendly with database field naming
                     $itemTeam=trim($item[$name]);
                     if (!is_null(parseYesNo($itemTeam))) continue; // not inscribed or inscribed into default team

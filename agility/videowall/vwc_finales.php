@@ -58,17 +58,13 @@ Pantalla de de visualizacion combinada llamada/parciales
             <table id="vwc_llamada-datagrid" class="vwc_top"></table>
         </div>
         <div data-options="region:'center',border:false" class="vwc_top"><!-- Espacio vacio -->&nbsp;</div>
-        <div data-options="region:'east'" style="width:74%"> <!-- CLASIFICACION FINAL -->
+        <div data-options="region:'east'" class="scores_table" style="width:74%"> <!-- CLASIFICACION FINAL -->
             <!-- Datos de TRS y TRM -->
             <?php include_once(__DIR__ . "/../console/templates/final_rounds_data.inc.php"); ?>
             <!-- datagrid para clasificacion individual -->
-            <div id="finales_individual-table" class="scores_table" style="display:none;width:100%">
-                <?php include_once(__DIR__ . "/../console/templates/final_individual.inc.php"); ?>
-            </div>
+            <?php include_once(__DIR__ . "/../console/templates/final_individual.inc.php"); ?>
             <!-- datagrid para clasificacion por equipos -->
-            <div id="finales_equipos-table" class="scores_table" style="display:none;width:100%">
-                <?php include_once(__DIR__ . "/../console/templates/final_teams.inc.php"); ?>
-            </div>
+            <?php include_once(__DIR__ . "/../console/templates/final_teams.inc.php"); ?>
         </div>
         <div data-options="region:'south',border:false" style="height:25%;">
             <div id="vwcf-layout2">
@@ -108,12 +104,8 @@ Pantalla de de visualizacion combinada llamada/parciales
                     </div>
                 </div>
                 <div id="finales_last-div" data-options="region:'east'" style="width:76%"> <!-- ULTIMOS TRES RESULTADOS -->
-                    <div id="finales_last_individual-table" class="scores_table" style="width:100%">
-                        <?php include_once(__DIR__ . "/../console/templates/final_last_individual.inc.php"); ?>
-                    </div>                    
-                    <div id="finales_last_equipos-table" class="scores_table" style="width:100%">
-                        <?php include_once(__DIR__ . "/../console/templates/final_last_teams.inc.php"); ?>
-                    </div>
+                    <?php include_once(__DIR__ . "/../console/templates/final_last_individual.inc.php"); ?>
+                    <?php include_once(__DIR__ . "/../console/templates/final_last_teams.inc.php"); ?>
                 </div>
             </div>
         </div>

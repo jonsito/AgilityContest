@@ -379,9 +379,19 @@ function round_setUnit(unit,dest) {
 
 /* comodity function to set up round SCT mode based on SCT unit */
 function round_setMode(tipo,dest) {
-    if (tipo==='s') $(dest).combobox('setValue',0); // on change to seconds assume fixed sct (most of the cases will match)
-    if (tipo==='m') $(dest).combobox('setValue',6); // on change to m/s force speed defined sct
-    if (tipo==='%') $(dest).combobox('setValue',1); // on percentage: assume result plus something
+    var current=parseInt($(dest).combobox('getValue'));
+    if ((tipo==='s')&&(current==6) ){
+        // on change to seconds assume fixed sct when current is speed
+        $(dest).combobox('setValue',0);
+    }
+    if (tipo==='m') {
+        // on change to m/s force speed defined sct
+        $(dest).combobox('setValue',6);
+    }
+    if (tipo==='%') {
+        // on percentage: assume result plus something when in fixed/speed mode; else dont change
+        if ( (current==0) || (current==6) ) $(dest).combobox('setValue',1);
+    }
 }
 
 function formatTeamResults( name,value , rows ) {
@@ -420,6 +430,7 @@ function formatVwTeamResults(value,rows) { return formatTeamResults('#vw_parcial
 function formatTeamClasificaciones(dgname,value,rows) {
     var logos="";
     var mindogs=getMinDogsByTeam();
+    var maxdogs=getMaxDogsByTeam();
     function sortResults(a,b) {
         return (a.penal== b.penal)? (a.time - b.time) : (a.penal - b.penal);
     }
@@ -430,7 +441,7 @@ function formatTeamClasificaciones(dgname,value,rows) {
     // cogemos y ordenamos los datos de cada manga
     var manga1={ time:0.0, penal:0.0, perros:[] };
     var manga2={ time:0.0, penal:0.0, perros:[] };
-    for (var n=0;n<4;n++) {
+    for (var n=0;n<maxdogs;n++) {
         if (typeof(rows[n]) === "undefined") {
             manga1.perros[n] = {time: parseFloat(0.0), penal: parseFloat(400.0)};
             manga2.perros[n] = {time: parseFloat(0.0), penal: parseFloat(400.0)};
@@ -444,7 +455,7 @@ function formatTeamClasificaciones(dgname,value,rows) {
     // ordenamos ahora las matrices de resultados
     (manga1.perros).sort(sortResults);
     (manga2.perros).sort(sortResults);
-    // y sumamos los dos/tres/cuatro primeros ( en funcion del tipo de competicion de equipos ) resultados
+    // y sumamos los dos/tres/cuatro/cinco primeros ( en funcion del tipo de competicion de equipos ) resultados
     for (n=0;n<mindogs;n++) {
         manga1.time +=parseFloat(manga1.perros[n].time);
         manga1.penal +=parseFloat(manga1.perros[n].penal);
@@ -503,10 +514,10 @@ function vwcf_configureScreenLayout() {
         lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
     }
     // individual or team view
-    $("#finales_individual-table").css("display",(team)?'none':'inherit');
-    $("#finales_last_individual-table").css("display",(team)?'none':'inherit');
-    $("#finales_equipos-table").css("display",(team)?'inherit':'none');
-    $("#finales_last_equipos-table").css("display",(team)?'inherit':'none');
+    resdg.datagrid('getPanel').panel((team)?'close':'open');
+    lastdg.datagrid('getPanel').panel((team)?'close':'open');
+    restdg.datagrid('getPanel').panel((team)?'open':'close');
+    lasttdg.datagrid('getPanel').panel((team)?'open':'close');
     calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
     calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
 
@@ -546,10 +557,11 @@ function vwcp_configureScreenLayout() {
         lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
     }
     // individual or team view
-    $("#parciales_individual-table").css("display",(team)?'none':'inherit');
-    $("#parciales_last_individual-table").css("display",(team)?'none':'inherit');
-    $("#parciales_equipos-table").css("display",(team)?'inherit':'none');
-    $("#parciales_last_equipos-table").css("display",(team)?'inherit':'none');
+
+    resdg.datagrid('getPanel').panel((team)?'close':'open');
+    lastdg.datagrid('getPanel').panel((team)?'close':'open');
+    restdg.datagrid('getPanel').panel((team)?'open':'close');
+    lasttdg.datagrid('getPanel').panel((team)?'open':'close');
     calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
     calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
     // show hide license according national or international

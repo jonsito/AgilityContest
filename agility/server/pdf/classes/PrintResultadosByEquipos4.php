@@ -133,14 +133,16 @@ class PrintResultadosByEquipos4 extends PrintCommon {
 
         $members=$team['Resultados'];
         // evaluate logos
-        $logos=array('null.png','null.png','null.png','null.png');
+        $maxdogs=Jornadas::getTeamDogs($this->jornada)[1];
+        $logos=array();
+        for($n=0;$n<$maxdogs;$n++) $logos[]='null.png';
         if ($team['Nombre']==="-- Sin asignar --") {
             $logos[0]=getIconPath($this->federation->get('Name'),"agilitycontest.png");
         } else {
             $count=0;
             foreach($members as $miembro) {
                 $logo=$this->getLogoName($miembro['Perro']);
-                if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
+                if ( ( ! in_array($logo,$logos) ) && ($count<$maxdogs) ) $logos[$count++]=$logo;
             }
         }
         // posicion de la celda
@@ -177,7 +179,7 @@ class PrintResultadosByEquipos4 extends PrintCommon {
         $this->Cell(128,14,"","LTBR",0,'C',true);
         $x=70;
         // if no logo is "null.png" don't try to insert logo, just add empty text with parent background
-        for ($n=0;$n<4;$n++) {
+        for ($n=0;$n<$maxdogs;$n++) {
             if ($logos[$n]==="null.png") {
                 $this->SetX($x+7*$n);
                 $this->Cell(7,7,"",'T',0,'C',true);

@@ -2,7 +2,7 @@
 /*
 VideoWall.php
 
-Copyright  2013-2019 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms 
 of the GNU General Public License as published by the Free Software Foundation; 
@@ -112,15 +112,8 @@ class VideoWall {
 		// $this->myLogger->info("sesion:$sessionid prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} tanda:{$this->tandatype} mode:$mode");
 	}
 
-    function isTeam() {
-        if (intval($this->jornada['Equipos3'])!=0) return true;
-        if (intval($this->jornada['Equipos4'])!=0) return true;
-        return false;
-    }
-
     function hasGrades() {
-        if (intval($this->jornada['Equipos3'])!=0) return false;
-        if (intval($this->jornada['Equipos4'])!=0) return false;
+        if (Jornadas::isJornadaEquipos($this->jornada)) return false;
         if (intval($this->jornada['Open'])!=0) return false;
         if (intval($this->jornada['KO'])!=0) return false;
         return true;
@@ -143,7 +136,7 @@ class VideoWall {
                     "Raza","Categoria" => "&nbsp","Grado" => "---","NombreGuia" => $lastTanda,"NombreClub" => "---","Celo" => 0 );
                 array_push($data,$item);
             }
-            if ( $this->isTeam() && ($lastTeam!==$participante['Equipo']) ){
+            if ( Jornadas::isJornadaEquipos($this->jornada) && ($lastTeam!==$participante['Equipo']) ){
                 $lastTeam=$participante['Equipo'];
                 $team=$this->myDBObject->__getObject("equipos",$lastTeam);
                 // orden 0 means new team
@@ -406,8 +399,9 @@ class VideoWall {
         }
         // if team is not provided nor found matching dog, just assume default
         if ($found<0) $found=$before;
-        // fill $foundteam to fit 4 entries
-        for (;count($foundTeam)<4;) array_push($foundTeam,$this->getEmptyData());
+        // fill $foundteam to fit mindogs entries
+        $maxdogs=Jornadas::getTeamDogs($this->jornada)[1];
+        for (;count($foundTeam)<$maxdogs;) array_push($foundTeam,$this->getEmptyData());
         // and return 4 arrays:
         $res=array(
             // "total" => count($res),
