@@ -35,15 +35,8 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
     protected $manga; // datos de la manga
     protected $categoria;
     protected $validcats; // categorias de las que se solicita impresion
-    protected $fillData;
     protected $rango;
     protected $heights;
-	
-	// geometria de las celdas
-	protected $cellHeader;
-    //                      Dorsal  nombre raza licencia Categoria guia club  celo  observaciones
-	protected $pos	=array( 10,     25,     27,    10,    18,      40,   25,  10,    25);
-	protected $align=array( 'R',    'C',    'R',    'C',  'C',     'R',  'R', 'C',   'R');
 	
 	/**
 	 * Constructor
@@ -88,7 +81,6 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
             }
         }
         $this->validcats=$data['cats'];
-        $this->fillData=($data['fill']==0)?false:true;
         $this->rango= (preg_match('/^\d+-\d+$/',$data['rango']))? $data['rango'] : "1-99999";
 
         // set pdf file name
@@ -126,8 +118,13 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
 	function Footer() {
 		$this->print_commonFooter();
 	}
-	
-	function printTeamInfo($rowcount,$index,$team,$members) {
+
+    /**
+     * @param {int} $index numero de orden del equipo
+     * @param {array} $team datos del equipo
+     * @param {array} $members componentes del equipo
+     */
+	function printTeamInfo($index,$team,$members) {
         // evaluate logos
         $nullpng=getIconPath($this->federation->get('Name'),'null.png');
         $logos=array();
@@ -143,13 +140,17 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
             }
         }
         // posicion de la celda
-        $y=60+22*($rowcount);
+        $y=$this->getY();
         $this->SetXY(10,$y);
+
+        // cabecera del equipo
+
         // caja de datos de perros
+        $boxsize=2+7+4*count($members); // border, team, data and dog data
         $this->ac_header(2,16);
-        $this->Cell(12,18,1+$index,'LTB',0,'C',true);
-        $this->Cell(48,18,"","TBR",0,'C',true);
-        $this->SetY($y+1);
+        $this->Cell(12,$boxsize,1+$index,'LTB',0,'C',true);
+        $this->Cell(48,$boxsize,"","TBR",0,'C',true);
+        $this->SetY($y+1+7); // border + header
         $this->ac_header(2,16);
         foreach($members as $id => $perro) {
             $this->SetX(22);
@@ -161,36 +162,43 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
             $this->Cell(28,4,$this->getHandlerName($perro),'LTBR',0,'R',true);
             $this->Ln(4);
         }
+
         // caja de datos del equipo
         $this->SetXY(70,$y);
-        $this->ac_header(1,14);
-        $this->Cell(130,18,"","LTBR",0,'C',true);
-        $this->SetXY(71,$y+1);
-        $this->Image($logos[0],$this->getX(),$this->getY(),5);
-        $this->Image($logos[1],$this->getX()+5,$this->getY(),5);
-        $this->Image($logos[2],$this->getX()+10,$this->getY(),5);
-        $this->Image($logos[3],$this->getX()+15,$this->getY(),5);
-        $this->SetX($this->GetX()+20);
-        $this->Cell(100,5,$team['Nombre'],'',0,'R',true);
-        $this->Cell(8,5,'','',0,'',true); // empty space at right of page
+        $this->ac_header(1,13);
+        $this->Cell(130,$boxsize,"","LTBR",0,'C',true);
+        // logos ( encima de los participantes )
+        $this->SetXY(22,$y+1);
+        for($n=0;$n<count($logos);$n++)
+            $this->Image($logos[$n],$this->getX()+7*$n,$this->getY(),6);
+        // nombre del equipo
+        $this->SetX(91);
+        // add extra space at end of name
+        $this->Cell(108,5,$team['Nombre']."  ",'',0,'R',true);
         $this->Ln();
+
         // caja de faltas/rehuses/tiempos
         $this->ac_SetFillColor("#ffffff"); // white background
-        $this->SetXY(71,7+$y);
-        $this->Cell(49,10,"",'R',0,'L',true);
-        $this->Cell(20,10,"",'R',0,'L',true);
-        $this->Cell(15,10,"",'R',0,'L',true);
-        $this->Cell(15,10,"",'R',0,'L',true);
-        $this->Cell(29,10,"",'',0,'L',true);
-        $this->SetXY(71,7+$y+1);
-        $this->SetFont($this->getFontName(),'I',8); // italic 8px
+        for ($n=0;$n<count($members);$n++) {
+            $this->SetXY(71,$y+7+1+4*$n); // top,header, border,dognumber
+            $this->Cell(49,4,"",'LBR',0,'L',true);
+            $this->Cell(20,4,"",'BR',0,'L',true);
+            $this->Cell(15,4,"",'BR',0,'L',true);
+            $this->Cell(15,4,"",'BR',0,'L',true);
+            $this->Cell(29,4,"",'',0,'L',true);
+        }
+        $this->SetXY(71,$y+7-1.5);
+        $this->SetFont($this->getFontName(),'I',7); // italic 8px
         $this->Cell(49,2.5,_("Faults"),0,0,'L',false);
         $this->Cell(20,2.5,_("Refusals"),0,0,'L',false);
         $this->Cell(15,2.5,_("Touchs"),0,'L',false);
         $this->Cell(15,2.5,_("Eliminated"),0,'L',false);
         $this->Cell(29,2.5,_("Time"),0,0,'L',false);
-        if ( ! $this->fillData) return;
-        // to be done: on fill mode populate team results in assistant sheets
+        // NOTE: fillData has no sense in Team-All contest,
+        // as no way to get individual scores on current team
+
+        // return next Y position
+        return $y+$boxsize+3; // current Y position, box size plus extra space
 	}
 	
 	// Tabla coloreada
@@ -202,13 +210,6 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 
-        // take care on wide license federation contests
-        if ($this->federation->get('WideLicense')) {
-            $this->pos[1] -= 2;
-            $this->pos[2] -= 3;
-            $this->pos[3] += 20;
-            $this->pos[8] -= 15;
-        }
         // Rango
         $fromItem=1;
         $toItem=99999;
@@ -217,8 +218,9 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
             $fromItem=intval($a[0]);
             $toItem=intval($a[1]);
         }
+        // initial values for team count and page position
         $index=0;
-        $rowcount=0;
+        $ypos=58;
         $this->categoria="-";
 		foreach($this->equipos as $equipo) {
 		    // if category is not in selected skip
@@ -227,14 +229,22 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
             if ( (($index+1)<$fromItem) || (($index+1)>$toItem) ) { $index++; continue; }
             // if team has no dogs skip
             if (count($equipo['Perros'])==0) continue;
-            if ( ($rowcount%10==0) || ($equipo['Categorias']!=$this->categoria)) {
-                $rowcount=0;
+            // on category change force new page
+            if ($equipo['Categorias']!=$this->categoria) {
+                $index=0;
+                $ypos=58;
                 $this->categoria=$equipo['Categorias'];
                 $this->AddPage();
             }
+            // also, if next team does not fit in page force new page
+            $size=7+2+4*count($equipo['Perros']); // header, border, dogs, extra space
+            if (($ypos+$size) > 280 ) {
+                $ypos=58;
+                $this->AddPage();
+            }
             // pintamos el aspecto general de la celda
-            $this->printTeamInfo($rowcount,$index,$equipo,$equipo['Perros']);
-            $rowcount++;
+            $this->setY($ypos);
+            $ypos = $this->printTeamInfo($index,$equipo,$equipo['Perros']);
             $index++;
 		}
 		// Línea de cierre
