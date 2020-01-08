@@ -164,6 +164,8 @@ class PrintClasificacionGeneral extends PrintCommon {
             $jueces .= ($juez2['Nombre']==="-- Sin asignar --")? "" : " - {$juez2['Nombre']}";
             $this->Cell( 88,4,$jueces,"",0,'R',false);
         } else { $this->Ln(8); }
+        // extra space between data and results
+        $this->Ln(6);
     }
 
 	function print_InfoJornada() {
