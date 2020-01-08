@@ -16,7 +16,7 @@ class Puntuable_RSCE_2020 extends Puntuable_RSCE_2018 {
         $this->moduleRevision="20191108_1526";
     }
 
-    function getRoundHeights($manga) {
+    function getRoundHeights($mangaid) {
         // overrride parent functions as older RSCE seasons had 3 heights
         return Federations::getFederation($this->federationID)->get('Heights');
     }

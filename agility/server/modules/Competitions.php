@@ -122,10 +122,10 @@ class Competitions {
 
     /**
      * Get number of heights for provided round on this competition module
-     * @param {integer} $manga RoundID
+     * @param {integer} $mangaid RoundID
      * @return number of heights
      */
-    function getRoundHeights($manga) {
+    function getRoundHeights($mangaid) {
         // default, should be overriden by subclasses
         return Federations::getFederation($this->federationID)->get('Heights');
     }

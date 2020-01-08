@@ -15,7 +15,7 @@ class Open_RSCE_3 extends Competitions {
         $this->moduleRevision="20170523_2045";
     }
 
-    function getRoundHeights($manga) { return 3; }
+    function getRoundHeights($mangaid) { return 3; }
 
     function useLongNames() { return true; }
 }

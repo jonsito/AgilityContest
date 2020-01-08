@@ -842,7 +842,7 @@ class Jornadas extends DBObject {
             if ($mangasInfo==null) $mangasInfo=Mangas::getMangaInfo($manga['ID']);
             // evaluamos las alturas en funcion de la manga
             $fed=$mangasInfo->Federation;
-            $heights=$mangasInfo->Competition->getRoundHeights($manga);
+            $heights=$mangasInfo->Competition->getRoundHeights($mangasInfo->Manga->ID);
 			// datos comunes a todos los resultados posibles de una misma manga
 			$item=array();
 			$item['Prueba']=$prueba['ID'];

@@ -33,7 +33,7 @@ class Puntuable_RSCE_2017 extends Competitions {
         );
     }
 
-    function getRoundHeights($manga) {
+    function getRoundHeights($mangaid) {
         return 3; // old RSCE Seasons had 3 heights
     }
     /**

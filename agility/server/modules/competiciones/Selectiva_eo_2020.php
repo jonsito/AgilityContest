@@ -30,10 +30,10 @@ class Selectiva_eo_2020 extends Selectiva_eo_2018 {
     }
 
     // grados 1 y 2 son a cinco alturas; la selectiva (grado 3) es a 3 alturas
-    public function getRoundHeights($manga) {
+    public function getRoundHeights($mangaid) {
         $myDbObject= new DBObject("getRoundHeights");
-        $result=$myDbObject->__getObject('mangas',$manga);
-        if (!is_object($result)) return parent::getRoundHeights($manga);
+        $result=$myDbObject->__getObject('mangas',$mangaid);
+        if (!is_object($result)) return parent::getRoundHeights($mangaid);
         if(in_array($result->Tipo,array(6,11) ) ) return 3; // grado 3
         return 5;
     }

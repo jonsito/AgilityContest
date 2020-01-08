@@ -283,7 +283,7 @@ class Resultados extends DBObject {
         $where="1";
         if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
         $cats="";
-        $heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo);
+        $heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo->Manga->ID);
         if ($mode!=12) $cats=sqlFilterCategoryByMode($mode, $heights,"");
         $result=$this->__select(
         /* SELECT */ "*",
@@ -299,7 +299,7 @@ class Resultados extends DBObject {
 	function reset($catsmode) {
 		$this->myLogger->enter();
 		$where="";
-		$heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo);
+		$heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo->Manga->ID);
 		if ($catsmode!=12) $where=sqlFilterCategoryByMode($catsmode, $heights,""); // 12(XLMST) includes 4(LMS) and 8(LMST)
 		$this->getDatosJornada(); // also implies getDatosManga
 		$idmanga=$this->IDManga;
@@ -525,7 +525,7 @@ class Resultados extends DBObject {
 		$idmanga=$this->IDManga;
 		$where="(Manga=$idmanga) AND (Pendiente=1) "; // para comprobar pendientes
 		$cat="";
-        $heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo);
+        $heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo->Manga->ID);
 		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $heights,"");
 		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		// comprobamos si hay perros pendientes de salir
@@ -552,7 +552,7 @@ class Resultados extends DBObject {
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga={$this->IDManga}) AND (Pendiente=0) ";
 		$cat="";
-        $heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo);
+        $heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo->Manga->ID);
 		if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $heights,"");
 		if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		//  evaluamos mejores tiempos intermedios y totales
@@ -589,7 +589,7 @@ class Resultados extends DBObject {
             $where="(Manga=$idmanga) AND (Pendiente=0) AND (Perro!=$idperro)";
         }
 		$cat="";
-        $heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo);
+        $heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo->Manga->ID);
         if ($mode!=12) $cat=sqlFilterCategoryByMode($mode, $heights,""); // 12:XLMST includes 4:LMS and 8:LMST
         if ($cat===null)  return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
@@ -714,7 +714,7 @@ class Resultados extends DBObject {
 		$where="(Manga=$idmanga) AND (Pendiente=0) AND (perroguiaclub.ID=resultados.Perro) ";
 		$cat="";
 		// mode 12 is XLMST
-        $heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo);
+        $heights=$this->mangaInfo->Competition->getRoundHeights($this->mangaInfo->Manga->ID);
 		if ($mode<12) $cat=sqlFilterCategoryByMode($mode,$heights,"resultados."); // notice the ending dot '.'
         if ($cat===null) return $this->error("modo de recorrido desconocido:$mode");
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo

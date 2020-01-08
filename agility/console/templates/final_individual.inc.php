@@ -67,7 +67,7 @@ $nmangas=http_request("NumMangas","i","2");
         rowStyler:myRowStyler,
         autoRowHeight:false,
         idField: 'ID',
-        toolbar: '#resultados-tooolbar',
+        toolbar: '#resultados-toolbar',
         pageSize: 500 // enought bit to make it senseless
         // columns declared at html section to show additional headers
     });

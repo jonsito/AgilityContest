@@ -14,7 +14,7 @@ class Puntuable_RSCE_2016 extends Competitions {
         $this->federationLogoAllowed=true;
     }
 
-    function getRoundHeights($manga) {
+    function getRoundHeights($mangaid) {
         return 3; // old RSCE Seasons had 3 heights
     }
 
