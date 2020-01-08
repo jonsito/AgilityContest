@@ -75,7 +75,7 @@ $config =Config::getInstance();
 			// propiedades del panel padre asociado
 			fit: true,
 			border: false,
-			closable: true,
+			closable: false,
 			collapsible: false,
 			expansible: false,
 			collapsed: false,

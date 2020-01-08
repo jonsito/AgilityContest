@@ -160,7 +160,7 @@ $config =Config::getInstance();
         minimizable:false,
         maximizable:false,
         resizable:false,
-        closable:true,
+        closable:false,
         modal:true,
         iconCls: 'icon-dog',
         onOpen: function() {

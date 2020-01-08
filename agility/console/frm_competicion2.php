@@ -109,7 +109,7 @@ switch(http_request("tipo","s","std")) {
 $('#competicion_info').panel({
 	title:workingData.nombrePrueba+' -- '+workingData.nombreJornada,
 	border:true,
-	closable:true,
+	closable:false,
 	collapsible:false,
 	collapsed:false,
     onClose:function() {autoBackupDatabase(1,"");}
