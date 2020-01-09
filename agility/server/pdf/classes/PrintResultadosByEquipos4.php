@@ -121,8 +121,8 @@ class PrintResultadosByEquipos4 extends PrintCommon {
 	function Footer() {
 		$this->print_commonFooter();
 	}
-	
-	function printTeamInfo($rowcount,$index,$team) {
+
+	function printTeamInfo($ypos,$index,$team) {
 
         // valores por defecto
         $team['Faltas']=0;
@@ -132,26 +132,27 @@ class PrintResultadosByEquipos4 extends PrintCommon {
         $team['NoPresentados']=0;
 
         $members=$team['Resultados'];
+        $nmembers= count($members);
         // evaluate logos
-        $maxdogs=Jornadas::getTeamDogs($this->jornada)[1];
         $logos=array();
-        for($n=0;$n<$maxdogs;$n++) $logos[]='null.png';
+        for($n=0;$n<$nmembers;$n++) $logos[]='null.png';
         if ($team['Nombre']==="-- Sin asignar --") {
             $logos[0]=getIconPath($this->federation->get('Name'),"agilitycontest.png");
         } else {
             $count=0;
             foreach($members as $miembro) {
                 $logo=$this->getLogoName($miembro['Perro']);
-                if ( ( ! in_array($logo,$logos) ) && ($count<$maxdogs) ) $logos[$count++]=$logo;
+                if ( ( ! in_array($logo,$logos) ) && ($count<$nmembers) ) $logos[$count++]=$logo;
             }
         }
         // posicion de la celda
-        $y=58+16*($rowcount);
+        $y=$ypos;
+        $boxsize=2+3*max($this->getMaxDogs(),$nmembers);
         $this->SetXY(10,$y);
         // caja de datos de perros
         $this->ac_header(2,16);
-        $this->Cell(12,14,1+$index,'LTB',0,'C',true);
-        $this->Cell(48,14,"","TBR",0,'C',true);
+        $this->Cell(12,$boxsize,1+$index,'LTB',0,'C',true);
+        $this->Cell(48,$boxsize,"","TBR",0,'C',true);
         $this->SetY($y+1);
         $this->ac_header(2,16);
         foreach($members as $id => $perro) {
@@ -171,7 +172,8 @@ class PrintResultadosByEquipos4 extends PrintCommon {
             $team['Eliminados']+=$perro['Eliminado'];
             $team['NoPresentados']+=$perro['NoPresentado'];
         }
-        for($n=count($members);$n<$this->getMinDogs();$n++) $team['NoPresentados']++;
+        // marca los perros que falten para completar equipo como no presentados
+        for($n=$nmembers;$n<$this->getMinDogs();$n++) $team['NoPresentados']++;
 
         // caja de datos del equipo
         $this->SetXY(70,$y);
@@ -179,7 +181,7 @@ class PrintResultadosByEquipos4 extends PrintCommon {
         $this->Cell(128,14,"","LTBR",0,'C',true);
         $x=70;
         // if no logo is "null.png" don't try to insert logo, just add empty text with parent background
-        for ($n=0;$n<$maxdogs;$n++) {
+        for ($n=0;$n<$nmembers;$n++) {
             if ($logos[$n]==="null.png") {
                 $this->SetX($x+7*$n);
                 $this->Cell(7,7,"",'T',0,'C',true);
@@ -222,8 +224,10 @@ class PrintResultadosByEquipos4 extends PrintCommon {
         $this->Cell(15,7,$team['NoPresentados'],0,0,'R',false);
         $this->Cell(25,7,number_format2($team['Tiempo'],$this->timeResolution),0,0,'R',false);
         $this->Cell(26,7,number_format2($team['Penalizacion'],$this->timeResolution),0,0,'R',false);
+
+        return $ypos+$boxsize+3;
 	}
-	
+
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
@@ -233,16 +237,18 @@ class PrintResultadosByEquipos4 extends PrintCommon {
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 
+		$this->AddPage();
         $index=0;
-        $rowcount=0;
+        $ypos=58;
 		foreach($this->equipos as $equipo) {
             // si el equipo no tiene participantes es que la categoria no es válida: skip
             if (count($equipo['Resultados'])==0) continue;
-            // 14 teams/page
-            if ( $rowcount%14==0) { $rowcount=0; $this->AddPage(); } // 14 teams /page
+            // check for next team overriding page
+            $boxsize=2+3*max($this->getMaxDogs(),count($equipo['Resultados']));
+            if (( $ypos + $boxsize) > 280) { $ypos=58; $this->AddPage(); } // on override goto next page
             // pintamos el aspecto general de la celda
-            $this->printTeamInfo($rowcount,$index,$equipo);
-            $rowcount++;
+            $this->SetY($ypos);
+            $ypos=$this->printTeamInfo($ypos,$index,$equipo);
             $index++;
 		}
 		// Línea de cierre

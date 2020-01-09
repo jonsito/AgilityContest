@@ -237,8 +237,8 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
                 $this->AddPage();
             }
             // also, if next team does not fit in page force new page
-            $size=7+2+4*count($equipo['Perros']); // header, border, dogs, extra space
-            if (($ypos+$size) > 280 ) {
+            $boxsize=7+2+4*count($equipo['Perros']); // header, border, dogs, extra space
+            if (($ypos+$boxsize) > 280 ) {
                 $ypos=58;
                 $this->AddPage();
             }
