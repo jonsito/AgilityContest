@@ -18,6 +18,11 @@
   !include "WordFunc.nsh"
   !insertmacro VersionCompare
 
+;Also add functions to str_replace in files
+;https://raw.githubusercontent.com/dlang/installer/master/windows/ReplaceInFile.nsh
+  !include StrRep.nsh
+  !include ReplaceInFile.nsh
+
 ;Seleccionamos el algoritmo de compresion utilizado para comprimir 
 ;nuestra aplicacion
 SetCompressor lzma
@@ -147,6 +152,7 @@ FILE /r server
 IfFileExists $TEMP\DoNotReinstall.txt dontReinstall Reinstall
 Reinstall:
     FILE /r xampp
+    !insertmacro _ReplaceInFile $INSTDIR\xampp\apache\conf\extra\AgilityContest_apache2.conf "C:/AgilityContest" $INSTDIR
 
 dontReinstall:
 ;Hacemos que la instalacion se realice para todos los usuarios del sistema

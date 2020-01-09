@@ -106,7 +106,7 @@ echo "Copying AgilityContest files ..."
     ( cd ${BUILD_DIR}; tar xfBp - )
 # set first install mark and properly edit .htaccess
 touch ${BUILD_DIR}/logs/first_install
-sed -i -e "s|__HTTP_BASEDIR__|C:/|g" \
+sed -i -e "s|__HTTP_BASEDIR__|C:|g" \
     -e "s|__AC_BASENAME__|AgilityContest|g" \
     -e "s|__AC_WEBNAME__|agility|g" \
     ${BUILD_DIR}/.htaccess
