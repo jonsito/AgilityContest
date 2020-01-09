@@ -367,10 +367,10 @@ $config =Config::getInstance();
             {text:'<?php _e("3 best of 4"); ?>',value:0x34,selected:true},
             {text:'<?php _e("3 best of 5"); ?>',value:0x35},
             {text:'<?php _e("4 best of 5"); ?>',value:0x45},
-            {text:'<?php _e("2 combined"); ?>',value:0x02},
-            {text:'<?php _e("3 combined"); ?>',value:0x03},
-            {text:'<?php _e("4 combined"); ?>',value:0x04},
-            {text:'<?php _e("5 combined"); ?>',value:0x05}
+            {text:'<?php _e("2 combined"); ?>',value:0x22},
+            {text:'<?php _e("3 combined"); ?>',value:0x33},
+            {text:'<?php _e("4 combined"); ?>',value:0x44},
+            {text:'<?php _e("5 combined"); ?>',value:0x55}
         ]
     });
 
