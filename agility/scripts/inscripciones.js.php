@@ -238,7 +238,6 @@ function insertInscripcion(dg) {
             });
         }
 
-
 		if (index>=size){
             // recursive call finished, clean, close and refresh
             $('#new_inscripcion-okBtn').linkbutton('enable');

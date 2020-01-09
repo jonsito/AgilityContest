@@ -379,25 +379,26 @@ function getTeamDogs(djornada) {
     switch (data) {
         case 0x00: // no team journey
             console.log("Current Journey is not a Team Journey");
-            return [1,1];
-        case 0x10: return [3,4]; // very-old style 3 mejores de cuatro
-        case 0x20: return [2,3]; // 2 best of 3
-        case 0x30: return [3,4]; // 3 best of 4
-        case 0x40: return [4,5]; // 4 best of 5
-        case 0x50: return [3,5]; // 3 best of 5 -- should use new style
-        case 0x01: return [4,4]; // very-old style 4 conjunta
-        case 0x02: return [2,2]; // 2 conjunta
-        case 0x03: return [3,3]; // 3 conjunta
-        case 0x04: return [4,4]; // 4 conjunta
-        case 0x05: return [5,5]; // 5 conjunta
+            return [1,1,'<?php _e("Not a team journey");?>'];
+        case 0x10: return [3,4,'<?php _e("Not a team journey");?>']; // very-old style 3 mejores de cuatro
+        case 0x20: return [2,3,'<?php _e("Not a team journey");?>']; // 2 best of 3
+        case 0x30: return [3,4,'<?php _e("Not a team journey");?>']; // 3 best of 4
+        case 0x40: return [4,5,'<?php _e("Not a team journey");?>']; // 4 best of 5
+        case 0x50: return [3,5,'<?php _e("Not a team journey");?>']; // 3 best of 5 -- should use new style
+        case 0x01: return [4,4,'<?php _e("Not a team journey");?>']; // very-old style 4 conjunta
+        case 0x02: return [2,2,'<?php _e("Not a team journey");?>']; // 2 conjunta
+        case 0x03: return [3,3,'<?php _e("Not a team journey");?>']; // 3 conjunta
+        case 0x04: return [4,4,'<?php _e("Not a team journey");?>']; // 4 conjunta
+        case 0x05: return [5,5,'<?php _e("Not a team journey");?>']; // 5 conjunta
         default: // new style generic min/max
             var mindogs=data >> 4;
             var maxdogs=data & 0x0F;
             if ((mindogs<=0) || (maxdogs<=0) || (mindogs>maxdogs)) {
                 console.log("Invalid mindogs/maxdogs combination: "+mindogs+"/"+maxdogs);
-                return [1,1];
+                return [1,1,'<?php _e("Invalid mindogs/maxdogs");?>'];
             }
-            return [mindogs,maxdogs];
+            if (mindogs==maxdogs) return [mindogs,maxdogs,''+mindogs+' <?php _e("Grouped");?>'];
+            return [mindogs,maxdogs,''+mindogs+' <?php _e("Best of ");?> '+maxdogs];
     }
 }
 

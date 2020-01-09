@@ -71,7 +71,10 @@ function checkTeams(datagrid) {
                 $.messager.alert('<?php _e("Error"); ?>',data.errorMsg,"error");
                 return false;
             }
-            var str ="<h4><?php _e('Registered teams revision'); ?><br /><?php _e('Journey');?> '"+workingData.datosJornada.Nombre+"'</h4>";
+            var a=getTeamDogs()
+            var str ="<h4><?php _e('Registered teams revision'); ?>";
+                str+="<br /><?php _e('Journey');?> '"+workingData.datosJornada.Nombre;
+                str+="' ("+a[2]+")</h4>";
             str +="<p><strong><?php _e('Number of teams'); ?>: "+(data['teams'].length)+"</strong></p>";
             if (typeof(data['default'][0])!=="undefined") {
                 str+="<p><strong><?php _e('Dogs without assigned team'); ?>: "+data['default'][0]['Numero']+"</strong></p>";
@@ -133,7 +136,11 @@ function printTeams(datagrid) {
                 $.messager.alert('<?php _e("Error"); ?>',data.errorMsg,"error");
                 return false;
             }
-            var str ="<h4><?php _e('Registered teams revision'); ?><br /><?php _e('Journey');?> '"+workingData.datosJornada.Nombre+"'</h4>";
+
+            var a=getTeamDogs()
+            var str ="<h4><?php _e('Registered teams revision'); ?>";
+            str+="<br /><?php _e('Journey');?> '"+workingData.datosJornada.Nombre;
+            str+="' ("+a[2]+")</h4>";
             str +="<p><strong><?php _e('Number of teams'); ?>: "+(data['teams'].length)+"</strong></p>";
             if (typeof(data['default'][0])!=="undefined") {
                 str+="<p><strong><?php _e('Dogs without assigned team'); ?>: "+data['default'][0]['Numero']+"</strong></p>";
