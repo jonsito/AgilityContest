@@ -163,7 +163,7 @@ $config =Config::getInstance();
             		{ field:'PreAgility',	width:8, sortable:false, formatter:	formatPreAgility, align:'center', title: 'PreAg. ' },
                     { field:'Junior',	    width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'Junior ' },
                     { field:'Senior',	    width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'Senior ' },
-            		{ field:'Grado1',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'G-I    ' },
+            		{ field:'Grado1',		width:8, sortable:false, formatter:formatGrado1 ,align:'center',     title: 'G-I    ' },
             		{ field:'Grado2',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'G-II   ' },
             		{ field:'Grado3',		width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'G-III  ' },
             		{ field:'Open',			width:8, sortable:false, formatter:	formatOk,	align:'center',     title: 'Open   ' },

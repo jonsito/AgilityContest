@@ -228,13 +228,13 @@ $('#public-Jornada').combogrid({
 		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: '<?php _e('Name');?>/<?php _e('Comments');?>' },
 		{ field:'Fecha',		hidden:true},
 		{ field:'Hora',			hidden:true},
-		{ field:'Grado1',		width:8, sortable:false,	align:'center', title: 'G-I    ' },
-		{ field:'Grado2',		width:8, sortable:false,	align:'center', title: 'G-II   ' },
-		{ field:'Grado3',		width:8, sortable:false,	align:'center', title: 'G-III  ' },
-		{ field:'Open',		    width:8, sortable:false,	align:'center', title: 'Open   ' },
-		{ field:'Equipos3',		width:12, sortable:false,	align:'center', title: 'Teams',formatter:formatTeamDogs },
+		{ field:'Grado1',		width:8, sortable:false,	align:'center', title: 'G-I   ', formatter:formatGrado1 },
+		{ field:'Grado2',		width:8, sortable:false,	align:'center', title: 'G-II  ' },
+		{ field:'Grado3',		width:8, sortable:false,	align:'center', title: 'G-III ' },
+		{ field:'Open',		    width:8, sortable:false,	align:'center', title: 'Open  ' },
+		{ field:'Equipos3',		width:12, sortable:false,	align:'center', title: 'Teams ',formatter:formatTeamDogs },
 		{ field:'Equipos4',		hidden:true }, // since 4.2.x Equipos3/equipos4 becomes mindogs/maxdogs
-		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'PreAg. ' },
+		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'PreAg. ', formatter:formatPreAgility },
         { field:'PreAgility2',	hidden:true }, /* not used since 3.4 */
 		{ field:'Junior',	    width:8, sortable:false,	align:'center', title: 'Junior ' },
         { field:'Senior',   	hidden:true }, // not used yet

@@ -157,6 +157,10 @@ function formatCatGrad(val,row,idx) {
     return row.Categoria+"-"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
 }
 
+function formatGrado1(val,row,idx) {
+    return (val==0)?"   ":"&#x2714; ("+val+")";
+}
+
 function formatTeamDogs(val,row,idx) {
     var dogs=getTeamDogs(row);
     return (dogs[0]<=1)?"   ":""+dogs[0]+"/"+dogs[1]
@@ -192,7 +196,7 @@ function clubOrCountry() {
 /* formatter para el orden de salida de la ventana de reordenacion */
 function formatReorder(val,row,idx) {
     return '<input type="text" style="width:35px;" id="reorder-item'+idx+'" value="'+val+'" maxlength="4"'+
-        'onchange="reorder_check('+row.Current+',this)"/>';
+        ' onchange="reorder_check('+row.Current+',this)"/>';
 }
 
 /* formatters para datagrid de inscripciones */
@@ -205,6 +209,7 @@ function formatJourneyInscription(journey,val,row,idx) {
     var fn="changeInscription("+idx+","+row.Prueba+","+row.Perro+","+journey+",this);"
     return '<input type="checkbox" value="1" '+checked+' onchange="'+fn+'">';
 }
+
 function formatJ1(val,row,idx) { return formatJourneyInscription(0,val,row,idx); }
 function formatJ2(val,row,idx) { return formatJourneyInscription(1,val,row,idx); }
 function formatJ3(val,row,idx) { return formatJourneyInscription(2,val,row,idx); }
@@ -309,7 +314,7 @@ function formatPreAgility(val,row,idx) {
     // notice that in 3.4+ PreAgility2 is no longer used
     $('#jornadas-PreAgilityName').html(ac_fedInfo[workingData.federation].ListaGrados['P.A.']);
     var pa=parseInt(row.PreAgility)+parseInt(row.PreAgility2);
-    return (pa==0)?"":"&#x2714;";
+    return (pa==0)?"":"&#x2714; ("+pa+")";
 }
 function formatOk(val,row,idx) { return (parseInt(val)==0)?"":"&#x2714;"; }
 function formatNotOk(val,row,idx) { return (parseInt(val)!=0)?"":"&#x2714;"; }

@@ -178,8 +178,12 @@ function insertInscripcion(dg) {
     var mask=parseInt($('#new_inscripcion-Jornadas').val());
     var jornadas= $('#inscripciones-jornadas').datagrid('getData')['rows'];
 
-
-
+    /**
+     * This code is recursivelly called
+     * @param rows selected rows
+     * @param index current row
+     * @param size of selected rows
+     */
 	function handleInscription(rows,index,size) {
 
 	    function doInscribeAjax() {
@@ -207,6 +211,9 @@ function insertInscripcion(dg) {
             });
         }
 
+        // iterate current dog into journey n checking if can inscribe
+        // if cannot, remove journey from inscription mask
+        // when all journeys are checked, do real inscription
         function checkAndInscribe(n) {
             if (n>=8) {
                 if (mask==0) return handleInscription(rows,index+1,size);
@@ -242,8 +249,9 @@ function insertInscripcion(dg) {
 			return;
 		}
 
-		// comprobamos si el perro se puede inscribir en una jornada determinada
-        checkAndInscribe(0);
+		// comprobamos si perro[index] a se puede inscribir en una jornada determinada
+        mask=parseInt($('#new_inscripcion-Jornadas').val());
+        checkAndInscribe(0); // iterate from first journey
 	}
 
 	var selectedRows= $(dg).datagrid('getSelections');

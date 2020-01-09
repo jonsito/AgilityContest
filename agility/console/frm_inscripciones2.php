@@ -174,7 +174,7 @@ $('#inscripciones-jornadas').datagrid({
 			{ field:'Nombre',		width:60, sortable:false,   align:'right',  title: '<?php _e('Name/Comment');?>',formatter:formatBold },
 			{ field:'Fecha',		width:30, sortable:false,	align:'right',  title: '<?php _e('Date');?>: ' },
 			{ field:'Hora',			width:25, sortable:false,	align:'right',  title: '<?php _e('Hour');?>:  ' },
-			{ field:'Grado1',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-I   ');?>' },
+			{ field:'Grado1',		width:14, sortable:false, formatter:formatGrado1 ,	align:'center', title: '<?php _e('G-I   ');?>' },
 			{ field:'Grado2',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-II  ');?>' },
 			{ field:'Grado3',		width:14, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-III ');?>' },
 			{ field:'Equipos3',		width:20, sortable:false, formatter: formatTeamDogs,align:'center', title: '<?php _e('Teams ');?>' },
