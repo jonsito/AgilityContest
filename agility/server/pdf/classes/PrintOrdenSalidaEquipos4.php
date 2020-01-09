@@ -112,7 +112,7 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
 		$this->print_commonFooter();
 	}
 	
-	function printTeamInfo($rowcount,$index,$team,$members) {
+	function printTeamInfo($ypos,$index,$team,$members) {
         // evaluate logos
         $nullpng=getIconPath($this->federation->get('Name'),"null.png");
         $logos=array($nullpng,$nullpng,$nullpng,$nullpng);
@@ -127,13 +127,14 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
             }
         }
         // posicion de la celda
-        $y=45+22*($rowcount);
+        $y=$ypos;
+        $boxsize=2+4*max($this->getMaxDogs(),count($members));
         $this->SetXY(10,$y);
         // caja de datos de perros
         $this->ac_header(1,16);
-        $this->Cell(12,18,1+$index,'LTBR',0,'C',true);
+        $this->Cell(12,$boxsize,1+$index,'LTBR',0,'C',true);
         $this->ac_header(2,16);
-        $this->Cell(103,18,"","TB",0,'C',true);
+        $this->Cell(103,$boxsize,"","TB",0,'C',true);
         $this->SetY($y+1);
         foreach($members as $id => $perro) {
             $this->SetX(23);
@@ -163,7 +164,7 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
         $this->Image($logos[2],$this->getX()+22,$this->getY(),11);
         $this->Image($logos[3],$this->getX()+33,$this->getY(),11);
 
-        $this->Ln(11);
+        return $y+$boxsize+3; // evaluate next Y position and return
 	}
 	
 	// Tabla coloreada
@@ -180,6 +181,7 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
             $fromItem=intval($a[0]);
             $toItem=intval($a[1]);
         }
+        $ypos=60;
 		foreach($this->equipos as $equipo) {
             // skip "-- Sin asignar --" team. Do not print team on unrequested categories
             if ($equipo['Nombre']==="-- Sin asignar --") continue;
@@ -189,15 +191,18 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
             $miembros=$equipo['Perros'];
             $num=count($miembros);
             if ($num==0) continue; // skip empty teams
-            if ( ($rowcount%11==0) || ($equipo['Categorias']!=$this->categoria)) {
-                $rowcount=0;
-                if($this->categoria!=$equipo['Categorias']) $index=0;
+            // si cambia de categoria, pagina nueva
+            if ($equipo['Categorias']!=$this->categoria) {
                 $this->categoria=$equipo['Categorias'];
+                $ypos=295; // force page break on next "if"
+            }
+            // si el nuevo equipo no cabe en la pagina pagina nueva
+            if ($ypos+2+4*count($miembros) > 280) {
+                $ypos=60;
                 $this->AddPage();
             }
             // pintamos el aspecto general de la celda
-            $this->printTeamInfo($rowcount,$index,$equipo,$miembros);
-            $rowcount++;
+            $ypos=$this->printTeamInfo($ypos,$index,$equipo,$miembros);
             $index++;
 		}
 		// Línea de cierre
