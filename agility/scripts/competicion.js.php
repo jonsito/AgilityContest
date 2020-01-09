@@ -1773,8 +1773,10 @@ function resultados_doSelectRonda(row) {
 
     // FASE 2: si estamos en individual, descargamos el datagrid con el numero de mangas apropiado
     var page = "";
+    var datagrid='#finales_individual-datagrid';
     if (isJornadaEquipos(null)) {
         page="../console/templates/final_teams.inc.php";
+        datagrid='#finales_equipos-datagrid';
     } else if ( (parseInt(workingData.datosJornada.Games)!==0) && parseInt(workingData.datosCompeticion.ModuleID)===3) {
         page="../console/templates/final_games.inc.php";
     } else {
@@ -1786,7 +1788,7 @@ function resultados_doSelectRonda(row) {
         function() {
             // activamos toolbar anyadimos keyhandler en el datagrid de clasificaciones
             $('#resultados-toolbar').css('display','inline-block');
-            addSimpleKeyHandler('#finales_individual-datagrid',"");
+            addSimpleKeyHandler(datagrid,"");
             populate_clasificacion();
         });
 }
