@@ -463,8 +463,6 @@ function clearJornadaFromPrueba(pruebaID,row) {
             }
         });
     w.window('resize',{width:450,height:150}).window('center');
-    $('#jornadas-dialog').dialog('open').dialog('setTitle','<?php _e('Modify journey data'); ?>');
-    $('#jornadas-form').form('load',row); // will trigger onLoadSuccess in dlg_pruebas
     return false;
 }
 /**

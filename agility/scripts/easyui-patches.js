@@ -107,14 +107,16 @@ $.extend($.fn.datagrid.methods, {
 			p.children('div.datagrid-toolbar').remove();
 			var tb = $('<div class="datagrid-toolbar"></div>').prependTo(p);
 			$.map(items, function(item){
-	        var t = $('<a href="javascript:void(0)"></a>').appendTo(tb);
-	        t.linkbutton($.extend({}, item, {
-	        	onClick:function(){
-	        		if (item.handler) { item.handler.call(this); }
-	        		if (item.onClick){ item.onClick.call(this); }
-	        	}
-	        }));
-	        t.css('float', item.align || '');
+	            var t = $('<a href="javascript:void(0)"></a>').appendTo(tb);
+	            t.linkbutton(
+	                $.extend({}, item, {
+	        	        onClick:function(){
+	        		        if (item.handler) { item.handler.call(this); }
+	        		        if (item.onClick){ item.onClick.call(this); }
+	        	        }
+	                })
+                );
+	            t.css('float', item.align || '');
 			});
 		});
 	},
