@@ -20,7 +20,7 @@ require_once(__DIR__ . "/../competiciones/lib/resultados/Resultados_EO_Team_Fina
  *
  */
 
-class Final_Interclubes_2017 extends Competitions {
+class Final_Interclubes extends Competitions {
     function __construct() {
         parent::__construct("Trofeo Interclubes - Finales");
         $this->federationID=0;
@@ -30,4 +30,5 @@ class Final_Interclubes_2017 extends Competitions {
     }
 
     function useLongNames() { return true; }
+    function getRoundHeights($mangaid) { return 3; }
 }

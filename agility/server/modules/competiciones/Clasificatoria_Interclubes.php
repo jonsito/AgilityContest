@@ -5,7 +5,7 @@
 require_once(__DIR__ . "/../competiciones/lib/resultados/Resultados_EO_Team_Qualifications.php");
 require_once(__DIR__ . "/../competiciones/lib/clasificaciones/Clasificaciones_EO_Team_Qualifications.php");
 
-class Clasificatoria_Interclubes_2017 extends Competitions {    /*
+class Clasificatoria_Interclubes extends Competitions {    /*
     * Como el sistema de asignacion de puntos es iterativo ( puesto->punto ),
     * tenemos que inventar algun tipo de "memoria" donde guardar los perros que han puntuado
     * para detectar los empates y poder actuar en consecuencia
@@ -25,6 +25,7 @@ class Clasificatoria_Interclubes_2017 extends Competitions {    /*
     }
 
     function useLongNames() { return true; }
+    function getRoundHeights($mangaid) { return 3; }
 
     /**
      * Evalua la calificacion parcial del perro
