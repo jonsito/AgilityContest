@@ -771,6 +771,15 @@ function reload_manga(id) {
     $('#competicion-formdatosmanga').form('load',url); // notice that "onBeforeLoad is declared"
 }
 
+// acceso directo a la ventana de inscripciones desde la ventana de desarrollo de prueba
+function open_inscripciones() {
+    var page="../console/frm_inscripciones2.php";
+    $('#competicion_info').panel('close');
+    loadContents(page,'<?php _e('Inscriptions');?>');
+    return false;
+}
+
+// acceso directo a la ventana de clasificaciones desde la ventana de desarrollo de prueba
 function open_clasificaciones() {
     var page="../console/frm_clasificaciones2.php";
     if (isJornadaEquipos(null)) page="../console/frm_clasificaciones_equipos.php";

@@ -418,7 +418,11 @@ $heights=Competitions::getHeights(0,0,$m);
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
                    id="dmanga_Templates" onclick="print_commonDesarrollo(3);"><?php _e('Templates'); ?></a>
             </td>
-			<td colspan="2">&nbsp;</td>
+			<td colspan="1">&nbsp;</td>
+            <td>
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"
+                   id="dmanga_Inscripciones" onclick="open_inscripciones();"><?php _e('Inscriptions'); ?></a>
+            </td>
             <td>
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-flag'"
                    id="dmanga_Clasificaciones" onclick="open_clasificaciones();"><?php _e('Scores'); ?></a>
@@ -597,6 +601,7 @@ addTooltip($('#dmanga_Recorrido_2'),'<?php _e("Independent courses for all categ
 addTooltip($('#dmanga_Recorrido_3'),'<?php echo $ttr3; ?>');
 addTooltip($('#dmanga_Restaurar').linkbutton(),'<?php _e("Restore original round info from database"); ?>');
 addTooltip($('#dmanga_Templates').linkbutton(),'<?php _e("Open print form selection dialog"); ?>');
+addTooltip($('#dmanga_Inscripciones').linkbutton(),'<?php _e("Jump to Inscriptions window"); ?>');
 addTooltip($('#dmanga_Clasificaciones').linkbutton(),'<?php _e("Jump to Result and Scores window"); ?>');
 addTooltip($('#dmanga_Guardar').linkbutton(),'<?php _e("Save round technical data into database"); ?>');
 addTooltip($('#dmanga_AddJuez').linkbutton(),'<?php _e("Add a new judge into database"); ?>');

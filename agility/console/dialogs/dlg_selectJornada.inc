@@ -81,7 +81,7 @@ $('#seljornada-Prueba').combogrid({
 	editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
 	columns: [[
 	   	    {field:'ID',			hidden:true},
-			{field:'Nombre',		title:'<?php _e('Name'); ?>',			width:50,	align:'right'},
+			{field:'Nombre',		title:'<?php _e('Name'); ?>',			width:50,	align:'left'},
             {field:'Club',			hidden:true},
 			{field:'NombreClub',	title:'<?php _e('Club'); ?>',			width:20,	align:'right'},
 			{field:'RSCE',			title:'<?php _e('Fed'); ?>.',			width:15,	align:'center', formatter:formatFederation},
@@ -122,7 +122,7 @@ $('#seljornada-Jornada').combogrid({
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba
 	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: '<?php _e('Name/Comments'); ?>' },
+		{ field:'Nombre',		width:30, sortable:false,   align:'left',  title: '<?php _e('Name/Comments'); ?>' },
 		{ field:'Fecha',		hidden:true},
 		{ field:'Hora',			hidden:true},
 		{ field:'Grado1',		width:8, sortable:false,	align:'center', title: 'G-I    ', formatter:formatGrado1 },

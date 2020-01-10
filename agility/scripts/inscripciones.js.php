@@ -223,13 +223,13 @@ function insertInscripcion(dg) {
         function checkAndInscribe(rows,index) {
 	        var mask=parseInt($('#new_inscripcion-Jornadas').val());
             var msg="<?php _e('Cannot inscribe dog');?> " + rows[index].Nombre +
-                    "<br/><?php _e('into journey');?>:<br/>";
+                    "<br/> <?php _e('into journey');?> :<br/>&nbsp;";
             var showmsg=false;
 	        for (var n=0;n<8;n++) {
 	            if (jornadas[n].Nombre=="-- Sin asignar --") continue;
 	            if (!canInscribe(jornadas[n],rows[index].Grado)) {
 	                mask &= ~(1<<n); // borramos mascara de inscripcion en la jornada en que no se puede
-                    msg += "<br/>"+(n+1)+" - " jornadas[n].Nombre;
+                    msg += "<br/>"+(n+1)+" - "+jornadas[n].Nombre;
                     showmsg=true;
                 }
             }
