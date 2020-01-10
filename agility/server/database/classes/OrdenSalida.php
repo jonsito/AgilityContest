@@ -295,7 +295,7 @@ class OrdenSalida extends DBObject {
 
         // tercera pasada: ordenar por categoria
         $p4=array();
-        foreach(array('L','M','S','T') as $cat) {
+        foreach(array('X','L','M','S','T') as $cat) {
             foreach ($p3 as $perro) {
                 if ($perro['Categoria']==$cat) array_push($p4,$perro);
             }
@@ -484,7 +484,7 @@ class OrdenSalida extends DBObject {
         // con independencia de celo/categoria
 		// en caso contrario hay que separar por categoria/celo
         $p5=$p3;
-        if ($this->jornada->Equipos4==0) {
+		if (! Jornadas::isJornadaEqConjunta($this->jornada)) {
             // tercera pasada: ordenar por celo
             $p4=array();
             foreach(array(0,1) as $celo) {
