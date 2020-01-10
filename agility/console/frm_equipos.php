@@ -175,9 +175,9 @@ $('#team_datagrid').datagrid({
 		// { field:'Orden',		hidden:true },
  		{ field:'Nombre',		width:50, sortable:true,	title: '<?php _e('Name');?>',formatter:formatBold },
 		{ field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Cat');?>.' },
-		{ field:'Observaciones',width:35, sortable:true,	title: '<?php _e('Comments');?>'},
-		{ field:'Miembros',		hidden:true },
-		{ field:'DefaultTeam',	width:5, sortable:false,	align: 'center', title: 'Def', formatter:formatOk }
+        { field:'Miembros',		width:7, sortable:false,	align: 'center', title: 'Dogs', formatter:formatTeamCount },
+        { field:'DefaultTeam',	width:7, sortable:false,	align: 'center', title: 'Def', formatter:formatOk },
+		{ field:'Observaciones',width:35, sortable:true,	title: '<?php _e('Comments');?>'}
     ]],
     pagination: false,
     rownumbers: true,

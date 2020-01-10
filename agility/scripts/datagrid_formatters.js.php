@@ -316,6 +316,13 @@ function formatPreAgility(val,row,idx) {
     var pa=parseInt(row.PreAgility)+parseInt(row.PreAgility2);
     return (pa==0)?"":"&#x2714; ("+pa+")";
 }
+/* indicar numero de miembros de un equipo */
+function formatTeamCount(val,row,idx) { // val is in format BEGIN,id,id,END
+    if (typeof(val)==="undefined") return " ";
+    if (row.Nombre==="-- Sin asignar --") return " ";
+    return val.toString().split(",").length-2;
+}
+
 function formatOk(val,row,idx) { return (parseInt(val)==0)?"":"&#x2714;"; }
 function formatNotOk(val,row,idx) { return (parseInt(val)!=0)?"":"&#x2714;"; }
 function formatCerrada(val,row,idx) { return (parseInt(val)==0)?"":"&#x26D4;"; }
