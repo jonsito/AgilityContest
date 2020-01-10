@@ -184,9 +184,12 @@ function insertInscripcion(dg) {
      * @param index current row
      * @param size of selected rows
      */
-	function handleInscription(rows,index,size) {
-
-	    function doInscribeAjax() {
+	function handleInscription(rows,index) {
+        console.log("handleInscription index:"+index);
+	    function doInscribeAjax(rows,index) {
+            // preparamos progress bar
+            $('#new_inscripcion-progresslabel').text('<?php _e("Enrolling"); ?>: '+rows[index].Nombre);
+            $('#new_inscripcion-progressbar').progressbar('setValue', (100.0*(index+1)/rows.length).toFixed(2));
             $.ajax({
                 cache: false,
                 timeout: 20000, // 20 segundos
@@ -202,43 +205,56 @@ function insertInscripcion(dg) {
                     Pagado: $('#new_inscripcion-Pagado').val()
                 },
                 success: function(result) {
-                    handleInscription(rows,index+1,size);
+                    // clear dog name as already done
+                    $('#new_inscripcion-progresslabel').text('<?php _e("Enrolling"); ?>...');
                 },
                 error: function(XMLHttpRequest,textStatus,errorThrown) {
                     $.messager.alert("Insert Inscription","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
                     $('#new_inscripcion-okBtn').linkbutton('enable'); // enable button and do not continue inscription chain
                 }
+            }).done(function(result){
+                setTimeout(function(){ handleInscription(rows,index+1);},0);
             });
         }
 
         // iterate current dog into journey n checking if can inscribe
         // if cannot, remove journey from inscription mask
         // when all journeys are checked, do real inscription
-        function checkAndInscribe(n) {
-            if (n>=8) {
-                if (mask==0) return handleInscription(rows,index+1,size);
-                // preparamos progress bar
-                $('#new_inscripcion-progresslabel').text('<?php _e("Enrolling"); ?>'+": "+rows[index].Nombre);
-                $('#new_inscripcion-progressbar').progressbar('setValue', (100.0*(index+1)/size).toFixed(2));
-                return doInscribeAjax();
-            }
-            if ( ((1<<n) & mask)==0) return checkAndInscribe(n+1);
-            if (canInscribe(jornadas[n],rows[index].Grado)) return checkAndInscribe(n+1);
-            // aviso de que no se le puede inscribir en una determinada jornada
-            mask &= ~(1<<n); // borramos mascara de inscripcion en la jornada
+        function checkAndInscribe(rows,index) {
+	        var mask=parseInt($('#new_inscripcion-Jornadas').val());
             var msg="<?php _e('Cannot inscribe dog');?> " + rows[index].Nombre +
-                "<br/><?php _e('into journey');?> "+jornadas[n].Nombre;
-            $.messager.alert({
-                title: '<?php _e("Notice");?>',
-                msg: msg,
-                icon: 'warning',
-                modal: true,
-                onClose: function() { return checkAndInscribe(n+1); },
-                fn: function() { return checkAndInscribe(n+1);}
-            });
+                    "<br/><?php _e('into journey');?>:<br/>";
+            var showmsg=false;
+	        for (var n=0;n<8;n++) {
+	            if (jornadas[n].Nombre=="-- Sin asignar --") continue;
+	            if (!canInscribe(jornadas[n],rows[index].Grado)) {
+	                mask &= ~(1<<n); // borramos mascara de inscripcion en la jornada en que no se puede
+                    msg += "<br/>"+(n+1)+" - " jornadas[n].Nombre;
+                    showmsg=true;
+                }
+            }
+	        // si en alguna jornada no se puede inscribir avisa
+	        if (showmsg) {
+	            $.messager.alert({
+                    title:'<?php _e("Notice");?>',
+                    msg:msg,
+                    icon:'warning',
+                    modal:true,
+                    fn: function() {
+                        if (mask!=0) doInscribeAjax(rows,index);
+                        else setTimeout(function(){ handleInscription(rows,index+1);},0);
+                    }
+	            });
+	        } else {
+                // si no queda ninguna jornada en la que inscribirse busca siguiente perro
+                if (mask!=0) doInscribeAjax(rows,index);
+                else setTimeout(function(){ handleInscription(rows,index+1);},0);
+            }
         }
 
-		if (index>=size){
+        // tenemos como parametros el array de perrosy el indice del perro actual
+        // al final de la lista a inscribir, borramos progressbar y recargamos datagrids
+		if (index>=rows.length){
             // recursive call finished, clean, close and refresh
             $('#new_inscripcion-okBtn').linkbutton('enable');
             $('#new_inscripcion-progresswindow').window('close');
@@ -249,13 +265,12 @@ function insertInscripcion(dg) {
 		}
 
 		// comprobamos si perro[index] a se puede inscribir en una jornada determinada
-        mask=parseInt($('#new_inscripcion-Jornadas').val());
-        checkAndInscribe(0); // iterate from first journey
+        // y en su caso procedemos
+        checkAndInscribe(rows,index);
 	}
 
 	var selectedRows= $(dg).datagrid('getSelections');
-	var size=selectedRows.length;
-	if(size==0) {
+	if(selectedRows.length==0) {
 		$.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no marked dog to be inscribed"); ?>',"warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
 	}
@@ -267,7 +282,7 @@ function insertInscripcion(dg) {
     $('#new_inscripcion-progresswindow').window('open');
     // disable button in ajax call to avoid recall twice
     $('#new_inscripcion-okBtn').linkbutton('disable');
-	handleInscription(selectedRows,0,size);
+	handleInscription(selectedRows,0);
 }
 
 /**
@@ -527,6 +542,7 @@ function canInscribe(jornada,grado) {
     if (jornada.Games!=0) return true;
     if (jornada.KO!=0) return true;
     if (jornada.Especial!=0) return true;
+    // PENDING: can Grade 1 participate in teams ?
     if (isJornadaEquipos(jornada)) return true;
     // En demas pruebas se comprueba la el grado del perro
     if ( (grado==="Jr") && (jornada.Junior==0) ) return false;
