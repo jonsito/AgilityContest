@@ -1,3 +1,11 @@
+Version 4.2.0 20200110_1444
+    - Support for teams with any XofY combination
+    - Fixes for Selectiva WAO ( fix data in Biathlon/Games TRS )
+    - Enable set height to be round dependent in same contest/journey (i.e. for Selectivas)
+    - Usability fixes, quick access buttons. stay on top toolbars
+    - Enable install in other directory than c:\AgilityContest
+    - Videowall redesign to adapt for 5-heights
+    - ... And so many bugfixes :-(
 Version 4.1.2 20191202_2345
     - Fix generation/decrypt of blacklists
     - Fix some logo sizes
