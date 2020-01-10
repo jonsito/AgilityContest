@@ -496,7 +496,7 @@ class OrdenSalida extends DBObject {
             // cuarta pasada: ordenar por categoria
 			// respetando el orden definido en el programa de la jornada
 			// miramos el orden de tandas:
-			$catsorderedbytanda=implode(',',Tandas::getTandasByTipoManga($this->manga->Tipo)); // tipos de tanda asociados a la manga
+			$catsorderedbytanda=implode(',',Tandas::getTandasByTipoManga($this->manga->Tipo,$this->heights)); // tipos de tanda asociados a la manga
             $res=$this->__select(
             	"Categoria",
 				 "tandas",

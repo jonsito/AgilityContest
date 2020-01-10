@@ -426,7 +426,7 @@ class Mangas extends DBObject {
         }
         $result->Federation=Federations::getFederation($result->Prueba->RSCE);
         $result->Competition=Competitions::getCompetition($result->Prueba,$result->Jornada);
-        $result->Tandas=Tandas::getTandasByTipoManga($result->Manga->Tipo);
+        $result->Tandas=Tandas::getTandasByTipoManga($result->Manga->Tipo,$result->Competition->getRoundHeights($mid));
         return $result;
     }
 

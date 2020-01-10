@@ -151,7 +151,7 @@ class OrdenSalida_KO extends OrdenSalida {
 
 		// en las pruebas KO se intenta que perros de la misma categoria compitan entre si,
 		// hasta que no haya mas remedio que mezclarlos
-        $cats=implode(',',Tandas::getTandasByTipoManga($this->manga->Tipo)); // tipos de tanda asociados a la manga
+        $cats=implode(',',Tandas::getTandasByTipoManga($this->manga->Tipo,$this->heights)); // tipos de tanda asociados a la manga
         $this->myLogger->trace("Cats:'$cats' tipomanga:{$this->manga->Tipo} ");
         $res=$this->__select(
             "Categoria",

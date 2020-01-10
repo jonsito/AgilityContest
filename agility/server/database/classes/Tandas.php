@@ -223,10 +223,16 @@ class Tandas extends DBObject {
 
     // obtiene la lista de tipos de tanda que coinciden con un tipo de manga determinado
     // usado para evaluar el orden de las categorias segun el programa de la jornada
-    static function getTandasByTipoManga($tipo){
+    static function getTandasByTipoManga($tipo,$heights){
+	    $cats=array('X','L','M','S','T','-');
+	    switch ($heights) {
+            case 3: $cats=array('L','M','S','-'); break;
+            case 4: $cats=array('L','M','S','T','-'); break;
+            case 5: $cats=array('X','L','M','S','T','-'); break;
+        }
         $res=array();
         // ordenamos segun la categoria conforme a la secuencia xlmst-
-        foreach( array('X','L','M','S','T','-') as $cat) {
+        foreach( $cats as $cat) {
             foreach (Tandas::$tipo_tanda as $key => $value) {
                 if (($value['TipoManga'] == $tipo) && (strpos($value['Categoria'],$cat) !== FALSE) )
                     if (!in_array($key,$res)) array_push($res, $key);
@@ -488,6 +494,8 @@ class Tandas extends DBObject {
 	    $s="(   5,  8,  11, 14, 17, 20, 25, 28, 31, 34, 40, 58, 97, 101, 105, 109 )"; // small
 	    $t="(  41, 42,  43, 44, 45, 46, 49, 50, 51, 52, 55, 59, 98, 102, 106, 110 )"; // toy
 	    $cmds=array();
+	    // height should be round dependent, but 5heights is "swap-compatible" with 3heights
+        // so let it go
 	    $heights=Competitions::getHeights($p,$j,$this->mangas[0]['ID']);
 	    if ($heights==3){
             $cmds=array(
@@ -717,8 +725,14 @@ class Tandas extends DBObject {
     // oper: false:remove true:insert
 	private function insert_remove($fed,$tipomanga,$oper) {
 	    $this->myLogger->enter();
-	    if (count($this->mangas)==0) $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,0);
-	    else $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->mangas[0]['ID']);
+	    // evaluate heigths
+        $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,0); // default
+	    // find mangaID matching tipomanga to evaluate heights
+        for ($n=0;$n<count($this->mangas);$n++) {
+            if($this->mangas[$n]['Tipo']!=$tipomanga) continue;
+            $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$this->mangas[$n]['ID']);
+            break; // no need to iterate again
+        }
 		$grados=intval($fed->get('Grades'));
 		// obtenemos las tandas cuyo tipo de manga coincide con el indicado
         $tandas=$this->getTandasInfo('TipoManga',$tipomanga);

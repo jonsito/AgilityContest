@@ -91,7 +91,7 @@ class RSCE extends Federations {
             ),
             'InfoManga3' => array( // 3 alturas
                 array('L' => 'Large',   'M' => 'Medium',      'S' => 'Small',       'T' => '',    'X' => ''), // separate courses
-                array('L' => 'Large',   'M' => 'Medium+Small', 'S' => '',           'T' => '',    'X' => ''), // mixed 2 courses
+                array('L' => 'Large',   'M' => 'Med+Sml',     'S' => '',           'T' => '',    'X' => ''), // mixed 2 courses
                 array('L' => 'Recorrido comun','M' => '',      'S' => '',           'T' => '',    'X' => ''), // common
                 array('L' => '',            'M' => '',         'S' => '',           'T' => '',    'X' => '') // mixed 3 courses
             ),
@@ -107,20 +107,20 @@ class RSCE extends Federations {
                 array(/* separado */ 0, 1, 2, -1, -1),
                 array(/* mixto */    0, 3, 3, -1, -1),
                 array(/* conjunto */ 4, 4, 4, 4,  4 ), // pre-agility is -XLMST in tandas cat assignment
-                array(/* 3 grupos */-1,-1,-1, -1, -1 ) // invalid en rsce
+                array(/* 3 grupos */-1,-1,-1, -1, -1 ) // not used in 3 heights
             ),
             'Modes' => array(
                 //  categorias            L   M   S   T   X
                 array(/* 0: separado */   0,  1,  2,  5,  9 ),
                 array(/* 1: 2 groups */  10, 11, 11, 11, 10 ),
                 array(/* 2: conjunto */  12, 12, 12, 12, 12 ), // pre-agility is declared as -XLMST
-                array(/* 3: 3 grupos */  10,  1,  7,  7, 10 )
+                array(/* 3: 3 grupos */  10,  1,  7,  7, 10 ) // not used in 3 heights
             ),
             'ModeStrings3' => array( // text to be shown on each category on 3 heights rounds
                 array(/* separado */ "Large", "Medium", "Small", "Invalid","Invalid"),
-                array(/* 2 grupos */ "Large", "Medium+Small", "Medium+Small", "Invalid","Invalid"),
+                array(/* 2 grupos */ "Large", "Med+Sml", "Med+Sml", "Invalid","Invalid"),
                 array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid","Invalid"),
-                array(/* 3 grupos */ "Invalid", "Medium", "Small+Toy", "Invalid","XL+Large")
+                array(/* 3 grupos */ "Invalid", "Medium", "Small+XS", "Invalid","XL+Large") // not used in 3 heights
             ),
             'ModeStrings' => array( // text to be shown on each category
                 array(/* separado */ "Large", "Medium", "Small", "XSmall","XLarge"),
