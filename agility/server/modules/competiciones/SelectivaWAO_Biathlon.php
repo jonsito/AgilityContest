@@ -9,7 +9,8 @@ require_once(__DIR__ . "/../competiciones/lib/clasificaciones/Clasificaciones_Se
  */
 class SelectivaWAO_Biathlon extends Competitions {
 
-    protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip wildcard competitors (partial scores)
+    // notice 'X' is not used in wao (yet)
+    protected $poffset=array('X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip wildcard competitors (partial scores)
 
     function __construct() {
         parent::__construct("Selectiva WAO - Biathlon");

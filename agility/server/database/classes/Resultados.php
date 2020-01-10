@@ -789,6 +789,11 @@ class Resultados extends DBObject {
         $countcat=array(  'C'=>0, 'X'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
 
 		for($idx=0;$idx<$size;$idx++) {
+		    // ajustamos categoria "virtual" en funcion de las alturas de la manga
+            switch($heights) {
+                case 3: if ($table[$idx]['Categoria']=='T') $table[$idx]['Categoria']='S';  // no break;
+                case 4: if ($table[$idx]['Categoria']=='X') $table[$idx]['Categoria']='L';
+            }
             // vemos la categoria y actualizamos contadores de categoria
             $cat=$table[$idx]['Categoria'];
             $countcat['C']++; // Conjunta
@@ -830,6 +835,7 @@ class Resultados extends DBObject {
      * Agrupa los resultados por equipos y genera una lista de equipos ordenados por resultados
      * @param {array} results obtenidos de getResultadosIndividual($mode)
      * @return {array} datos de equipos de la manga ordenados por resultados de equipo
+     * @throws Exception when journey has no team rounds
      */
     function getResultadosEquipos($results) {
         $resultados=$results['rows'];

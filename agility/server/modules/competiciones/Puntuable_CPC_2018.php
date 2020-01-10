@@ -45,8 +45,8 @@ class Puntuable_CPC_2018 extends Competitions {
     // en conjunta adicionalmente si tienen doble cero se puntua el podium tal que
     protected $ptsglobal = array("3", "2", "1"); //puntos por general (si no NC o Elim en alguna manga)
 
-    protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
-    protected $pfoffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
+    protected $poffset=array('X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
+    protected $pfoffset=array('X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
 
     protected $myDBObject;
 

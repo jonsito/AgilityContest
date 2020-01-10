@@ -112,6 +112,7 @@ class Resultados_Games extends Resultados {
 
         for($idx=0;$idx<$size;$idx++) {
             // vemos la categoria y actualizamos contadores de categoria
+            if ($table[$idx]['Categoria']=='X') $table[$idx]['Categoria']='L'; // WAO has 4-heights
             $cat=$table[$idx]['Categoria'];
             $countcat['C']++; // Conjunta
             $countcat[$cat]++; // Por categoria

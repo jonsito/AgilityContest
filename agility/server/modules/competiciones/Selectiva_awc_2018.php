@@ -18,8 +18,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 class Selectiva_awc_2018 extends Puntuable_RSCE_2018 {
 
-    protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
-    protected $pfoffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
+    protected $poffset=array('X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
+    protected $pfoffset=array('X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
 
     function __construct($name="Selectiva AWC 2018") {
         parent::__construct($name);
@@ -202,7 +202,9 @@ class Selectiva_awc_2018 extends Puntuable_RSCE_2018 {
             return;
         }
         // arriving here means prueba selectiva and Grado III
-        if ( ! $this->canReceivePoints($perro['LOE_RRC']) ) {  // comprobamos si el perro es mestizo o extranjero
+
+        // comprobamos si el perro es mestizo o extranjero
+        if ( ! $this->canReceivePoints($perro['LOE_RRC']) ) {
             $this->pfoffset[$perro['Categoria']]++; // mark to skip point assignation
             // parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
             $perro['Calificacion']= "No puntua";

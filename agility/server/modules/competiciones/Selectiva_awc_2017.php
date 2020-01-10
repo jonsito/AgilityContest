@@ -18,8 +18,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 class Selectiva_awc_2017 extends Puntuable_RSCE_2017 {
 
-    protected $poffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
-    protected $pfoffset=array('L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
+    protected $poffset=array('X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (partial scores)
+    protected $pfoffset=array('X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip not-league competitors (final scores)
 
     function __construct($name="Selectiva AWC 2017") {
         parent::__construct($name);
