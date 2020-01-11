@@ -158,6 +158,13 @@ function formatCatGrad(val,row,idx) {
 }
 
 function formatGrado1(val,row,idx) {
+    switch (parseInt(val)) {
+        case 0: return "   ";
+        case 1: return "&#x2714; (2)" // default for historic reasons
+        case 2: return "&#x2714; (1)"
+        case 3: return "&#x2714; (3)"
+    }
+    // default. should not happen
     return (val==0)?"   ":"&#x2714; ("+val+")";
 }
 
