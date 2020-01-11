@@ -111,7 +111,7 @@ class Federations {
             'InfoManga5' => array( // 5 alturas
                 array('L' => 'Large', 'M' => 'Medium', 'S' => 'Small', 'T' => 'Tiny', 'X' => 'XLarge'), // separate courses
                 array('L' => '', 'M' => 'Medium+Small+Tiny', 'S' => '', 'T' => '', 'X' => 'XLarge+Large'), // 2 group courses
-                array('L' => 'Common course', 'M' => '', 'S' => '', 'T' => '', 'X' => ''), // common
+                array('L' => '', 'M' => '', 'S' => '', 'T' => '', 'X' => 'Common course'), // common
                 array('L' => '', 'M' => 'Medium', 'S' => 'Small+Tiny', 'T' => '', 'X' => 'XLarge+Large') //3 group courses ( 5 heights )
             ),
             'Modes' => array(
