@@ -14,6 +14,15 @@ class Puntuable_RSCE_2020 extends Puntuable_RSCE_2018 {
         $this->competitionID=19;
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20191108_1526";
+        $this->puntos=array(
+            // en la temporada 2018 desaparecen los puntos dobles
+            // se anyade un campo extra para los puntos de ascenso a grado 3
+            /* grado      puntos  AgL     AgM    AgS    JpL     JpM     JpS    pts  stars  extras(g3) */
+            array("GII",    "Pv",  4.0,    3.8,   3.8,   4.2,    4.0,    4.0,   0,  1,      0 ),
+            array("GII",    "Pa",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   0,  1,      1 ), // same as g3
+            array("GIII",   "Pm",  4.0,    3.8,   3.8,   4.2,    4.0,    4.0,   0,  1,      0 ), // same as pvG2
+            array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   0,  1,      0 )
+        );
     }
 
     function getRoundHeights($mangaid) {
