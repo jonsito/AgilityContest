@@ -118,24 +118,28 @@ function newGuia(def,onAccept){
 /**
  * Abre el dialogo para editar un guia ya existente
  * @param {string} dg datagrid ID de donde se obtiene el guia
+ * @param {object} row datagrid row to be edited on dblClick. may be undefined
  */
-function editGuia(dg){
+function editGuia(dg,row){
 	if ($('#guias-datagrid-search').is(":focus")) return; // on enter key in search input ignore
-    var rows = $(dg).datagrid('getSelections');
-    if (rows.length==0) {
-        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
-        return; // no way to know which dog is selected
-    }
-    if (rows.length>1) {
-        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("Too many selected handlers"); ?>',"warning");
-        return; // no way to know which dog is selected
+    if (typeof(row)=="undefined") {
+        var rows = $(dg).datagrid('getSelections');
+        if (rows.length==0) {
+            $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
+            return; // no way to know which dog is selected
+        }
+        if (rows.length>1) {
+            $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("Too many selected handlers"); ?>',"warning");
+            return; // no way to know which dog is selected
+        }
+        row=rows[0];
     }
     $('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('Modify handler data'); ?>'+' - '+fedName(workingData.federation));
     // add extra required parameters to dialog
-    rows[0].Parent='';
-    rows[0].Operation='update';
+    row.Parent='';
+    row.Operation='update';
     // stupid trick to make dialog's clubs combogrid display right data
-    $('#guias-form').form('load',rows[0]); // load row data into guia edit form
+    $('#guias-form').form('load',row); // load row data into guia edit form
     // on accept, display correct data
     $('#guias-okBtn').one('click',reload_guiasDatagrid);
 }

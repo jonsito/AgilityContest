@@ -104,8 +104,8 @@ $config =Config::getInstance();
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
         	// on double click fireup editor dialog
-            onDblClickRow:function() { 
-                editJuez('#jueces-datagrid');
+            onDblClickRow:function(index,row) {
+                editJuez('#jueces-datagrid',row);
             }
         });
 

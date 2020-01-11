@@ -104,8 +104,8 @@ $config =Config::getInstance();
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
             // on double click fireup editor dialog
-            onDblClickRow:function() {
-                editGuia('#guias-datagrid');
+            onDblClickRow:function(index,row) {
+                editGuia('#guias-datagrid',row);
             },
             // especificamos un formateador especial para desplegar la tabla de perros por guia
             detailFormatter:function(idx,row){

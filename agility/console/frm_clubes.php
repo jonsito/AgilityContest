@@ -122,8 +122,8 @@ $config =Config::getInstance();
 			// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
 			rowStyler:myRowStyler,
 			// on double click fireup editor dialog
-			onDblClickRow:function() {
-				editClub('#clubes-datagrid');
+			onDblClickRow:function(index,row) {
+				editClub('#clubes-datagrid',row);
 			},
 			// especificamos un formateador especial para desplegar la tabla de guias por club
 			detailFormatter:function(index,row){

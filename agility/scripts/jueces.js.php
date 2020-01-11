@@ -51,13 +51,16 @@ function newJuez(dg,def,onAccept){
 /**
  * Open "Edit Juez" dialog
  * @param {string} dg datagrid ID de donde se obtiene el juez
+ * @param {object} row datagrid on dblClickRow. may be undefined
  */
-function editJuez(dg){
+function editJuez(dg,row){
 	if ($('#jueces-datagrid-search').is(":focus")) return; // on enter key in search input ignore
-    var row = $(dg).datagrid('getSelected');
-    if (!row) {
-    	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no judge selected"); ?>',"warning");
-    	return; // no way to know which dog is selected
+    if (typeof(row)==="undefined") {
+        row = $(dg).datagrid('getSelected');
+        if (!row) {
+            $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no judge selected"); ?>',"warning");
+            return; // no way to know which dog is selected
+        }
     }
     // set up operation properly
     row.Operation='update';

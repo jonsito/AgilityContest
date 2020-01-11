@@ -135,17 +135,20 @@ function newClub(dg,def,onAccept){
 /**
  * Abre el dialogo para editar un club existente
  * @var {string} dg current active datagrid ID
+ * @var {object} row current active datagrid row in dblClickRow. may be undefined
  */
-function editClub(dg){
+function editClub(dg,row){
 	if ($('#clubes-datagrid-search').is(":focus")) return; // on enter key in search input ignore
-    var row = $(dg).datagrid('getSelected');
-    if (!row) {
-    	$.messager.alert("<?php _e('Edit Error');?>:",'<?php _e("There is no club selected"); ?>',"warning");
-    	return; // no way to know which club is selected
-    }
     if (isInternational(workingData.federation)) {
         $.messager.alert("<?php _e('Edit Error');?>:",'<?php _e("Country information is not editable"); ?>',"error");
         return; // do not allow editing country information
+    }
+    if (typeof(row)==="undefined") {
+        row = $(dg).datagrid('getSelected');
+        if (!row) {
+            $.messager.alert("<?php _e('Edit Error');?>:",'<?php _e("There is no club selected"); ?>',"warning");
+            return; // no way to know which club is selected
+        }
     }
     row.Operation='update';
     // use date.getTime to bypass cache
