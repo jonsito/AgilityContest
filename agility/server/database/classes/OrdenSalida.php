@@ -432,7 +432,7 @@ class OrdenSalida extends DBObject {
 			"resultados,equipos,perroguiaclub,inscripciones",
 			"(inscripciones.Prueba={$this->prueba->ID}) AND (inscripciones.Perro=resultados.Perro) AND
 			(Manga={$this->manga->ID}) AND (resultados.Equipo=equipos.ID) AND (resultados.Perro=perroguiaclub.ID)",
-			"",
+			"FIELD (perroguiaclub.Categoria, '-','X','L','M','S','T')",
 			""
 		);
 		if(!is_array($rs)) return $this->error($this->conn->error);
@@ -508,7 +508,8 @@ class OrdenSalida extends DBObject {
             $p5=array();
             foreach ($res['rows'] as $item) {
             	// hack to get compatibility with oldest database entries that stored "no_cats" tanda categories as LMS
-            	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="-";
+            	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="XLMST";
+            	if ($item['Categoria']==="-") $item['Categoria']="XLMST";
             	// si la tanda tiene mas de una categoria, hacemos un split y separamos internamente
 				$cats=str_split(($item['Categoria']));
 				foreach($cats as $cat) {
