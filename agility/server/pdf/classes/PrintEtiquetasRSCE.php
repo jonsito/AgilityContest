@@ -35,10 +35,8 @@ require_once(__DIR__."/../print_common.php");
 
 class PrintEtiquetasRSCE extends PrintCommon {
 	
-	protected $manga1;
-	protected $manga2;
-	protected $juez1;
-	protected $juez2;
+	protected $mangasObj;
+	protected $juecesObj;
 	protected $serialno;
 	
 	 /** Constructor
@@ -48,11 +46,16 @@ class PrintEtiquetasRSCE extends PrintCommon {
 	function __construct($prueba,$jornada,$mangas) {
 		parent::__construct('Portrait',"print_etiquetasPDF",$prueba,$jornada);
 		$dbobj=new DBObject("print_etiquetas_pdf");
-        $this->manga1=($mangas[0]!=0)?$dbobj->__getObject("mangas",$mangas[0]):null;
-        $this->manga2=($mangas[1]!=0)?$dbobj->__getObject("mangas",$mangas[1]):null;
-        $this->juez1=$dbobj->__selectAsArray("*",'jueces',"ID={$this->manga1->Juez1}");
-        $this->juez2=$dbobj->__selectAsArray("*",'jueces',"ID={$this->manga2->Juez1}");
-        $this->myLogger->trace("Juez 1: ".json_encode($this->juez1));
+		$this->mangasObj= array();
+		$this->juecesObj= array();
+		for ($n=0;$n<8;$n++) {
+			$this->mangasObj[$n]= null;
+			$this->juecesObj[$n]= null;
+			if ($mangas[$n]!=0) {
+				$this->mangasObj[$n]= $dbobj->__getObject("mangas",$mangas[$n]);
+				$this->juecesObj[$n]= $dbobj->__selectAsArray("*",'jueces',"ID={$this->mangasObj[$n]->Juez1}");
+			}
+		}
         // add version date and license serial to every label
         $ser= substr( $this->regInfo['Serial'],4,4);
         $ver= substr( $this->config->getEnv("version_date"),2,6) ;
@@ -69,12 +72,20 @@ class PrintEtiquetasRSCE extends PrintCommon {
 	// Pie de página: tampoco cabe
 	function Footer() {
 	}
-	
-	function writeCell($idx,$row) {
+
+	/**
+	 * @param {integer} $idx numero de pegatina
+	 * @param {array} $row datos a imprimir
+	 * @param {integer} $mng numero de manga dentro de los datos
+	 */
+	function writeCell($idx,$row,$mng=0) {
 		$top=$this->config->getEnv('pdf_topmargin');
 		$left=$this->config->getEnv('pdf_leftmargin');
 		$height=$this->config->getEnv('pdf_labelheight'); // 17 or 20 mmts ==> 16 or 13 labels/sheet
-		
+
+		$mntop=($this->mangasObj[$mng] != null)?true:false;
+		$mnbottom=($this->mangasObj[$mng+1] != null)?true:false;
+
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		//dorsal (10,y,20,17)
 		$y0=  $top + $height * $idx + 0;
@@ -138,12 +149,14 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		//Perro (45,y+10,38,7) right
 		$this->SetXY($left+36,$y9);
 		$this->Cell(38,7,"{$row['Licencia']} - {$row['Nombre']}",0,0,'R',false);
+
+
 		//Manga1Tipo(85,y,20,8) center
-		$tipo=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation));
+		$tipo=($mntop)? _(Mangas::getTipoManga($this->mangasObj[$mng]->Tipo,3,$this->federation)):" ------- ";
 		$this->SetXY($left+75,$y2);
 		$this->Cell(20,7,$tipo,'LB',0,'L',false);
 		//Manga2Tipo(85,y+8,20,9) center
-		$tipo=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation));
+		$tipo=($mnbottom)?_(Mangas::getTipoManga($this->mangasObj[$mng+1]->Tipo,3,$this->federation)):" ------ ";
 		$this->SetXY($left+75,$y8);
 		$this->Cell(20,8,$tipo,'L',0,'L',false);
 
@@ -156,48 +169,60 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		$this->Cell(12,8,$row['Grado'],'L',0,'C',false);
 		//Penal1 (117,y,17,8) right
 		$this->SetXY($left+107,$y2);
-		$this->Cell(17,7,$row['P1'],'LB',0,'C',false);
+		$this->Cell(17,7,($mntop)?$row["P".($mng+1)]:"---",'LB',0,'C',false);
 		//Penal2 (117,y+8,17,9) right
 		$this->SetXY($left+107,$y8);
-		$this->Cell(17,8,$row['P2'],'L',0,'C',false);
+		$this->Cell(17,8,($mnbottom)?$row["P".($mng+2)]:"---",'L',0,'C',false);
 
         $this->SetFont($this->getFontName(),'',8.5); // font size for results data
+
+
 		//Calif1 (134,y,25,8) right
 		$this->SetXY($left+124,$y2);
-		$v=($row['V1']==0)?"":number_format2($row['V1'],2)."m/s - ";
-		$this->Cell(24,7,$v.$row['C1'],'LB',0,'C',false);
-		//Calif2 (134,y+8,25,9) right
-		$this->SetXY($left+124,$y8);
-        $v=($row['V2']==0)?"":number_format2($row['V2'],2)."m/s - ";
-		$this->Cell(24,8,$v.$row['C2'],'L',0,'C',false);
-		
+		$v= "-"; $c="";
+		if ($mntop) {
+			$v = ($row["V".($mng+1)] == 0) ? "" : number_format2($row["V" . ($mng + 1)], 2) . "m/s - ";
+			$c= $row["C".($mng+1)];
+		}
+		$this->Cell(24,7,$v.$c,'LB',0,'C',false);
+
 		//Puesto1 (159,y,15,8) center
 		$this->SetFont($this->getFontName(),'B',20); // font size for results data
 		$this->ac_Cell($left+148.5,$y2,13,7,"/",'','C',false);
 		$this->SetFont($this->getFontName(),'',10); // font size for results data
 		$this->ac_Cell($left+148,$y2,13,7,"",'LBR','C',false);
-		$this->ac_Cell($left+148,$y2,13,7,"{$row['Puesto1']}º",'','L',false);
-		$this->ac_Cell($left+148,$y3,13,7,"${row['Participantes']}",'','R',false);
+		$this->ac_Cell($left+148,$y2,13,7,($mntop)?"{$row["Puesto".($mng+1)]}º":"-",'','L',false);
+		$this->ac_Cell($left+148,$y3,13,7,($mntop)?"{$row['Participantes']}":"-",'','R',false);
+		// en el margen izquierdo de las etiquetas
+		// ponemos el juez de la manga
+		$this->SetFont($this->getFontName(),'I',8); // font size for results data
+		$this->ac_Cell($left+161,$y2,29,7,($mntop)?$this->juecesObj[$mng]['Nombre']:"",'B','L',false);
+
+		//Calif2 (134,y+8,25,9) right
+		$this->SetXY($left+124,$y8);
+		$v= "-"; $c="";
+		if ($mnbottom) {
+			$v = ($row["V".($mng + 2)] == 0) ? "" : number_format2($row["V".($mng+2)], 2) . "m/s - ";
+			$c= $row["C".($mng+2)];
+		}
+		$this->Cell(24,8,$v.$c,'L',0,'C',false);
 
 		//Puesto2 (159,y+8,15,9) center
 		$this->SetFont($this->getFontName(),'B',20); // font size for results data
 		$this->ac_Cell($left+148.5,$y8,13,8,"/",'','C',false);
 		$this->SetFont($this->getFontName(),'',10); // font size for results data
 		$this->ac_Cell($left+148,$y8,13,8,"",'LR','C',false);
-		$this->ac_Cell($left+148,$y8,13,8,"{$row['Puesto2']}º",'','L',false);
-		$this->ac_Cell($left+148,$y9,13,8,"${row['Participantes']}",'','R',false);
+		$this->ac_Cell($left+148,$y8,13,8,($mnbottom)?"{$row["Puesto".($mng+2)]}º":"",'','L',false);
+		$this->ac_Cell($left+148,$y9,13,8,($mnbottom)?"{$row['Participantes']}":"",'','R',false);
+		// en el margen izquierdo de las etiquetas
+		// ponemos el juez de la manga
+		$this->SetFont($this->getFontName(),'I',8); // font size for results data
+		$this->ac_Cell($left+161,$y8,29,7,($mnbottom)?$this->juecesObj[1+$mng]['Nombre']:"",'','L',false);
+
 		// si 13 etiquetas/pagina, linea al final de la celda
 		if ($height==20) $this->Line($left,$y17,$left+190,$y17);
 		// linea al principio de celda siguiente
 		$this->Line($left,$ynext,$left+190,$ynext);
-		
-		// en el margen izquierdo de las etiquetas
-		// ponemos el juez de la manga
-		$this->SetFont($this->getFontName(),'I',8); // font size for results data
-		$this->SetXY($left+161,$y2);
-		$this->Cell(29,7,$this->juez1['Nombre'],'B',0,'L',false);
-        $this->SetXY($left+161,$y8);
-        $this->Cell(29,7,$this->juez2['Nombre'],'',0,'L',false);
 	}
 
 	/**
@@ -237,7 +262,21 @@ class PrintEtiquetasRSCE extends PrintCommon {
 				if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
 			}
 			if ( (($rowcount%$labels)==0) && ($rowcount!=0)) $this->AddPage(); // 16/13 etiquetas por pagina
-			$this->writeCell($rowcount%$labels,$row);
+
+			// ok. just print label for first 2 rounds
+			$this->writeCell($rowcount%$labels,$row,0);
+			$rowcount++;
+
+			// check for additional rounds
+			if ($this->mangasObj[2]==null) continue;
+
+			// on double "not present" do not print label
+			if ( ($row['P3']>=200.0) && ($row['P4']>=200.0) ) continue;
+			// on double "eliminated", ( or eliminated+notpresent ) handle printing label accordind to configuration
+			if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P3']>=100.0) && ($row['P4']>=100.0) ) continue;
+			if ( (($rowcount%$labels)==0) && ($rowcount!=0)) $this->AddPage(); // 16/13 etiquetas por pagina
+			// ok. just print label for rounds 3 and (if any) 4
+			$this->writeCell($rowcount%$labels,$row,2);
 			$rowcount++;
 		}
 		$this->myLogger->leave();

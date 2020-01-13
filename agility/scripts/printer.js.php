@@ -672,9 +672,10 @@ function clasificaciones_printEtiquetas(flag,start,list,discriminate,global) {
 			data: { 
 				Prueba:workingData.prueba,
 				Jornada:workingData.jornada,
-                // en etiquetas solo hay dos mangas
+                // en version 4.2.x+ en grado1 rsce puede haber tres mangas :-(
 				Manga1:ronda.Manga1,
-				Manga2:ronda.Manga2,
+                Manga2:ronda.Manga2,
+                Manga3:ronda.Manga3,
 				Rondas: ronda.Rondas,
 				Mode: mode,
 				Start: strt,

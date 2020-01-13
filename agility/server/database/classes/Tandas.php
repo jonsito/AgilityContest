@@ -496,7 +496,7 @@ class Tandas extends DBObject {
 	    $cmds=array();
 	    // height should be round dependent, but 5heights is "swap-compatible" with 3heights
         // so let it go
-	    $heights=Competitions::getHeights($p,$j,$this->mangas[0]['ID']);
+	    $heights=Competitions::getHeights($p,$j/* , $this->mangas[0]['ID']*/);
 	    if ($heights==3){
             $cmds=array(
                 // medium unchanged and stay in the middle
