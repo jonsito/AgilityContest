@@ -766,7 +766,8 @@ class Updater {
         $this->myLogger->enter();
         // phase 1: replace category 'E' to 'X' in db. Not used anymore, but for coherency
         $cmds= array(
-            "UPDATE categorias_perro SET Categoria='X' WHERE Categoria='E'",
+            "INSERT IGNORE INTO `categorias_perro` VALUES ('X','XLarge - Standard - 60')",
+            "UPDATE categorias_perro SET Categoria='X' WHERE Categoria='E'"
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         // phase 2: add XLarge fields data into mangas table
@@ -851,7 +852,7 @@ try {
     $upg->addColumnUnlessExists("mangas", "Orden_Equipos", "TEXT");
     $upg->addColumnUnlessExists("resultados", "TIntermedio", "double", "0.0");
     $upg->addColumnUnlessExists("resultados", "Games", "int(4)", "0");
-    $upg->addColumnUnlessExists("perros", "NombreLargo", "varchar(255)");
+    $upg->addColumnUnlessExists("perros", "NombreLargo", "varchar(255)","");
     $upg->addColumnUnlessExists("perros", "Chip", "varchar(255)", "");
     $upg->addColumnUnlessExists("perros", "Genero", "varchar(16)", "-"); // -,M,F
     $upg->addColumnUnlessExists("perros", "Baja", "tinyint(1)", "0"); // 1:baja 0:activo
