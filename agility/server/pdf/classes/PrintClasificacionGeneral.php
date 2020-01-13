@@ -293,7 +293,7 @@ class PrintClasificacionGeneral extends PrintCommon {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// datos del participante
 		$this->Cell(10,6,$row['Dorsal'],0,0,'R',true); 	// dorsal
-		$this->SetFont($this->getFontName(),'B',9); // bold font
+		$this->SetFont($this->getFontName(),'',7); //
         if ($this->useLongNames) {
             $nombre=$row['Nombre']." - ".$row['NombreLargo'];
             $this->Cell(40,6,$nombre,0,0,'L',true);	// nombre (20,y
@@ -306,12 +306,12 @@ class PrintClasificacionGeneral extends PrintCommon {
         $cat=$this->federation->getCategoryShort($row['Categoria']);
 		if ($this->hasGrades) {
             $grad=$this->federation->getGradeShort($row['Grado']);
-			$this->Cell(10,6,"{$cat} {$grad}",0,0,'C',true);	// categoria/grado
+			$this->Cell(14,6,"{$cat} {$grad}",0,0,'C',true);	// categoria/grado
 		} else {
-			$this->Cell(10,6,"{$cat}",0,0,'C',true);	// solo categoria (Individual-Open/Teams/KO)
+			$this->Cell(14,6,"{$cat}",0,0,'C',true);	// solo categoria (Individual-Open/Teams/KO)
 		}
-		$this->Cell(35,6,$this->getHandlerName($row),0,0,'R',true);	// nombreGuia
-		$this->Cell(20,6,$row['NombreClub'],0,0,'R',true);	// nombreClub
+		$this->Cell(32,6,$this->getHandlerName($row),0,0,'R',true);	// nombreGuia
+		$this->Cell(17,6,$row['NombreClub'],0,0,'R',true);	// nombreClub
 
         // manga 1
         if(!is_null($this->manga1)) {
