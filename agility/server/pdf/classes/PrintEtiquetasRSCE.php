@@ -248,6 +248,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
 			$granero=join(",",expand_range($listadorsales));
 			$pajar=",{$granero},";
 		}
+
 		foreach($resultados as $row) {
 			if ($listadorsales!=="") {
 				$aguja=",{$row['Dorsal']},";
@@ -271,11 +272,11 @@ class PrintEtiquetasRSCE extends PrintCommon {
 			if ($this->mangasObj[2]==null) continue;
 
 			// on double "not present" do not print label
-			if ( ($row['P3']>=200.0) && ($row['P4']>=200.0) ) continue;
+			if ( $row['P3']>=200.0) continue;
 			// on double "eliminated", ( or eliminated+notpresent ) handle printing label accordind to configuration
-			if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P3']>=100.0) && ($row['P4']>=100.0) ) continue;
+			if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P3']>=100.0) ) continue;
 			if ( (($rowcount%$labels)==0) && ($rowcount!=0)) $this->AddPage(); // 16/13 etiquetas por pagina
-			// ok. just print label for rounds 3 and (if any) 4
+			// ok. just print label for rounds 3 and (null) 4
 			$this->writeCell($rowcount%$labels,$row,2);
 			$rowcount++;
 		}
