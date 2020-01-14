@@ -33,7 +33,7 @@ $config =Config::getInstance();
 </div>
 
 <!--  dialogo de ajuste manual del orden de equipos en competiciones modalidad eq3 -->
-<div id="ordeneq3-dialog" style="width:700px;height:300px;padding:5px">
+<div id="ordeneq3-dialog" style="width:640px;height:400px;padding:5px">
     <!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
     <table id="ordeneq3-datagrid" style="padding:5px"></table>
 </div>

@@ -227,26 +227,45 @@ class OrdenSalida extends DBObject {
      * Obtiene la lista de equipos ordenada según el orden de salida de la manga
      */
     function getTeams() {
+    	$this->myLogger->enter();
         // obtenemos los equipos de la manga y reindexamos segun el ID
         $eq=$this->__select("*","equipos","(Jornada={$this->jornada->ID})","","");
         if (!is_array($eq)) return $this->error($this->conn->error);
-        $equipos=array();
-        foreach($eq['rows'] as $equipo) { $equipos[$equipo['ID']]=$equipo; }
-        // cogemos ahora el orden de salida de los equipos de esta manga
-        $res=array();
-        $oequipos=explode(',',$this->getOrdenEquipos());
-        foreach($oequipos as $equipo) {
-            // componemos la lista de equipos ordenada segun el orden de salida
-            if ($equipo==="BEGIN") continue;
-            if ($equipo==="END") continue;
-            if (!array_key_exists($equipo,$equipos)) {
-                $this->myLogger->error("El equipo $equipo no esta en la jornada {$this->jornada->ID} ".
-                                        "pero figura en el orden de salida de la manga {$this->manga->ID}");
-            } else {
-                $res[]=$equipos[$equipo];
-            }
-        }
-        return array('rows'=>$res,'total'=>count($res));
+
+		// fase 1 ordenamos en funcion del id del equipo
+		$f1=array();
+		foreach($eq['rows'] as $equipo) { $f1[intval($equipo['ID'])]=$equipo; }
+
+		// fase 2 ordenamos segun el orden de equipos
+		$f2=array();
+        $ord=explode(',',$this->getOrdenEquipos());
+        foreach($ord as $eid) {
+			if ($eid==="BEGIN") continue;
+			if ($eid==="END") continue;
+			if (!array_key_exists($eid,$f1)) {
+				$this->myLogger->error("El equipo $eid no esta en la jornada {$this->jornada->ID} ".
+					"pero figura en el orden de equipos de la manga {$this->manga->ID}");
+			} else {
+				$f2[]=$f1[$eid];
+			}
+		}
+
+		// fase 3finalmente ordenamos por categorias
+		$sorder=array('X','L','M','S','T'); // vemos si hay que invertir orden de categorias
+		if ($this->federation->get('ReverseXLMST')===true) $sorder=array('T','S','M','L','X');
+
+		$res=array();
+		foreach( $sorder as $cat ) {
+			foreach( $f2 as $equipo) {
+				if (strpos($equipo['Categorias'],$cat)===FALSE) continue; // category doesn't match
+				if (in_array($equipo,$res)) continue; // already inserted
+				$res[]=$equipo; // add to team list
+			}
+		}
+		// that's all folks
+		$result=array('total'=>count($res),'rows'=>$res);
+		$this->myLogger->leave();
+		return $result;
     }
 
     /**
@@ -471,12 +490,11 @@ class OrdenSalida extends DBObject {
 
 		// segunda pasada: ordenar segun el orden de equipos de la jornada
 		$p3=array();
-        $oequipos=explode(',',$this->getOrdenEquipos());
-		foreach($oequipos as $equipo) {
-            if ($equipo==="BEGIN") continue;
-            if ($equipo==="END") continue;
+		$oequipos=$this->getTeams();
+		foreach($oequipos['rows'] as $equipo) {
+			$eid=$equipo['ID'];
 			foreach ($p2 as $perro) {
-				if ($perro['Equipo']==$equipo) array_push($p3,$perro);
+				if ($perro['Equipo']==$eid) array_push($p3,$perro);
 			}
 		}
 
