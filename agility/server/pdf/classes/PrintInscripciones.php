@@ -310,7 +310,7 @@ class PrintEstadisticasInscripciones extends PrintCommon {
 
 		foreach($this->inscritos as $item){
 			$j=$item['Jornadas'];
-			$this->evalItem('Prueba',$est,$item);
+			$this->evalItem('Prueba',$est,$item); // globales de la prueba
 			if ($j&0x01) $this->evalItem('J1',$est,$item);
 			if ($j&0x02) $this->evalItem('J2',$est,$item);
 			if ($j&0x04) $this->evalItem('J3',$est,$item);
@@ -331,11 +331,32 @@ class PrintEstadisticasInscripciones extends PrintCommon {
 		$this->Ln();	
 	}
 
+	private function paintData($data,$name,$width,$heights,$cat) {
+		$this->ac_row(0,9);
+		if ($cat=='G') $this->ac_row(3,9);
+		if ($heights==5) {
+			$this->cell($width,6,$data[$name][$cat]['X'],'RB',0,'C',true);
+			$this->cell($width,6,$data[$name][$cat]['L'],'RB',0,'C',true);
+		} else {
+			$this->cell($width,6,$data[$name][$cat]['X']+$data[$name][$cat]['L'],'RB',0,'C',true);
+		}
+		$this->cell($width,6,$data[$name][$cat]['M'],'RB',0,'C',true);
+		if ($heights==3) {
+			$this->cell($width,6,$data[$name][$cat]['S']+$data[$name][$cat]['T'],'RB',0,'C',true);
+		} else {
+			$this->cell($width,6,$data[$name][$cat]['S'],'RB',0,'C',true);
+			$this->cell($width,6,$data[$name][$cat]['T'],'RB',0,'C',true);
+		}
+		$this->cell($width,6,$data[$name][$cat]['C'],'RB',0,'C',true);
+		$this->Ln(6);
+	}
+
     // $this->cell( width, height, data, borders, where, align, fill)
 	function printTableData($data,$name,$heights) {
 		$this->ac_header(2,9);
 		$this->SetX(10);
 		$width=($heights===5)?25:(($heights===4)?30:35);
+
 		// Pintamos la cabecera de la tabla
         $this->SetFont($this->getFontName(),'B',9);
         $this->cell(30,6,'','LRB',0,'L',true);
@@ -352,106 +373,44 @@ class PrintEstadisticasInscripciones extends PrintCommon {
 		// Pre Agility
         $this->ac_header(2,9); // pre-agility
         $this->cell(30,6,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
-        $this->ac_row(0,9);
-		if ($heights==5)
-			$this->cell($width,6,$data[$name]['P.A.']['X'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['P.A.']['L'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['P.A.']['M'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['P.A.']['S'],'RB',0,'C',true);
-        if ($heights!=3)
-        	$this->cell($width,6,$data[$name]['P.A.']['T'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['P.A.']['C'],'RB',0,'C',true);
-        $this->Ln(6);
+		$this->paintData($data,$name,$width,$heights,'P.A.');
 
         // grado 1
         $this->ac_header(2,9);
         $this->cell(30,6,$this->federation->getGrade('GI'),'LRB',0,'L',true);
-        $this->ac_row(1,9);
-		if ($heights==5)
-			$this->cell($width,6,$data[$name]['GI']['X'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['GI']['L'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['GI']['M'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['GI']['S'],'RB',0,'C',true);
-        if ($heights!=3)
-        	$this->cell($width,6,$data[$name]['GI']['T'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['GI']['C'],'RB',0,'C',true);
-        $this->Ln(6);
+		$this->paintData($data,$name,$width,$heights,'GI');
 
         // grado II
         $this->ac_header(2,9);
         $this->cell(30,6,$this->federation->getGrade('GII'),'LRB',0,'L',true);
-        $this->ac_row(2,9);
-		if ($heights==5)
-			$this->cell($width,6,$data[$name]['GII']['X'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['GII']['L'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['GII']['M'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['GII']['S'],'RB',0,'C',true);
-        if ($heights!=3)
-        	$this->cell($width,6,$data[$name]['GII']['T'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['GII']['C'],'RB',0,'C',true);
-        $this->Ln(6);
-
+		$this->paintData($data,$name,$width,$heights,'GII');
 
         if ($this->federation->hasGrade3()) {
             $this->ac_header(2,9); // grado III
             $this->cell(30,6,$this->federation->getGrade('GIII'),'LRB',0,'L',true);
-            $this->ac_row(3,9);
-			if ($heights==5)
-				$this->cell($width,6,$data[$name]['GIII']['X'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['GIII']['L'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['GIII']['M'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['GIII']['S'],'RB',0,'C',true);
-            if ($heights!=3)
-            	$this->cell($width,6,$data[$name]['GIII']['T'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['GIII']['C'],'RB',0,'C',true);
-            $this->Ln(6);
+			$this->paintData($data,$name,$width,$heights,'GIII');
 		}
 
         // Junior
 		if ($this->federation->hasJunior()) {
             $this->ac_header(2,9);
             $this->cell(30,6,$this->federation->getGrade('Jr'),'LRB',0,'L',true);
-            $this->ac_row(0,9);
-			if($heights==5)
-				$this->cell($width,6,$data[$name]['Jr']['X'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['Jr']['L'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['Jr']['M'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['Jr']['S'],'RB',0,'C',true);
-            if($heights!=3)
-            	$this->cell($width,6,$data[$name]['Jr']['T'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['Jr']['C'],'RB',0,'C',true);
-            $this->Ln(6);
+			$this->paintData($data,$name,$width,$heights,'Jr');
         }
 
         // Senior
 		if ($this->federation->hasSenior()) {
             $this->ac_header(2,9);
             $this->cell(30,6,$this->federation->getGrade('Sr'),'LRB',0,'L',true);
-            $this->ac_row(0,9);
-			if($heights==5)
-				$this->cell($width,6,$data[$name]['Sr']['X'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['Sr']['L'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['Sr']['M'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['Sr']['S'],'RB',0,'C',true);
-            if($heights!=3)
-                $this->cell($width,6,$data[$name]['Sr']['T'],'RB',0,'C',true);
-            $this->cell($width,6,$data[$name]['Sr']['C'],'RB',0,'C',true);
-            $this->Ln(6);
+			$this->paintData($data,$name,$width,$heights,'Sr');
 		}
 
         // Total
         $this->ac_header(2,9);
         $this->cell(30,6,_('Total'),'LRB',0,'L',true);
         $this->ac_row(4,9);
-		if ($heights==5)
-			$this->cell($width,6,$data[$name]['G']['X'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['G']['L'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['G']['M'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['G']['S'],'RB',0,'C',true);
-        if ($heights!=3)
-        	$this->cell($width,6,$data[$name]['G']['T'],'RB',0,'C',true);
-        $this->cell($width,6,$data[$name]['G']['C'],'RB',0,'C',true);
-        $this->Ln(8);
+		$this->paintData($data,$name,$width,$heights,'G');
+        $this->Ln(2); // extra space
 	}
 
 	/**
