@@ -1004,10 +1004,10 @@ function reloadOrdenSalida() {
     );
 }
 
-function reloadOrdenEquipos() {
+function reloadOrdenEquipos(dg) {
     if (workingData.jornada==0) return;
     if (workingData.manga==0) return;
-    $('#ordenequipos-datagrid').datagrid(
+    $('#ordeneq3-datagrid').datagrid(
         'load',
         {
             Prueba: workingData.prueba,

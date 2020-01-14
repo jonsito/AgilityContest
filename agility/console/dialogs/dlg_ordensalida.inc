@@ -165,7 +165,7 @@ $('#ordeneq3-dialog').dialog({
     iconCls:		'icon-huella',
     closed:			true,
     modal:			true,
-    onBeforeOpen:   reloadSimpleOrdenEquipos
+    onBeforeOpen:   reloadOrdenEquipos
 });
 
 $('#ordensalida-selection').combobox({
@@ -249,12 +249,19 @@ $('#ordeneq3-datagrid').datagrid({
     rowStyler: myRowStyler, // function that personalize colors on alternate rows
     toolbar: '#ordeneq3-toolbar',
     onBeforeLoad: function (params) {return (workingData.manga>0) }, // do not load if no manga selected
-    onLoadSuccess: function(data) { $(this).datagrid('enableDnd'); },
+    onLoadSuccess: function(data) {
+        $(this).datagrid('enableDnd');
+    },
     onDragEnter: function(dst,src) {
         return (parseInt(dst.DefaultTeam)!==1 && parseInt(src.DefaultTeam)!==1); // allow dnd if not from/to default team
     },
     onDrop: function(dst,src,updown) {
-        dragAndDropOrdenEquipos(src.ID,dst.ID,(updown==='top')?0:1,reloadSimpleOrdenEquipos);
+        dragAndDropOrdenEquipos(
+            src.ID,
+            dst.ID,
+            (updown==='top')?0:1,
+            function() { reloadOrdenEquipos(); reloadOrdenSalida();}
+        );
     }
 });
 

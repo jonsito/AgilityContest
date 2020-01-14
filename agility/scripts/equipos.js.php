@@ -480,23 +480,6 @@ function changeTeam() {
     handleChangeTeam(selectedRows,0,size);
 }
 
-
-function reloadOrdenEquipos() {
-    $('#ordenequipos-datagrid').datagrid(
-        'load',
-        {  Operation: 'getTeams', Prueba: workingData.prueba, Jornada: workingData.jornada, Manga: workingData.manga, where:''	}
-    );
-    return true;
-}
-
-function reloadSimpleOrdenEquipos() {
-    $('#ordeneq3-datagrid').datagrid(
-        'load',
-        {  Operation: 'getTeams', Prueba: workingData.prueba, Jornada: workingData.jornada, Manga: workingData.manga, where:''	}
-    );
-    return true;
-}
-
 // reajusta el orden de salida de los equipos
 // poniendo el idequipo "from" delante (where==0) o detras (where==1) del idequipo "to"
 // al retornar la funcion se invoca whenDone, que normalmente recargara el formulario padre
