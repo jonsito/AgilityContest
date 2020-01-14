@@ -158,8 +158,8 @@ function print_entrenamientos(mode) {
 function print_team3as4() {
     $.messager.radio(
         '<?php _e("Print grouped"); ?>',
-        '<?php _e("Print data in group (all team members together) mode");?><br/>'+
-        '<?php _e("Select option "); ?>:<br/>',
+        '<?php _e("Print data in group (all team members together) mode");?><br/>&nbsp;<br/>'+
+        '<?php _e("Select option "); ?>:',
         {
             0:'*<?php _e("Starting order"); ?>',
             1:'<?php _e("Assistant sheets"); ?>'
