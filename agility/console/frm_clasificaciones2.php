@@ -84,39 +84,6 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
 	
 </div> <!-- panel de informacion -->
 
-<div id="resultados-toolbar" style="width:100%;display:none"> <!-- hide until datagrid gets loaded -->
-    <table style="width:100%;padding:2px;">
-        <tr>
-            <td><label for="resultados-selectCategoria"><?php _e('Category');?></label></td>
-            <td>
-                <input id="resultados-selectCategoria" name="Categoria">
-            </td>
-            <td style="width:10%">&nbsp;</td>
-            <td>
-                <a id="resultados-competicionBtn" href="#" class="easyui-linkbutton"
-                   data-options="iconCls:'icon-endflag'" onclick="loadCompetitionWindow();"><?php _e('Competition'); ?></a>
-            </td>
-            <td style="width:10%">&nbsp;</td>
-            <td>
-                <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton"
-                   data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();"><?php _e('Refresh'); ?></a>
-            </td>
-            <td>
-                <a id="resultados-verifyBtn" href="#" class="easyui-linkbutton"
-                   data-options="iconCls:'icon-search'" onclick="verifyClasificaciones();"><?php _e('Verify'); ?></a>
-            </td>
-            <td>
-                <a id="resultados-emailBtn" href="#" class="easyui-linkbutton"
-                   data-options="iconCls:'icon-mail'" onclick="emailClasificaciones(false);"><?php _e('Mail'); ?></a>
-            </td>
-            <td>
-                <a id="resultados-printBtn" href="#" class="easyui-linkbutton"
-                   data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');"><?php _e('Reports'); ?></a>
-            </td>
-        </tr>
-    </table>
-</div>
-
 <div id="resultados-printDialog">
 	<form style="padding:10px" id="resultados-printForm">
 	<input type="radio" name="r_prformat" value="0" onclick="r_selectOption(0);"/><?php _e('Podium'); ?> (PDF)<br />
@@ -178,6 +145,7 @@ $('#r_prfirst').numberspinner({
     min: 1,
     value: 1
 });
+
 $('#resultados-printDialog').dialog({
     title:'<?php _e('Select format'); ?>',
     modal:true,
@@ -191,14 +159,6 @@ $('#resultados-printDialog').dialog({
         $('#r_junior').css('display',(ch)?'inherit':'none');
         return true;
     }
-});
-
-$('#resultados-selectCategoria').combobox({
-    width:125,
-    valueField:'mode',
-	textField:'text',
-	panelHeight:75,
-	onSelect:function (index,row) {	reloadClasificaciones(); }
 });
 
 // combogrid que presenta cada una de las rondas de la jornada
@@ -250,11 +210,6 @@ $('#resultados-info-prueba').form('load',{
 });
 
 //tooltips
-addTooltip($('#resultados-competicionBtn').linkbutton(),'<?php _e("Jump to Journey development window"); ?>');
-addTooltip($('#resultados-refreshBtn').linkbutton(),'<?php _e("Update score tables"); ?>');
-addTooltip($('#resultados-verifyBtn').linkbutton(),'<?php _e("Check for dogs without registered data"); ?>');
-addTooltip($('#resultados-printBtn').linkbutton(),'<?php _e("Print scores on current round"); ?>');
-addTooltip($('#resultados-emailBtn').linkbutton(),'<?php _e("Share results and scores by electronic mail"); ?>');
 addTooltip($('#resultados-printDlgBtn').linkbutton(),'<?php _e("Print data in selected format"); ?>');
 addTooltip($('#resultados-cancelDlgBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels sheet"); ?>');

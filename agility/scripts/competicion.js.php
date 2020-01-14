@@ -1746,7 +1746,6 @@ function resultados_doSelectRonda(row) {
         rondas[count]={ 'mode':mode, 'text':getModeStringByCatRecFed(n,rec,fed) };
         count++;
     }
-    $('#resultados-selectCategoria').combobox('loadData',rondas);
 
     for (nmanga=1;nmanga<9;nmanga++) {
         if (row['Manga'+nmanga]<=0) {
@@ -1796,6 +1795,7 @@ function resultados_doSelectRonda(row) {
     $('#resultados-data').load(page,
         function() {
             // activamos toolbar anyadimos keyhandler en el datagrid de clasificaciones
+            $('#resultados-selectCategoria').combobox('loadData',rondas);
             $('#resultados-toolbar').css('display','inline-block');
             addSimpleKeyHandler(datagrid,"");
             populate_clasificacion();

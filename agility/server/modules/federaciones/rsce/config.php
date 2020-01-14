@@ -119,7 +119,7 @@ class RSCE extends Federations {
             'ModeStrings3' => array( // text to be shown on each category on 3 heights rounds
                 array(/* separado */ "Large", "Medium", "Small", "Invalid","Invalid"),
                 array(/* 2 grupos */ "Large", "Med+Sml", "Med+Sml", "Invalid","Invalid"),
-                array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid","Invalid"),
+                array(/* conjunto */ "Conjunta", "Conjunta", "Conjunta", "Conjunta","Conjunta"),
                 array(/* 3 grupos */ "Invalid", "Medium", "Small+XS", "Invalid","XL+Large") // not used in 3 heights
             ),
             'ModeStrings' => array( // text to be shown on each category

@@ -3,6 +3,7 @@ require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
 $nmangas=http_request("NumMangas","i","2");
+require_once(__DIR__ . "/../templates/resultados-toolbar.inc.php");
 ?>
 
 <table id="finales_individual-datagrid">
