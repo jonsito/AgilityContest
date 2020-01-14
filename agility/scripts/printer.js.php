@@ -153,12 +153,36 @@ function print_entrenamientos(mode) {
 /************************** impresion del orden de salida **********/
 
 /**
+ * Generate printouts in TeamBest mode grouping team members
+ */
+function print_team3as4() {
+    $.messager.radio(
+        '<?php _e("Print grouped"); ?>',
+        '<?php _e("Print data in group (all team members together) mode");?><br/>'+
+        '<?php _e("Select option "); ?>:<br/>',
+        {
+            0:'*<?php _e("Starting order"); ?>',
+            1:'<?php _e("Assistant sheets"); ?>'
+        },
+        function(r){
+            if (!r) return false;
+            switch(parseInt(r)){
+                case 0: return print_ordenSalida('+',0,'0-9999','');
+                case 1: return print_asistenteEquipos('-',0,'9999',''/*,cabecera*/);
+            }
+        }
+    ).window('resize',{width:450});
+    return false;
+}
+
+/**
  * manda a la impresora el orden de salida
- * @param {string} cats categorias a imprimir (-,L,M,S,T)
+ * @param {string} cats categorias a imprimir (-,L,M,S,T,+) Note: '+' means force team 4 mode
  * @param {boolean} excel false:PDF true:Excel
  * @param {string} rango lista de perros a imprimir ( turnos de reconocimiento )
  * @param {string} comentarios texto extra a anyadir a la cabecera
  * @returns {Boolean}
+ *
  */
 function print_ordenSalida(cats,excel,rango,comentarios) {
     var url='../ajax/pdf/print_ordenDeSalida.php';
@@ -172,9 +196,9 @@ function print_ordenSalida(cats,excel,rango,comentarios) {
                 Prueba: workingData.prueba,
                 Jornada: workingData.jornada,
                 Manga: workingData.manga,
-				Categorias: cats,
+				Categorias: (cats==='+')?'-':cats,
 				Excel: excel,
-				EqConjunta: isJornadaEqConjunta()?1:0,
+				EqConjunta: isJornadaEqConjunta()?1:((cats==='+')?1:0),
                 JornadaKO: isJornadaKO()?1:0,
                 JornadaGames: isJornadaGames()?1:0,
                 Rango: rango,
@@ -343,9 +367,9 @@ function importExportParcial(recorrido) {
                     });
                     break;
             }
-        }).window('resize',{width:500});
+        }
+        ).window('resize',{width:500});
     return false; //this is critical to stop the click event which will trigger a normal file download!
-
 }
 
 function print_parcial(mode) {

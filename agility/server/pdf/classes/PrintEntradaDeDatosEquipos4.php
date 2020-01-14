@@ -93,7 +93,7 @@ class PrintEntradaDeDatosEquipos4 extends PrintCommon {
 
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader(_("Data entry (Teams-4)"));
+		$this->print_commonHeader(_("Data entry (Grouped)"));
 
         // pintamos datos de la jornada
         $this->SetFont($this->getFontName(),'B',12); // bold 15

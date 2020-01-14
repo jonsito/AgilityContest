@@ -38,6 +38,18 @@ $config =Config::getInstance();
     <table id="ordeneq3-datagrid" style="padding:5px"></table>
 </div>
 
+<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
+<div id="ordeneq3-toolbar" style="width:100%;display:inline-block">
+    <span style="float:right;padding:5px">
+   		<!-- estos elementos deben estar alineados a la derecha -->
+	   	<a id="ordeneq3-reloadBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-reload'" onclick="$('#ordeneq3-datagrid').datagrid('reload');"><?php _e('Refresh'); ?></a>
+   		<a id="ordeneq3-printBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-print'" onclick="print_team3as4();"><?php _e('Print'); ?></a>
+	</span>
+</div>
+
+
 <!-- Dialogo del ajuste de orden de salida de los perros seleccionados -->
 <div id="ordensalida-reorder-dialog" style="width:640px;height:200px;padding:5px">
         <!-- tabla de reajuste de orden de salida -->
@@ -235,6 +247,7 @@ $('#ordeneq3-datagrid').datagrid({
     view: scrollview,
     pageSize: 25,
     rowStyler: myRowStyler, // function that personalize colors on alternate rows
+    toolbar: '#ordeneq3-toolbar',
     onBeforeLoad: function (params) {return (workingData.manga>0) }, // do not load if no manga selected
     onLoadSuccess: function(data) { $(this).datagrid('enableDnd'); },
     onDragEnter: function(dst,src) {
@@ -375,5 +388,6 @@ addTooltip($('#ordensalida-excel-okBtn').linkbutton(),'<?php _e("Import round re
 addTooltip($('#ordensalida-excel-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 addTooltip($('#ordensalida-reorder-okBtn').linkbutton(),'<?php _e("Move dogs to new provided starting order"); ?>');
 addTooltip($('#ordensalida-reorder-cancelBtn').linkbutton(),'<?php _e("Cancel re-ordering. Close window"); ?>');
-
+addTooltip($('#ordeneq3-reloadBtn').linkbutton(),'<?php _e("Reload team starting order"); ?>');
+addTooltip($('#ordeneq3-printBtn').linkbutton(),'<?php _e("Generate printouts with dogs grouped by team"); ?>');
 </script>
