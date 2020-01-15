@@ -119,6 +119,13 @@ class PrintResultadosByEquipos4 extends PrintCommon {
 	
 	// Pie de página
 	function Footer() {
+        // add judge signing box
+        $this->SetXY(80,-20);
+        $this->SetFont($this->getFontName(),'IB',10);
+        $this->Cell(58,7,_('Judge signature / Date').":  ",0,0,'R',false);
+        $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // azul
+        $this->Cell(60,7,"","TBRL",0,'C',true);
+        $this->Ln();
 		$this->print_commonFooter();
 	}
 
@@ -245,7 +252,7 @@ class PrintResultadosByEquipos4 extends PrintCommon {
             if (count($equipo['Resultados'])==0) continue;
             // check for next team overriding page
             $boxsize=2+3*max($this->getMaxDogs(),count($equipo['Resultados']));
-            if (( $ypos + $boxsize) > 280) { $ypos=58; $this->AddPage(); } // on override goto next page
+            if (( $ypos + $boxsize) > 275) { $ypos=58; $this->AddPage(); } // on override goto next page
             // pintamos el aspecto general de la celda
             $this->SetY($ypos);
             $ypos=$this->printTeamInfo($ypos,$index,$equipo);
