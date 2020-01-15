@@ -58,7 +58,7 @@ require_once(__DIR__ . "/../templates/resultados-toolbar.inc.php");
         // columns declared at html section to show additional headers
         // especificamos un formateador especial para desplegar la tabla de perros por equipos
         view:detailview,
-        toolbar: '#resultados-toolbar',
+        toolbar: strpos(document.baseURI,"console")?'#resultados-toolbar':null,
         detailFormatter:function(idx,row){
             var dgname="finales_equipos-datagrid-"+parseInt(row.ID);
             return '<div style="padding:2px"><table id="'+dgname+'"></table></div>';

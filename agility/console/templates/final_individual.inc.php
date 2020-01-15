@@ -2,7 +2,7 @@
 require_once(__DIR__ . "/../../server/tools.php");
 require_once(__DIR__ . "/../../server/auth/Config.php");
 $config =Config::getInstance();
-$nmangas=http_request("NumMangas","i","2");
+$nmangas=http_request("NumMangas","i",2);
 require_once(__DIR__ . "/../templates/resultados-toolbar.inc.php");
 ?>
 
@@ -68,7 +68,7 @@ require_once(__DIR__ . "/../templates/resultados-toolbar.inc.php");
         rowStyler:myRowStyler,
         autoRowHeight:false,
         idField: 'ID',
-        toolbar: '#resultados-toolbar',
+        toolbar: strpos(document.baseURI,"console")?'#resultados-toolbar':null,
         pageSize: 500 // enought bit to make it senseless
         // columns declared at html section to show additional headers
     });

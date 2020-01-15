@@ -1794,10 +1794,12 @@ function resultados_doSelectRonda(row) {
     }
     $('#resultados-data').load(page,
         function() {
-            // activamos toolbar anyadimos keyhandler en el datagrid de clasificaciones
+            // activamos toolbar (solo en consola) y anyadimos keyhandler en el datagrid de clasificaciones
             $('#resultados-selectCategoria').combobox('loadData',rondas);
-            $('#resultados-toolbar').css('display','inline-block');
-            addSimpleKeyHandler(datagrid,"");
+            if ( strpos(document.baseURI,"console") ) {
+                $('#resultados-toolbar').css('display','inline-block');
+                addSimpleKeyHandler(datagrid,"");
+            }
             populate_clasificacion();
         });
 }
