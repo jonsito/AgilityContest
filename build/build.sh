@@ -26,10 +26,12 @@ CONF_DIR=${BASE_DIR}/extras
 NSIS=${BASE_DIR}/build/AgilityContest.nsi
 XAMPP=xampp-portable-win32-7.2.6-0-VC15.zip
 DROPBOX='${HOME}/pCloudDrive/Public Folder/AgilityContest'
+DOC_DIR=/home/jantonio/work/agility/manuals
 
-# make sure that build dir exists and is clean
-mkdir -p ${BUILD_DIR}
+# make sure that doc dir and build dir exists
 rm -rf ${BUILD_DIR}/*
+mkdir -p ${BUILD_DIR}
+mkdir -p ${DOC_DIR}
 
 #retrieve xampp from server if not exists
 if [ ! -f ${EXTRA_DIR}/${XAMPP} ]; then
@@ -104,6 +106,7 @@ unix2dos ${BUILD_DIR}/xampp/mysql/my.ini
 echo "Copying AgilityContest files ..."
 (cd ${BASE_DIR}; tar cfBp - .htaccess index.html agility server applications extras logs config AgilityContest.exe COPYING README.md Contributors ChangeLog ) |\
     ( cd ${BUILD_DIR}; tar xfBp - )
+
 # set first install mark and properly edit .htaccess
 touch ${BUILD_DIR}/logs/first_install
 sed -i -e "s|__HTTP_BASEDIR__|C:|g" \
@@ -120,16 +123,18 @@ if [ -d "${DROPBOX}" ]; then
     done
     cp ${BASE_DIR}/README* ${BUILD_DIR}/docs
 fi
-# download available documentation from website
+
+# if necessary download available documentation from website
 mkdir -p ${BUILD_DIR}/logs/downloads
-cd ${BUILD_DIR}/logs/downloads
+cd ${DOC_DIR}
 wget -nv -O- https://www.agilitycontest.es/downloads/ |\
     grep -e 'href="ac.*\.pdf' |\
     sed -e 's/^.*href="//g' -e 's/\.pdf.*/.pdf/g' |\
     while read x; do
         sleep $(($RANDOM % 5 + 5))  ## to appear gentle and polite
-        wget -nv "https://www.agilitycontest.es/downloads/$x"
+        wget -N -nv "https://www.agilitycontest.es/downloads/$x"
     done
+cp ${DOC_DIR}/* ${BUILD_DIR}/logs/downloads
 
 # fix version and revision number in system.ini
 sed -i '/version_name/d' ${BUILD_DIR}/config/system.ini
