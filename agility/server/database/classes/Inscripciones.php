@@ -553,7 +553,7 @@ class Inscripciones extends DBObject {
 
 		//usaremos prepared statements para acelerar
 		$str1="UPDATE inscripciones SET Dorsal=? WHERE (Prueba={$this->pruebaID}) AND (Perro=?)";
-		$str2="UPDATE resultados SET DORSAL=? WHERE (Prueba={$this->pruebaID}) AND (Perro=?)";
+		$str2="UPDATE resultados SET Dorsal=? WHERE (Prueba={$this->pruebaID}) AND (Perro=?)";
 			
 		$stmt1=$this->conn->prepare($str1);
 		if (!$stmt1) return $this->error($this->conn->error);

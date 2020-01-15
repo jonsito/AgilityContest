@@ -225,10 +225,10 @@ class RSCE extends Federations {
                 53	=> 'Jp. teams Large/Medium',  // team combined
                 54	=> 'Jp. teams Small/XSmall',// team combined
                 55	=> 'Special round XSmall',
-                56	=> 'Agility-3 GI Large',	 // extra rounds for GI
-                57	=> 'Agility-3 GI Medium',
-                58	=> 'Agility-3 GI Small',
-                59	=> 'Agility-3 GI XSmall',
+                56	=> 'Agility-2 GI Large',	 // extra rounds for GI temporada 2020
+                57	=> 'Agility-2 GI Medium',
+                58	=> 'Agility-2 GI Small',
+                59	=> 'Agility-2 GI XSmall',
                 // resto de las mangas k.o.
                 60	=> 'Manga K.O. - 2',
                 61	=> 'Manga K.O. - 3',
