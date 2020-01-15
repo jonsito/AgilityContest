@@ -127,10 +127,17 @@ class PrintResultadosByEquipos3 extends PrintCommon {
 	
 	// Pie de página
 	function Footer() {
+        // add judge signing box
+        $this->SetXY(80,-20);
+        $this->SetFont($this->getFontName(),'IB',10);
+        $this->Cell(58,7,_('Judge signature / Date').":  ",0,0,'R',false);
+        $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // azul
+        $this->Cell(60,7,"","TBRL",0,'C',true);
+        $this->Ln();
 		$this->print_commonFooter();
 	}
 
-    function printTeamInformation($teamcount,$team) {
+    private function printTeamInformation($teamcount,$team) {
         // evaluate logos
         $logos=array();
         $maxdogs=$this->getMaxDogs();
@@ -145,32 +152,84 @@ class PrintResultadosByEquipos3 extends PrintCommon {
                 if ( ( ! in_array($logo,$logos) ) && ($count<$maxdogs) ) $logos[$count++]=$logo;
             }
         }
-        $offset=($this->PageNo()==1)?57:45;
-        $this->SetXY(10,$offset+38*($teamcount%6));
         $this->ac_header(1,18);
-        $this->Cell(15,10,strval(1+$teamcount)." -",'LT',0,'C',true); // imprime puesto del equipo
+        $this->Cell(15,7,strval(1+$teamcount)." -",'LT',0,'C',true); // imprime puesto del equipo
         $x=$this->getX();
         $y=$this->getY();
         // if no logo is "null.png" don't try to insert logo, just add empty text with parent background
         for ($n=0;$n<$maxdogs;$n++) {
             if ($logos[$n]==="null.png") {
                 $this->SetX($x+10*$n);
-                $this->Cell(10,10,"",'T',0,'C',true);
+                $this->Cell(10,7,"",'T',0,'C',true);
             } else {
-                $this->Image($logos[$n],$x+10*$n,$y,10);
+                $this->Image($logos[$n],$x+10*$n,$y,7);
             }
         }
         $this->SetX($x+40);
-        $this->Cell(125,10,$team['Nombre'],'T',0,'R',true);
-        $this->Cell(8,10,'','TR',0,'R',true); // empty space at right of page
+        $this->Cell(125,7,$team['Nombre'],'T',0,'R',true);
+        $this->Cell(8,7,'','TR',0,'R',true); // empty space at right of page
         $this->Ln();
         $this->ac_header(2,8);
         for($i=0;$i<count($this->cellHeader);$i++) {
             // en la cabecera texto siempre centrado. Si caza skip licencia
-            if ($this->pos[$i]!=0) $this->Cell($this->pos[$i],5,$this->cellHeader[$i],1,0,'C',true);
+            if ($this->pos[$i]!=0) $this->Cell($this->pos[$i],4,$this->cellHeader[$i],1,0,'C',true);
         }
         $this->ac_row(2,9);
         $this->Ln();
+        return $this->GetY();
+    }
+
+    private function printRowData($n,$equipo,$row) {
+
+        // print team member's result
+        // $this->myLogger->trace("imprimiendo datos del perro {$row['Perro']} - {$row['Nombre']}");
+        // properly format special fields
+        $puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
+        $veloc= ($row['Penalizacion']>=200)?"-":number_format2($row['Velocidad'],1);
+        $tiempo= ($row['Penalizacion']>=200)?"-":number_format2($row['Tiempo'],$this->timeResolution);
+        $penal=number_format2($row['Penalizacion'],$this->timeResolution);
+
+        // print row data
+        $this->SetFont($this->getFontName(),'',8); // set data font size
+        $this->Cell($this->pos[0],5,$row['Dorsal'],			'LBR',	0,		$this->align[0],	true);
+        $this->SetFont($this->getFontName(),'B',8); // mark Nombre as bold
+        $nombre=$row['Nombre'];
+        if ($this->useLongNames) $nombre .= " - " . $row['NombreLargo'];
+        $this->Cell($this->pos[1],5,$nombre,			'LBR',	0,		$this->align[1],	true);
+        $this->SetFont($this->getFontName(),'',8); // set data font size
+        if ($this->pos[2]!=0) $this->Cell($this->pos[2],5,$row['Licencia'],		'LBR',	0,		$this->align[2],	true);
+        $this->Cell($this->pos[3],5,$this->getHandlerName($row),		'LBR',	0,		$this->align[3],	true);
+        $this->Cell($this->pos[4],5,$row['NombreClub'],		'LBR',	0,		$this->align[4],	true);
+        // en pruebas por equipos el grado se ignora
+        // $this->Cell($this->pos[5],6,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	$fill);
+        $cat=$this->federation->getCategoryShort($row['Categoria']);
+        $this->Cell($this->pos[5],5,$cat,  	'LBR',	0,		$this->align[5],	true);
+        $this->Cell($this->pos[6],5,$row['Faltas'],			'LBR',	0,		$this->align[6],	true);
+        $this->Cell($this->pos[7],5,$row['Tocados'],		'LBR',	0,		$this->align[7],	true);
+        $this->Cell($this->pos[8],5,$row['Rehuses'],		'LBR',	0,		$this->align[8],	true);
+        $this->Cell($this->pos[9],5,$tiempo,				'LBR',	0,		$this->align[9],	true);
+        $this->Cell($this->pos[10],5,$veloc,				'LBR',	0,		$this->align[10],	true);
+        $this->Cell($this->pos[11],5,$penal,				'LBR',	0,		$this->align[11],	true);
+        $this->Cell($this->pos[12],5,$row['CShort'],	'LBR',	0,		$this->align[12],	true);
+        $this->Cell($this->pos[13],5,$puesto,			'LBR',	0,		$this->align[13],	true);
+        $this->ac_header(2,8);
+        // en las dos primeras filas imprimimos informacion de resultados del equipo
+        if ($n==0) {
+            $tg=number_format2($equipo['Tiempo'],$this->timeResolution);
+            $this->Cell($this->pos[14],5,_("Time").": $tg",	'LBR',	0,		$this->align[14],	true);
+        }
+        if ($n==1) {
+            $pg=number_format2($equipo['Penalizacion'],$this->timeResolution);
+            $this->Cell($this->pos[14],5,_("Penaliz").".: $pg",	'LBR',	0,		$this->align[14],	true);
+        }
+        // si la clasificacion va por puntos, se incluye tambien
+        if (array_key_exists('Puntos',$equipo)) {
+            if ( ($n==2) && ($equipo['Puntos']!=0)) {
+                $this->Cell($this->pos[14],5,_("Points").".: {$equipo['Puntos']}",	'LBR',	0,		$this->align[14],	true);
+            }
+        }
+        $this->ac_row(2,9);
+        $this->Ln(5);
     }
 
 	// Tabla coloreada
@@ -187,73 +246,31 @@ class PrintResultadosByEquipos3 extends PrintCommon {
 		
 		// Datos
 		$teamcount=0;
+		$this->AddPage();
+        $this->SetXY(10,57);
+        $maxdogs=$this->getMaxDogs();
         foreach($this->equipos as $equipo) {
             // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
             // si el equipo no tiene participantes es que la categoria no es válida: skip
             if (count($equipo['Resultados'])==0) continue;
-            if( ( $teamcount % 6) == 0 ) { // assume 40mmts/team)
+            $numboxes=min($maxdogs,4*count($equipo['Resultados']));
+            $boxsize = 7+4*$numboxes;
+            if ($this->GetY()+$boxsize>270) {
                 $this->AddPage();
-            }
+                $this->SetXY(10,45);
+           }
             // evaluate puesto del equipo
             $this->myLogger->trace("Equipo: ".json_encode($equipo));
             $this->printTeamInformation($teamcount,$equipo);
             // print team header/data
-            $maxdogs=$this->getMaxDogs();
-            for ($n=0;$n<$maxdogs;$n++) {
+            for ($n=0;$n<$numboxes;$n++) {
                 $this->ac_row($n,9);
                 // PENDING: ajustar altura de celdas al numero de perros del equipo
                 $row=$this->defaultPerro;
                 if (array_key_exists($n,$equipo['Resultados'])) $row=$equipo['Resultados'][$n];
-                // print team member's result
-                // $this->myLogger->trace("imprimiendo datos del perro {$row['Perro']} - {$row['Nombre']}");
-                // properly format special fields
-                $puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
-                $veloc= ($row['Penalizacion']>=200)?"-":number_format2($row['Velocidad'],1);
-                $tiempo= ($row['Penalizacion']>=200)?"-":number_format2($row['Tiempo'],$this->timeResolution);
-                $penal=number_format2($row['Penalizacion'],$this->timeResolution);
-
-                // print row data
-                $this->SetFont($this->getFontName(),'',8); // set data font size
-                $this->Cell($this->pos[0],5,$row['Dorsal'],			'LBR',	0,		$this->align[0],	true);
-                $this->SetFont($this->getFontName(),'B',8); // mark Nombre as bold
-                $nombre=$row['Nombre'];
-                if ($this->useLongNames) $nombre .= " - " . $row['NombreLargo'];
-                $this->Cell($this->pos[1],5,$nombre,			'LBR',	0,		$this->align[1],	true);
-                $this->SetFont($this->getFontName(),'',8); // set data font size
-                if ($this->pos[2]!=0) $this->Cell($this->pos[2],5,$row['Licencia'],		'LBR',	0,		$this->align[2],	true);
-                $this->Cell($this->pos[3],5,$this->getHandlerName($row),		'LBR',	0,		$this->align[3],	true);
-                $this->Cell($this->pos[4],5,$row['NombreClub'],		'LBR',	0,		$this->align[4],	true);
-                // en pruebas por equipos el grado se ignora
-                // $this->Cell($this->pos[5],6,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	$fill);
-                $cat=$this->federation->getCategoryShort($row['Categoria']);
-                $this->Cell($this->pos[5],5,$cat,  	'LBR',	0,		$this->align[5],	true);
-                $this->Cell($this->pos[6],5,$row['Faltas'],			'LBR',	0,		$this->align[6],	true);
-                $this->Cell($this->pos[7],5,$row['Tocados'],		'LBR',	0,		$this->align[7],	true);
-                $this->Cell($this->pos[8],5,$row['Rehuses'],		'LBR',	0,		$this->align[8],	true);
-                $this->Cell($this->pos[9],5,$tiempo,				'LBR',	0,		$this->align[9],	true);
-                $this->Cell($this->pos[10],5,$veloc,				'LBR',	0,		$this->align[10],	true);
-                $this->Cell($this->pos[11],5,$penal,				'LBR',	0,		$this->align[11],	true);
-                $this->Cell($this->pos[12],5,$row['CShort'],	'LBR',	0,		$this->align[12],	true);
-                $this->Cell($this->pos[13],5,$puesto,			'LBR',	0,		$this->align[13],	true);
-                $this->ac_header(2,8);
-                // en las dos primeras filas imprimimos informacion de resultados del equipo
-                if ($n==0) {
-                    $tg=number_format2($equipo['Tiempo'],$this->timeResolution);
-                    $this->Cell($this->pos[14],5,_("Time").": $tg",	'LBR',	0,		$this->align[14],	true);
-                }
-                if ($n==1) {
-                    $pg=number_format2($equipo['Penalizacion'],$this->timeResolution);
-                    $this->Cell($this->pos[14],5,_("Penaliz").".: $pg",	'LBR',	0,		$this->align[14],	true);
-                }
-                // si la clasificacion va por puntos, se incluye tambien
-                if (array_key_exists('Puntos',$equipo)) {
-                    if ( ($n==2) && ($equipo['Puntos']!=0)) {
-                        $this->Cell($this->pos[14],5,_("Points").".: {$equipo['Puntos']}",	'LBR',	0,		$this->align[14],	true);
-                    }
-                }
-                $this->ac_row(2,9);
-                $this->Ln(5);
+                $this->printRowData($n,$equipo,$row);
             }
+            $this->Ln(3);
             $teamcount++;
         }
         $this->myLogger->leave();
