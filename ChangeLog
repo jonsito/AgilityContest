@@ -1,3 +1,6 @@
+Version 4.2.1 20200115_2000
+    - Several typo fixes
+    - Add box for judge signing in partial scores pdf
 Version 4.2.1 20200115_0900
     - Clasificaciones: Fix lost toolbar on grade change
     - Estadisticas: add XL to L and XS to S in 3/4-heights
