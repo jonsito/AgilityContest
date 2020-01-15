@@ -112,6 +112,13 @@ class PrintParcialGeneral extends PrintCommon {
 	
 	// Pie de página
 	function Footer() {
+        // add judge signing box
+        $this->SetXY(80,-20);
+        $this->SetFont($this->getFontName(),'IB',10);
+        $this->Cell(58,7,_('Judge signature / Date').":  ",0,0,'R',false);
+        $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // azul
+        $this->Cell(60,7,"","TBRL",0,'C',true);
+        $this->Ln();
 		$this->print_commonFooter();
 	}
 	
@@ -201,7 +208,7 @@ class PrintParcialGeneral extends PrintCommon {
             $this->writeTableHeader();
             foreach($result['rows'] as $row) {
                 $rowcount=0;
-                if ($this->GetY()>275) {
+                if ($this->GetY()>270) {
                     $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
                     $this->AddPage();
                     $this->writeTableHeader();

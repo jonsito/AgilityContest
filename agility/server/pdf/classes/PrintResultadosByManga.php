@@ -112,6 +112,14 @@ class PrintResultadosByManga extends PrintCommon {
 	
 	// Pie de página
 	function Footer() {
+        // add judge signing box
+        $this->SetXY(80,-20);
+        $this->SetFont($this->getFontName(),'IB',10);
+        $this->Cell(58,7,_('Judge signature / Date').":  ",0,0,'R',false);
+        $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // azul
+        $this->Cell(60,7,"","TBRL",0,'C',true);
+        $this->Ln();
+        // common footer
 		$this->print_commonFooter();
 	}
 	
