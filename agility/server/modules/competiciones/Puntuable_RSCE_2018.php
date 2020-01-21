@@ -98,11 +98,12 @@ class Puntuable_RSCE_2018 extends Competitions {
         $flag=false;
         $tipo=$m->Tipo;
         if ($tipo==3) $flag=true; // agility G1 primera manga
-        if ($tipo==4) $flag=true; // agility G1 segunda manga
+        if ($tipo==4) $flag=true; // jumping G1
         if ($tipo==5) $flag=true; // agility G2
         if ($tipo==6) $flag=true; // agility G3
         if ($tipo==10) $flag=true;// jumping G2
         if ($tipo==11) $flag=true;// jumping G3
+        if ($tipo==17) $flag=true; // agility G1 segunda manga
         if (!$flag) {
             parent::evalPartialCalification($m,$perro,$puestocat); return;
         }
@@ -187,8 +188,11 @@ class Puntuable_RSCE_2018 extends Competitions {
                 $perro['Calificacion']= "- No data -";
                 if ($perro['T2']!=0.0) $pts++;
             }
-            if ($pts==1) $perro['Calificacion'] = "1 Punto";
-            if ($pts==2) $perro['Calificacion'] = "2 Puntos";
+            if ($perro['P3']==0.0) { // comprobamos si realmente hay datos del recorrido ( "pending" )
+                $perro['Calificacion']= "- No data -";
+                if ($perro['T3']!=0.0) $pts++;
+            }
+            if ($pts>0) $perro['Calicicacion'] = "{$pts} Punto".($pts>1)?"s":"";
             return;
         }
         // componemos string de calificacion final
