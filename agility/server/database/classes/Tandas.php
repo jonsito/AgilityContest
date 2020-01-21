@@ -447,7 +447,17 @@ class Tandas extends DBObject {
 		if (!$rs) return $this->error($this->conn->error);
 		return "";
 	}
-	
+
+    /**
+     * update order of given list of entries (by id) offset steps up or down
+     *
+     * @param {string} $from comma separated list of ids to be move
+     * @param {integer} offset how many (positive or negative) order steps should be shifted
+     */
+	function dragAndDropList($from,$offset) {
+
+    }
+
 	/**
 	 * Swap orden between requested tandas
 	 * @param {integer} $from Tanda ID 1
