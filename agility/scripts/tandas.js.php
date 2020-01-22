@@ -56,11 +56,16 @@ function newTanda(dg,def,onAccept){
  * @param {string} dg datagrid ID de donde se obtiene la actividad
  */
 function editTanda(dg){
-    var row = $(dg).datagrid('getSelected');
-    if (!row) {
-    	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no activity selected"); ?>',"warning");
-    	return; // no way to know which dog is selected
+    var rows = $(dg).datagrid('getSelections');
+    if (rows.length==0) {
+        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no activity selected"); ?>',"warning");
+        return; // no way to know which dog is selected
     }
+    if (rows.length>1) {
+        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("Too many activities selected"); ?>',"warning");
+        return; // no way to know which dog is selected
+    }
+    var row=rows[0];
     // set up operation properly
     row.Operation='update';
     var type=parseInt(row.Tipo);
@@ -119,11 +124,16 @@ function saveTanda(dg){
  * @param {string} dg datagrid ID de donde se obtiene la actividad
  */
 function deleteTanda(dg){
-    var row = $(dg).datagrid('getSelected');
-    if (!row) {
-    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no activity selected"); ?>',"warning");
-    	return; // no way to know which session is selected
+    var rows = $(dg).datagrid('getSelections');
+    if (rows.length==0) {
+        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no activity selected"); ?>',"warning");
+        return; // no way to know which dog is selected
     }
+    if (rows.length>1) {
+        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("Too many activities selected"); ?>',"warning");
+        return; // no way to know which dog is selected
+    }
+    var row=rows[0];
     if (row.Tipo!=0) {
     	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
     	return; // cannot delete default session

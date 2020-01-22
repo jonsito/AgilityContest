@@ -130,7 +130,8 @@ $('#ordentandas-datagrid').datagrid({
     pagination: false,
     rownumbers: true,
     fitColumns: true,
-    singleSelect: true,
+    singleSelect: false,
+    dragSelection: true, // 4.2.2 to enable multiple dnd
     columns:[[
           	{ field:'ID',		hidden:true },
         	{ field:'Prueba',	hidden:true },
@@ -150,9 +151,11 @@ $('#ordentandas-datagrid').datagrid({
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
     },
-    onDragEnter: function(dst,src) { return true; }, // default is not restriction
+    onDragEnter: function(dst,src) {
+        check_dnd_tandas(src,dst);
+    }, // default is not restriction
     onDrop: function(dst,src,updown) {
-        dragAndDropOrdenTandas(src.ID,dst.ID,(updown==='top')?0:1);
+        dragAndDropOrdenTandasByList(src,dst);
     }
 });
 

@@ -1492,6 +1492,40 @@ function dragAndDropOrdenSalida(from,to,where,whenDone) {
 	});
 }
 
+// check for drag and drop available
+// src list of selected tandas to be moved
+// destination tanda to move to
+function check_dnd_tandas(src,dst) {
+    var dg=$('#ordentandas-datagrid');
+    var selected=dg.datagrid('getSelections');
+    if (selected.length==0) return false; // no selection
+    // buscamos minimo y maximo de la seleccion
+    var minsel=9999;
+    var maxsel=0;
+    for (var n=0; n<selected.length;n++) {
+        var ord=parseInt(selected[n].Orden);
+        if (ord<minsel) minsel=ord;
+        if (ord>maxsel) maxsel=ord;
+    }
+    // buscamos minimo y maximo de las filas
+    var rows=dg.datagrid('getRows');
+    var min=9999; // to be sure
+    var max=0;
+    for (n=0; n<rows.length;n++) {
+        ord=parseInt(rows[n].Orden);
+        if (ord<min) min=ord;
+        if (ord>max) max=ord;
+    }
+    var offset=dst.Orden-src.Orden;
+    if ( (offset>0) && (max < (maxsel+offset)) ) return false; // desplazar hacia el final
+    if ( (offset<0) && (min > (minsel+offset)) ) return false; // desplazar hacia el principio
+    return true;
+}
+
+function dragAndDropOrdenTandasByList(src,dst) {
+
+}
+
 //reajusta el programa de la jornada
 //poniendo la tanda "from" delante (where==0) o detras (where==1) de la tanda "to"
 function dragAndDropOrdenTandas(from,to,where) {
