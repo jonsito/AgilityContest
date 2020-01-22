@@ -454,8 +454,61 @@ class Tandas extends DBObject {
      * @param {string} $from comma separated list of ids to be move
      * @param {integer} offset how many (positive or negative) order steps should be shifted
      */
-	function dragAndDropList($from,$offset) {
-
+	function dragAndDropList($from="",$offset=0) {
+        $this->myLogger->enter();
+        assertClosedJourney($this->jornada); // throw exception on closed journeys
+        $p=$this->prueba->ID;
+        $j=$this->jornada->ID;
+        if (($from=="") || ($offset==0) ) {
+            $this->myLogger->error("Error: invalid arguments dragAndDropList::select() list:'{$from}' offset:'{$offset}'");
+            return $this->errormsg;
+        }
+        // get from/to Tanda's ID
+        $f=$this->__select("ID,ORDEN AS Origen","tandas","(Prueba=$p) AND (Jornada=$j) AND (ID IN($from))","Orden ASC");
+        $t=$this->__select("ID,{$offset}+ORDEN AS Destino","tandas","(Prueba=$p) AND (Jornada=$j) AND (ID NOT IN($from))","Orden ASC");
+        if(!$f || !$t) {
+            $this->myLogger->error("Error: failed dragAndDropList::select() on prueba:$p jornada:$j");
+            return $this->errormsg;
+        }
+        if( ($f['total']==0) || ($t['total']==0) ) { // all or none selected to be moved
+            $this->myLogger->error("Error: Invalid selection:'{$from}' in dragAndDropList::select() on prueba:$p jornada:$j");
+            return $this->errormsg;
+        }
+        // check for offset exceds limits
+        if ( ($t['rows'][0]['Destino']<0) ||
+             ($t['rows'][$t['total']-1]['Destino'] > $f['rows'][$f['total']-1]['Origen']) ) {// all or none selected to be moved
+                $this->myLogger->error("Error: offset:{$offset }out of bounds dragAndDropList::select() on prueba:$p jornada:$j");
+                return $this->errormsg;
+        }
+        // ok. so start moving
+        // reindex arrays by orden. Notice that $f and $t are already sorted
+        $from=array(); foreach ($f['rows'] as $val) { $from[$val['Origen']]=$val['ID']; }
+        $to=array(); foreach($t['rows'] as $val) { $to[$val['Destino']]=$val['ID']; }
+        $res=array();
+        for ($n=0;$n<($f['total']+$t['total']);$n++) {
+            if ($offset<0){ //shift down. first comes moved
+                if (array_key_exists($n,$to)) $res[]=$to[$n];
+                if (array_key_exists($n,$from)) $res[]=$from[$n];
+            } else { // shift up. first comes original
+                if (array_key_exists($n,$from)) $res[]=$from[$n];
+                if (array_key_exists($n,$to)) $res[]=$to[$n];
+            }
+        }
+        // ok. ahora vamos a reindexar en la base de datos
+        $orden=0;$id=0;
+        $query="UPDATE tandas SET Orden=? WHERE ID=?";
+        $stmt=$this->conn->prepare($query);
+        if (!$stmt) return $this->error($this->conn->error);
+        $res=$stmt->bind_param('ii',$orden,$id);
+        if (!$res) return $this->error($stmt->error);
+        for($n=0; $n<count($res);$n++) {
+            $orden=$n+1;
+            $id=$res[$n];
+            $res=$stmt->execute();
+            if (!$res) return $this->error($stmt->error);
+        }
+        $stmt->close();
+        return ""; // mark success
     }
 
 	/**
@@ -463,6 +516,7 @@ class Tandas extends DBObject {
 	 * @param {integer} $from Tanda ID 1
 	 * @param {integer} $to Tanda ID 2
 	 * @return {string} error message or "" on success
+     * @throws {Exception} exception on invalid jornada
 	 */
 	function swap($from,$to) {
 		$this->myLogger->enter();

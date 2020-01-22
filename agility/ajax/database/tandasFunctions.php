@@ -45,6 +45,8 @@ try {
 	
 	// los siguiente campos se usan para drag and drop
 	$f = http_request("From","i",0);
+    $l = http_request("List","s","");
+    $o = http_request("Offset","i",0);
 	$t = http_request("To","i",0);
 	$w = http_request("Where","i",0); // 0:up 1:down
 	if ( ($p<=0) || ($j<=0) ) 
@@ -62,7 +64,8 @@ try {
 		case "getDataByTanda": $result = $ot->getDataByTanda($s,$id); break;
 		case "getDataByDorsal": $result = $ot->getDataByDorsal($s,$id,$d); break;
 		case "swap": $result = $ot->swap($f,$t); break;
-		case "dnd":	$am->access(PERMS_ASSISTANT); $result = $ot->dragAndDrop($f,$t,$w); break;
+        case "dnd":	$am->access(PERMS_ASSISTANT); $result = $ot->dragAndDrop($f,$t,$w); break;
+        case "dndList":	$am->access(PERMS_ASSISTANT); $result = $ot->dragAndDropList($l,$o); break;
 	}
 	// result may contain null (error),  "" success, or (any) data
 	if ($result===null) 
