@@ -213,10 +213,12 @@ if ($argc == 5) { // encrypt
     logAndDie($diemsg);
 
 } elseif ($argc == 3) { // decrypt
+    // invocation: getLicense.php uniqueID encfile
     $uniqueID=base64_decode($argv[1],true);
     $file=$argv[2];
     // load base64 encoded encrypted file
     $fp=fopen ($file,"rb");
+    if (!$fp) logAndDie("Cannot open encrypted file: {$file}");
     $data=""; while (!feof($fp)) { $data .= fread($fp, 8192); };
     fclose($fp);
     // ok. now ready to crypt
