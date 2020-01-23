@@ -269,26 +269,30 @@ class PrintClasificacionGeneral extends PrintCommon {
 		$this->ac_row($idx,9);
 		
 		// fomateamos datos
-		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
-		$penal=number_format2($row['Penalizacion'],$this->timeResolution);
-		$tiempo=number_format2($row['Tiempo'],$this->timeResolution);
+        $fired=0; // count to remove "puesto" when eliminated in all rounds
         $factor=1;
         if (!is_null($this->manga1)) {
             $v1= ($row['P1']>=200)?"-":number_format2($row['V1'],2);
             $t1= ($row['P1']>=200)?"-":number_format2($row['T1'],$this->timeResolution);
             $p1=number_format2($row['P1'],$this->timeResolution);
+            $fired+=100;
         } else { $v1="";$t1="";$p1=""; }
         if (!is_null($this->manga2)) {
             $v2= ($row['P2']>=200)?"-":number_format2($row['V2'],2);
             $t2= ($row['P2']>=200)?"-":number_format2($row['T2'],$this->timeResolution);
             $p2=number_format2($row['P2'],$this->timeResolution);
+            $fired+=100;
         } else { $v2="";$t2="";$p2=""; }
         if (!is_null($this->manga3)) {
             $factor=0.75;
             $v3= ($row['P3']>=200)?"-":number_format2($row['V3'],2);
             $t3= ($row['P3']>=200)?"-":number_format2($row['T3'],$this->timeResolution);
             $p3=number_format2($row['P3'],$this->timeResolution);
+            $fired+=100;
         } else { $v3="";$t3="";$p3=""; }
+        $puesto= ($row['Penalizacion']>=$fired)? "-":"{$row['Puesto']}º";
+        $penal=number_format2($row['Penalizacion'],$this->timeResolution);
+        $tiempo=number_format2($row['Tiempo'],$this->timeResolution);
 		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// datos del participante
@@ -311,7 +315,7 @@ class PrintClasificacionGeneral extends PrintCommon {
 			$this->Cell(14,6,"{$cat}",0,0,'C',true);	// solo categoria (Individual-Open/Teams/KO)
 		}
 		$this->Cell(32,6,$this->getHandlerName($row),0,0,'R',true);	// nombreGuia
-		$this->Cell(17,6,$row['NombreClub'],0,0,'R',true);	// nombreClub
+		$this->Cell(18,6,$row['NombreClub'],0,0,'R',true);	// nombreClub
 
         // manga 1
         if(!is_null($this->manga1)) {
@@ -358,14 +362,14 @@ class PrintClasificacionGeneral extends PrintCommon {
 		// lineas rojas
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->Line(10    ,$y,10,    $y+6);
-		$this->Line(10+115,$y,10+115,$y+6);
-		$this->Line(10+115+59*$factor,$y,10+115+59*$factor,$y+6);
-		$this->Line(10+115+59*2*$factor,$y,10+115+59*2*$factor,$y+6);
+		$this->Line(10+114,$y,10+114,$y+6);
+		$this->Line(10+114+59*$factor,$y,10+114+59*$factor,$y+6);
+		$this->Line(10+114+59*2*$factor,$y,10+114+59*2*$factor,$y+6);
 		if(!is_null($this->manga3)) {
-            $this->Line(10+115+59*3*$factor,$y,10+115+59*3*$factor,$y+6);
+            $this->Line(10+114+59*3*$factor,$y,10+114+59*3*$factor,$y+6);
             $this->Line(10+115+(59*3+42)*$factor,$y,10+115+(59*3+42)*$factor,$y+6);
         } else {
-            $this->Line(10+115+(59*2+42)*$factor,$y,10+115+(59*2+42)*$factor,$y+6);
+            $this->Line(10+114+(59*2+42)*$factor,$y,10+114+(59*2+42)*$factor,$y+6);
         }
 		$this->Ln(6);
 	}
