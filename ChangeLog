@@ -1,3 +1,8 @@
+Version 4.2.1 20200123_2323
+    - Fix Several issues in Grade 1 - 3 rounds
+    - Allow multiple selection drag&drop in tandas
+    - GetLicense.php fix infinite loop due to failed fopen
+    - Builder: add cache for documentation
 Version 4.2.1 20200115_2000
     - Several typo fixes
     - Add box for judge signing in partial scores pdf
