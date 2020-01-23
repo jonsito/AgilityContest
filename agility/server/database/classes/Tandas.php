@@ -482,11 +482,12 @@ class Tandas extends DBObject {
         // now update Orden in tandas to be moved
         for($n=0;$n<$size;$n++ ){ // perhaps better prepared statement...
             $orden=intval($t->Orden) + $n + (($where)?1:0);
-            $this->myLogger->trace("ID:{$a[$n]} Orden:{$orden} From:{$f->Orden} To:{$t->Orden} Where:{$where} n:{$n}");
+            // $this->myLogger->trace("ID:{$a[$n]} Orden:{$orden} From:{$f->Orden} To:{$t->Orden} Where:{$where} n:{$n}");
             $str="UPDATE tandas SET Orden={$orden} WHERE (ID={$a[$n]})";
             $rs=$this->query($str);
             if (!$rs) return $this->error($this->conn->error);
         }
+        $this->myLogger->leave();
         return "";
     }
 
