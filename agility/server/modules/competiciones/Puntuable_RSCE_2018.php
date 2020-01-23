@@ -192,7 +192,7 @@ class Puntuable_RSCE_2018 extends Competitions {
                 $perro['Calificacion']= "- No data -";
                 if ($perro['T3']!=0.0) $pts++;
             }
-            if ($pts>0) $perro['Calicicacion'] = "{$pts} Punto".($pts>1)?"s":"";
+            if ($pts>0) $perro['Calificacion'] = "{$pts} Punto".(($pts>1)?"s":"");
             return;
         }
         // componemos string de calificacion final
