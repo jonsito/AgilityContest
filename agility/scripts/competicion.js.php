@@ -1492,38 +1492,42 @@ function dragAndDropOrdenSalida(from,to,where,whenDone) {
 	});
 }
 
-// check for drag and drop available
-// src list of selected tandas to be moved
-// destination tanda to move to
-function check_dnd_tandas(src,dst) {
-    var dg=$('#ordentandas-datagrid');
-    var selected=dg.datagrid('getSelections');
-    if (selected.length==0) return false; // no selection
-    // buscamos minimo y maximo de la seleccion
-    var minsel=9999;
-    var maxsel=0;
-    for (var n=0; n<selected.length;n++) {
-        var ord=parseInt(selected[n].Orden);
-        if (ord<minsel) minsel=ord;
-        if (ord>maxsel) maxsel=ord;
+/**
+ * call server to drag and drop list
+ * @param src object (single selection) or array ( when multiple rows are chosen )
+ * @param dst
+ * @param where
+ */
+function dragAndDropOrdenTandasByList(src,dst,where) {
+    if (workingData.prueba==0) return;
+    if (workingData.jornada==0) return;
+    // componemos lista de id's a mover
+    var list="BEGIN";
+    if ( src instanceof Array ) {
+        for (var n=0;n<src.length;n++) list=list+","+src[n].ID;
+    } else {
+        list =list + ","+ src.ID;
     }
-    // buscamos minimo y maximo de las filas
-    var rows=dg.datagrid('getRows');
-    var min=9999; // to be sure
-    var max=0;
-    for (n=0; n<rows.length;n++) {
-        ord=parseInt(rows[n].Orden);
-        if (ord<min) min=ord;
-        if (ord>max) max=ord;
-    }
-    var offset=dst.Orden-src.Orden;
-    if ( (offset>0) && (max < (maxsel+offset)) ) return false; // desplazar hacia el final
-    if ( (offset<0) && (min > (minsel+offset)) ) return false; // desplazar hacia el principio
-    return true;
-}
-
-function dragAndDropOrdenTandasByList(src,dst) {
-
+    list = list+",END";
+    $.ajax({
+        type: 'GET',
+        url: '../ajax/database/tandasFunctions.php',
+        dataType: 'json',
+        data: {
+            Operation: 'dndList',
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada,
+            List: list,
+            To: dst.ID,
+            Where: where
+        },
+        success: function (result) {
+            if (result.errorMsg){
+                $.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
+            }
+            reloadOrdenTandas();
+        }
+    });
 }
 
 //reajusta el programa de la jornada

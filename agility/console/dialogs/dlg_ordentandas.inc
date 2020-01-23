@@ -152,10 +152,10 @@ $('#ordentandas-datagrid').datagrid({
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
     },
     onDragEnter: function(dst,src) {
-        check_dnd_tandas(src,dst);
-    }, // default is not restriction
+        return true; // default is not restriction
+    },
     onDrop: function(dst,src,updown) {
-        dragAndDropOrdenTandasByList(src,dst);
+        dragAndDropOrdenTandasByList(src,dst,updown);
     }
 });
 
