@@ -53,38 +53,38 @@ $config =Config::getInstance();
                 <input type="hidden" id="jornadas-PreAgility" name="PreAgility" value="1">
                 <label for="jornadas-PreAgilityChk" style="width:150px" ><span id="jornadas-PreAgilityName">Pre-Agility</span></label>
                 <input id="jornadas-PreAgilityChk" name="PreAgilityChk" class="easyui-checkbox" 
-                	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-PreAgilityChk',0x0003)"/>
+                	type="checkbox" value="1"  onClick="checkPrueba('#jornadas-PreAgilityChk',0x0003)"/>
                 <input id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:140px"/>
             </div>
 
             <div class="fitem">
                 <label for="jornadas-Junior" style="text-align:left;width:150px" ><span id="jornadas-ChildrenName">Children</span> / <span id="jornadas-JuniorName">Junior</span></label>
                 <input id="jornadas-Junior" name="Junior" class="easyui-checkbox"
-                       type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Junior',0x4000)"/>
+                       type="checkbox" value="1" onClick="checkPrueba('#jornadas-Junior',0x4000)"/>
                 <span style="width:25px">&nbsp;</span>
                 <label for="jornadas-Senior" style="text-align:right;width:110px" ><span id="jornadas-SeniorName">Senior</span></label>
                 <input id="jornadas-Senior" name="Senior" class="easyui-checkbox"
-                       type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Senior',0x8000)"/>
+                       type="checkbox" value="1" onClick="checkPrueba('#jornadas-Senior',0x8000)"/>
             </div>
 
             <div class="fitem">
                 <label for="jornadas-Grado1" style="width:150px" ><span id="jornadas-Grado1Name">Grade I</span></label>
                 <input type="hidden" id="jornadas-Grado1" name="Grado1" value="1">
                 <input id="jornadas-Grado1Chk" name="Grado1Chk" class="easyui-checkbox"
-                    type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado1',0x0004)"/>
+                    type="checkbox" value="1" onClick="checkPrueba('#jornadas-Grado1',0x0004)"/>
                 <input id="jornadas-MangasGrado1" name="MangasGrado1" style="width:140px"/>
             </div>
             
             <div class="fitem">
                 <label for="jornadas-Grado2" style="width:150px" ><span id="jornadas-Grado2Name">Grade II</span></label>
                 <input id="jornadas-Grado2" name="Grado2" class="easyui-checkbox" 
-                	type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado2',0x0008)"/>
+                	type="checkbox" value="1" onClick="checkPrueba('#jornadas-Grado2',0x0008)"/>
             </div>
 
             <div class="fitem">
                 <label for="jornadas-Grado3" style="width:150px" ><span id="jornadas-Grado3Name">Grade III</span></label>
                 <input id="jornadas-Grado3" name="Grado3" class="easyui-checkbox" 
-                	type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado3',0x0010)"/>
+                	type="checkbox" value="1" onClick="checkPrueba('#jornadas-Grado3',0x0010)"/>
             </div>
             
             <div class="fitem">
@@ -99,7 +99,7 @@ $config =Config::getInstance();
             	<input type="hidden" id="jornadas-Equipos4" name="Equipos4" value="4">
                 <label for="jornadas-EquiposChk" style="width:150px" ><?php _e('Teams'); ?></label>
                 <input id="jornadas-EquiposChk" name="EquiposChk" class="easyui-checkbox" 
-                	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x00C0)"/>
+                	type="checkbox" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x00C0)"/>
                 <input id="jornadas-MangasEquipos" name="MangasEquipos" style="width:140px"/>
             </div>
             
