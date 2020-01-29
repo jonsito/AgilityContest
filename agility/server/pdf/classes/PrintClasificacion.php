@@ -236,12 +236,12 @@ class PrintClasificacion extends PrintCommon {
             $this->Cell(($wide)?30:15,7,_('Lic'),0,0,'C',true);	// licencia
         }
 		if ($this->hasGrades) {
-			$this->Cell(10,7,_('Cat/Grad'),0,0,'C',true);	// categoria/grado
+			$this->Cell(12,7,_('Cat/Grad'),0,0,'C',true);	// categoria/grado
 		} else {
-			$this->Cell(10,7,_('Cat'),0,0,'C',true);	// categoria (jornadas Open / KO )
+			$this->Cell(12,7,_('Cat'),0,0,'C',true);	// categoria (jornadas Open / KO )
 		}
-		$this->Cell(($wide)?30:35,7,_('Handler'),0,0,'C',true);	// nombreGuia
-		$this->Cell(($wide)?15:20,7,$this->strClub,0,0,'C',true);	// nombreClub
+		$this->Cell(($wide)?29:34,7,_('Handler'),0,0,'C',true);	// nombreGuia
+		$this->Cell(($wide)?14:19,7,$this->strClub,0,0,'C',true);	// nombreClub
 
 		// manga 1
         if ($this->manga1!==null) {
@@ -358,13 +358,13 @@ class PrintClasificacion extends PrintCommon {
 		if ($this->hasGrades) {
             $cat=$this->federation->getCategoryShort($row['Categoria']);
             $grad=$this->federation->getGradeShort($row['Grado']);
-			$this->Cell(10,6,"{$cat} {$grad}",0,0,'C',$fill);	// categoria/grado
+			$this->Cell(12,6,"{$cat} {$grad}",0,0,'C',$fill);	// categoria/grado
 		} else {
             $cat=$this->federation->getCategory($row['Categoria']);
-			$this->Cell(10,6,"{$cat}",0,0,'C',$fill);	// categoria/grado
+			$this->Cell(12,6,"{$cat}",0,0,'C',$fill);	// categoria/grado
 		}
-		$this->Cell(($wide)?30:35,6,$this->getHandlerName($row),0,0,'R',$fill);	// nombreGuia
-		$this->Cell(($wide)?15:20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
+		$this->Cell(($wide)?29:34,6,$this->getHandlerName($row),0,0,'R',$fill);	// nombreGuia
+		$this->Cell(($wide)?14:19,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
 		// manga 1
         if ($this->manga1!==null) {
             $pos= (intval($row['N1'])===0)?"{$row['Puesto1']}º":"-";
