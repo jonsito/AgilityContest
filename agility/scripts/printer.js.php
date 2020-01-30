@@ -598,7 +598,7 @@ function print_commonDesarrollo(def,cb) {
  * Imprime Podium (1) o clasificacion General (0)
  *
  */
-function clasificaciones_printGlobal(podium) {
+function clasificaciones_printGlobal(podium,merge) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='../ajax/pdf/print_podium.php';
 	var msgtag=(podium==0)?"( Global )":"( Podium )";
@@ -623,7 +623,8 @@ function clasificaciones_printGlobal(podium) {
                 Manga7:ronda.Manga7,
                 Manga8:ronda.Manga8,
 				Rondas: ronda.Rondas,
-                Podium: podium
+                Podium: podium,
+                Merge: merge
 			},
 	        preparingMessageHtml:msgtag+' <?php _e("We are preparing your report, please wait"); ?> ...',
 	        failMessageHtml:msgtag+' <?php _e("There was a problem generating your report, please try again."); ?>'
@@ -818,6 +819,7 @@ function clasificaciones_doPrint() {
     var discriminate=$('#r_discriminate').prop('checked');
     var children=$('#r_children').prop('checked');
     var global=$('#r_global').prop('checked');
+    var merge=$('#r_mergecats').prop('checked');
 	$('#resultados-printDialog').dialog('close');
 	switch(parseInt(r)) {
 		case 0: /* podium */ clasificaciones_printGlobal(1); break;
@@ -825,7 +827,7 @@ function clasificaciones_doPrint() {
         case 3: /* excel */ clasificaciones_printCanina(); break;
         case 6: /* mejores prueba */ clasificaciones_printHallOfFame(); break;
         case 7: /* individual on team3 */  clasificaciones_printClasificacion((prstats)?1:0,(children)?1:0,1); break;
-        case 8: /* Global del grado */ clasificaciones_printGlobal(0); break;
+        case 8: /* Global del grado */ clasificaciones_printGlobal(0,merge); break;
 		case 4: /* pdf */ clasificaciones_printClasificacion((prstats)?1:0,(children)?1:0,0); break;
 		case 5: /* forms cneac */ clasificaciones_printEtiquetas(2,line,list,discriminate,global); break;
 		case 2: /* labels rsce */ clasificaciones_printEtiquetas(1,line,list,discriminate,global); break;

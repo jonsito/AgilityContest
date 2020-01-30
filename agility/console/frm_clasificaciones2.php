@@ -90,9 +90,17 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
         <input type="radio" name="r_prformat" value="6" onclick="r_selectOption(6);"/><?php _e('Contest Hall Of Fame'); ?> (PDF)
     <br />&nbsp;<hr/><br/>
 	<input type="radio" name="r_prformat" value="1" onclick="r_selectOption(1);"/><?php _e('Export in text format'); ?> (CSV)<br />
-        <input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/><?php _e('Export as spreadsheet'); ?> (Excel)<br />
-        <input type="radio" name="r_prformat" value="8" onclick="r_selectOption(8);"/><?php _e('Global Scores'); ?> (PDF)<br />
-        <span  style="display:inline-block;width:100%">
+    <input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/><?php _e('Export as spreadsheet'); ?> (Excel)<br />
+    <span  style="display:inline-block;width:100%">
+        <span style="float:left">
+            <input type="radio" name="r_prformat" value="8" onclick="r_selectOption(8);"/><?php _e('Global Scores'); ?> (PDF)<br />
+        </span>
+        <span style="float:right" id="r_mergecats">
+            <label id="r_mergecatslbl" for="r_mergecats"><?php _e('Combine sub-categories'); ?></label>
+            <input id="r_mergecats" style="width:78px" name="r_mergecats" class="easyui-checkbox" type="checkbox" value="1"/>
+        </span>
+    </span>
+    <span  style="display:inline-block;width:100%">
 		<span style="float:left">
 	        <input type="radio" id="r_prformat4" name="r_prformat" value="4" checked="checked" onclick="r_selectOption(4);"/>
             <label for="r_prformat4"><?php _e('Round Scores'); ?> (PDF)</label>
@@ -154,9 +162,14 @@ $('#resultados-printDialog').dialog({
     width:'500px',
     height:'400px',
     onBeforeOpen: function() {
+        // mira si hay que activar boton de split Junior/Senior
         var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
         var ch= ((ronda.Rondas & 16384)!==0) && hasChildren(workingData.federation);
         $('#r_junior').css('display',(ch)?'inherit':'none');
+        // mida si hay que activar boton de mezclar sub-categorias
+        if (workingData.datosPrueba.RSCE=="0") {
+            $('#r_mergecats').css('display',(ronda.Recorrido1=="0")?'inherit':'none');
+        } else $('#r_mergecats').css('display','none');
         return true;
     }
 });
