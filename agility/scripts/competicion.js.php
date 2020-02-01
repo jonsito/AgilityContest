@@ -1838,7 +1838,7 @@ function resultados_doSelectRonda(row) {
                 $('#resultados-toolbar').css('display','inline-block');
                 addSimpleKeyHandler(datagrid,"");
             }
-            populate_clasificacion();
+            // populate_clasificacion();
         });
 }
 

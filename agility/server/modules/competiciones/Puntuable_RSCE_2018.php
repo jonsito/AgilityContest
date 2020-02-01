@@ -184,17 +184,22 @@ class Puntuable_RSCE_2018 extends Competitions {
                 $perro['Calificacion']= "- No data -";
                 if ($perro['T1']!=0.0) $pts++;
             }
-            if ($perro['P2']==0.0) { // comprobamos si realmente hay datos del recorrido ( "pending" )
-                $perro['Calificacion']= "- No data -";
-                if ($perro['T2']!=0.0) $pts++;
+            if (array_key_exists('P2',$perro)) { // en selectivas solo hay una manga de G1
+                if ($perro['P2']==0.0) { // comprobamos si realmente hay datos del recorrido ( "pending" )
+                    $perro['Calificacion']= "- No data -";
+                    if ($perro['T2']!=0.0) $pts++;
+                }
             }
-            if ($perro['P3']==0.0) { // comprobamos si realmente hay datos del recorrido ( "pending" )
-                $perro['Calificacion']= "- No data -";
-                if ($perro['T3']!=0.0) $pts++;
+            if (array_key_exists('P3',$perro)) { // desde la temporada 2020 hay posibilidad de una tercera manga
+                if ($perro['P3']==0.0) { // comprobamos si realmente hay datos del recorrido ( "pending" )
+                    $perro['Calificacion']= "- No data -";
+                    if ($perro['T3']!=0.0) $pts++;
+                }
             }
             if ($pts>0) $perro['Calificacion'] = "{$pts} Punto".(($pts>1)?"s":"");
             return;
         }
+        // llegando aquí tenemos grado 2 o 3 ( siempre con dos mangas )
         // componemos string de calificacion final
         $p1=" ";
         if ($perro['P1']<6.0) $p1="-";

@@ -40,7 +40,13 @@
         valueField:'mode',
         textField:'text',
         panelHeight:75,
-        onSelect:function (index,row) {	reloadClasificaciones(); }
+        onLoadSuccess:function() {
+            // set default value to do not macht any valid round. Just to force user to select category
+            $('#resultados-selectCategoria')
+                .combobox('setValue',-1)
+                .combobox('setText','<?php _e("Select");?>');
+        },
+        onSelect:function (row) { if (row.mode>=0) reloadClasificaciones(); }
     });
 
     addTooltip($('#resultados-competicionBtn').linkbutton(),'<?php _e("Jump to Journey development window"); ?>');
