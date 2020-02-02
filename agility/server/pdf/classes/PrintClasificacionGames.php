@@ -341,6 +341,10 @@ class PrintClasificacionGames extends PrintCommon {
 		$this->cell($len,0,'','T'); // celda sin altura y con raya
 		$this->myLogger->leave();
 	}
+
+    function composeMergedTable($mergecats) {
+        return $this->composeTable(); // temporary
+    }
 }
 
 ?>

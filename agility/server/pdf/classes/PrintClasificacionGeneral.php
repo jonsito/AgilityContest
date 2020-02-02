@@ -373,7 +373,7 @@ class PrintClasificacionGeneral extends PrintCommon {
         }
 		$this->Ln(6);
 	}
-	
+
 	function composeTable() {
 		$this->myLogger->enter();
         $len=(($this->manga3)!==null)?115+(59*3+42)*0.75:115+59*2+42; // lenght of closing line
@@ -410,5 +410,9 @@ class PrintClasificacionGeneral extends PrintCommon {
 		}
 		$this->myLogger->leave();
 	}
+
+	function composeMergedTable($mergecats) {
+	    return $this->composeTable(); // temporary
+    }
 }
 ?>

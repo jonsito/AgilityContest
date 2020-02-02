@@ -72,6 +72,7 @@ try {
     $mangasInfo=Mangas::getMangaInfo($mangas[0]);
 	$c= Competitions::getClasificacionesInstance("print_podium_pdf",$jornada);
 	$result=array();
+	$mergecats=null;
 	$heights=$mangasInfo->Competition->getRoundHeights($mangas[0]); // same heights for every round
 	switch($mangasInfo->Manga->Recorrido) {
 		case 0: // recorridos separados xlarge large medium small toy
@@ -98,9 +99,13 @@ try {
                 $result[] = pp_getArray(1,$m);
                 $result[] = pp_getArray(2,$s);
                 $result[] = pp_getArray(5,$t);
-                // si merge es distinto de cero, tenemos que mezclar los resultados
-                // e imprimirlos juntos, manteniendo el trs de cada altura
-                // PENDING
+                // si merge es distinto de cero, tenemos que mezclar los resultados.
+                switch($merge) { //  Calculamos las matrices de mezclado
+                    case 1: $mergecats=[ [0,1] /* X+L */ ,[2,3,4] /* M+S+T */ ]; break;
+                    case 2: $mergecats=[ [0,1,2,3,4,5] /* X+L+M+S+T */ ]; break;
+                    case 3: $mergecats=[ [0,1] /* X+L */,[2] /* M */ ,[3,4] /* S+T */ ]; break;
+                    default: $mergecats=null; break;
+                }
             }
 			break;
         case 1: // dos grupos: (l+ms) (lm+st) (xl+mst)
@@ -149,13 +154,15 @@ try {
 	// en las mangas de games tenemos que usar otro sistema
     if (isMangaWAO($mangasInfo->Manga->Tipo)) {
         $pdf = new PrintClasificacionGeneralGames($prueba,$jornada,$mangas,$result,$podium);
+        $mergecats=null;
     } else {
         // Creamos generador de documento
         if ($podium==1) $pdf = new PrintPodium($prueba,$jornada,$mangas,$result);
         else $pdf = new PrintClasificacionGeneral($prueba,$jornada,$mangas,$result);
     }
     $pdf->AliasNbPages();
-    $pdf->composeTable();
+    if ($mergecats==null) $pdf->composeTable();
+    else $pdf->composeMergedTable($mergecats);
     $pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
 	do_log($e->getMessage());

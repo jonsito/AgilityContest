@@ -209,5 +209,9 @@ class PrintResultadosByManga extends PrintCommon {
 		$this->Cell(array_sum($this->pos),0,'','T');
 		$this->myLogger->leave();
 	}
+
+    function composeMergedTable($mergecats) {
+        return $this->composeTable(); // not used, but needed for compatibility
+    }
 }
 ?>

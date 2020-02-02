@@ -47,6 +47,7 @@ try {
 	$manga=$mngobj->selectByID($idmanga);
 	$resobj= Competitions::getResultadosInstance("printResultadosByManga",$idmanga);
     $results=array();
+    $mergecats=null;
     if ($global==0) { // single height
         $results=$resobj->getResultadosIndividual($modes); // throw exception if pending dogs
         $pdf = new PrintResultadosByManga($idprueba,$idjornada,$manga,$results,$modes,$title);
@@ -76,9 +77,13 @@ try {
                     $results[]=$resobj->getResultadosIndividual(2); // S
                     $results[]=$resobj->getResultadosIndividual(5); // T
                     $modes = array(9,0,1,2,5);
-                    // si merge es distinto de cero, tenemos que mezclar los resultados
-                    // e imprimirlos juntos, manteniendo el trs de cada altura
-                    // PENDING
+                    // si merge es distinto de cero, tenemos que mezclar los resultados.
+                    switch($merge) { //  Calculamos las matrices de mezclado
+                        case 1: $mergecats=[ [0,1] /* X+L */ ,[2,3,4] /* M+S+T */ ]; break;
+                        case 2: $mergecats=[ [0,1,2,3,4,5] /* X+L+M+S+T */ ]; break;
+                        case 3: $mergecats=[ [0,1] /* X+L */,[2] /* M */ ,[3,4] /* S+T */ ]; break;
+                        default: $mergecats=null; break;
+                    }
                 }
                 break;
             case 1: // dos grupos: (l+ms) (lm+st) (xl+mst)
@@ -116,12 +121,15 @@ try {
 	// Creamos generador de documento
     if ( isMangaKO($manga->Tipo)) {
         $pdf = new PrintResultadosKO($idprueba,$idjornada,$manga,$results,$modes,$title);
+        $mergecats=null;
     }
     if ( isMangaGames($manga->Tipo) ) { // snooker, gambler
         $pdf = new PrintResultadosGames($idprueba,$idjornada,$manga,$results,$modes,$title);
+        $mergecats=null;
     }
 	$pdf->AliasNbPages();
-	$pdf->composeTable();
+    if ($mergecats==null) $pdf->composeTable();
+    else  $pdf->composeMergedTable($mergecats);
 	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die($e->getMessage());

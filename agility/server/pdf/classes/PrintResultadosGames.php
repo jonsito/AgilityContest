@@ -180,5 +180,9 @@ class PrintResultadosGames extends PrintCommon {
         }
 
     }
+
+    function composeMergedTable($mergecats) {
+        return $this->composeTable(); // not used, but needed for compatibility
+    }
 }
 ?>

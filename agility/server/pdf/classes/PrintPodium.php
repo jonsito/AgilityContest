@@ -79,5 +79,9 @@ class PrintPodium extends PrintClasificacionGeneral {
 		}
 		$this->myLogger->leave();
 	}
+
+    function composeMergedTable($mergecats) {
+        return $this->composeTable(); // temporary
+    }
 }
 ?>

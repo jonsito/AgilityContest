@@ -220,5 +220,9 @@ class PrintResultadosKO extends PrintCommon {
 		// Línea de cierre
 		$this->myLogger->leave();
 	}
+
+    function composeMergedTable($mergecats) {
+        return $this->composeTable(); // not used, but needed for compatibility
+    }
 }
 ?>

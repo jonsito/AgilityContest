@@ -220,5 +220,9 @@ class PrintParcialGeneral extends PrintCommon {
         }
 		$this->myLogger->leave();
 	}
+
+    function composeMergedTable($mergecats) {
+        return $this->composeTable(); // not used, but needed for compatibility
+    }
 }
 ?>
