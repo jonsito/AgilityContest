@@ -37,9 +37,11 @@ try {
 	$idprueba = http_request("Prueba","i",0);
 	$idjornada = http_request("Jornada","i",0);
 	$idmanga = http_request("Manga","i",0);
-	$modes = http_request("Mode","i",0);
+    $modes = http_request("Mode","i",0);
 	$global = http_request("Global","i",0);
     $title = http_request("Title","s",_("Partial scores"));
+    // usado en cinco alturas cuando se quiere sacar listados mezclando alturas pero conservando el TRS de cada una
+    $merge=http_request("Merge","i",0); // 0:separado 1:dos_grupos 3:tres_grupos 2:conjunto ( Recorrido )
 	
 	$mngobj= new Mangas("printResultadosByManga",$idjornada);
 	$manga=$mngobj->selectByID($idmanga);
@@ -74,6 +76,9 @@ try {
                     $results[]=$resobj->getResultadosIndividual(2); // S
                     $results[]=$resobj->getResultadosIndividual(5); // T
                     $modes = array(9,0,1,2,5);
+                    // si merge es distinto de cero, tenemos que mezclar los resultados
+                    // e imprimirlos juntos, manteniendo el trs de cada altura
+                    // PENDING
                 }
                 break;
             case 1: // dos grupos: (l+ms) (lm+st) (xl+mst)

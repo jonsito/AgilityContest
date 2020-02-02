@@ -65,6 +65,8 @@ try {
 	$mangas[7]=http_request("Manga8","i",0);
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
     $podium=http_request("Podium","i",0); // 0:general-completa 1:Podium-3primeros
+    // usado en cinco alturas cuando se quiere sacar listados mezclando alturas pero conservando el TRS de cada una
+    $merge=http_request("Merge","i",0); // 0:separado 1:dos_grupos 3:tres_grupos 2:conjunto ( Recorrido )
 	
 	// buscamos los recorridos asociados a la manga
     $mangasInfo=Mangas::getMangaInfo($mangas[0]);
@@ -96,6 +98,9 @@ try {
                 $result[] = pp_getArray(1,$m);
                 $result[] = pp_getArray(2,$s);
                 $result[] = pp_getArray(5,$t);
+                // si merge es distinto de cero, tenemos que mezclar los resultados
+                // e imprimirlos juntos, manteniendo el trs de cada altura
+                // PENDING
             }
 			break;
         case 1: // dos grupos: (l+ms) (lm+st) (xl+mst)

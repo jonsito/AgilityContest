@@ -373,15 +373,28 @@ function importExportParcial(recorrido) {
 }
 
 function print_parcial(mode) {
+    var merge="<br/>&nbsp;<br/>";
+    if ( (howManyHeights()==5) && ([0,1,2,5,9].includes(mode) ) ) {
+        merge='<br/><span style="display:inline-block;width:100%"><span id="pp_merge_span" style="float:right">'+
+            '<label id="pp_mergecatsLbl" for="pp_mergecats"><?php _e('Combine sub-categories'); ?> </label>'+
+            '<select id="pp_mergecats" style="width:125px" name="pp_mergecats" class="easyui-combobox"'+
+            ' data-options="panelHeight:\'auto\'" >'+
+            '<option value="0"><?php _e('Separate listings');?></option>'+
+            '<option value="3"><?php _e('XL+L / M / S+XS');?></option>'+
+            '<option value="1"><?php _e('XL+L / M+S+XS');?></option>'+
+            '<option value="2"><?php _e('Single listing');?></option>'+
+            '</select>'+
+            '</span></span>';
+    }
     var title='<span id="pp_header">'+
-        '<br/>&nbsp;<br/><?php _e("Header title");?>:'+
+        '<br/>&nbsp;<br/><?php _e("Header title");?>: '+
         '<input id="pp_headertitle" class="easyui-textbox" type="text" value="<?php _e("Partial scores"); ?>"/>'+
         '</span>';
     var msgs=  {
         0: '*<?php _e("Create PDF Report for selected series");?>',
         2: '<?php _e("Print filled assistant sheets 10 dogs/pages"); ?>',
         3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>',
-        6: '<?php _e("Create PDF Report for all series");?>'+title
+        6: '<?php _e("Create PDF Report for all series");?>'+merge+title
     };
     if (isJornadaKO()) msgs={
         0: '*<?php _e("Create PDF Report");?>',
@@ -414,7 +427,6 @@ function print_parcial(mode) {
                     if (minmax[0]>1) {
                         if (minmax[0]!=minmax[1]) url = '../ajax/pdf/print_resultadosByEquipos.php'; // team best
                         else url = '../ajax/pdf/print_resultadosByEquipos4.php'; // team All
-
                     }
                     // no break
                 case 1: // on x-of-y best team contests extra option to print individual results
@@ -428,6 +440,7 @@ function print_parcial(mode) {
                                 Jornada: workingData.jornada,
                                 Manga: workingData.manga,
                                 Mode: mode,
+                                Merge: $('#pp_mergecats').combobox('getValue'),
                                 Global: global,
                                 Operation: 'print',
                                 Title: t
@@ -456,6 +469,7 @@ function print_parcial(mode) {
                                 Jornada: workingData.jornada,
                                 Manga: workingData.manga,
                                 Mode: mode,
+                                Merge: $('#pp_mergecats').combobox('getValue'),
                                 Operation: 'PartialScores',
                                 Title: t
                             },
@@ -468,6 +482,7 @@ function print_parcial(mode) {
             }
             return false; // return false to prevetn event keyboard chaining
         }).window('resize', {width: 450});
+    $('#pp_mergecats').combobox({});
     $('#pp_headertitle').textbox({required: true, validType: 'length[1,255]'});
     if (isJornadaKO()) $('#pp_header').css('display','none'); // do not show edit header option in KO journeys
     return false;
@@ -819,7 +834,7 @@ function clasificaciones_doPrint() {
     var discriminate=$('#r_discriminate').prop('checked');
     var children=$('#r_children').prop('checked');
     var global=$('#r_global').prop('checked');
-    var merge=$('#r_mergecats').prop('checked');
+    var merge=$('#r_mergecats').combobox('getValue');
 	$('#resultados-printDialog').dialog('close');
 	switch(parseInt(r)) {
 		case 0: /* podium */ clasificaciones_printGlobal(1); break;

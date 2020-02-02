@@ -95,9 +95,9 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
         <span style="float:left">
             <input type="radio" name="r_prformat" value="8" onclick="r_selectOption(8);"/><?php _e('Global Scores'); ?> (PDF)<br />
         </span>
-        <span style="float:right" id="r_mergecats">
-            <label id="r_mergecatslbl" for="r_mergecats"><?php _e('Combine sub-categories'); ?></label>
-            <input id="r_mergecats" style="width:78px" name="r_mergecats" class="easyui-checkbox" type="checkbox" value="1"/>
+        <span style="float:right" id="r_mergecats_span">
+            <label id="r_mergecatsLbl" for="r_mergecats"><?php _e('Combine sub-categories'); ?></label>
+            <select id="r_mergecats" style="width:125px" name="r_mergecats" class="easyui-combobox"></select>
         </span>
     </span>
     <span  style="display:inline-block;width:100%">
@@ -154,12 +154,24 @@ $('#r_prfirst').numberspinner({
     value: 1
 });
 
+$('#r_mergecats').combobox({
+    panelHeight:'auto',
+    valueField: 'value',
+    textField: 'text',
+    data:[
+        {value:0,text:"<?php _e('Separate listings');?>" },
+        {value:3,text:"<?php _e('XL+L / M / S+XS');?>"},
+        {value:1,text:"<?php _e('XL+L / M+S+XS');?>"},
+        {value:2,text:"<?php _e('Single listing');?>"}
+    ]
+});
+
 $('#resultados-printDialog').dialog({
     title:'<?php _e('Select format'); ?>',
     modal:true,
     closable:true,
     closed:true,
-    width:'500px',
+    width:'600px',
     height:'400px',
     onBeforeOpen: function() {
         // mira si hay que activar boton de split Junior/Senior
@@ -167,8 +179,8 @@ $('#resultados-printDialog').dialog({
         var ch= ((ronda.Rondas & 16384)!==0) && hasChildren(workingData.federation);
         $('#r_junior').css('display',(ch)?'inherit':'none');
         // mida si hay que activar boton de mezclar sub-categorias
-        if (workingData.datosPrueba.RSCE=="0") {
-            $('#r_mergecats').css('display',(ronda.Recorrido1=="0")?'inherit':'none');
+        if (howManyHeights()=="5") {
+            $('#r_mergecats_span').css('display',(ronda.Recorrido1=="0")?'inherit':'none');
         } else $('#r_mergecats').css('display','none');
         return true;
     }
@@ -230,5 +242,6 @@ addTooltip($('#r_prlistLbl'),'<?php _e("Comma separated list of dorsals to be pr
 addTooltip($('#r_global').linkbutton(),'<?php _e("Print every series, not just selected one"); ?>');
 addTooltip($('#r_discriminate').linkbutton(),'<?php _e("Omit label on country missmatch"); ?>');
 addTooltip($('#r_children').linkbutton(),'<?php _e("Create separate listings for Children and Junior"); ?>');
+addTooltip($('#r_mergecatsLbl'),'<?php _e("Merge categories in listing retaining TRS on each height"); ?>');
 
 </script>
