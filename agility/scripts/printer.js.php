@@ -373,19 +373,18 @@ function importExportParcial(recorrido) {
 }
 
 function print_parcial(mode) {
-    var merge="<br/>&nbsp;<br/>";
-    if ( (howManyHeights()==5) && ([0,1,2,5,9].includes(mode) ) ) {
-        merge='<br/><span style="display:inline-block;width:100%"><span id="pp_merge_span" style="float:right">'+
+    var mergestyle="none";
+    if ( (howManyHeights()==5) && ([0,1,2,5,9].includes(mode) ) ) { mergestyle="inline-block"; }
+    var merge='<br/><span style="display:inline-block;width:100%"><span id="pp_merge_span" style="float:right">'+
             '<label id="pp_mergecatsLbl" for="pp_mergecats"><?php _e('Combine sub-categories'); ?> </label>'+
             '<select id="pp_mergecats" style="width:125px" name="pp_mergecats" class="easyui-combobox"'+
             ' data-options="panelHeight:\'auto\'" >'+
-            '<option value="0"><?php _e('Separate listings');?></option>'+
+            '<option value="0" selected="selected"><?php _e('Separate listings');?></option>'+
             '<option value="3"><?php _e('XL+L / M / S+XS');?></option>'+
             '<option value="1"><?php _e('XL+L / M+S+XS');?></option>'+
             '<option value="2"><?php _e('Single listing');?></option>'+
             '</select>'+
             '</span></span>';
-    }
     var title='<span id="pp_header">'+
         '<br/>&nbsp;<br/><?php _e("Header title");?>: '+
         '<input id="pp_headertitle" class="easyui-textbox" type="text" value="<?php _e("Partial scores"); ?>"/>'+
