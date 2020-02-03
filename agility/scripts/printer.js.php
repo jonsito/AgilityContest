@@ -374,8 +374,10 @@ function importExportParcial(recorrido) {
 
 function print_parcial(mode) {
     var mergestyle="none";
-    if ( (howManyHeights()==5) && ([0,1,2,5,9].includes(mode) ) ) { mergestyle="inline-block"; }
-    var merge='<br/><span style="display:inline-block;width:100%"><span id="pp_merge_span" style="float:right">'+
+    // temporary fix
+    // if ( (howManyHeights()==5) && ([0,1,2,5,9].includes(mode) ) ) { mergestyle="inline-block"; }
+    var merge='<br/><span style="display:none;width:100%">'+
+            '<span id="pp_merge_span" style="display:'+mergestyle+';float:right">'+
             '<label id="pp_mergecatsLbl" for="pp_mergecats"><?php _e('Combine sub-categories'); ?> </label>'+
             '<select id="pp_mergecats" style="width:125px" name="pp_mergecats" class="easyui-combobox"'+
             ' data-options="panelHeight:\'auto\'" >'+

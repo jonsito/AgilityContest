@@ -95,7 +95,7 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
         <span style="float:left">
             <input type="radio" name="r_prformat" value="8" onclick="r_selectOption(8);"/><?php _e('Global Scores'); ?> (PDF)<br />
         </span>
-        <span style="float:right" id="r_mergecats_span">
+        <span style="float:right" id="r_mergecats_span"style="display:none"> <!-- changed in runtime -->
             <label id="r_mergecatsLbl" for="r_mergecats"><?php _e('Combine sub-categories'); ?></label>
             <select id="r_mergecats" style="width:125px" name="r_mergecats" class="easyui-combobox"></select>
         </span>
@@ -178,10 +178,11 @@ $('#resultados-printDialog').dialog({
         var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
         var ch= ((ronda.Rondas & 16384)!==0) && hasChildren(workingData.federation);
         $('#r_junior').css('display',(ch)?'inherit':'none');
-        // mida si hay que activar boton de mezclar sub-categorias
-        if (howManyHeights()=="5") {
-            $('#r_mergecats_span').css('display',(ronda.Recorrido1=="0")?'inherit':'none');
-        } else $('#r_mergecats').css('display','none');
+        // mira si hay que activar boton de mezclar sub-categorias
+        // if (howManyHeights()=="5")
+        //     $('#r_mergecats_span').css('display',(ronda.Recorrido1=="0")?'inherit':'none');
+        //else
+            $('#r_mergecats_span').css('display','none');
         return true;
     }
 });

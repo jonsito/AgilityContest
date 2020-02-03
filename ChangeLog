@@ -1,3 +1,8 @@
+Version 4.2.1 20200203_2121
+    - Fix (more) issues in Grade 1
+    - Do not sow default Clasification. Force user to select
+    - Preliminary works on mergecats
+    - More pdf rendering fixes
 Version 4.2.1 20200123_2323
     - Fix Several issues in Grade 1 - 3 rounds
     - Allow multiple selection drag&drop in tandas
