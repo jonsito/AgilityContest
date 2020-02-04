@@ -29,8 +29,8 @@ esac
 # some checks
 echo -n "Checking ..."
 # check for installer to have needed permissions
-if [ "${USER}" != "${OWNER}" ]; then
-    echo "Must be executed as ${OWNER}. Exiting"
+if [ "${USER}" != "root" ]; then
+    echo "Must be executed as root. Exiting"
     exit 1
 fi
 
@@ -123,9 +123,9 @@ mkdir -p ${INSTDIR}/config
     cp ${INSTDIR}.old/agility/images/supporters/supporters.csv ${INSTDIR}/agility/images/supporters
 
 # backward compatibility with pre-3.8 versions
-[ -f ${INSTDIR}.old/agility/server/auth/config.ini -a ! -f ${INSTDIR}.old/config/config.ini ] && \
+[ -f ${INSTDIR}.old/agility/server/auth/config.ini ] && [ ! -f ${INSTDIR}.old/config/config.ini ] && \
     cp ${INSTDIR}.old/agility/server/auth/config.ini ${INSTDIR}/config
-[ -f ${INSTDIR}.old/agility/server/auth/registration.info -a ! -f ${INSTDIR}.old/config/registration.info ] && \
+[ -f ${INSTDIR}.old/agility/server/auth/registration.info ] && [ ! -f ${INSTDIR}.old/config/registration.info ] && \
     cp ${INSTDIR}.old/agility/server/auth/registration.info ${INSTDIR}/config
 
 # new location for configuration files.
@@ -140,7 +140,7 @@ mkdir -p ${INSTDIR}/config
 chmod -R g+w ${INSTDIR}/logs/updateRequests
 
 # patch to handle 3.7 to 3.8 config files location
-[ -f ${INSTDIR}.old/agility/server/auth/system.ini -a ! -f ${INSTDIR}.old/${SYSTEMINI} ] && \
+[ -f ${INSTDIR}.old/agility/server/auth/system.ini ] && [ ! -f ${INSTDIR}.old/${SYSTEMINI} ] && \
     cp -f ${INSTDIR}.old/agility/server/auth/system.ini ${INSTDIR}.old/${SYSTEMINI}
 
 # restore system.ini and update version and revision info
