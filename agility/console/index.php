@@ -460,7 +460,7 @@ body {
 </li>
 <li><?php _e('TOOLS'); ?>
 	<ul>
-	<li><a href="javascript:loadContents(
+	<li><a href="javascript:checkAndLoadContents(
 	        '../console/frm_admin.php',
 	        '<?php _e('Configuration');?>',
 	        {e:'#remote-dialog'}
@@ -473,7 +473,7 @@ body {
 <li><?php _e('DOCUMENTATION'); ?>
 	<ul>
 	<li> <a target="documentacion" href="../console/manual.html"><?php _e('OnLine Manual'); ?></a></li>
-	<li> <a href="javascript:loadContents(
+	<li> <a href="javascript:checkAndLoadContents(
 	        '../console/frm_registration.php',
 	        '<?php _e('License information');?>'
 	    )"><?php _e('License information'); ?>

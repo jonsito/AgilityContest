@@ -632,6 +632,25 @@ function loadContents(page,title,slaves) {
 	cont.panel('refresh',page);
 	setHeader(title);
 }
+/**
+ * Same as above, but warn when session is not initialized
+ * @param page URL where to retrieve HTML data
+ * @param title new page title
+ * @param slaves list of dialogs to .destroy() on next loadContents
+ */
+function checkAndLoadContents(page,title,slaves) {
+    var msg="<?php _e('There is no registered user logged in');?> <br/>"+
+            "<?php _e('Read-Only mode active'); ?><br/>"+
+            "<?php _e('You cannot change current configuration');?>";
+    if (ac_authInfo.ID==0) $.messager.alert({
+        width:400,
+        height:'auto',
+        title:"<?php _e('No session');?>",
+        msg:msg,
+        icon:"warning"
+    });
+    loadContents(page,title,slaves);
+}
 
 /**
  * Poor's man javascript implementation of php's replaceAll()
