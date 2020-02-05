@@ -640,16 +640,22 @@ function loadContents(page,title,slaves) {
  */
 function checkAndLoadContents(page,title,slaves) {
     var msg="<?php _e('There is no registered user logged in');?> <br/>"+
-            "<?php _e('Read-Only mode active'); ?><br/>"+
+            "<?php _e('Read-Only mode active'); ?><br/>&nbsp;<br/>"+
             "<?php _e('You cannot change current configuration');?>";
-    if (ac_authInfo.ID==0) $.messager.alert({
-        width:400,
-        height:'auto',
-        title:"<?php _e('No session');?>",
-        msg:msg,
-        icon:"warning"
-    });
-    loadContents(page,title,slaves);
+    if (ac_authInfo.ID==0) {
+        $.messager.alert({
+            width:400,
+            height:'auto',
+            title:"<?php _e('Anonymous session');?>",
+            msg:msg,
+            icon:"warning",
+            fn: function() {
+                loadContents(page,title,slaves);
+            }
+        })
+    } else {
+        loadContents(page,title,slaves);
+    }
 }
 
 /**

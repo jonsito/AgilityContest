@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2020-02-04 23:09+0100\n"
-"PO-Revision-Date: 2020-02-04 23:19+0100\n"
+"POT-Creation-Date: 2020-02-05 15:06+0100\n"
+"PO-Revision-Date: 2020-02-05 15:07+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -7709,7 +7709,7 @@ msgstr "Informaci&oacute;n de pa&iacute;ses en la BBDD"
 
 #: scripts/common.js.php:642
 msgid "There is no registered user logged in"
-msgstr "Ning&uacute;n usuario ha iniciado sesi&oacute;n"
+msgstr "Se ha iniciado sesi&oacute;n sin indicar un usuario v&aacute;lido"
 
 #: scripts/common.js.php:643
 msgid "Read-Only mode active"
