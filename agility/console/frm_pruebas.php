@@ -209,8 +209,9 @@ $config =Config::getInstance();
                 },{
     				id: 'jornadasbyprueba-closeBtn'+prueba.ID,
             		text: '<?php _e('Close journey'); ?>',
-        			iconCls: 'icon-forbidden',
-       				handler: function(){closeJornadaFromPrueba(datagridID,$(datagridID).datagrid('getSelected'));}
+        			iconCls: 'icon-forbidden'
+                    // commented: handler is defined bellow
+       				// handler: function(){closeJornadaFromPrueba(datagridID,$(datagridID).datagrid('getSelected'));}
     			},{
     				id: 'jornadasbyprueba-reloadBtn'+prueba.ID,
             		text: '<?php _e('Update'); ?>',
@@ -220,7 +221,17 @@ $config =Config::getInstance();
     			}
     			];
     		$(datagridID).datagrid('buildToolbar',toolbar);
-    		
+
+            /*
+            $('#jornadasbyprueba-clearBtn'+prueba.ID).bind('click',function(e) {
+                clearJornadaFromPrueba(datagridID,$(datagridID).datagrid('getSelected'));
+            });
+            */
+            // add event to toolbar button handler to detect ctrl-key pressed
+            $('#jornadasbyprueba-closeBtn'+prueba.ID).bind('click',function(e) {
+                closeJornadaFromPrueba(datagridID,e);
+            });
+
 			// tooltips de los sub-formularios
 			addSimpleKeyHandler(datagridID,"",editJornadaFromPrueba);
             addTooltip($('#jornadasbyprueba-editBtn'+prueba.ID).linkbutton(),'<?php _e("Edit data on selected journey"); ?>');
@@ -228,14 +239,7 @@ $config =Config::getInstance();
 			addTooltip($('#jornadasbyprueba-closeBtn'+prueba.ID).linkbutton(),'<?php _e("Close journey. Store data as inmutable"); ?>');
 			addTooltip($('#jornadasbyprueba-reloadBtn'+prueba.ID).linkbutton(),'<?php _e("Update journey list for this contest"); ?>');
 
-			/*
-            $('#jornadasbyprueba-clearBtn'+prueba.ID).bind('click',function(e) {
-                clearJornadaFromPrueba(datagridID,$(datagridID).datagrid('getSelected'));
-            });
-            $('#jornadasbyprueba-closeBtn'+prueba.ID).bind('click',function(e) {
-                closeJornadaFromPrueba(datagridID,e);
-            });
-			 */
+
        }
 
 </script>
