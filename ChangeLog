@@ -1,3 +1,7 @@
+Version 4.2.1 20200206_2213
+    - Get re-open journey work again
+    - warn on anonymous session in Admin/register menus
+    - fixes on Fedora deployment
 Version 4.2.1 20200203_2121
     - Fix (more) issues in Grade 1
     - Do not sow default Clasification. Force user to select
