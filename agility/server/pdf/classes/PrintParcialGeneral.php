@@ -221,8 +221,97 @@ class PrintParcialGeneral extends PrintCommon {
 		$this->myLogger->leave();
 	}
 
+	private function mergeResults($indexes) {
+        $this->myLogger->enter();
+	    // fase 1 agrupa los arrays
+	    $result=array();
+	    foreach($indexes as $index) {
+	        $size=count($this->resultados[$index]['rows']);
+	        $this->myLogger->trace("Adding index:{$index} count:{$size}");
+	        $result = array_merge($result,$this->resultados[$index]['rows']);
+        }
+	    // fase 2 ordena el resultado
+        usort($result, function($a, $b) {
+            if ( $a['Penalizacion'] == $b['Penalizacion'] )	{
+                // para el caso de los eliminados, ponemos primero a los que se pasan de TRM
+                // el programa asigna PTiempo=0 a los eliminados "normales" y PTiempo=X a
+                // y PTiempo=XX a los
+                if ($a['Penalizacion']==100.0) {
+                    $pta=($a['PTiempo']==0)?150:$a['PTiempo'];
+                    $ptb=($b['PTiempo']==0)?150:$b['PTiempo'];
+                    return ($pta > $ptb)? 1:-1;
+                }
+                // para los demas casos comparamos tiempo
+                return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
+            }
+            return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
+        });
+	    $puesto=0;
+	    $last_t=0;$last_p=0;
+	    // fase 3: ajusta puestos
+        for ($n=0;$n<count($result);$n++) {
+            if ( ($result[$n]['Tiempo']!=$last_t) || ($result[$n]['Penalizacion']!=$last_p) ){
+                // time or penalization differs: next puesto
+                $result[$n]['Puesto']=$n+1;
+                $puesto=$n+1;
+                $last_t=$result[$n]['Tiempo'];
+                $last_p=$result[$n]['Penalizacion'];
+            } else { // same data: preserve puesto
+                $result[$n]['Puesto']=$puesto;
+            }
+        }
+	    $this->myLogger->leave();
+	    return $result;
+    }
+
+    /**
+     * imprime agrupando categorias segun el argumento solicitado
+     * Se asume que la manga está configurada como recorridos separados
+     * con lo que tenemos 5 alturas con las siguientes posibilidades de agrupacion (indicadas en mergecats:
+     * [0],[1],[2],[3],[4] X-L-M-S-T
+     * [0,1],[2],[3,4]     XL-M-ST
+     * [0,1],[2,3,4]       XL-MST
+     * [0,1,2,3,4]         XLMST
+     * @param {array} $mergecats array with cats to be merged
+     * @throws Exception
+     */
     function composeMergedTable($mergecats) {
-        return $this->composeTable(); // not used, but needed for compatibility
+        $this->myLogger->enter();
+        // ajustamos tamaño de las celdas
+        $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
+        $this->SetLineWidth(.3);
+        if ($this->federation->get('WideLicense')) {
+            $this->pos[1]+=5;$this->pos[2]=0;$this->pos[3]+=5;$this->pos[4]+=5;
+        } else if ($this->useLongNames) {
+            $this->pos[1]+=20;$this->pos[2]=0;$this->pos[4]-=5; // remove license. leave space for LongName
+        }
+        // iteramos sobre cada grupo de alturas disponible en la manga
+        foreach ($mergecats as $indexes) {
+            // mezclamos los resultados
+            $result=$this->mergeResults($indexes);
+            if (count($result)==0) continue; // no data, skip to next group
+
+            $this->AddPage();
+            // imprimimos los datos de trs de cada una de las alturas a mezclar
+            foreach($indexes as $index) {
+                $this->printRoundData($this->resultados[$index],$this->modes[$index]);
+            }
+            $this->Ln(5);
+            // imprimimos el resultado mezclado iterando sobre ellos
+            $this->writeTableHeader();
+            foreach($result as $row) {
+                $rowcount=0;
+                if ($this->GetY()>270) {
+                    $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
+                    $this->AddPage();
+                    $this->writeTableHeader();
+                }
+                $this->writeCell($row,$rowcount++);
+            }
+            $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
+            $this->Ln(7);
+        }
+        $this->myLogger->leave();
     }
 }
 ?>
