@@ -73,23 +73,25 @@ class PrintClasificacionGeneral extends PrintCommon {
 		$this->print_commonFooter();
 	}
 
-    function print_datosMangas($data) {
+    function print_datosMangas($data,$flag=true) { // on flag:false do not paint journey data
         $cat= $this->federation->getMangaMode($data['Mode'],0);
         // objeto para buscar jueces
         $jobj=new Jueces("print_Clasificaciones");
         $r_offset= ($this->manga3!=null)?1:9;
 
         $y=$this->GetY();
-        // imprimimos informacion de la manga
-        $this->setXY(10,$y+$r_offset);
-        $this->SetFont($this->getFontName(),'B',11); // bold 9px
-        $this->Cell(80,6,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
-        $this->Ln(6);
-        $this->Cell(80,6,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
-        $this->Ln(6);
-        // $ronda=$this->getGradoString(intval($this->manga1->Tipo)); // todas las mangas comparten grado
-        $ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
-        $this->Cell(80,6,_('Round').": $ronda",0,0,'',false);
+        if ($flag) {
+            // imprimimos informacion de la manga
+            $this->setXY(10,$y+$r_offset);
+            $this->SetFont($this->getFontName(),'B',11); // bold 9px
+            $this->Cell(80,6,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
+            $this->Ln(6);
+            $this->Cell(80,6,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
+            $this->Ln(6);
+            // $ronda=$this->getGradoString(intval($this->manga1->Tipo)); // todas las mangas comparten grado
+            $ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
+            $this->Cell(80,6,_('Round').": $ronda",0,0,'',false);
+        }
 
         // ahora los datos de cada manga individual
         // manga 1:
@@ -411,8 +413,79 @@ class PrintClasificacionGeneral extends PrintCommon {
 		$this->myLogger->leave();
 	}
 
-	function composeMergedTable($mergecats) {
-	    return $this->composeTable(); // temporary
+	private function mergeResults($indexes) {
+        $this->myLogger->enter();
+        // fase 1 agrupa los arrays
+        $result=array();
+        foreach($indexes as $index) {
+            $size=count($this->resultados[$index]['Data']);
+            $this->myLogger->trace("Adding index:{$index} count:{$size}");
+            $result = array_merge($result,$this->resultados[$index]['Data']);
+        }
+        // fase 2 ordena el resultado
+        usort($result, function($a, $b) {
+            if ( $a['Penalizacion'] == $b['Penalizacion'] ) return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
+            return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
+        });
+        $puesto=0;
+        $last_t=0;$last_p=0;
+        // fase 3: ajusta puestos
+        for ($n=0;$n<count($result);$n++) {
+            if ( ($result[$n]['Tiempo']!=$last_t) || ($result[$n]['Penalizacion']!=$last_p) ){
+                // time or penalization differs: next puesto
+                $result[$n]['Puesto']=$n+1;
+                $puesto=$n+1;
+                $last_t=$result[$n]['Tiempo'];
+                $last_p=$result[$n]['Penalizacion'];
+            } else { // same data: preserve puesto
+                $result[$n]['Puesto']=$puesto;
+            }
+        }
+        $this->myLogger->leave();
+        return $result;
+    }
+
+    /**
+     * imprime agrupando categorias segun el argumento solicitado
+     * Se asume que la manga está configurada como recorridos separados
+     * con lo que tenemos 5 alturas con las siguientes posibilidades de agrupacion (indicadas en mergecats:
+     * [0],[1],[2],[3],[4] X-L-M-S-T
+     * [0,1],[2],[3,4]     XL-M-ST
+     * [0,1],[2,3,4]       XL-MST
+     * [0,1,2,3,4]         XLMST
+     * @param {array} $mergecats array with cats to be merged
+     * @throws Exception
+     */
+    function composeMergedTable($mergecats) {
+        $this->myLogger->enter();
+        $len=(($this->manga3)!==null)?115+(59*3+42)*0.75:115+59*2+42; // lenght of closing line
+
+       // iteramos sobre cada grupo de alturas disponible en la manga
+        foreach ($mergecats as $indexes) {
+            // mezclamos los resultados
+            $result=$this->mergeResults($indexes);
+            if (count($result)==0) continue; // no data, skip to next group
+
+            $this->AddPage();
+            // imprimimos los datos de trs de cada una de las alturas a mezclar
+            for ($n=0;$n<count($indexes);$n++) {
+                $this->print_datosMangas($this->resultados[$indexes[$n]],($n==0)?true:false);
+            }
+            // imprimimos el resultado mezclado iterando sobre ellos
+            $this->writeTableHeader($this->resultados[$indexes[0]]['Mode']);
+            foreach($result as $row) {
+                $rowcount=0; // just an index to display background on cells
+                if ($this->GetY()>190) {
+                    $this->Cell(274,0,'','T'); // linea de cierre
+                    $this->AddPage();
+                    $this->writeTableHeader($this->resultados[$indexes[0]]['Mode']);
+                }
+                $this->writeCell($rowcount++,$row);
+            }
+            $this->Cell(274,0,'','T'); // linea de cierre
+            $this->Ln(7);
+        }
+        $this->myLogger->leave();
     }
 }
 ?>
