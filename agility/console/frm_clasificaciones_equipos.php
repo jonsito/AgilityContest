@@ -124,6 +124,7 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
                 data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('close');"><?php _e('Cancel'); ?></a>
 		    <a id="resultados-printDlgBtn" href="#" class="easyui-linkbutton" style="float:right"
                data-options="iconCls:'icon-print'" onclick="clasificaciones_doPrint();"><?php _e('Print'); ?></a>
+            <select id="r_mergecats" style="display:none" name="r_mergecats" class="easyui-combobox"></select>
 	    </span>
 	</form>
 </div>
@@ -137,6 +138,18 @@ $('#r_prfirst').numberspinner({
         value: 1
 });
 
+/* this element is not used in team contests, but needed to avoid "undefined symbol" in print_clasificacionGeneral() */
+$('#r_mergecats').combobox({
+    panelHeight:'auto',
+    valueField: 'value',
+    textField: 'text',
+    data:[
+        {value:0,text:"<?php _e('Separate listings');?>",selected:true }, // default is 0
+        {value:3,text:"<?php _e('XL+L / M / S+XS');?>"},
+        {value:1,text:"<?php _e('XL+L / M+S+XS');?>"},
+        {value:2,text:"<?php _e('Single listing');?>"}
+    ]
+})
 // combogrid que presenta cada una de las rondas de la jornada
 $('#resultados-info-ronda').combogrid({
 	panelWidth: 200,

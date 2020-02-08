@@ -838,7 +838,7 @@ function clasificaciones_doPrint() {
     var merge=$('#r_mergecats').combobox('getValue');
 	$('#resultados-printDialog').dialog('close');
 	switch(parseInt(r)) {
-		case 0: /* podium */ clasificaciones_printGlobal(1); break;
+		case 0: /* podium */ clasificaciones_printGlobal(1,merge); break;
 		case 1: /* csv */ clasificaciones_printEtiquetas(0,line,'',false,global); break; // csv
         case 3: /* excel */ clasificaciones_printCanina(); break;
         case 6: /* mejores prueba */ clasificaciones_printHallOfFame(); break;
