@@ -426,7 +426,7 @@ class PrintClasificacionGeneral extends PrintCommon {
 		$this->myLogger->leave();
 	}
 
-	private function mergeResults($indexes) {
+	protected function mergeResults($indexes) {
         $this->myLogger->enter();
         // fase 1 agrupa los arrays
         $result=array();

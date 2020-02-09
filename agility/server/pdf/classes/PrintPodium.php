@@ -65,7 +65,8 @@ class PrintPodium extends PrintClasificacionGeneral {
 		foreach($this->resultados as $data) {
 			$rowcount=0;
 			foreach($data['Data'] as $row) {
-				if($rowcount==0) $this->writeTableHeader($data['Mode']);
+                $strcats=Mangas::getMangaMode($data['Mode'],0,$this->federation);
+				if($rowcount==0) $this->writeTableHeader($strcats);
 				if($rowcount>2) break; // only print 3 first results
 				$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 				$this->writeCell( $rowcount,$row);
@@ -79,9 +80,45 @@ class PrintPodium extends PrintClasificacionGeneral {
 		}
 		$this->myLogger->leave();
 	}
-
+    /**
+     * imprime agrupando categorias segun el argumento solicitado
+     * Se asume que la manga está configurada como recorridos separados
+     * con lo que tenemos 5 alturas con las siguientes posibilidades de agrupacion (indicadas en mergecats:
+     * [0],[1],[2],[3],[4] X-L-M-S-T
+     * [0,1],[2],[3,4]     XL-M-ST
+     * [0,1],[2,3,4]       XL-MST
+     * [0,1,2,3,4]         XLMST
+     * @param {array} $mergecats array with cats to be merged
+     * @throws Exception
+     */
     function composeMergedTable($mergecats) {
-        return $this->composeTable(); // temporary
+        $this->myLogger->enter();
+        $len=(($this->manga3)!==null)?115+(59*3+42)*0.75:115+59*2+42; // lenght of closing line
+
+        $this->AddPage();
+        $this->print_InfoJornada();
+        // iteramos sobre cada grupo de alturas disponible en la manga
+        foreach ($mergecats as $indexes) {
+            // mezclamos los resultados
+            $result=$this->mergeResults($indexes);
+            if (count($result)==0) continue; // no data, skip to next group
+            $names=array();
+            // imprimimos los datos de trs de cada una de las alturas a mezclar
+            for ($n=0;$n<count($indexes);$n++) {
+                $names[]=Mangas::getMangaMode($this->resultados[$indexes[$n]]['Mode'],0,$this->federation);
+            }
+            // componemos el nombre de la manga en base a los indices
+            // imprimimos el resultado mezclado iterando sobre ellos
+            $rowcount=0; // just an index to display background on cells
+            foreach($result as $row) {
+                if($rowcount==0) $this->writeTableHeader(implode(" + ",$names));
+                if($rowcount>2) break; // only print 3 first results
+                $this->writeCell($rowcount++,$row);
+            }
+            $this->Cell(274,0,'','T'); // linea de cierre
+            $this->Ln(7);
+        }
+        $this->myLogger->leave();
     }
 }
 ?>
