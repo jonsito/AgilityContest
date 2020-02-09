@@ -102,7 +102,7 @@ try {
                 // si merge es distinto de cero, tenemos que mezclar los resultados.
                 switch($merge) { //  Calculamos las matrices de mezclado
                     case 1: $mergecats=[ [0,1] /* X+L */ ,[2,3,4] /* M+S+T */ ]; break;
-                    case 2: $mergecats=[ [0,1,2,3,4,5] /* X+L+M+S+T */ ]; break;
+                    case 2: $mergecats=[ [0,1,2,3,4] /* X+L+M+S+T */ ]; break;
                     case 3: $mergecats=[ [0,1] /* X+L */,[2] /* M */ ,[3,4] /* S+T */ ]; break;
                     default: $mergecats=null; break;
                 }
