@@ -383,9 +383,8 @@ function tablet_acceptSelectJornada() {
 	$.ajax({
 		type: 'POST',
         url: '../ajax/database/userFunctions.php',
-   		dataType: 'jsonp',
+   		dataType: 'json',
    		data: parameters,
-   		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
    		success: function(data) {
     		if (data.errorMsg) { 
         		$.messager.alert("Error",data.errorMsg,"error"); 

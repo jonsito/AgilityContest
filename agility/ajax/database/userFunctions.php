@@ -106,6 +106,7 @@ try {
 	$response = array('errorMsg'=>$e->getMessage());
 }
 // take care on jsonp request to handle https cross domain for login and setPassword
+// note: since 4.2.2 jsonp is no longer used, just for compatibility
 if(isset($_GET['callback'])) echo $_GET['callback'].'('.json_encode($response).')'; // jsonp
 else echo json_encode($response); // json
 

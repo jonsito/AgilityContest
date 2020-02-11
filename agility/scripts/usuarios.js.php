@@ -172,7 +172,7 @@ function savePassword() {
         	// doesn't work fine with cors, so force it
         	SessionKey: ac_authInfo.SessionKey
         },
-        dataType: 'jsonp',
+        dataType: 'json',
         success: function (result) {
             if (result.errorMsg){
                 $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });

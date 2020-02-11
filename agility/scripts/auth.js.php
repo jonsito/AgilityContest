@@ -105,13 +105,12 @@ function acceptLogin() {
 	$.ajax({
 		type: 'POST',
   		url: '../ajax/database/userFunctions.php',
-   		dataType: 'jsonp',
+   		dataType: 'json',
    		data: {
    			Operation: 'login',
    			Username: user,
    			Password: pass
    		},
-   		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
    		success: function(data) {
        		if (data.errorMsg) { // error
                 $.messager.alert({width:350, height:'auto', title:'<?php _e('Error'); ?>',msg: data.errorMsg,icon:'error' });
@@ -253,7 +252,7 @@ function checkPassword(user,pass,callback) {
 	$.ajax({
 		type: 'POST',
         url: '../ajax/database/userFunctions.php',
-		dataType: 'jsonp',
+		dataType: 'json',
 		data: {
 			Operation: 'pwcheck',
 			Username: user,

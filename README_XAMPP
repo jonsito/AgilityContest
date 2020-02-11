@@ -23,7 +23,8 @@ https://github.com/jonsito/AgilityContest/archive/master.zip
 
 2- Instalacion y configuración 
 
-- Asumimos que el disco de instalación será el F: En caso negativo, substituir esta letra por la correcta en el resto de las instrucciones
+- Asumimos que el disco de instalación será el F: En caso negativo, substituir esta letra por la correcta en el
+resto de las instrucciones
 
 - Copiar el fichero F:\AgilityContest-master\agility\extras\AgilityContest_xampp.conf
   al directorio F:\xampp\apache\conf\extra\AgilityContest_xampp.conf
@@ -79,6 +80,7 @@ F:\xampp\mysql\bin\mysql.exe -u root
 
 4- Consideraciones sobre el Firewall y el uso de HTTPS
 
-Si bien AgilityContest está pensado tanto para su uso con protocolo HTTP como HTTPS, por motivos de seguridad todo el proceso de envio de contraseñas se realiza con protocolo "jsonp" sobre HTTPS. Esto puede ocasionar algunos problemas en sistemas windows con una configuración de firewall excesivamente restrictiva
-
-Para que el proceso de autenticación funcione correctamente es preciso que el navegador reconozca el certificado que el servidor apache provee por defecto. Para ello será preciso AL MENOS UNA VEZ acceder a la página en modo seguro en la dirección https://localhost/agility e instruir al navegador para que acepte de forma permanente el certificado
+Para que el proceso de autenticación funcione correctamente es preciso que el navegador reconozca el
+certificado que el servidor apache provee por defecto. Para ello será preciso AL MENOS UNA VEZ acceder
+a la página en modo seguro en la dirección https://localhost/agility e instruir al navegador para que
+acepte de forma permanente el certificado
