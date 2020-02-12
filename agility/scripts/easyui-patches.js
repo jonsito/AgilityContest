@@ -225,14 +225,16 @@ $.extend($.fn.datagrid.methods, {
 		win.children('div.messager-button').children('a:first').focus();
 		return win;
 	}
-	$.messager.radio = function(title,text, msg, fn){
+	$.messager.radio = function(title,text, msg, fn, on_click ){
 		var str="";
+		var oc="";
+		if (typeof(on_click) === "function") oc='onclick="'+on_click.name+'(this);"';
 		$.each(msg,function(val,optstr){
             // if options starts with "*" mark as selected
             if (optstr.startsWith("*")) {
-                str +='<br /><input type="radio" name="messager-radio" checked="checked" value="'+val+'">&nbsp;'+optstr.slice(1)+'\n';
+                str +='<br /><input type="radio" name="messager-radio" '+oc+' checked="checked" value="'+val+'">&nbsp;'+optstr.slice(1)+'\n';
             } else {
-                str +='<br /><input type="radio" name="messager-radio" value="'+val+'">&nbsp;'+optstr+'\n';
+                str +='<br /><input type="radio" name="messager-radio" '+oc+'value="'+val+'">&nbsp;'+optstr+'\n';
             }
 		});
 		 var content = '<div class="messager-icon messager-question"></div>'
