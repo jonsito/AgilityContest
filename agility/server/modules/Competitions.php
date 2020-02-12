@@ -490,6 +490,30 @@ class Competitions {
         return array("total"=> count($competitionList), "rows"=>$competitionList);
     }
 
+    // used from jornadas::enumerate to add competition name to returned info
+    static function getCompetitionName($fedid,$compid) {
+        foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
+            $data=file($filename,FILE_IGNORE_NEW_LINES|FILE_SKIP_EMPTY_LINES);
+            $fed=-1;
+            $comp=-1;
+            foreach ($data as $line) {
+                if ( ($fed>=0) && ($comp>=0) ) break; // no match, jump to next file
+                $f=preg_replace('/^[ \t]*\$this->federationID[ \t]*=[ \t]*(\d+).*$/','\1',$line);
+                $c=preg_replace('/^[ \t]*\$this->competitionID[ \t]*=[ \t]*(\d+).*$/','\1',$line);
+                if (is_numeric($f)) $fed=intval($f);
+                if (is_numeric($c)) $comp=intval($c);
+                if ($fed!=$fedid) continue;
+                if ($comp!=$compid) continue;
+                // arriving here means competition match
+                $a= str_replace(".php","",basename($filename));
+                return str_replace("_"," ",$a); // remove underscores
+            }
+        }
+        do_log("Cannot find competition module name for federation:{$fedid} competition:{$compid}");
+        // arriving here means no matching competition module found
+        return null;
+    }
+
     /**
      * retrieve default competition module for provided federation
      * @param $fed

@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once("DBObject.php");
 require_once(__DIR__."/../../auth/AuthManager.php");
+require_once(__DIR__."/../../modules/Competitions.php");
 require_once("Mangas.php");
 require_once("Tandas.php");
 
@@ -344,6 +345,11 @@ class Jornadas extends DBObject {
 				/* ORDER BY */ "Numero ASC",
 				/* LIMIT */ ""
 		);
+        // add competition name
+        foreach ($result['rows'] as &$row) {
+            $row['Nombre_Competicion']=
+                Competitions::getCompetitionName($this->federation->get('ID'),$row['Tipo_Competicion']);
+        }
 		// return composed array
 		$this->myLogger->leave();
 		return $result;

@@ -106,8 +106,8 @@ $('#seljornada-Prueba').combogrid({
 });
 
 $('#seljornada-Jornada').combogrid({
-	panelWidth: 575,
-	panelHeight: 150,
+	panelWidth: 600,
+	panelHeight: 'auto',
 	idField: 'ID',
 	textField: 'Nombre',
 	url: '../ajax/database/jornadaFunctions.php',
@@ -122,20 +122,22 @@ $('#seljornada-Jornada').combogrid({
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba
 	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-		{ field:'Nombre',		width:30, sortable:false,   align:'left',  title: '<?php _e('Name/Comments'); ?>' },
+		{ field:'Nombre',		width:30, sortable:false,   align:'left',  title: '<?php _e('Name'); ?>' },
+        { field:'Nombre_Competicion',hidden:true },
+        { field:'Tipo_Competicion',	hidden:true},
 		{ field:'Fecha',		hidden:true},
 		{ field:'Hora',			hidden:true},
-		{ field:'Grado1',		width:8, sortable:false,	align:'center', title: 'G-I    ', formatter:formatGrado1 },
-		{ field:'Grado2',		width:8, sortable:false,	align:'center', title: 'G-II   ', formatter:formatOk },
-		{ field:'Grado3',		width:8, sortable:false,	align:'center', title: 'G-III  ', formatter:formatOk },
-		{ field:'Open',		    width:8, sortable:false,	align:'center', title: 'Open   ', formatter:formatOk },
+		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I    ', formatter:formatGrado1 },
+		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II   ', formatter:formatOk },
+		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III  ', formatter:formatOk },
+		{ field:'Open',		    width:7, sortable:false,	align:'center', title: 'Open   ', formatter:formatOk },
 		{ field:'Equipos3',		width:12, sortable:false,	align:'center', title: 'Teams  ', formatter:formatTeamDogs },
 		{ field:'Equipos4',		hidden:true }, // since 4.2.x Equipos3/Equipos4 becomes mindogs/maxdogs
-		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'PreAg. ', formatter: formatPreAgility },
-        { field:'Junior',	    width:8, sortable:false,	align:'center', title: 'Junior ', formatter:formatOk },
-        { field:'Senior',	    width:8, sortable:false,	align:'center', title: 'Senior ', formatter:formatOk },
-		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ', formatter:formatOk },
-        { field:'Especial',		width:8, sortable:false,	align:'center', title: '<?php _e('Special');?>', formatter:formatOk },
+		{ field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'PreAg. ', formatter: formatPreAgility },
+        { field:'Junior',	    width:7, sortable:false,	align:'center', title: 'Junior ', formatter:formatOk },
+        { field:'Senior',	    width:7, sortable:false,	align:'center', title: 'Senior ', formatter:formatOk },
+		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.   ', formatter:formatOk },
+        { field:'Especial',		width:7, sortable:false,	align:'center', title: '<?php _e('Special');?>', formatter:formatOk },
         { field:'Cerrada',		width:6, sortable:false,	align:'center', title: '<?php _e('Closed');?>', formatter: formatCerrada }
     ]],
 	onBeforeLoad: function(param) { 
@@ -146,6 +148,15 @@ $('#seljornada-Jornada').combogrid({
 		return true;
 	},
 	onLoadSuccess: function(data) {
+        $(this).combogrid('grid').datagrid('getPanel').find('tr.datagrid-row').each(function(){
+            var index = parseInt($(this).attr('datagrid-row-index'));
+            $(this).tooltip({
+                zIndex:9999,
+                trackMouse:false,
+                position:'left',
+                content:data.rows[index]['Nombre_Competicion']
+            })
+        });
 		if (parseInt(workingData.jornada)!==0) $('#seljornada-Jornada').combogrid('setValue',workingData.jornada);
 	}
 });
