@@ -822,19 +822,37 @@ function clasificaciones_printClasificacion(stats,children,force) {
 function r_selectOption(val) {
     var prfirst= $('#r_prfirst');
     var prlist=$('#r_prlist');
+    var show_mergecats=false;
 	switch (parseInt(val)) {
 	case 0: // podium
-	case 1: // csv
-	case 3: // excel
-	case 4: // pdf
+        // no break
     case 8: // global scores for every heihgts
+         show_mergecats=true;
+        // mira si hay que activar boton de mezclar sub-categorias
+        // no break
+	case 1: // csv
+        // no break
+	case 3: // excel
+        // no break
+	case 4: // pdf
+        // no break
     case 6: // individual pdf on teams-3
-        prfirst.numberspinner('disable'); prlist.textbox('disable'); break;
+        prfirst.numberspinner('disable'); prlist.textbox('disable');
+        break;
 	case 2: // etiquetas rsce
-	    prfirst.numberspinner('enable'); prlist.textbox('enable'); break;
+	    prfirst.numberspinner('enable'); prlist.textbox('enable');
+	    break;
 	case 5: // etiquetas cneac
-	    prfirst.numberspinner('disable'); prlist.textbox('enable'); break;
+	    prfirst.numberspinner('disable'); prlist.textbox('enable');
+	    break;
 	}
+	if ( (show_mergecats==true) && (howManyHeights()=="5") ){
+        var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
+        $('#r_mergecats_span').css('display',(ronda.Recorrido1=="0")?'inherit':'none');
+    }
+    else {
+        $('#r_mergecats_span').css('display','none');
+    }
 }
 
 /**

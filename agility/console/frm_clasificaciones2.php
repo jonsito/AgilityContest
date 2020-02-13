@@ -178,9 +178,8 @@ $('#resultados-printDialog').dialog({
         var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
         var ch= ((ronda.Rondas & 16384)!==0) && hasChildren(workingData.federation);
         $('#r_junior').css('display',(ch)?'inherit':'none');
-        // mira si hay que activar boton de mezclar sub-categorias
-        if (howManyHeights()=="5") $('#r_mergecats_span').css('display',(ronda.Recorrido1=="0")?'inherit':'none');
-        else $('#r_mergecats_span').css('display','none');
+        $('#r_prformat4').prop('checked',true); // default is print category scores, not global ones
+        $('#r_mergecats_span').css('display','none');
         return true;
     }
 });
