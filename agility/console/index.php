@@ -54,7 +54,7 @@ if ( $runmode === AC_RUNMODE_MASTER) {
 <head>
 <meta charset="UTF-8"/>
 <meta name="application-name" content="Agility Contest" />
-<meta name="copyright" content="© 2013-2015 Juan Antonio Martinez" />
+<meta name="copyright" content="© 2013-2020 Juan Antonio Martinez" />
 <meta name="author" lang="en" content="Juan Antonio Martinez" />
 <meta name="description"
         content="A web client-server (xampp) app to organize, register and show results for FCI Dog Agility Contests" />
@@ -374,7 +374,16 @@ body {
 <div id="mysidebar">
 
 <div id="mymenu" class="easyui-panel" title="<?php _e('Operations Menu');?>"
-	data-options="border:true,closable:false,collapsible:true,collapsed:true">
+	data-options="
+	    border:true,
+	    closable:false,
+	    collapsible:true,
+	    collapsed:true,
+        height:550,
+        onCollapse:function(){
+            $('#submenu_links').css('display','none');
+        }"
+    >
 <ul>
 <li>
 	<ul>
@@ -479,6 +488,16 @@ body {
 	    )"><?php _e('License information'); ?>
         </a>
     </li>
+    <li>
+        <a href="javascript:toogleCollapse('#submenu_links')"><?php _e('External Links');?></a>
+        <span id="submenu_links" style="display:none;">
+	        <ul style="padding-left:10px;">
+				<li> <a target="facebook" href="https://www.facebook.com/groups/agilitycontest/">Facebook</a></li>
+				<li> <a target="website" href="http://www.agilitycontest.es">AgilityContest Website</a></li>
+                <li> <a target="blog" href="http://www.agilitycontest.es/blog">AgilityContest Blog</a></li>
+			</ul>
+		</span>
+    </li>
 	<li> <a href="javascript:loadContents(
 	        '../console/frm_about.php',
 	        '<?php _e('About AgilityContest');?>...'
@@ -515,7 +534,17 @@ body {
         <?php include_once("dialogs/import_ordensalida.inc.php"); ?>
     </div>
 </div>
+<script type="text/javascript">
+    // expand/collapse menu on mouse enter/exit
+    $('#submenu_links').mouseenter(function(){$('#submenu_links').panel('expand');});
+    $('#submenu_links').mouseleave(function(){$('#submenu_links').panel('collapse');});
 
+    function toogleCollapse(item) {
+        var smenu=$(item);
+        var state=smenu.css("display");
+        smenu.css("display",(state==="block")?"none":"block");
+    }
+</script>
 </body>
 
 </html> 
