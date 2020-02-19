@@ -50,6 +50,11 @@ try {
                 $result=array( 'progress' => strval($lines[count($lines)-1]) );
             }
             break;
+        case "getNews":
+            $ul=new Uploader("getNews",$suffix);
+            // receive news from server
+            $ul->doGetNews($timestamp);
+            return; // news is plain html text. do not json'ize
         case "checkForUpdates": // this is to be executed in client
             $am= AuthManager::getInstance("adminFunctions");
             if ($am->isDefaultLicense()) throw new Exception("updateRequest: Invalid License");

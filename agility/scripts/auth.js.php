@@ -142,12 +142,12 @@ function acceptLogin() {
 				    str = str+'<br /><?php _e("New version available");?>: '+data.NewVersion;
                 }
                 if ( (parseInt(ac_config.search_updatedb)>0) && (parseInt(data.NewEntries)!==0) ){
+                    wwidth=550;
                     str = str+'<br />'+data.NewEntries+' <?php _e("new/updated entries from server Database");?>';
-                    if (data.NewEntries!=0) {
-                        wwidth=550;
-                        str = str + '<span style="display:inline-block;width:50px">&nbsp</span>';
-                        str = str + '<input type="checkbox" id="login_updatedb" value="1"><?php _e("Update");?></input>';
-                    }
+                    str = str + '<span style="display:inline-block;width:50px">&nbsp</span>';
+                    str = str + '<input type="checkbox" id="login_updatedb" value="1"><?php _e("Update");?></input>';
+                } else { // when update is enabled, but no new entries create hidden checkbox to avoid javascript error
+                    str = str + '<input type="checkbox" id="login_updatedb" value="0" style="display:none"/>';
                 }
        			str =str+'<br /><br />'+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
        			if(data.Warning!=="") {
@@ -160,7 +160,12 @@ function acceptLogin() {
                     icon: "info",
                     width: wwidth,
                     height: 'auto',
-                    fn: function() { /* empty */ },
+                    fn: function() {
+                        // if configured try to load latest news from agilitycontest.es
+                        if (ac_config.console_news) {
+                            loadContents('../console/frm_news.php','<?php _e('Latest news');?>');
+                        }
+                    },
                     onClose: function() {
                         // change menu message to logout
                         $('#login_menu-text').html('<?php _e("End session");?>' + ": <br />" + data.Login);

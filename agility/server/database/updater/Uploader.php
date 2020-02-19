@@ -54,6 +54,12 @@ class Uploader {
         // sleep(3); /* unset to debug */
     }
 
+    // call master server to retrieve news newer than provided timestamp 'Y-m-d H:i:s'
+    public function doGetNews($timestamp) {
+        echo "<p>No news</p>";
+        return;
+    }
+
     /**
      * retrieve from perroguiaclub every item newer than timestamp
      * @param $timestamp

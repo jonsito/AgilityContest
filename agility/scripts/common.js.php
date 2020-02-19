@@ -1104,14 +1104,16 @@ function initWorkingData(id,evtmgr) {
 var ac_authInfo ={};
 function initAuthInfo(id) {
 	ac_authInfo.ID=0;
-	ac_authInfo.Login="";
+    ac_authInfo.Login="";
+    ac_authInfo.LastLogin="";
 	ac_authInfo.Gecos="";
 	ac_authInfo.SessionKey=null;
 	ac_authInfo.Perms=5;
 	ac_authInfo.SessionID=0;
 	if (typeof(id)!=="undefined") {
 		ac_authInfo.ID=id.UserID;
-		ac_authInfo.Login=id.Login;
+        ac_authInfo.Login=id.Login;
+        ac_authInfo.LastLogin=id.LastLogin;
 		ac_authInfo.Gecos=id.Gecos;
 		ac_authInfo.SessionKey=id.SessionKey;
 		ac_authInfo.Perms=id.Perms;

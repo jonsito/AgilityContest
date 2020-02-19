@@ -534,6 +534,10 @@ $config =Config::getInstance();
             <input type="hidden" name="search_updatedb" value="0"/> <!-- trick for checkboxes -->
             <input type="checkbox" name="search_updatedb" id="search_updatedb" value="1" onChange="warn_updatedb(this);"/><?php _e('Database'); ?><br />
 
+            <label for="console_news"><?php _e('Search and show news on startup'); ?></label>
+            <input type="hidden" name="console_news" value="0"/> <!-- trick for checkboxes -->
+            <input type="checkbox" name="console_news" id="console_news" value="1"/>
+
             <h3><?php _e('Auto backup options'); ?></h3>
 
             <label for="encrypt_database"><?php _e('Encrypt data on backup generation'); ?></label>

@@ -45,6 +45,7 @@ define('AC_CRYPT_DB',"0"); // do not crypt database backup contents
 define('AC_DEBUG_LEVEL','0');
 define('AC_REGISTER_EVENTS',"0"); // write events into file
 define('AC_CONSOLE_EVENTS',"0"); // track and show events in cosole
+define('AC_CONSOLE_NEWS',"1"); // ask server for news on startup
 define('AC_RESET_EVENTS',"1"); // clear event registry on login
 define('AC_SEARCH_UPDATES',"1"); // look for application updates at startup
 define('AC_SEARCH_UPDATEDB',"-1"); // look for application updates at startup -1:ask, 0:don't 1:do
@@ -196,7 +197,8 @@ Class Config {
 		'debug_level' 		=> array(	'i',	false,	AC_DEBUG_LEVEL),
 		'register_events'	=> array(	'b',	false,	AC_REGISTER_EVENTS),
         'reset_events'		=> array(	'b',	false,	AC_RESET_EVENTS),
-        'console_events'	=> array(	'b',	false,	AC_CONSOLE_EVENTS),
+		'console_events'	=> array(	'b',	false,	AC_CONSOLE_EVENTS),
+		'console_news'		=> array(	'i',	false,	AC_CONSOLE_NEWS),
         'event_printer'		=> array(	's',	false,	AC_EVENT_PRINTER),
         'full_backup'		=> array(	'i',	false,	AC_FULL_BACKUP),
         'search_updates' 	=> array(	'b',	false,	AC_SEARCH_UPDATES),
