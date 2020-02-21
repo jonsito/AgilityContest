@@ -66,7 +66,7 @@ $config =Config::getInstance();
                 if (content==="<p>No news</p>")  { // on no news just close window
                     setTimeout(function() { $('#dlg_news').window('close')},500);
                 } else {
-                    $('#dlg_news_layout').layout('panel','center').panel(resize,{height:'auto'});
+                    $('#dlg_news_layout').layout('panel','center').panel('resize',{height:'auto'});
                 }
             }
         });

@@ -29,7 +29,7 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <a id="top"></a>
 <?php } ?>
 
-<?php if ( strcmp($from,"blog_2020-02-01_00:00:00")<0) { ?>
+<?php if ( strcmp($from,"blog_2020-02-21_19:00:00")<0) { ?>
 <strong>2020-Feb-21 00:00:00</strong><br/>
     <p>
         !Hola!
