@@ -93,7 +93,9 @@ class Uploader {
         // close curl stream
         curl_close($curl);
         // $this->myLogger->trace("Uploader::sendJSONRequest() returns {$json_response}");
-        echo $response; // send data to stdout ( redirect to web client
+        $response=trim($response);
+        if ($response==="") echo  "<p>No news</p>";
+        else echo $response; // send data to stdout ( redirect to web client
         return;
     }
 

@@ -2,7 +2,7 @@
 define("AC_EPOCH","blog_1900-01-01_00:00:00");
 $from=AC_EPOCH;
 if (array_key_exists("TimeStamp",$_REQUEST)) {
-    $from="blog-{$_REQUEST['TimeStamp']}";
+    $from="blog_{$_REQUEST['TimeStamp']}";
 }
 ?>
 
@@ -29,8 +29,7 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <a id="top"></a>
 <?php } ?>
 
-
-<?php if ( strcmp($from,"blog_2020-03-01_00:00:00")<0) { ?>
+<?php if ( strcmp($from,"blog_2020-02-01_00:00:00")<0) { ?>
 <strong>2020-Mar-01 00:00:00</strong><br/>
 2<br/>
 3<br/>
@@ -45,7 +44,7 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
 
 
 <?php if ( strcmp($from,"blog_2020-02-20_00:00:00")<0) { ?>
-<strong>2020-Feb-20 00:00:00</strong><br/>
+<strong>2020-Feb-22 00:00:00</strong><br/>
 11<br/>
 12<br/>
 13<br/>
