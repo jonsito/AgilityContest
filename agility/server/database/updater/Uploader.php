@@ -54,9 +54,46 @@ class Uploader {
         // sleep(3); /* unset to debug */
     }
 
-    // call master server to retrieve news newer than provided timestamp 'Y-m-d H:i:s'
-    public function doGetNews($timestamp) {
-        echo "<p>No news</p>";
+    /**
+     * Retrieve latest news from agilitycontest blog
+     * data=array("Serial","Operation", "TimeTtamp" ('Y-m-d H:i:s'),"Revision")
+     * @param {array} $data
+     * @return mixed|void
+     * @throws Exception
+     */
+    public function doGetNews($data) {
+        // first of all, check internet conectivity
+        if (isNetworkAlive()<0) {
+            $this->myLogger->notice("updater::doGetNews(): No internet access available");
+            echo "<p>No news</p>";
+            return;
+        }
+        // make sure that timestamp has no spaces
+        str_replace(" ","_",$data['TimeStamp']);
+        $server=$this->myConfig->getEnv("master_server");
+        $checkcert= ($server==="localhost")?false:true; // do not verify cert on localhost
+        $url = "https://{$server}/blog/index.php";
+        // PENDING: add license info and some sec/auth issues
+        // prepare and execute json request
+        $curl = curl_init($url."?".http_build_query($data) );
+        curl_setopt($curl, CURLOPT_POST, 0); // use get request
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1); // allow server redirection
+        curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4); // try to fix some slowness issues in windozes
+        curl_setopt($curl, CURLOPT_POSTREDIR, 1); // do not change from post to get on "301 redirect"
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true); // check master server certificate
+        curl_setopt($curl,CURLOPT_CONNECTTIMEOUT, 5); // wait 5 secs to attemp connect
+
+        // retrieve response and check status
+        // $this->myLogger->trace("Uploader::sendJSONRequest() sending ".json_encode($pdata));
+        $response = @curl_exec($curl); // supress stdout warning
+        if ( curl_error($curl) ) {
+            throw new Exception("updater::SendJSONRequest() call to URL $url failed: " . curl_error($curl) );
+        }
+        // close curl stream
+        curl_close($curl);
+        // $this->myLogger->trace("Uploader::sendJSONRequest() returns {$json_response}");
+        echo $response; // send data to stdout ( redirect to web client
         return;
     }
 
