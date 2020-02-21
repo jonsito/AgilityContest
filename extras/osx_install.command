@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 BASE=`dirname $0`
 HTCONF=/Applications/XAMPP/etc
 HTDOCS=/Applications/XAMPP/htdocs
@@ -110,6 +110,18 @@ USE agility;
 SOURCE /Applications/XAMPP/htdocs/AgilityContest/extras/agility.sql;
 SOURCE /Applications/XAMPP/htdocs/AgilityContest/extras/users.sql;
 _EOF
+
+#make sure that database has correct indexes
+echo "Fixing Agility Database contents and indexes"
+/Applications/XAMPP/xamppfiles/bin/mysql_upgrade
+
+#in MacOS Catalina need to disable native apache server
+osver=$(sw_vers -productVersion)
+if [ "Z${osver}" '>' "Z10.14" ]; then
+  echo "Disableing native apache server"
+  apachectl stop
+  launchctl unload -w /System/Library/LaunchDaemons/org.apache.httpd.plist
+fi
 
 echo "Restoreing license and configuration data"
 [ -f /tmp/registration.info ] && cp -f /tmp/registration.info $CONFIG/registration.info
