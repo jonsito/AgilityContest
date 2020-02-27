@@ -226,7 +226,11 @@ function insertInscripcion(dg) {
                     "<br/> <?php _e('into journey');?> :<br/>&nbsp;";
             var showmsg=false;
 	        for (var n=0;n<8;n++) {
+	            // si la jornada no esta asignada, skip
 	            if (jornadas[n].Nombre=="-- Sin asignar --") continue;
+	            // si el perro no esta inscrito en la jornada, skip
+                if ( (mask & (1<<n)) ==0 ) continue;
+                // si se quiere inscribir comprueba si es posible
 	            if (!canInscribe(jornadas[n],rows[index].Grado)) {
 	                mask &= ~(1<<n); // borramos mascara de inscripcion en la jornada en que no se puede
                     msg += "<br/>"+(n+1)+" - "+jornadas[n].Nombre;
