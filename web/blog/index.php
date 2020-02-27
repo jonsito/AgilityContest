@@ -2,7 +2,7 @@
 define("AC_EPOCH","blog_1900-01-01_00:00:00");
 $from=AC_EPOCH;
 if (array_key_exists("TimeStamp",$_REQUEST)) {
-    $from="blog-{$_REQUEST['TimeStamp']}";
+    $from="blog_{$_REQUEST['TimeStamp']}";
 }
 ?>
 
@@ -29,23 +29,51 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <a id="top"></a>
 <?php } ?>
 
+<?php if ( strcmp($from,"blog_2020-02-21_19:00:00")<0) { ?>
+<strong>2020-Feb-21 00:00:00</strong><br/>
+    <p>
+        !Hola!
+    </p><p>
+        Al final diversos "incidentes" me han obligado a quedarme en casa mientras el resto del universo va hoy de camino a Barcelona para la selectiva :-(
+    </p><p>
+        Como venganza le he pegado un empujón final a la nueva versión. A lo largo del fin de semana estará publicadada. Los impacientes, pueden usar el botón actualizar desde el menú de administración
+    </p><p>
+        Como todavía tengo pendiente alguna base de datos por recibir ( tsk, tsk :-) ), pero se me echa el tiempo encima lo que voy a hacer es sacar una nueva versión "4.3.0" y para la 4.3.1 añadiré la base de datos actualizada
+    </p><p>
+    <ul>
+        Lista de cambios: ( rollo )
+    <li>
+        Correcciones para el instalador en MacOS Catalina. Recordad que hay que instalar el XAMPP version 7.12 o superior; los anteriores no funcionan en la última versión de Mac-OSX
+    </li><li>
+        Ahora, cuando se seleccionan recorridos a 5 alturas separadas, en los parciales, podio y finales se pueden agrupar los resultados CONSERVANDO cada altura su TRS. Ideal para ahorrar en escarapelas, o para cumplir al 100% con la normativa RSCE sobre listados
+    </li><li>
+        Ahora, cuando NO se inicia sesión, el programa emite un aviso bien gordo si se intenta acceder al menú de administración o al de registro de licencia
+    </li><li>
+        En los diálogos de selección de jornada, se indica en un "bocadillo", el tipo de competición, para facilitar la búsqueda
+    </li><li>
+        Se ha añadido una entrada "enlaces" en el menú principal, con acceso directo a la web de agilitycontest.es, al grupo de Facebook y al (nuevo) blog de AgilityContest
+    </li><li>
+        Para los que no leen el correo ni usan Facebook, ahora al iniciar sesión se abre una ventana con las ultimas noticias desde la última vez que se inició sesión. Las noticias se extraen del (nuevo) Blog, al que se puede acceder en todo momento desde el menú principal.
+    </li><li>
+        La opción de desplegar noticias se puede deshabilitar, desde el menú de preferencias. Por defecto viene activada, para que nadie pueda decir que no se entera de las novedades
+    </li><li>
+        Evidentemente: en www.agilitycontest.es ahora hay una nueva página "/blog" donde se pondrán las noticias y avisos que se ponen aquí y nadie lee :-(
+    </li><li>
+        Y como siempre, alguna cucaracha (bug) suelta que he corregido, especialmente en el tema de Grado 1 a tres mangas y cinco alturas...
+    </li>
+    </ul>
+    <p>
+    Como hay funcionalidades nuevas, corresponde un cambio de numeración ( 4.2.1 a 4.3.0 ) de versión. Como digo: en cuanto tenga lista la nueva base de datos, sacaré la 4.3.1. Entretanto, recomiendo en el instalador la opción de "actualizar" en lugar de "instalar" si ya tenéis una base de datos "razonable"
+    <br/>    A disfrutar
+    </p><p>
+        PS: ¿Alguien sabe si se transmite la selectiva por streaming? :-) Suerte a los participantes. Bueno, a tí no
+    </p>
 
-<?php if ( strcmp($from,"blog_2020-03-01_00:00:00")<0) { ?>
-<strong>2020-Mar-01 00:00:00</strong><br/>
-2<br/>
-3<br/>
-4<br/>
-5<br/><img alt="logo" src="https://raw.github.com/jonsito/AgilityContest/master/agility/images/AgilityContest.png">
-6<br/>
-7<br/>
-8<br/>
-9<br/>
-10<br/>
 <?php } ?>
 
 
 <?php if ( strcmp($from,"blog_2020-02-20_00:00:00")<0) { ?>
-<strong>2020-Feb-20 00:00:00</strong><br/>
+<strong>2020-Feb-22 00:00:00</strong><br/>
 11<br/>
 12<br/>
 13<br/>

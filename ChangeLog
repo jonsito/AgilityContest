@@ -1,3 +1,13 @@
+Version 4.3.0 20200221_1718
+    - Allow merge categories preserveing TRS on partial/global/podium PDF printouts
+    - Warn on admin/register frame when no user is logged in
+    - show journey type as tooltip in selectJornada dialog
+    - Add "links" menu entry
+    - Configuration option for "show news"
+    - Remove all jsonp calls, as already use https and new chrome versions disables it
+    - Fixes for MacOS Catalina installer
+    - New frame getNews to retrieve latest new from master server on login success
+    - Several bug fixes
 Version 4.2.1 20200206_2213
     - Get re-open journey work again
     - warn on anonymous session in Admin/register menus

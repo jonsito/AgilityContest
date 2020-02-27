@@ -53,7 +53,8 @@ try {
         case "getNews":
             $ul=new Uploader("getNews",$suffix);
             // receive news from server
-            $ul->doGetNews($timestamp);
+            $data=array("Serial" => $serial,"Operation" => $operation, "TimeStamp" =>$timestamp,"Revision"=>$revision);
+            $ul->doGetNews($data);
             return; // news is plain html text. do not json'ize
         case "checkForUpdates": // this is to be executed in client
             $am= AuthManager::getInstance("adminFunctions");
