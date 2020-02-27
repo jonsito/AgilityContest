@@ -29,6 +29,33 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <a id="top"></a>
 <?php } ?>
 
+<?php if ( strcmp($from,"blog_2020-02-27_15:00:00")<0) { ?>
+    <strong>2020-Feb-27 15:00:00</strong><br/>
+    <p>
+        Un apunte sobre el Pre-Agility
+    </p>
+    <p>
+        Los perros de Pre-Agility son por su propia naturaleza (edad,nivel de entrenamiento,o experiencia del gu&iacute;a)
+        no pueden ni deben participar en una competici&oacute;n real, no solo por la evidente desigualdad de condiciones,
+        sino tambi&eacute;n porque en algunos casos, sobre todo en perros j&oacute;venes o demasiado viejos,
+        su participaci&oacute;n puede acarrear riesgos para su salud
+    </p>
+    <p>
+        Es por ello que AgilityContest <em>no permite</em> inscribir perros de Pre-Agility en ning&uacute;n tipo
+        de prueba salvo en mangas de Pre-Agility. (De paso esquivo alg&uacute;n problema de Responsabilidad Civil,
+        y posibles demandas, pero eso es otra historia... )
+    </p>
+    <p>
+        No obstante, y si a pesar de todo alguien quiere hacer el bestia, y permitir que esos perros compitan en
+        otras modalidades, lo que tiene que hacer es <em>bajo su responsabilidad</em> cambiar el grado del perro
+        a "-- Sin especificar --"
+    </p>
+    <p>
+        No: esa restricci&oacute;n no la voy a quitar. Ya en su d&iacute;a me echaron la bronca por permitir
+        inscribir a pre-agilitys en otras competiciones; y con toda la raz&oacute;n del mundo
+    </p>
+<?php } ?>
+
 <?php if ( strcmp($from,"blog_2020-02-21_19:00:00")<0) { ?>
 <strong>2020-Feb-21 00:00:00</strong><br/>
     <p>
@@ -70,22 +97,6 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     </p>
 
 <?php } ?>
-
-
-<?php if ( strcmp($from,"blog_2020-02-20_00:00:00")<0) { ?>
-<strong>2020-Feb-22 00:00:00</strong><br/>
-11<br/>
-12<br/>
-13<br/>
-14<br/>
-15<br/><img alt="logo" src="https://raw.github.com/jonsito/AgilityContest/master/agility/images/AgilityContest.png">
-16<br/>
-17<br/>
-18<br/>
-19<br/>
-20<br/>
-<?php } ?>
-
 
 <?php if ( strcmp($from,"blog_2020-02-10_00:00:00")<0) { ?>
 <strong>2020-Feb-10 00:00:00</strong><br/>
