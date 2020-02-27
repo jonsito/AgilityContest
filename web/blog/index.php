@@ -32,7 +32,7 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
 <?php if ( strcmp($from,"blog_2020-02-27_15:00:00")<0) { ?>
     <strong>2020-Feb-27 15:00:00</strong><br/>
     <p>
-        Un apunte sobre el Pre-Agility
+        Un apunte sobre el Pre-Agility:
     </p>
     <p>
         Los perros de Pre-Agility son por su propia naturaleza (edad,nivel de entrenamiento,o experiencia del gu&iacute;a)
@@ -48,7 +48,9 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <p>
         No obstante, y si a pesar de todo alguien quiere hacer el bestia, y permitir que esos perros compitan en
         otras modalidades, lo que tiene que hacer es <em>bajo su responsabilidad</em> cambiar el grado del perro
-        a "-- Sin especificar --"
+        a "-- Sin especificar --", con lo cual los podrían inscribir en pruebas open, por equipos, rondas ko y
+        mangas especiales; pero no en categorías de competición normales
+
     </p>
     <p>
         No: esa restricci&oacute;n no la voy a quitar. Ya en su d&iacute;a me echaron la bronca por permitir
@@ -96,20 +98,6 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
         PS: ¿Alguien sabe si se transmite la selectiva por streaming? :-) Suerte a los participantes. Bueno, a tí no
     </p>
 
-<?php } ?>
-
-<?php if ( strcmp($from,"blog_2020-02-10_00:00:00")<0) { ?>
-<strong>2020-Feb-10 00:00:00</strong><br/>
-21<br/>
-22<br/>
-23<br/>
-24<br/>
-25<br/>
-26<br/>
-27<br/>
-28<br/>
-29<br/>
-30<br/>
 <?php } ?>
 
 
