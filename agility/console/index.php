@@ -535,10 +535,6 @@ body {
     </div>
 </div>
 <script type="text/javascript">
-    // expand/collapse menu on mouse enter/exit
-    $('#submenu_links').mouseenter(function(){$('#submenu_links').panel('expand');});
-    $('#submenu_links').mouseleave(function(){$('#submenu_links').panel('collapse');});
-
     function toogleCollapse(item) {
         var smenu=$(item);
         var state=smenu.css("display");
