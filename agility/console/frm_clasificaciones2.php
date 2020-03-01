@@ -138,7 +138,7 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
 	</span>
 	<span  style="display:inline-block;width:100%">
 		<a id="resultados-cancelDlgBtn" href="#" class="easyui-linkbutton" style="float:left"
-           data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('close');"><?php _e('Cancel'); ?></a>
+           data-options="iconCls:'icon-cancel'" onclick="$('#resultados-printDialog').dialog('close');"><?php _e('Cancel'); ?></a>
 		<a id="resultados-printDlgBtn" href="#" class="easyui-linkbutton" style="float:right"
            data-options="iconCls:'icon-print'" onclick="clasificaciones_doPrint();"><?php _e('Print'); ?></a>
 	</span>
