@@ -33,6 +33,7 @@ try {
 			'ID'		=>	http_request("ID","i",0),
             'Session'	=> 	http_request("Session","i",0), // ring ID
             'SessionName'	=> 	http_request("SessionName","s",""), //source:id:view:mode:name
+            // do not set default timestamp to zero, to avoid UTC offsets
 			'TimeStamp'	=> 	http_request("TimeStamp","i",0), // last timestamp parsed
 			'Type' 		=> 	http_request("Type","s",""),
 			'Source'	=> 	http_request("Source","s",""), // tablet,videowall,chrono,livestream
@@ -60,6 +61,7 @@ try {
             'Name'  =>  http_request("Name","s",""), // display name
             'Oper'  =>  http_request("Oper","i",0), // operation to be issued on display 'name' at session ID
 	);
+	// if ($data['TimeStamp']==0) $data['TimeStamp']=60*60*24;
 	if ($operation===null) throw new Exception("Call to eventFunctions without 'Operation' requested");
 	$eventmgr= new Eventos("eventFunctions",$data['Session'],$am);
 	switch ($operation) {
