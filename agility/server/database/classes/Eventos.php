@@ -200,7 +200,8 @@ class Eventos extends DBObject {
 				return "";
 		}
         // iniciamos los valores (  Timestamp viene en formato php::time() en segundos
-        $timestamp= date('Y-m-d H:i:s',$data['TimeStamp']);
+        // el canometro no manda datos de timestamp (==0) por lo que le ponemos la fecha actual
+        $timestamp= ($data['TimeStamp']==0)?date('Y-m-d H:i:s'):date('Y-m-d H:i:s',$data['TimeStamp']);
         $source=$data['Source'];
         $type=$data['Type'];
         $evtdata=json_encode($data);
