@@ -262,7 +262,7 @@ class Eventos extends DBObject {
      * @return array|null
      */
 	function getEvents($data) { 
-		// $this->myLogger->enter();
+		$this->myLogger->enter();
 
         // en sessiones::connect() y en eventos::getEvents()
         // el Canometro de Galican no indica ni Source ni SessionName
@@ -287,42 +287,39 @@ class Eventos extends DBObject {
 		// retrieve timestamp from file and request
 		$current=filemtime($this->sessionFile);
 		$last=$data['TimeStamp'];
-		$this->myLogger->info("Last timestamp is $last");
+        $res=null;
+
 		// Counter to manually keep track of time elapsed 
 		// (PHP's set_time_limit() is unrealiable while sleeping)
 		$counter = 0;
-		$res=null;
 		
 		// Poll for messages and hang if nothing is found, until the timeout is exhausted
 		while($counter < EVENT_TIMEOUT_SECONDS )	{
-			// $this->myLogger->info("filemtime:$current lastquery:$last" );
+            // clear stat cache to ask for real mtime
+            clearstatcache();
+            $current =filemtime($this->sessionFile); // get session file mtime
+			// $this->myLogger->info("counter:{$counter} filemtime:{$current} lastquery:{$last}" );
+			// compare with received timestamp . Notice that last may be zero ( canometer )
 			if ( $current > $last ) {
 				// new data has arrived: get it
 				$res=$this->listEvents($data);
-				if ( is_array($res) ) $res['TimeStamp']=$current; // data received: store timestamp in response
-				break;
+				if ( is_array($res)  && ($res['total']!=0) ) {
+                    // data received: store timestamp in response
+				    $res['TimeStamp']=$current;
+                    break;
+                }
 			}
-			if ( ($current==$last) && ( $counter<1 ) ){
-				
-				// poll at least first second to make sure no new data is available
-				// new data has arrived: get it
-				$res=$this->listEvents($data);
-				if ( is_array($res) && ($res['total']!=0) ) {
-					$res['TimeStamp']=$current; // data received: store timestamp in response
-					break;
-				}
-			}
-			// Otherwise, sleep for the specified time, after which the loop runs again
+			// no data yet: set last=current to avoid extra db poll
+            $last=$current;
+			$res=null; // try again
+			// sleep for the specified time, after which the loop runs again
+            // and decrement wait count from counter (the interval was set in μs, see above)
 			usleep(EVENT_POLL_MICROSECONDS);
-			// clear stat cache to ask for real mtime
-			clearstatcache();
-			$current =filemtime($this->sessionFile);
-			// Decrement seconds from counter (the interval was set in μs, see above)
 			$counter += (EVENT_POLL_MICROSECONDS / 1000000);
 		}
-		// if no new events (timeout) create an empty result
-		if ($res===null) $res=array( 'total'=>0, 'rows'=>array(), 'TimeStamp' => $current );
-		// $this->myLogger->leave();
+		// if no new events yet we have timeout, so create an empty result
+		if ($res==null) $res=array( 'total'=>0, 'rows'=>array(), 'TimeStamp' => $current );
+		$this->myLogger->leave();
 		return $res;
 	}
 
