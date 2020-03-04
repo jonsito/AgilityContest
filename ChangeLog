@@ -1,3 +1,5 @@
+Version 4.3.0 20200304_0942
+    - Minor changes for better event handling and Canometer compatibility
 Version 4.3.0 20200221_1718
     - Allow merge categories preserveing TRS on partial/global/podium PDF printouts
     - Warn on admin/register frame when no user is logged in
