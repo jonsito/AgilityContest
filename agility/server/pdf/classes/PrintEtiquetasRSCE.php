@@ -250,6 +250,11 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		}
 
 		foreach($resultados as $row) {
+			$nmangas=0;
+			if ($this->mangasObj[0]==null) $nmangas++;
+			if ($this->mangasObj[1]==null) $nmangas++;
+			if ($this->mangasObj[2]==null) $nmangas++;
+
 			if ($listadorsales!=="") {
 				$aguja=",{$row['Dorsal']},";
 				if (strpos($pajar,$aguja)===FALSE) continue; // Dorsal not in list
@@ -257,24 +262,35 @@ class PrintEtiquetasRSCE extends PrintCommon {
 			} else {
 				// if country discrimination is active check country and reject on no match
 				if ( ($discriminate==1) && $row['Pais']!=="ESP") continue;
-				// on double "not present" do not print label
-                if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) ) continue;
-                // on double "eliminated", ( or eliminated+notpresent ) handle printing label accordind to configuration
-				if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
 			}
-			if ( (($rowcount%$labels)==0) && ($rowcount!=0)) $this->AddPage(); // 16/13 etiquetas por pagina
 
+			// ver si la manga tiene 1, 2 o 3 rondas
+			switch ($nmangas) {
+				case 1:
+					// skip if not present
+					if ($row['P1']>=200.0) continue;
+					// skip on eliminated and set to skip by operator
+					if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0)) continue;
+					break;
+				case 2:
+					if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) ) continue;
+					if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
+					break;
+				case 3:
+					if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) && ($row['P3']>=200.0) ) continue;
+					if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0)
+						&& ($row['P1']>=100.0) && ($row['P2']>=100.0) && ($row['P3']>=100.0) ) continue;
+					break;
+				default: $this->myLogger->error( "cannot handle provided ({$nmangas}) number of rounds");
+			}
+
+			// control de salto de pagina
+			if ( (($rowcount%$labels)==0) && ($rowcount!=0)) $this->AddPage(); // 16/13 etiquetas por pagina
 			// ok. just print label for first 2 rounds
 			$this->writeCell($rowcount%$labels,$row,0);
 			$rowcount++;
-
-			// check for additional rounds
-			if ($this->mangasObj[2]==null) continue;
-
-			// on double "not present" do not print label
-			if ( $row['P3']>=200.0) continue;
-			// on double "eliminated", ( or eliminated+notpresent ) handle printing label accordind to configuration
-			if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P3']>=100.0) ) continue;
+			// and now print label for 3rd and (nonexistent ) 4th round
+			if ($nmangas<=2) continue;
 			if ( (($rowcount%$labels)==0) && ($rowcount!=0)) $this->AddPage(); // 16/13 etiquetas por pagina
 			// ok. just print label for rounds 3 and (null) 4
 			$this->writeCell($rowcount%$labels,$row,2);

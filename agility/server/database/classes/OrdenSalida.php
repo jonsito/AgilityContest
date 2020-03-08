@@ -331,6 +331,7 @@ class OrdenSalida extends DBObject {
 	 * @param {string} $lista lista original de la base de datos
      * @param {int} $mode 0:L 1:M 2:S 3:MS 4:LMS 5:T 6:LM 7:ST 8:LMST 9:X 10:XL 11:MST 12:XLMST
      * @param {boolean} $reverse On true return included dogs in reverse order
+	 * @param {string} $range dog range to be included in result
 	 * @return {array} 0:original 1:included 2:excluded 3:doglist
 	 */
 	function splitPerrosByMode($lista,$mode,$reverse,$range) {

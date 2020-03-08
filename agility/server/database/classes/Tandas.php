@@ -702,8 +702,11 @@ class Tandas extends DBObject {
 			// OK ya tenemos la lista ordenada de los perros de cada manga
 			// Ahora vamos a sacar la lista por cada tanda
             foreach($perrosmanga['rows'] as &$perro) {
-                // si el perro no pertenece a la tanda skip (comprobar categoria)
-                if (strpos($tanda['Categoria'],$perro['Categoria'])===false) continue;
+                // si hay categoria distinta de "-" hay que comprobar si el perro pertenece a la tanda
+                if ($tanda['Categoria']!="-") {
+                    // si el perro no pertenece a la tanda skip (comprobar categoria)
+                    if (strpos($tanda['Categoria'],$perro['Categoria'])===false) continue;
+                }
                 $perro['Tanda']=$tanda['Nombre'];
                 $perro['ID']=$tanda['ID']; // replace resultadoID por tandaID TODO: revise why
                 if ($pendientes==0) { // include all

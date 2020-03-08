@@ -340,7 +340,8 @@ $('#seltablet-Jornada').combogrid({
 		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.   ', formatter:formatOk },
 		{ field:'Especial',		width:6, sortable:false,	align:'center', title: 'Show   ', formatter:formatOk }
 	]],
-	onBeforeLoad: function(param) { 
+	onBeforeLoad: function(param) {
+	    if (typeof(workingData.prueba)=="undefined") return false;
 		param.Operation='enumerate';
 		param.Prueba=workingData.prueba;
 		param.AllowClosed=0;

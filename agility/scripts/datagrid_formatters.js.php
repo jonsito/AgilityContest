@@ -319,6 +319,7 @@ function formatModuleID(val,row,idx) {
 /* stylers para formateo de celdas especificas */
 function formatPreAgility(val,row,idx) {
     // notice that in 3.4+ PreAgility2 is no longer used
+    if (typeof(workingData.prueba)==="undefined") return "";
     $('#jornadas-PreAgilityName').html(ac_fedInfo[workingData.federation].ListaGrados['P.A.']);
     var pa=parseInt(row.PreAgility)+parseInt(row.PreAgility2);
     return (pa==0)?"":"&#x2714; ("+pa+")";
