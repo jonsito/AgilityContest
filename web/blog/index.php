@@ -39,14 +39,14 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
         <li>
             <em>AgilityContest</em> utiliza el formato de versionado <em>X.Y.Z</em>, donde:
             <ol>
-                <li><strong>X</strong>Corresponde a cambios estructurales en el programa</li>
-                <li><strong>Y</strong>Corresponde a nuevas funcionalidades</li>
-                <li><strong>Z</strong>Corresponde a correcci&oacute;n de errores</li>
+                <li><strong>X</strong> Corresponde a cambios estructurales en el programa</li>
+                <li><strong>Y</strong> Corresponde a nuevas funcionalidades</li>
+                <li><strong>Z</strong> Corresponde a correcci&oacute;n de errores</li>
             </ol>
         </li>
         <li>
             Adicionalmente se proporciona un n&uacute;mero de revisi&oacute;n en formato
-            <em>AAAAMMDD_hhmm</em> que corresponde a la fecha en que ha sido generada la nueva versi&oacute;
+            <em>AAAAMMDD_hhmm</em> que corresponde a la fecha en que ha sido generada la nueva versi&oacute;n
         </li>
         <li>
             Los cambios en la fecha de revisi&oacute;n que no corresponden a una nueva versi&oacute;n
@@ -55,7 +55,7 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
         </li>
         <li>
             En todo momento, se puede consultar la lista completa de cambios y su descripci&oacute; en
-            el <a href="https://raw.githubusercontent.com/jonsito/AgilityContest/master/ChangeLog">registro de cambios</a>
+            el <a target="changelog" href="https://raw.githubusercontent.com/jonsito/AgilityContest/master/ChangeLog">registro de cambios</a>
             del programa
         </li>
 
