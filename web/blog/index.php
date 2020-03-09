@@ -29,6 +29,39 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <a id="top"></a>
 <?php } ?>
 
+<!--- comienzo del changelog -->
+
+<?php if ( strcmp($from,"blog_2020-03-39_11:50:00")<0) { ?>
+    <strong>2020-Mar-09 11:50:00</strong><br/>    <p>
+        Un apunte sobre los n&uacute;meros de versiones del programa
+    </p>
+    <ol>
+        <li>
+            <em>AgilityContest</em> utiliza el formato de versionado <em>X.Y.Z</em>, donde:
+            <ol>
+                <li><strong>X</strong>Corresponde a cambios estructurales en el programa</li>
+                <li><strong>Y</strong>Corresponde a nuevas funcionalidades</li>
+                <li><strong>Z</strong>Corresponde a correcci&oacute;n de errores</li>
+            </ol>
+        </li>
+        <li>
+            Adicionalmente se proporciona un n&uacute;mero de revisi&oacute;n en formato
+            <em>AAAAMMDD_hhmm</em> que corresponde a la fecha en que ha sido generada la nueva versi&oacute;
+        </li>
+        <li>
+            Los cambios en la fecha de revisi&oacute;n que no corresponden a una nueva versi&oacute;n
+            del programa, normalmente corresponden a correcciones menores que no afectan al funcionamiento
+            de &eacute;ste
+        </li>
+        <li>
+            En todo momento, se puede consultar la lista completa de cambios y su descripci&oacute; en
+            el <a href="https://raw.githubusercontent.com/jonsito/AgilityContest/master/ChangeLog">registro de cambios</a>
+            del programa
+        </li>
+
+    </ol>
+<?php } ?>
+
 <?php if ( strcmp($from,"blog_2020-02-27_15:00:00")<0) { ?>
     <strong>2020-Feb-27 15:00:00</strong><br/>
     <p>
@@ -99,22 +132,6 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     </p>
 
 <?php } ?>
-
-
-<?php if ( strcmp($from,"blog_2020-01-30_00:00:00")<0) { ?>
-<strong>2020-Jan-30 00:00:00</strong><br/>
-31<br/>
-32<br/>
-33<br/>
-34<br/>
-35<br/>
-36<br/>
-37<br/>
-38<br/>
-39<br/>
-40<br/>
-<?php } ?>
-
 
 <?php if ( strcmp($from,"blog_2020-01-20_00:00:00")<0) { ?>
 <strong>2020-Jan-20 00:00:00</strong><br/>
