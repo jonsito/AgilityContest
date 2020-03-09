@@ -54,7 +54,7 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
             de &eacute;ste
         </li>
         <li>
-            En todo momento, se puede consultar la lista completa de cambios y su descripci&oacute; en
+            En todo momento, se puede consultar la lista completa de cambios y su descripci&oacute;n en
             el <a target="changelog" href="https://raw.githubusercontent.com/jonsito/AgilityContest/master/ChangeLog">registro de cambios</a>
             del programa
         </li>
