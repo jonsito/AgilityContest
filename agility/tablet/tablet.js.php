@@ -362,9 +362,10 @@ function tablet_elim(sendEvent) {
 
 /**
  * Parse data from electronic chronometer
- * @param data
+ * @param data data to update
+ * @param send on true send event to server
  */
-function tablet_updateChronoData(data) {
+function tablet_updateChronoData(data,send) {
     var str="";
 	var f=parseInt(data['Faltas']);
 	var r=parseInt(data['Rehuses']);
@@ -392,12 +393,24 @@ function tablet_updateChronoData(data) {
 		$('#tdialog-Tintermedio').val(0);
 	}
 	// call server to update results
-	tablet_updateResultados(1);
+	if (send) tablet_updateResultados(1);
 	// DO NOT RESEND EVENT!!!
 }
 
 function tablet_cronometro(oper,time) {
 	if (ac_config.tablet_chrono==="1") $('#cronometro').Chrono(oper,time);
+	// on reset clear all data. on screen, but do not send values to server
+	if (oper==='reset') {
+        $('#tdialog-Faltas').val("0");
+        $('#tdialog-Tocados').val("0");
+        $('#tdialog-Rehuses').val("0");
+        $('#tdialog-NoPresentado').val(0);
+        $('#tdialog-NoPresentadoStr').val("");
+        $('#tdialog-Eliminado').val(0);
+        $('#tdialog-EliminadoStr').val("");
+        $('#tdialog-Tiempo').val(0);
+        $('#tdialog-Tintermedio').val(0);
+    }
 }
 
 var myCounter = new Countdown({  
@@ -910,7 +923,7 @@ function tablet_eventManager(id,evt) {
 		setStartStopMode(0); // mark chrono stopped
 		return;
 	case 'crono_dat':	// datos desde el crono electronico
-		tablet_updateChronoData(event);
+		tablet_updateChronoData(event,false);
 		return;
 	case 'crono_rec':	// reconocimiento de pista desde crono electronico
 		// ignored, just for get noticed at chrono display

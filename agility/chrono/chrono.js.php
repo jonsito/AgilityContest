@@ -563,7 +563,7 @@ function chrono_eventManager(id,evt) {
     case 'crono_restart': // paso de tiempo intermedio a manual
         cra.Chrono('resync',event['stop'],event['start']);
         return;
-	case 'crono_reset': //puesta a cero del crono
+    case 'crono_reset': //puesta a cero del crono
 		// parar countdown
 		c_llamada.stop();
 		c_reconocimiento.stop();
@@ -572,6 +572,7 @@ function chrono_eventManager(id,evt) {
 		cra.Chrono('stop',time);
 		cra.Chrono('reset');
 		c_displayPuesto(false,0);
+		c_updateData({'Faltas':0, 'Tocados':0, 'Rehuses':0, 'NoPresentado':0, 'Eliminado':0});
         chrono_handlePendingEvent(event);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
