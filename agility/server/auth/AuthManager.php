@@ -45,7 +45,7 @@ define ("ENABLE_ULIMIT",128);   // permite numero de inscripciones ilimitadas
 define ("ENABLE_LIVESTREAM",256);// permite funciones de live-streaming y chroma-key
 define ("ENABLE_TRAINING",512); // permite gestion de sesiones de entrenamiento
 define ("ENABLE_LEAGUES",1024); // permite gestion de ligas de competicion
-define ("ENABLE_SERCHRONO",1024); // permite ejecucion de cronometro de puerto serie
+define ("ENABLE_SERCHRONO",2048); // permite ejecucion de cronometro de puerto serie
 
 // datos de registro
 define('AC_BLACKLIST_FILE' , __DIR__ . "/../../../config/blacklist.info");
