@@ -32,23 +32,6 @@ class SymmetricCipher {
     }
 
     /**
-     * Decrypts (but does not verify) a message
-     *
-     * @param string $message - ciphertext message
-     * @param string $key - encryption key (raw binary expected)
-     * @return string
-     * @throws Exception
-     */
-    public static function unsecure_decrypt($message, $key) {
-        // retrieve initialization vector.
-        $ivSize = openssl_cipher_iv_length(self::METHOD);
-        $iv = mb_substr($message, 0, $ivSize, '8bit');
-        $ciphertext = mb_substr($message, $ivSize, null, '8bit');
-        $plaintext = openssl_decrypt( $ciphertext,self::METHOD, $key,OPENSSL_RAW_DATA, $iv );
-        return $plaintext;
-    }
-
-    /**
      * Encrypts then MACs a message
      *
      * @param string $message - plaintext message
@@ -66,6 +49,23 @@ class SymmetricCipher {
         // Prepend MAC to the ciphertext and return $mac.$iv.$ciphertext to caller
         if ($encode) { return base64_encode($mac.$ciphertext); }
         return $mac.$ciphertext;
+    }
+
+    /**
+     * Decrypts (but does not verify) a message
+     *
+     * @param string $message - ciphertext message
+     * @param string $key - encryption key (raw binary expected)
+     * @return string
+     * @throws Exception
+     */
+    public static function unsecure_decrypt($message, $key) {
+        // retrieve initialization vector.
+        $ivSize = openssl_cipher_iv_length(self::METHOD);
+        $iv = mb_substr($message, 0, $ivSize, '8bit');
+        $ciphertext = mb_substr($message, $ivSize, null, '8bit');
+        $plaintext = openssl_decrypt( $ciphertext,self::METHOD, $key,OPENSSL_RAW_DATA, $iv );
+        return $plaintext;
     }
 
     /**
