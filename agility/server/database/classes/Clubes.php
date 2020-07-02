@@ -460,7 +460,8 @@ class Clubes extends DBObject {
             case "NombreClub": // Provided Club Name
                 $nombre=escapeString($id); //escape to avoid sql errors
                 $data= $this->__selectAsArray("*","clubes"," (Nombre='$nombre') ");
-                $logo=$data['Logo'];
+                if ($data==null) return "agilitycontest.png";
+                else $logo=$data['Logo'];
                 $this->logoCache['NombreClub'][$id] =$logo;
                 $this->logoCache['Clubes'][$data['ID']] = $logo;
                 break;
