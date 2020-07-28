@@ -89,8 +89,9 @@ class Pruebas extends DBObject {
 		// create eight journeys per contest
         $today=date("Y-m-d");
 		for ($n=1;$n<9;$n++) {
-			$sql ="INSERT INTO jornadas (Prueba,Numero,Nombre,Fecha,Hora)
-			VALUES ($pruebaid,$n,'-- Sin asignar --','{$today}','08:30:00')";
+		    // JAMC 2020/07/28 add default values for team 3/4 to handle new min/max style
+			$sql ="INSERT INTO jornadas (Prueba,Numero,Nombre,Fecha,Hora,Equipos3,Equipos4)
+			VALUES ($pruebaid,$n,'-- Sin asignar --','{$today}','08:30:00',0,0)";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error);
 			// retrieve ID of inserted jornada
