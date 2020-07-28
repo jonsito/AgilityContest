@@ -85,8 +85,12 @@ sed -i -e "s|__HTTP_BASEDIR__|C:|g" \
 # enable OpenSSL and Locale support into php
 echo "Setting up php/php.ini ..."
 cp ${BUILD_DIR}/xampp/php/php.ini  ${BUILD_DIR}/xampp/php/php.ini.orig
+# para php-5.x
 sed -i "s/;extension=php_openssl.dll/extension=php_openssl.dll/g" ${BUILD_DIR}/xampp/php/php.ini
 sed -i "s/;extension=php_intl.dll/extension=php_intl.dll/g" ${BUILD_DIR}/xampp/php/php.ini
+#para php-7.x
+sed -i "s/;extension=openssl/extension=openssl/g" ${BUILD_DIR}/xampp/php/php.ini
+sed -i "s/;extension=intl/extension=intl/g" ${BUILD_DIR}/xampp/php/php.ini
 
 # add module php_dio (direct i/o) to support serial line (for in-built chrono software)
 # dio module is php_version dependent. on update xampp will need to replace
