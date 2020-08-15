@@ -271,7 +271,7 @@ $config =Config::getInstance();
             rownumbers: true,
             // expand to all 800pixels, do not fitColums to available space
             width: '1000',
-            height: '400',
+            height: 'auto',
             fit:false,
             fitColumns: true,
             singleSelect: true,
