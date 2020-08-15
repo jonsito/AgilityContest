@@ -1,3 +1,10 @@
+Version 4.3.1 20200815_1800
+    - Fix default values for team3 and team4 in jornadas database
+    - Fix error when logo is not found
+    - Set dog list height to "auto" in tablet
+    - Fix several redundancies in event API implementation
+    - Remove "127.0.0.1" from ip list
+    - Fixes warns and module configurationfor php-7.3
 Version 4.3.0 20200309_1140
     - Fix printing 3-round labels when "do not print double eliminated" is active
     - OrdenSalida: properly handle of category "-" ( preagility and so )
