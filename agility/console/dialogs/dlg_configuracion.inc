@@ -613,7 +613,7 @@ $config =Config::getInstance();
     $('#email_pass').textbox();
     $('#email_realm').textbox();
     $('#email_workstation').textbox();
-    $('#ip_address').textbox().textbox('setValue','<?php $a=new networkInterfaces(); echo implode(", ",$a->get_interfaces());?>');
+    $('#ip_address').textbox().textbox('setValue','<?php $a=new networkInterfaces(); echo implode(" - ",$a->get_interfaces());?>');
     $('#event_printer').textbox();
     $('#backup_dir').textbox();
 

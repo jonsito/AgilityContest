@@ -979,7 +979,7 @@ class networkInterfaces {
         return $latency;
     }
 
-	function get_interfaces() {
+	function get_interfaces($removelocal=true) {
 		if ($this->interfaces){
 			return $this->interfaces;
 		}
@@ -1005,6 +1005,7 @@ class networkInterfaces {
 		}
 		if (preg_match_all($ipPattern, $ipRes,$matches)) {
 			$this->interfaces = $matches[1];
+			if ($removelocal) return array_diff($this->interfaces,array('127.0.0.1'));
 			return $this->interfaces;
 		}
         return array();
