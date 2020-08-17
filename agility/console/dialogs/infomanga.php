@@ -596,7 +596,8 @@ $('#dmanga_Juez2').combogrid({
 
 $('#competicion-formdatosmanga').form({
 	onLoadSuccess: function(data) {
-		// fix appearance according mode, federation, and so
+		// fix appearance according mode, federation, recorrido and so
+        dmanga_setAgilityOrJumping(data); // JAMC Agosto 2020
 		dmanga_setRecorridos();
 	},
 	onLoadError: function() { alert("<?php _e('Error loading round information'); ?>"); }

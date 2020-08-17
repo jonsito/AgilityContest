@@ -391,6 +391,11 @@ class Mangas extends DBObject {
 		$result->Jornada=$this->jornadaObj->ID;
 		$result->Nombre=_(Mangas::getTipoManga($result->Tipo,1,$fed));
 		$result->Operation="update";
+		// JAMC Agosto 2020: if Observaciones==="" add Agility/Jumping information
+        if ($result->Observaciones=="") {
+            if (isMangaAgility($result->Tipo)) $result->Observaciones="Agility";
+            if (isMangaJumping($result->Tipo)) $result->Observaciones="Jumping";
+        }
 		$this->myLogger->leave();
 		return $result;
 	}

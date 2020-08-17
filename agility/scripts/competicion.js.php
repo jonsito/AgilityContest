@@ -445,6 +445,30 @@ function dmanga_evalTimeSpeed() {
 }
 
 /**
+ * Set Agility/Jumping/Other radiobuttons in infomanga according "Observaciones" manga field
+ * Hide this combobox when not in Grade 1, but set values anyway
+ * JAMC Agosto-2020
+ *@param data received data from Mangas::getByID server call
+ */
+function dmanga_setAgilityOrJumping(data) {
+    switch (data.Observaciones) {
+        case "Agility":
+            $('#dmanga_grado1_agility').prop('checked',true);
+            break;
+        case "Jumping"
+            $('#dmanga_grado1_jumping').prop('checked',true);
+            break;
+        default: // mark "Other" radiobutton and set textfield
+            $('#dmanga_grado1_other').prop('checked',true);
+            $('#dmanga_grado1_other_value').textbox('setValue',data.Observaciones);
+            $('#dmanga_grado1_other_value').val(data.Observaciones); // posibly redundant, just to be sure
+            break;
+    }
+    // if not Grade 1 hide Agility/Jumping Selector
+    $('#dmanga_grado1_modality').css('display',(data.Grado==='GI')?'inherit':'none');
+}
+
+/**
  * repaint manga information acording federation and course mode
  */
 function dmanga_setRecorridos() {
