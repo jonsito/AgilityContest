@@ -92,6 +92,13 @@ class PrintEntradaDeDatos extends PrintCommon {
 		}
 	}
 
+	private function markAgilityOrJumping($str) {
+		// JAMC agosto 2020: on Grade 1 RSCE, add agility or jumping according "Observaciones"
+		if ( ($this->manga->Grado=="GI") && ($this->federation->get('Name')=='RSCE') ) {
+			if ($this->manga->Observaciones!=="")	$str .= " ({$this->manga->Observaciones})";
+		}
+	}
+
 	// Cabecera de página
 	function Header() {
 		$this->print_commonHeader(_("Data entry"));

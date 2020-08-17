@@ -413,6 +413,12 @@ class PrintCommon extends FPDF {
 		$this->SetFont($this->getFontName(),'B',12); // bold 15
 		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
 		$tmanga= _(Mangas::getTipoManga($manga->Tipo,1,$this->federation));
+		// JAMC agosto 2020: on Grade 1 RSCE, add agility or jumping according "Observaciones"
+		if ( ($manga->Grado=="GI") && ($this->federation->get('Name')=='RSCE') ) {
+			if ($manga->Observaciones!=="")	$tmanga .= " ({$manga->Observaciones})";
+			else if (isMangaAgility($manga->Tipo)) $tmanga .= " (Agility)";
+			else if (isMangaJumping($manga->Tipo)) $tmanga .= " (Jumping)";
+		}
         $str2=($categoria==="")? "$tmanga":"$tmanga - $categoria";
 
 		if ($this->comments==="") {

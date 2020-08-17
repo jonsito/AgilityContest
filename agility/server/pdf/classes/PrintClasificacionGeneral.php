@@ -73,6 +73,16 @@ class PrintClasificacionGeneral extends PrintCommon {
 		$this->print_commonFooter();
 	}
 
+    private function getRondaName($manga) {
+        $tmanga=_(Mangas::getTipoManga($manga->Tipo,3,$this->federation));
+        if ( ($manga->Grado=="GI") && ($this->federation->get('Name')=='RSCE') ) {
+            if ($manga->Observaciones!=="")	$tmanga .= " ({$manga->Observaciones})";
+            else if (isMangaAgility($manga->Tipo)) $tmanga .= " (Agility)";
+            else if (isMangaJumping($manga->Tipo)) $tmanga .= " (Jumping)";
+        }
+        return $tmanga;
+    }
+
     function print_datosMangas($data,$flag=true) { // on flag:false do not paint journey data
         $cat= $this->federation->getMangaMode($data['Mode'],0);
         // objeto para buscar jueces
@@ -90,7 +100,7 @@ class PrintClasificacionGeneral extends PrintCommon {
             $this->Ln(6);
             // $ronda=$this->getGradoString(intval($this->manga1->Tipo)); // todas las mangas comparten grado
             $ronda=_(Mangas::getTipoManga($this->manga1->Tipo,4,$this->federation)); // la misma que la manga 2
-            $this->Cell(80,6,_('Round').": $ronda",0,0,'',false);
+            $this->Cell(80,6,"$ronda",0,0,'',false);
             $this->SetY($y);
         }
 
@@ -110,7 +120,7 @@ class PrintClasificacionGeneral extends PrintCommon {
             $this->Cell(25,8,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
             $this->Cell(25,8,_('Vel').".: {$trs['vel']}m/s","LTRB",0,'L',false);
             // ahora el nombre de la manga
-            $nmanga=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)) . " - " . $cat;
+            $nmanga=$this->getRondaName($this->manga1) .  " - " . $cat;
             $juez1=$jobj->selectByID($this->manga1->Juez1); $juez2=$jobj->selectByID($this->manga1->Juez2);
             $this->setXY(81,$y+1);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
@@ -137,7 +147,7 @@ class PrintClasificacionGeneral extends PrintCommon {
             $this->Cell(25, 8, _('MCT') . ": {$trs['trm']}s", "LTB", 0, 'L', false);
             $this->Cell(25, 8, _('Vel') . ".: {$trs['vel']}m/s", "LTBR", 0, 'L', false);
             // ahora el nombre de la manga y los jueces
-            $nmanga=_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)) . " - " . $cat;
+            $nmanga=$this->getRondaName($this->manga2) . " - " . $cat;
             $juez1=$jobj->selectByID($this->manga2->Juez1); $juez2=$jobj->selectByID($this->manga2->Juez2);
             $this->setXY(81,$y+1);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
@@ -163,7 +173,7 @@ class PrintClasificacionGeneral extends PrintCommon {
             $this->Cell(25,8,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
             $this->Cell(25,8,_('Vel').".: {$trs['vel']}m/s","LTBR",0,'L',false);
             // ahora el nombre de la manga
-            $nmanga=_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)) . " - " . $cat;
+            $nmanga=$this->getRondaName($this->manga3) .  " - " . $cat;
             $juez1=$jobj->selectByID($this->manga3->Juez1); $juez2=$jobj->selectByID($this->manga3->Juez2);
             $this->setXY(81,$y+1);
             $this->SetFont($this->getFontName(),'B',10); // bold 9px
