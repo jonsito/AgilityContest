@@ -460,8 +460,8 @@ function dmanga_setAgilityOrJumping(data) {
             break;
         default: // mark "Other" radiobutton and set textfield
             $('#dmanga_grado1_other').prop('checked',true);
-            $('#dmanga_grado1_other_value').textbox('setValue',data.Observaciones);
-            $('#dmanga_grado1_other_value').val(data.Observaciones); // posibly redundant, just to be sure
+            $('#dmanga_grado1_other').val(data.Observaciones); // value of third radiobutton
+            $('#dmanga_grado1_other_value').textbox('setValue',data.Observaciones); // value inside textbox
             break;
     }
     // if not Grade 1 hide Agility/Jumping Selector
@@ -701,6 +701,16 @@ function save_manga(id) {
         return true;
     }
 
+    // check that if modality "Other" is selected user has provided a name for round
+    function check_agilityorjumping() {
+        tb=$('#dmanga_grado1_other_value');
+        tb.textbox('textbox').css('background','white');
+        if (! $('#dmanga_grado1_other').prop('cheched') ) return true;
+        if ( tb.textbox('getValue') !== "" ) return true;
+        tb.textbox('textbox').css('background','#ffcccc');
+        return false;
+    }
+
     var missing=false;
     var rec=$("input:radio[name=Recorrido]:checked").val();
     var fed=workingData.federation;
@@ -757,6 +767,17 @@ function save_manga(id) {
         );
         return false;
     }
+
+    if (!check_agilityorjumping) {
+        $.messager.alert(
+            '<?php _e("Data error"); ?>',
+            '<?php _e('When Modality is set to "Oher"'); ?><br/>'+
+            '<?php _e("You must provide round denomination in requested field");?>',
+            'error'
+        );
+        return false;
+    }
+
     // missing data found: warn user before continue
     var ok=$.messager.defaults.ok;
     var cancel=$.messager.defaults.cancel;

@@ -484,7 +484,9 @@ $heights=Competitions::getHeights(0,0,$m);
 
     $('#dmanga_grado1_other_value').textbox({
         onChange: function(newval,oldval) {
-            $('#dmanga_grado1_other').val(newval);
+            var rb=$('#dmanga_grado1_other');
+            rb.prop('checked',true);
+            rb.val(newval);
         }
     });
     //stupid easyui that does not parse from markup
@@ -560,7 +562,7 @@ $('#dmanga_Juez1').combogrid({
 	fitColumns: true,
 	selectOnNavigation: false,
     onChange: function(newval,oldval) {
-        var valid= $.isNumeric(newval) && (parseInt(newval)>=2); // in juez1 "-- Sin asignar --" is not valid
+        let valid= $.isNumeric(newval) && (parseInt(newval)>=2); // in juez1 "-- Sin asignar --" is not valid
         $('#dmanga_Juez1').combogrid('textbox').css('background',(valid)?'white':'#ffcccc');
     }
 });
@@ -589,7 +591,7 @@ $('#dmanga_Juez2').combogrid({
 	fitColumns: true,
 	selectOnNavigation: false,
     onChange: function(newval,oldval) {
-        var valid= $.isNumeric(newval) && (parseInt(newval)>=1); // in juez2 "-- Sin asignar --" is valid
+        let valid= $.isNumeric(newval) && (parseInt(newval)>=1); // in juez2 "-- Sin asignar --" is valid
         $('#dmanga_Juez2').combogrid('textbox').css('background',(valid)?'white':'#ffcccc');
     }
 });
