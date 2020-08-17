@@ -62,18 +62,19 @@ $heights=Competitions::getHeights(0,0,$m);
 		<tr>
 			<td colspan="10">&nbsp;</td>
 		</tr>
-        <tr id="dmanga_grado1_mode"><!-- fila 1: modalidad para Grado 1 (agility/jumping/otra) -->
+        <!-- JAMC Agosto 2020 Usamos el campo "Observaciones" para indicar si la manga de grado 1 es agility o jumping -->
+        <tr id="dmanga_grado1_modality"><!-- fila 1: modalidad para Grado 1 (agility/jumping/otra) -->
             <td colspan="1"><?php _e('Modality'); ?>: </td>
             <td colspan="2"> <!-- Agility -->
-                <input type="radio" id="dmanga_grado1_agility" name="dmanga_grado1" value="Agility" onClick="dmanga_setRecorridos();"/>
+                <input type="radio" id="dmanga_grado1_agility" name="Observaciones" value="Agility"/>
                 <label for="dmanga_grado1_agility">Agility</label>
             </td>
                 <td colspan="2"> <!-- Jumping -->
-                    <input type="radio" id="dmanga_grado1_jumping" name="dmanga_grado1" value="Jumping" onClick="dmanga_setRecorridos();"/>
+                    <input type="radio" id="dmanga_grado1_jumping" name="Observaciones" value="Jumping"/>
                     <label for="dmanga_grado1_jumping">Jumping</label>
                 </td>
             <td colspan="3"> <!-- Otros (especificar) -->
-                <input type="radio" id="dmanga_grado1_other" name="dmanga_grado1" value="Other" onClick="dmanga_setRecorridos();"/>
+                <input type="radio" id="dmanga_grado1_other" name="Observaciones" value="Other"/>
                 <label for="dmanga_grado1_other"><?php _e("Other"); ?>: </label>
                 <input type="text" id="dmanga_grado1_other_value" value="" size="16"/>
             </td>
@@ -161,7 +162,7 @@ $heights=Competitions::getHeights(0,0,$m);
             </td>
             <td>
                 <label for="dmanga_TRM_X_Unit"></label>
-                <select id="dmanga_TRM_X_Unit" name="TRM_L_Unit" >
+                <select id="dmanga_TRM_X_Unit" name="TRM_X_Unit" >
                     <option value="s" selected="selected"><?php _e('Secs');?>.</option>
                     <option value="%">%</option>
                     <option value="m">m/s</option>
@@ -423,10 +424,13 @@ $heights=Competitions::getHeights(0,0,$m);
 			</td>
 		</tr>
 
-        <!-- fila 8: observaciones -->
+        <!-- fila 8: observaciones JAMC Agosto 2020 ahora se usa para indicar si grado 1 es agility o jumping -->
 		<tr>
+            <td colspan="10">&nbsp;</td>
+            <!--
 			<td colspan="2"><label for="dmanga_Observaciones"><?php _e('Comments'); ?></label></td>
 			<td colspan="8"><input type="text" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
+			-->
 		</tr>
 		<tr> <!-- fila 7: botones reset y save -->
             <td>
@@ -478,8 +482,12 @@ $heights=Competitions::getHeights(0,0,$m);
         }
     });
 
+    $('#dmanga_grado1_other_value').textbox({
+        onChange: function(newval,oldval) {
+            $('#dmanga_grado1_other').val(newval);
+        }
+    });
     //stupid easyui that does not parse from markup
-    $('#dmanga_grado1_other_value').textbox();
     $('#dmanga_DistX').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_DistL').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_DistM').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
