@@ -455,7 +455,7 @@ function dmanga_setAgilityOrJumping(data) {
         case "Agility":
             $('#dmanga_grado1_agility').prop('checked',true);
             break;
-        case "Jumping"
+        case "Jumping":
             $('#dmanga_grado1_jumping').prop('checked',true);
             break;
         default: // mark "Other" radiobutton and set textfield
@@ -465,7 +465,7 @@ function dmanga_setAgilityOrJumping(data) {
             break;
     }
     // if not Grade 1 hide Agility/Jumping Selector
-    $('#dmanga_grado1_modality').css('display',(data.Grado==='GI')?'inherit':'none');
+    $('#dmanga_grado1_modality').css('display',(data.Grado==='GI')?'table-row':'none');
 }
 
 /**
@@ -705,7 +705,7 @@ function save_manga(id) {
     function check_agilityorjumping() {
         tb=$('#dmanga_grado1_other_value');
         tb.textbox('textbox').css('background','white');
-        if (! $('#dmanga_grado1_other').prop('cheched') ) return true;
+        if (! $('#dmanga_grado1_other').prop('checked') ) return true;
         if ( tb.textbox('getValue') !== "" ) return true;
         tb.textbox('textbox').css('background','#ffcccc');
         return false;
@@ -747,16 +747,6 @@ function save_manga(id) {
         $.messager.show({width: 300, height: 200, msg: '<?php _e('Cannot find round info data for provided course mode'); ?>', title: 'Error'});
         return false;
     }
-    $('#dmanga_Operation').val('update');
-    $('#dmanga_Jornada').val(workingData.jornada);
-    $('#dmanga_Manga').val(id);
-
-    if (data['X']!=='') check_dmanga('X');
-    if (data['L']!=='') check_dmanga('L');
-    if (data['M']!=='') check_dmanga('M');
-    if (data['S']!=='') check_dmanga('S');
-    if (data['T']!=='') check_dmanga('T');
-    if (missing===false ) { real_saveManga(); return false; }
 
     if (!check_jueces() ) {
         $.messager.alert(
@@ -768,17 +758,28 @@ function save_manga(id) {
         return false;
     }
 
-    if (!check_agilityorjumping) {
+    if (!check_agilityorjumping()) {
         $.messager.alert(
             '<?php _e("Data error"); ?>',
-            '<?php _e('When Modality is set to "Oher"'); ?><br/>'+
+            '<?php _e('When Modality is set to "Other"'); ?><br/>'+
             '<?php _e("You must provide round denomination in requested field");?>',
             'error'
         );
         return false;
     }
 
-    // missing data found: warn user before continue
+    $('#dmanga_Operation').val('update');
+    $('#dmanga_Jornada').val(workingData.jornada);
+    $('#dmanga_Manga').val(id);
+
+    if (data['X']!=='') check_dmanga('X');
+    if (data['L']!=='') check_dmanga('L');
+    if (data['M']!=='') check_dmanga('M');
+    if (data['S']!=='') check_dmanga('S');
+    if (data['T']!=='') check_dmanga('T');
+    if (missing===false ) { real_saveManga(); return false; }
+
+    // arriving here means missing data found: warn user before continue
     var ok=$.messager.defaults.ok;
     var cancel=$.messager.defaults.cancel;
     $.messager.defaults.ok="<?php _e('Continue');?>";
