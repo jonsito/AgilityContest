@@ -62,8 +62,23 @@ $heights=Competitions::getHeights(0,0,$m);
 		<tr>
 			<td colspan="10">&nbsp;</td>
 		</tr>
-
-		<tr> <!-- fila 1 tipos de recorrido -->
+        <tr id="dmanga_grado1_mode"><!-- fila 1: modalidad para Grado 1 (agility/jumping/otra) -->
+            <td colspan="1"><?php _e('Modality'); ?>: </td>
+            <td colspan="2"> <!-- Agility -->
+                <input type="radio" id="dmanga_grado1_agility" name="dmanga_grado1" value="Agility" onClick="dmanga_setRecorridos();"/>
+                <label for="dmanga_grado1_agility">Agility</label>
+            </td>
+                <td colspan="2"> <!-- Jumping -->
+                    <input type="radio" id="dmanga_grado1_jumping" name="dmanga_grado1" value="Jumping" onClick="dmanga_setRecorridos();"/>
+                    <label for="dmanga_grado1_jumping">Jumping</label>
+                </td>
+            <td colspan="3"> <!-- Otros (especificar) -->
+                <input type="radio" id="dmanga_grado1_other" name="dmanga_grado1" value="Other" onClick="dmanga_setRecorridos();"/>
+                <label for="dmanga_grado1_other"><?php _e("Other"); ?>: </label>
+                <input type="text" id="dmanga_grado1_other_value" value="" size="16"/>
+            </td>
+        </tr>
+		<tr> <!-- fila 2 tipos de recorrido -->
 			<td colspan="1"><?php _e('Courses'); ?>: </td>
 			<td colspan="2"> <!-- comun -->
 				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="2" onClick="dmanga_setRecorridos();"/>
@@ -464,6 +479,7 @@ $heights=Competitions::getHeights(0,0,$m);
     });
 
     //stupid easyui that does not parse from markup
+    $('#dmanga_grado1_other_value').textbox();
     $('#dmanga_DistX').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_DistL').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
     $('#dmanga_DistM').textbox({onChange:function(n,o){dmanga_setRecorridos();}});

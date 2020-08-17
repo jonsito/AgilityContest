@@ -9,6 +9,9 @@
 !define VERSION __VERSION__
 !define TIMESTAMP __TIMESTAMP__
 
+;--- ANSI encoded is marked as "deprecated" so use this to avoid warns on compiler
+Unicode True
+
 ;--------------------------------
 ;Include Modern UI
     !include "MUI2.nsh"
