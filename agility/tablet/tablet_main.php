@@ -177,6 +177,7 @@ $config =Config::getInstance();
         // propiedades del panel asociado
         expandedRow: -1, // added by jamc
         fit: true,
+        fitColumns: true,
         border: false,
         closable: false,
         collapsible: false,
@@ -194,7 +195,6 @@ $config =Config::getInstance();
         loadMsg: "<?php _e('Updating series order');?>"+" ...",
         pagination: false,
         rownumbers: false,
-        fitColumns: true,
         singleSelect: true,
         autoRowHeight: false,
         view: detailview,
@@ -270,7 +270,7 @@ $config =Config::getInstance();
             pagination: false,
             rownumbers: true,
             // expand to all 800pixels, do not fitColums to available space
-            width: '1000',
+            width: '550',
             height: 'auto',
             fit:false,
             fitColumns: true,
@@ -298,13 +298,13 @@ $config =Config::getInstance();
                 { field:'NombreClub',	width:25, align:'right',	title: '<?php _e('Club');?>' },
                 { field:'Categoria',	width:10, align:'center',	title: '<?php _e('Cat');?>.' ,formatter:formatCategoria},
                 { field:'Grado',		width:10, align:'center',	title: '<?php _e('Grade');?>', formatter:formatGrado },
-                { field:'Faltas',		width:5, align:'center',	title: 'F'},
-                { field:'Rehuses',		width:5, align:'center',	title: 'R'},
-                { field:'Tocados',		width:5, align:'center',	title: 'T'},
-                { field:'Tiempo',		width:15, align:'right',	title: '<?php _e('Time');?>'	},
-                { field:'TIntermedio',	width:0, hidden:true },
-                { field:'Eliminado',	width:5, align:'center',	formatter:formatEliminado,	title: 'EL.'},
-                { field:'NoPresentado',	width:5, align:'center',	formatter:formatNoPresentado,	title: 'NP'},
+                // { field:'Faltas',		width:5, align:'center',	title: 'F'},
+                // { field:'Rehuses',		width:5, align:'center',	title: 'R'},
+                // { field:'Tocados',		width:5, align:'center',	title: 'T'},
+                // { field:'Tiempo',		width:15, align:'right',	title: '<?php _e('Time');?>'	},
+                // { field:'TIntermedio',	width:0, hidden:true },
+                // { field:'Eliminado',	width:5, align:'center',	formatter:formatEliminado,	title: 'EL.'},
+                // { field:'NoPresentado',	width:5, align:'center',	formatter:formatNoPresentado,	title: 'NP'},
                 { field:'Observaciones',width:0, hidden:true }
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
