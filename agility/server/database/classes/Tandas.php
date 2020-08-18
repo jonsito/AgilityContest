@@ -631,11 +631,12 @@ class Tandas extends DBObject {
                 $res['rows'][$key]['Participantes']='';
 			} else {
 			    // retrieve Manga ID and merge into result
-				$manga=$this->getMangaByTipo($res['rows'][$key]['TipoManga']);	
-
-				// add extra info to result
-				$res['rows'][$key]['Manga']=(is_array($manga))? $manga['ID']: 0 ;
-
+				$manga=$this->getMangaByTipo($res['rows'][$key]['TipoManga']);
+                $res['rows'][$key]['Manga']=0; // default
+                if (is_array($manga)) {
+                    $res['rows'][$key]['Manga']=$manga['ID']; // add round id
+                    if ($manga['Observaciones'] !== "" )$res['rows'][$key]['Comentario'] .= " ( {$manga['Observaciones']} )";
+                }
                 // and finally add number of participants
                 $str="( Prueba={$this->prueba->ID} ) AND ( Jornada={$this->jornada->ID} ) AND (Manga={$res['rows'][$key]['Manga']})";
                 $result=$this->__select("*","resultados",$str,"","");
