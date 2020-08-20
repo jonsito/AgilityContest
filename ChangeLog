@@ -1,3 +1,6 @@
+Version 4.3.2 20200820_1717
+    - Grade 1 rounds let user select Agility or Jumping
+    - Update printouts to reflect grade 1 rounds type
 Version 4.3.1 20200815_1800
     - Fix default values for team3 and team4 in jornadas database
     - Fix error when logo is not found
