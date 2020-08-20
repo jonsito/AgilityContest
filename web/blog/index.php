@@ -19,20 +19,43 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
 <body>
 
 <div style="display:inline-block;width:100%">
-    <span style="float:left">
-        <p style="font: italic bold 20px/30px Georgia, serif;">AgilytyContest News &amp; Blog</p>
-    </span>
+    <p style="font: italic bold 20px/30px Georgia, serif;">
+            <span style="float:left">AgilytyContest News &amp; Blog</span>
+    </p>
+    <p>
     <span style="float:right">
         <img alt="logo" src="https://raw.github.com/jonsito/AgilityContest/master/agility/images/AgilityContest.png">
     </span>
+    </p>
+
 </div>
     <a id="top"></a>
 <?php } ?>
 
 <!--- comienzo del changelog -->
 
+<?php if ( strcmp($from,"blog_2020-08-20_00:00:00")<0) { ?>
+    <strong>2020-Ago-20 00:00:00</strong><br/>
+    <p>
+        Nueva versi&oacute;n 4.3.2
+    </p>
+    <p>
+        En esta nueva versi&oacute;n se ha cambiado la nomenclatura de las mangas de Grado 1 RSCE<br/>
+        Ahora, en las nuevas pruebas aparecer&aacute;n como <em>Manga 1</em>, <em>Manga 2</em>, y <em>Manga 3</em>
+    </p>
+    <p>
+        Adicionalmente, en la ventana de desarrollo de la prueba aparece (solo para Grado 1) la opción de
+        seleccionar si la manga es de Agility o de Jumping, o si se le quiere dar una denominación especial
+    </p>
+    <p>
+        A la hora de generar los listados de Grado 1, el programa tiene en cuenta esta selecci&oacute;n indicando
+        &eacute;sta en el PDF generado
+    </p>
+<?php } ?>
+
 <?php if ( strcmp($from,"blog_2020-03-39_11:50:00")<0) { ?>
-    <strong>2020-Mar-09 11:50:00</strong><br/>    <p>
+    <strong>2020-Mar-09 11:50:00</strong><br/>
+    <p>
         Un apunte sobre los n&uacute;meros de versiones del programa
     </p>
     <ol>
@@ -132,21 +155,6 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     </p>
 
 <?php } ?>
-
-<?php if ( strcmp($from,"blog_2020-01-20_00:00:00")<0) { ?>
-<strong>2020-Jan-20 00:00:00</strong><br/>
-41<br/>
-42<br/>
-43<br/>
-44<br/>
-45<br/>
-46<br/>
-47<br/>
-48<br/>
-49<br/>
-50<br/>
-<?php } ?>
-
 
 <?php if ( strcmp($from,"blog_2020-01-10_00:00:00")<0) { ?>
 <strong>2020-Jan-10 00:00:00</strong><br/>
