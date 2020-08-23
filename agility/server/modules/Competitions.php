@@ -115,7 +115,7 @@ class Competitions {
     function getPDFCompetitionName() {
         // pending revision to extend competition name for more generic data (games, open, special and so )
         if (intval($this->jornada->KO) !==0)return _("K.O. Round");
-        if (intval($this->jornada->Open)!==0) return $this->getModuleInfo()['FederationLongName'];
+        // if (intval($this->jornada->Open)!==0) return $this->getModuleInfo()['FederationLongName'];
         if (Jornadas::isJornadaEquipos($this->jornada) ) return $this->getModuleInfo()['FederationLongName'];
         return $this->getModuleInfo()['Nombre'];
     }

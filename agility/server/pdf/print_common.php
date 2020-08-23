@@ -33,6 +33,7 @@ class PrintCommon extends FPDF {
 	protected $myLogger;
 	protected $config;
     protected $federation;
+    protected $competition;
 	protected $prueba; // datos de la prueba
 	protected $club;   // club orcanizadod
 	protected $icon;   // logo del club organizador
@@ -253,6 +254,10 @@ class PrintCommon extends FPDF {
 		if ($jobj && $jobj->KO!=0) {
 			$this->icon2=getIconPath($fedName,"agilitycontest.png");
 		}
+		// if competition mode states no logo, obbey them
+		if (!$this->competition->isFederationLogoAllowed()) {
+			$this->icon2=getIconPath($fedName,"null.png");
+		}
 	}
 
 	/**
@@ -295,7 +300,8 @@ class PrintCommon extends FPDF {
 			$this->jornada=$jornada;
 		}
 		if ($this->jornada!=null) {
-			$this->useLongNames=Competitions::getCompetition($this->prueba,$this->jornada)->useLongNames();
+			$this->competition=Competitions::getCompetition($this->prueba,$this->jornada);
+			$this->useLongNames=$this->competition->useLongNames();
 		}
 		$this->authManager=AuthManager::getInstance("print_common");
 		$this->regInfo=$this->authManager->getRegistrationInfo();

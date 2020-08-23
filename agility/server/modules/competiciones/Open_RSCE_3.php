@@ -8,7 +8,7 @@
  */
 class Open_RSCE_3 extends Competitions {
     function __construct() {
-        parent::__construct("Prueba Open RSCE (3 alturas)");
+        parent::__construct("Prueba Open (3 alturas)");
         $this->federationID=0;
         $this->competitionID=8;
         $this->moduleVersion="1.0.0";
