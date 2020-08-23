@@ -76,7 +76,7 @@ class PrintLigas extends PrintCommon {
 		$this->setXY(10,40.0);
 		if ( ($rowcount==0) && ($this->perro!==null) ) {
             $this->ac_header(2,9);
-            $this->Cell("195","5",_("Dog Information"),'',0,"L",true);
+            $this->Cell("195","5", _("Dog Information"),'',0,"L",true);
             $this->Ln();
             $this->Cell("20","5",_("Name").": ",'',0,"R",true);
             $n="{$this->perro->Nombre} - {$this->perro->NombreLargo}";
@@ -84,7 +84,7 @@ class PrintLigas extends PrintCommon {
             $this->Ln();
             $g=$this->federation->getGrade($this->perro->Grado);
             $c=$this->federation->getCategory($this->perro->Categoria);
-            $this->Cell("20","5",_("License").": ",'',0,"R",true);
+            $this->Cell("20","5", _("License").": ",'',0,"R",true);
             $n="{$this->perro->Licencia} - {$c} / {$g}";
             $this->Cell("175","5",$n,'',0,"L",false);
             $this->Ln();

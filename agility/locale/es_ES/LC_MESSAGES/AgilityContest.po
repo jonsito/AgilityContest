@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2020-08-17 23:27+0200\n"
-"PO-Revision-Date: 2020-08-17 23:29+0200\n"
+"POT-Creation-Date: 2020-08-23 11:53+0200\n"
+"PO-Revision-Date: 2020-08-23 11:59+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -319,7 +319,7 @@ msgstr "Gu&iacute;a"
 #: server/pdf/classes/PrintClasificacionExcel.php:99
 #: server/pdf/classes/PrintClasificacionExcel.php:163
 #: server/pdf/classes/PrintEntrenamientos.php:58
-#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:288
+#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:293
 #: tablet/index.php:280 tablet/tablet_main.php:87 tablet/tablet_main.php:298
 #: tablet/tablet_main.php:426 videowall/vwc_finales.php:80
 #: videowall/vwc_finales.php:209 videowall/vwc_parciales.php:80
@@ -746,7 +746,7 @@ msgstr "Equipo"
 #: scripts/datagrid_formatters.js.php:627
 #: server/excel/classes/DogReader.php:451 server/modules/Federations.php:445
 #: server/pdf/classes/PrintEntrenamientos.php:59
-#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:288
+#: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:293
 msgid "Country"
 msgstr "Pa&iacute;s"
 
@@ -1341,7 +1341,7 @@ msgstr "Versi&oacute;n"
 #: server/pdf/classes/PrintClasificacionGeneralGames.php:217
 #: server/pdf/classes/PrintClasificacionTeam.php:122
 #: server/pdf/classes/PrintEntrenamientos.php:61
-#: server/pdf/classes/PrintTRSTemplates.php:79 server/pdf/print_common.php:401
+#: server/pdf/classes/PrintTRSTemplates.php:79 server/pdf/print_common.php:407
 msgid "Date"
 msgstr "Fecha"
 
@@ -7938,11 +7938,11 @@ msgstr "Hoja de c&aacute;lculo para el TRS y TRM"
 msgid "SCT / MCT data form"
 msgstr "Datos de TRS y TRM"
 
-#: server/pdf/print_common.php:403
+#: server/pdf/print_common.php:409
 msgid "Page"
 msgstr "P&aacute;gina"
 
-#: server/pdf/print_common.php:407
+#: server/pdf/print_common.php:413
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
 
@@ -8035,7 +8035,7 @@ msgstr "Tocado"
 msgid "No Pr"
 msgstr "No Pr"
 
-#: tablet/tablet_main.php:194
+#: tablet/tablet_main.php:195
 msgid "Updating series order"
 msgstr "Actualizando orden de mangas"
 
