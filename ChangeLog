@@ -1,3 +1,6 @@
+Version 4.3.2 20200824_1212
+    - Fix several issues on printing GI labels for 3-series rounds
+    - Several i18n fixes and updates
 Version 4.3.2 20200820_1717
     - Grade 1 rounds let user select Agility or Jumping
     - Update printouts to reflect grade 1 rounds type

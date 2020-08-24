@@ -152,11 +152,23 @@ class PrintEtiquetasRSCE extends PrintCommon {
 
 
 		//Manga1Tipo(85,y,20,8) center
-		$tipo=($mntop)? _(Mangas::getTipoManga($this->mangasObj[$mng]->Tipo,3,$this->federation)):" ------- ";
+		if (!$mntop) {
+			$tipo=" ------- ";
+		} else if ( ($row['Grado']=='GI') && ($this->mangasObj[$mng]->Observaciones!=="") ) {
+			$tipo=$this->mangasObj[$mng]->Observaciones;
+		} else {
+			$tipo = _(Mangas::getTipoManga($this->mangasObj[$mng]->Tipo, 3, $this->federation));
+		}
 		$this->SetXY($left+75,$y2);
 		$this->Cell(20,7,$tipo,'LB',0,'L',false);
 		//Manga2Tipo(85,y+8,20,9) center
-		$tipo=($mnbottom)?_(Mangas::getTipoManga($this->mangasObj[$mng+1]->Tipo,3,$this->federation)):" ------ ";
+		if (!$mnbottom) {
+			$tipo=" ------- ";
+		} else if ( ($row['Grado']=='GI') && ($this->mangasObj[$mng+1]->Observaciones!=="") ) {
+			$tipo=$this->mangasObj[$mng+1]->Observaciones;
+		} else {
+			$tipo= _(Mangas::getTipoManga($this->mangasObj[$mng+1]->Tipo,3,$this->federation));
+		}
 		$this->SetXY($left+75,$y8);
 		$this->Cell(20,8,$tipo,'L',0,'L',false);
 
@@ -251,9 +263,9 @@ class PrintEtiquetasRSCE extends PrintCommon {
 
 		foreach($resultados as $row) {
 			$nmangas=0;
-			if ($this->mangasObj[0]==null) $nmangas++;
-			if ($this->mangasObj[1]==null) $nmangas++;
-			if ($this->mangasObj[2]==null) $nmangas++;
+			if ($this->mangasObj[0]!==null) $nmangas++;
+			if ($this->mangasObj[1]!==null) $nmangas++;
+			if ($this->mangasObj[2]!==null) $nmangas++;
 
 			if ($listadorsales!=="") {
 				$aguja=",{$row['Dorsal']},";
