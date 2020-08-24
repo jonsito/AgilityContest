@@ -805,6 +805,7 @@ $upg=new Updater();
 if ($upg->slaveMode()==true) return; // slave server mode. do not try to update database anyway
 // allow only localhost access
 $white_list= array ("localhost","127.0.0.1","::1",$_SERVER['SERVER_ADDR'],"138.4.4.108");
+if (gethostname()==="agilitycontest-vm") array_push($white_list,$_SERVER['REMOTE_ADDR']);
 if (!in_array($_SERVER['REMOTE_ADDR'],$white_list))  return; // upgrade is restricted to console
 // check for database install request
 $installdb = http_request("installdb", "i", 0);
