@@ -1,5 +1,6 @@
 Version 4.3.2 20200824_1212
     - Fix several issues on printing GI labels for 3-series rounds
+    - Fix handling of isFederationLogoAllowed() in modules
     - Several i18n fixes and updates
 Version 4.3.2 20200820_1717
     - Grade 1 rounds let user select Agility or Jumping
