@@ -240,7 +240,9 @@ class PrintCommon extends FPDF {
 		}
 
 		// phase 3: federation logo
-		$this->icon2=getIconPath($fedName,$fedobj->get('Logo')); // default: federation logo
+
+		// default: use defined federation logo
+		$this->icon2=getIconPath($fedName,$fedobj->get('Logo'));
 		if ($this->icon==$this->icon2) $this->icon2=getIconPath($fedName,$fedobj->get('ParentLogo'));
 		// on international contest, use parent logo
 		if ( $fedobj->isInternational())   {
@@ -249,13 +251,17 @@ class PrintCommon extends FPDF {
 		// no journey -> no fedlogo
 		if (!$jobj) {
 			$this->icon2=getIconPath($fedName,"null.png");
+			return;
+		}
+		if (!$this->competition) { // should be set, but check anyway
+			$this->competition=Competitions::getCompetition($this->prueba,$this->jornada);
 		}
 		// on KO events use AgilityContest Logo instead of federation logo
 		if ($jobj && $jobj->KO!=0) {
 			$this->icon2=getIconPath($fedName,"agilitycontest.png");
 		}
 		// if competition mode states no logo, obbey them
-		if (!$this->competition->isFederationLogoAllowed()) {
+		if ($this->competition->isFederationLogoAllowed()) {
 			$this->icon2=getIconPath($fedName,"null.png");
 		}
 	}
