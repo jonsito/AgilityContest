@@ -280,18 +280,18 @@ class PrintEtiquetasRSCE extends PrintCommon {
 			switch ($nmangas) {
 				case 1:
 					// skip if not present
-					if ($row['P1']>=200.0) continue;
+					if ($row['P1']>=200.0) continue 2;
 					// skip on eliminated and set to skip by operator
-					if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0)) continue;
+					if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0)) continue 2;
 					break;
 				case 2:
-					if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) ) continue;
-					if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
+					if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) ) continue 2;
+					if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue 2;
 					break;
 				case 3:
-					if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) && ($row['P3']>=200.0) ) continue;
+					if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) && ($row['P3']>=200.0) ) continue 2;
 					if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0)
-						&& ($row['P1']>=100.0) && ($row['P2']>=100.0) && ($row['P3']>=100.0) ) continue;
+						&& ($row['P1']>=100.0) && ($row['P2']>=100.0) && ($row['P3']>=100.0) ) continue 2;
 					break;
 				default: $this->myLogger->error( "cannot handle provided ({$nmangas}) number of rounds");
 			}
