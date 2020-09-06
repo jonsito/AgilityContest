@@ -133,12 +133,26 @@ try {
 				break;
 		}
 	}
+	// on RSCE labels and allheights selected, join all clasifications to allow club ordering
+	// we cannot do this in CNEAC labels cause need to set round data for each height
+	if (($prmode==1) && ($global==1)) {
+		$a=array();
+		foreach($clasificaciones as $cl) $a=array_merge($a,$cl['rows']);
+		$clasificaciones=array(array('total'=>count($a),'rows'=>$a));
+	}
 	// iterate every evaluated clasification series
 	foreach($clasificaciones as $cl) {
 		$pdf->setRoundData($cl);
 		$res=$cl['rows'];
-		// ordenamos los resultados por dorsales
-		usort($res,function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
+		//  agrupamos por club,categoria y dorsal
+		// en el caso de global==0 (una sola altura) el agrupar por categorias no tiene ningún efecto
+		usort($res,function($a,$b){
+			if (strcasecmp($a['NombreClub'],$b['NombreClub'])==0) {
+				if (strcasecmp($a['Categoria'],$b['Categoria'])==0) return ($a['Dorsal']>$b['Dorsal'])?1:-1;
+				return strcasecmp($a['Categoria'],$b['Categoria']);
+			}
+			return strcasecmp($a['NombreClub'],$b['NombreClub']);
+		});
 		// imprimimos las etiquetas de esta categoria
 		$rowcount=$pdf->composeTable($res,$rowcount,$listadorsales,$discriminate);
 	}
