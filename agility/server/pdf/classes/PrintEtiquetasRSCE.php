@@ -213,7 +213,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		$this->ac_Cell($left+161,$y2,29,7,($mntop)?$this->juecesObj[$mng]['Nombre']:"",'B','L',false);
 		$this->SetFont($this->getFontName(),'I',6); // font size for results data
 		$juez=($mntop)?"Juez: ".$this->juecesObj[$mng]['Nombre']:"";
-		$this->ac_Cell($left+75,0.5+$y6,strlen($juez),2.4,$juez,'','L',true);
+		$this->ac_Cell(0.5+ $left+75,0.5+$y6,strlen($juez),2.4,$juez,'','L',true);
 
 		//Calif2 (134,y+8,25,9) right
 		$this->SetXY($left+124,$y8);
@@ -237,7 +237,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		$this->ac_Cell($left+161,$y8,29,7,($mnbottom)?$this->juecesObj[1+$mng]['Nombre']:"",'','L',false);
 		$this->SetFont($this->getFontName(),'I',6); // font size for results data
 		$juez=($mnbottom)?"Juez: ".$this->juecesObj[1+$mng]['Nombre']:"";
-		$this->ac_Cell($left+75,$y13,strlen($juez),2.4,$juez,'','L',true);
+		$this->ac_Cell(0.5+$left+75,$y13,strlen($juez),2.4,$juez,'','L',true);
 
 		// si 13 etiquetas/pagina, linea al final de la celda
 		if ($height==20) $this->Line($left,$y17,$left+190,$y17);
