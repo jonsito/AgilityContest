@@ -222,7 +222,9 @@ class PrintOrdenSalida extends PrintCommon {
 			}
             $this->ac_row($order,9);
 			$this->SetFont($this->getFontName(),'B',11); // bold 9px
-			$this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],true); // display order
+            // if dog has already run, use "*" instead of "-"
+            $ordersep=($row['Pendiente']==0)?" * ":" - ";
+			$this->Cell($this->pos[0],6,($order+1).$ordersep,'LR',0,$this->align[0],true); // display order
 			$this->SetFont($this->getFontName(),'',9); // remove bold 9px
             if ($this->federation->isInternational()) {
                 $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
