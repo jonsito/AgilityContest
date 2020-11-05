@@ -2,6 +2,7 @@
 
 REM EDITAR y ajustar valores correctos segun el manual
 REM http://www.agilitycontest.es/downloads/ac_autopdf.pdf
+REM <C> Juan Antonio Martínez Noviembre 2020
 
 REM Datos de la manga
 SET PRUEBA=69
