@@ -14,8 +14,10 @@ SET FTP_PASSWORD=password
 SET FTP_PATH=/agility/resultados/OrdenSalida.pdf
 
 :loop
-c:\AgilityContest\xampp\apache\bin\curl.exe --insecure --silent  "https://%HOST%/agility/agility/ajax/pdf/print_ordenDeSalida.php?Operation=OrdenSalida&Prueba=%PRUEBA%&Jornada=%JORNADA%&Manga=%MANGA%&Categorias=%CATEGORIAS%" -o c:\Windows\Temp\OrdenSalida.pdf
-c:\AgilityContest\xampp\apache\bin\curl.exe --insecure --silent --user %FTP_USER%:%FTP_PASSWORD -T c:\Windows\Temp\OrdenSalida.pdf ftp://%SERVER%/%FTP_PATH
+ECHO Importando PDF desde AgilityContest ...
+c:\AgilityContest\xampp\apache\bin\curl.exe --insecure --silent  "https://%HOST%/agility/agility/ajax/pdf/print_ordenDeSalida.php?Operation=OrdenSalida&Prueba=%PRUEBA%&Jornada=%JORNADA%&Manga=%MANGA%&Categorias=%CATEGORIAS%" -o %TEMP%\OrdenSalida.pdf
+ECHO Subiendo PDF al servidor web ...
+c:\AgilityContest\xampp\apache\bin\curl.exe --silent --user %FTP_USER%:%FTP_PASSWORD% -T %TEMP%\OrdenSalida.pdf ftp://%SERVER%%FTP_PATH%
 TIMEOUT /T 60 /NOBREAK
 GOTO loop
 
