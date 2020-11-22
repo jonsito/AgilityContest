@@ -1,3 +1,11 @@
+Version 4.3.2 202001122_1800
+    - Fix several logos
+    - Fix some issues with excel import and php 7.4
+    - Add autopdf.bat
+    - Replace "-" with "*" on starting order pdf when dog has already run
+    - Make judge name visible inside labels
+    - Fix several issues when runnin inside virtual machine
+    - More and more Federation logo issues
 Version 4.3.2 20200906_1050
     - Fix (more) problems printing G1 labels for 3-series rounds
 Version 4.3.2 20200824_1212
