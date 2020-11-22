@@ -1,4 +1,4 @@
-Version 4.3.2 202001122_1800
+Version 4.3.2 20201122_1800
     - Fix several logos
     - Fix some issues with excel import and php 7.4
     - Add autopdf.bat
