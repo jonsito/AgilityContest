@@ -879,6 +879,18 @@ class OrdenSalida extends DBObject {
 		return $nuevo;
 	}
 
+	/**
+	 * Invierte el orden de alturas
+	 * IMPORTANTE: solo funciona si en la ventana de "Programa de la jornada"
+	 * no se ha tocado a mano nada
+	 * @return {string} nuevo orden de salida (realmente el mismo, solo cambian las tandas)
+	 */
+	private function reverseHeightsOrder() {
+		$t=new Tandas("ordensalida::reverseXMLST",$this->prueba,$this->jornada);
+		$t->swapXLMST();
+		return $this->getOrden();
+	}
+
     /**
 	 * Sort according provided method
      * @param {string} $method
@@ -886,6 +898,7 @@ class OrdenSalida extends DBObject {
      */
 	function setOrder($method,$catmode,$range) {
 		switch($method) {
+			case "rheights": return $this->reverseHeightsOrder(); break;
 			case "random": return $this->randomOrder($catmode,$range); break;
 			case "rclubes": return $this->randomClubesOrder($catmode,$range); break;
             case "reverse": return $this->reverseOrder($catmode,$range); break;

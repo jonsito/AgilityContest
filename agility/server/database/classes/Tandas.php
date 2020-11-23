@@ -291,23 +291,31 @@ class Tandas extends DBObject {
 	 */
 	function __construct($file,$prueba,$jornada) {
 		parent::__construct($file);
-		if ( $prueba<=0 ) {
-			$this->errormsg="$file::construct() invalid prueba:$prueba ID";
-			throw new Exception($this->errormsg);
-		}
-		if ( $jornada<=0 ) {
-			$this->errormsg="$file::construct() invalid jornada:$jornada ID";
-			throw new Exception($this->errormsg);
-		}
-		$this->prueba=$this->__getObject("pruebas",$prueba);
-		$this->jornada=$this->__getObject("jornadas",$jornada);
-		if ($this->jornada->Prueba!=$prueba) {
+		if (is_object($prueba)) {
+		    $this->prueba=$prueba;
+        } else {
+            if ( $prueba<=0 ) {
+                $this->errormsg="$file::construct() invalid prueba:$prueba ID";
+                throw new Exception($this->errormsg);
+            }
+            $this->prueba=$this->__getObject("pruebas",$prueba);
+        }
+		if (is_object($jornada)) {
+		    $this->jornada=$jornada;
+        } else {
+            if ( $jornada<=0 ) {
+                $this->errormsg="$file::construct() invalid jornada:$jornada ID";
+                throw new Exception($this->errormsg);
+            }
+            $this->jornada=$this->__getObject("jornadas",$jornada);
+        }
+		if ($this->jornada->Prueba!=$this->prueba->ID) {
 			$this->errormsg="$file::construct() jornada:$jornada is not owned by prueba:$prueba";
 			throw new Exception($this->errormsg);
 		}
 		$s=$this->__select("*","sesiones","","","");
 		$this->sesiones=$s['rows'];
-		$m=$this->__select("*","mangas","(Jornada=$jornada)","","");
+		$m=$this->__select("*","mangas","(Jornada={$this->jornada->ID})","","");
 		$this->mangas=$m['rows'];
 		$this->federation=Federations::getFederation($this->prueba->RSCE);
 	}
