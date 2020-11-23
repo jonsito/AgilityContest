@@ -881,13 +881,47 @@ class OrdenSalida extends DBObject {
 
 	/**
 	 * Invierte el orden de alturas
-	 * IMPORTANTE: solo funciona si en la ventana de "Programa de la jornada"
-	 * no se ha tocado a mano nada
+	 * IMPORTANTE:
+	 * Si el operador ha cambiado "a mano" el orden de las tandas, esto dará resultados inesperados
 	 * @return {string} nuevo orden de salida (realmente el mismo, solo cambian las tandas)
 	 */
 	private function reverseHeightsOrder() {
-		$t=new Tandas("ordensalida::reverseXMLST",$this->prueba,$this->jornada);
-		$t->swapXLMST();
+		// buscamos las tandas de la manga actual
+		$tandas=$this->__select(
+			"*",
+			"tandas",
+			"Prueba={$this->prueba->ID} AND Jornada={$this->jornada->ID} and Grado='{$this->manga->Grado}'",
+			"ORDEN DESC",
+			""
+		);
+		// vemos si la manga actual es agility o jumping, y seleccionamos solo las tandas que coinciden con el tipo
+		$m_isAgility=Mangas::isAgility($this->manga->Tipo);
+		$t=array();
+		foreach ($tandas['rows'] as $tanda) {
+			$t_isAgility=Tandas::isAgility($tanda['Tipo']);
+			if ($t_isAgility==$m_isAgility) array_push($t,$tanda);
+		}
+		// ahora tenemos las mangas que nos interesan indexadas por el orden. vamos a invertirlo
+		switch (count($t)) {
+			case 3:
+				$o=$t[0]['Orden']; $t[0]['Orden']=$t[2]['Orden'];$t[2]['Orden']=$o;
+				break;
+			case 4:
+				$o=$t[0]['Orden']; $t[0]['Orden']=$t[3]['Orden'];$t[3]['Orden']=$o;
+				$o=$t[1]['Orden']; $t[1]['Orden']=$t[2]['Orden'];$t[2]['Orden']=$o;
+				break;
+			case 5:
+				$o=$t[0]['Orden']; $t[0]['Orden']=$t[4]['Orden'];$t[4]['Orden']=$o;
+				$o=$t[1]['Orden']; $t[1]['Orden']=$t[3]['Orden'];$t[3]['Orden']=$o;
+				break;
+		}
+		// y actualizamos la base de datos con las tandas recalculadas
+		foreach ($t as $tanda) {
+			$str="update tandas SET Orden={$tanda['Orden']} WHERE ID={$tanda['ID']}";
+			$rs=$this->query($str);
+			if (!$rs) return $this->error($this->conn->error);
+		}
+		// Ya hemos terminado; retornamos nuevo orden
 		return $this->getOrden();
 	}
 

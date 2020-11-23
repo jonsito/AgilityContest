@@ -187,7 +187,7 @@ $('#ordensalida-selection').combobox({
         {value:'alpha',  text:"<?php _e('Alphabetical (handlers)'); ?>",icon:"abc.png"},
         {value:'dorsal', text:"<?php _e('Order by dorsal'); ?>",icon:"order.png"},
         {value:'rclubes',text:"<?php _e('Random (group by club)'); ?>",icon:"dice.png"},
-        // {value:'rheights',text:"<?php _e('Reverse heights order'); ?>",icon:"reload.png"},
+        {value:'rheights',text:"<?php _e('Reverse heights order'); ?>",icon:"reload.png"},
         {value:'excel',  text:"<?php _e('Import from Excel'); ?>",icon:"table.png"}
     ],
     formatter: function(row) { // add an icon to each combobox option
