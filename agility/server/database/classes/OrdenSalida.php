@@ -962,6 +962,7 @@ class OrdenSalida extends DBObject {
             $this->query($str2);
             $dorsal++;
         }
+
     }
 
 } // class
