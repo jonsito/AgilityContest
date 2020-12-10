@@ -42,7 +42,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE CLUBES -->
- <div id="clubes-dialog" style="padding:10px 20px">
+ <div id="clubes-dialog" style="top:50px;padding:10px 20px">
     <div class="ftitle">
     <?php _e('Club information'); ?>
     </div>
