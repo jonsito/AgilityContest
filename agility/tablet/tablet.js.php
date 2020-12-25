@@ -930,11 +930,11 @@ function tablet_eventManager(id,evt) {
 		return;
 	case 'crono_error': // sensor alignment failed
 		// show error message. Use reset to clear
-		if (event['Value']==1) tbox.addClass('blink');
+		if (parseInt(event['Value'])===1) tbox.addClass('blink');
 		else tbox.removeClass('blink');
 		return;
 	case 'crono_ready':	// el crono esta activo y escuchando
-		var value=(parseInt(event['Value'])==0)?"Not Listening":"Ready";
+		var value=(parseInt(event['Value'])===0)?"Not Listening":"Ready";
 		setTimeout(function(){
 			$.messager.show({
 				title:'Chronometer',
