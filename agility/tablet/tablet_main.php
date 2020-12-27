@@ -158,6 +158,7 @@ $config =Config::getInstance();
         onExpand: function() {
             ac_clientOpts.DataEntryEnabled=false;
             $('#tdialog-fieldset').prop('disabled',true);
+            $('#td_drs').textbox('disable');
             // retrieve original data from parent datagrid
             var dgname=$('#tdialog-Parent').val();
             var dg=$(dgname);
@@ -169,6 +170,7 @@ $config =Config::getInstance();
         onCollapse: function () {
             ac_clientOpts.DataEntryEnabled=true;
             $('#tdialog-fieldset').prop('disabled',false);
+            $('#td_drs').textbox('enable');
         }
     });
 
@@ -420,14 +422,15 @@ $config =Config::getInstance();
         singleSelect: true,
         autoRowHeight: true,
         columns:[[
-            { field:'Dorsal',width:'10%', align:'right',	title: '<?php _e('Dorsal');?>' },
-            { field:'Nombre',width:'25%', align:'right',	title: '<?php _e('Name');?>' },
-            { field:'NombreGuia',	width:'35%', align:'right',	title: '<?php _e('Handler');?>' },
+            // a little trick to replace table header with an text input box
+            { field:'Dorsal',width:'15%', align:'right',	title: '<input id="td_drs" type="text" value="<?php _e('Dorsal');?>"/>' },
+            { field:'Nombre',width:'20%', align:'right',	title: '<?php _e('Name');?>' },
+            { field:'NombreGuia',	width:'33%', align:'right',	title: '<?php _e('Handler');?>' },
             { field:'NombreClub',	width:'25%', align:'right',	title: '<?php _e('Club');?>' }
         ]],
         onDblClickRow: function(index,row) {
             // check for store before change dog
-            if (parseInt(ac_config.tablet_dblclick)==1){
+            if (parseInt(ac_config.tablet_dblclick)===1){
                 // retrieve parent datagrid to update results
                 var dgname = $('#tdialog-Parent').val();
                 var dg = $(dgname);
@@ -438,6 +441,12 @@ $config =Config::getInstance();
             tablet_editByDorsal();
         }
     });
+
+    $('#td_drs').textbox({
+        hasFocus:false, // extra option
+        width:45
+    });
+    $('#td_drs').textbox('textbox').click( function(e) {dorsal_edit();});
 
     addTooltip($('#tablet-reloadBtn').linkbutton(),'<?php _e("Update session data");?>');
     addTooltip($('#tablet-whiteBtn').linkbutton(),'<?php _e("Mark test dog enter into ring");?>');

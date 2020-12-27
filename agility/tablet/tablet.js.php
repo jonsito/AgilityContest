@@ -80,12 +80,14 @@ function tablet_putEvent(type,data){
 			'Value':	0 // may be overriden with 'data' contents
 	};
 	// send "update" event to every session listeners
+    var dta=$.extend({},obj,data);
+    // console.log("putEvent: "+JSON.stringify(dta));
 	$.ajax({
 		type:'GET',
 		url:"../ajax/database/eventFunctions.php",
 		dataType:'json',
         timeout: 5000, // response should arrive in this time. more delay usually means connection problem
-		data: $.extend({},obj,data),
+		data: dta,
         // on system errors ( connection lost, timeouts, or so ) display an alarm
         error: function(XMLHttpRequest,textStatus,errorThrown) {
 		    if (errorThrown.indexOf("imeout")>=0) {
@@ -212,18 +214,28 @@ function doBeep() {
 	if (ac_config.tablet_beep==="1")	setTimeout(function() {beep();},0);
 }
 
+function dorsal_add(val) {
+    var str_tb=$('#td_drs');
+    var str=str_tb.textbox('getValue');
+    if (parseInt(str)===0) str=''; // clear espurious zeroes
+    if(str.length>=4) return false; // dorsals greater than 9999 are not allowed
+    str_tb.textbox('setValue',''+str+val);
+    return false;
+}
+
 function tablet_add(val) {
+    if ($('#td_drs').textbox('options').hasFocus===true) return dorsal_add(val);
 	doBeep();
 	var maxlen=(ac_config.crono_milliseconds=="0")?6:7;
 	var declen=(ac_config.crono_milliseconds=="0")?2:3;
 	var tdt=$('#tdialog-Tiempo');
 	var str=tdt.val();
 	if (parseInt(str)==0) str=''; // clear espurious zeroes
-	if(str.length>=maxlen) return; // sss.xx 6/7 chars according configuration
+	if(str.length>=maxlen) return false; // sss.xx 6/7 chars according configuration
 	var n=str.indexOf('.');
 	if (n>=0) {
 		var len=str.substring(n).length;
-		if (len>declen) return; // only allowed decimal digits from config
+		if (len>declen) return false; // only allowed decimal digits from config
 	}
 	tdt.val(''+str+val);
 	tablet_updateResultados(1);
@@ -233,6 +245,7 @@ function tablet_add(val) {
 
 function tablet_dot() {
 	doBeep();
+    if ($('#td_drs').textbox('options').hasFocus===true) return false; // ignore dot in dorsal mode
 	var str=$('#tdialog-Tiempo').val();
 	if (str.indexOf('.')>=0) return;
 	tablet_add('.');
@@ -241,11 +254,21 @@ function tablet_dot() {
 	return false;
 }
 
+function dorsal_del() {
+    var str_tb=$('#td_drs');
+    var str=str_tb.textbox('getValue');
+    if (parseInt(str)===0) str=''; // clear espurious zeroes
+    if(str.length===0) return false; // no chars to delete
+    str_tb.textbox('setValue',str.substring(0, str.length-1));
+    return false;
+}
+
 function tablet_del() {
+    if ($('#td_drs').textbox('options').hasFocus===true) return dorsal_del();
 	doBeep();
 	var tdt=$('#tdialog-Tiempo');
 	var str=tdt.val();
-	if (str==='') return;
+	if (str==='') return false;
 	tdt.val(str.substring(0, str.length-1));
 	tablet_updateResultados(1);
 	// dont send event
@@ -503,8 +526,24 @@ function tablet_resetchrono() {
 	return false;
 }
 
+function dorsal_edit() {
+    doBeep();
+    var td_trs= $('#td_drs');
+    td_trs.textbox('textbox').css('backgroundColor','#ffcccc')
+    td_trs.textbox('options').hasFocus=true;
+    td_trs.textbox('setValue','');
+}
+function dorsal_cancel() {
+    var td_trs=$('#td_drs');
+    td_trs.textbox('options').hasFocus=false;
+    td_trs.textbox('textbox').css('backgroundColor','#ffffff')
+    td_trs.textbox('setValue','<?php _e("Dorsal");?>');
+    return false;
+}
+
 function tablet_cancel() {
 	doBeep();
+	if ($('#td_drs').textbox('options').hasFocus===true) return dorsal_cancel();
 	// retrieve original data from parent datagrid
 	var dgname=$('#tdialog-Parent').val();
 	var dg=$(dgname);
@@ -593,7 +632,7 @@ function tablet_save(dg) {
 	var row = dg.datagrid('getSelected');
 	var rowindex=(row)?dg.datagrid("getRowIndex", row):-1;
 	// on white dog do not propagate results to datagrid. just send fake event
-	if ($('#tdialog-Perro').val()==0) {
+	if ( parseInt($('#tdialog-Perro').val())===0) {
 		tablet_putEvent(
 			'aceptar',
 			{
@@ -633,8 +672,29 @@ function tablet_save(dg) {
 	return rowindex;
 }
 
+function dorsal_accept() {
+    var td_trs= $('#td_drs');
+    td_trs.textbox('options').hasFocus=false;
+    td_trs.textbox('textbox').css('backgroundColor','#ffffff')
+    var newval=td_trs.textbox('getValue');
+    td_trs.textbox('setValue','<?php _e("Dorsal");?>');
+    if (isNaN(parseInt(newval))) return false; // empty or invalid data
+    // check for store before change dog. dorsal textbox has same behaviour than doubleclick
+    if (parseInt(ac_config.tablet_dblclick)===1){
+        // retrieve parent datagrid to update results
+        var dgname = $('#tdialog-Parent').val();
+        var dg = $(dgname);
+        tablet_save(dg);
+    }
+    // and go to selected dog
+    $('#tablet-datagrid-search').val(parseInt(newval));
+    tablet_editByDorsal();
+    return false;
+}
+
 function tablet_accept() {
 	doBeep();
+    if ($('#td_drs').textbox('options').hasFocus===true) return dorsal_accept();
 	// retrieve parent datagrid to update results
 	var dgname = $('#tdialog-Parent').val();
 	var dg = $(dgname);
@@ -752,7 +812,7 @@ function bindKeysToTablet() {
 	$(document).keydown(function(e) {
 		// on round selection window focused, ignore
 		if ($('#tdialog-fieldset').prop('disabled')) return true;
-		doBeep();
+		if ( ! $('#td_drs').textbox('options').hasFocus) doBeep();
 		switch(e.which) {
 			/* you can check keycodes at http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes */
 			// numbers (querty/keypad)
@@ -822,6 +882,15 @@ function bindKeysToTablet() {
 	});
 }
 
+/**
+ * El tablet no es "consumidor" de eventos ( salvo los de cronómetro )
+ * Más bien al contrario: es "generador" de eventos. Las operaciones relacionadas con dichos
+ * eventos se generan "antes" de enviar los eventos al sistema
+ * Por ello, casi todos los eventos recibidos se ignoran, salvo los de cronómetro que únicamente
+ * se usan para gestionar el crono local
+ * @param id event ID
+ * @param evt event Data
+ */
 function tablet_eventManager(id,evt) {
 	var tbox=$('#tdialog-Tiempo');
 	var crm=$('#cronometro');
@@ -842,8 +911,17 @@ function tablet_eventManager(id,evt) {
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		return;
 	case 'llamada':	// llamada a pista
-		// sometimes operator press "Enter" to update user data when dog is already in the ring
-		// so let preserve chrono status
+            // solo aceptamos el evento si no lo hemos generado nosotros (p.e. Si viene de un lector de dorsales
+            // adicionalmente hay que tener en cuenta la interrelación con el dobleclick y el botón aceptar
+            // del tablet, y el hecho de que normalmente se da la entrada a pista antes de que
+            // el anterior participante haya terminado el recorrido ( aunque realmente hay que considerar los dos casos )
+
+            // tenemos dos casos:
+            // - Normalmente lo que haremos será modificar el botón "aceptar" para que en lugar de buscar
+            // el siguiente perro mire si se ha seleccionado otro a través de este evento.
+            // - Adicionalmente habrá que contemplar el caso de que el asistente haya dado a "aceptar" _antes_ que el
+            // control de entrada a pista, con lo que habría que simular un nuevo "aceptar"
+            //
 		return;
 	case 'salida': // orden de salida (15 segundos)
 		tablet_cronometro('stop');
