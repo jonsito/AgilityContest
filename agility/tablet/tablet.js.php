@@ -717,8 +717,14 @@ function tablet_accept() {
 	// si td_drs es el perro actual o NaN, avanza al siguiente
     // si no, salta al perro indicado
     var next=parseInt(td_drs.textbox('getValue'));
-    if (! (isNaN(next) || (current===next) ) ) return dorsal_accept();
-	// go to next row (if available)
+    if (! (isNaN(next) || (current===next) ) ) {  return dorsal_accept();  }
+    // if any dog in pending dorsals, process it
+    var nd=dorsalList.dequeue(1);
+    if (typeof (nd[0]) !== 'undefined') {
+        td_drs.textbox('setValue',''+nd[0]);
+        return dorsal_accept();
+    }
+	// arriving here go to next row (if available)
 	rowindex++; // 0..len-1
 	if ( rowindex >= dg.datagrid('getRows').length) {
 		// at end. Close panel and return

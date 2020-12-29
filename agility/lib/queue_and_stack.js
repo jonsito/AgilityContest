@@ -40,7 +40,7 @@ class Queue{
         items.forEach( item => this._items.push(item) )
         return this._items;
     }
-    dequeue(count=1){ //pull out the first item from the queue
+    dequeue(count=1){ //pull out "count" first items from the queue
         this._items.splice(0,count);
         return this._items;
     }
