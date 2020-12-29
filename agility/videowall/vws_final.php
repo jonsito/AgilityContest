@@ -98,6 +98,7 @@ events
             vws_updateData(event);
         },
         'llamada': function (event, time) {    // llamada a pista
+            if (event['Source']!=='tablet') return;
             vwsCounter.stop(); // do not stop chrono, just countdown
             vw_updateWorkingData(event,function(e,d){
                 vws_updateLlamada(e,d,vws_updateFinales);

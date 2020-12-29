@@ -77,7 +77,8 @@ if ( $runmode === AC_RUNMODE_SLAVE ) { // in slave mode restrict access to publi
 <script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
-<script src="../lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="../lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="../lib/queue_and_stack.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="../scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>

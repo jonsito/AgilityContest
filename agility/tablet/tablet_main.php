@@ -137,7 +137,7 @@ $config =Config::getInstance();
 
 <!-- declare a tag to attach a chrono object to -->
 <div id="cronometro"></div>
-
+<div id="dorsalList"></div>
 
 <script type="text/javascript">
     $('#tablet-window').window({
@@ -317,6 +317,7 @@ $config =Config::getInstance();
                 data.Parent=mySelfstr; // store datagrid reference
                 data.RowIndex=idx; // store row index
                 $('#tdialog-form').form('load',data);
+                $('#td_drs').textbox('setValue',''+data.Dorsal);
                 setDataEntryEnabled(true);
                 tablet_markSelectedDog(data.RowIndex);
             },
@@ -413,6 +414,7 @@ $config =Config::getInstance();
         });
     }
 
+    dorsalList=new Queue();
     // creamos la tabla de proximos a salir
     $('#tdialog-tnext').datagrid({
         pagination: false,

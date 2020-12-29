@@ -44,6 +44,10 @@ class Queue{
         this._items.splice(0,count);
         return this._items;
     }
+    requeue(...items) { // put back as first item in queue
+        items.forEach( item => this._items.unshift(item) )
+        return this._items;
+    }
     peek(){ //peek at the first item from the queue
         return this._items[0]
     }

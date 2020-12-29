@@ -514,7 +514,7 @@ function chrono_eventManager(id,evt) {
 		return;
 	case 'llamada':	// llamada a pista
 		// c_showData(event);
-        chrono_handlePendingEvent(event);
+        if (event['Source']==='tablet') chrono_handlePendingEvent(event);
 		return;
 	case 'salida': // orden de salida
         crm.text('').removeClass('blink');

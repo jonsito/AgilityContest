@@ -272,6 +272,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             vwcf_evalPenalizacion();
         },
         'llamada': function (event, time) {    // llamada a pista
+            if (event['Source']!=='tablet') return;
             myCounter.stop(); // do not stop chrono, just countdown if any
             vw_updateWorkingData(event,function(e,d){
                 vwcf_updateLlamada(e,d);

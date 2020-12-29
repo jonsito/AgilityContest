@@ -286,6 +286,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             vwcp_evalPenalizacion();
         },
         'llamada': function (event, time) {    // llamada a pista
+            if (event['Source']!=='tablet') return;
             myCounter.stop(); // do not stop chrono, just clear countdown ( to allow team contests)
             vw_updateWorkingData(event,function(e,d){
                 vwcp_updateLlamada(e,d);

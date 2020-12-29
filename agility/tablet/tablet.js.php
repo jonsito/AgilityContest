@@ -677,7 +677,8 @@ function dorsal_accept() {
     td_trs.textbox('options').hasFocus=false;
     td_trs.textbox('textbox').css('backgroundColor','#ffffff')
     var newval=td_trs.textbox('getValue');
-    td_trs.textbox('setValue','<?php _e("Dorsal");?>');
+    // preserve current dorsal in textbox, to discriminate next/selected on tablet_accept()
+    // td_trs.textbox('setValue','<?php _e("Dorsal");?>');
     if (isNaN(parseInt(newval))) return false; // empty or invalid data
     // check for store before change dog. dorsal textbox has same behaviour than doubleclick
     if (parseInt(ac_config.tablet_dblclick)===1){
@@ -694,7 +695,8 @@ function dorsal_accept() {
 
 function tablet_accept() {
 	doBeep();
-    if ($('#td_drs').textbox('options').hasFocus===true) return dorsal_accept();
+	var td_drs=$('#td_drs');
+    if (td_drs.textbox('options').hasFocus===true) return dorsal_accept();
 	// retrieve parent datagrid to update results
 	var dgname = $('#tdialog-Parent').val();
 	var dg = $(dgname);
@@ -709,7 +711,13 @@ function tablet_accept() {
 		dg.datagrid('refreshRow',rowindex);
 		return false;
 	}
-	
+
+	// vemos cual es el dorsal actual
+    var current=parseInt($('#tdialog-Dorsal').val());
+	// si td_drs es el perro actual o NaN, avanza al siguiente
+    // si no, salta al perro indicado
+    var next=parseInt(td_drs.textbox('getValue'));
+    if (! (isNaN(next) || (current===next) ) ) return dorsal_accept();
 	// go to next row (if available)
 	rowindex++; // 0..len-1
 	if ( rowindex >= dg.datagrid('getRows').length) {
@@ -728,6 +736,7 @@ function tablet_accept() {
 		data.RowIndex=rowindex;
 		data.Parent=dgname;
 		$('#tdialog-form').form('load',data);
+		td_drs.textbox('setValue',''+data.Dorsal);
 		tablet_markSelectedDog(parseInt(data.RowIndex));
 	}
 	return false; // prevent follow onClick event chain
@@ -759,6 +768,7 @@ function tablet_gotoDorsal(tanda,dgname,dorsal) {
 			if (idx<0) {
 				$.messager.alert("Not found",'<?php _e("Dog with dorsal");?>'+": "+dorsal+" "+'<?php _e("does not run in this series");?>',"info");
 				$('#tablet-datagrid-search').val('---- <?php _e("Dorsal"); ?> ----');
+				$('#td_drs').textbox('setValue',$('#tdialog-Dorsal').val()); // restore dorsal value in main panel
 				return false;
 			}
 			dg=$(dgname);
@@ -778,6 +788,41 @@ function tablet_gotoDorsal(tanda,dgname,dorsal) {
 	});
 }
 
+/**
+ called on 'llamada' event when it comes from external "device"  (ie: qrcode reader at course start )
+ @param {int} drs (parseInt'd before call)
+  */
+function tablet_nextDorsal(drs) {
+    // verificamos que el perro está en esta manga
+    var rows=$('#tdialog-tnext').datagrid('rows');
+    for (n=0;n<rows.length;n++) if (parseInt(rows[n]['Dorsal'])===drs) break;
+    if (n===rows.length) return; // dorsal is not in current tanda
+    // if dorsalList is not empty, just insert at queue tail and return
+    if ( ! dorsalList.isEmpty() ) { dorsalList.enqueue(drs); return; }
+    // si la lista de dorsales esta vacia pero la ventana de edición de dorsal está activa
+    // quiere decir que el operador esta metiendo a mano un dorsal. En ese caso encolamos
+    var tb_drs=$('tb_drs');
+    if (tb_drs.textbox('options').hasFocus) { dorsalList.enqueue(drs); return; }
+    // si no esta en edicion, vemos el contenido
+    var next=tb_drs.textbox('getValue');
+    // si no tiene numero, quiere decir que el perro debe entrar a pista directamente
+    if (next==="<php _e('Dorsal');?>") {
+        tb_drs.textbox('setValue',''+drs);
+        dorsal_accept();
+        return;
+    }
+    var current=parseInt($('#tdialog-Dorsal').val());
+    if (next!==current) {
+        // si el numero que tiene NO es el perro que esta corriendo, encolamos y ya esta
+        dorsalList.enqueue(drs);
+    } else {
+        // si el numero que tiene SI es el perro que esta corriendo, quiere decir que
+        // o esta en pista o que todavía no han dado paso al siguiente. En ese caso
+        // metemos como siguiente perro
+        tb_drs.textbox('setValue',''+next);
+    }
+}
+
 function tablet_editByDorsal() {
 	var i,len;
 	var dg=$('#tablet-datagrid');
@@ -789,7 +834,7 @@ function tablet_editByDorsal() {
 	// si no hay tandas activas muestra error e ignora
 	for (i=0,len=rows.length;i<len;i++) {
 		if (typeof(rows[i].expanded)==="undefined") continue;
-		if (rows[i].expanded==0) continue;
+		if (parseInt(rows[i].expanded)===0) continue;
 		// obtenemos el datagrid y buscamos el dorsal
 		var dgname='#tablet-datagrid-'+rows[i].ID;
 		tablet_gotoDorsal(rows[i],dgname,dorsal);
@@ -806,7 +851,7 @@ function bindKeysToTablet() {
 	// disable key handling on tablet/mobile phone
 	if (isMobileDevice()) return;
 	// if configuration states keyboard disabled, ignore
-	if (parseInt(ac_config.tablet_keyboard)==0) return false;
+	if (parseInt(ac_config.tablet_keyboard)===0) return false;
 
 	// parse keypress event on every  button
 	$(document).keydown(function(e) {
@@ -911,17 +956,19 @@ function tablet_eventManager(id,evt) {
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		return;
 	case 'llamada':	// llamada a pista
-            // solo aceptamos el evento si no lo hemos generado nosotros (p.e. Si viene de un lector de dorsales
-            // adicionalmente hay que tener en cuenta la interrelación con el dobleclick y el botón aceptar
-            // del tablet, y el hecho de que normalmente se da la entrada a pista antes de que
-            // el anterior participante haya terminado el recorrido ( aunque realmente hay que considerar los dos casos )
+        // solo aceptamos el evento si no lo hemos generado nosotros (p.e. Si viene de un lector de dorsales
+        // adicionalmente hay que tener en cuenta la interrelación con el dobleclick y el botón aceptar
+        // del tablet, y el hecho de que normalmente se da la entrada a pista antes de que
+        // el anterior participante haya terminado el recorrido ( aunque realmente hay que considerar los dos casos )
+        if (event['Source']==='tablet') return;
 
-            // tenemos dos casos:
-            // - Normalmente lo que haremos será modificar el botón "aceptar" para que en lugar de buscar
-            // el siguiente perro mire si se ha seleccionado otro a través de este evento.
-            // - Adicionalmente habrá que contemplar el caso de que el asistente haya dado a "aceptar" _antes_ que el
-            // control de entrada a pista, con lo que habría que simular un nuevo "aceptar"
-            //
+        // tenemos dos casos:
+        // - Normalmente lo que haremos será modificar el botón "aceptar" para que en lugar de buscar
+        // el siguiente perro mire si se ha seleccionado otro a través de este evento.
+        // - Adicionalmente habrá que contemplar el caso de que el asistente haya dado a "aceptar" _antes_ que el
+        // control de entrada a pista, con lo que habría que simular un nuevo "aceptar"
+        //
+        tablet_nextDorsal(parseInt(event['Drs']));
 		return;
 	case 'salida': // orden de salida (15 segundos)
 		tablet_cronometro('stop');
