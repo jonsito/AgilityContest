@@ -33,9 +33,9 @@ $config =Config::getInstance();
         $('#form-panel').panel({width:'auto',footer:'#footer'});
         $('#reader-panel').panel({width:'auto'});
 
-        $('#qr_dorsal').textbox({disabled:true,width:40});
+        $('#qr_dorsal').textbox({disabled:true,width:50});
         $('#qr_perro').textbox({disabled:true});
-        $('#qr_cat').textbox({disabled:true,width:40});
+        $('#qr_cat').textbox({disabled:true,width:50});
         $('#qr_guia').textbox({disabled:true});
         $('#qr_club').textbox({disabled:true});
 
