@@ -46,7 +46,7 @@ if ( $runmode === AC_RUNMODE_SLAVE ) { // in slave mode restrict access to publi
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="application-name" content="Agility Contest" />
@@ -117,19 +117,6 @@ function initialize() {
 	});
 }
 
-/**
- * Common rowStyler function for AgilityContest qrcode datagrids
- * @param {int} idx Row index
- * @param {object} row Row data
- * @return {string} proper row style for given idx
- */
-function myRowStyler(idx,row) {
-	var res="height:35px;background-color:";
-	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
-	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
-	if ( (idx&0x01)===0) { return res+c1+";"; } else { return res+c2+";"; }
-}
-
 </script>
 
 <style type="text/css">
@@ -137,9 +124,10 @@ body {
     font-size: 100%;
     background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
     }
+
 #scanned label {
-     padding-left: 20px;
-     width: 80px;
+     padding-left: 50px;
+     width: 60px;
      display: inline-block;
 }
 </style>

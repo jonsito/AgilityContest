@@ -27,15 +27,34 @@ function handleReceivedData(msg) {
     if (msg===lastQRCodeReceived) return;
     lastQRCodeReceived=msg;
     beep();
-    // received data is in format [Prueba,Dorsal,Nombre,Categoria,Guia,Club]
+    // received data is in format [Dorsal,DogID]
     let data=JSON.parse(msg);
-    $('#prueba').val(data[0]);
-    $('#dorsal').textbox('setValue',data[1]);
-    $('#perro').textbox('setValue',data[2]);
-    $('#cat').textbox('setValue',data[3]);
-    $('#guia').textbox('setValue',data[4]);
-    $('#club').textbox('setValue',data[5]);
+    $('#qr_dorsal').textbox('setValue',data[0]);
+    $('#qr_ID').val(data[1]);
+    // call to server to retrieve remaining data
+    $.ajax({
+        type: "GET",
+        url: '../ajax/database/dogFunctions.php',
+        data: {
+            Operation : 'getbyidperro',
+            Federation: workingData.federation,
+            ID	: data[1]
+        },
+        async: true,
+        cache: false,
+        dataType: 'json',
+        success: function(res){
+            $('#qr_perro').textbox('setValue',res["Nombre"]);
+            $('#qr_cat').textbox('setValue',res["Categoria"]+" - "+res["Grado"] );
+            $('#qr_guia').textbox('setValue',res["NombreGuia"]);
+            $('#qr_club').textbox('setValue',res["NombreClub"]);
+        },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            alert("c_showData() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
+        }
+    });
 }
+
 function qrcode_clear() {
     $('#scanned').form('clear');
     lastQRCodeReceived="";

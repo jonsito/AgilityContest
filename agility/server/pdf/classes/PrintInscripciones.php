@@ -944,16 +944,19 @@ class PrintTarjetasDeVisita extends PrintCommon{
 		$this->Image($this->icon,$this->GetX(),$this->GetY(),9);
         // qrcode de la tarjeta
 		$this->SetXY($x+58,$y+11);
-		$errorCorrectionLevel = 'M';
+		$errorCorrectionLevel = 'Q';
 		$matrixPointSize = 8;
 		// [prueba,dorsal,Nombre,Cat-Grad,club]
 		$textData=json_encode([
-			$this->prueba->ID,
+			// $this->prueba->ID,
 			$item['Dorsal'],
+			$item['Perro']
+			/*
 			$item['Nombre']." - ".$item['NombreLargo'],
 			$item['Categoria']."-".$item['Grado'],
 			$this->getHandlerName($item),
 			$item['NombreClub']
+			*/
 		]);
 		$pngFilename=__DIR__."/../../../../logs/qrimage_{$item['Dorsal']}.png";
 		QRcode::png($textData, $pngFilename, $errorCorrectionLevel, $matrixPointSize, 0);

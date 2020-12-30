@@ -1,40 +1,46 @@
 <?php
-header('Content-Type: text/javascript');
 require_once(__DIR__ . "/../server/tools.php");
+require_once(__DIR__ . "/../server/auth/Config.php");
+$config =Config::getInstance();
 ?>
-<div id="reader-panel" class="easyui-panel">
+<div id="reader-panel">
     <br/>
-    <div id="reader" style="width:480px;margin:0 auto"></div>
+    <div id="reader" style="width:480px;height:450px;margin:0 auto"></div>
     <br/>
 </div>
 
-<div id="form-panel" class="easyui-panel" style="padding:10px">
+<div id="form-panel">
     <form id="scanned">
-        <input type="hidden" id="prueba"/>
-        <label for="dorsal" style="width:200px"><?php _e('Dorsal');?>:</label><input id="dorsal" type="text"/><br/>
-        <label for="perro" style="width:200px"><?php _e('Dog');?>:</label><input id="perro" type="text"/><br/>
-        <label for="cat" style="width:200px"><?php _e('Cat');?>:</label><input id="cat" type="text"/><br/>
-        <label for="guia" style="width:200px"><?php _e('Handler');?>:</label><input id="guia" type="text"/><br/>
-        <label for="club" style="width:200px"><?php _e('Club');?>:</label><input id="club" type="text"/><br/>
+    <span style="float:left;position:relative;left:25%;padding:10px">
+        <input type="hidden" id="qr_ID"/>
+        <label for="qr_dorsal"><?php _e('Dorsal');?>:</label><input id="qr_dorsal" type="text"/><br/>
+        <label for="qr_perro"><?php _e('Dog');?>:</label><input id="qr_perro" type="text"/><br/>
+        <label for="qr_cat"><?php _e('Cat');?>:</label><input id="qr_cat" type="text"/><br/>
+        <label for="qr_guia"><?php _e('Handler');?>:</label><input id="qr_guia" type="text"/><br/>
+        <label for="qr_club"><?php _e('Club');?>:</label><input id="qr_club" type="text"/><br/>
+    </span>
     </form>
 </div>
 <div id="footer">
-    <span style="float:right;">
-        <input type="button" id="cancel" value="<?php _e('Clear');?>" onClick="qrcode_clear();"/>
-        <input type="button" id="send" value="<?php _e('Send');?>" onClick="qrcode_send()"/>
+    <span style="float:left;position:relative;left:50%;padding:5px">
+        <a id="qr_clear" href="javascript:void(0)" class="easyui-linkbutton" onclick="qrcode_clear();"><?php _e('Clear');?></a>
+        <span style="display:inline-block; width:25px">&nbsp;</span>
+        <a id="qr_send" href="javascript:void(0)" class="easyui-linkbutton" onclick="qrcode_send();"><?php _e('Send');?></a>
     </span>
 </div>
 
     <script type="text/javascript">
-        $('#form-panel').panel({width:540,footer:'#footer'});
-        $('#reader-panel').panel({width:540});
+        $('#form-panel').panel({width:'auto',footer:'#footer'});
+        $('#reader-panel').panel({width:'auto'});
 
-        $('#dorsal').textbox();
-        $('#perro').textbox();
-        $('#cat').textbox();
-        $('#guia').textbox();
-        $('#club').textbox();
+        $('#qr_dorsal').textbox({disabled:true,width:40});
+        $('#qr_perro').textbox({disabled:true});
+        $('#qr_cat').textbox({disabled:true,width:40});
+        $('#qr_guia').textbox({disabled:true});
+        $('#qr_club').textbox({disabled:true});
 
+        $('#qr_send').linkbutton({ iconCls:'icon-ok' });
+        $('#qr_clear').linkbutton({ iconCls:'icon-trash' });
         function onScanSuccess(qrMessage) {
             // handle the scanned code as you like
             console.log(`QR matched = ${qrMessage}`);
@@ -47,6 +53,6 @@ require_once(__DIR__ . "/../server/tools.php");
         }
 
         let html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10 , qrbox: 320 }, /* verbose= */ true);
+            "reader", { fps: 10 , qrbox: 320 , aspectRatio: '1.33' }, /* verbose= */ true);
         html5QrcodeScanner.render(onScanSuccess, onScanFailure);
     </script>
