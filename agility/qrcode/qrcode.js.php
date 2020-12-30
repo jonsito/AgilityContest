@@ -21,3 +21,26 @@ require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
+var lastQRCodeReceived;
+
+function handleReceivedData(msg) {
+    if (msg===lastQRCodeReceived) return;
+    lastQRCodeReceived=msg;
+    beep();
+    // received data is in format [Prueba,Dorsal,Nombre,Categoria,Guia,Club]
+    let data=JSON.parse(msg);
+    $('#prueba').val(data[0]);
+    $('#dorsal').textbox('setValue',data[1]);
+    $('#perro').textbox('setValue',data[2]);
+    $('#cat').textbox('setValue',data[3]);
+    $('#guia').textbox('setValue',data[4]);
+    $('#club').textbox('setValue',data[5]);
+}
+function qrcode_clear() {
+    $('#scanned').form('clear');
+    lastQRCodeReceived="";
+}
+
+function qrcode_send(){
+
+}

@@ -65,7 +65,6 @@ if ( $runmode === AC_RUNMODE_SLAVE ) { // in slave mode restrict access to publi
 <link rel="stylesheet" type="text/css" href="../lib/jquery-easyui-1.4.2/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="../css/style.css" />
 <link rel="stylesheet" type="text/css" href="../css/datagrid.css" />
-<script src="../lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../lib/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
 <script src="../lib/jquery-easyui-1.4.2/locale/easyui-lang-<?php echo substr($config->getEnv('lang'),0,2);?>.js" type="text/javascript" charset="utf-8" > </script>
@@ -85,7 +84,6 @@ if ( $runmode === AC_RUNMODE_SLAVE ) { // in slave mode restrict access to publi
 <script src="../qrcode/qrcode.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript" charset="utf-8">
-
 /* make sure configuration is loaded from server before onLoad() event */
 loadConfiguration();
 getLicenseInfo();
@@ -134,9 +132,16 @@ function myRowStyler(idx,row) {
 
 </script>
 
-<style>
-body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
-
+<style type="text/css">
+body {
+    font-size: 100%;
+    background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
+    }
+#scanned label {
+     padding-left: 20px;
+     width: 80px;
+     display: inline-block;
+}
 </style>
 
 </head>
@@ -147,7 +152,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="selqrcode-dialog" style="width:450px;height:auto;padding:10px" class="easyui-dialog"
+<div id="selqrcode-dialog" style="width:300px;height:auto;padding:10px" class="easyui-dialog"
 	data-options="title: '<?php _e('QRCode reader sesion init:'); ?>',iconCls: 'icon-list',buttons: '#selqrcode-Buttons',collapsible:false, minimizable:false,
 		maximizable:false, closable:true, closed:false, shadow:false, modal:true">
 	<form id="selqrcode-form">
