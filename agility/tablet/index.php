@@ -454,13 +454,13 @@ function tablet_acceptSelectJornada() {
 	}); // ajax call
 }
 
-//on Enter key on login field fo	cus on password
+//on Enter key on login field focus on password
 $('#seltablet-Username').bind('keypress', function (evt) {
     if (evt.keyCode !== 13) return true;
     $('#seltablet-Password').focus();
     return false;
 });
-//on Enter key on login field fo	cus on password
+//on Enter key on password field jump to Session selection
 $('#seltablet-Password').bind('keypress', function (evt) {
     if (evt.keyCode !== 13) return true;
     $('#seltablet-Sesion').next().find('input').focus();

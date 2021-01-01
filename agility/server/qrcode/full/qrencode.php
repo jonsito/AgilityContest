@@ -29,7 +29,8 @@
     Core encoder classes */
      
     /** @addtogroup CoreGroup */
-    /** @{ */
+    /** @{
+     */
      
     //##########################################################################
     /** 
@@ -156,10 +157,8 @@
         /** Gets ECC code 
         @return Integer ECC byte for current object position
         */
-        public function getCode()
-        {
-            $ret;
-
+        public function getCode()  {
+            $ret=0;
             if($this->count < $this->dataLength) {
                 $row = $this->count % $this->blocks;
                 $col = $this->count / $this->blocks;

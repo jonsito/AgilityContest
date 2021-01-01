@@ -254,7 +254,7 @@ function qrcode_loginSession() {
 		'Operation':'login',
 		'Username': user,
 		'Password': pass,
-		'Session' : s.ID,
+		'Session' : 0, // do not use s.ID as will override tablet
 		'Nombre'  : s.Nombre,
 		'Source'  : 'qrcode_'+s.ID,
 		'Prueba'  : 0,
@@ -279,6 +279,10 @@ function qrcode_loginSession() {
     		    if (data.LastLogin!=="") {
     		        ll = "<?php _e('Last login');?>:<br/>"+data.LastLogin;
                 }
+                // store selected data into global structure
+                workingData.session=s.ID;
+                workingData.nombreSesion=s.Nombre;
+                initWorkingData(s.ID,null);
                 // close dialog
                 $('#selqrcode-dialog').dialog('close');
         		$.messager.alert(
@@ -322,10 +326,11 @@ $('#selqrcode-Username').bind('keypress', function (evt) {
     $('#selqrcode-Password').focus();
     return false;
 });
-//on Enter key on login field fo	cus on password
+
+//on Enter password focus on "accept"
 $('#selqrcode-Password').bind('keypress', function (evt) {
     if (evt.keyCode !== 13) return true;
-    $('#selqrcode-Sesion').next().find('input').focus();
+    $('#selqrcode-okBtn').linkbutton('select');
     return false;
 });
 
