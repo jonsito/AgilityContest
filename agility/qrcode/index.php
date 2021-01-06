@@ -125,9 +125,16 @@ body {
     background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
     }
 
+#header {
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    font-size: 18px;
+}
+
 #scanned label {
-     padding-left: 50px;
-     width: 60px;
+     padding-left: 10px;
+     width: 45px;
      display: inline-block;
 }
 </style>
@@ -136,10 +143,53 @@ body {
 
 <body style="margin:0;padding:0" onload="initialize();">
 
-<div id="qrcode_contenido" style="width:100%;height:100%;margin:0;padding:0"></div>
+<!--  CUERPO PRINCIPAL DE LA PAGINA (se abre al cerrar el dialogo de login) -->
+<div id="qrcode_contenido">
+    <div id="layout">
+        <!-- cabecera -->
+        <div id="header" data-options="region:'north',collapsed:false,border:false" style="height:30px;padding:5px">
+            <div id="header_text"><?php _e('Contest');?></div>
+        </div>
+        <!-- cuadro de captura de video -->
+        <div id="reader-panel" data-options="region:'center',collapsed:false,border:false" style="width:10px;padding:5px">
+                <div id="reader" style="width:480px;height:320px;margin:0 auto"></div>
+        </div>
+        <!-- datos de la prueba y del perro escaneado -->
+        <div id="form-panel" data-options="region:'south',collapsed:false,border:false" style="height:190px;padding:5px">
+            <table style="width:100%;margin-left:auto;margin-right:auto">
+                <tr>
+                    <td style="border:1px solid black;width:30%;padding:8px;">
+                        <?php _e('Journey');?>:<br/>
+                        <span id="qrcode_jornada">&nbsp;</span><br/>
+                        <?php _e('Round');?>:<br/>
+                        <span id="qrcode_manga">&nbsp;</span><br/>
+                        <?php _e('Running dog');?>:<br/>
+                        <span id="qrcode_runningdog">&nbsp;</span><br/>
+                    </td>
+                    <td style="border:1px solid black;padding:8px;">
+                        <form id="scanned">
+                            <input type="hidden" id="qr_ID"/>
+                            <label for="qr_dorsal"><?php _e('Dorsal');?>:</label><input id="qr_dorsal" type="text"/><br/>
+                            <label for="qr_perro"><?php _e('Dog');?>:</label><input id="qr_perro" type="text"/><br/>
+                            <label for="qr_cat"><?php _e('Cat');?>:</label><input id="qr_cat" type="text"/><br/>
+                            <label for="qr_guia"><?php _e('Handler');?>:</label><input id="qr_guia" type="text"/><br/>
+                            <label for="qr_club"><?php _e('Club');?>:</label><input id="qr_club" type="text"/><br/>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="border:1px solid black;padding:5px;text-align:center">
+                        <a id="qr_clear" href="javascript:void(0)" class="easyui-linkbutton" onclick="qrcode_clear();"><?php _e('Clear');?></a>
+                        <span style="display:inline-block; width:10px">&nbsp;</span>
+                        <a id="qr_send" href="javascript:void(0)" class="easyui-linkbutton" onclick="qrcode_send();"><?php _e('Send');?></a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
 
-<!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
-
+<!-- dialogo inicial ( pide usuario, contraseña y ring -->
 <div id="selqrcode-dialog" style="width:300px;height:auto;padding:10px" class="easyui-dialog"
 	data-options="title: '<?php _e('QRCode reader sesion init:'); ?>',iconCls: 'icon-list',buttons: '#selqrcode-Buttons',collapsible:false, minimizable:false,
 		maximizable:false, closable:true, closed:false, shadow:false, modal:true">
@@ -198,6 +248,60 @@ workingData.qrcodeData= {
 	'NoPresentado':	0,
 	'Observaciones': ""
 };
+
+let html5QrcodeScanner = new Html5QrcodeScanner(
+    "reader",
+    { fps: 10 , qrbox: 320 , aspectRatio: '1.33' },
+    true
+);
+html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+
+$('#layout').layout({fit:true});
+
+$('#qrcode_contenido').window({
+    top:10,
+    width:'95%',
+    height:720,
+    padding:10,
+    closable:false,
+    shadow:false,
+    draggable:false,
+    border:false,
+    maximizable:false,
+    minimizable:false,
+    resizable:true,
+    collapsible:false,
+    closed:true,
+    title:null,
+    onOpen: function() {
+        startEventMgr();
+        let h=window.innerHeight;
+        $('#layout').layout('resize',{width:'90%',height:h});
+    },
+    onResize:function(w,h) {
+        $('#layout').layout('resize',{width:w,height:h});
+    }
+});
+
+function onScanSuccess(qrMessage) {
+    // handle the scanned code as you like
+    console.log(`QR matched = ${qrMessage}`);
+    handleReceivedData(qrMessage);
+}
+
+function onScanFailure(error) {
+    // handle scan failure, usually better to ignore and keep scanning
+    // console.warn(`QR error = ${error}`);
+}
+
+$('#qr_dorsal').textbox({disabled:true,width:'20%'});
+$('#qr_perro').textbox({disabled:true,width:'60%'});
+$('#qr_cat').textbox({disabled:true,width:'30%'});
+$('#qr_guia').textbox({disabled:true,width:'60%'});
+$('#qr_club').textbox({disabled:true,width:'60%'});
+
+$('#qr_send').linkbutton({ iconCls:'icon-ok' });
+$('#qr_clear').linkbutton({ iconCls:'icon-trash' });
 
 $('#selqrcode-form').form();
 
@@ -275,33 +379,21 @@ function qrcode_loginSession() {
         		$.messager.alert("Error",data.errorMsg,"error"); 
         		initAuthInfo(); // initialize to null
         	} else {
-    		    var ll="";
-    		    if (data.LastLogin!=="") {
-    		        ll = "<?php _e('Last login');?>:<br/>"+data.LastLogin;
-                }
                 // store selected data into global structure
                 workingData.session=s.ID;
                 workingData.nombreSesion=s.Nombre;
                 initWorkingData(s.ID,qrcode_eventManager);
                 // close dialog
-                $('#selqrcode-dialog').dialog('close');
+                $('#selqrcode-dialog').dialog('close');  // close dialog;
         		$.messager.alert(
         	    	"<?php _e('User');?>: "+data.Login,
-        	    	'<?php _e("Session successfully started");?><br/>'+ll,
+        	    	'<?php _e("Session successfully started");?><br/>',
         	    	"info",
-        	    	function() {
+        	    	function() { // open main window
         	    	    data.SessionKey=null; // unset var as no longer needed and will collide with tablet
         	    	   	initAuthInfo(data);
-        	    		var page="../qrcode/qrcode_main.php";
-                        // load requested page
-        	    		$('#qrcode_contenido').load(
-        	    				page,
-        	    				function(response,status,xhr){
-        	    					if (status==='error') $('#qrcode_contenido').load('../frm_notavailable.php');
-        	    					else startEventMgr();
-        	    				}
-        	    			); // load
-        	    	} // close dialog; open main window
+        	    		$('#qrcode_contenido').window('open');
+        	    	}
         	    ); // alert calback
         	} // if no ajax error
     	}, // success function
@@ -336,50 +428,6 @@ $('#selqrcode-Password').bind('keypress', function (evt) {
     return false;
 });
 
-// on qrcode reader we only use open,close, and llamada
-var eventHandler= {
-    null:       null, // null event: no action taken
-    init:       null, // open session
-    open:       null, // operator select tanda
-    close:      null, // no more dogs in tanda
-    datos:      null, // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-    llamada:    null, // llamada a pista
-    salida:     null, // orden de salida
-    start:      null, // start crono manual
-    stop:       null, // stop crono manual
-    crono_start:    null, // arranque crono automatico
-    crono_restart:  null,// paso de tiempo intermedio a manual
-    crono_int:  	null, // tiempo intermedio crono electronico
-    crono_stop:     null, // parada crono electronico
-    crono_reset:    null, // puesta a cero del crono electronico
-    crono_error:    null, // fallo en los sensores de paso
-    crono_dat:      null, // datos desde crono electronico
-    crono_ready:    null, // chrono ready and listening
-    user:       null, // user defined event
-    aceptar:	null, // operador pulsa aceptar
-    cancelar:   null, // operador pulsa cancelar
-    camera:	    null, // change video source
-    command:    function(event){ // videowall remote control
-        handleCommandEvent
-        (
-            event,
-            [
-                /* EVTCMD_NULL:         */ function(e) {console.log("Received null command"); },
-                /* EVTCMD_SWITCH_SCREEN:*/ null,
-                /* EVTCMD_SETFONTFAMILY:*/ null,
-                /* EVTCMD_NOTUSED3:     */ null,
-                /* EVTCMD_SETFONTSIZE:  */ null,
-                /* EVTCMD_OSDSETALPHA:  */ null,
-                /* EVTCMD_OSDSETDELAY:  */ null,
-                /* EVTCMD_NOTUSED7:     */ null,
-                /* EVTCMD_MESSAGE:      */ function(e) {console_showMessage(e); },
-                /* EVTCMD_ENABLEOSD:    */ null
-            ]
-        )
-    },
-    reconfig:	function(event) { loadConfiguration(); }, // reload configuration from server
-    info:	    null // click on user defined tandas
-};
 </script>
 </body>
 </html> 

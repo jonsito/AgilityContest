@@ -64,6 +64,51 @@ function qrcode_send(){
 
 }
 
+// on qrcode reader we only use open,close, and llamada
+var eventHandler= {
+    null:       null, // null event: no action taken
+    init:       null, // open session
+    open:       null, // operator select tanda
+    close:      null, // no more dogs in tanda
+    datos:      null, // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+    llamada:    null, // llamada a pista
+    salida:     null, // orden de salida
+    start:      null, // start crono manual
+    stop:       null, // stop crono manual
+    crono_start:    null, // arranque crono automatico
+    crono_restart:  null,// paso de tiempo intermedio a manual
+    crono_int:  	null, // tiempo intermedio crono electronico
+    crono_stop:     null, // parada crono electronico
+    crono_reset:    null, // puesta a cero del crono electronico
+    crono_error:    null, // fallo en los sensores de paso
+    crono_dat:      null, // datos desde crono electronico
+    crono_ready:    null, // chrono ready and listening
+    user:       null, // user defined event
+    aceptar:	null, // operador pulsa aceptar
+    cancelar:   null, // operador pulsa cancelar
+    camera:	    null, // change video source
+    command:    function(event){ // videowall remote control
+        handleCommandEvent
+        (
+            event,
+            [
+                /* EVTCMD_NULL:         */ function(e) {console.log("Received null command"); },
+                /* EVTCMD_SWITCH_SCREEN:*/ null,
+                /* EVTCMD_SETFONTFAMILY:*/ null,
+                /* EVTCMD_NOTUSED3:     */ null,
+                /* EVTCMD_SETFONTSIZE:  */ null,
+                /* EVTCMD_OSDSETALPHA:  */ null,
+                /* EVTCMD_OSDSETDELAY:  */ null,
+                /* EVTCMD_NOTUSED7:     */ null,
+                /* EVTCMD_MESSAGE:      */ function(e) {console_showMessage(e); },
+                /* EVTCMD_ENABLEOSD:    */ null
+            ]
+        )
+    },
+    reconfig:	function(event) { loadConfiguration(); }, // reload configuration from server
+    info:	    null // click on user defined tandas
+};
+
 /**
  * Generic event handler for VideoWall and LiveStream screens
  * Every screen has a 'eventHandler' table with pointer to functions to be called
@@ -73,7 +118,6 @@ function qrcode_send(){
 function qrcode_eventManager(id,evt) {
     var event=parseEvent(evt); // remember that event was coded in DB as an string
     event['ID']=id; // fix real id on stored eventData
-    ac_config.pending_events[event['Type']]=event; // store received event
     var time=event['Value'];
     if (typeof(eventHandler[event['Type']])==="function") {
         setTimeout(function() {
