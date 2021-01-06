@@ -251,10 +251,10 @@ function qrcode_loginSession() {
 		return;
     }
     var parameters={
-		'Operation':'login',
+		'Operation':'pwcheck',
 		'Username': user,
 		'Password': pass,
-		'Session' : 0, // do not use s.ID as will override tablet
+		'Session' : s.ID,
 		'Nombre'  : s.Nombre,
 		'Source'  : 'qrcode_'+s.ID,
 		'Prueba'  : 0,
@@ -282,7 +282,7 @@ function qrcode_loginSession() {
                 // store selected data into global structure
                 workingData.session=s.ID;
                 workingData.nombreSesion=s.Nombre;
-                initWorkingData(s.ID,null);
+                initWorkingData(s.ID,qrcode_eventManager);
                 // close dialog
                 $('#selqrcode-dialog').dialog('close');
         		$.messager.alert(
@@ -290,6 +290,7 @@ function qrcode_loginSession() {
         	    	'<?php _e("Session successfully started");?><br/>'+ll,
         	    	"info",
         	    	function() {
+        	    	    data.SessionKey=null; // unset var as no longer needed and will collide with tablet
         	    	   	initAuthInfo(data);
         	    		var page="../qrcode/qrcode_main.php";
                         // load requested page
@@ -297,6 +298,7 @@ function qrcode_loginSession() {
         	    				page,
         	    				function(response,status,xhr){
         	    					if (status==='error') $('#qrcode_contenido').load('../frm_notavailable.php');
+        	    					else startEventMgr();
         	    				}
         	    			); // load
         	    	} // close dialog; open main window
@@ -334,6 +336,50 @@ $('#selqrcode-Password').bind('keypress', function (evt) {
     return false;
 });
 
+// on qrcode reader we only use open,close, and llamada
+var eventHandler= {
+    null:       null, // null event: no action taken
+    init:       null, // open session
+    open:       null, // operator select tanda
+    close:      null, // no more dogs in tanda
+    datos:      null, // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+    llamada:    null, // llamada a pista
+    salida:     null, // orden de salida
+    start:      null, // start crono manual
+    stop:       null, // stop crono manual
+    crono_start:    null, // arranque crono automatico
+    crono_restart:  null,// paso de tiempo intermedio a manual
+    crono_int:  	null, // tiempo intermedio crono electronico
+    crono_stop:     null, // parada crono electronico
+    crono_reset:    null, // puesta a cero del crono electronico
+    crono_error:    null, // fallo en los sensores de paso
+    crono_dat:      null, // datos desde crono electronico
+    crono_ready:    null, // chrono ready and listening
+    user:       null, // user defined event
+    aceptar:	null, // operador pulsa aceptar
+    cancelar:   null, // operador pulsa cancelar
+    camera:	    null, // change video source
+    command:    function(event){ // videowall remote control
+        handleCommandEvent
+        (
+            event,
+            [
+                /* EVTCMD_NULL:         */ function(e) {console.log("Received null command"); },
+                /* EVTCMD_SWITCH_SCREEN:*/ null,
+                /* EVTCMD_SETFONTFAMILY:*/ null,
+                /* EVTCMD_NOTUSED3:     */ null,
+                /* EVTCMD_SETFONTSIZE:  */ null,
+                /* EVTCMD_OSDSETALPHA:  */ null,
+                /* EVTCMD_OSDSETDELAY:  */ null,
+                /* EVTCMD_NOTUSED7:     */ null,
+                /* EVTCMD_MESSAGE:      */ function(e) {console_showMessage(e); },
+                /* EVTCMD_ENABLEOSD:    */ null
+            ]
+        )
+    },
+    reconfig:	function(event) { loadConfiguration(); }, // reload configuration from server
+    info:	    null // click on user defined tandas
+};
 </script>
 </body>
 </html> 

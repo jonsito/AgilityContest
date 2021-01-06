@@ -63,3 +63,21 @@ function qrcode_clear() {
 function qrcode_send(){
 
 }
+
+/**
+ * Generic event handler for VideoWall and LiveStream screens
+ * Every screen has a 'eventHandler' table with pointer to functions to be called
+ * @param id {number} Event ID
+ * @param evt {object} Event data
+ */
+function qrcode_eventManager(id,evt) {
+    var event=parseEvent(evt); // remember that event was coded in DB as an string
+    event['ID']=id; // fix real id on stored eventData
+    ac_config.pending_events[event['Type']]=event; // store received event
+    var time=event['Value'];
+    if (typeof(eventHandler[event['Type']])==="function") {
+        setTimeout(function() {
+            eventHandler[event['Type']](event,time);
+        }, 5); // 5 seconds between every parsed event
+    }
+}
