@@ -38,7 +38,8 @@ workingData.qrcodeData= {
     'Grado':		"-" // to be set by qrcode reader
 };
 
-function qrcode_putEvent(){
+function qrcode_putEvent(dorsal){
+    workingData.qrcodeData['Dorsal']=dorsal;
     // setup default elements for this event
     var obj= {
         'Operation':'putEvent',
@@ -120,9 +121,10 @@ function qrcode_clear() {
 }
 
 function qrcode_send(){
-    if (lastDorsalSent===workingData.qrcodeData['Dorsal']) return; // already sent
-    lastDorsalSent=workingData.qrcodeData['Dorsal'];
-    qrcode_putEvent();
+    let drsToSend=$('#qr_dorsal').textbox('getValue');
+    if (lastDorsalSent===drsToSend) return; // already sent
+    lastDorsalSent=drsToSend;
+    qrcode_putEvent(drsToSend);
 }
 
 // set prueba/jornada/manga to event values ( event may be null )
@@ -144,12 +146,14 @@ function handle_openclose(event) {
 function handle_llamada(event) {
     // really only is needed dogID and Dorsal. Rest of data are sent for legibility in logs
     $('#qrcode_runningdog').html( (event===null)?'':event['Drs']+" - "+event['Nombre'] );
+    /*
     if (event!==null) workingData.qrcodeData['Dorsal']=event['Drs'];
     if (event!==null) workingData.qrcodeData['Perro']=event['Dog'];
     if (event!==null) workingData.qrcodeData['Celo']=event['Hot'];
     if (event!==null) workingData.qrcodeData['Categoria']=event['Categoria'];
     if (event!==null) workingData.qrcodeData['Grado']=event['Grado'];
     if (event!==null) workingData.qrcodeData['Equipo']=event['Eqp'];
+     */
 }
 
 function handle_init(event) {

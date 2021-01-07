@@ -215,7 +215,7 @@ function doBeep() {
 }
 
 function dorsal_add(val) {
-    var str_tb=$('#td_drs');
+    var str_tb=$('#tb_drs');
     var str=str_tb.textbox('getValue');
     if (parseInt(str)===0) str=''; // clear espurious zeroes
     if(str.length>=4) return false; // dorsals greater than 9999 are not allowed
@@ -224,7 +224,7 @@ function dorsal_add(val) {
 }
 
 function tablet_add(val) {
-    if ($('#td_drs').textbox('options').hasFocus===true) return dorsal_add(val);
+    if ($('#tb_drs').textbox('options').hasFocus===true) return dorsal_add(val);
 	doBeep();
 	var maxlen=(ac_config.crono_milliseconds=="0")?6:7;
 	var declen=(ac_config.crono_milliseconds=="0")?2:3;
@@ -245,7 +245,7 @@ function tablet_add(val) {
 
 function tablet_dot() {
 	doBeep();
-    if ($('#td_drs').textbox('options').hasFocus===true) return false; // ignore dot in dorsal mode
+    if ($('#tb_drs').textbox('options').hasFocus===true) return false; // ignore dot in dorsal mode
 	var str=$('#tdialog-Tiempo').val();
 	if (str.indexOf('.')>=0) return;
 	tablet_add('.');
@@ -255,7 +255,7 @@ function tablet_dot() {
 }
 
 function dorsal_del() {
-    var str_tb=$('#td_drs');
+    var str_tb=$('#tb_drs');
     var str=str_tb.textbox('getValue');
     if (parseInt(str)===0) str=''; // clear espurious zeroes
     if(str.length===0) return false; // no chars to delete
@@ -264,7 +264,7 @@ function dorsal_del() {
 }
 
 function tablet_del() {
-    if ($('#td_drs').textbox('options').hasFocus===true) return dorsal_del();
+    if ($('#tb_drs').textbox('options').hasFocus===true) return dorsal_del();
 	doBeep();
 	var tdt=$('#tdialog-Tiempo');
 	var str=tdt.val();
@@ -528,22 +528,22 @@ function tablet_resetchrono() {
 
 function dorsal_edit() {
     doBeep();
-    var td_trs= $('#td_drs');
-    td_trs.textbox('textbox').css('backgroundColor','#ffcccc')
-    td_trs.textbox('options').hasFocus=true;
-    td_trs.textbox('setValue','');
+    let tb_drs= $('#tb_drs');
+    tb_drs.textbox('textbox').css('backgroundColor','#ffcccc')
+    tb_drs.textbox('options').hasFocus=true;
+    tb_drs.textbox('setValue','');
 }
 function dorsal_cancel() {
-    var td_trs=$('#td_drs');
-    td_trs.textbox('options').hasFocus=false;
-    td_trs.textbox('textbox').css('backgroundColor','#ffffff')
-    td_trs.textbox('setValue','<?php _e("Dorsal");?>');
+    let tb_drs=$('#tb_drs');
+    tb_drs.textbox('options').hasFocus=false;
+    tb_drs.textbox('textbox').css('backgroundColor','#ffffff')
+    tb_drs.textbox('setValue','<?php _e("Dorsal");?>');
     return false;
 }
 
 function tablet_cancel() {
 	doBeep();
-	if ($('#td_drs').textbox('options').hasFocus===true) return dorsal_cancel();
+	if ($('#tb_drs').textbox('options').hasFocus===true) return dorsal_cancel();
 	// retrieve original data from parent datagrid
 	var dgname=$('#tdialog-Parent').val();
 	var dg=$(dgname);
@@ -673,12 +673,12 @@ function tablet_save(dg) {
 }
 
 function dorsal_accept() {
-    var td_trs= $('#td_drs');
-    td_trs.textbox('options').hasFocus=false;
-    td_trs.textbox('textbox').css('backgroundColor','#ffffff')
-    var newval=td_trs.textbox('getValue');
+    let tb_drs= $('#tb_drs');
+    tb_drs.textbox('options').hasFocus=false;
+    tb_drs.textbox('textbox').css('backgroundColor','#ffffff')
+    var newval=tb_drs.textbox('getValue');
     // preserve current dorsal in textbox, to discriminate next/selected on tablet_accept()
-    // td_trs.textbox('setValue','<?php _e("Dorsal");?>');
+    // tb_drs.textbox('setValue','<?php _e("Dorsal");?>');
     if (isNaN(parseInt(newval))) return false; // empty or invalid data
     // check for store before change dog. dorsal textbox has same behaviour than doubleclick
     if (parseInt(ac_config.tablet_dblclick)===1){
@@ -695,8 +695,8 @@ function dorsal_accept() {
 
 function tablet_accept() {
 	doBeep();
-	var td_drs=$('#td_drs');
-    if (td_drs.textbox('options').hasFocus===true) return dorsal_accept();
+	var tb_drs=$('#tb_drs');
+    if (tb_drs.textbox('options').hasFocus===true) return dorsal_accept();
 	// retrieve parent datagrid to update results
 	var dgname = $('#tdialog-Parent').val();
 	var dg = $(dgname);
@@ -714,14 +714,14 @@ function tablet_accept() {
 
 	// vemos cual es el dorsal actual
     var current=parseInt($('#tdialog-Dorsal').val());
-	// si td_drs es el perro actual o NaN, avanza al siguiente
+	// si tb_drs es el perro actual o NaN, avanza al siguiente
     // si no, salta al perro indicado
-    var next=parseInt(td_drs.textbox('getValue'));
+    var next=parseInt(tb_drs.textbox('getValue'));
     if (! (isNaN(next) || (current===next) ) ) {  return dorsal_accept();  }
     // if any dog in pending dorsals, process it
     var nd=dorsalList.dequeue(1);
     if (typeof (nd[0]) !== 'undefined') {
-        td_drs.textbox('setValue',''+nd[0]);
+        tb_drs.textbox('setValue',''+nd[0]);
         return dorsal_accept();
     }
 	// arriving here go to next row (if available)
@@ -742,7 +742,7 @@ function tablet_accept() {
 		data.RowIndex=rowindex;
 		data.Parent=dgname;
 		$('#tdialog-form').form('load',data);
-		td_drs.textbox('setValue',''+data.Dorsal);
+		tb_drs.textbox('setValue',''+data.Dorsal);
 		tablet_markSelectedDog(parseInt(data.RowIndex));
 	}
 	return false; // prevent follow onClick event chain
@@ -774,7 +774,7 @@ function tablet_gotoDorsal(tanda,dgname,dorsal) {
 			if (idx<0) {
 				$.messager.alert("Not found",'<?php _e("Dog with dorsal");?>'+": "+dorsal+" "+'<?php _e("does not run in this series");?>',"info");
 				$('#tablet-datagrid-search').val('---- <?php _e("Dorsal"); ?> ----');
-				$('#td_drs').textbox('setValue',$('#tdialog-Dorsal').val()); // restore dorsal value in main panel
+				$('#tb_drs').textbox('setValue',$('#tdialog-Dorsal').val()); // restore dorsal value in main panel
 				return false;
 			}
 			dg=$(dgname);
@@ -800,32 +800,33 @@ function tablet_gotoDorsal(tanda,dgname,dorsal) {
   */
 function tablet_nextDorsal(drs) {
     // verificamos que el perro está en esta manga
-    var rows=$('#tdialog-tnext').datagrid('rows');
+    var rows=$('#tdialog-tnext').datagrid('getRows');
     for (n=0;n<rows.length;n++) if (parseInt(rows[n]['Dorsal'])===drs) break;
     if (n===rows.length) return; // dorsal is not in current tanda
     // if dorsalList is not empty, just insert at queue tail and return
     if ( ! dorsalList.isEmpty() ) { dorsalList.enqueue(drs); return; }
     // si la lista de dorsales esta vacia pero la ventana de edición de dorsal está activa
     // quiere decir que el operador esta metiendo a mano un dorsal. En ese caso encolamos
-    var tb_drs=$('tb_drs');
+    var tb_drs=$('#tb_drs');
     if (tb_drs.textbox('options').hasFocus) { dorsalList.enqueue(drs); return; }
     // si no esta en edicion, vemos el contenido
     var next=tb_drs.textbox('getValue');
     // si no tiene numero, quiere decir que el perro debe entrar a pista directamente
-    if (next==="<php _e('Dorsal');?>") {
+    if (isNaN(parseInt(next))) {
         tb_drs.textbox('setValue',''+drs);
         dorsal_accept();
         return;
     }
-    var current=parseInt($('#tdialog-Dorsal').val());
+    var current=$('#tdialog-Dorsal').val();
     if (next!==current) {
         // si el numero que tiene NO es el perro que esta corriendo, encolamos y ya esta
         dorsalList.enqueue(drs);
     } else {
         // si el numero que tiene SI es el perro que esta corriendo, quiere decir que
         // o esta en pista o que todavía no han dado paso al siguiente. En ese caso
-        // metemos como siguiente perro
-        tb_drs.textbox('setValue',''+next);
+        // metemos como siguiente perro ( y esperamos a que el usuario pulse enter )
+        tb_drs.textbox('setValue',''+drs);
+        tb_drs.textbox('options').hasFocus=true;
     }
 }
 
@@ -863,7 +864,7 @@ function bindKeysToTablet() {
 	$(document).keydown(function(e) {
 		// on round selection window focused, ignore
 		if ($('#tdialog-fieldset').prop('disabled')) return true;
-		if ( ! $('#td_drs').textbox('options').hasFocus) doBeep();
+		if ( ! $('#tb_drs').textbox('options').hasFocus) doBeep();
 		switch(e.which) {
 			/* you can check keycodes at http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes */
 			// numbers (querty/keypad)
