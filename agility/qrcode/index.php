@@ -148,23 +148,21 @@ body {
     <div id="layout">
         <!-- cabecera -->
         <div id="header" data-options="region:'north',collapsed:false,border:false" style="height:30px;padding:5px">
-            <div id="header_text"><?php _e('Contest');?></div>
+            <span id="qrcode_prueba"><?php _e('Contest');?></span>
         </div>
         <!-- cuadro de captura de video -->
         <div id="reader-panel" data-options="region:'center',collapsed:false,border:false" style="width:10px;padding:5px">
                 <div id="reader" style="width:480px;height:320px;margin:0 auto"></div>
         </div>
         <!-- datos de la prueba y del perro escaneado -->
-        <div id="form-panel" data-options="region:'south',collapsed:false,border:false" style="height:190px;padding:5px">
+        <div id="form-panel" data-options="region:'south',collapsed:false,border:false" style="height:195px;padding:5px">
             <table style="width:100%;margin-left:auto;margin-right:auto">
                 <tr>
-                    <td style="border:1px solid black;width:30%;padding:8px;">
-                        <?php _e('Journey');?>:<br/>
-                        <span id="qrcode_jornada">&nbsp;</span><br/>
-                        <?php _e('Round');?>:<br/>
-                        <span id="qrcode_manga">&nbsp;</span><br/>
-                        <?php _e('Running dog');?>:<br/>
-                        <span id="qrcode_runningdog">&nbsp;</span><br/>
+                    <td style="font-size:1.4vw;border:1px solid black;width:30%;padding:8px;">
+                        <span id="qrcode_ring" style="width:100%;font-weight:bold;display:inline-block;text-align:right"></span><br/>
+                        <?php _e('Journey');?>: <br/><span id="qrcode_jornada" style="padding-left:15px;">&nbsp;</span><br/>
+                        <?php _e('Round');?>:  <br/><span id="qrcode_manga" style="padding-left:15px;">&nbsp;</span><br/>
+                        <?php _e('Running dog');?>:  <br/><span id="qrcode_runningdog" style="padding-left:15px;">&nbsp;</span><br/>
                     </td>
                     <td style="border:1px solid black;padding:8px;">
                         <form id="scanned">
@@ -219,35 +217,6 @@ body {
 
 <script type="text/javascript">
 
-workingData.qrcodeData= {
-	'Parent':		"",
-	'Prueba':		0,
-	'Jornada':		0,
-	'Manga':		0,
-	'Tanda':		"",
-	'ID':			0,
-	'Perro':		0,
-	'Licencia':		"",
-	'Pendiente':	0,
-	'Equipo':		0,
-	'NombreEquipo': "",  // to be set by qrcode reader
-	'Dorsal':		0, // to be set by qrcode reader
-	'Nombre':		"<?php _e('Test dog'); ?>",  // to be set by qrcode reader
-	'NombreLargo':	"",
-	'Celo':			0,
-	'NombreGuia':	"",  // to be set by qrcode reader
-	'NombreClub':	"",  // to be set by qrcode reader
-	'Categoria':	"-", // to be set by qrcode reader
-	'Grado':		"-", // to be set by qrcode reader
-	'Faltas':		0,
-	'Rehuses':		0,
-	'Tocados':		0,
-	'Tiempo':		0.0,
-	'TIntermedio':	0.0,
-	'Eliminado':	0,
-	'NoPresentado':	0,
-	'Observaciones': ""
-};
 
 let html5QrcodeScanner = new Html5QrcodeScanner(
     "reader",

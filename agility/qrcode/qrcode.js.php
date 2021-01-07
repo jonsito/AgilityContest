@@ -21,7 +21,66 @@ require_once(__DIR__ . "/../server/tools.php");
 require_once(__DIR__ . "/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
+
 var lastQRCodeReceived;
+var lastDorsalSent=0;
+
+workingData.qrcodeData= {
+    'Prueba':		0,
+    'Jornada':		0,
+    'Manga':		0,
+    'Tanda':		"",
+    'Perro':		0,
+    'Equipo':		0,
+    'Dorsal':		0, // to be set by qrcode reader
+    'Celo':			0,
+    'Categoria':	"-", // to be set by qrcode reader
+    'Grado':		"-" // to be set by qrcode reader
+};
+
+function qrcode_putEvent(){
+    // setup default elements for this event
+    var obj= {
+        'Operation':'putEvent',
+        'Type': 	'llamada',
+        'TimeStamp': Math.floor(Date.now() / 1000),
+        'Source':	ac_clientOpts.Source,
+        'Destination': ac_clientOpts.Destination, /* not specified: use name or session */
+        'Session':	ac_clientOpts.Ring,
+        'Name':     ac_clientOpts.Name,
+        'SessionName': ac_clientOpts.SessionName,
+        'Value':	0 // may be overriden with 'data' contents
+    };
+    // send "update" event to every session listeners
+    var dta=$.extend({},obj,workingData.qrcodeData);
+    // console.log("putEvent: "+JSON.stringify(dta));
+    $.ajax({
+        type:'GET',
+        url:"../ajax/database/eventFunctions.php",
+        dataType:'json',
+        timeout: 5000, // response should arrive in this time. more delay usually means connection problem
+        data: dta,
+        // on system errors ( connection lost, timeouts, or so ) display an alarm
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            if (errorThrown.indexOf("imeout")>=0) {
+                $.messager.show({
+                    title: "Timeout",
+                    msg: '<?php _e("No server response");?><br/><?php _e("Please, check connection");?>',
+                    timeout: 1500,
+                    showType: 'slide',
+                    style:{ right:'', bottom:'' }
+                });
+            } else {
+                $.messager.show({
+                    title:'putEvent',
+                    msg:'tablet::putEvent( '+type+' ) error: '+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + ' '+ errorThrown,
+                    timeout:500,
+                    showType:'slide'
+                });
+            }
+        }
+    });
+}
 
 function handleReceivedData(msg) {
     if (msg===lastQRCodeReceived) return;
@@ -61,17 +120,64 @@ function qrcode_clear() {
 }
 
 function qrcode_send(){
+    if (lastDorsalSent===workingData.qrcodeData['Dorsal']) return; // already sent
+    lastDorsalSent=workingData.qrcodeData['Dorsal'];
+    qrcode_putEvent();
+}
 
+// set prueba/jornada/manga to event values ( event may be null )
+function handle_openclose(event) {
+    $('#qrcode_prueba').html( (event===null)?'':event['NombrePrueba']);
+    $('#qrcode_ring').html( (event===null)?'':event['NombreRing']);
+    $('#qrcode_jornada').html( (event===null)?'':event['NombreJornada']);
+    $('#qrcode_manga').html( (event===null)?'':event['NombreManga']);
+    $('#qrcode_runningdog').html('');
+    if(event!==null) {
+        workingData.qrcodeData['Prueba']=event['Pru'];
+        workingData.qrcodeData['Jornada']=event['Jor'];
+        workingData.qrcodeData['Manga']=event['Mng'];
+        workingData.qrcodeData['Tanda']=event['Tnd'];
+        workingData.qrcodeData['Dorsal']=0;
+    }
+}
+
+function handle_llamada(event) {
+    // really only is needed dogID and Dorsal. Rest of data are sent for legibility in logs
+    $('#qrcode_runningdog').html( (event===null)?'':event['Drs']+" - "+event['Nombre'] );
+    if (event!==null) workingData.qrcodeData['Dorsal']=event['Drs'];
+    if (event!==null) workingData.qrcodeData['Perro']=event['Dog'];
+    if (event!==null) workingData.qrcodeData['Celo']=event['Hot'];
+    if (event!==null) workingData.qrcodeData['Categoria']=event['Categoria'];
+    if (event!==null) workingData.qrcodeData['Grado']=event['Grado'];
+    if (event!==null) workingData.qrcodeData['Equipo']=event['Eqp'];
+}
+
+function handle_init(event) {
+    $.messager.show({
+        title:'Init',
+        msg:'Session started from '+event['Source'],
+        timeout:2000,
+        showType:'slide'
+    });
+    handle_openclose(null); // also clears running dog
 }
 
 // on qrcode reader we only use open,close, and llamada
 var eventHandler= {
     null:       null, // null event: no action taken
-    init:       null, // open session
-    open:       null, // operator select tanda
-    close:      null, // no more dogs in tanda
+    init:       function(event) { // open session
+        let src=event['Source'].toLowerCase();
+        if (src.indexOf('tablet')<0) return; // ignore init events that doesn't come from tablet
+        handle_init(event);
+    },
+    open:       function(event){ handle_openclose(event); }, // operator select tanda
+    close:      function(event){ handle_openclose(null); }, // no more dogs in tanda
     datos:      null, // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-    llamada:    null, // llamada a pista
+    llamada:    function(event) { // llamada a pista
+        let src=event['Source'].toLowerCase();
+        if (src.indexOf('tablet')<0) return; // ignore init events that doesn't come from tablet
+        handle_llamada(event);
+    },
     salida:     null, // orden de salida
     start:      null, // start crono manual
     stop:       null, // stop crono manual
