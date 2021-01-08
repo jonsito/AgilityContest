@@ -353,6 +353,7 @@ function send_regFile() {
                     title:"<?php _e('Licensing');?>",
                     msg:'<?php _e("Licensing data successfully loaded");?>'+'<br/>&nbsp;<br/>'+
                         '<?php _e("Restart app to make changes to take effect");?>',
+                    top:150,
                     width:450,
                     height:'auto',
                     icon:'info',

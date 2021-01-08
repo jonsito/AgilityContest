@@ -27,6 +27,7 @@ require_once(__DIR__.'/../../database/classes/Clubes.php');
 require_once(__DIR__.'/../../database/classes/Pruebas.php');
 require_once(__DIR__.'/../../database/classes/Jornadas.php');
 require_once(__DIR__.'/../../database/classes/Inscripciones.php');
+require_once(__DIR__.'/../../qrcode/full/qrlib.php');
 require_once(__DIR__."/../print_common.php");
 
 class PrintCatalogo extends PrintCommon {
@@ -912,19 +913,19 @@ class PrintTarjetasDeVisita extends PrintCommon{
     	// nombre de la prueba
         $this->SetXY($x+1,$y+1);
 		$this->ac_header(1,15);
-		$this->Cell(83,9, $this->prueba->Nombre,'',0,'C',true);
+		$this->Cell(83,9, "   ".$this->prueba->Nombre,'',0,'C',true);
 		// Dorsal
         $this->SetXY($x+1,$y+10+1);
         $this->ac_header(2,65);
-        $this->Cell(63,20, sprintf("%03d",$item['Dorsal']),'',0,'C',true);
+        $this->Cell(56,24, sprintf("%03d",$item['Dorsal']),'',0,'C',true);
 		// Nombre del perro y Pedigree
 		$n=$item['Nombre']." - ".$item['NombreLargo'];
-        $this->SetXY($x,$y+30);
+        $this->SetXY($x,$y+34);
 		$this->ac_row(1,13,'BI');
-        $this->Cell(65,8, $n,'',0,'L',false);
+        $this->Cell(56,8, $n,'',0,'L',false);
 		// Nombre del guia
-        $this->SetXY($x,$y+38);
-        $this->ac_row(1,12,'B');
+        $this->SetXY($x,$y+41);
+        $this->ac_row(1,11,'B');
         $this->Cell(65,8, $this->getHandlerName($item),'',0,'R',false);
 		// categoria/grado si se requiere
         $catstr=$this->federation->getCategory($item['Categoria']);
@@ -932,19 +933,39 @@ class PrintTarjetasDeVisita extends PrintCommon{
 		if ($this->hasGrades) {
 			$grstr= " - ".$this->federation->getGrade($item['Grado']);
 		}
-        $this->SetXY($x,$y+48);
-        $this->Cell(40,5, $catstr.$grstr,'',0,'L',false);
+        $this->SetXY($x,$y+49);
+        $this->Cell(45,5, $catstr.$grstr,'',0,'L',false);
 		// club
-        $this->SetXY($x+40,$y+48);
-        $this->Cell(45,5, $item['NombreClub'],'',0,'R',false);
+        $this->SetXY($x+45,$y+49);
+        $this->Cell(40,5, $item['NombreClub'],'',0,'R',false);
 
 		// logotipo de la organizacion
-        $this->SetXY($x+65+1,$y+10+1);
-        $this->Image($this->icon,$this->GetX(),$this->GetY(),18);
+		$this->SetXY($x+1,$y+1);
+		$this->Image($this->icon,$this->GetX(),$this->GetY(),9);
+        // qrcode de la tarjeta
+		$this->SetXY($x+58,$y+11);
+		$errorCorrectionLevel = 'Q';
+		$matrixPointSize = 8;
+		// [prueba,dorsal,Nombre,Cat-Grad,club]
+		$textData=json_encode([
+			// $this->prueba->ID,
+			$item['Dorsal'],
+			$item['Perro']
+			/*
+			$item['Nombre']." - ".$item['NombreLargo'],
+			$item['Categoria']."-".$item['Grado'],
+			$this->getHandlerName($item),
+			$item['NombreClub']
+			*/
+		]);
+		$pngFilename=__DIR__."/../../../../logs/qrimage_{$item['Dorsal']}.png";
+		QRcode::png($textData, $pngFilename, $errorCorrectionLevel, $matrixPointSize, 0);
+		$this->Image($pngFilename,$this->GetX(),$this->GetY(),26);
+		@unlink($pngFilename);
 		// logotipo del club/pais
         $logo=$this->getLogoName($item['Perro']);
-        $this->SetXY($x+65+1,$y+30+1);
-        $this->Image($logo,$this->GetX(),$this->GetY(),18);
+        $this->SetXY($x+65+4,$y+30+8);
+        $this->Image($logo,$this->GetX(),$this->GetY(),12);
 	}
 
     function composeTable() {

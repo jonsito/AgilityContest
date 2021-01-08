@@ -58,9 +58,9 @@ $config =Config::getInstance();
 </div>
     
 <?php require_once("dialogs/dlg_guias.inc"); ?>
-<?php require_once("dialogs/dlg_clubes.inc"); ?>
 <?php require_once("dialogs/dlg_perros.inc"); ?>
 <?php require_once("dialogs/dlg_chperros.inc"); ?>
+<?php require_once("dialogs/dlg_clubes.inc"); ?>
     
 <script type="text/javascript">
     // tell jquery to convert declared elements to jquery easyui Objects

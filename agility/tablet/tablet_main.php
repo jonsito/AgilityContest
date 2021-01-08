@@ -137,7 +137,7 @@ $config =Config::getInstance();
 
 <!-- declare a tag to attach a chrono object to -->
 <div id="cronometro"></div>
-
+<div id="dorsalList"></div>
 
 <script type="text/javascript">
     $('#tablet-window').window({
@@ -158,6 +158,7 @@ $config =Config::getInstance();
         onExpand: function() {
             ac_clientOpts.DataEntryEnabled=false;
             $('#tdialog-fieldset').prop('disabled',true);
+            $('#tb_drs').textbox('disable');
             // retrieve original data from parent datagrid
             var dgname=$('#tdialog-Parent').val();
             var dg=$(dgname);
@@ -169,6 +170,7 @@ $config =Config::getInstance();
         onCollapse: function () {
             ac_clientOpts.DataEntryEnabled=true;
             $('#tdialog-fieldset').prop('disabled',false);
+            $('#tb_drs').textbox('enable');
         }
     });
 
@@ -315,6 +317,7 @@ $config =Config::getInstance();
                 data.Parent=mySelfstr; // store datagrid reference
                 data.RowIndex=idx; // store row index
                 $('#tdialog-form').form('load',data);
+                $('#tb_drs').textbox('setValue',''+data.Dorsal);
                 setDataEntryEnabled(true);
                 tablet_markSelectedDog(data.RowIndex);
             },
@@ -411,6 +414,7 @@ $config =Config::getInstance();
         });
     }
 
+    dorsalList=new Queue();
     // creamos la tabla de proximos a salir
     $('#tdialog-tnext').datagrid({
         pagination: false,
@@ -420,14 +424,15 @@ $config =Config::getInstance();
         singleSelect: true,
         autoRowHeight: true,
         columns:[[
-            { field:'Dorsal',width:'10%', align:'right',	title: '<?php _e('Dorsal');?>' },
-            { field:'Nombre',width:'25%', align:'right',	title: '<?php _e('Name');?>' },
-            { field:'NombreGuia',	width:'35%', align:'right',	title: '<?php _e('Handler');?>' },
+            // a little trick to replace table header with an text input box
+            { field:'Dorsal',width:'15%', align:'right',	title: '<input id="tb_drs" type="text" value="<?php _e('Dorsal');?>"/>' },
+            { field:'Nombre',width:'20%', align:'right',	title: '<?php _e('Name');?>' },
+            { field:'NombreGuia',	width:'33%', align:'right',	title: '<?php _e('Handler');?>' },
             { field:'NombreClub',	width:'25%', align:'right',	title: '<?php _e('Club');?>' }
         ]],
         onDblClickRow: function(index,row) {
             // check for store before change dog
-            if (parseInt(ac_config.tablet_dblclick)==1){
+            if (parseInt(ac_config.tablet_dblclick)===1){
                 // retrieve parent datagrid to update results
                 var dgname = $('#tdialog-Parent').val();
                 var dg = $(dgname);
@@ -438,6 +443,12 @@ $config =Config::getInstance();
             tablet_editByDorsal();
         }
     });
+
+    $('#tb_drs').textbox({
+        hasFocus:false, // extra option
+        width:45
+    });
+    $('#tb_drs').textbox('textbox').click( function(e) {dorsal_edit();});
 
     addTooltip($('#tablet-reloadBtn').linkbutton(),'<?php _e("Update session data");?>');
     addTooltip($('#tablet-whiteBtn').linkbutton(),'<?php _e("Mark test dog enter into ring");?>');

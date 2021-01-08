@@ -153,20 +153,20 @@ function startEventMgr() {
 		dataType: 'json',
 		success: function(response) {
 			var timeout=5000;
-			if (typeof(response['errorMsg'])!=="undefined") {
+			if (typeof(response['errorMsg'])!=="undefined") { // response indicates error, warn and try again
 				console.log(response['errorMsg']);
 				setTimeout(function(){ startEventMgr();},timeout );
 				return;
 			}
-			if ( parseInt(response['total'])!==0) {
+			if ( parseInt(response['total'])!==0) { // 'connect' ack. get data and start waiti events loop
 				var row=response['rows'][0];
 				var evtID=parseInt(row['ID'])-1; // make sure initial "init" event is received
                 ac_config.backup_timeoutHandler = setTimeout(function(){ waitForEvents(evtID,0,true);},0);
-			} else {
+			} else { // response has empty data: try again
 				setTimeout(function(){ startEventMgr(); },timeout );
 			}
 		},
-		error: function (XMLHttpRequest,textStatus,errorThrown) {
+		error: function (XMLHttpRequest,textStatus,errorThrown) { // error in ajax call: notice and try again
 			alert("startEventMgr() error: "+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus + " "+ errorThrown );
 			setTimeout(function(){ startEventMgr(); },5000 );
 		}

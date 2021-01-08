@@ -229,7 +229,7 @@ function chrono_accept() {
 	$('#chrono-contenido').load(	
 			page,
 			function(response,status,xhr){
-				if (status=='error') $('#chrono-contenido').load('../console/frm_notavailable.php');
+				if (status==='error') $('#chrono-contenido').load('../console/frm_notavailable.php');
 			}
 		);
 }

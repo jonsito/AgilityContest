@@ -2,16 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="87499e98-b60d-47c2-845f-0b973514f30e" name="Localhost" url="http://localhost/agility">
-        <fileTransfer port="0" mountedRoot="/var/www/html/AgilityContest" accessType="MOUNT" />
-      </webServer>
-      <webServer id="057b35f3-5734-46cc-8ca9-33a15ef27b84" name="SuTurno" url="http://138.4.28.83">
-        <fileTransfer host="138.4.28.83" port="22" rootFolder="/home/pi/AgilityContest/NowRunning" accessType="SFTP">
-          <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
-          </advancedOptions>
-          <option name="port" value="22" />
-        </fileTransfer>
+      <webServer id="359c0a07-0534-45d3-83e9-1f24f98e5b59" name="Localhost" url="https://localhost/agility">
+        <fileTransfer mountedRoot="/var/www/html/AgilityContest" accessType="MOUNT" port="0" />
       </webServer>
     </option>
   </component>

@@ -66,7 +66,11 @@ try {
 	$eventmgr= new Eventos("eventFunctions",$data['Session'],$am);
 	switch ($operation) {
 		case "getEvents": $result=$eventmgr->getEvents($data); break;
-		case "putEvent": $am->access(PERMS_ASSISTANT); $result=$eventmgr->putEvent($data); break;
+		case "putEvent":
+		    // PENDING ( need to be fixes as is a security hole ) on qrcode reader do not ask for permissions
+		    if (strpos($data['Source'],'qrcode')===FALSE) $am->access(PERMS_ASSISTANT);
+		    $result=$eventmgr->putEvent($data);
+		    break;
 		case "chronoEvent": $am->access(PERMS_CHRONO); $result=$eventmgr->putEvent($data); break;
 		case "listEvents": $result=$eventmgr->listEvents($data); break;
 		case "connect": $result=$eventmgr->connect($data); break;

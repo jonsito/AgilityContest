@@ -180,6 +180,7 @@ var eventHandler= {
 		console.log("    Time         : "+ event.Tim);
 	},
 	'llamada': function(event,time) {    // llamada a pista
+        if (event['Source']!=='tablet') return;
         // check crono and eliminated status before doing anything
 		obs_handlePendingEvent(event);
 	},

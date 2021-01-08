@@ -77,7 +77,8 @@ if ( $runmode === AC_RUNMODE_SLAVE ) { // in slave mode restrict access to publi
 <script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
-<script src="../lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="../lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="../lib/queue_and_stack.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
 <script src="../scripts/datagrid_formatters.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="../scripts/common.js.php" type="text/javascript" charset="utf-8" > </script>
@@ -453,13 +454,13 @@ function tablet_acceptSelectJornada() {
 	}); // ajax call
 }
 
-//on Enter key on login field fo	cus on password
+//on Enter key on login field focus on password
 $('#seltablet-Username').bind('keypress', function (evt) {
     if (evt.keyCode !== 13) return true;
     $('#seltablet-Password').focus();
     return false;
 });
-//on Enter key on login field fo	cus on password
+//on Enter key on password field jump to Session selection
 $('#seltablet-Password').bind('keypress', function (evt) {
     if (evt.keyCode !== 13) return true;
     $('#seltablet-Sesion').next().find('input').focus();

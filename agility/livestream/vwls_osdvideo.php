@@ -297,6 +297,7 @@ var eventHandler= {
 		vwls_updateData(event);
 	},
 	'llamada': function(event,time) {    // llamada a pista
+	    if (event['Source']!=='tablet') return;
 		ac_config.dogInRing=true;
 		// do not stop nor reset chrono in 'aceptar' or 'llamada'. Just stop countdown
 		myCounter.stop();

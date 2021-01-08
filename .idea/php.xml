@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PhpProjectServersManager">
-    <servers>
-      <server host="localhost" id="c7373695-8225-4237-98bc-274aabf9e1bf" name="Localhost" use_path_mappings="true">
-        <path_mappings>
-          <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html/AgilityContest" />
-        </path_mappings>
-      </server>
-    </servers>
-  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings load_method="CUSTOM_LOADER" />
+      <PhpUnitSettings />
     </phpunit_settings>
   </component>
 </project>

@@ -196,14 +196,22 @@ class Sesiones extends DBObject {
             'Mng'	=>	$sdata->Manga,
             'Tnd'	=>	$sdata->Tanda
         );
-        if ($flags & 0x01)
-            $evtmgr->putEvent(array_merge($data,array("Mode"=>"bg","Value"=>$sdata->Background)));
-        if ($flags & 0x02)
-            $evtmgr->putEvent(array_merge($data,array("Mode"=>"h264","Value"=>$sdata->LiveStream)));
-        if ($flags & 0x04)
-            $evtmgr->putEvent(array_merge($data,array("Mode"=>"ogv","Value"=>$sdata->LiveStream2)));
-        if ($flags & 0x08)
-            $evtmgr->putEvent(array_merge($data,array("Mode"=>"webm","Value"=>$sdata->LiveStream3)));
+        if ($flags & 0x01){
+            $data= array_merge($data,array("Mode"=>"bg","Value"=>$sdata->Background));
+            $evtmgr->putEvent($data);
+        }
+        if ($flags & 0x02) {
+            $data= array_merge($data,array("Mode"=>"h264","Value"=>$sdata->LiveStream));
+            $evtmgr->putEvent($data);
+        }
+        if ($flags & 0x04) {
+            $data= array_merge($data,array("Mode"=>"ogv","Value"=>$sdata->LiveStream2));
+            $evtmgr->putEvent($data);
+        }
+        if ($flags & 0x08) {
+            $data= array_merge($data,array("Mode"=>"webm","Value"=>$sdata->LiveStream3));
+            $evtmgr->putEvent($data);
+        }
     }
 
 	/**

@@ -1121,7 +1121,6 @@ function initAuthInfo(id) {
 	}
 }
 
-
 /**
  * Used to evaluate position, width and heigh on an element to be 
  * layed out in a grid
