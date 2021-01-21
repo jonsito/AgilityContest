@@ -54,7 +54,7 @@ if ( $runmode === AC_RUNMODE_MASTER) {
 <head>
 <meta charset="UTF-8"/>
 <meta name="application-name" content="Agility Contest" />
-<meta name="copyright" content="© 2013-2020 Juan Antonio Martinez" />
+<meta name="copyright" content="© 2013-2021 by Juan Antonio Martinez" />
 <meta name="author" lang="en" content="Juan Antonio Martinez" />
 <meta name="description"
         content="A web client-server (xampp) app to organize, register and show results for FCI Dog Agility Contests" />
