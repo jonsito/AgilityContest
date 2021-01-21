@@ -19,7 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once( __DIR__."/Selectiva_eo_2020.php");
 class Selectiva_eo_2021 extends Selectiva_eo_2020 {
 
-    function __construct($name="Selectiva European Open 2020") {
+    function __construct($name="Selectiva European Open 2021") {
         parent::__construct($name);
         $this->federationID=0;
         $this->competitionID=22;
