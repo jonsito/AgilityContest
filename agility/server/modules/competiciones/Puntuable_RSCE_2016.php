@@ -7,8 +7,8 @@
  * Time: 10:58
  */
 class Puntuable_RSCE_2016 extends Competitions {
-    function __construct() {
-        parent::__construct("Puntuable temporada 2016");
+    function __construct($name="Puntuable temporada 2016") {
+        parent::__construct($name);
         $this->federationID=0;
         $this->competitionID=5;
         $this->federationLogoAllowed=true;

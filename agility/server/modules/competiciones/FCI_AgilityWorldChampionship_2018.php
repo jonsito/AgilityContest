@@ -10,7 +10,7 @@ class FCI_AgilityWorldChampionship_2018 extends Competitions {
     function __construct() {
         parent::__construct("FCI Agility World Championship 2018");
         $this->federationID=9;
-        $this->competitionID=3;
+        $this->competitionID=6;
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20171009_1841";
     }
