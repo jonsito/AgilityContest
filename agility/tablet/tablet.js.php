@@ -226,11 +226,11 @@ function dorsal_add(val) {
 function tablet_add(val) {
     if ($('#tb_drs').numberbox('options').editing===true) return dorsal_add(val);
 	doBeep();
-	var maxlen=(ac_config.crono_milliseconds=="0")?6:7;
-	var declen=(ac_config.crono_milliseconds=="0")?2:3;
+	var maxlen=(ac_config.crono_milliseconds==="0")?6:7;
+	var declen=(ac_config.crono_milliseconds==="0")?2:3;
 	var tdt=$('#tdialog-Tiempo');
 	var str=tdt.val();
-	if (parseInt(str)==0) str=''; // clear espurious zeroes
+	if (parseInt(str)===0) str=''; // clear espurious zeroes
 	if(str.length>=maxlen) return false; // sss.xx 6/7 chars according configuration
 	var n=str.indexOf('.');
 	if (n>=0) {
@@ -549,7 +549,7 @@ function tablet_cancel() {
 	var dg=$(dgname);
 	var row =dg.datagrid('getSelected');
 	// on Test dog no need to pre-select dog entry. so take care on it
-	if (!row || ( $('#tdialog-Perro').val()==0 ) ) {
+	if (!row || ( $('#tdialog-Perro').val()==="0" ) ) {
 		tablet_putEvent(
 			'cancelar',
 			{
@@ -674,13 +674,11 @@ function tablet_save(dg) {
 
 function dorsal_accept(dorsal) {
     let tb_drs= $('#tb_drs');
-    tb_drs.numberbox('options').editing=false;
-    tb_drs.numberbox('textbox').css('backgroundColor','#ffffff')
 
     // miramos si hay algun dorsal pendiente en cola
     // si lo hay se actualiza el numberbox de proximo dorsal
     // si no lo hay se deja el nuevo perro
-    let next =(dorsalList.isEmpty())?dorsal:dorsalList.dequeue();
+    let next =(dorsalList.isEmpty())?dorsal:dorsalList.dequeue()[0];
     tb_drs.numberbox('setValue',next);
 
     // Salvamos datos
@@ -701,11 +699,16 @@ function dorsal_accept(dorsal) {
 
 function tablet_accept() {
 	doBeep();
+	// reset editing condition
+    tb_drs.numberbox('options').editing=false;
+    tb_drs.numberbox('textbox').css('backgroundColor','#ffffff');
 
 	// retrieve parent datagrid to update results
 	var dgname = $('#tdialog-Parent').val();
+	// on initial call no value, so just return
+    if (dgname==="") return false;
 	var dg = $(dgname);
-	var tb_drs=$('tb_drs');
+	var tb_drs=$('#tb_drs');
 
 	// save current data and send "accept" event
 	var rowindex=tablet_save(dg);
@@ -723,7 +726,7 @@ function tablet_accept() {
     var next=tb_drs.numberbox('getValue');
 	// si tb_drs es es distinto del perro actual y no esta vacio salta al perro indicado
     // notar que dorsal_accept debe actualizar tambien la cola de pendientes de entrada
-    if ( (current!==next) && (next!=="") {
+    if ( (current!==next) && (next!=="") ) {
         console.log("Jump to dorsal "+next);
         return dorsal_accept(next);
     }
@@ -845,7 +848,6 @@ function tablet_nextDorsal(drs) {
         console.log("Mark next dorsal to be "+drs);
         // metemos como siguiente perro ( y esperamos a que el usuario pulse enter )
         tb_drs.numberbox('setValue',''+drs);
-        tb_drs.numberbox('options').editing=true;
     }
 }
 
