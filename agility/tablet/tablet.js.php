@@ -216,15 +216,15 @@ function doBeep() {
 
 function dorsal_add(val) {
     var str_tb=$('#tb_drs');
-    var str=str_tb.textbox('getValue');
+    var str=str_tb.numberbox('getValue');
     if (parseInt(str)===0) str=''; // clear espurious zeroes
     if(str.length>=4) return false; // dorsals greater than 9999 are not allowed
-    str_tb.textbox('setValue',''+str+val);
+    str_tb.numberbox('setValue',''+str+val);
     return false;
 }
 
 function tablet_add(val) {
-    if ($('#tb_drs').textbox('options').hasFocus===true) return dorsal_add(val);
+    if ($('#tb_drs').numberbox('options').editing===true) return dorsal_add(val);
 	doBeep();
 	var maxlen=(ac_config.crono_milliseconds=="0")?6:7;
 	var declen=(ac_config.crono_milliseconds=="0")?2:3;
@@ -245,7 +245,7 @@ function tablet_add(val) {
 
 function tablet_dot() {
 	doBeep();
-    if ($('#tb_drs').textbox('options').hasFocus===true) return false; // ignore dot in dorsal mode
+    if ($('#tb_drs').numberbox('options').editing===true) return false; // ignore dot in dorsal mode
 	var str=$('#tdialog-Tiempo').val();
 	if (str.indexOf('.')>=0) return;
 	tablet_add('.');
@@ -256,15 +256,15 @@ function tablet_dot() {
 
 function dorsal_del() {
     var str_tb=$('#tb_drs');
-    var str=str_tb.textbox('getValue');
+    var str=str_tb.numberbox('getValue');
     if (parseInt(str)===0) str=''; // clear espurious zeroes
     if(str.length===0) return false; // no chars to delete
-    str_tb.textbox('setValue',str.substring(0, str.length-1));
+    str_tb.numberbox('setValue',str.substring(0, str.length-1));
     return false;
 }
 
 function tablet_del() {
-    if ($('#tb_drs').textbox('options').hasFocus===true) return dorsal_del();
+    if ($('#tb_drs').numberbox('options').editing===true) return dorsal_del();
 	doBeep();
 	var tdt=$('#tdialog-Tiempo');
 	var str=tdt.val();
@@ -529,21 +529,21 @@ function tablet_resetchrono() {
 function dorsal_edit() {
     doBeep();
     let tb_drs= $('#tb_drs');
-    tb_drs.textbox('textbox').css('backgroundColor','#ffcccc')
-    tb_drs.textbox('options').hasFocus=true;
-    tb_drs.textbox('setValue','');
+    tb_drs.numberbox('textbox').css('backgroundColor','#ffcccc')
+    tb_drs.numberbox('options').editing=true;
+    tb_drs.numberbox('setValue','');
 }
 function dorsal_cancel() {
     let tb_drs=$('#tb_drs');
-    tb_drs.textbox('options').hasFocus=false;
-    tb_drs.textbox('textbox').css('backgroundColor','#ffffff')
-    tb_drs.textbox('setValue','<?php _e("Dorsal");?>');
+    tb_drs.numberbox('options').editing=false;
+    tb_drs.numberbox('textbox').css('backgroundColor','#ffffff')
+    tb_drs.numberbox('setValue','<?php _e("Dorsal");?>');
     return false;
 }
 
 function tablet_cancel() {
 	doBeep();
-	if ($('#tb_drs').textbox('options').hasFocus===true) return dorsal_cancel();
+	if ($('#tb_drs').numberbox('options').editing===true) return dorsal_cancel();
 	// retrieve original data from parent datagrid
 	var dgname=$('#tdialog-Parent').val();
 	var dg=$(dgname);
@@ -672,14 +672,18 @@ function tablet_save(dg) {
 	return rowindex;
 }
 
-function dorsal_accept() {
+function dorsal_accept(dorsal) {
     let tb_drs= $('#tb_drs');
-    tb_drs.textbox('options').hasFocus=false;
-    tb_drs.textbox('textbox').css('backgroundColor','#ffffff')
-    var newval=tb_drs.textbox('getValue');
-    // preserve current dorsal in textbox, to discriminate next/selected on tablet_accept()
-    // tb_drs.textbox('setValue','<?php _e("Dorsal");?>');
-    if (isNaN(parseInt(newval))) return false; // empty or invalid data
+    tb_drs.numberbox('options').editing=false;
+    tb_drs.numberbox('textbox').css('backgroundColor','#ffffff')
+
+    // miramos si hay algun dorsal pendiente en cola
+    // si lo hay se actualiza el numberbox de proximo dorsal
+    // si no lo hay se deja el nuevo perro
+    let next =(dorsalList.isEmpty())?dorsal:dorsalList.dequeue();
+    tb_drs.numberbox('setValue',next);
+
+    // Salvamos datos
     // check for store before change dog. dorsal textbox has same behaviour than doubleclick
     if (parseInt(ac_config.tablet_dblclick)===1){
         // retrieve parent datagrid to update results
@@ -687,20 +691,22 @@ function dorsal_accept() {
         var dg = $(dgname);
         tablet_save(dg);
     }
-    // and go to selected dog
-    $('#tablet-datagrid-search').val(parseInt(newval));
+
+    // damos entrada al perro con dorsal especificado
+    $('#tablet-datagrid-search').val(parseInt(dorsal));
     tablet_editByDorsal();
     return false;
+
 }
 
 function tablet_accept() {
 	doBeep();
-	var tb_drs=$('#tb_drs');
-    if (tb_drs.textbox('options').hasFocus===true) return dorsal_accept();
+
 	// retrieve parent datagrid to update results
 	var dgname = $('#tdialog-Parent').val();
 	var dg = $(dgname);
-	
+	var tb_drs=$('tb_drs');
+
 	// save current data and send "accept" event
 	var rowindex=tablet_save(dg);
 	if (rowindex<0) return false;
@@ -712,18 +718,16 @@ function tablet_accept() {
 		return false;
 	}
 
-	// vemos cual es el dorsal actual
-    var current=parseInt($('#tdialog-Dorsal').val());
-	// si tb_drs es el perro actual o NaN, avanza al siguiente
-    // si no, salta al perro indicado
-    var next=parseInt(tb_drs.textbox('getValue'));
-    if (! (isNaN(next) || (current===next) ) ) {  return dorsal_accept();  }
-    // if any dog in pending dorsals, process it
-    var nd=dorsalList.dequeue(1);
-    if (typeof (nd[0]) !== 'undefined') {
-        tb_drs.textbox('setValue',''+nd[0]);
-        return dorsal_accept();
+	// vemos cual es el dorsal actual y el siguiente
+    var current=$('#tdialog-Dorsal').val();
+    var next=tb_drs.numberbox('getValue');
+	// si tb_drs es es distinto del perro actual y no esta vacio salta al perro indicado
+    // notar que dorsal_accept debe actualizar tambien la cola de pendientes de entrada
+    if ( (current!==next) && (next!=="") {
+        console.log("Jump to dorsal "+next);
+        return dorsal_accept(next);
     }
+
 	// arriving here go to next row (if available)
 	rowindex++; // 0..len-1
 	if ( rowindex >= dg.datagrid('getRows').length) {
@@ -742,7 +746,7 @@ function tablet_accept() {
 		data.RowIndex=rowindex;
 		data.Parent=dgname;
 		$('#tdialog-form').form('load',data);
-		tb_drs.textbox('setValue',''+data.Dorsal);
+		tb_drs.numberbox('setValue',''+data.Dorsal);
 		tablet_markSelectedDog(parseInt(data.RowIndex));
 	}
 	return false; // prevent follow onClick event chain
@@ -774,7 +778,7 @@ function tablet_gotoDorsal(tanda,dgname,dorsal) {
 			if (idx<0) {
 				$.messager.alert("Not found",'<?php _e("Dog with dorsal");?>'+": "+dorsal+" "+'<?php _e("does not run in this series");?>',"info");
 				$('#tablet-datagrid-search').val('---- <?php _e("Dorsal"); ?> ----');
-				$('#tb_drs').textbox('setValue',$('#tdialog-Dorsal').val()); // restore dorsal value in main panel
+				$('#tb_drs').numberbox('setValue',$('#tdialog-Dorsal').val()); // restore dorsal value in main panel
 				return false;
 			}
 			dg=$(dgname);
@@ -802,31 +806,46 @@ function tablet_nextDorsal(drs) {
     // verificamos que el perro está en esta manga
     var rows=$('#tdialog-tnext').datagrid('getRows');
     for (n=0;n<rows.length;n++) if (parseInt(rows[n]['Dorsal'])===drs) break;
-    if (n===rows.length) return; // dorsal is not in current tanda
+    if (n===rows.length) { // dorsal is not in current tanda
+        console.log("Dorsal "+drs+" does not belongs to this round");
+        return;
+    }
+
     // if dorsalList is not empty, just insert at queue tail and return
-    if ( ! dorsalList.isEmpty() ) { dorsalList.enqueue(drs); return; }
+    if ( ! dorsalList.isEmpty() ) {
+        console.log("Dorsal queue not empty: Enqueing dorsal "+drs);
+        dorsalList.enqueue(drs);
+        return;
+    }
     // si la lista de dorsales esta vacia pero la ventana de edición de dorsal está activa
     // quiere decir que el operador esta metiendo a mano un dorsal. En ese caso encolamos
     var tb_drs=$('#tb_drs');
-    if (tb_drs.textbox('options').hasFocus) { dorsalList.enqueue(drs); return; }
+    if (tb_drs.numberbox('options').editing) {
+        console.log("User editing dorsal textbox: Enqueing dorsal "+drs);
+        dorsalList.enqueue(drs);
+        return;
+    }
     // si no esta en edicion, vemos el contenido
-    var next=tb_drs.textbox('getValue');
+    var next=tb_drs.numberbox('getValue');
     // si no tiene numero, quiere decir que el perro debe entrar a pista directamente
     if (isNaN(parseInt(next))) {
-        tb_drs.textbox('setValue',''+drs);
-        dorsal_accept();
+        console.log("No data in dorsal textbox: call to accept dorsal "+drs);
+        tb_drs.numberbox('setValue',''+drs);
+        dorsal_accept(drs);
         return;
     }
     var current=$('#tdialog-Dorsal').val();
     if (next!==current) {
+        console.log("current data "+current+" in dorsal textbox is not active: enqueue new dorsal "+drs);
         // si el numero que tiene NO es el perro que esta corriendo, encolamos y ya esta
         dorsalList.enqueue(drs);
     } else {
         // si el numero que tiene SI es el perro que esta corriendo, quiere decir que
         // o esta en pista o que todavía no han dado paso al siguiente. En ese caso
+        console.log("Mark next dorsal to be "+drs);
         // metemos como siguiente perro ( y esperamos a que el usuario pulse enter )
-        tb_drs.textbox('setValue',''+drs);
-        tb_drs.textbox('options').hasFocus=true;
+        tb_drs.numberbox('setValue',''+drs);
+        tb_drs.numberbox('options').editing=true;
     }
 }
 
@@ -864,7 +883,7 @@ function bindKeysToTablet() {
 	$(document).keydown(function(e) {
 		// on round selection window focused, ignore
 		if ($('#tdialog-fieldset').prop('disabled')) return true;
-		if ( ! $('#tb_drs').textbox('options').hasFocus) doBeep();
+		if ( ! $('#tb_drs').numberbox('options').editing) doBeep();
 		switch(e.which) {
 			/* you can check keycodes at http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes */
 			// numbers (querty/keypad)

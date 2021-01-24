@@ -158,7 +158,7 @@ $config =Config::getInstance();
         onExpand: function() {
             ac_clientOpts.DataEntryEnabled=false;
             $('#tdialog-fieldset').prop('disabled',true);
-            $('#tb_drs').textbox('disable');
+            $('#tb_drs').numberbox('disable');
             // retrieve original data from parent datagrid
             var dgname=$('#tdialog-Parent').val();
             var dg=$(dgname);
@@ -170,7 +170,7 @@ $config =Config::getInstance();
         onCollapse: function () {
             ac_clientOpts.DataEntryEnabled=true;
             $('#tdialog-fieldset').prop('disabled',false);
-            $('#tb_drs').textbox('enable');
+            $('#tb_drs').numberbox('enable');
         }
     });
 
@@ -191,7 +191,7 @@ $config =Config::getInstance();
             Operation: 'getTandas',
             Prueba: workingData.prueba,
             Jornada: workingData.jornada,
-            Sesion: (workingData.session==1)?1:-(workingData.session)
+            Sesion: (parseInt(workingData.session)===1)?1:-(workingData.session)
         },
         toolbar:'#tablet-toolbar',
         loadMsg: "<?php _e('Updating series order');?>"+" ...",
@@ -317,7 +317,7 @@ $config =Config::getInstance();
                 data.Parent=mySelfstr; // store datagrid reference
                 data.RowIndex=idx; // store row index
                 $('#tdialog-form').form('load',data);
-                $('#tb_drs').textbox('setValue',''+data.Dorsal);
+                $('#tb_drs').numberbox('setValue',''+data.Dorsal);
                 setDataEntryEnabled(true);
                 tablet_markSelectedDog(data.RowIndex);
             },
@@ -425,7 +425,7 @@ $config =Config::getInstance();
         autoRowHeight: true,
         columns:[[
             // a little trick to replace table header with an text input box
-            { field:'Dorsal',width:'15%', align:'right',	title: '<input id="tb_drs" type="text" value="<?php _e('Dorsal');?>"/>' },
+            { field:'Dorsal',width:'15%', align:'right',	title: '<input id="tb_drs" type="text" value=""/>' },
             { field:'Nombre',width:'20%', align:'right',	title: '<?php _e('Name');?>' },
             { field:'NombreGuia',	width:'33%', align:'right',	title: '<?php _e('Handler');?>' },
             { field:'NombreClub',	width:'25%', align:'right',	title: '<?php _e('Club');?>' }
@@ -444,11 +444,13 @@ $config =Config::getInstance();
         }
     });
 
-    $('#tb_drs').textbox({
+    $('#tb_drs').numberbox({
+        min:0,
         hasFocus:false, // extra option
-        width:45
+        width:45,
+        prompt: "<?php _e('Dorsal');?>"
     });
-    $('#tb_drs').textbox('textbox').click( function(e) {dorsal_edit();});
+    $('#tb_drs').numberbox('textbox').click( function(e) {dorsal_edit();});
 
     addTooltip($('#tablet-reloadBtn').linkbutton(),'<?php _e("Update session data");?>');
     addTooltip($('#tablet-whiteBtn').linkbutton(),'<?php _e("Mark test dog enter into ring");?>');
