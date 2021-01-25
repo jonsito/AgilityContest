@@ -438,6 +438,13 @@ $config =Config::getInstance();
                 var dg = $(dgname);
                 tablet_save(dg);
             }
+            // check dorsal numberbox
+            let tb_drs=$('#tb_drs');
+            let cur_drs=$('#tdialog-Dorsal').val();
+            let next_drs=tb_drs.numberbox('getValue');
+            // if have different value let it unchanged, to just jump to dblclicked and then to next
+            // if have same value, just replace with new one
+            if (cur_drs===next_drs) tb_drs.numberbox('setValue',row.Dorsal);
             // and go to selected dog
             $('#tablet-datagrid-search').val(row.Dorsal);
             tablet_editByDorsal();
