@@ -694,12 +694,12 @@ function dorsal_accept(dorsal) {
     $('#tablet-datagrid-search').val(parseInt(dorsal));
     tablet_editByDorsal();
     return false;
-
 }
 
 function tablet_accept() {
 	doBeep();
 	// reset editing condition
+    var tb_drs=$('#tb_drs');
     tb_drs.numberbox('options').editing=false;
     tb_drs.numberbox('textbox').css('backgroundColor','#ffffff');
 
@@ -708,7 +708,6 @@ function tablet_accept() {
 	// on initial call no value, so just return
     if (dgname==="") return false;
 	var dg = $(dgname);
-	var tb_drs=$('#tb_drs');
 
 	// save current data and send "accept" event
 	var rowindex=tablet_save(dg);
