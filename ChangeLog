@@ -1,3 +1,9 @@
+Version 4.4.0 20210125_1500
+    - Module updates for season 2021
+    - In RFEC 'Toy' now jumps at 20cmts
+    - New webapp "qrcode"
+    - New app "cronometer.ino"
+    - Tablet changed to take care on QRCode starting order reader
 Version 4.3.2 20201122_1800
     - Fix several logos
     - Fix some issues with excel import and php 7.4
