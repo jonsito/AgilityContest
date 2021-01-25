@@ -34,6 +34,26 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
 
 <!--- comienzo del changelog -->
 
+<?php if ( strcmp($from,"blog_2021-01-21_00:00:00")<0) { ?>
+    <strong>2020-Jan-10 00:00:00</strong><br/>
+    <p>
+        Nueva versión 4.4.0
+    </p>
+    <p>
+        Lista de cambios:
+        <ul>
+        <li>Actualización de alturas para RFEC: Toy pasa a saltar a 20</li>
+        <li>Módulos para las competiciones de la temporada 2021 RFEC y RSCE. Si alguna regional ha cambiado su reglamento y no me ha avisado... se siente</li
+        <li>Código fuente de referencia para un cronómetro basado en Arduino UNO</li>
+        <li>Automatización de la entrada a pista desde el pre-ring ( ver comentarios anteriores en el foro )</li>
+        <ol>
+            <li>Tablet adaptado para manejar listas de perros pendientes de entrar a pista. Entrada manual de dorsal</li>
+            <li>Nueva webapp para poder leer dorsales desde la entrada a pre-ring y mandarlos al tablet con un teléfono móvil</li>
+            <li>App de crono modificada para poder leer dorsales con una pistola  lectora de códigos QR</li>
+        </ol>
+        <li>La app de cronómetro soporta nuevos modelos, incluyendo las últimas versiones de firmware del Canómetro de Galican, ( ya !por fin! no se necesita "parchearlos"... hasta que lo vuelvan a cambiar )</li>
+    </ul>
+<?php } ?>
 <?php if ( strcmp($from,"blog_2020-08-20_00:00:00")<0) { ?>
     <strong>2020-Ago-20 00:00:00</strong><br/>
     <p>
@@ -155,21 +175,6 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     </p>
 
 <?php } ?>
-
-<?php if ( strcmp($from,"blog_2020-01-10_00:00:00")<0) { ?>
-<strong>2020-Jan-10 00:00:00</strong><br/>
-51<br/>
-52<br/>
-53<br/>
-54<br/>
-55<br/>
-56<br/>
-57<br/>
-58<br/>
-59<br/>
-60<br/>
-<?php } ?>
-
 
 <?php if ( strcmp($from,"blog_2020-01-01_00:00:00")<0) { ?>
 <strong>2020-Jan-01 00:00:00</strong><br/>
