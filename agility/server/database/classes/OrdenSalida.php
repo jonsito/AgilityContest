@@ -314,7 +314,9 @@ class OrdenSalida extends DBObject {
 
         // tercera pasada: ordenar por categoria
         $p4=array();
-        foreach(array('X','L','M','S','T') as $cat) {
+		$sorder=array('X','L','M','S','T'); // vemos si hay que invertir orden de categorias
+		if ($this->federation->get('ReverseXLMST')===true) $sorder=array('T','S','M','L','X');
+        foreach($sorder as $cat) {
             foreach ($p3 as $perro) {
                 if ($perro['Categoria']==$cat) array_push($p4,$perro);
             }
@@ -526,10 +528,11 @@ class OrdenSalida extends DBObject {
             // ordenamos segun el orden de categorias establecido en las tandas
             $p5=array();
             foreach ($res['rows'] as $item) {
+            	$ord="XLMST";
+				if ($this->federation->get('ReverseXLMST')===true) $ord="TSMLX";
             	// hack to get compatibility with oldest database entries that stored "no_cats" tanda categories as LMS
-            	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']="XLMST";
-            	if ($item['Categoria']==="-") $item['Categoria']="XLMST";
-
+            	if (strpos($item['Categoria'],"LMS")!==FALSE ) $item['Categoria']=$ord;
+            	if ($item['Categoria']==="-") $item['Categoria']=$ord;
             	// si la tanda tiene mas de una categoria, hacemos un split y separamos internamente
 				$cats=str_split(($item['Categoria']));
 				foreach($cats as $cat) {
