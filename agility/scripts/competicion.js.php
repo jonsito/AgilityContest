@@ -469,9 +469,41 @@ function dmanga_setAgilityOrJumping(data) {
 }
 
 /**
+ * cuando el usuario cambia el tipo de recorrido hay que chequear y avisar
+ * si se coge una combinación federación/competición/grado inválida
+ * (p.e 3 alturas en grado 2 de una prueba puntuable RSCE
+ */
+function dmanga_setRecorridos(){
+    var fed=workingData.federation;
+    var rec=$("input[name='Recorrido']:checked").val();
+    var heights=howManyHeights();
+    var grd=workingData.datosManga.Grado;
+    var comp=parseInt(workingData.datosCompeticion.ID);
+    if (parseInt(fed)!==0) return dmanga_setRecorridos_real(); // non-rsce are not affected
+    if ( (grd!=="GII") && (grd!=="GIII") ) return dmanga_setRecorridos_real(); // GI and pre are not affected
+    if ( (comp!==19) && (comp!==20) ) return dmanga_setRecorridos_real(); // Only puntuables 2020 and 2021 are affected
+    if (parseInt(rec)!==0) {
+        $.messager.confirm({
+            title:"Aviso",
+            msg: "En pruebas puntuables RSCE de grados 2 y 3,<br/> el TRS hay que calcularlo por alturas separadas.<br/>"+
+                 "Si se selecciona otra opción, los resultados<br/> no ser&aacute;n v&aacute;lidos a efectos de mostrar puntos<br/>"+
+                 "<br/>¿Desea continuar?",
+            width: 400,
+            fn: function (r) {
+                if (r) return dmanga_setRecorridos_real(); // ok; accept changes
+                // not ok restore original value
+                document.forms['competicion-formdatosmanga'].Recorrido.value=workingData.datosManga.Recorrido;
+            }
+        });
+        return;
+    }
+    return dmanga_setRecorridos_real(); // arriving here means everything ok
+}
+
+/**
  * repaint manga information acording federation and course mode
  */
-function dmanga_setRecorridos() {
+function dmanga_setRecorridos_real() {
 
     function setDistObstBg(dist,obst,cat) {
         //setting css of unexistent element id throws javascript exception
