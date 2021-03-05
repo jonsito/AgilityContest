@@ -62,6 +62,7 @@ class PrintCatalogo extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
+		$this->SetTextColor(0,0,0); // negro
 		$this->print_commonHeader(_('Contest catalog'));
 		$this->Ln(5);
 		$this->myLogger->leave();
@@ -137,21 +138,28 @@ class PrintCatalogo extends PrintCommon {
 	}
 	
 	function printParticipante($count,$row) {
+		// print hidden row mark begin to allow exporting
+		$this->setX(1);
+		$this->SetTextColor(255,255,255);
+		$this->SetFillColor( 255,255,255);
+		$this->SetFont($this->getFontName(),'',1); // tiny size, wont be visible
+		$this->Cell(19,7,"B: {$row['NombreClub']}",'',0,'C',true);
+
 		// $this->myLogger->trace("Position: ".$pos." Dorsal: ".$row['Dorsal']);
         $this->ac_row($count,10); // set proper row background
 		$this->SetTextColor(0,0,0); // negro
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
         $this->SetLineWidth(.3); // ancho de linea
 
-        $this->SetX(17);
+        $this->SetX(20);
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		$this->SetFont($this->getFontName(),'B',12); //
-		$this->Cell( 15, 7, $row['Dorsal'],	'TLB', 0, 'C',	true);
+		$this->Cell( 12, 7, $row['Dorsal'],	'TLB', 0, 'C',	true);
 		$this->SetFont($this->getFontName(),'BI',9); // bold 9px italic
         $name= $row['Nombre'];
         if (!is_null($row['NombreLargo']) && $row['NombreLargo']!=="") $name = $name . " - " .$row['NombreLargo'];
 		$this->Cell( $this->width[0], 7, $name,	'LB', 0, 'L',	true);
-		$this->SetFont($this->getFontName(),'',8); // bold 8px
+		$this->SetFont($this->getFontName(),'',8); // normal 8px
 		$this->Cell( $this->width[1], 7, $row['Raza'],		'LB', 0, 'C',	true);
         if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',6); // bold 6px
         if ($this->width[2]!=0) // skip license on international contests
@@ -174,8 +182,15 @@ class PrintCatalogo extends PrintCommon {
 			// en la cabecera texto siempre centrado
 			if ($this->width[$i]==0) continue;
 			$j=$i-4;
-			$this->Cell($this->width[$i],7,($row["J$j"]==0)?"":"X",'LBR',0,'C',true);
+			$this->Cell($this->width[$i],7,($row["J$j"]==0)?"No":"Si",'LBR',0,'C',true);
 		}
+
+		// print hidden row mark end to allow exporting
+		$this->SetTextColor(255,255,255);
+		$this->SetFillColor( 255,255,255);
+		$this->SetFont($this->getFontName(),'',1); // tiny size, wont be visible
+		$this->Cell(3,7,":E",'',0,'C',true);
+
 		$this->Ln(7);
 	}
 	
