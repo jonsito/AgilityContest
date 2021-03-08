@@ -1,3 +1,9 @@
+Version 4.4.1 20210308_1150
+    - printHallOfFame: fixes for 5 heights
+    - printCatalogo: add json hidden field for pdf parsing
+    - update database and logos
+    - Fix reverse XLMST in preagility RFEC
+    - Warn user on invalid recorrido in GII/GIII RSCE rounds
 Version 4.4.0 20210125_1500
     - Module updates for season 2021
     - In RFEC 'Toy' now jumps at 20cmts
