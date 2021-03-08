@@ -172,8 +172,8 @@ class PrintHallOfFame extends PrintCommon {
         if ($hdrstr==" ") $hdrstr=_('Simply The Bests');
         // get 3 best of requested cat/grad
         $items= $this->tresMejores($cats,$grads);
-
-        $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,0);
+        $j=is_null($this->jornada)?0:$this->jornada->ID;
+        $heights=Competitions::getHeights($this->prueba->ID,$j,0);
 
         // REMINDER: $this->cell( width, height, data, borders, newline, align, fill)
         // paint box
@@ -245,7 +245,8 @@ class PrintHallOfFame extends PrintCommon {
 		$this->myLogger->enter();
         $this->AddPage();
         // assume same heihgts for all rounds. this may not be true, but is good to keep layout safe
-        $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,0);
+        $j=is_null($this->jornada)?0:$this->jornada->ID;
+        $heights=Competitions::getHeights($this->prueba->ID,$j,0);
 		if ($heights==3) {
             $this->writeBlock(3,3,array('GI'),array('L'));
             $this->writeBlock(3,2,array('GI'),array('M'));
