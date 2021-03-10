@@ -151,7 +151,7 @@ class PrintCatalogo extends PrintCommon {
 		$this->SetTextColor(255,255,255);
 		$this->SetFillColor( 255,255,255);
 		$this->SetFont($this->getFontName(),'',2); // tiny size, wont be visible
-		$this->Cell(180,7,$prefix,'',0,'L',true);
+		$this->Cell(180,7,iconv('UTF-8','ASCII//TRANSLIT',$prefix),'',0,'L',true);
 		$this->ac_row($count,10); // set proper row background
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetX($x);
