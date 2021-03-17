@@ -146,7 +146,7 @@ class PrintCatalogo extends PrintCommon {
 	// cat Catalogo_inscripciones.txt | awk '/NombreLargo/ {print;}'
 	private function printHiddenPrefix($count,$prefix) {
 		$x=$this->getX();
-		$this->SetX(10);
+		$this->SetX(5);
 		// print hidden cell prefix to allow exporting
 		$this->SetTextColor(255,255,255);
 		$this->SetFillColor( 255,255,255);
