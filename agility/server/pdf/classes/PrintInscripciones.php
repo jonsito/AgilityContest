@@ -169,10 +169,10 @@ class PrintCatalogo extends PrintCommon {
 		}
 		$cat=$this->federation->getCategoryShort($row['Categoria']);
 		// print hidden json data to allow exporting
-		$str="{'Dorsal':'{$row['Dorsal']}',";
-		$str.="'Nombre':'{$row['Nombre']}','NombreLargo':'{$row['NombreLargo']}','Raza':'{$row['Raza']}',";
-		$str.="'Licencia':'{$row['Licencia']}','Categoria':'{$row['Categoria']}','Grado:{$row['Grado']}',";
-		$str.="'NombreGuia':'{$this->getHandlerName($row)}','Club':'{$row['NombreClub']}'}";
+		$str="{\"Dorsal\":\"{$row['Dorsal']}\",";
+		$str.="\"Nombre\":\"{$row['Nombre']}\",\"NombreLargo\":\"{$row['NombreLargo']}\",\"Raza\":\"{$row['Raza']}\",";
+		$str.="\"Licencia\":\"{$row['Licencia']}\",\"Categoria\":\"{$row['Categoria']}\",\"Grado:{$row['Grado']}\",";
+		$str.="\"NombreGuia\":\"{$this->getHandlerName($row)}\",\"Club\":\"{$row['NombreClub']}\"}";
 		$this->printHiddenPrefix($count,$str);
 
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
