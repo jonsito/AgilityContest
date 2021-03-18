@@ -41,8 +41,7 @@ class Queue{
         return this._items;
     }
     dequeue(count=1){ //pull out "count" first items from the queue
-        this._items.splice(0,count);
-        return this._items;
+        return this._items.splice(0,count);
     }
     requeue(...items) { // put back as first item in queue
         items.forEach( item => this._items.unshift(item) )

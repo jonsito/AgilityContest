@@ -25,9 +25,9 @@ class RFEC extends Federations {
             'ReverseXLMST' => true, // default order is TSMLX instead of XLMST
             'Recorridos' => array(
                 _('Common course'),
-                "60+50 / 40+30+25", // 2 groups
+                "60+50 / 40+30+20", // 2 groups
                 _("Separate courses"),
-                "60+50 / 40 / 30+25" // 3 groups
+                "60+50 / 40 / 30+20" // 3 groups
             ),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
@@ -55,7 +55,7 @@ class RFEC extends Federations {
                 'L' => '50',
                 'M' => '40',
                 'S' => '30',
-                'T' => '25'
+                'T' => '20'
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',
@@ -63,7 +63,7 @@ class RFEC extends Federations {
                 'L' => 'Clase 50',
                 'M' => 'Clase 40',
                 'S' => 'Clase 30',
-                'T' => 'Clase 25'
+                'T' => 'Clase 20'
             ),
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
@@ -75,10 +75,10 @@ class RFEC extends Federations {
                 'P' => 'Para-Agility',
             ),
             'InfoManga' => array(
-                array('L' => _('Clase 50'),'M' => _('Clase 40'),'S' => _('Clase 30'),'T' => _('Clase 25'),'X' => _('Clase 60') ), // separate courses
-                array('L' => '',           'M' => _('40+30+25'),'S' => '',           'T' => '',           'X' => _('60+50')), // mixed (2 groups) courses
+                array('L' => _('Clase 50'),'M' => _('Clase 40'),'S' => _('Clase 30'),'T' => _('Clase 20'),'X' => _('Clase 60') ), // separate courses
+                array('L' => '',           'M' => _('40+30+20'),'S' => '',           'T' => '',           'X' => _('60+50')), // mixed (2 groups) courses
                 array('L' => '',           'M' => '',           'S' => '',           'T' => '',           'X' => _('6+5+4+3+2')), // common ( single height ) course
-                array('L' => '',           'M' => _('Clase 40'),'S' => _('30+25'),   'T' => '',           'X' => _('60+50'),   ) // 3 group courses
+                array('L' => '',           'M' => _('Clase 40'),'S' => _('30+20'),   'T' => '',           'X' => _('60+50'),   ) // 3 group courses
             ),
             'Modes' => array(
                 //  categorias            L   M   S   T   X
@@ -90,10 +90,10 @@ class RFEC extends Federations {
             'ModeStrings' => array( // text to be shown on each category
 
                 // category  L M S T X
-                array(/* separado  */_('Clase 50'),     _('Clase 40'),      _('Clase 30'),      _('Clase 25'),     _('Clase 60') ),
-                array(/* 2 grupos */ _('Clase 60+50'),  _('Clase 40+30+25'),_('Clase 40+30+25'), _('Clase 40+30+25'),_('Clase 60+50') ),
+                array(/* separado  */_('Clase 50'),     _('Clase 40'),      _('Clase 30'),      _('Clase 20'),     _('Clase 60') ),
+                array(/* 2 grupos */ _('Clase 60+50'),  _('Clase 40+30+20'),_('Clase 40+30+20'), _('Clase 40+30+20'),_('Clase 60+50') ),
                 array(/* conjunto */ "Recorrido comun", "Recorrido comun",  "Recorrido comun",  "Recorrido comun", "Recorrido comun"),
-                array(/* 3 grupos */ _('Clase 60+50'),  _('Clase 40'),       _('Clase 30+25'),   _('Clase 30+25'),  _('Clase 60+50'))
+                array(/* 3 grupos */ _('Clase 60+50'),  _('Clase 40'),       _('Clase 30+20'),   _('Clase 30+20'),  _('Clase 60+50'))
             ),
             'IndexedModes' => array (
                 /* 0 - L    */ "Clase 50",
@@ -101,23 +101,23 @@ class RFEC extends Federations {
                 /* 2 - S    */ "Clase 30",
                 /* 3 - MS   */ "Clase 40+30",
                 /* 4 - LMS  */ "Clase 50+40+30",
-                /* 5 - T    */ "Clase 25",
+                /* 5 - T    */ "Clase 20",
                 /* 6 - LM   */ "Clase 50+40",
-                /* 7 - ST   */ "Clase 30+25",
-                /* 8 - LMST */ "50+40+30+25",
+                /* 7 - ST   */ "Clase 30+20",
+                /* 8 - LMST */ "50+40+30+20",
                 /* 9 - X    */ "Clase 60",
                 /*10 - XL   */ "Clase 60+50",
-                /*11 - MST  */ "Clase 40+30+25",
-                /*12 - XLMST*/ "60+50+40+30+25"
+                /*11 - MST  */ "Clase 40+30+20",
+                /*12 - XLMST*/ "60+50+40+30+20"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
                 "L"=>"Clase 50",
                 "M"=>"Clase 40",
                 "S"=>"Clase 30",
-                "T"=>"Clase 25",
+                "T"=>"Clase 20",
                 "LM"=>"Clase 60+50", // // invalid in 5 heights
-                "ST"=>"Clase 30+25", // 3 groups mode
+                "ST"=>"Clase 30+20", // 3 groups mode
                 "MS"=>"Clase 40+30", // invalid in 5 heights
                 "LMS" => 'Conjunta 5+4+3', // invalid in 5 heights
                 "-LMS" => 'Conjunta 5+4+3', // invalid in 5 heights
@@ -174,27 +174,27 @@ class RFEC extends Federations {
                 38	=> 'Manga Especial 50',
                 39	=> 'Manga Especial 40',
                 40	=> 'Manga Especial 30',
-                // "Tiny" support for Pruebas de cuatro alturas. EN RFEC 5 alturas ahora pasa a clase 25
-                41	=> 'Agility-1 Promocion 25',
-                42	=> 'Jumping Promocion 25',
-                43	=> 'Agility Competicion 25',
-                44	=> 'Agility GIII 25',	// no existe
-                45	=> 'Agility Clase 25', //  Individual-Open
-                46	=> 'Agility Equipos 25',// team best
+                // "Tiny" support for Pruebas de cuatro alturas. EN RFEC 5 alturas ahora pasa a clase 20
+                41	=> 'Agility-1 Promocion 20',
+                42	=> 'Jumping Promocion 20',
+                43	=> 'Agility Competicion 20',
+                44	=> 'Agility GIII 20',	// no existe
+                45	=> 'Agility Clase 20', //  Individual-Open
+                46	=> 'Agility Equipos 20',// team best
                 // en equipos4  cuatro alturas  agrupamos por LM y ST. No existen en RFEC 5h
                 47	=> 'Ag. Equipos 50/40', // team combined
-                48	=> 'Ag. Equipos 30/25', // team combined
-                49	=> 'Jumping Competicion 25',
-                50	=> 'Jumping GIII 25', // no existe
-                51	=> 'Jumping Clase 25', //  Individual-Open
-                52	=> 'Jumping Equipos 25',	 // team best
+                48	=> 'Ag. Equipos 30/20', // team combined
+                49	=> 'Jumping Competicion 20',
+                50	=> 'Jumping GIII 20', // no existe
+                51	=> 'Jumping Clase 20', //  Individual-Open
+                52	=> 'Jumping Equipos 20',	 // team best
                 53	=> 'Jp. Equipos 50/40',  // team combined
-                54	=> 'Jp. Equipos 30/25',// team combined
-                55	=> 'Manga Especial 25',
+                54	=> 'Jp. Equipos 30/20',// team combined
+                55	=> 'Manga Especial 20',
                 56	=> 'Agility-3 Promocion 50',	 // extra rounds for GI RFEC
                 57	=> 'Agility-3 Promocion 40',
                 58	=> 'Agility-3 Promocion 30',
-                59	=> 'Agility-3 Promocion 25',
+                59	=> 'Agility-3 Promocion 20',
                 // resto de las rondas KO. Los perros compiten todos contra todos
                 60	=> 'K.O. Manga 2',
                 61	=> 'K.O. Manga 3',
@@ -235,19 +235,19 @@ class RFEC extends Federations {
                 95  => 'Junior 1 50',
                 96  => 'Junior 1 40',
                 97  => 'Junior 1 30',
-                98  => 'Junior 1 25',
+                98  => 'Junior 1 20',
                 99   => 'Junior 2 50',
                 100  => 'Junior 2 40',
                 101  => 'Junior 2 30',
-                102  => 'Junior 2 25',
+                102  => 'Junior 2 20',
                 103 => 'Senior 1 50',
                 104 => 'Senior 1 40',
                 105 => 'Senior 1 30',
-                106 => 'Senior 1 25',
+                106 => 'Senior 1 20',
                 107 => 'Senior 2 50',
                 108 => 'Senior 2 40',
                 109 => 'Senior 2 30',
-                110 => 'Senior 2 25',
+                110 => 'Senior 2 20',
                 // tandas nuevas para xl y toy en rfec 5 alturas
                 111	=> 'Junior 1 60',
                 112	=> 'Junior 2 60',
@@ -268,8 +268,8 @@ class RFEC extends Federations {
                 // jornadas team mixtas extras para cinco alturas
                 127	=> 'Ag. Equipos 60/50', // team combined
                 128	=> 'Jp. Equipos 60/50', // team combined
-                129	=> 'Ag. Equipos 40/30/25',  // team combined
-                130	=> 'Jp. Equipos 40/30/25'// team combined
+                129	=> 'Ag. Equipos 40/30/20',  // team combined
+                130	=> 'Jp. Equipos 40/30/20'// team combined
 
             ),
             'TipoMangas' => array(
@@ -300,7 +300,7 @@ class RFEC extends Federations {
                 23 =>	array( 23,'K.O. Septima manga',			'-',	'K.O. - 7',	    'K.O.',         7),
                 24 =>	array( 24,'K.O. Octava manga',			'-',	'K.O. - 8',	    'K.O.',         8),
                 // mandas extras para wao
-                25 =>	array( 25,'Agility A',			        '-',	'Agility A',	'Ag. A',        1),
+                25 =>	array( 20,'Agility A',			        '-',	'Agility A',	'Ag. A',        1),
                 26 =>	array( 26,'Agility B',			        '-',	'Agility B',	'Ag. B',        3),
                 27 =>	array( 27,'Jumping A',			        '-',	'Jumping A',	'Jp. A',        2),
                 28 =>	array( 28,'Jumping B',			        '-',	'Jumping B',	'Jp. B',        4),

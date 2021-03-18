@@ -3,7 +3,7 @@
 /*
 Selectiva_eo_2017.php
 
-Copyright  2013-2020 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Copyright  2013-2021 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
 This program is free software; you can redistribute it and/or modify it under the terms
 of the GNU General Public License as published by the Free Software Foundation;
@@ -31,8 +31,8 @@ class Selectiva_eo_2017 extends Selectiva_awc_2017 {
     En cristiano: es una jornada subordinada de la selectiva, en la que participan todos los perros de grado III
      */
 
-    function __construct() {
-        parent::__construct("Selectiva European Open 2017");
+    function __construct($name="Selectiva European Open 2017") {
+        parent::__construct($name);
         $this->myDBObject=new DBObject("EuropeanOpen::construct");
         $this->countries=array(); // array ( nombreclub => pais
         $this->federationID=0;

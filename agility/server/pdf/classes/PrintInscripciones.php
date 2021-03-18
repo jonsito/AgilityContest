@@ -62,6 +62,7 @@ class PrintCatalogo extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
+		$this->SetTextColor(0,0,0); // negro
 		$this->print_commonHeader(_('Contest catalog'));
 		$this->Ln(5);
 		$this->myLogger->leave();
@@ -135,46 +136,73 @@ class PrintCatalogo extends PrintCommon {
 		}
 		$this->Ln();
 	}
-	
-	function printParticipante($count,$row) {
-		// $this->myLogger->trace("Position: ".$pos." Dorsal: ".$row['Dorsal']);
-        $this->ac_row($count,10); // set proper row background
-		$this->SetTextColor(0,0,0); // negro
-		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-        $this->SetLineWidth(.3); // ancho de linea
 
-        $this->SetX(17);
-		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-		$this->SetFont($this->getFontName(),'B',12); //
-		$this->Cell( 15, 7, $row['Dorsal'],	'TLB', 0, 'C',	true);
-		$this->SetFont($this->getFontName(),'BI',9); // bold 9px italic
-        $name= $row['Nombre'];
-        if (!is_null($row['NombreLargo']) && $row['NombreLargo']!=="") $name = $name . " - " .$row['NombreLargo'];
-		$this->Cell( $this->width[0], 7, $name,	'LB', 0, 'L',	true);
-		$this->SetFont($this->getFontName(),'',8); // bold 8px
-		$this->Cell( $this->width[1], 7, $row['Raza'],		'LB', 0, 'C',	true);
-        if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',6); // bold 6px
-        if ($this->width[2]!=0) // skip license on international contests
-            $this->Cell( $this->width[2], 7, $row['Licencia'],	'LB', 0, 'C',	true);
-        $this->SetFont($this->getFontName(),'',8); // bold 8px
+	/*
+	 * this is a little help to let "pdf2txt --layout" to generate something available to be parsed and
+	 * compose a csv table to be imported: just write a hidden text key for each value in row
+	 */
+	// usage ( suggestion. need to be revised after command execution, as some data may be missing ) :
+	// pdftotext --layout Catalogo_inscripciones.pdf
+	// cat Catalogo_inscripciones.txt | awk '/NombreLargo/ {print;}'
+	private function printHiddenPrefix($count,$prefix) {
+		$x=$this->getX();
+		$this->SetX(5);
+		// print hidden cell prefix to allow exporting
+		$this->SetTextColor(255,255,255);
+		$this->SetFillColor( 255,255,255);
+		$this->SetFont($this->getFontName(),'',2); // tiny size, wont be visible
+		$this->Cell(180,7,iconv('UTF-8','ASCII//TRANSLIT',$prefix),'',0,'L',true);
+		$this->ac_row($count,10); // set proper row background
+		$this->SetTextColor(0,0,0); // negro
+		$this->SetX($x);
+
+	}
+	function printParticipante($count,$row) {
+		// evaluate data to be printed
+		$name= $row['Nombre'];
+		if (!is_null($row['NombreLargo']) && $row['NombreLargo']!=="") $name = $name . " - " .$row['NombreLargo'];
+		else $row['NombreLargo']="";
 		$grad="";
 		if (intval($this->config->getEnv("pdf_grades"))!=0) { // if config requires print grade
 			$grad=" - {$this->federation->getGradeShort($row['Grado'])}";
 			if ($grad==" - -") $grad="";
 		}
 		$cat=$this->federation->getCategoryShort($row['Categoria']);
+		// print hidden json data to allow exporting
+		$str="{\"Dorsal\":\"{$row['Dorsal']}\",";
+		$str.="\"Nombre\":\"{$row['Nombre']}\",\"NombreLargo\":\"{$row['NombreLargo']}\",\"Raza\":\"{$row['Raza']}\",";
+		$str.="\"Licencia\":\"{$row['Licencia']}\",\"Categoria\":\"{$row['Categoria']}\",\"Grado:{$row['Grado']}\",";
+		$str.="\"NombreGuia\":\"{$this->getHandlerName($row)}\",\"Club\":\"{$row['NombreClub']}\"}";
+		$this->printHiddenPrefix($count,$str);
+
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+		$this->SetLineWidth(.3); // ancho de linea
+
+        $this->SetX(20);
+		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+		$this->SetFont($this->getFontName(),'B',12); //
+		$this->Cell( 12, 7, $row['Dorsal'],	'TLB', 0, 'C',	true);
+		$this->SetFont($this->getFontName(),'BI',9); // bold 9px italic
+		$this->Cell( $this->width[0], 7, " {$name}",	'LB', 0, 'L',	true);
+		$this->SetFont($this->getFontName(),'',8); // normal 8px
+		$this->Cell( $this->width[1], 7, $row['Raza'],		'LB', 0, 'C',	true);
+        if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',6); // bold 6px
+        if ($this->width[2]!=0) {// skip license on international contests
+			$this->Cell( $this->width[2], 7, $row['Licencia'],	'LB', 0, 'C',	true);
+		}
+        $this->SetFont($this->getFontName(),'',8); // bold 8px
 		$this->Cell( $this->width[3], 7, $cat.$grad,	'LB', 0, 'C',	true);
 		$this->SetFont($this->getFontName(),'B',9); // bold 9px
 		$this->Cell( $this->width[4], 7, $this->getHandlerName($row),'LBR', 0, 'R',	true);
 		
 		$this->SetFont($this->getFontName(),'',8); // bold 8px
-		
+
 		// print inscrption data on each declared journeys
 		for($i=5;$i<count($this->width);$i++) {
 			// en la cabecera texto siempre centrado
 			if ($this->width[$i]==0) continue;
 			$j=$i-4;
-			$this->Cell($this->width[$i],7,($row["J$j"]==0)?"":"X",'LBR',0,'C',true);
+			$this->Cell($this->width[$i],7,($row["J$j"]==0)?"No":"Si",'LBR',0,'C',true);
 		}
 		$this->Ln(7);
 	}
