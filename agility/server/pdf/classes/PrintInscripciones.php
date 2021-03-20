@@ -30,7 +30,40 @@ require_once(__DIR__.'/../../database/classes/Inscripciones.php');
 require_once(__DIR__.'/../../qrcode/full/qrlib.php');
 require_once(__DIR__."/../print_common.php");
 
-class PrintCatalogo extends PrintCommon {
+class PrintInscripciones extends PrintCommon {
+	function __construct($orientation,$file,$prueba,$jornada) {
+		parent::__construct($orientation,$file,$prueba,$jornada);
+	}
+	/*
+	 * Insert a json hidden text into pdf to allow easy data recovery from PDF
+	* this is a little help to let "pdf2txt --layout" to generate something available to be parsed and
+	* compose a csv table to be imported: just write a hidden text key for each value in row
+	 *
+	 * usage ( suggestion. need to be revised after command execution, as some data may be missing ) :
+	 * pdftotext --layout Catalogo_inscripciones.pdf - | awk '/NombreLargo/ {print;}'
+	*/
+	protected function printHiddenRowData($count,$row) {
+		$str="{\"Dorsal\":\"{$row['Dorsal']}\",";
+		$str.="\"Nombre\":\"{$row['Nombre']}\",\"NombreLargo\":\"{$row['NombreLargo']}\",\"Raza\":\"{$row['Raza']}\",";
+		$str.="\"Licencia\":\"{$row['Licencia']}\",\"Categoria\":\"{$row['Categoria']}\",\"Grado:{$row['Grado']}\",";
+		$str.="\"NombreGuia\":\"{$this->getHandlerName($row)}\",\"Club\":\"{$row['NombreClub']}\"}";
+
+		// preserve current X coordinate and evaluate where to put hidden data
+		$x=$this->GetX(); $y=$this->GetY();
+		$this->SetX($x+10);
+		// set foregroud and background to white to let text trasparent
+		// notice that hidden data should be printed _before_ real data, otherwise real data printout will be overriden
+		$this->SetTextColor(255,255,255);
+		$this->SetFillColor( 255,255,255);
+		$this->SetFont($this->getFontName(),'',1); // tiny size, wont be visible
+		$this->Cell(140,7,iconv('UTF-8','ASCII//TRANSLIT',$str),'',0,'L',true);
+		$this->ac_row($count,10); // set proper row background
+		$this->SetTextColor(0,0,0); // negro
+		$this->SetXY($x,$y); // restore cursor position
+	}
+}
+
+class PrintCatalogo extends PrintInscripciones {
 	protected $inscritos;
 	protected $jornadas;
 	
@@ -137,26 +170,6 @@ class PrintCatalogo extends PrintCommon {
 		$this->Ln();
 	}
 
-	/*
-	 * this is a little help to let "pdf2txt --layout" to generate something available to be parsed and
-	 * compose a csv table to be imported: just write a hidden text key for each value in row
-	 */
-	// usage ( suggestion. need to be revised after command execution, as some data may be missing ) :
-	// pdftotext --layout Catalogo_inscripciones.pdf
-	// cat Catalogo_inscripciones.txt | awk '/NombreLargo/ {print;}'
-	private function printHiddenPrefix($count,$prefix) {
-		$x=$this->getX();
-		$this->SetX(5);
-		// print hidden cell prefix to allow exporting
-		$this->SetTextColor(255,255,255);
-		$this->SetFillColor( 255,255,255);
-		$this->SetFont($this->getFontName(),'',2); // tiny size, wont be visible
-		$this->Cell(180,7,iconv('UTF-8','ASCII//TRANSLIT',$prefix),'',0,'L',true);
-		$this->ac_row($count,10); // set proper row background
-		$this->SetTextColor(0,0,0); // negro
-		$this->SetX($x);
-
-	}
 	function printParticipante($count,$row) {
 		// evaluate data to be printed
 		$name= $row['Nombre'];
@@ -169,11 +182,7 @@ class PrintCatalogo extends PrintCommon {
 		}
 		$cat=$this->federation->getCategoryShort($row['Categoria']);
 		// print hidden json data to allow exporting
-		$str="{\"Dorsal\":\"{$row['Dorsal']}\",";
-		$str.="\"Nombre\":\"{$row['Nombre']}\",\"NombreLargo\":\"{$row['NombreLargo']}\",\"Raza\":\"{$row['Raza']}\",";
-		$str.="\"Licencia\":\"{$row['Licencia']}\",\"Categoria\":\"{$row['Categoria']}\",\"Grado:{$row['Grado']}\",";
-		$str.="\"NombreGuia\":\"{$this->getHandlerName($row)}\",\"Club\":\"{$row['NombreClub']}\"}";
-		$this->printHiddenPrefix($count,$str);
+		$this->printHiddenRowData($count,$row);
 
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 		$this->SetLineWidth(.3); // ancho de linea
@@ -260,7 +269,7 @@ class PrintCatalogo extends PrintCommon {
 	}
 }
 
-class PrintEstadisticasInscripciones extends PrintCommon {
+class PrintEstadisticasInscripciones extends PrintInscripciones {
 	protected $inscritos;
 	protected $jornadas;
 	
@@ -520,7 +529,7 @@ class PrintEstadisticasInscripciones extends PrintCommon {
 	}
 }
 
-class PrintInscritos extends PrintCommon {
+class PrintInscritos extends PrintInscripciones {
 	
 	protected $inscritos;
 	protected $jornadas;
@@ -677,7 +686,7 @@ class PrintInscritos extends PrintCommon {
 			} 
 			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);
 			// $this->Cell($this->pos[0],7,$rowcount+1,		'LR',	0,		$this->align[0],$fill); // display order instead of idperro
-
+			$this->printHiddenRowData($rowcount,$row);
 			//     0           1         2          3       4         5           6            7            8           9
 			// _('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Cat'),_('Grado'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
 			$this->SetFont($this->getFontName(),'B',7); // bold 7px
@@ -740,7 +749,7 @@ class PrintInscritos extends PrintCommon {
 	}
 }
 
-class PrintInscritosByJornada extends PrintCommon {
+class PrintInscritosByJornada extends PrintInscripciones {
 
 	protected $inscritos; // inscritos en la prueba
 	protected $jornadas; // datos de todas las jornadas de esta prueba
@@ -861,6 +870,7 @@ class PrintInscritosByJornada extends PrintCommon {
 			}
 			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);
 			// $this->Cell($this->pos[0],7,$rowcount+1,		'LR',	0,		$this->align[0],$fill); // display order instead of idperro
+			$this->printHiddenRowData($rowcount,$row);
 
             $this->SetFont($this->getFontName(),'',8); // normal 8px
 			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
@@ -900,11 +910,11 @@ class PrintInscritosByJornada extends PrintCommon {
 }
 
 /**
- * Class PrintTarjetasDeVisita
+ * Class PrintDorsales
  * Imprime en formato de tarjeta de visita las inscripciones indicadas
- * Por cada dorsal se imprimen dos tarjetas
+ * Se añade un codigo QR para poder ser leido externamente
  */
-class PrintTarjetasDeVisita extends PrintCommon{
+class PrintTarjetasDeVisita extends Printinscripciones{
     protected $inscritos; // inscritos en la prueba
 	protected $hasGrades=false;
     /**
@@ -934,9 +944,11 @@ class PrintTarjetasDeVisita extends PrintCommon{
     }
 
     private function printCard($x,$y,$item) {
+    	static $itemcount=0;
         // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// borde de la tarjeta
 		$this->SetXY($x,$y);
+		$this->printHiddenRowData($itemcount++,$item);
         $this->Cell(85,55, '','TBLR',0,'C',false);
     	// nombre de la prueba
         $this->SetXY($x+1,$y+1);
@@ -1016,7 +1028,7 @@ class PrintTarjetasDeVisita extends PrintCommon{
  * Imprime en formato de postit para las cartillas la inscripcion
  * Por cada dorsal se imprimen dos tarjetas
  */
-class PrintPostItCartilla extends PrintCommon{
+class PrintPostItCartilla extends PrintInscripciones{
 	protected $inscritos; // inscritos en la prueba
 	protected $hasGrades=false;
 	protected $filas;
@@ -1056,9 +1068,11 @@ class PrintPostItCartilla extends PrintCommon{
 	}
 
 	private function printCard($x,$y,$item) {
+		static $itemcount=0;
+		$this->SetXY($x+1,$y+1);
+		$this->printHiddenRowData($itemcount,$item);
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// borde de la tarjeta
-		$this->SetXY($x+1,$y+1);
 		$this->Cell(60,(4*$this->rowheight)-4, '','TBLR',0,'C',false);
 
 		// Dorsal
