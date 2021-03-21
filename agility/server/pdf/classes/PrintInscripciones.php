@@ -45,7 +45,7 @@ class PrintInscripciones extends PrintCommon {
 	protected function printHiddenRowData($count,$row) {
 		$str="{\"Dorsal\":\"{$row['Dorsal']}\",";
 		$str.="\"Nombre\":\"{$row['Nombre']}\",\"NombreLargo\":\"{$row['NombreLargo']}\",\"Raza\":\"{$row['Raza']}\",";
-		$str.="\"Licencia\":\"{$row['Licencia']}\",\"Categoria\":\"{$row['Categoria']}\",\"Grado:{$row['Grado']}\",";
+		$str.="\"Licencia\":\"{$row['Licencia']}\",\"Categoria\":\"{$row['Categoria']}\",\"Grado\":\"{$row['Grado']}\",";
 		$str.="\"NombreGuia\":\"{$this->getHandlerName($row)}\",\"Club\":\"{$row['NombreClub']}\"}";
 
 		// preserve current X coordinate and evaluate where to put hidden data
