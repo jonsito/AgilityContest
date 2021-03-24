@@ -117,9 +117,10 @@ class PrintEquiposByJornada extends PrintCommon {
         $this->SetXY(10,45+5*$rowcount);
 		$this->ac_header(1,17);
         $this->Image($logos[0],$this->getX(),$this->getY(),9);
-        $this->Image($logos[1],$this->getX()+10,$this->getY(),9);
-        $this->Image($logos[2],$this->getX()+20,$this->getY(),9);
-        $this->Image($logos[3],$this->getX()+30,$this->getY(),9);
+        if (array_key_exists(1,$logos)) $this->Image($logos[1],$this->getX()+10,$this->getY(),9);
+        if (array_key_exists(2,$logos)) $this->Image($logos[2],$this->getX()+20,$this->getY(),9);
+        if (array_key_exists(3,$logos)) $this->Image($logos[3],$this->getX()+30,$this->getY(),9);
+        if (array_key_exists(4,$logos)) $this->Image($logos[4],$this->getX()+40,$this->getY(),9);
         $this->SetX($this->GetX()+40);
         $this->Cell(140,9,$team['Nombre'],'T',0,'R',true);
         $this->Cell(10,9,'','TR',0,'R',true); // empty space at right of page
