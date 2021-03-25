@@ -37,6 +37,9 @@ class ReaderFactory
             case Type::ODS:
                 $reader = new ODS\Reader();
                 break;
+            case Type::PDF: // JAMC 21-03-2021 to allow parsing of pdf inscriptions
+                $reader = new PDF\Reader();
+                break;
             default:
                 throw new UnsupportedTypeException('No readers supporting the given type: ' . $readerType);
         }

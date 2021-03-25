@@ -13,4 +13,5 @@ abstract class Type
     const CSV = 'csv';
     const XLSX = 'xlsx';
     const ODS = 'ods';
+    const PDF = 'pdf'; // JAMC 21-Mar-2021 to allow parsing of AgilityContest pdf files
 }

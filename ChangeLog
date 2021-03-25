@@ -1,3 +1,6 @@
+Version 4.4.1 20210324_1800
+    - Extend json hidden data to every inscription pdf
+    - Fix warn when non-existent competitor in Team listing
 Version 4.4.1 20210308_1150
     - printHallOfFame: fixes for 5 heights
     - printCatalogo: add json hidden field for pdf parsing
