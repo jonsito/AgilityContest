@@ -40,7 +40,7 @@ $config =Config::getInstance();
                 <input type="checkbox" id="team_edit_dialog-X" name="X" value="X"/>
                 <label id="team_edit_dialog_lbl-X" for="team_edit_dialog-X" style="width:40px">Xlarge</label>
             </span>
-			<input type="checkbox" id="team_edit_dialog-L" name="L" value="L">
+            <input type="checkbox" id="team_edit_dialog-L" name="L" value="L">
             <label id="team_edit_dialog_lbl-L" for="team_edit_dialog-L" style="width:40px">Large</label>
 			<input type="checkbox" id="team_edit_dialog-M" name="M" value="M">
             <label id="team_edit_dialog_lbl-M" for="team_edit_dialog-M" style="width:40px">Medium</label>

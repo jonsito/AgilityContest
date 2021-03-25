@@ -25,7 +25,7 @@ class Clasificatoria_Interclubes extends Competitions {    /*
     }
 
     function useLongNames() { return true; }
-    function getRoundHeights($mangaid) { return 3; }
+    function getRoundHeights($mangaid) { return 5; }
 
     /**
      * Evalua la calificacion parcial del perro

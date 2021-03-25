@@ -353,18 +353,24 @@ class AuthManager {
 	 * @param string $file file name
 	 * @return array|mixed|null
 	 */
-	function checkRegistrationInfo( $file = AC_REGINFO_FILE ) {
-        $fp=@fopen ($file,"rb");
-        if (!$fp) {
-            $this->myLogger->error("Cannot get/read Registration info file:{$file}");
-            return null;
-        }
-		$data=""; while (!feof($fp)) { $data .= fread($fp, 8192); };
-        @fclose($fp);
-		$uniqueID=base64_decode($this->myConfig->getEnv('uniqueID'),true);
-        $result=$this->decrypt('License',$data,$uniqueID); // receive decrypted data as object
-        if (($result['info']!="") && ($this->myGateKeeper===null))
-            $this->myGateKeeper= create_function('$a,$b', $result['info']);
+	function checkRegistrationInfo( $file = AC_REGINFO_FILE )
+	{
+		$fp = @fopen($file, "rb");
+		if (!$fp) {
+			$this->myLogger->error("Cannot get/read Registration info file:{$file}");
+			return null;
+		}
+		$data = "";
+		while (!feof($fp)) {
+			$data .= fread($fp, 8192);
+		};
+		@fclose($fp);
+		$uniqueID = base64_decode($this->myConfig->getEnv('uniqueID'), true);
+		$result = $this->decrypt('License', $data, $uniqueID); // receive decrypted data as object
+		if (!is_null($result)) {
+			if (($result['info'] != "") && ($this->myGateKeeper === null))
+				$this->myGateKeeper = create_function('$a,$b', $result['info']);
+		}
         return $result;
 	}
 
@@ -430,7 +436,8 @@ class AuthManager {
 				$this->myLogger->warn("Cannot retrieve license information. Using defaults");
 				$this->registrationInfo=json_decode(base64_decode($this->getDL()),true);
 				// and mark data as "defaulted"
-                $this->registrationInfo['comments']="Default License";
+				$this->registrationInfo['comments']="Default License";
+				$this->registrationInfo['info']="";
 			}
 		}
 		// now parse information and fix what's is to be exposed
