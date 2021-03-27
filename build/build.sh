@@ -18,6 +18,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 
+CHRONO_DIR=/home/jantonio/CLionProjects/AgilityContest_SerialChronometer/
 BASE_DIR=/home/jantonio/work/agility/phpstorm/AgilityContest
 EXE_DIR=/home/jantonio/work/agility/phpstorm/AgilityContest/build/launcher
 BUILD_DIR=/home/jantonio/work/agility/build
@@ -111,6 +112,18 @@ echo "Copying AgilityContest files ..."
 (cd ${BASE_DIR}; tar cfBp - .htaccess index.html agility server applications extras logs config AgilityContest.exe COPYING README.md Contributors ChangeLog ) |\
     ( cd ${BUILD_DIR}; tar xfBp - )
 
+# now add SerialChronometer files
+zipfile=`ls -rt ${CHRONO_DIR}/*zip 2>/dev/null | tail -1`
+if [ ! -z $zipfile ]; then
+  echo "Adding SerialChronometer files ..."
+  pushd ${BUILD_DIR}
+  unzip -q $zipfile
+  popd
+else
+  echo "WARNING: cannot find any chronometer compilation zip file in ${CHRONO_DIR}"
+  mkdir -p ${BUILD_DIR}/SerialChrono
+fi
+
 # set first install mark and properly edit .htaccess
 touch ${BUILD_DIR}/logs/first_install
 sed -i -e "s|__HTTP_BASEDIR__|C:|g" \
@@ -162,11 +175,11 @@ chmod +x *.command
 # add .dmg background image
 mkdir -p .background
 cp agility/images/AgilityContest.png .background
-cp -r COPYING License.txt ChangeLog agility config logs applications extras server docs AgilityContest-master
+cp -r COPYING License.txt ChangeLog SerialChrono agility config logs applications extras server docs AgilityContest-master
 # restore original .htaccess
 cp ${BASE_DIR}/.htaccess AgilityContest-master
 # do not include build and web dir in destination zipfile
-zip -q -r AgilityContest-master.zip AgilityContest-master/{agility,applications,server,extras,logs,config,COPYING,index.html,.htaccess,ChangeLog}
+zip -q -r AgilityContest-master.zip AgilityContest-master/{SerialChrono,agility,applications,server,extras,logs,config,COPYING,index.html,.htaccess,ChangeLog}
 FILES="osx_install.command create_certificate.command COPYING ChangeLog License.txt AgilityContest-master.zip"
 mkisofs -quiet -A AgilityContest \
     -P jonsito@gmail.com \

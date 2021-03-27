@@ -30,5 +30,5 @@ class Final_Interclubes extends Competitions {
     }
 
     function useLongNames() { return true; }
-    function getRoundHeights($mangaid) { return 3; }
+    function getRoundHeights($mangaid) { return 5; }
 }

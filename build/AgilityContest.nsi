@@ -152,6 +152,7 @@ File /r docs
 FILE /r extras
 FILE /r logs
 FILE /r server
+FILE /r SerialChrono
 IfFileExists $TEMP\DoNotReinstall.txt dontReinstall Reinstall
 Reinstall:
     FILE /r xampp
