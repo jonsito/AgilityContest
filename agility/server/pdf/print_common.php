@@ -261,7 +261,7 @@ class PrintCommon extends FPDF {
 			$this->icon2=getIconPath($fedName,"agilitycontest.png");
 		}
 		// if competition mode states no logo, obbey them
-		if ($this->competition->isFederationLogoAllowed()) {
+		if ( ! $this->competition->isFederationLogoAllowed()) {
 			$this->icon2=getIconPath($fedName,"null.png");
 		}
 	}
