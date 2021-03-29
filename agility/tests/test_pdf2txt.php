@@ -15,9 +15,13 @@ require_once __DIR__ . '/../server/excel/Spout/Autoloader/autoload.php';
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Common\Type;
 
-$sheet=null;
 $reader = ReaderFactory::create(Type::PDF);
-$reader->open("/home/jantonio/pCloudDrive/Public Folder/agility/Pozuelo_CuadrupleSS_2021/Catalogo_inscripciones.pdf");
+try {
+        $reader->open("/home/jantonio/pCloudDrive/Public Folder/agility/Pozuelo_CuadrupleSS_2021/Catalogo_inscripciones.pdf");
+} catch (Exception $e) {
+        echo "open() error: {$e->getMessage()}";
+        exit(1);
+}
 
 // getCurrentSheet() is not available for reader. so dirty trick
 // $sheet=$reader->getCurrentSheet();

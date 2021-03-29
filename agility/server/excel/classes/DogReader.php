@@ -320,11 +320,32 @@ class DogReader {
 
     public function validateFile( $filename,$droptable=true) {
         $this->myLogger->enter();
+        // Latests versions can also extract info from dog catalog and inscriptions pdf files,
+        // so need an intermediate file name to handle both formats
+        $newname=$filename;
         $this->saveStatus("Validating received file...");
         // @unlink(IMPORT_DIR."import_{$this->myOptions['Suffix']}.log");
         // open temporary file
-        $reader = ReaderFactory::create(Type::XLSX);
-        $reader->open($filename);
+        $ok=false;
+        try {
+            $reader = ReaderFactory::create(Type::XLSX);
+            $reader->open($newname);
+            $ok=true;
+        } catch (Exception $e) {
+            $this->myLogger->error("Cannot open file {$newname} as .xlsx Excel. Trying pdf");
+        }
+        if ($ok===false) {
+            $newname=str_replace(".xlsx",".pdf",$filename);
+            try {
+                @rename($filename,$newname);
+                $reader = ReaderFactory::create(Type::PDF);
+                $reader->open($newname);
+            } catch (Exception $e) {
+                $this->myLogger->error("Cannot open file {$newname} as .pdf PortableDocumentFormat. Aborting import");
+                $this->saveStatus("Read Excel Done.");
+                return 0;
+            }
+        }
         // if there are only one sheet assume it is what we are looking for
         $found=false;
         $sheet=null;
@@ -399,7 +420,7 @@ class DogReader {
         $this->saveStatus("Read Excel Done.");
         // fine. we can start parsing data in DB database table
         $reader->close();
-        @unlink($filename); // remove temporary file if no named file provided
+        @unlink($newname); // remove temporary file if no named file provided
         // save variables imported from excel and exit
         $this->saveExcelVars();
         $this->myLogger->leave();
