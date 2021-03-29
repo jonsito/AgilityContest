@@ -48,9 +48,6 @@ class ReaderFactory
             default:
                 throw new UnsupportedTypeException('No readers supporting the given type: ' . $readerType);
         }
-
-        $reader->setGlobalFunctionsHelper(new GlobalFunctionsHelper());
-
         return $reader;
     }
 }

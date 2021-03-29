@@ -35,6 +35,7 @@ class GlobalFunctionsHelper
      */
     public function fgets($handle, $length = null)
     {
+        if (is_null($length)) return fgets($handle);
         return fgets($handle, $length);
     }
 
