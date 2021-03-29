@@ -15,7 +15,7 @@ class Sheet implements SheetInterface
     protected $rowIterator;
 
     /**
-     * @param resource $filePointer Pointer to the PDF file to read
+     * @param resource $filePointer Pointer to the PDF "file" ( really an string array ) to read
      * @param \Box\Spout\Reader\PDF\ReaderOptions $options
      * @param \Box\Spout\Common\Helper\GlobalFunctionsHelper $globalFunctionsHelper
      */
