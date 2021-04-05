@@ -139,6 +139,7 @@ $('#selteam-datagrid').datagrid({
 
 //TODO: estudiar por qué el "closed:true" en el data-options no funciona
 $('#team_datagrid-dialog').dialog({
+    footer: '#team_datagrid-buttons',
 	iconCls:'icon-huella',
 	modal:true,
 	closable:true,
@@ -157,12 +158,11 @@ $('#team_datagrid-dialog').dialog({
 
 // datos de la tabla de equipos
 $('#team_datagrid').datagrid({
+    toolbar: '#team_datagrid-toolbar',
 	fit: true,
 	url: '../ajax/database/equiposFunctions.php',
 	queryParams: { Operation: 'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},
 	loadMsg: '<?php _e('Updating team list');?> ...',
-    footer: '#team_datagrid-buttons',
-    toolbar: '#team_datagrid-toolbar',
 	method: 'get',
 	mode: 'remote',
     multiSort: true,
