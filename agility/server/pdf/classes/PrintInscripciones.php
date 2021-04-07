@@ -764,7 +764,7 @@ class PrintInscritosByJornada extends PrintInscripciones {
 	/**
 	 * Constructor
 	 * @param {integer} $pruebaid Prueba ID
-	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+	 * @param {array} $inscritos Lista de inscritos en formato jquery array[total,rows[]]
 	 * @param {array} $jornadas lista de jornadas de la prueba
 	 * @param {integer} $jornadaid id de la prueba que buscamos
 	 * @throws Exception
@@ -775,7 +775,8 @@ class PrintInscritosByJornada extends PrintInscripciones {
 			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
 			throw new Exception($this->errormsg);
 		}
-		usort($inscritos['rows'],function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
+		// en printInscritosByJornada se respeta el filtro de seleccion/ordenamiento del formulario
+		// usort($inscritos['rows'],function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
         $this->inscritos=$inscritos['rows'];
         $this->jornadas=$jornadas['rows'];
 		$this->cellHeader=

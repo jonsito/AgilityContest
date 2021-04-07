@@ -42,7 +42,7 @@ class RFEC extends Federations {
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
                 'Jr' => 'Junior',
-                // 'Sr' => 'Senior',
+                'Sr' => 'Senior',
                 'GI' => 'Promocion (G1)',
                 'GII'=> 'Competicion (G2)',
                 // 'GIII' => '(G3) no disponible',

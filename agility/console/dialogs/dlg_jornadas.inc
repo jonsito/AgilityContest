@@ -38,7 +38,7 @@ $config =Config::getInstance();
 				<input id="jornadas-Operation" type="hidden" name="Operation"/>
         	</div>
             <div class="fitem">
-                <label for="jornadas-Fecha"style="width:150px"><?php _e('Date'); ?></label>
+                <label for="jornadas-Fecha" style="width:150px"><?php _e('Date'); ?></label>
                 <select id="jornadas-Fecha" name="Fecha"  style="text-align:right"></select>
             </div>
             <div class="fitem">
