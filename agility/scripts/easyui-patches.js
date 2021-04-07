@@ -323,6 +323,13 @@ $.extend($.fn.validatebox.defaults.rules, {
         },
         message: 'Enter range in format XXXX-XXXX'
     },
+    'validComboValue': {
+        validator: function(value,param) {
+            var val=$(param[0]).combogrid('getValue');
+            return(!isNaN(val));
+        },
+        message: 'Must select an option from combobox'
+    },
     'activationkey': {
         validator: function(value,param) {
             var reg=new RegExp('^[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}-[0-9a-zA-Z]{4}$');
