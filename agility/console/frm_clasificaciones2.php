@@ -86,9 +86,20 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
 
 <div id="resultados-printDialog">
 	<form style="padding:10px" id="resultados-printForm">
-	<input type="radio" name="r_prformat" value="0" onclick="r_selectOption(0);"/><?php _e('Podium'); ?> (PDF)<br />
-        <input type="radio" name="r_prformat" value="6" onclick="r_selectOption(6);"/><?php _e('Contest Hall Of Fame'); ?> (PDF)
-    <br />&nbsp;<hr/><br/>
+    <span  style="display:inline-block;width:100%">
+        <span style="float:left">
+	        <input type="radio" name="r_prformat" value="0" onclick="r_selectOption(0);"/><?php _e('Podium'); ?> (PDF)<br/>
+            <input type="radio" name="r_prformat" value="6" onclick="r_selectOption(6);"/><?php _e('Contest Hall Of Fame'); ?> (PDF)
+        </span>
+        <span style="float:right">
+            <br/>&nbsp;<br/>
+            <label id="r_journeysLbl" for="r_journeys"><?php _e('Select journeys'); ?></label>
+            <select id="r_journeys" style="width:125px" name="r_journeys" class="easyui-combogrid"></select>
+        </span>
+    </span>
+    <br/>&nbsp;<br/>
+    <hr/>
+    <br/>
 	<input type="radio" name="r_prformat" value="1" onclick="r_selectOption(1);"/><?php _e('Export in text format'); ?> (CSV)<br />
     <input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/><?php _e('Export as spreadsheet'); ?> (Excel)<br />
     <span  style="display:inline-block;width:100%">
@@ -120,6 +131,7 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
 		<span style="float:left">
 			<input type="radio" name="r_prformat" value="5" onclick="r_selectOption(5);"/><?php _e('CNEAC Qualification forms'); ?>&nbsp;<br/>
 			<input type="radio" name="r_prformat" value="2" onclick="r_selectOption(2);"/><?php _e('RSCE Label sheets'); ?>&nbsp; <br/>
+			<input type="radio" name="r_prformat" value="9" onclick="r_selectOption(2);"/><?php _e('RFEC Passport Labels'); ?>&nbsp; <br/>
 			&nbsp;<br />&nbsp;<br/>
 		</span>
 		<span style="float:right">
@@ -154,6 +166,26 @@ $('#r_prfirst').numberspinner({
     value: 1
 });
 
+$('#r_journeys').combogrid({
+    panelHeight:'auto',
+    panelWidth: 150,
+    url: '../ajax/database/jornadaFunctions.php',
+    idField:'ID',
+    textField:'Nombre',
+    multiple: true,
+    mode: 'remote',
+    queryParams: {
+        Operation:'enumerate',
+        Prueba:workingData.prueba,
+        AllowClosed:1,
+        HideUnassigned:1
+    },
+    columns: [[
+        {field:'ID',			hidden:true},
+        {field:'Nombre',		title:'<?php _e('Name'); ?>',			width:150,	align:'left'}
+        ]]
+});
+
 $('#r_mergecats').combobox({
     panelHeight:'auto',
     valueField: 'value',
@@ -172,7 +204,7 @@ $('#resultados-printDialog').dialog({
     closable:true,
     closed:true,
     width:'600px',
-    height:'400px',
+    height:'auto',
     onBeforeOpen: function() {
         // mira si hay que activar boton de split Junior/Senior
         var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
