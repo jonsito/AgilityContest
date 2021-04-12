@@ -44,13 +44,13 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
         De no hacerlo así, los resultados, clasificaciones y podium <em>pueden salir con valores de TRS y PUNTUACIONES INCORRECTAS</em>
     </p>
     <p>
-        La nueva versi&oacute;n muestra un aviso al operador cuando modifica este valor:
-        <img src="invalid_mode.png" alt="Recorrido invalido"/>
+        La nueva versi&oacute;n muestra un aviso al operador cuando modifica este valor:<br/>
+        <img src="/blog/invalid_mode.png" alt="Recorrido invalido" width="800"/>
     </p>
     <p>
         Para obtener los resultados, clasificaciones y podium agrupados, no hay pues que modificar los par&aacute;metros del recorrido,
-        sino realizar el ajuste de presentación en el di&aacute;logo de generaci&oacute;n de informes:
-        <img src="grouped_pdf.png" alt="Como imprimir agrupado"/>
+        sino realizar el ajuste de presentación en el di&aacute;logo de generaci&oacute;n de informes:<br/>
+        <img src="/blog/grouped_pdf.png" alt="Como imprimir agrupado" width="800"/>
     </p>
 <?php } ?>
 
