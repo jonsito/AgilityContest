@@ -280,7 +280,7 @@ class DogReader {
         $res=$this->myDBObject->query($str);
         if (!$res) {
             $error=$this->myDBObject->conn->error;
-            throw new Exception("{$this->name}::populateTable(): Error inserting row $index ".json_encode($row)."\n$error");
+            throw new Exception("{$this->name}::populateTable(perros): Error inserting row $index ".json_encode($row)."\n$error");
         }
         $this->myLogger->leave();
         return 0;
