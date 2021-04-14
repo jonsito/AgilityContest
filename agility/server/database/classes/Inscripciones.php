@@ -455,7 +455,8 @@ class Inscripciones extends DBObject {
 			array_push($data,$row);
 		}
 		$rs->free();
-		$result['total']=count($data);
+		// ! do not hardcode 'total' as we are using pagination in request !!
+		// $result['total']=count($data);
 		$result['rows']=$data;
 		$this->myLogger->leave();
 		return $result;
