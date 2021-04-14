@@ -47,7 +47,9 @@ class PrintInscripciones extends PrintCommon {
 		$str.="\"Nombre\":\"{$row['Nombre']}\",\"NombreLargo\":\"{$row['NombreLargo']}\",\"Raza\":\"{$row['Raza']}\",";
 		$str.="\"Licencia\":\"{$row['Licencia']}\",\"Categoria\":\"{$row['Categoria']}\",\"Grado\":\"{$row['Grado']}\",";
 		$str.="\"NombreGuia\":\"{$this->getHandlerName($row)}\",\"Club\":\"{$row['NombreClub']}\"}";
-
+		// eliminamos tildes y enyes para evitar que iconv() haga el tonto
+		// no va a arreglar nada con charsets extranyos, pero ceda más clarito en castellano :-)
+		$str=strtr($str,"áéíóúñÁÉÍÓÚÑß","aeiouAEIOUNs");
 		// preserve current X coordinate and evaluate where to put hidden data
 		$x=$this->GetX(); $y=$this->GetY();
 		$this->SetX($x+10);
