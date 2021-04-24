@@ -410,6 +410,7 @@ function consoleReloadParcial(val,fill) {
             $('#rm_TRM_'+suffix).textbox('setValue',dat['trs'].trm);
             var vel=(''+dat['trs'].vel).replace('&asymp;','\u2248');
             $('#rm_VEL_'+suffix).textbox('setValue',vel);
+            $('#rm_VEL_'+suffix).textbox('textbox').css('background',(dat['trs'].vel==0)?'#ffcccc':'white');
 
             // actualizar datagrid
             if (!fill) return;

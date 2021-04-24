@@ -178,6 +178,10 @@ class Resultados extends DBObject {
 				break;
 			case 6: // en lugar de tiempo nos proporcionan velocidad
 				$result['vel']=$factor;
+				if($factor==0) {
+				    $this->myLogger->notice("TRS as Speed is incorrectly set");
+				    $factor=1;
+                }
 				if ($roundUp==true) $result['trs']=ceil($result['dist']/$factor);
 				else $result['trs']=$result['dist']/$factor;
 				break;

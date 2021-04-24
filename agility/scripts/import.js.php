@@ -509,7 +509,7 @@ function real_excelImport(type,prefix) {
     // prepare randon string for report notifier
     ac_import.suffix=getRandomString(8);
     ac_import.count=0;
-    if (data=="") {
+    if (data==="") {
         $.messager.alert("<?php _e('Error');?>","<?php _e('No import file selected');?>",'error');
         return;
     }

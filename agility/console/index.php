@@ -516,7 +516,7 @@ body {
          data-options="width:'100%',fit:true,border:false"></div>
 </div>
 
-<!-- Entrada para insertar dialogos de importacion de ficheros desde excel -->
+<!-- Dialogos del progreso importacion de ficheros desde excel (new/select/cancel) -->
 <div id="myimport">
 	<div id="importclubes" style="display:none">
         <?php include_once("dialogs/import_clubes.inc.php"); ?>
@@ -534,6 +534,7 @@ body {
         <?php include_once("dialogs/import_ordensalida.inc.php"); ?>
     </div>
 </div>
+
 <script type="text/javascript">
     function toogleCollapse(item) {
         var smenu=$(item);
