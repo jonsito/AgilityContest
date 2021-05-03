@@ -126,7 +126,6 @@ function acceptSelectPrueba() {
 	var extradlgs={
 	    'inscripciones':'#new_inscripcion-dialog',
         'equipos':'#team_datagrid-dialog',
-        'import':'#inscripciones-excel-dialog',
 	    'newdog':'#perros-dialog'
 	};
 	check_softLevel(access_level.PERMS_OPERATOR,function() {loadContents(page,title,extradlgs);});

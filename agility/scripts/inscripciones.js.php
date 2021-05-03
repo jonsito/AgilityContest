@@ -589,7 +589,7 @@ function importExportInscripciones() {
                     if (res.errorMsg) {
                         $.messager.alert('License error','<?php _e("Current license has no Excel import function enabled"); ?>', "error");
                     } else {
-                        $('#inscripciones-excel-dialog').dialog('open');
+                        $('#importdialog').dialog('open');
                     }
                     return false; // prevent default fireup of event trigger
                 });

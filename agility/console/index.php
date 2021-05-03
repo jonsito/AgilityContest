@@ -411,7 +411,7 @@ body {
 	        loadContents(
 	            '../console/frm_perros.php',
 	            '<?php _e('Dogs Database Management');?>',
-	            {'e':'#perros-excel-dialog','p':'#perros-dialog'}
+	            {'p':'#perros-dialog'}
 	        );
 	    });"><?php _e('Dogs'); ?>
         </a>
@@ -533,6 +533,8 @@ body {
     <div id="importordensalida" style="display:none">
         <?php include_once("dialogs/import_ordensalida.inc.php"); ?>
     </div>
+    <?php include_once("templates/import_dialog.inc.php"); ?>
+
 </div>
 
 <script type="text/javascript">

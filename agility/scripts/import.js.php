@@ -41,8 +41,8 @@ var ac_import = {
 };
 
 var ac_import_table = {
-    'perros' :          [ '#perros-excel-dialog','#perros-datagrid' ],
-    'inscripciones' :   [ '#inscripciones-excel-dialog','#inscripciones-datagrid' ],
+    'perros' :          [ '#importdialog','#perros-datagrid' ],
+    'inscripciones' :   [ '#importdialog','#inscripciones-datagrid' ],
     'entrenamientos' :  [ '#entrenamientos-excel-dialog','#entrenamientos-datagrid' ],
     'resultados' :      [ '#resultadosmanga-excel-dialog','#resultados-datagrid' ], // resultados-datagrid is runtime replaced
     'ordensalida' :  [ '#ordensalida-excel-dialog','#ordensalida-datagrid' ]
@@ -519,13 +519,12 @@ function real_excelImport(type,prefix) {
 }
 
 // to avoid duplicate ids in doom , some import dialogs needs add a prefix to provided variables
-function perros_excelImport() { return real_excelImport('perros',''); }
-function inscripciones_excelImport() { return real_excelImport('inscripciones',''); }
+function do_excelImport() { return real_excelImport(ac_import.type,''); }
 function entrenamientos_excelImport() { return real_excelImport('entrenamientos','entrenamientos-'); }
 function resultadosmanga_excelImport() {
     var val=$('input[name=rRecorrido]:checked').val(); // to tell server which categories to parse (LMSTX-)
     ac_import.mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,parseInt(val));
-    return real_excelImport('resultados','');
+    return real_excelImport('resultados','resultados-');
 }
 function ordensalida_excelImport() {
     switch ($('#ordensalida-categoria').combobox('getValue')) {

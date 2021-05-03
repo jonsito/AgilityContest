@@ -17,11 +17,11 @@ $config =Config::getInstance();
             <?php _e("Select Excel file to retrieve round result data from");?><br />
             <?php _e("Press import to start, or cancel to abort import"); ?>
             <br />&nbsp;<br />
-            <input type="file" name="import-excel-fileSelect" value="" id="import-excel-fileSelect"
+            <input type="file" name="import-excel-fileSelect" value="" id="resultados-import-excel-fileSelect"
                    class="icon_button icon-search"
                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this,'')">
             <br />
-            <input id="import-excelData" type="hidden" name="excelData" value="">
+            <input id="resultados-import-excelData" type="hidden" name="excelData" value="">
 
             <!--
             La importacion de resultados no tiene opciones:
@@ -31,28 +31,28 @@ $config =Config::getInstance();
             - En modo interactivo, los campos sin licencia del excel tambien se ignoran, pero en caso de
               no encontrar licencia o multiples perros con misma licencia, se le pregunta al usuario
             -->
-            <span id="import_excelBlindCheck"> <!-- modo blind (no interactivo -->
+            <span id="resultados-import_excelBlindCheck"> <!-- modo blind (no interactivo -->
                 <br />
-                <label for="import-excelBlindMode"><?php _e("Blind (non-interactive) mode");?></label>
-                <input id="import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1"/>
+                <label for="resultados-import-excelBlindMode"><?php _e("Blind (non-interactive) mode");?></label>
+                <input id="resultados-import-excelBlindMode" type="checkbox" name="excelBlindMode" value="1"/>
                 <br />
             </span>
             <!-- opciones para el modo blind. En la importacion de resultados no se usa, por lo que lo ponemos oculto-->
             <span style="display:none">
-				<input id="import-excelPrefDB"   type="radio" name="excelPreference" value="1"/>
-				<input id="import-excelPrefFile" type="radio" name="excelPreference" value="0" checked="checked"/>
-				<input id="import-excelUpperCase" type="radio" name="excelUpperCase" value="1" checked="checked"/>
-				<input id="import-excelLeave" type="radio" name="excelUpperCase" value="0"/>
-				<input id="import-excelEmptyIgnore"   type="radio" name="excelEmpty" value="0" checked="checked"/>
-				<input id="import-excelEmptyUse" type="radio" name="excelEmpty" value="1"/>
+				<input id="resultados-import-excelPrefDB"   type="radio" name="excelPreference" value="1"/>
+				<input id="resultados-import-excelPrefFile" type="radio" name="excelPreference" value="0" checked="checked"/>
+				<input id="resultados-import-excelUpperCase" type="radio" name="excelUpperCase" value="1" checked="checked"/>
+				<input id="resultados-import-excelLeave" type="radio" name="excelUpperCase" value="0"/>
+				<input id="resultados-import-excelEmptyIgnore"   type="radio" name="excelEmpty" value="0" checked="checked"/>
+				<input id="resultados-import-excelEmptyUse" type="radio" name="excelEmpty" value="1"/>
 			</span>
-            <span id="import-excelBlindOptions">
+            <span id="resultados-import-excelBlindOptions">
 				<br/><strong><?php _e("Excel import options");?>:</strong> <br/>
-                <label for="import-excelParseCourseData"><?php _e("Also read (if available) course data");?></label>
-                <input id="import-excelParseCourseData"  type=checkbox name="excelParseCourseData" value="1" checked="checked"/>
+                <label for="resultados-import-excelParseCourseData"><?php _e("Also read (if available) course data");?></label>
+                <input id="resultados-import-excelParseCourseData"  type=checkbox name="excelParseCourseData" value="1" checked="checked"/>
                 <br/>
-                <label for="import-excelIgnoreNotPresent"><?php _e("Ignore excel entries marked as 'Not Present'");?></label>
-                <input id="import-excelIgnoreNotPresent" type="checkbox" name="excelIgnoreNotPresent" value="1" checked="checked"/>
+                <label for="resultados-import-excelIgnoreNotPresent"><?php _e("Ignore excel entries marked as 'Not Present'");?></label>
+                <input id="resultados-import-excelIgnoreNotPresent" type="checkbox" name="excelIgnoreNotPresent" value="1" checked="checked"/>
             </span>
             <br />
         </p>
@@ -72,5 +72,5 @@ $config =Config::getInstance();
         text: '{value}'
     });
 
-    addTooltip($('#import-excelBlindMode'),'<?php _e("Silently ignore result when no license/name match found"); ?>');
+    addTooltip($('#resultados-import-excelBlindMode'),'<?php _e("Silently ignore result when no license/name match found"); ?>');
 </script>
