@@ -176,42 +176,25 @@ class RowIterator implements IteratorInterface
     */
     protected function getNextUTF8EncodedRow()
     {
+        static $count=0;
         $json=null;
         while (is_null($json)) {
             $data=$this->globalFunctionsHelper->fgets($this->filePointer);
             if ($data===false) return false; // end of file or read error
             if (strpos($data,"NombreLargo")===false) continue; // search for keyword in string
-            $json=json_decode($data,true);
+            // remove text before and after '{...}'
+            preg_match("/\\{(.*?)\\}/", $data, $match);
+            $json=json_decode("{".$match[1]."}",true);
         }
         // ok: we have json row data from PDF.
         // {"Dorsal":"a","Nombre":"b","NombreLargo":"c","Raza":"d","Licencia":"e","Categoria":"f","Grado":"g","NombreGuia":"h","Club":"i"}
         $encodedRowData=array(); // notice that data from pdftotext is already UTF-8 encoded
         foreach ($json as $key => $val) {
             // on first row return header; else return data
-            if ($this->numReadRows==0) array_push($encodedRowData,$key);
+            if ($count===0) array_push($encodedRowData,$key);
             else array_push($encodedRowData,$val);
         }
-
-        /*
-        $encodedRowData = $this->globalFunctionsHelper->fgetcsv($this->filePointer, self::MAX_READ_BYTES_PER_LINE, $this->fieldDelimiter, $this->fieldEnclosure);
-        if ($encodedRowData === false) { return false; }
-        foreach ($encodedRowData as $cellIndex => $cellValue) {
-            switch($this->encoding) {
-                case EncodingHelper::ENCODING_UTF16_LE:
-                case EncodingHelper::ENCODING_UTF32_LE:
-                    // remove whitespace from the beginning of a string as fgetcsv() add extra whitespace when it try to explode non UTF-8 data
-                    $cellValue = ltrim($cellValue);
-                    break;
-                case EncodingHelper::ENCODING_UTF16_BE:
-                case EncodingHelper::ENCODING_UTF32_BE:
-                    // remove whitespace from the end of a string as fgetcsv() add extra whitespace when it try to explode non UTF-8 data
-                    $cellValue = rtrim($cellValue);
-                    break;
-            }
-            $encodedRowData[$cellIndex] = $this->encodingHelper->attemptConversionToUTF8($cellValue, $this->encoding);
-        }
-        */
-
+        $count++;
         return $encodedRowData;
     }
 

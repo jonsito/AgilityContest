@@ -34,8 +34,28 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
 
 <!--- comienzo del changelog -->
 
+<?php if ( strcmp($from,"blog_2021-05-01_00:00:00")<0) { ?>
+    <strong>2021-Apr-14</strong><br/>
+    <p>
+        Versión 4.4.1
+    </p>
+    <p>
+        Se recuerda al lector que en Grados 2 y 3 RSCE la modalidad de recorrido debe ser <strong>SIEMPRE por ALTURAS SEPARADAS</strong>
+        De no hacerlo así, los resultados, clasificaciones y podium <em>pueden salir con valores de TRS y PUNTUACIONES INCORRECTAS</em>
+    </p>
+    <p>
+        La nueva versi&oacute;n muestra un aviso al operador cuando modifica este valor:<br/>
+        <img src="https://www.agilitycontest.es/blog/invalid_mode.png" alt="Recorrido invalido" width="640"/>
+    </p>
+    <p>
+        Para obtener los resultados, clasificaciones y podium agrupados, no hay pues que modificar los par&aacute;metros del recorrido,
+        sino realizar el ajuste de presentación en el di&aacute;logo de generaci&oacute;n de informes:<br/>
+        <img src="https://www.agilitycontest.es/blog/grouped_pdf.png" alt="Como imprimir agrupado" width="640"/>
+    </p>
+<?php } ?>
+
 <?php if ( strcmp($from,"blog_2021-01-21_00:00:00")<0) { ?>
-    <strong>2020-Jan-10 00:00:00</strong><br/>
+    <strong>2021-Feb-10 00:00:00</strong><br/>
     <p>
         Nueva versión 4.4.0
     </p>

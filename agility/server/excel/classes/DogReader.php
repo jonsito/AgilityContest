@@ -280,7 +280,7 @@ class DogReader {
         $res=$this->myDBObject->query($str);
         if (!$res) {
             $error=$this->myDBObject->conn->error;
-            throw new Exception("{$this->name}::populateTable(): Error inserting row $index ".json_encode($row)."\n$error");
+            throw new Exception("{$this->name}::populateTable(perros): Error inserting row $index ".json_encode($row)."\n$error");
         }
         $this->myLogger->leave();
         return 0;
@@ -320,11 +320,32 @@ class DogReader {
 
     public function validateFile( $filename,$droptable=true) {
         $this->myLogger->enter();
+        // Latests versions can also extract info from dog catalog and inscriptions pdf files,
+        // so need an intermediate file name to handle both formats
+        $newname=$filename;
         $this->saveStatus("Validating received file...");
         // @unlink(IMPORT_DIR."import_{$this->myOptions['Suffix']}.log");
         // open temporary file
-        $reader = ReaderFactory::create(Type::XLSX);
-        $reader->open($filename);
+        $ok=false;
+        try {
+            $reader = ReaderFactory::create(Type::XLSX);
+            $reader->open($newname);
+            $ok=true;
+        } catch (Exception $e) {
+            $this->myLogger->error("Cannot open file {$newname} as .xlsx Excel. Trying pdf");
+        }
+        if ($ok===false) {
+            $newname=str_replace(".xlsx",".pdf",$filename);
+            try {
+                @rename($filename,$newname);
+                $reader = ReaderFactory::create(Type::PDF);
+                $reader->open($newname);
+            } catch (Exception $e) {
+                $this->myLogger->error("Cannot open file {$newname} as .pdf PortableDocumentFormat. Aborting import");
+                $this->saveStatus("Read Excel Done.");
+                return 0;
+            }
+        }
         // if there are only one sheet assume it is what we are looking for
         $found=false;
         $sheet=null;
@@ -399,7 +420,7 @@ class DogReader {
         $this->saveStatus("Read Excel Done.");
         // fine. we can start parsing data in DB database table
         $reader->close();
-        @unlink($filename); // remove temporary file if no named file provided
+        @unlink($newname); // remove temporary file if no named file provided
         // save variables imported from excel and exit
         $this->saveExcelVars();
         $this->myLogger->leave();
@@ -523,14 +544,14 @@ class DogReader {
         // so blindly create new item with data from excel
         $nombre=$a;
         if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($a);
-        $str="INSERT INTO guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
+        $str="INSERT INTO guias (Nombre,Club,Federation) VALUES ( '{$nombre}',{$c},{$f})";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetHandler(): blindInsertGuia '$a' error:".$this->myDBObject->conn->error;
         $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
         $this->myDBObject->setServerID("guias",$id); // on server add ServerID
-        $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a') AND (ClubID=$c)";
+        $str="UPDATE {$t} SET HandlerID={$id}, NombreGuia='{$nombre}' WHERE (NombreGuia = '{$a}') AND (ClubID={$c})";
         $res=$this->myDBObject->query($str);
-        if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
+        if (!$res) return "findAndSetHandler(): update guia '{$a}' error:".$this->myDBObject->conn->error; // invalid update; mark error
         $this->myLogger->leave();
         return true; // tell parent item found (created). proceed with next
     }
@@ -688,13 +709,13 @@ class DogReader {
         } else if ($options['Object']=="Guia") {
             $nombre=$this->myDBObject->conn->real_escape_string($obj->NombreGuia);
             $c=$obj->ClubID;
-            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($obj->NombreGuia);
-            $str="INSERT INTO guias (Nombre,Club,Federation) VALUES ( '$nombre',$c,$f)";
+            if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
+            $str="INSERT INTO guias (Nombre,Club,Federation) VALUES ( '{$nombre}',{$c},{$f})";
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEntry(): Insert Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
             $this->myDBObject->setServerID("guias",$id); // on master server set ServerID
-            $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '{$obj->NombreGuia}') AND (ClubID=$c)";
+            $str="UPDATE $t SET HandlerID=$id, NombreGuia='{$nombre}' WHERE (NombreGuia = '{$nombre}') AND (ClubID={$c})";
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEnrty(): Temporary table update Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error; // invalid update; mark error
         } else if ($options['Object']=="Perro") {

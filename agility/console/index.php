@@ -411,7 +411,7 @@ body {
 	        loadContents(
 	            '../console/frm_perros.php',
 	            '<?php _e('Dogs Database Management');?>',
-	            {'e':'#perros-excel-dialog','p':'#perros-dialog'}
+	            {'p':'#perros-dialog'}
 	        );
 	    });"><?php _e('Dogs'); ?>
         </a>
@@ -516,7 +516,7 @@ body {
          data-options="width:'100%',fit:true,border:false"></div>
 </div>
 
-<!-- Entrada para insertar dialogos de importacion de ficheros desde excel -->
+<!-- Dialogos del progreso importacion de ficheros desde excel (new/select/cancel) -->
 <div id="myimport">
 	<div id="importclubes" style="display:none">
         <?php include_once("dialogs/import_clubes.inc.php"); ?>
@@ -533,7 +533,10 @@ body {
     <div id="importordensalida" style="display:none">
         <?php include_once("dialogs/import_ordensalida.inc.php"); ?>
     </div>
+    <?php include_once("templates/import_dialog.inc.php"); ?>
+
 </div>
+
 <script type="text/javascript">
     function toogleCollapse(item) {
         var smenu=$(item);

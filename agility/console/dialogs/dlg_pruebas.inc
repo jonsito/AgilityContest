@@ -382,6 +382,7 @@ $config =Config::getInstance();
 		method: 'get',
 		mode: 'remote',
 		required: true,
+        validType: 'validComboValue["#pruebas-Club"]',
 		columns: [[
 		    {field:'ID',hidden:true}, 
 			{field:'Nombre',title:'<?php _e('Club name'); ?>',width:80,align:'right'},
@@ -389,7 +390,7 @@ $config =Config::getInstance();
 		]],
 		multiple: false,
 		fitColumns: true,
-		selectOnNavigation: false,
+		selectOnNavigation: true,
         onBeforeLoad: function(params) {
 		    params.Federation=$('#pruebas-Federation').combogrid('getValue');
             // do not try to load if dialog is closed

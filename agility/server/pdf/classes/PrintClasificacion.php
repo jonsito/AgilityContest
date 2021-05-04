@@ -74,7 +74,7 @@ class PrintClasificacion extends PrintCommon {
 
 	private function getRondaName($manga) {
         $tmanga=_(Mangas::getTipoManga($manga->Tipo,3,$this->federation));
-        if ( ($manga->Grado=="GI") && ($this->federation->get('Name')=='RSCE') ) {
+        if ( $manga->Grado==="GI" ) {
             if ($manga->Observaciones!=="")	$tmanga .= " ({$manga->Observaciones})";
             else if (isMangaAgility($manga->Tipo)) $tmanga .= " (Agility)";
             else if (isMangaJumping($manga->Tipo)) $tmanga .= " (Jumping)";

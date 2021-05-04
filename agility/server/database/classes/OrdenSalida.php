@@ -906,6 +906,9 @@ class OrdenSalida extends DBObject {
 		}
 		// ahora tenemos las mangas que nos interesan indexadas por el orden. vamos a invertirlo
 		switch (count($t)) {
+			case 1:
+				// pre-agility solo tiene una tanda, por lo que el procedimiento de invertir las tandas
+				// no puede funcionar. Lo que haremos será invertir el orden de salida
 			case 3:
 				$o=$t[0]['Orden']; $t[0]['Orden']=$t[2]['Orden'];$t[2]['Orden']=$o;
 				break;

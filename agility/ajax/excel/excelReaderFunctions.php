@@ -157,6 +157,6 @@ try {
     do_log("Excel '$type' Reader returns: '$retcode'");
     echo $retcode;
 } catch (Exception $e) {
-    do_log("Excel '$type'' Reader Exception: ".$e->getMessage());
+    do_log("Excel '$type' Reader Exception: ".$e->getMessage());
     echo json_encode(array("operation"=>$op, 'success'=>'fail', 'errorMsg'=>$e->getMessage()));
 }

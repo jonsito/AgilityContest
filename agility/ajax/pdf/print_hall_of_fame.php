@@ -29,8 +29,9 @@ require_once(__DIR__ . '/../../server/pdf/classes/PrintHallOfFame.php');
 try {
 	$result=null;
 	$mangas=array();
-	$prueba=http_request("Prueba","i",0);
-	$pdf=new PrintHallOfFame($prueba);
+    $prueba=http_request("Prueba","i",0);
+    $jornadas=http_request("Jornadas","s","");
+	$pdf=new PrintHallOfFame($prueba,$jornadas);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("HallOfFame_{$prueba}.pdf","D"); // "D" means output to web client (download)

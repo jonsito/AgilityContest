@@ -38,9 +38,12 @@ class PrintHallOfFame extends PrintCommon {
 
     /**
 	 * Constructor
+     * @prueba {integer} Prueba ID
+     * @selection {string} comma separated list of journeys to evaluate
+     * Notice that team4, KO and subordinates cannot be evaluated, so they will be skipped
 	 * @throws Exception
 	 */
-	function __construct($prueba) {
+	function __construct($prueba,$selection="") {
 		date_default_timezone_set('Europe/Madrid');
 		parent::__construct('Landscape',"print_liga",$prueba,0);
         $this->icon2=getIconPath($this->federation->get('Name'),"null.png"); // no fed logo
@@ -62,6 +65,8 @@ class PrintHallOfFame extends PrintCommon {
             if ($jornada['SlaveOf']!=0) continue; // skip subordinate journeys
             if ($jornada['Equipos4']!=0) continue; // skip team4 journeys as time data cannot be evaluated
             if ($jornada['KO']!=0) continue; // skip KO journeys cause cannot compute regularity
+            // check for user selection on specific journeys
+            if ( ($selection!=="") && (strstr($selection,$jornada['ID']) !==false ) ) continue;
             $this->myLogger->trace("Collecting results from prueba:{$prueba} jornada:{$jornada['Nombre']}");
             // cogemos las inscripciones de la jornada
             // y las reindexamos por DogID

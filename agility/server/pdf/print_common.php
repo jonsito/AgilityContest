@@ -261,7 +261,7 @@ class PrintCommon extends FPDF {
 			$this->icon2=getIconPath($fedName,"agilitycontest.png");
 		}
 		// if competition mode states no logo, obbey them
-		if ($this->competition->isFederationLogoAllowed()) {
+		if ( ! $this->competition->isFederationLogoAllowed()) {
 			$this->icon2=getIconPath($fedName,"null.png");
 		}
 	}
@@ -425,8 +425,8 @@ class PrintCommon extends FPDF {
 		$this->SetFont($this->getFontName(),'B',12); // bold 15
 		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
 		$tmanga= _(Mangas::getTipoManga($manga->Tipo,1,$this->federation));
-		// JAMC agosto 2020: on Grade 1 RSCE, add agility or jumping according "Observaciones"
-		if ( ($manga->Grado=="GI") && ($this->federation->get('Name')=='RSCE') ) {
+		// JAMC agosto 2020: on Grade 1, add agility or jumping according "Observaciones"
+		if ( $manga->Grado==="GI" ) {
 			if ($manga->Observaciones!=="")	$tmanga .= " ({$manga->Observaciones})";
 			else if (isMangaAgility($manga->Tipo)) $tmanga .= " (Agility)";
 			else if (isMangaJumping($manga->Tipo)) $tmanga .= " (Jumping)";

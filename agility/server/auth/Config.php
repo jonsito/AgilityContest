@@ -710,7 +710,7 @@ Class Config {
 		// $type=$matches[1]; // 'text/plain', or whatever. Not really used
 		$contents= base64_decode( $matches[2] ); // decodes received data
 		// phase 2 store it into temporary file
-		$tmpfile=tempnam_sfx(__DIR__."/../../../logs","import","xlsx");
+		$tmpfile=tempnam_sfx(__DIR__."/../../../logs","import","ini");
 		$file=fopen($tmpfile,"wb");
 		fwrite($file,$contents);
 		fclose($file);

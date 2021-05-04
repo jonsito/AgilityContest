@@ -47,7 +47,9 @@ class PrintInscripciones extends PrintCommon {
 		$str.="\"Nombre\":\"{$row['Nombre']}\",\"NombreLargo\":\"{$row['NombreLargo']}\",\"Raza\":\"{$row['Raza']}\",";
 		$str.="\"Licencia\":\"{$row['Licencia']}\",\"Categoria\":\"{$row['Categoria']}\",\"Grado\":\"{$row['Grado']}\",";
 		$str.="\"NombreGuia\":\"{$this->getHandlerName($row)}\",\"Club\":\"{$row['NombreClub']}\"}";
-
+		// eliminamos tildes y enyes para evitar que iconv() haga el tonto
+		// no va a arreglar nada con charsets extranyos, pero ceda más clarito en castellano :-)
+		$str=strtr($str,"áéíóúñÁÉÍÓÚÑß","aeiouAEIOUNs");
 		// preserve current X coordinate and evaluate where to put hidden data
 		$x=$this->GetX(); $y=$this->GetY();
 		$this->SetX($x+10);
@@ -764,7 +766,7 @@ class PrintInscritosByJornada extends PrintInscripciones {
 	/**
 	 * Constructor
 	 * @param {integer} $pruebaid Prueba ID
-	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+	 * @param {array} $inscritos Lista de inscritos en formato jquery array[total,rows[]]
 	 * @param {array} $jornadas lista de jornadas de la prueba
 	 * @param {integer} $jornadaid id de la prueba que buscamos
 	 * @throws Exception
@@ -775,7 +777,8 @@ class PrintInscritosByJornada extends PrintInscripciones {
 			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
 			throw new Exception($this->errormsg);
 		}
-		usort($inscritos['rows'],function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
+		// en printInscritosByJornada se respeta el filtro de seleccion/ordenamiento del formulario
+		// usort($inscritos['rows'],function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
         $this->inscritos=$inscritos['rows'];
         $this->jornadas=$jornadas['rows'];
 		$this->cellHeader=

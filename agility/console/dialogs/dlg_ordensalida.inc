@@ -39,8 +39,8 @@ $config =Config::getInstance();
 </div>
 
 <!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
-<div id="ordeneq3-toolbar" style="width:100%;display:inline-block">
-    <span style="float:right;padding:5px">
+<div id="ordeneq3-dialog-header" style="width:100%;display:inline-block">
+    <span style="float:right">
    		<!-- estos elementos deben estar alineados a la derecha -->
 	   	<a id="ordeneq3-reloadBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-reload'" onclick="$('#ordeneq3-datagrid').datagrid('reload');"><?php _e('Refresh'); ?></a>
@@ -162,6 +162,7 @@ $('#ordeneq3-dialog').dialog({
     minimizable:	false,
     maximizable:	false,
     resizable:		true,
+    toolbar:         '#ordeneq3-dialog-header',
     iconCls:		'icon-huella',
     closed:			true,
     modal:			true,
@@ -248,7 +249,6 @@ $('#ordeneq3-datagrid').datagrid({
     view: scrollview,
     pageSize: 25,
     rowStyler: myRowStyler, // function that personalize colors on alternate rows
-    toolbar: '#ordeneq3-toolbar',
     onBeforeLoad: function (params) {return (workingData.manga>0) }, // do not load if no manga selected
     onLoadSuccess: function(data) {
         $(this).datagrid('enableDnd');

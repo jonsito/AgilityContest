@@ -42,7 +42,7 @@ class RFEC extends Federations {
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
                 'Jr' => 'Junior',
-                // 'Sr' => 'Senior',
+                'Sr' => 'Senior',
                 'GI' => 'Promocion (G1)',
                 'GII'=> 'Competicion (G2)',
                 // 'GIII' => '(G3) no disponible',
@@ -133,12 +133,12 @@ class RFEC extends Federations {
                 0	=> '-- Sin especificar --',
                 1	=> 'Iniciacion 1',
                 2	=> 'Iniciacion 2',
-                3	=> 'Agility-1 Promocion 50',
-                4	=> 'Agility-1 Promocion 40',
-                5	=> 'Agility-1 Promocion 30',
-                6	=> 'Jumping Promocion 50', // en temporada 2019-2020 la segunda manga es jumping
-                7	=> 'Jumping Promocion 40',
-                8	=> 'Jumping Promocion 30',
+                3	=> 'Promocion Manga 1 50',
+                4	=> 'Promocion Manga 1 40',
+                5	=> 'Promocion Manga 1 30',
+                6	=> 'Promocion Manga 2 50', // en temporada 2019-2020 la segunda manga es jumping
+                7	=> 'Promocion Manga 2 40',
+                8	=> 'Promocion Manga 2 30',
                 9	=> 'Agility Competicion 50',
                 10	=> 'Agility Competicion 40',
                 11	=> 'Agility Competicion 30',
@@ -175,8 +175,8 @@ class RFEC extends Federations {
                 39	=> 'Manga Especial 40',
                 40	=> 'Manga Especial 30',
                 // "Tiny" support for Pruebas de cuatro alturas. EN RFEC 5 alturas ahora pasa a clase 20
-                41	=> 'Agility-1 Promocion 20',
-                42	=> 'Jumping Promocion 20',
+                41	=> 'Promocion Manga 1 20',
+                42	=> 'Promocion Manga 2 20',
                 43	=> 'Agility Competicion 20',
                 44	=> 'Agility GIII 20',	// no existe
                 45	=> 'Agility Clase 20', //  Individual-Open
@@ -191,10 +191,10 @@ class RFEC extends Federations {
                 53	=> 'Jp. Equipos 50/40',  // team combined
                 54	=> 'Jp. Equipos 30/20',// team combined
                 55	=> 'Manga Especial 20',
-                56	=> 'Agility-3 Promocion 50',	 // extra rounds for GI RFEC
-                57	=> 'Agility-3 Promocion 40',
-                58	=> 'Agility-3 Promocion 30',
-                59	=> 'Agility-3 Promocion 20',
+                56	=> 'Promocion Manga 3 50',	 // extra rounds for GI RFEC
+                57	=> 'Promocion Manga 3 40',
+                58	=> 'Promocion Manga 3 30',
+                59	=> 'Promocion Manga 3 20',
                 // resto de las rondas KO. Los perros compiten todos contra todos
                 60	=> 'K.O. Manga 2',
                 61	=> 'K.O. Manga 3',
@@ -253,9 +253,9 @@ class RFEC extends Federations {
                 112	=> 'Junior 2 60',
                 113	=> 'Senior 1 60',
                 114	=> 'Senior 2 60',
-                115	=> 'Agility-1 Promocion 60',
-                116	=> 'Jumping Promocion 60',
-                117	=> 'Agility-2 Promocion 60',
+                115	=> 'Promocion Manga 1 60',
+                116	=> 'Promocion Manga 2 60',
+                117	=> 'Promocion Manga 3 60',
                 118	=> 'Agility Competicion 60',
                 119	=> 'Jumping Competicion 60',
                 120	=> 'Agility GIII XLarge', // no existe en rfec
@@ -276,8 +276,8 @@ class RFEC extends Federations {
                 0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo', 'IsAgility'),
                 1 =>	array( 1, 'Iniciacion Manga 1', 		'P.A.',	'Iniciacion 1',	'Iniciacion',  1),
                 2 => 	array( 2, 'Iniciacion Manga 2', 		'P.A.',	'Iniciacion 2',	'Iniciacion',  2),
-                3 =>	array( 3, 'Agility Promocion',	        'GI',	'Ag Promocion',	'Promocion',   1),
-                4 => 	array( 4, 'Jumping Promocion',	        'GI',	'Jp Promocion',	'Promocion',   2),
+                3 =>	array( 3, 'Promocion Manga 1',	        'GI',	'Promocion-1',	'Promocion',   1),
+                4 => 	array( 4, 'Promocion Manga 2',	        'GI',	'Promocion-2',	'Promocion',   2),
                 5 =>	array( 5, 'Agility Competicion', 		'GII',	'Ag. Competicion',	'Competicion', 1),
                 6 =>	array( 6, 'Agility Grade III', 			'GIII',	'Agility GIII',	'Grade III',   1), // no existe en caza
                 7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',  1), // Open
@@ -290,7 +290,7 @@ class RFEC extends Federations {
                 14 =>	array( 14,'Jumping Equipos'				,'-',  	'Jp. Equipos',	'Equipos',     2), // team combined
                 15 =>	array( 15,'K.O. Manga 1', 				'-',	'K.O. - 1',	    'K.O.',        1),
                 16 =>	array( 16,'Manga Especial', 			'-',	'Manga Especial','Individual', 1), // special round, no grades
-                17 => 	array( 17,'Agility Promocion (2)',	    'GI',	'Ag Promocion (2)',	'Promocion',   3), // on RFEC special G1 3rd round
+                17 => 	array( 17,'Promocion Manga 3',	        'GI',	'Promocion-3',	'Promocion',   3), // on RFEC special G1 3rd round
                 // mangas extra para K.O.
                 18 =>	array( 18,'K.O. Segunda manga',			'-',	'K.O. - 2',     'K.O.',         2),
                 19 =>	array( 19,'K.O. Tercera manga',			'-',	'K.O. - 3',	    'K.O.',         3),

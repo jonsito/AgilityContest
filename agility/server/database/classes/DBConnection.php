@@ -40,7 +40,9 @@ class DBConnection {
         if (!array_key_exists($key,self::$connections)) {
             $conn = new mysqli($host,$user,$pass,$name);
             if ($conn->connect_error) return null;
-            $conn->query("SET NAMES 'utf8'");
+            // not recommended in manual as doesn't properly handle real_escape_string
+            // $conn->query("SET NAMES 'utf8'");
+            $conn->set_charset("utf8");
             self::$connections[$key]=array($conn,0);
         }
         self::$connections[$key][1]++; // increase link count
