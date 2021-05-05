@@ -206,6 +206,11 @@ $('#resultados-printDialog').dialog({
     width:'600px',
     height:'auto',
     onBeforeOpen: function() {
+        var mode=$('#resultados-selectCategoria').combobox('getValue');
+        if (parseInt(mode)<0) {
+            $.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected category in this round"); ?>',"warning");
+            return false; // no way to know which ronda is selected
+        }
         // mira si hay que activar boton de split Junior/Senior
         var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
         var ch= ((ronda.Rondas & 16384)!==0) && hasChildren(workingData.federation);

@@ -206,6 +206,11 @@ $('#resultados-printDialog').dialog({
     width:'450px',
     height:'300px',
     onBeforeOpen: function() {
+        var mode=$('#resultados-selectCategoria').combobox('getValue');
+        if (parseInt(mode)<0) {
+            $.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected category in this round"); ?>',"warning");
+            return false; // no way to know which ronda is selected
+        }
         $('#r_extra_team3').css('display',isJornadaEqMejores()?'inherit':'none');
         return true;
     }
