@@ -1003,6 +1003,7 @@ function setManga(data) {
     workingData.manga = parseInt(data.Manga); // do not use data.ID as contains extra info
     workingData.nombreManga = data.Nombre;
     workingData.datosManga = data;
+    workingData.datosManga.modified=0; // to track changes in data
     $.ajax({
         url:"../ajax/modules/moduleFunctions.php",
         dataType:'json',

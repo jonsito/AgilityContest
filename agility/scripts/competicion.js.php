@@ -688,6 +688,7 @@ function save_manga(id) {
 
     function real_saveManga() {
         var frm = $('#competicion-formdatosmanga');
+        workingData.datosManga.modified=0; // mark data as updated
         $.ajax({
             type: 'GET',
             url: '../ajax/database/mangaFunctions.php',

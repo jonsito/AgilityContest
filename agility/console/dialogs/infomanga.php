@@ -482,6 +482,8 @@ $heights=Competitions::getHeights(0,0,$m);
         }
     });
 
+    function mark_modified() { workingData.datosManga.modified=1; }
+
     $('#dmanga_grado1_other_value').textbox({
         onChange: function(newval,oldval) {
             var rb=$('#dmanga_grado1_other');
@@ -490,52 +492,52 @@ $heights=Competitions::getHeights(0,0,$m);
         }
     });
     //stupid easyui that does not parse from markup
-    $('#dmanga_DistX').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
-    $('#dmanga_DistL').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
-    $('#dmanga_DistM').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
-    $('#dmanga_DistS').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
-    $('#dmanga_DistT').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
-    $('#dmanga_ObstX').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
-    $('#dmanga_ObstL').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
-    $('#dmanga_ObstM').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
-    $('#dmanga_ObstS').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
-    $('#dmanga_ObstT').textbox({onChange:function(n,o){dmanga_setRecorridos();}});
-    $('#dmanga_TRS_X_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_X_Unit')}});
-    $('#dmanga_TRS_L_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_L_Unit')}});
-    $('#dmanga_TRS_M_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_M_Unit')}});
-    $('#dmanga_TRS_S_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_S_Unit')}});
-    $('#dmanga_TRS_T_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRS_T_Unit')}});
-    $('#dmanga_TRS_X_Factor').textbox();
-    $('#dmanga_TRS_L_Factor').textbox();
-    $('#dmanga_TRS_M_Factor').textbox();
-    $('#dmanga_TRS_S_Factor').textbox();
-    $('#dmanga_TRS_T_Factor').textbox();
-    $('#dmanga_TRS_X_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_X_Tipo')}});
-    $('#dmanga_TRS_L_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_L_Tipo')}});
-    $('#dmanga_TRS_M_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_M_Tipo')}});
-    $('#dmanga_TRS_S_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_S_Tipo')}});
-    $('#dmanga_TRS_T_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRS_T_Tipo')}});
-    $('#dmanga_TRS_X_TimeSpeed').textbox();
-    $('#dmanga_TRS_L_TimeSpeed').textbox();
-    $('#dmanga_TRS_M_TimeSpeed').textbox();
-    $('#dmanga_TRS_S_TimeSpeed').textbox();
-    $('#dmanga_TRS_T_TimeSpeed').textbox();
-    $('#dmanga_TRM_X_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_X_Unit')}});
-    $('#dmanga_TRM_L_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_L_Unit')}});
-    $('#dmanga_TRM_M_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_M_Unit')}});
-    $('#dmanga_TRM_S_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_S_Unit')}});
-    $('#dmanga_TRM_T_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setUnit(n,'#dmanga_TRM_T_Unit')}});
-    $('#dmanga_TRM_X_Factor').textbox();
-    $('#dmanga_TRM_L_Factor').textbox();
-    $('#dmanga_TRM_M_Factor').textbox();
-    $('#dmanga_TRM_S_Factor').textbox();
-    $('#dmanga_TRM_T_Factor').textbox();
-    $('#dmanga_TRM_X_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_X_Tipo')}});
-    $('#dmanga_TRM_L_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_L_Tipo')}});
-    $('#dmanga_TRM_M_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_M_Tipo')}});
-    $('#dmanga_TRM_S_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_S_Tipo')}});
-    $('#dmanga_TRM_T_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){round_setMode(n,'#dmanga_TRM_T_Tipo')}});
-    $('#dmanga_Observaciones').textbox();
+    $('#dmanga_DistX').textbox({onChange:function(n,o){mark_modified();dmanga_setRecorridos();}});
+    $('#dmanga_DistL').textbox({onChange:function(n,o){mark_modified();dmanga_setRecorridos();}});
+    $('#dmanga_DistM').textbox({onChange:function(n,o){mark_modified();dmanga_setRecorridos();}});
+    $('#dmanga_DistS').textbox({onChange:function(n,o){mark_modified();dmanga_setRecorridos();}});
+    $('#dmanga_DistT').textbox({onChange:function(n,o){mark_modified();dmanga_setRecorridos();}});
+    $('#dmanga_ObstX').textbox({onChange:function(n,o){mark_modified();dmanga_setRecorridos();}});
+    $('#dmanga_ObstL').textbox({onChange:function(n,o){mark_modified();dmanga_setRecorridos();}});
+    $('#dmanga_ObstM').textbox({onChange:function(n,o){mark_modified();dmanga_setRecorridos();}});
+    $('#dmanga_ObstS').textbox({onChange:function(n,o){mark_modified();dmanga_setRecorridos();}});
+    $('#dmanga_ObstT').textbox({onChange:function(n,o){mark_modified();dmanga_setRecorridos();}});
+    $('#dmanga_TRS_X_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setUnit(n,'#dmanga_TRS_X_Unit')}});
+    $('#dmanga_TRS_L_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setUnit(n,'#dmanga_TRS_L_Unit')}});
+    $('#dmanga_TRS_M_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setUnit(n,'#dmanga_TRS_M_Unit')}});
+    $('#dmanga_TRS_S_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setUnit(n,'#dmanga_TRS_S_Unit')}});
+    $('#dmanga_TRS_T_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setUnit(n,'#dmanga_TRS_T_Unit')}});
+    $('#dmanga_TRS_X_Factor').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRS_L_Factor').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRS_M_Factor').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRS_S_Factor').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRS_T_Factor').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRS_X_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setMode(n,'#dmanga_TRS_X_Tipo')}});
+    $('#dmanga_TRS_L_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setMode(n,'#dmanga_TRS_L_Tipo')}});
+    $('#dmanga_TRS_M_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setMode(n,'#dmanga_TRS_M_Tipo')}});
+    $('#dmanga_TRS_S_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setMode(n,'#dmanga_TRS_S_Tipo')}});
+    $('#dmanga_TRS_T_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setMode(n,'#dmanga_TRS_T_Tipo')}});
+    $('#dmanga_TRS_X_TimeSpeed').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRS_L_TimeSpeed').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRS_M_TimeSpeed').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRS_S_TimeSpeed').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRS_T_TimeSpeed').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRM_X_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setUnit(n,'#dmanga_TRM_X_Unit')}});
+    $('#dmanga_TRM_L_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setUnit(n,'#dmanga_TRM_L_Unit')}});
+    $('#dmanga_TRM_M_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setUnit(n,'#dmanga_TRM_M_Unit')}});
+    $('#dmanga_TRM_S_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setUnit(n,'#dmanga_TRM_S_Unit')}});
+    $('#dmanga_TRM_T_Tipo').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setUnit(n,'#dmanga_TRM_T_Unit')}});
+    $('#dmanga_TRM_X_Factor').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRM_L_Factor').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRM_M_Factor').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRM_S_Factor').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRM_T_Factor').textbox({onChange:function(n,o){mark_modified();}});
+    $('#dmanga_TRM_X_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setMode(n,'#dmanga_TRM_X_Tipo')}});
+    $('#dmanga_TRM_L_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setMode(n,'#dmanga_TRM_L_Tipo')}});
+    $('#dmanga_TRM_M_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setMode(n,'#dmanga_TRM_M_Tipo')}});
+    $('#dmanga_TRM_S_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setMode(n,'#dmanga_TRM_S_Tipo')}});
+    $('#dmanga_TRM_T_Unit').combobox({valueField:'value',editable:false,keyHandler:myKeyHandler,panelHeight:'auto',onChange:function(n,o){mark_modified();round_setMode(n,'#dmanga_TRM_T_Tipo')}});
+    $('#dmanga_Observaciones').textbox({onChange:function(n,o){mark_modified();}});
 
 
 $('#dmanga_Juez1').combogrid({
@@ -562,6 +564,7 @@ $('#dmanga_Juez1').combogrid({
 	fitColumns: true,
 	selectOnNavigation: false,
     onChange: function(newval,oldval) {
+        mark_modified();
         let valid= $.isNumeric(newval) && (parseInt(newval)>=2); // in juez1 "-- Sin asignar --" is not valid
         $('#dmanga_Juez1').combogrid('textbox').css('background',(valid)?'white':'#ffcccc');
     }
@@ -591,6 +594,7 @@ $('#dmanga_Juez2').combogrid({
 	fitColumns: true,
 	selectOnNavigation: false,
     onChange: function(newval,oldval) {
+        mark_modified();
         let valid= $.isNumeric(newval) && (parseInt(newval)>=1); // in juez2 "-- Sin asignar --" is valid
         $('#dmanga_Juez2').combogrid('textbox').css('background',(valid)?'white':'#ffcccc');
     }
