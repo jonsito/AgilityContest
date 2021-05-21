@@ -848,6 +848,7 @@ function reload_manga(id) {
     $('#dmanga-Juez1').combogrid('load',{ Operation: 'Enumerate', Federation: workingData.federation});
     $('#dmanga-Juez2').combogrid('load',{ Operation: 'Enumerate', Federation: workingData.federation});
     $('#competicion-formdatosmanga').form('load',url); // notice that "onBeforeLoad is declared"
+    workingData.datosManga.modified=0; // mark round clean
 }
 
 // acceso directo a la ventana de inscripciones desde la ventana de desarrollo de prueba
@@ -1643,11 +1644,21 @@ function competicionDialog(name) {
 	// obtenemos datos de la manga seleccionada
 	var row= $('#competicion-listamangas').datagrid('getSelected');
     var required=true;
-    if (name=='ordentandas') required=false;
-    if (name=='entrenamientos') required=false;
+    if (name==='ordentandas') required=false;
+    if (name==='entrenamientos') required=false;
     if (!row && required) {
     	$.messager.alert('<?php _e('Error'); ?>','<?php _e('There is no round selected'); ?>','info');
     	return; // no hay ninguna manga seleccionada. retornar
+    }
+    // now check for modified data
+    if (workingData.datosManga.modified!==0) {
+        $.messager.alert({
+            icon: 'warning',
+            title: "<?php _e('Not saved'); ?>",
+            msg: "<?php _e('Round data have not been saved.<br/>Please save or restore data before continuing')?>",
+            fn: function(r){}
+        });
+        return false;
     }
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada;
     var etdlg=$('#entrenamientos-dialog');

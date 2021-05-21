@@ -145,6 +145,16 @@ $('#competicion-listamangas').datagrid({
     rowStyler:myRowStyler,
     onBeforeSelect: function(index,row) {
 	    if (index<0) return false; // no row selected
+        // check for current round data changed
+        if(workingData.datosManga.modified===1) {
+            $.messager.alert({
+                icon: 'warning',
+                title: "<?php _e('Not saved'); ?>",
+                msg: "<?php _e('Round data have not been saved.<br/>Please save or restore data before continuing')?>",
+                fn: function(r){}
+            });
+            return false;
+        }
         if (parseInt(workingData.datosJornada.Games)===0) return true; // no games
         // en funcion de la modalidad de juegos y del tipo de jornada se debe permitir o no
         // penthathlon
