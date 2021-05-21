@@ -320,6 +320,10 @@ function read_regFile(input) {
 function send_regFile() {
     // check for registration form properly filled
     var ok=true;
+    if (ac_authInfo.Perms>1) {
+        $.messager.alert('Error','<?php _e("Please: to register license<br/>re-init session with a user with admin privileges");?>','error');
+        return false;
+    }
     if ( ! $('#registration-Email').textbox('isValid') ) ok=false;
     if ( ! $('#registration-AKey').textbox('isValid') ) ok=false;
     if (ok===false) {

@@ -780,7 +780,7 @@ function clasificaciones_printHallOfFame(jornadas) {
 function clasificaciones_printClasificacion(stats,children,force) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='../ajax/pdf/print_clasificacion.php';
-    if (isJornadaEqMejores() && (force==0)) url='../ajax/pdf/print_clasificacion_equipos.php';
+    if (isJornadaEqMejores() && (force===0)) url='../ajax/pdf/print_clasificacion_equipos.php';
     if (isJornadaEqConjunta()) {
         stats=0; // no sense in equipos conjunta
         url='../ajax/pdf/print_clasificacion_equipos.php';
@@ -870,6 +870,11 @@ function clasificaciones_doPrint() {
     var merge=$('#r_mergecats').combobox('getValue');
     var jornadas=$('#r_journeys').combogrid('getValues').join(",");
 	$('#resultados-printDialog').dialog('close');
+    var mode=$('#resultados-selectCategoria').combobox('getValue');
+    if (parseInt(mode)<0) {
+        $.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected category in this round"); ?>',"warning");
+        return false; // no way to know which ronda is selected
+    }
 	switch(parseInt(r)) {
 		case 0: /* podium */ clasificaciones_printGlobal(1,merge); break;
 		case 1: /* csv */ clasificaciones_printEtiquetas(0,line,'',false,global); break; // csv
