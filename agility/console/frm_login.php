@@ -76,11 +76,15 @@ if ( intval($config->getEnv('running_mode')) === AC_RUNMODE_MASTER ) {
 	</div>
 	
 	<!-- botones del menu de login-->
-	<div id="login-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
-		<a id="login-okBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls: 'icon-ok'" onclick="acceptLogin()"><?php _e('Accept'); ?></a>
-		<a id="login-cancelBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls: 'icon-cancel'" onclick="cancelLogin()"><?php _e('Cancel'); ?></a>
+	<div id="login-Buttons" data-options="region:'south',border:false">
+        <span style="display:inline-block;width:49%;text-align:left;padding:5px 0 0;">
+        <a id="login-cancelBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls: 'icon-alert'" onclick="cancelLogin()"><?php _e('Guest'); ?></a>
+        </span>
+        <span style="display:inline-block;width:49%;text-align:right;padding:5px 0 0;">
+		<a id="login-okBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls: 'icon-ok'" onclick="acceptLogin()"><?php _e('Accept'); ?></a>
+        </span>
 	</div>
 	</div>
 </div> <!-- Dialog -->
@@ -150,7 +154,7 @@ $('#login-Federation').combogrid({
 		{field:'ParentLogo',hidden:true}
 	]],
     onLoadSuccess: function(data) {
-	    var cg= $('#login-Federation');
+	    let cg= $('#login-Federation');
         cg.combogrid('setValue',-1);
         cg.combogrid('setText','-- <?php _e("Select Federation");?> --');
     },
