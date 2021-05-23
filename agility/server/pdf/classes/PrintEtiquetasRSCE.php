@@ -82,6 +82,8 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		$top=$this->config->getEnv('pdf_topmargin');
 		$left=$this->config->getEnv('pdf_leftmargin');
 		$height=$this->config->getEnv('pdf_labelheight'); // 17 or 20 mmts ==> 16 or 13 labels/sheet
+		$grado=$row['Grado'];
+		if ( ($this->mangasObj[$mng] != null) && isMangaOpen($this->mangasObj[$mng]->Tipo)) $grado=_('Open');
 
 		$mntop=($this->mangasObj[$mng] != null)?true:false;
 		$mnbottom=($this->mangasObj[$mng+1] != null)?true:false;
@@ -179,7 +181,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		$this->Cell(12,8,$row['Categoria'],'L',0,'C',false);
 		//Grado (105,y+8,12,9) center
 		$this->SetXY($left+95,$y7);
-		$this->Cell(12,9,$row['Grado'],'L',0,'C',false);
+		$this->Cell(12,9,$grado,'L',0,'C',false);
 		//Penal1 (117,y,17,8) right
 		$this->SetXY($left+107,$y1);
 		$this->Cell(17,8,($mntop)?$row["P".($mng+1)]:"---",'LB',0,'C',false);
@@ -216,6 +218,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		$this->ac_Cell(0.5+ $left+75,0.5+$y6,strlen($juez),2.4,$juez,'','L',true);
 
 		//Calif2 (134,y+8,25,9) right
+		$this->SetFont($this->getFontName(),'',8.5); // font size for results data
 		$this->SetXY($left+124,$y8);
 		$v= "-"; $c="";
 		if ($mnbottom) {

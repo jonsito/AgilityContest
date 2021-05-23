@@ -828,6 +828,7 @@ function isMangaEquipos($tipo) { return in_array($tipo,array(8,9,13,14)); }
 function isMangaPreAgility($tipo) { return in_array($tipo,array(1,2)); }
 function isMangaJunior($tipo) { return in_array($tipo,array(32,33)); }
 function isMangaSenior($tipo) { return in_array($tipo,array(34,35)); }
+function isMangaOpen($tipo) { return in_array($tipo,array(7,12)); }
 
 function assertClosedJourney($jornada) {
     $msg=_("Current journey is closed. cannot modify");
