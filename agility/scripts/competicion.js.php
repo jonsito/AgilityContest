@@ -688,7 +688,6 @@ function save_manga(id) {
 
     function real_saveManga() {
         var frm = $('#competicion-formdatosmanga');
-        workingData.datosManga.modified=0; // mark data as updatedblan
         $.ajax({
             type: 'GET',
             url: '../ajax/database/mangaFunctions.php',
@@ -705,6 +704,7 @@ function save_manga(id) {
                     dmanga_evalTimeSpeed();
                     // refresh result window if required
                     setupResultadosWindow(recorrido);
+                    workingData.datosManga.modified=0; // mark data as updatedblan
                 }
             }
         });
@@ -848,7 +848,6 @@ function reload_manga(id) {
     $('#dmanga-Juez1').combogrid('load',{ Operation: 'Enumerate', Federation: workingData.federation});
     $('#dmanga-Juez2').combogrid('load',{ Operation: 'Enumerate', Federation: workingData.federation});
     $('#competicion-formdatosmanga').form('load',url); // notice that "onBeforeLoad is declared"
-    workingData.datosManga.modified=0; // mark round clean
 }
 
 // acceso directo a la ventana de inscripciones desde la ventana de desarrollo de prueba

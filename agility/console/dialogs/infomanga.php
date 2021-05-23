@@ -66,15 +66,15 @@ $heights=Competitions::getHeights(0,0,$m);
         <tr id="dmanga_grado1_modality"><!-- fila 1: modalidad para Grado 1 (agility/jumping/otra) -->
             <td colspan="1"><?php _e('Modality'); ?>: </td>
             <td colspan="2"> <!-- Agility -->
-                <input type="radio" id="dmanga_grado1_agility" name="Observaciones" value="Agility"/>
+                <input type="radio" id="dmanga_grado1_agility" name="Observaciones" value="Agility" onclick="mark_modified();"/>
                 <label for="dmanga_grado1_agility">Agility</label>
             </td>
                 <td colspan="2"> <!-- Jumping -->
-                    <input type="radio" id="dmanga_grado1_jumping" name="Observaciones" value="Jumping"/>
+                    <input type="radio" id="dmanga_grado1_jumping" name="Observaciones" value="Jumping" onclick="mark_modified();"/>
                     <label for="dmanga_grado1_jumping">Jumping</label>
                 </td>
             <td colspan="3"> <!-- Otros (especificar) -->
-                <input type="radio" id="dmanga_grado1_other" name="Observaciones" value="Other"/>
+                <input type="radio" id="dmanga_grado1_other" name="Observaciones" value="Other" onclick="mark_modified();"/>
                 <label for="dmanga_grado1_other"><?php _e("Other"); ?>: </label>
                 <input type="text" id="dmanga_grado1_other_value" value="" size="16"/>
             </td>
@@ -82,21 +82,21 @@ $heights=Competitions::getHeights(0,0,$m);
 		<tr> <!-- fila 2 tipos de recorrido -->
 			<td colspan="1"><?php _e('Courses'); ?>: </td>
 			<td colspan="2"> <!-- comun -->
-				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="2" onClick="dmanga_setRecorridos();"/>
+				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="2" onClick="mark_modified();dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_0"><?php echo $fed->getRecorrido(0); ?></label>
 			</td>
             <?php if ($heights==5) { ?>
                 <td colspan="2"> <!-- mixto 3 grupos (5 alturas) -->
-                    <input type="radio" id="dmanga_Recorrido_3" name="Recorrido" value="3" onClick="dmanga_setRecorridos();"/>
+                    <input type="radio" id="dmanga_Recorrido_3" name="Recorrido" value="3" onClick="mark_modified();dmanga_setRecorridos();"/>
                     <label for="dmanga_Recorrido_3"><?php echo $fed->getRecorrido(3);  ?></label>
                 </td>
             <?php } ?>
 			<td colspan="2"> <!-- mixto 2 grupos -->
-				<input type="radio" id="dmanga_Recorrido_1" name="Recorrido" value="1" onClick="dmanga_setRecorridos();"/>
+				<input type="radio" id="dmanga_Recorrido_1" name="Recorrido" value="1" onClick="mark_modified();dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_1"><?php echo $fed->getRecorrido(1); ?></label>
 			</td>
             <td colspan="2"> <!-- recorridos separados -->
-                <input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="0" onClick="dmanga_setRecorridos();"/>
+                <input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="0" onClick="mark_modified();dmanga_setRecorridos();"/>
                 <label for="dmanga_Recorrido_2"><?php echo $fed->getRecorrido(2);  ?></label>
             </td>
 		</tr>
@@ -605,6 +605,7 @@ $('#competicion-formdatosmanga').form({
 		// fix appearance according mode, federation, recorrido and so
         dmanga_setAgilityOrJumping(data); // JAMC Agosto 2020
 		dmanga_setRecorridos();
+		workingData.datosManga.modified=0;
 	},
 	onLoadError: function() { alert("<?php _e('Error loading round information'); ?>"); }
 });
