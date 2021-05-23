@@ -30,9 +30,9 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
 
 </div>
     <a id="top"></a>
+    <!--- comienzo del changelog -->
 <?php } ?>
 
-<!--- comienzo del changelog -->
 
 <?php if ( strcmp($from,"blog_2021-05-01_00:00:00")<0) { ?>
     <strong>2021-Apr-14</strong><br/>
