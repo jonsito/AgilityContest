@@ -456,18 +456,20 @@ var Sound = (function () {
 	}
 }());
 
-// trick to use proper name
 var ac_AudioContext=null;
-if (typeof AudioContext !== "undefined") {
-	ac_AudioContext = new AudioContext();
-} else if (typeof webkitAudioContext !== "undefined") {
-	ac_AudioContext = new webkitAudioContext();
-} else {
-	console.log('Web Audio API not supported. Using <audio> tags');
-}
-
 function beep() {
-	if (ac_AudioContext==null) return Sound(); // WebAudio API not supported
+	if (ac_AudioContext==null) {
+        // trick to use proper name
+        if (typeof AudioContext !== "undefined") {
+            ac_AudioContext = new AudioContext();
+        } else if (typeof webkitAudioContext !== "undefined") {
+            ac_AudioContext = new webkitAudioContext();
+        }
+    }
+    if (ac_AudioContext==null) {
+        console.log('Web Audio API not supported. Using <audio> tags');
+        return Sound();
+    }
 	var oscillator = ac_AudioContext.createOscillator();
 	oscillator.type = 'square';
 	oscillator.frequency.value = 440;
