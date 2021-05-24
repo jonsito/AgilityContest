@@ -336,5 +336,11 @@ $.extend($.fn.validatebox.defaults.rules, {
             return reg.test(value);
         },
         message: 'Format: XXXX-XXXX-XXXX-XXXX-XXXX'
+    },
+    'journeyName': {
+        validator: function(value,param) {
+            return (value!=='-- Sin asignar --');
+        },
+        message: 'Must provide a valid Journey name'
     }
 });

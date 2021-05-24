@@ -530,6 +530,11 @@ function closeJornadaFromPrueba(datagridID,event) {
  * Ask for commit new/edit jornada to server
  */
 function saveJornada(){
+    // do not allow saving a journey when name is set to "-- Sin asignar --"
+    if ($('#jornadas-Nombre').textbox('getValue')==='-- Sin asignar --') {
+        $.messager.alert('<?php _e("Error")?>','<?php _e("Must assign name to this journey before saving");?>','error');
+        return false;
+    }
 	// take care on bool-to-int translation from checkboxes to database
     $('#jornadas-PreAgility').val(
         ($('#jornadas-PreAgilityChk').is(':checked'))? $('#jornadas-MangasPreAgility').combobox('getValue') : 0

@@ -333,7 +333,7 @@ $config =Config::getInstance();
 	// Nombre/comentarios
     $('#jornadas-Nombre').textbox({
         required: true,
-        validType: 'length[1,255]'
+        validType: 'journeyName'
     });
 
     $('#jornadas-MangasPreAgility').combobox({
