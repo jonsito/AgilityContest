@@ -451,13 +451,18 @@ class Competitions {
         // locate competition module
         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
             $name=str_replace(".php","",basename($filename));
-            require_once($filename);
-            $comp=new $name;
-            if (!$comp) continue; // cannot instantiate class. should report error
-            if ($comp->federationID!=$data['Federation']) continue;
-            if ($comp->competitionID!=$data['Modalidad']) continue;
-            $heights= $comp->getRoundHeights($manga);
-            return $heights;
+            try {
+                require_once($filename);
+                $comp=new $name;
+                if (!$comp) continue; // cannot instantiate class. should report error
+                if ($comp->federationID!=$data['Federation']) continue;
+                if ($comp->competitionID!=$data['Modalidad']) continue;
+                $heights= $comp->getRoundHeights($manga);
+                return $heights;
+            } catch (\Throwable $e) {
+                $myDBObject->error("Cannot create instance of class '{$name}': ".$e->getMessage());
+                continue;
+            }
         }
         // arriving here means no competition module found
         $myDBObject->error("Cannot find proper competition module for prueba:{$prueba} jornada:{$jornada}");
@@ -479,11 +484,15 @@ class Competitions {
         // Notice that module class name must match file name
         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
             $name=str_replace(".php","",basename($filename));
-            require_once($filename);
-            $comp=new $name;
-            if (!$comp) continue; // cannot instantiate class. should report error
-            if (($fed >= 0) && ($comp->federationID != $fed) ) continue;
-            $competitionList[]=$comp->getModuleInfo();
+            try {
+                require_once($filename);
+                $comp=new $name;
+                if (($fed >= 0) && ($comp->federationID != $fed) ) continue;
+                $competitionList[]=$comp->getModuleInfo();
+            } catch (\Throwable $e) {
+                do_log("Cannot create instance of class '{$name}': ".$e->getMessage());
+                continue;
+            }
         }
         // arriving here means requested federation not found
         if ($fed>=0) return $competitionList; // combobox getCompetitionList($fed)
@@ -523,13 +532,17 @@ class Competitions {
         // Notice that module class name must match file name
         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
             $name=str_replace(".php","",basename($filename));
-            require_once($filename);
-            $comp=new $name;
-            if (!$comp) continue; // cannot instantiate class. should report error
-            if ($comp->federationID!=$fed) continue;
-            if ($comp->federationDefault==0) continue; // not default
-            // notice that prueba nor jornada nor selective variables are initialized
-            return $comp; // found competition
+            try {
+                require_once($filename);
+                $comp=new $name;
+                if ($comp->federationID!=$fed) continue;
+                if ($comp->federationDefault==0) continue; // not default
+                // notice that prueba nor jornada nor selective variables are initialized
+                return $comp; // found competition
+            } catch (\Throwable $e) {
+                do_log("Cannot create instance of class '{$name}': ".$e->getMessage());
+                continue;
+            }
         }
         // arriving here means requested federation not found: warn and return default
         do_log("Cannot find default competition module for federation:$fed Using defaults");
@@ -550,17 +563,21 @@ class Competitions {
         // Notice that module class name must match file name
         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
             $name=str_replace(".php","",basename($filename));
-            require_once($filename);
-            $comp=new $name;
-            if (!$comp) continue; // cannot instantiate class. should report error
-            if ($comp->federationID!=$fed) continue;
-            if ($comp->competitionID!=$type) continue;
-            // competition found: set flag and return
-            // notice that $comp->selectiva is set on each module when required
-            // $comp->selectiva=$sel;
-            $comp->prueba=$prueba;
-            $comp->jornada=$jornada;
-            return $comp;
+            try {
+                require_once($filename);
+                $comp=new $name;
+                if ($comp->federationID!=$fed) continue;
+                if ($comp->competitionID!=$type) continue;
+                // competition found: set flag and return
+                // notice that $comp->selectiva is set on each module when required
+                // $comp->selectiva=$sel;
+                $comp->prueba=$prueba;
+                $comp->jornada=$jornada;
+                return $comp;
+            } catch (\Throwable $e) {
+                do_log("Cannot create instance of class '{$name}': ".$e->getMessage());
+                continue;
+            }
         }
         // arriving here means requested federation not found: warn and return default
         do_log("Cannot find valid competition module for federation:$fed type:$type . Using defaults");
@@ -576,13 +593,17 @@ class Competitions {
     static function moduleInfo($fed,$type,$prueba=0,$jornada=0,$manga=0) {
         foreach( glob(__DIR__.'/competiciones/*.php') as $filename) {
             $name=str_replace(".php","",basename($filename));
-            require_once($filename);
-            $comp=new $name;
-            if (!$comp) continue; // cannot instantiate class. should report error
-            if ($comp->federationID!=$fed) continue;
-            if ($comp->competitionID!=$type) continue;
-            // competition found: assign selective flag and return
-            return $comp->getModuleInfo();
+            try {
+                require_once($filename);
+                $comp=new $name;
+                if ($comp->federationID!=$fed) continue;
+                if ($comp->competitionID!=$type) continue;
+                // competition found: assign selective flag and return
+                return $comp->getModuleInfo();
+            } catch (\Throwable $e) {
+                do_log("Cannot create instance of class '{$name}': ".$e->getMessage());
+                continue;
+            }
         }
         // arriving here means competition module not found
         throw new Exception ("Modules::moduleInfo() module information for fed:$fed type:$type not found");
