@@ -120,7 +120,7 @@ define('AC_VWS_ROWCOLOR6','#808080');
 define('AC_VWS_LINECOLOR','#ffffff');
 
 /** generacion de PDF's **/
-define('AC_PDF_SKIPNPEL', "0"); // skip print label when not present or eliminated
+define('AC_PDF_SKIPNPEL', "1"); // which labels to print 0:All 1:Skip Elim-NP 2:Only Excelents
 define('AC_PDF_SKIPPA', "1"); // skip print dorsal labels for pre-agility competitors (default)
 define('AC_PDF_TOPMARGIN', 10.0); // margen superior etiquetas
 define('AC_PDF_LEFTMARGIN', 10.0); // margen izquierdo etiquetas

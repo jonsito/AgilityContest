@@ -220,6 +220,7 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
             $pajar=",{$granero},";
         }
         // iterate on available data
+        $skip=intval($this->config->getEnv('pdf_skipnpel'));
         foreach($resultados as $row) {
             if ($listadorsales!=="") {
                 $aguja=",{$row['Dorsal']},";
@@ -230,7 +231,8 @@ class PrintEtiquetasCNEAC extends PrintCommon  {
                 // on double "not present" do not print label
                 if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) ) continue;
                 // on double "eliminated", ( or eliminated+notpresent ) handle printing label accordind to configuration
-                if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
+                if ( ($skip===2) && ($row['P1']>=6.0) && ($row['P2']>=6.0) ) continue;
+                if ( ($skip===1) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue;
             }
             if ( ($rowcount%2)==0) $this->AddPage(); // 16/13 etiquetas por pagina
             $this->writeCell($rowcount%2,$row);

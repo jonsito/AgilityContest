@@ -215,7 +215,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		$this->ac_Cell($left+161,$y2,29,7,($mntop)?$this->juecesObj[$mng]['Nombre']:"",'B','L',false);
 		$this->SetFont($this->getFontName(),'I',6); // font size for results data
 		$juez=($mntop)?"Juez: ".$this->juecesObj[$mng]['Nombre']:"";
-		$this->ac_Cell(0.5+ $left+75,0.5+$y6,strlen($juez),2.4,$juez,'','L',true);
+		$this->ac_Cell(0.5+ $left+75,0.5+$y6,2+strlen($juez),2.4,$juez,'','L',true);
 
 		//Calif2 (134,y+8,25,9) right
 		$this->SetFont($this->getFontName(),'',8.5); // font size for results data
@@ -240,7 +240,7 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		$this->ac_Cell($left+161,$y8,29,7,($mnbottom)?$this->juecesObj[1+$mng]['Nombre']:"",'','L',false);
 		$this->SetFont($this->getFontName(),'I',6); // font size for results data
 		$juez=($mnbottom)?"Juez: ".$this->juecesObj[1+$mng]['Nombre']:"";
-		$this->ac_Cell(0.5+$left+75,$y13,strlen($juez),2.4,$juez,'','L',true);
+		$this->ac_Cell(0.5+$left+75,$y13,2+strlen($juez),2.4,$juez,'','L',true);
 
 		// si 13 etiquetas/pagina, linea al final de la celda
 		if ($height==20) $this->Line($left,$y17,$left+190,$y17);
@@ -288,21 +288,24 @@ class PrintEtiquetasRSCE extends PrintCommon {
 			}
 
 			// ver si la manga tiene 1, 2 o 3 rondas
+			$skip=intval($this->config->getEnv('pdf_skipnpel'));
 			switch ($nmangas) {
 				case 1:
 					// skip if not present
 					if ($row['P1']>=200.0) continue 2;
 					// skip on eliminated and set to skip by operator
-					if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0)) continue 2;
+					if ( ($skip===2) && ($row['P1']>=6.0)) continue 2;
+					if ( ($skip===1) && ($row['P1']>=100.0)) continue 2;
 					break;
 				case 2:
 					if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) ) continue 2;
-					if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue 2;
+					if ( ($skip===2) && ($row['P1']>=6.0) && ($row['P2']>=6.0) ) continue 2;
+					if ( ($skip===1) && ($row['P1']>=100.0) && ($row['P2']>=100.0) ) continue 2;
 					break;
 				case 3:
 					if ( ($row['P1']>=200.0) && ($row['P2']>=200.0) && ($row['P3']>=200.0) ) continue 2;
-					if ( (intval($this->config->getEnv('pdf_skipnpel'))!==0)
-						&& ($row['P1']>=100.0) && ($row['P2']>=100.0) && ($row['P3']>=100.0) ) continue 2;
+					if ( ($skip===2) && ($row['P1']>=100.0) && ($row['P2']>=100.0) && ($row['P3']>=100.0) ) continue 2;
+					if ( ($skip===1) && ($row['P1']>=100.0) && ($row['P2']>=100.0) && ($row['P3']>=100.0) ) continue 2;
 					break;
 				default: $this->myLogger->error( "cannot handle provided ({$nmangas}) number of rounds");
 			}

@@ -389,9 +389,12 @@ $config =Config::getInstance();
                 147x20 (13)
             </label>
             <br />
-            <label for="pdf_skipnpel"><?php _e('Skip labels for Not Present / Eliminated dogs'); ?></label>
-            <input type="hidden" name="pdf_skipnpel" value="0"/>
-            <input id="pdf_skipnpel" name="pdf_skipnpel" type="checkbox" value="1"/><br />
+            <label for="pdf_skipnpel"><?php _e('Labels to be printed'); ?></label>
+            <select id="pdf_skipnpel" name="pdf_skipnpel" class="easyui-combobox" data-options="panelHeight:'auto'">
+                <option value="0"><?php _e('Print all labels');?></option>
+                <option value="1" selected="selected"><?php _e('Skip Not Present / Eliminated');?></option>
+                <option value="2"><?php _e('Skip all but Excelents');?></option>
+            </select><br />
 
 			<label for="pdf_topmargin"><?php _e('Label sheet upper margin (mmts)'); ?></label>
 			<input id="pdf_topmargin" name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
