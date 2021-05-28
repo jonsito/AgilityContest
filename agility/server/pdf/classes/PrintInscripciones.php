@@ -49,7 +49,7 @@ class PrintInscripciones extends PrintCommon {
 		$str.="\"NombreGuia\":\"{$this->getHandlerName($row)}\",\"Club\":\"{$row['NombreClub']}\"}";
 		// eliminamos tildes y enyes para evitar que iconv() haga el tonto
 		// no va a arreglar nada con charsets extranyos, pero ceda más clarito en castellano :-)
-		$str=strtr($str,"áéíóúñÁÉÍÓÚÑß'","aeiouAEIOUNs ");
+		$str=strtr($str,"áéíóúàèìòùäëïöüñÁÉÍÓÚÀÈÌÒÙÄËÏÖÜÑß'","aeiouaeiouaeiouAEIOUAEIOUAEIOUNs ");
 		// preserve current X coordinate and evaluate where to put hidden data
 		$x=$this->GetX(); $y=$this->GetY();
 		$this->SetX($x+10);
@@ -58,8 +58,10 @@ class PrintInscripciones extends PrintCommon {
 		$this->SetTextColor(255,255,255);
 		$this->SetFillColor( 255,255,255);
 		$this->SetFont($this->getFontName(),'',1); // tiny size, wont be visible
-		// $this->myLogger->trace("hidden line: {$str}");
-		$this->Cell(140,7,iconv('UTF-8','ASCII//TRANSLIT',$str),'',0,'L',true);
+		$this->myLogger->trace("hidden line: {$str}");
+		// do not use iconv, just translated string: iconv fails on non utf-8 characters
+		// $this->Cell(140,7,iconv('UTF-8','ASCII//TRANSLIT',$str),'',0,'L',true);
+		$this->Cell(140,7,$str,'',0,'L',true);
 		$this->ac_row($count,10); // set proper row background
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetXY($x,$y); // restore cursor position
