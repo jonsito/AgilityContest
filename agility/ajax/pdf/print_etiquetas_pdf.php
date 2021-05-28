@@ -147,7 +147,7 @@ try {
 	}
 	// on RSCE labels and allheights selected, join all clasifications to allow club ordering
 	// we cannot do this in CNEAC labels cause need to set round data for each height
-	if (($prmode==1) && ($global==1)) {
+	if ((($prmode==1)||($prmode==3)) && ($global==1)) {
 		$a=array();
 		foreach($clasificaciones as $cl) $a=array_merge($a,$cl['rows']);
 		$clasificaciones=array(array('total'=>count($a),'rows'=>$a));

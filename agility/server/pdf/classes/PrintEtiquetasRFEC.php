@@ -63,15 +63,10 @@ class PrintEtiquetasRFEC extends PrintCommon {
 	}
 	
 	// No tenemos cabecera: no cabe
-	function Header() {// pintamos una linea	
-		$top=$this->config->getEnv('pdf_topmargin');
-		$left=$this->config->getEnv('pdf_leftmargin');
-		$this->Line($left,$top,$left+190,$top);
-	}
+	function Header() {	}
 	
 	// Pie de página: tampoco cabe
-	function Footer() {
-	}
+	function Footer() {	}
 
 	/**
 	 * @param {integer} $idx numero de pegatina
@@ -79,35 +74,33 @@ class PrintEtiquetasRFEC extends PrintCommon {
 	 * @param {integer} $mng numero de manga dentro de los datos
 	 */
 	function writeCell($idx,$row,$mng=0) {
-		$top=$this->config->getEnv('pdf_topmargin');
-		$left=$this->config->getEnv('pdf_leftmargin');
-		$height=$this->config->getEnv('pdf_labelheight');
+		$this->myLogger->trace("Row {$idx}: ".json_encode($row));
 		$grado=Mangas::getTipoManga($this->mangasObj[$mng]->Tipo,2,$this->federation);
 
-		$basey=10+10*($idx%19);
-		$basex=10+140*(($idx%38)>=19); // 10:col1 150:col2
-		$this->ac_SetFillColor('0xffffff');
+		$basey=10+10.5*($idx%18);
+		$basex=10+140*(($idx%36)>=18); // 10:col1 150:col2
 
-		$this->SetFont($this->getFontName(),'B',8.5); // font size for results data
 
 		// caja auxiliar: Dorsal/Perro/Club (15mmts)
 		$this->SetXY($basex,$basey);
 		$this->Cell(15,3,$row['Dorsal'],'',0,'C',false);
-		$this->SetXY($basex,$basey+5);
+		$this->SetXY($basex,$basey+3);
 		$this->Cell(15,3,$row['Nombre'],'',0,'C',false);
-		$this->SetXY($basex,$basey+5);
-		$this->Cell(15,3,$row['NombreClub'],'',0,'C',false);
+		$this->SetXY($basex,$basey+6);
+		$this->Cell(15,3,$row['NombreClub'],'B',0,'C',false);
 
 		// Primera caja: Fecha (20mmts)
 		$this->SetXY($basex+15,$basey);
+		$this->SetFont($this->getFontName(),'B',10); // default font
 		$this->Cell(20,9,$this->jornada->Fecha,'LTB',0,'C',false);
+		$this->SetFont($this->getFontName(),'B',8.5); // default font
 
 		// segunda caja superior: Nombre y firma del juez (80mmts)
 		$this->SetXY($basex+15+20,$basey);
-		$this->Cell(80,4.5,"Juez: ".$this->juecesObj[$mng]['Nombre'],'LT',0,'C',false);
+		$this->Cell(80,4.5,"Juez: ".$this->juecesObj[$mng]['Nombre'],'LT',0,'L',false);
 		// segunda caja inferior(1): Nombre del club,
 		$this->SetXY($basex+15+20,$basey+4.5); // (40mmts+40mmts)
-		$this->Cell(40,4.5,"Club: ".$this->club->Nombre,'LT',0,'C',false);
+		$this->Cell(40,4.5,"Club: ".$this->club->Nombre,'LTB',0,'L',false);
 
 		// segunda caja inferior(2) manga grado categoria
 		// ¿Agility o Jumping?
@@ -117,15 +110,15 @@ class PrintEtiquetasRFEC extends PrintCommon {
 			$tipo = _(Mangas::getTipoManga($this->mangasObj[$mng]->Tipo, 3, $this->federation));
 		}
 		$str="{$tipo} {$grado} {$row['Categoria']}";
-		$this->Cell(40,4.5,$str,'LBT',0,'C',false);
+		$this->Cell(40,4.5,$str,'BT',0,'R',false);
 
 		// tercera caja: Calificacion/Velocidad (20mmts)
 		$v = (is_numeric($row["V".($mng+1)])) ? number_format2($row["V".($mng+1)], 2) . "m/s": "-";
 		$c= $row["C".($mng+1)];
-		$this->SetXY($basex+15+20,$basey);
+		$this->SetXY($basex+15+20+80,$basey);
 		$this->Cell(20,4.5,$c,'LTR',0,'C',false);
-		$this->SetXY($basex+15+20,$basey+4.5);
-		$this->Cell(20,4.5,$v,'LTBR',0,'C',false);
+		$this->SetXY($basex+15+20+80,$basey+4.5);
+		$this->Cell(20,4.5,$v,'LBR',0,'C',false);
 	}
 
 	/**
@@ -159,11 +152,11 @@ class PrintEtiquetasRFEC extends PrintCommon {
 	 */
 	function composeTable($resultados,$rowcount=0,$listadorsales="",$discriminate=1) {
 		$this->myLogger->enter();
-		$this->SetFillColor(224,235,255); // azul merle
+		$this->ac_SetFillColor('0xffffff');
 		$this->SetTextColor(0,0,0); // negro
-		$this->SetFont($this->getFontName(),'',8); // default font
+		$this->SetFont($this->getFontName(),'B',8.5); // default font
 		$lc=$this->config->getEnv('pdf_linecolor');
-		$labels=38; // 19 + 19 labels per sheet
+		$labels=36; // 18 + 18 labels per sheet
 		$this->ac_SetDrawColor($lc);
 		$this->SetLineWidth(.3);
 		
@@ -176,7 +169,6 @@ class PrintEtiquetasRFEC extends PrintCommon {
 		}
 
 		foreach($resultados as $row) {
-			$nmangas=0;
 
 			if ($listadorsales!=="") {
 				$aguja=",{$row['Dorsal']},";
@@ -191,7 +183,7 @@ class PrintEtiquetasRFEC extends PrintCommon {
 			for ($n=1;$n<4;$n++) {
 				if (!array_key_exists('P'.$n,$row)) continue;
 				if ( $row['P'.$n]>=6.0 ) continue; // print only excelents
-				if ( (($rowcount%38)==0) && ($rowcount!=0)) $this->AddPage(); // 19+19 etiquetas por pagina
+				if ( $rowcount%36==0) $this->AddPage(); // 18+18 etiquetas por pagina
 				$this->writeCell($rowcount,$row,$n-1);
 				$rowcount++;
 			}
