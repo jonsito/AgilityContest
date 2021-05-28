@@ -114,7 +114,7 @@ class PrintEtiquetasRFEC extends PrintCommon {
 
 		// tercera caja: Calificacion/Velocidad (20mmts)
 		$v = (is_numeric($row["V".($mng+1)])) ? number_format2($row["V".($mng+1)], 2) . "m/s": "-";
-		$c= $row["C".($mng+1)];
+		$c= $row["P".($mng+1)];
 		$this->SetXY($basex+15+20+80,$basey);
 		$this->Cell(20,4.5,$c,'LTR',0,'C',false);
 		$this->SetXY($basex+15+20+80,$basey+4.5);
