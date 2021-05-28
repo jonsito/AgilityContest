@@ -33,13 +33,13 @@ class Mangas extends DBObject {
 		5 =>	array( 5, 'Agility Grade II', 			'GII',	'Agility GII',	'Grade II',     1,          'Ag'),
 		6 =>	array( 6, 'Agility Grade III', 			'GIII',	'Agility GIII',	'Grade III',    1,          'Ag'),
 		7 =>	array( 7, 'Agility', 	        		'-',	'Agility',		'Individual',   1,          'Ag'), // Open
-		8 =>	array( 8, 'Agility Teams',			    '-',	'Ag. Teams',	'Teams',        1,          'Ag'), // team best
-		9 =>	array( 9, 'Agility Teams'				,'-',	'Ag. Teams.',	'Teams',        1,          'Ag'), // team combined
+		8 =>	array( 8, 'Agility Teams',			    '-',	'Ag. Teams',	'Teams',        1,          'AgT'), // team best
+		9 =>	array( 9, 'Agility Teams'				,'-',	'Ag. Teams.',	'Teams',        1,          'AgT'), // team combined
 		10 =>	array( 10,'Jumping Grade II',			'GII',	'Jumping GII',	'Grade II',     2,          'Jp'),
 		11 =>	array( 11,'Jumping Grade III',			'GIII',	'Jumping GIII',	'Grade III',    2,          'Jp'),
 		12 =>	array( 12,'Jumping',    				'-',	'Jumping',		'Individual',   2,          'Jp'), // Open
-		13 =>	array( 13,'Jumping Teams'				,'-',   'Jmp Teams',	'Teams',        2,          'Jp'), // team best
-		14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp Teams',	'Teams',        2,          'Jp'), // team combined
+		13 =>	array( 13,'Jumping Teams'				,'-',   'Jmp Teams',	'Teams',        2,          'JpT'), // team best
+		14 =>	array( 14,'Jumping Teams'				,'-',  	'Jmp Teams',	'Teams',        2,          'JpT'), // team combined
 		15 =>	array( 15,'K.O. First round',			'-',	'K.O. Round 1',	'K.O. R1',      1,          'KO1'),
 		16 =>	array( 16,'Special Round', 			    '-',	'Special Round','Individual',   1,          'Sp.'), // special round, no grades
 		17 => 	array( 17,'Agility Grade I Round 3',	'GI',	'Agility-3 GI',	'Grade I',      3,          'Ag2'), // on RFEC special G1 3rd round

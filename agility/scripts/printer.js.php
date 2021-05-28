@@ -735,7 +735,7 @@ function clasificaciones_printEtiquetas(flag,start,list,discriminate,global) {
 				Start: strt,
 				List: list,
                 Global: (global)?1:0,
-                PrintMode: flag, /* 0:csv 1:rsce label 2:cneac forms */
+                PrintMode: flag, /* 0:csv 1:rsce 2:cneac 3:rfec */
                 Discriminate: (discriminate)?1:0 /* false: don't, true: exclude by country membership */
 			},
 	        preparingMessageHtml: '(labels) <?php _e("We are preparing your report, please wait"); ?> ...',

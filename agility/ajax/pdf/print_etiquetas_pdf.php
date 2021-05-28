@@ -29,6 +29,7 @@ require_once(__DIR__ . "/../../server/logging.php");
 require_once(__DIR__ . '/../../server/modules/Competitions.php');
 require_once(__DIR__ . '/../../server/database/classes/DBObject.php');
 require_once(__DIR__ . '/../../server/pdf/classes/PrintEtiquetasRSCE.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintEtiquetasRFEC.php');
 require_once(__DIR__ . '/../../server/pdf/classes/PrintEtiquetasCNEAC.php');
 
 try {
@@ -61,12 +62,23 @@ try {
 	$c= Competitions::getClasificacionesInstance("print_etiquetas_pdf",$jornada);
 
 	// Creamos generador de documento
-	if ($prmode===1) { // RSCE
-		$pdf = new PrintEtiquetasRSCE($prueba,$jornada,$mangas);
-		$pdf->AddPage();
-	} else { // CNEAC
-		$pdf = new PrintEtiquetasCNEAC($prueba,$jornada,$mangas);
-		$rowcount=0;
+	switch($prmode) {
+		case 1: // rsce
+			$pdf = new PrintEtiquetasRSCE($prueba,$jornada,$mangas);
+			$pdf->AddPage();
+			break;
+		case 2: // cneac
+			$pdf = new PrintEtiquetasCNEAC($prueba,$jornada,$mangas);
+			$rowcount=0; // ignore first label index (no sense). Implies $this->AddPage()
+			break;
+		case 3: // rfec
+			$pdf = new PrintEtiquetasRFEC($prueba,$jornada,$mangas);
+			$rowcount=0; // ignore first label index (no sense). Implies $this->AddPage()
+			break;
+		default: // invalid
+			$msg="Invalid print etiquetas model selected: {$prmode}";
+			do_log($msg);
+			die($msg);
 	}
 	// indicamos que se deben numerar las paginas
 	$pdf->AliasNbPages();
