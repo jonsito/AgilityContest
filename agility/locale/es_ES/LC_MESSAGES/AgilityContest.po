@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2021-05-31 16:43+0200\n"
-"PO-Revision-Date: 2021-05-31 16:48+0200\n"
+"POT-Creation-Date: 2021-06-04 12:16+0200\n"
+"PO-Revision-Date: 2021-06-04 12:17+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -7513,8 +7513,8 @@ msgid "Check for Upgrades"
 msgstr "Buscar actualizaciones"
 
 #: scripts/admin.js.php:737
-msgid "<p>AgilityContest is up to date</p>"
-msgstr "<p>AgilityContest est&aacute; actualizado</p>"
+msgid "AgilityContest is up to date"
+msgstr "AgilityContest est&aacute; actualizado"
 
 #: scripts/admin.js.php:740
 msgid "Last Version"
@@ -10851,6 +10851,9 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "<p>AgilityContest is up to date</p>"
+#~ msgstr "<p>AgilityContest est&aacute; actualizado</p>"
 
 #~ msgid "Skip labels for Not Present / Eliminated dogs"
 #~ msgstr "Omitir etiqueta si eliminado / no presentado"

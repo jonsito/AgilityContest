@@ -678,7 +678,11 @@ class Admin extends DBObject {
 
 	public function downloadUpgrades($version) {
 	    $this->myLogger->enter();
-        $source='https://codeload.github.com/jonsito/AgilityContest/zip/master';
+	    // versions greater than 4.4.1 download updates from github releases
+        // instead of "master" tree, to avoid download working copy
+        // so remember: must add new tag in github when new release is published
+        $source="https://github.com/jonsito/AgilityContest/archive/refs/tags/${version}.zip";
+        //$source='https://codeload.github.com/jonsito/AgilityContest/zip/master';
         $dest=__DIR__."/../../../../logs/AgilityContest-{$version}.zip";
 		// file_get_contents() and copy() suffers from allow_url_fopen and max_mem problem, so just use curl
 		// to download about 300Mb

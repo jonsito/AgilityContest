@@ -734,7 +734,7 @@ function checkForUpgrades() {
                 return;
             }
             if (data.version_date==ac_config.version_date) {
-                msg = msg +'<?php _e("<p>AgilityContest is up to date</p>"); ?>';
+                msg = msg +'<p style="text-align:center;">'+"<?php _e('AgilityContest is up to date'); ?>"+"</p>";
                 $.messager.alert("Version Info",msg,"info");
             }
             msg = msg +"<p>"+'<?php _e("Last Version"); ?>'+": "+data.version_name+"<br />"+'<?php _e('Last Release');?>'+": "+data.version_date+"</p>";
