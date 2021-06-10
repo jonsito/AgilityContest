@@ -298,8 +298,10 @@ class RFEC extends Federations {
                 /*13 */ array(2048,	_('Teams 2') ), // not used since 4.2.x
                 /*14 */ array(4096,	_('Teams 3') ), // not used since 4.2.x
                 /*15 */ array(8192,	_('Games / WAO') ),
-                /*16 */ array(16384,_('Children / Young') ),
+                /*16 */ array(16384,_('Young') ),
                 /*17 */ array(32768,_('Senior') ),
+                /*18 */ array(65536,  _('Children') ),
+                /*19 */ array(131072, _('ParaAgility') ),
             )
         ));
     }

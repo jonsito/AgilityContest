@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2021-06-04 12:16+0200\n"
-"PO-Revision-Date: 2021-06-04 12:17+0200\n"
+"POT-Creation-Date: 2021-06-10 12:19+0200\n"
+"PO-Revision-Date: 2021-06-10 12:20+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -348,7 +348,7 @@ msgstr "Gu&iacute;a"
 #: scripts/perros.js.php:168 scripts/results_and_scores.js.php:270
 #: server/database/classes/Ligas.php:176 server/database/classes/Ligas.php:209
 #: server/database/updater/Uploader.php:295
-#: server/excel/classes/XLSXWriter.php:117 server/modules/Federations.php:445
+#: server/excel/classes/XLSXWriter.php:117 server/modules/Federations.php:447
 #: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:89
 #: server/modules/competiciones/lib/ligas/Liga_RFEC_2018.php:108
 #: server/modules/competiciones/lib/ligas/Liga_RSCE_2018.php:82
@@ -458,7 +458,7 @@ msgstr "Falta"
 msgid "Refusal"
 msgstr "Reh&uacute;se"
 
-#: chrono/chrono.inc.php:98 server/modules/Competitions.php:193
+#: chrono/chrono.inc.php:98 server/modules/Competitions.php:195
 #: server/modules/competiciones/Liga_UCA.php:41
 #: server/modules/competiciones/Puntuable_CPC_2018.php:127
 #: server/modules/competiciones/Puntuable_FMC_2018.php:93
@@ -606,7 +606,7 @@ msgstr "Iniciar cuenta atras de 15 segundos"
 #: chrono/chrono.js.php:137 chrono/chrono.js.php:218 chrono/chrono.js.php:286
 #: chrono/chrono.js.php:387 console/dialogs/dlg_competicion.inc:143
 #: livestream/livestream.js.php:262 scripts/datagrid_formatters.js.php:246
-#: server/modules/Competitions.php:194
+#: server/modules/Competitions.php:196
 #: server/modules/competiciones/Liga_UCA.php:42
 #: server/modules/competiciones/Puntuable_CPC_2018.php:128
 #: server/modules/competiciones/Puntuable_FMC_2018.php:94
@@ -835,7 +835,7 @@ msgstr "Equipo"
 #: console/frm_paises.php:81 scripts/datagrid_formatters.js.php:200
 #: scripts/datagrid_formatters.js.php:617
 #: scripts/datagrid_formatters.js.php:627
-#: server/excel/classes/DogReader.php:472 server/modules/Federations.php:445
+#: server/excel/classes/DogReader.php:472 server/modules/Federations.php:447
 #: server/pdf/classes/PrintEntrenamientos.php:59
 #: server/pdf/classes/PrintListaPerros.php:56 server/pdf/print_common.php:299
 msgid "Country"
@@ -1413,7 +1413,7 @@ msgstr "Tiempo"
 
 #: console/dialogs/dlg_competicion.inc:144
 #: console/dialogs/dlg_competicion_games.inc:394
-#: scripts/datagrid_formatters.js.php:247 server/modules/Competitions.php:189
+#: scripts/datagrid_formatters.js.php:247 server/modules/Competitions.php:191
 #: server/modules/competiciones/Liga_UCA.php:37
 #: server/modules/competiciones/Puntuable_CPC_2018.php:123
 #: server/modules/competiciones/Puntuable_FMC_2018.php:89
@@ -2930,17 +2930,17 @@ msgid "No grades - Open"
 msgstr "Sin grados - Open"
 
 #: console/dialogs/dlg_jornadas.inc:107 server/database/classes/poedit.php:33
-#: server/modules/Competitions.php:117 server/modules/Federations.php:339
-#: server/modules/federaciones/rfec/config.php:326
+#: server/modules/Competitions.php:119 server/modules/Federations.php:339
+#: server/modules/federaciones/rfec/config.php:330
 #: server/modules/federaciones/rfec/config_4heights.php:294
-#: server/modules/federaciones/rsce/config.php:363
+#: server/modules/federaciones/rsce/config.php:367
 msgid "K.O. Round"
 msgstr "Ronda K.O."
 
 #: console/dialogs/dlg_jornadas.inc:111 server/modules/Federations.php:345
-#: server/modules/federaciones/rfec/config.php:332
+#: server/modules/federaciones/rfec/config.php:336
 #: server/modules/federaciones/rfec/config_4heights.php:300
-#: server/modules/federaciones/rsce/config.php:369
+#: server/modules/federaciones/rsce/config.php:373
 msgid "Games / WAO"
 msgstr "Juegos / WAO"
 
@@ -5694,9 +5694,9 @@ msgid "Junior"
 msgstr "Junior"
 
 #: console/frm_inscripciones2.php:157 server/modules/Federations.php:347
-#: server/modules/federaciones/rfec/config.php:334
+#: server/modules/federaciones/rfec/config.php:338
 #: server/modules/federaciones/rfec/config_4heights.php:302
-#: server/modules/federaciones/rsce/config.php:371
+#: server/modules/federaciones/rsce/config.php:375
 msgid "Senior"
 msgstr "Senior"
 
@@ -7835,18 +7835,18 @@ msgid "Countries"
 msgstr "Pa&iacute;ses"
 
 #: scripts/competicion.js.php:131 server/modules/Federations.php:338
-#: server/modules/federaciones/rfec/config.php:325
+#: server/modules/federaciones/rfec/config.php:329
 #: server/modules/federaciones/rfec/config_4heights.php:293
-#: server/modules/federaciones/rsce/config.php:362
+#: server/modules/federaciones/rsce/config.php:366
 msgid "Teams All"
 msgstr "Equipos (Conjunta)"
 
 #: scripts/competicion.js.php:138 server/database/classes/poedit.php:25
 #: server/database/classes/poedit.php:30 server/database/classes/poedit.php:34
 #: server/modules/Federations.php:336
-#: server/modules/federaciones/rfec/config.php:323
+#: server/modules/federaciones/rfec/config.php:327
 #: server/modules/federaciones/rfec/config_4heights.php:291
-#: server/modules/federaciones/rsce/config.php:360 videowall/vws.js.php:307
+#: server/modules/federaciones/rsce/config.php:364 videowall/vws.js.php:307
 #: videowall/vws.js.php:338
 msgid "Individual"
 msgstr "Individual"
@@ -9350,7 +9350,7 @@ msgid "There is already a contest with provided name"
 msgstr "Ya hay una prueba con ese nombre"
 
 #: server/database/classes/Resultados.php:496
-#: server/modules/Competitions.php:188
+#: server/modules/Competitions.php:190
 #: server/modules/competiciones/Liga_UCA.php:36
 #: server/modules/competiciones/Puntuable_CPC_2018.php:122
 #: server/modules/competiciones/Puntuable_FMC_2018.php:88
@@ -9389,8 +9389,8 @@ msgstr "PreAgility 1"
 
 #: server/database/classes/poedit.php:19 server/database/classes/poedit.php:20
 #: server/modules/Federations.php:331 server/modules/Federations.php:332
-#: server/modules/federaciones/rsce/config.php:355
-#: server/modules/federaciones/rsce/config.php:356
+#: server/modules/federaciones/rsce/config.php:359
+#: server/modules/federaciones/rsce/config.php:360
 msgid "Pre-Agility"
 msgstr "Pre-Agility"
 
@@ -9412,7 +9412,7 @@ msgstr "Agility-1 GI"
 
 #: server/database/classes/poedit.php:21 server/database/classes/poedit.php:22
 #: server/database/classes/poedit.php:35 server/modules/Federations.php:333
-#: server/modules/federaciones/rsce/config.php:357
+#: server/modules/federaciones/rsce/config.php:361
 msgid "Grade I"
 msgstr "Grado I"
 
@@ -9434,7 +9434,7 @@ msgstr "Agility GII"
 
 #: server/database/classes/poedit.php:23 server/database/classes/poedit.php:28
 #: server/modules/Federations.php:334
-#: server/modules/federaciones/rsce/config.php:358
+#: server/modules/federaciones/rsce/config.php:362
 msgid "Grade II"
 msgstr "Grado II"
 
@@ -9448,9 +9448,9 @@ msgstr "Agility GIII"
 
 #: server/database/classes/poedit.php:24 server/database/classes/poedit.php:29
 #: server/modules/Federations.php:335
-#: server/modules/federaciones/rfec/config.php:322
+#: server/modules/federaciones/rfec/config.php:326
 #: server/modules/federaciones/rfec/config_4heights.php:290
-#: server/modules/federaciones/rsce/config.php:359
+#: server/modules/federaciones/rsce/config.php:363
 msgid "Grade III"
 msgstr "Grado III"
 
@@ -9509,9 +9509,9 @@ msgid "K.O."
 msgstr "K.O."
 
 #: server/database/classes/poedit.php:34 server/modules/Federations.php:340
-#: server/modules/federaciones/rfec/config.php:327
+#: server/modules/federaciones/rfec/config.php:331
 #: server/modules/federaciones/rfec/config_4heights.php:295
-#: server/modules/federaciones/rsce/config.php:364
+#: server/modules/federaciones/rsce/config.php:368
 msgid "Special Round"
 msgstr "Manga especial"
 
@@ -9805,7 +9805,7 @@ msgstr "Estrellas"
 msgid "KC_ID"
 msgstr "LOE_RRC"
 
-#: server/modules/Competitions.php:197
+#: server/modules/Competitions.php:199
 #: server/modules/competiciones/Liga_UCA.php:45
 #: server/modules/competiciones/Puntuable_CPC_2018.php:131
 #: server/modules/competiciones/Puntuable_FMC_2018.php:97
@@ -9823,7 +9823,7 @@ msgstr "LOE_RRC"
 msgid "Not Clasified"
 msgstr "No Clasificado"
 
-#: server/modules/Competitions.php:198
+#: server/modules/Competitions.php:200
 #: server/modules/competiciones/Clasificatoria_Interclubes.php:98
 #: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:114
 #: server/modules/competiciones/Liga_UCA.php:46
@@ -9839,7 +9839,7 @@ msgstr "No Clasificado"
 msgid "N.C."
 msgstr "N.C."
 
-#: server/modules/Competitions.php:201 server/modules/Competitions.php:202
+#: server/modules/Competitions.php:203 server/modules/Competitions.php:204
 #: server/modules/competiciones/Clasificatoria_Interclubes.php:101
 #: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:117
 #: server/modules/competiciones/Liga_UCA.php:49
@@ -9868,7 +9868,7 @@ msgstr "N.C."
 msgid "Good"
 msgstr "Bien"
 
-#: server/modules/Competitions.php:205
+#: server/modules/Competitions.php:207
 #: server/modules/competiciones/Liga_UCA.php:54
 #: server/modules/competiciones/Puntuable_CPC_2018.php:139
 #: server/modules/competiciones/Puntuable_FMC_2018.php:105
@@ -9885,7 +9885,7 @@ msgstr "Bien"
 msgid "Very good"
 msgstr "Muy bien"
 
-#: server/modules/Competitions.php:206
+#: server/modules/Competitions.php:208
 #: server/modules/competiciones/Clasificatoria_Interclubes.php:104
 #: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:120
 #: server/modules/competiciones/Liga_UCA.php:55
@@ -9902,7 +9902,7 @@ msgstr "Muy bien"
 msgid "V.G."
 msgstr "M.B."
 
-#: server/modules/Competitions.php:209
+#: server/modules/Competitions.php:211
 #: server/modules/competiciones/Liga_UCA.php:59
 #: server/modules/competiciones/Liga_UCA.php:64
 #: server/modules/competiciones/Puntuable_CPC_2018.php:143
@@ -9938,7 +9938,7 @@ msgstr "M.B."
 msgid "Excellent"
 msgstr "Excelente"
 
-#: server/modules/Competitions.php:210 server/modules/Competitions.php:214
+#: server/modules/Competitions.php:212 server/modules/Competitions.php:216
 #: server/modules/competiciones/Clasificatoria_Interclubes.php:107
 #: server/modules/competiciones/Clasificatoria_Interclubes.php:110
 #: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:123
@@ -9974,7 +9974,7 @@ msgstr "Excelente"
 msgid "Exc"
 msgstr "Exc"
 
-#: server/modules/Competitions.php:213
+#: server/modules/Competitions.php:215
 #: server/pdf/classes/PrintEstadisticas.php:24
 #: server/pdf/classes/PrintEstadisticas.php:77
 #: server/pdf/classes/PrintEstadisticas.php:78
@@ -10026,46 +10026,64 @@ msgid "Standard / Midi + Mini"
 msgstr "Standard / Midi + Mini"
 
 #: server/modules/Federations.php:337
-#: server/modules/federaciones/rfec/config.php:324
+#: server/modules/federaciones/rfec/config.php:328
 #: server/modules/federaciones/rfec/config_4heights.php:292
-#: server/modules/federaciones/rsce/config.php:361
+#: server/modules/federaciones/rsce/config.php:365
 msgid "Teams Best"
 msgstr "Equipos (Mejores)"
 
 #: server/modules/Federations.php:341
-#: server/modules/federaciones/rfec/config.php:328
+#: server/modules/federaciones/rfec/config.php:332
 #: server/modules/federaciones/rfec/config_4heights.php:296
-#: server/modules/federaciones/rsce/config.php:365
+#: server/modules/federaciones/rsce/config.php:369
 msgid "Grade II-III"
 msgstr "Grado II-III conjunta"
 
 #: server/modules/Federations.php:342
-#: server/modules/federaciones/rfec/config.php:329
+#: server/modules/federaciones/rfec/config.php:333
 #: server/modules/federaciones/rfec/config_4heights.php:297
-#: server/modules/federaciones/rsce/config.php:366
+#: server/modules/federaciones/rsce/config.php:370
 msgid "Teams 2best"
 msgstr "Eq. 2mejores"
 
 #: server/modules/Federations.php:343
-#: server/modules/federaciones/rfec/config.php:330
+#: server/modules/federaciones/rfec/config.php:334
 #: server/modules/federaciones/rfec/config_4heights.php:298
-#: server/modules/federaciones/rsce/config.php:367
+#: server/modules/federaciones/rsce/config.php:371
 msgid "Teams 2"
 msgstr "Equipos 2"
 
 #: server/modules/Federations.php:344
-#: server/modules/federaciones/rfec/config.php:331
+#: server/modules/federaciones/rfec/config.php:335
 #: server/modules/federaciones/rfec/config_4heights.php:299
-#: server/modules/federaciones/rsce/config.php:368
+#: server/modules/federaciones/rsce/config.php:372
 msgid "Teams 3"
 msgstr "Equipos (3)"
 
 #: server/modules/Federations.php:346
-#: server/modules/federaciones/rfec/config.php:333
+#: server/modules/federaciones/rfec/config.php:337
 #: server/modules/federaciones/rfec/config_4heights.php:301
-#: server/modules/federaciones/rsce/config.php:370
-msgid "Children / Young"
-msgstr "Infantil / Juvenil"
+#: server/modules/federaciones/rsce/config.php:374
+#: server/pdf/classes/PrintClasificacion.php:469
+#: server/pdf/classes/PrintClasificacion.php:472
+msgid "Young"
+msgstr "Juvenil"
+
+#: server/modules/Federations.php:348
+#: server/modules/federaciones/rfec/config.php:339
+#: server/modules/federaciones/rfec/config_4heights.php:303
+#: server/modules/federaciones/rsce/config.php:376
+#: server/pdf/classes/PrintClasificacion.php:502
+#: server/pdf/classes/PrintClasificacion.php:505
+msgid "Children"
+msgstr "Infantil"
+
+#: server/modules/Federations.php:349
+#: server/modules/federaciones/rfec/config.php:340
+#: server/modules/federaciones/rfec/config_4heights.php:304
+#: server/modules/federaciones/rsce/config.php:377
+msgid "ParaAgility"
+msgstr "ParaAgility"
 
 #: server/modules/competiciones/Clasificatoria_Interclubes.php:70
 #: server/modules/competiciones/EuropeanOpen_Team_Qualification.php:86
@@ -10360,19 +10378,19 @@ msgstr "Clase 40+30+20"
 msgid "Clase 30+20"
 msgstr "Clase 30+20"
 
-#: server/modules/federaciones/rfec/config.php:318
-#: server/modules/federaciones/rfec/config.php:319
+#: server/modules/federaciones/rfec/config.php:322
+#: server/modules/federaciones/rfec/config.php:323
 #: server/modules/federaciones/rfec/config_4heights.php:286
 #: server/modules/federaciones/rfec/config_4heights.php:287
 msgid "Iniciacion"
 msgstr "Iniciacion"
 
-#: server/modules/federaciones/rfec/config.php:320
+#: server/modules/federaciones/rfec/config.php:324
 #: server/modules/federaciones/rfec/config_4heights.php:288
 msgid "Promocion"
 msgstr "Promocion"
 
-#: server/modules/federaciones/rfec/config.php:321
+#: server/modules/federaciones/rfec/config.php:325
 #: server/modules/federaciones/rfec/config_4heights.php:289
 msgid "Competicion"
 msgstr "Competicion"
@@ -10390,16 +10408,6 @@ msgstr "Cl. 40+30"
 #: server/pdf/classes/PrintClasificacionTeam.php:307
 msgid "Calific"
 msgstr "Calif"
-
-#: server/pdf/classes/PrintClasificacion.php:469
-#: server/pdf/classes/PrintClasificacion.php:472
-msgid "Young"
-msgstr "Juvenil"
-
-#: server/pdf/classes/PrintClasificacion.php:502
-#: server/pdf/classes/PrintClasificacion.php:505
-msgid "Children"
-msgstr "Infantil"
 
 #: server/pdf/classes/PrintClasificacionExcel.php:164
 #: server/pdf/classes/PrintClasificacionExcel.php:172
@@ -10851,6 +10859,9 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "Children / Young"
+#~ msgstr "Infantil / Juvenil"
 
 #~ msgid "<p>AgilityContest is up to date</p>"
 #~ msgstr "<p>AgilityContest est&aacute; actualizado</p>"

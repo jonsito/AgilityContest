@@ -58,12 +58,16 @@ class Mangas extends DBObject {
         28 =>	array( 28,'Jumping B',			        '-',	'Jumping B',	'Jp. B',        4,          'JpB'),
         29 =>	array( 29,'Snooker',			        '-',	'Snooker',	    'Snkr',         5,          'Snk'),
         30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        6,          'Gmb'),
-        31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       7,          'Spd'), // single round
+        31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       7,          'SpAgd'), // single round
         // junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
-        32 =>	array( 32,'Junior Round 1',	            'Jr',	'Junior 1',	    'Jr. 1',        1,          'Jr1'),
-        33 => 	array( 33,'Junior Round 2',	            'Jr',	'Junior 2',	    'Jr. 2',        2,          'Jr2'),
-        34 =>	array( 34,'Senior Round 1',	            'Sr',	'Senior 1',	    'Sr. 1',        1,          'Sr1'),
-        35 => 	array( 35,'Senior Round 2',	            'Sr',	'Senior 2',	    'Sr. 2',        2,          'Sr2'),
+        32 =>	array( 32,'Agility Junior',	            'Jr',	'Junior Ag',	    'Ag. Jr.',   1,          'AgJ'),
+        33 => 	array( 33,'Jumping Junior',	            'Jr',	'Junior Jp',	    'Jp. Jr.',   2,          'JpJ'),
+        34 =>	array( 34,'Agility Senior',	            'Sr',	'Senior Ag',	    'Ag. Sr.',   1,          'AgS'),
+        35 => 	array( 35,'Jumping Senior',	            'Sr',	'Senior Jp',	    'Ag. Sr',    2,          'JpS'),
+        36 =>	array( 36,'Agility Children',	        'Ch',	'Children Ag',	    'Ch. Ag',    1,          'AgI'),
+        37 => 	array( 37,'Jumping Children',	        'Ch',	'Children Jp',	    'Ch. Jp',    2,          'JpI'),
+        38 =>	array( 38,'Ag. ParaAgility',	        'PA',	'P.Agility Ag',	    'PA. Ag',    1,          'AgP'),
+        39 => 	array( 30,'Jp. ParaAgility',	        'PA',	'P.Agility Jp',	    'PA. Jp',    2,          'JpP'),
 	);
 
 	public static function getTipoManga($tipo,$idx,$fed=null) {

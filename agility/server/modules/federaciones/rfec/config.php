@@ -70,7 +70,7 @@ class RFEC extends Federations {
                 'I' => 'Infantil',
                 'J' => 'Juvenil',
                 'A' => 'Adulto',
-                // 'S' => 'Senior',
+                'S' => 'Senior',
                 'R' => 'Retirado',
                 'P' => 'Para-Agility',
             ),
@@ -308,10 +308,14 @@ class RFEC extends Federations {
                 30 =>	array( 30,'Gambler',			        'WAO',	'Gambler',	    'Gmblr',        6),
                 31 =>	array( 31,'SpeedStakes',			    'WAO',	'SpeedStakes',	'SpdStk',       7), // single round
                 // PENDING: revise grade. perhaps need to create an specific 'Jr' grade for them
-                32 =>	array( 32,'Junior Manga 1',	            'Jr',	'Junior 1',	    'Jr. 1',        1),
-                33 => 	array( 33,'Junior Manga 2',	            'Jr',	'Junior 2',	    'Jr. 2',        2),
-                34 =>	array( 34,'Senior Manga 1',	            'Sr',	'Senior 1',	    'Sr. 1',        1),
-                35 => 	array( 35,'Senior Manga 2',	            'Sr',	'Senior 2',	    'Sr. 2',        2),
+                32 =>	array( 32,'Agility Junior',	            'Jr',	'Ag Junior',	    'Ag. Jr.',   1),
+                33 => 	array( 33,'Jumping Junior',	            'Jr',	'Jp Junior',	    'Jp. Jr.',   2),
+                34 =>	array( 34,'Agility Senior',	            'Sr',	'Senior Ag',	    'Ag. Sr.',   1),
+                35 => 	array( 35,'Jumping Senior',	            'Sr',	'Senior Jp',	    'Ag. Sr',    2),
+                36 =>	array( 36,'Agility Infantil',	        'Ch',	'Ag Infantil',	    'Ag Inf',    1),
+                37 => 	array( 37,'Jumping Infantil',	        'Ch',	'Jp Infantil',	    'Jp Inf' ,   2),
+                38 =>	array( 38,'Ag. ParaAgility',	        'PA',	'P.Agility Ag',	    'PA. Ag',    1),
+                39 => 	array( 30,'Jp. ParaAgility',	        'PA',	'P.Agility Jp',	    'PA. Jp',    2),
             ),
             'TipoRondas' => array(
                 /* 0 */ array(0,	''),
@@ -330,8 +334,10 @@ class RFEC extends Federations {
                 /*13 */ array(2048,	_('Teams 2') ), // not used since 4.2.x
                 /*14 */ array(4096,	_('Teams 3') ), // not used since 4.2.x
                 /*15 */ array(8192,	_('Games / WAO') ),
-                /*16 */ array(16384,_('Children / Young') ),
+                /*16 */ array(16384,_('Young') ),
                 /*17 */ array(32768,_('Senior') ),
+                /*18 */ array(65536,  _('Children') ),
+                /*19 */ array(131072, _('ParaAgility') ),
             )
         ));
     }
