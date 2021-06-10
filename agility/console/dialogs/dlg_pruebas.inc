@@ -307,7 +307,7 @@ $config =Config::getInstance();
         $('#pruebas_email-None').prop('checked',false);
     });
     $('#pruebas_email-None').change(function(){
-        if ($(this).prop('checked')) $('#pruebas_email-Clubs').datagrid('unselectAll');
+        if ($(this).prop('checked')) $('#pruebas_email-Clubs').datagrid('clearSelections');
         $('#pruebas_email-All').prop('checked',false);
     });
 

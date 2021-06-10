@@ -82,7 +82,8 @@ function delGuiaFromClub(dg,club) {
         if (r){
             $.get('../ajax/database/guiaFunctions.php',{'Operation':'orphan','ID':row.ID},function(result){
                 if (result.success){
-                	$(dg).datagrid('unselectAll').datagrid('reload');
+                	$(dg).datagrid('clearSelections');
+                	$(dg).datagrid('reload');
                 } else {
                 	// show error message
                     $.messager.show({ title: '<?php _e('Error'); ?>', width: 300, height: 200, msg: result.errorMsg });
@@ -288,7 +289,8 @@ function joinGuia(dg){
                 if (result.errorMsg){
                     $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
                 } else {
-                    $(dg).datagrid('unselectAll').datagrid('reload');
+                    $(dg).datagrid('clearSelections');
+                    $(dg).datagrid('reload');
                 }
             }
         });

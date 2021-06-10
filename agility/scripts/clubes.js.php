@@ -247,7 +247,7 @@ function deleteClub(dg){
         if (!r) return;
         $.get('../ajax/database/clubFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
             if (result.success){
-                $(dg).datagrid('unselectAll').datagrid('reload');    // reload the provided datagrid
+                $(dg).datagrid('clearSelections').datagrid('reload');    // reload the provided datagrid
             } else {
                 $.messager.show({ width:300,height:200,title: 'Error',msg: result.errorMsg });
             }

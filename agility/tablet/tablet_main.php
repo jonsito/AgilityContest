@@ -233,7 +233,7 @@ $config =Config::getInstance();
             if ( (oldRow!==-1) && (oldRow!==idx) )  {
                 var old=dg.datagrid('getRows')[oldRow];
                 if (old['Tipo']!=="0") { // rows with type 0 has no subgrid
-                    $("#tablet-datagrid-"+old['ID']).datagrid('unselectAll');
+                    $("#tablet-datagrid-"+old['ID']).datagrid('clearSelections');
                 }
                 dg.datagrid('collapseRow',oldRow);
             }
@@ -246,7 +246,7 @@ $config =Config::getInstance();
             row.expanded=0;
             if (row.Tipo!=="0") { // rows with type=0 has no subgrid
                 var dg="#tablet-datagrid-" + parseInt(row.ID);
-                $(dg).datagrid('unselectAll');
+                $(dg).datagrid('clearSelections');
             }
             doBeep();
         }

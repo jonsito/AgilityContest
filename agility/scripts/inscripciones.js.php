@@ -156,7 +156,7 @@ function deleteInscripcion() {
 						// on Success function
 						function(result){
 							if (result.success) {
-								$('#inscripciones-datagrid').datagrid('unselectAll');
+								$('#inscripciones-datagrid').datagrid('clearSelections');
 								reloadWithSearch('#inscripciones-datagrid','inscritos',false);
 							} else {
 								$.messager.show({ width: 300, height: 200, title: 'Error', msg: result.errorMsg });

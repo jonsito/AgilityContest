@@ -737,7 +737,7 @@ function tablet_accept() {
 		var time = Date.now() - startDate;
 		setDataEntryEnabled(false);
 		dg.datagrid('refreshRow',rowindex-1);
-		dg.datagrid('unselectAll');
+		dg.datagrid('clearSelections');
 		tablet_putEvent('close',{ 'Value' : time } );
 	} else {
 		// not at end scrollTo, markSelected and update dataentry panel

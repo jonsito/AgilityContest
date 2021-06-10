@@ -40,7 +40,7 @@ $config =Config::getInstance();
 			data-options="iconCls:'icon-brush'"
 			onclick="
 	        	// clear selection and reload table
-				$('#new_inscripcion-datagrid').datagrid('unselectAll');
+				$('#new_inscripcion-datagrid').datagrid('clearSelections');
 				reloadWithSearch('#new_inscripcion-datagrid','noinscritos',true);
 	            "
 			><?php _e('Clear'); ?></a>
@@ -137,7 +137,7 @@ $('#new_inscripcion-dialog').dialog({
 	buttons:'#new_inscripcion-buttons',
 	onOpen: newInscripcion_onOpenSuccess, // on display setup jornada's 'checkboxes info
 	onClose: function() {
-	        $('#new_inscripcion-datagrid').datagrid('unselectAll');
+	        $('#new_inscripcion-datagrid').datagrid('clearSelections');
             autoBackupDatabase(1,"");
 	    }
 	});

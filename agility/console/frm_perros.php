@@ -51,7 +51,7 @@ $config =Config::getInstance();
            data-options="iconCls:'icon-brush'"
            onclick="
    	        	// clear selection and reload table
-   	        	$('#perros-datagrid').datagrid('unselectAll');
+   	        	$('#perros-datagrid').datagrid('clearSelections');
 				reloadWithSearch('#perros-datagrid','select',true);
    	            "
         ><?php _e('Clear'); ?></a>

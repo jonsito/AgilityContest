@@ -50,7 +50,7 @@ $config =Config::getInstance();
    			data-options="iconCls:'icon-brush'"
    			onClick="
    	        	// clear selection and reload table
-   	        	$('#guias-datagrid').datagrid('unselectAll');
+   	        	$('#guias-datagrid').datagrid('clearSelections');
    				reloadWithSearch('#guias-datagrid','select',true);
    				"
    			><?php _e('Clear'); ?></a>

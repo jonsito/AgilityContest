@@ -113,7 +113,8 @@ function deleteSession(dg){
       	if (!r) return;
         $.get('../ajax/database/sessionFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
             if (result.success){
-                $(dg).datagrid('unselectAll').datagrid('reload');    // reload the session data
+                $(dg).datagrid('clearSelections');
+                $(dg).datagrid('reload');    // reload the session data
             } else {
             	// show error message
                 $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
@@ -149,10 +150,10 @@ function resetSession(dg) {
 /************************ funciones de manejo de control remoto de sesiones ********************/
 
 function reloadRemoteClientList() {
-    $('#remote-tablet-datagrid').datagrid('unselectAll').datagrid('load');
-    $('#remote-videowall-datagrid').datagrid('unselectAll').datagrid('load');
-    $('#remote-livestream-datagrid').datagrid('unselectAll').datagrid('load');
-    $('#remote-chronometer-datagrid').datagrid('unselectAll').datagrid('load');
+    $('#remote-tablet-datagrid').datagrid('clearSelections').datagrid('load');
+    $('#remote-videowall-datagrid').datagrid('clearSelections').datagrid('load');
+    $('#remote-livestream-datagrid').datagrid('clearSelections').datagrid('load');
+    $('#remote-chronometer-datagrid').datagrid('clearSelections').datagrid('load');
     // no list available for internet displays :-)
 }
 
@@ -197,7 +198,7 @@ function formatVideowallView(val,row,index) {
 
 function remoteAllorNone(val, dg,all,none) {
     if (val==1) { dg.datagrid('selectAll'); none.prop('checked',false); }
-    if (val==0) { dg.datagrid('unselectAll'); all.prop('checked',false); }
+    if (val==0) { dg.datagrid('clearSelections'); all.prop('checked',false); }
 }
 
 function remoteTabletAllorNone(val) {

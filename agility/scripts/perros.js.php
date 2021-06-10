@@ -137,7 +137,8 @@ function deleteDog(dg){
             $.get('../ajax/database/dogFunctions.php',{ Operation: 'delete', ID: row.ID },function(result){
                 var nombre=row.Nombre;
                 if (result.success){
-                    $(dg).datagrid('unselectAll').datagrid('reload');    // reload the dog data. PENDING: what about using reloadPerrosDatagrid()?
+                    $(dg).datagrid('clearSelections');
+                    $(dg).datagrid('reload');    // reload the dog data. PENDING: what about using reloadPerrosDatagrid()?
                 } else { // show error message
                     var errormsg="Cannot delete dog: "+row.Nombre+":<br/>&nbsp<br/>"+result.errorMsg;
                     $.messager.show({ width:300, height:200, title: 'Error',  msg: errormsg });
@@ -195,7 +196,8 @@ function joinDog(dg){
                 if (result.errorMsg){
                     $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
                 } else {
-                    $(dg).datagrid('unselectAll').datagrid('reload');
+                    $(dg).datagrid('clearSelections');
+                    $(dg).datagrid('reload');
                 }
             }
         });
