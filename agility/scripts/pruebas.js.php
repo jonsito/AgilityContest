@@ -195,7 +195,7 @@ function deletePrueba(dg){
             $.get('../ajax/database/pruebaFunctions.php',{Operation: 'delete', ID: row.ID},function(result){
                 if (result.success){
                     $(dg).datagrid('clearSelections');
-                    $(dg)..datagrid('reload');    // reload the prueba data
+                    $(dg).datagrid('reload');    // reload the prueba data
                 } else {
                     $.messager.show({ width:300, height:200, title:'<?php _e('Error'); ?>', msg:result.errorMsg });
                 }

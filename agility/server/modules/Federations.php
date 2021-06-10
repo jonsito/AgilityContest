@@ -321,10 +321,14 @@ class Federations {
                29 => array(29, 'Snooker', '-', 'Snooker', 'Snkr', 5),
                30 => array(30, 'Gambler', '-', 'Gambler', 'Gmblr', 6),
                31 => array(31, 'SpeedStakes', '-', 'SpeedStakes', 'SpdStk', 7), // single round
-               32 => array(32, 'Junior Round 1', 'Jr', 'Junior 1', 'Jr. 1', 1),
-               33 => array(33, 'Junior Round 2', 'Jr', 'Junior 2', 'Jr. 2', 2),
-               34 => array(34, 'Senior Round 1', 'Sr', 'Senior 1', 'Sr. 1', 1),
-               35 => array(35, 'Senior Round 2', 'Sr', 'Senior 2', 'Sr. 2', 2)
+               32 => array(32, 'Junior Agility', 'Jr', 'Junior Ag', 'Jr. 1', 1),
+               33 => array(33, 'Junior Jumping', 'Jr', 'Junior Jp', 'Jr. 2', 2),
+               34 => array(34, 'Senior Agility', 'Sr', 'Senior Ag', 'Sr. 1', 1),
+               35 => array(35, 'Senior Jumping', 'Sr', 'Senior Jp', 'Sr. 2', 2),
+               36 => array(36, 'Children Agility', 'Sr', 'Children Ag', 'Ch. A', 1),
+               37 => array(37, 'Children Jumping', 'Sr', 'Children Jp', 'Ch. J', 2),
+               38 => array(38, 'ParaAgility Agility', 'Sr', 'ParaAgility Ag', 'PA. A', 1),
+               39 => array(39, 'ParaAgility Jumping', 'Sr', 'ParaAgility Jp', 'PA. J', 2)
            ),
            'TipoRondas' => array(
                /* 0 */ array(/* 0x0000 */ 0,	''),

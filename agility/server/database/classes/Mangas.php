@@ -115,10 +115,14 @@ class Mangas extends DBObject {
         array(30),      /* 29 ,'Snooker',	*/
         array(29),      /* 30 ,'Gambler',	*/
         array(25,26,27,28),/* 31 ,'SpeedStakes',*/
-        array(33),      /* 32, 'Children-Junior Manga 1', 'Jr' */
-        array(32),      /* 33, 'Children-Junior Manga 2', 'Jr' */
-        array(35),      /* 34, 'Senior Manga 1', 'Sr' */
-        array(34)       /* 35, 'Senior Manga 2', 'Sr' */
+        array(33),      /* 32, 'Junior Agility', 'Jr' */
+        array(32),      /* 33, 'Junior Jumping', 'Jr' */
+        array(35),      /* 34, 'Senior Agility', 'Sr' */
+        array(34),       /* 35, 'Senior Jumping', 'Sr' */
+        array(37),       /* 36, 'infantil Agility', 'I' */
+        array(36),       /* 37, 'infantil Jumping', 'I' */
+        array(39),       /* 38, 'ParaAgility Agility', 'P' */
+        array(38),       /* 39, 'ParaAgility Jumping', 'P' */
 	);
 	
 	public static $manga_modes= array (
@@ -567,13 +571,13 @@ class Mangas extends DBObject {
             $this->delete(1); $this->delete(2);
         }
 
-        /* 32,'Junior Manga 1', 'Jr' */
-        /* 33,'Junior Manga 2', 'Jr' */
+        /* 32,'Junior Agility', 'Jr' */
+        /* 33,'Junior Jumping', 'Jr' */
         if ($junior!=0) { $this->insert(32,'Jr'); $this->insert(33,'Jr'); }
         else { $this->delete(32); $this->delete(33); }
 
-        /* 34,'Senior Manga 1', 'Sr' */
-        /* 35,'Senior Manga 2', 'Sr' */
+        /* 34,'Senior Agility', 'Sr' */
+        /* 35,'Senior Jumping', 'Sr' */
         if ($senior!=0) { $this->insert(34,'Sr'); $this->insert(35,'Sr'); }
         else { $this->delete(34); $this->delete(35); }
 

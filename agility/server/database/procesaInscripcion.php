@@ -107,6 +107,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		 	case 4: // 'Agility Grado I Manga 2', 'GI'
 				if ($g==='GI') $inscribir=true; break;
 			case 5: // 'Agility Grado II', 'GII'
+                // PENDING: En RFEC comprobar el grado del guía y si hay o no Infantil/Junior/Senior/ParaAgility
 				if ($g==='GII') $inscribir=true; break;
 			case 6: // 'Agility Grado III', 'GIII'
 				if ($g==='GIII') $inscribir=true; break;
@@ -116,6 +117,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 				$inscribir=true; break;
 			case 10:// 'Jumping Grado II', 'GII'
 				if ($g==='GII') $inscribir=true; break;
+				// PENDING: En RFEC comprobar el grado del guía y si hay o no Infantil/Junior/Senior/ParaAgility
 			case 11:// 'Jumping Grado III', 'GIII'
 				if ($g==='GIII') $inscribir=true; break;
 			case 12:// 'Jumping Abierta', '-'
@@ -142,12 +144,20 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
             case 30:// Gambler
             case 31:// SpeedSTakes
                 $inscribir=true; break;
-            case 32: // Junior Manga 1
-            case 33: // Junior Manga 2
-            if ($g==='Jr') $inscribir=true; break; // infantil-junior
-            case 34: // Senior Manga 1
-            case 35: // Senior Manga 2
+            case 32: // Junior Agility
+            case 33: // Junior Jumping
+                if ($g==='Jr') $inscribir=true; break; // infantil-junior
+                // PENDING: En caza comprobar el grado del guía en su caso insertar
+            case 34: // Senior Agility
+            case 35: // Senior Jumping
                 if ($g==='Sr') $inscribir=true; break;
+                // PENDING: En caza comprobar el grado del guía en su caso insertar
+            case 36: // Infantil Agility
+            case 37: // Infantil Jumping
+                // PENDING
+            case 38: // ParaAgility Agility
+            case 39: // ParaAgility Jumping
+                // PENDING
 			default: 
 				throw new Exception("Tipo de manga $mtype desconocido. Manga:$mid Jornada:$j Prueba:$p");
 				break;

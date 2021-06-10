@@ -447,16 +447,16 @@ class Jornadas extends DBObject {
             ) );
         }
         if ($row->Senior!=0) {
-            $manga1= $this->fetchManga($mangas['rows'],$jornadaid,34); // Senior Manga 1
-            $manga2= $this->fetchManga($mangas['rows'],$jornadaid,35); // Senior Manga 2
+            $manga1= $this->fetchManga($mangas['rows'],$jornadaid,34); // Senior Agility
+            $manga2= $this->fetchManga($mangas['rows'],$jornadaid,35); // Senior Jumping
             array_push($data,array(
                 "Rondas" => $this->federation->getTipoRondas()[17][0],
                 "Nombre" => $this->federation->getTipoRondas()[17][1],
                 "Manga1" => $manga1['ID'],
                 "Manga2" => $manga2['ID'],
                 "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
-                "NombreManga1" => $this->federation->getTipoManga(34,3), // 'Senior Manga 1',
-                "NombreManga2" => $this->federation->getTipoManga(35,3), // 'Senior Manga 2',
+                "NombreManga1" => $this->federation->getTipoManga(34,3), // 'Senior Agility',
+                "NombreManga2" => $this->federation->getTipoManga(35,3), // 'Senior Jumping',
                 "Recorrido1" => $manga1['Recorrido'],
                 "Recorrido2" => $manga2['Recorrido'],
                 "Juez11" => $this->fetchJuez($manga1['Juez1']),
