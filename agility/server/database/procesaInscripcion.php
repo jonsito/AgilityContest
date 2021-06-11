@@ -88,11 +88,14 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 	$p=$jornada['Prueba'];
 	$idperro=$inscripcion['Perro'];
 	$g=$perro['Grado'];
+	$c=$perro['CatGuia']; // I nfantil, J uvenil, A dulto, S enior, R etirado, P araAgility
 
 	// buscamos la lista de mangas de esta jornada
 	$mobj=new Mangas("inscribePerroEnJornada",$jornada['ID']);
 	$mangas=$mobj->selectByJornada();
 	if (!$mangas) throw new Exception("No hay mangas definidas para la jornada $j de la prueba $p");
+	// extraemos la lista de tipos de manga que hay en la jornada
+    $listamangas=array_column($mangas,'Tipo');
 	foreach($mangas['rows'] as $manga) {
 		$mid=$manga['ID'];
 		$mtype=$manga['Tipo'];
@@ -105,29 +108,61 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 				if ($g==='P.A.') $inscribir=true; break;
 			case 3: // 'Agility Grado I Manga 1', 'GI'
 		 	case 4: // 'Agility Grado I Manga 2', 'GI'
+            case 17: // 'Agility Grado I Manga 3', 'GI'
 				if ($g==='GI') $inscribir=true; break;
 			case 5: // 'Agility Grado II', 'GII'
-                // PENDING: En RFEC comprobar el grado del guía y si hay o no Infantil/Junior/Senior/ParaAgility
-				if ($g==='GII') $inscribir=true; break;
+            case 10:// 'Jumping Grado II', 'GII'
+                // si el perro No está en grado 2 no se le inscribe
+                if ($g!=='GII') break;
+                // si el guia es Infantil y hay manga de infantil no se le inscribe
+                if ( ($c==='I') && in_array(36,$listamangas) ) break; // agility infantil
+                if ( ($c==='I') && in_array(37,$listamangas) ) break; // jumping infantil
+                // si el guia es Juvenil y hay manga de juvenil no se le inscribe
+                if ( ($c==='J') && in_array(32,$listamangas) ) break; // agility junior
+                if ( ($c==='J') && in_array(33,$listamangas) ) break; // jumping junior
+                // si el guia es Senior y hay manga de senior no se le inscribe
+                if ( ($c==='S') && in_array(34,$listamangas) ) break; // agility senior
+                if ( ($c==='S') && in_array(35,$listamangas) ) break; // jumping senior
+                // si el guia es para-agility y hay manga de para-agility no se le inscribe
+                if ( ($c==='P') && in_array(38,$listamangas) ) break; // agility senior
+                if ( ($c==='P') && in_array(39,$listamangas) ) break; // jumping senior
+                // si llega hasta aqui, se le inscribe :-)
+				$inscribir=true;
+				break;
 			case 6: // 'Agility Grado III', 'GIII'
-				if ($g==='GIII') $inscribir=true; break;
+            case 11:// 'Jumping Grado III', 'GIII'
+                // si el perro No está en grado 3 no se le inscribe
+                if ($g!=='GIII') break;
+                // si el guia es Infantil y hay manga de infantil no se le inscribe
+                if ( ($c==='I') && in_array(36,$listamangas) ) break; // agility infantil
+                if ( ($c==='I') && in_array(37,$listamangas) ) break; // jumping infantil
+                // si el guia es Juvenil y hay manga de juvenil no se le inscribe
+                if ( ($c==='J') && in_array(32,$listamangas) ) break; // agility junior
+                if ( ($c==='J') && in_array(33,$listamangas) ) break; // jumping junior
+                // si el guia es Senior y hay manga de senior no se le inscribe
+                if ( ($c==='S') && in_array(34,$listamangas) ) break; // agility senior
+                if ( ($c==='S') && in_array(35,$listamangas) ) break; // jumping senior
+                // si el guia es para-agility y hay manga de para-agility no se le inscribe
+                if ( ($c==='P') && in_array(38,$listamangas) ) break; // agility senior
+                if ( ($c==='P') && in_array(39,$listamangas) ) break; // jumping senior
+                // si llega hasta aqui, se le inscribe :-)
+                $inscribir=true;
+				break;
 			case 7: // 'Agility Abierta', '-'
 			case 8: // 'Agility Equipos (3 mejores)', '-'
 			case 9: // 'Agility Equipos (Conjunta)', '-'
-				$inscribir=true; break;
-			case 10:// 'Jumping Grado II', 'GII'
-				if ($g==='GII') $inscribir=true; break;
-				// PENDING: En RFEC comprobar el grado del guía y si hay o no Infantil/Junior/Senior/ParaAgility
-			case 11:// 'Jumping Grado III', 'GIII'
-				if ($g==='GIII') $inscribir=true; break;
 			case 12:// 'Jumping Abierta', '-'
 			case 13:// 'Jumping Equipos (3 mejores)', '-'
 			case 14:// 'Jumping Equipos (Conjunta)', '-'
-			case 15:// 'Ronda K.O. 1', '-'
+                // en teoria no se deberian inscribir perros de grado 1, pero como las pruebas de equipos
+                // no suelen ser homologadas, dejamos la verificacion al organizador
+                if($g==='GI') $myLogger->warn("Inscription of grade 1 dog: {$perro['Nombre']} into team journey");
+                $inscribir=true;
+                break;
 			case 16:// 'Manga especial', '-'
-				$inscribir=true; break;
-            case 17: // 'Agility Grado I Manga 3', 'GI'
-                if ($g==='GI') $inscribir=true; break;
+				$inscribir=true;
+				break;
+            case 15:// 'Ronda K.O. 1', '-'
             case 18:// 'Ronda K.O. 2', '-'
             case 19:// 'Ronda K.O. 3', '-'
             case 20:// 'Ronda K.O. 4', '-'
@@ -135,7 +170,8 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
             case 22:// 'Ronda K.O. 6', '-'
             case 23:// 'Ronda K.O. 7', '-'
             case 24:// 'Ronda K.O. 8', '-'
-                $inscribir=true; break;
+                $inscribir=true;
+                break;
             case 25:// WAO Agility A
             case 26:// WAO Agility B
             case 27:// WAO Jumping A
@@ -143,21 +179,33 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
             case 29:// Snooker
             case 30:// Gambler
             case 31:// SpeedSTakes
-                $inscribir=true; break;
+                $inscribir=true;
+                break;
             case 32: // Junior Agility
             case 33: // Junior Jumping
-                if ($g==='Jr') $inscribir=true; break; // infantil-junior
-                // PENDING: En caza comprobar el grado del guía en su caso insertar
+                if ($g==='Jr') $inscribir=true; // grado del perro. el valor 'Jr' esta obsoleto desde 4.5.X
+                if (($g==='GII') || ($g==='GIII')) {
+                    if ($c==='J') $inscribir=true; // grado del guia. el perro debe estar en grado 2/3
+                    // si el guia es infantil, pero NO hay manga de infantil, inscribir tambien aquí - manga junior (I+J)
+                    if ( ($c==='I') && !in_array(36,$listamangas) ) $inscribir=true; // agility infantil
+                    if ( ($c==='I') && !in_array(37,$listamangas) ) $inscribir=true; // jumping infantil
+                }
+                break; // junior (+infantil)
             case 34: // Senior Agility
             case 35: // Senior Jumping
-                if ($g==='Sr') $inscribir=true; break;
-                // PENDING: En caza comprobar el grado del guía en su caso insertar
+                if ($g==='Sr') $inscribir=true; // grado del perro, el valor 'Sr' esta obsoleto desde 4.5.X
+                if ( (($g==='GII')||($g==='GIII')) && ($c==='S') ) $inscribir=true;
+                break;
             case 36: // Infantil Agility
             case 37: // Infantil Jumping
-                // PENDING
+                // no hay perros "infantil", comprobamos solo la categoria del guia
+                if ( (($g==='GII')||($g==='GIII')) && ($c==='I') ) $inscribir=true;
+                break;
             case 38: // ParaAgility Agility
             case 39: // ParaAgility Jumping
-                // PENDING
+                // no hay perros "para-agility", comprobamos solo la categoria del guia
+                if ( (($g==='GII')||($g==='GIII')) && ($c==='P') ) $inscribir=true;
+                break;
 			default: 
 				throw new Exception("Tipo de manga $mtype desconocido. Manga:$mid Jornada:$j Prueba:$p");
 				break;
