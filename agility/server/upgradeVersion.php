@@ -659,7 +659,11 @@ class Updater {
             "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(32,'Junior 1','Jr')",
             "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(33,'Junior 2','Jr')",
             "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(34,'Senior 1','Sr')",
-            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(35,'Senior 2','Sr')"
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(35,'Senior 2','Sr')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(36,'Children 1','Ch')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(37,'Children 2','Ch')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(38,'ParaAgility 1','Pa')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(39,'ParaAgility 2','Pa')"
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
@@ -863,6 +867,8 @@ try {
     $upg->addColumnUnlessExists("jornadas", "Games", "int(4)", "0");
     $upg->addColumnUnlessExists("jornadas", "Junior", "tinyint(1)", "0");
     $upg->addColumnUnlessExists("jornadas", "Senior", "tinyint(1)", "0");
+    $upg->addColumnUnlessExists("jornadas", "Children", "tinyint(1)", "0");
+    $upg->addColumnUnlessExists("jornadas", "ParaAgility", "tinyint(1)", "0");
     $upg->addColumnUnlessExists("jornadas", "Tipo_Competicion", "int(4)", "0");
 
     // on server edition need to track modification time and unique id set on server

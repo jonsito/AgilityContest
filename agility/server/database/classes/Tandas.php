@@ -184,6 +184,27 @@ class Tandas extends DBObject {
          128	=> array('Tipo'=>128,	'TipoManga'=> 14,	'Nombre'=>'Jp. team XLarge/Large', 'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'XL',	'Grado'=>'-'), // team combined
          129	=> array('Tipo'=>129,	'TipoManga'=> 9,	'Nombre'=>'Ag. team Med/Small/Toy', 'isAgility'=> true, 'isTeam'=>true, 'Categoria'=>'MST','Grado'=>'-'), // team combined
          130	=> array('Tipo'=>130,	'TipoManga'=> 14,	'Nombre'=>'Jp. team Med/Small/Toy', 'isAgility'=> false, 'isTeam'=>true, 'Categoria'=>'MST','Grado'=>'-'), // team combined
+         // JAMC 2021-06-11 add children and para-agility rounds
+         131	=> array('Tipo'=>131,	'TipoManga'=> 36,	'Nombre'=>'Children Agility XLarge','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Ch'),
+         132	=> array('Tipo'=>132,	'TipoManga'=> 37,	'Nombre'=>'Children Jumping XLarge','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Ch'),
+         133	=> array('Tipo'=>133,	'TipoManga'=> 36,	'Nombre'=>'Children Agility Large','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'Ch'),
+         134	=> array('Tipo'=>134,	'TipoManga'=> 37,	'Nombre'=>'Children Jumping Large','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'Ch'),
+         135	=> array('Tipo'=>135,	'TipoManga'=> 36,	'Nombre'=>'Children Agility Medium','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'Ch'),
+         136	=> array('Tipo'=>136,	'TipoManga'=> 37,	'Nombre'=>'Children Jumping Medium','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'Ch'),
+         137	=> array('Tipo'=>137,	'TipoManga'=> 36,	'Nombre'=>'Children Agility Small','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'Ch'),
+         138	=> array('Tipo'=>138,	'TipoManga'=> 37,	'Nombre'=>'Children Jumping Small','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'Ch'),
+         139	=> array('Tipo'=>139,	'TipoManga'=> 36,	'Nombre'=>'Children Agility Toy','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Ch'),
+         140	=> array('Tipo'=>10,	'TipoManga'=> 37,	'Nombre'=>'Children Jumping Toy','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Ch'),
+         141	=> array('Tipo'=>141,	'TipoManga'=> 38,	'Nombre'=>'ParaAgility Agility XLarge','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Par'),
+         142	=> array('Tipo'=>142,	'TipoManga'=> 39,	'Nombre'=>'ParaAgility Jumping XLarge','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'X','Grado'=>'Par'),
+         143	=> array('Tipo'=>143,	'TipoManga'=> 38,	'Nombre'=>'ParaAgility Agility Large','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'Par'),
+         144	=> array('Tipo'=>144,	'TipoManga'=> 39,	'Nombre'=>'ParaAgility Jumping Large','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'L','Grado'=>'Par'),
+         145	=> array('Tipo'=>145,	'TipoManga'=> 38,	'Nombre'=>'ParaAgility Agility Medium','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'Par'),
+         146	=> array('Tipo'=>146,	'TipoManga'=> 39,	'Nombre'=>'ParaAgility Jumping Medium','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'M','Grado'=>'Par'),
+         147	=> array('Tipo'=>147,	'TipoManga'=> 38,	'Nombre'=>'ParaAgility Agility Small','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'Par'),
+         148	=> array('Tipo'=>148,	'TipoManga'=> 39,	'Nombre'=>'ParaAgility Jumping Small','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'S','Grado'=>'Par'),
+         149	=> array('Tipo'=>149,	'TipoManga'=> 38,	'Nombre'=>'ParaAgility Agility Toy','isAgility'=> true, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Par'),
+         150	=> array('Tipo'=>150,	'TipoManga'=> 39,	'Nombre'=>'ParaAgility Jumping Toy','isAgility'=> false, 'isTeam'=>false, 'Categoria'=>'T','Grado'=>'Par'),
      );
 
     /**
@@ -825,6 +846,16 @@ class Tandas extends DBObject {
                 $this->removeFromList($tipo);
                 continue;
             }
+            if( (!$this->federation->hasChildren()) && ($item['Grado']==='Ch') ) {
+                // remove every Junior Rounds in RSCE contests
+                $this->removeFromList($tipo);
+                continue;
+            }
+            if( (!$this->federation->hasParaAgility()) && ($item['Grado']==='Par') ) {
+                // remove every Junior Rounds in RSCE contests
+                $this->removeFromList($tipo);
+                continue;
+            }
             // si estamos en equipos conjunta, hay que tener en cuenta las alturas
             // pues las tandas van com L-MS (3 alturas) o bien LM-ST (4 alturas)
             if( in_array($tipomanga,array(9,14)) ) {
@@ -910,6 +941,14 @@ class Tandas extends DBObject {
         // Senior
         $this->insert_remove($f,34,($j->Senior != 0)?true:false);		// add/remove Senior Manga1
         $this->insert_remove($f,35,($j->Senior != 0)?true:false);		// add/remove Senior Manga2
+
+        // Children
+        $this->insert_remove($f,36,($j->Children != 0)?true:false);		// add/remove children Manga1
+        $this->insert_remove($f,37,($j->Children != 0)?true:false);		// add/remove children Manga2
+
+        // Para-Agility
+        $this->insert_remove($f,38,($j->ParaAgility != 0)?true:false);	// add/remove para-agility Manga1
+        $this->insert_remove($f,39,($j->ParaAgility != 0)?true:false);	// add/remove para-agility Manga2
 
         // grado 1 puede tener 1, 2 o 3 mangas.
         // Por compatibilidad los posibles valores son 1:2mangas 2:1manga 3:3mangas 0:nogrado1

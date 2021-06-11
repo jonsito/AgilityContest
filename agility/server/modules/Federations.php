@@ -433,8 +433,8 @@ class Federations {
     }
 
     public function hasPreAgility() { return $this->hasRoundsOf('P.A.'); }
-    // Children and Junior share grade and rounds, so check both against 'Jr'
-    public function hasChildren() { return $this->hasRoundsOf('Jr'); }
+    public function hasChildren() { return $this->hasRoundsOf('Ch'); }
+    public function hasParaAgility() { return $this->hasRoundsOf('Par'); }
     public function hasJunior() { return $this->hasRoundsOf('Jr'); }
     public function hasSenior() { return $this->hasRoundsOf('Sr'); }
     public function hasGrade3() { return $this->hasRoundsOf('GIII'); }
