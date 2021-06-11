@@ -206,14 +206,14 @@ class Jornadas extends DBObject {
         // do not remove "TipoCompeticion" as needed for evaluate tandas
         $sql = "UPDATE jornadas
 				SET Nombre='-- Sin asignar --', Fecha='{$fecha}', Hora='{$hora}', SlaveOf=0, Grado1=0, Grado2=0, Grado3=0, Junior=0,
-					Senior=0, Open=0, Equipos3=0, Equipos4=0, PreAgility=0, KO=0, Games=0, Especial=0, Observaciones='', Cerrada=0
+					Senior=0, Children=0, ParaAgility=0, Open=0, Equipos3=0, Equipos4=0, PreAgility=0, KO=0, Games=0, Especial=0, Observaciones='', Cerrada=0
 				WHERE ( ID={$jornadaid} );";
         $res = $this->query($sql);
         if (!$res) return $this->error($this->conn->error);
 
         // actualizamos (borramos) mangas
         $mangas = new Mangas("jornadas::clear", $jornadaid);
-        $mangas->prepareMangas($jornadaid, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "");
+        $mangas->prepareMangas($jornadaid, 0, 0, 0, 0, 0, 0,0,0, 0, 0, 0, 0, 0, 0, "");
 
         // actualizamos (borramos) tandas
         $ot = new Tandas("jornadas::clear", $jobj->Prueba, $jornadaid);
@@ -460,6 +460,44 @@ class Jornadas extends DBObject {
                 "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
                 "NombreManga1" => $this->federation->getTipoManga(34,3), // 'Senior Agility',
                 "NombreManga2" => $this->federation->getTipoManga(35,3), // 'Senior Jumping',
+                "Recorrido1" => $manga1['Recorrido'],
+                "Recorrido2" => $manga2['Recorrido'],
+                "Juez11" => $this->fetchJuez($manga1['Juez1']),
+                "Juez12" => $this->fetchJuez($manga1['Juez2']),
+                "Juez21" => $this->fetchJuez($manga2['Juez1']),
+                "Juez22" => $this->fetchJuez($manga2['Juez2'])
+            ) );
+        }
+        if ($row->Children!=0) {
+            $manga1= $this->fetchManga($mangas['rows'],$jornadaid,36); // Children Agility
+            $manga2= $this->fetchManga($mangas['rows'],$jornadaid,37); // Children Jumping
+            array_push($data,array(
+                "Rondas" => $this->federation->getTipoRondas()[17][0],
+                "Nombre" => $this->federation->getTipoRondas()[17][1],
+                "Manga1" => $manga1['ID'],
+                "Manga2" => $manga2['ID'],
+                "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
+                "NombreManga1" => $this->federation->getTipoManga(36,3), // 'Children Agility',
+                "NombreManga2" => $this->federation->getTipoManga(37,3), // 'Children Jumping',
+                "Recorrido1" => $manga1['Recorrido'],
+                "Recorrido2" => $manga2['Recorrido'],
+                "Juez11" => $this->fetchJuez($manga1['Juez1']),
+                "Juez12" => $this->fetchJuez($manga1['Juez2']),
+                "Juez21" => $this->fetchJuez($manga2['Juez1']),
+                "Juez22" => $this->fetchJuez($manga2['Juez2'])
+            ) );
+        }
+        if ($row->ParaAgility!=0) {
+            $manga1= $this->fetchManga($mangas['rows'],$jornadaid,38); // ParaAgility Agility
+            $manga2= $this->fetchManga($mangas['rows'],$jornadaid,39); // ParaAgility Jumping
+            array_push($data,array(
+                "Rondas" => $this->federation->getTipoRondas()[17][0],
+                "Nombre" => $this->federation->getTipoRondas()[17][1],
+                "Manga1" => $manga1['ID'],
+                "Manga2" => $manga2['ID'],
+                "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,
+                "NombreManga1" => $this->federation->getTipoManga(38,3), // 'ParaAgility Agility',
+                "NombreManga2" => $this->federation->getTipoManga(39,3), // 'ParaAgility Jumping',
                 "Recorrido1" => $manga1['Recorrido'],
                 "Recorrido2" => $manga2['Recorrido'],
                 "Juez11" => $this->fetchJuez($manga1['Juez1']),
@@ -1051,6 +1089,24 @@ class Jornadas extends DBObject {
             $m2 = Jornadas::__searchManga(33, $mangas); // Junior Manga 2
             Jornadas::__compose($data, $prueba, $jornada, 16, $m1, $m2);
         }
+        // Junior
+        if ($jornada['Senior']!=0) {  // Jornadas::tiporonda=17
+            $m1 = Jornadas::__searchManga(34, $mangas); // Senior Manga 1
+            $m2 = Jornadas::__searchManga(35, $mangas); // Senior Manga 2
+            Jornadas::__compose($data, $prueba, $jornada, 17, $m1, $m2);
+        }
+        // children
+        if ($jornada['Children']!=0) {  // Jornadas::tiporonda=18
+            $m1 = Jornadas::__searchManga(36, $mangas); // Children Manga 1
+            $m2 = Jornadas::__searchManga(37, $mangas); // Children Manga 2
+            Jornadas::__compose($data, $prueba, $jornada, 18, $m1, $m2);
+        }
+        // para-agility
+        if ($jornada['ParaAgility']!=0) {  // Jornadas::tiporonda=18
+            $m1 = Jornadas::__searchManga(38, $mangas); // ParaAgility Manga 1
+            $m2 = Jornadas::__searchManga(39, $mangas); // ParaAgility Manga 2
+            Jornadas::__compose($data, $prueba, $jornada, 19, $m1, $m2);
+        }
 		if ($jornada['Grado1']!=0) {  // Jornadas::tiporonda=3 (0:no G1 1:2rounds 2:1round 3:3rounds )
             $a=intval($jornada['Grado1']);
             $m1=null; $m2=null; $m3=null;
@@ -1166,6 +1222,9 @@ class Jornadas extends DBObject {
             if (intval($jobj->KO)!=0) $flag=false;
             if (intval($jobj->Games)!=0) $flag=false;
             if (intval($jobj->Junior)!=0) $flag=false; // en junior no hay grados... por ahora
+            if (intval($jobj->Senior)!=0) $flag=false;
+            if (intval($jobj->Children)!=0) $flag=false;
+            if (intval($jobj->ParaAgility)!=0) $flag=false;
 		}
 		if (is_array($jobj)) {
 			if (intval($jobj['Open'])!=0) $flag=false;
@@ -1174,6 +1233,9 @@ class Jornadas extends DBObject {
             if (intval($jobj['KO'])!=0) $flag=false;
             if (intval($jobj['Games'])!=0) $flag=false;
             if (intval($jobj['Junior'])!=0) $flag=false;
+            if (intval($jobj['Senior'])!=0) $flag=false;
+            if (intval($jobj['Children'])!=0) $flag=false;
+            if (intval($jobj['ParaAgility'])!=0) $flag=false;
 		}
 		return $flag;
 	}

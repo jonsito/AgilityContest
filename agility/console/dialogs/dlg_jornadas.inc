@@ -58,15 +58,24 @@ $config =Config::getInstance();
             </div>
 
             <div class="fitem">
-                <label for="jornadas-Junior" style="text-align:left;width:150px" ><span id="jornadas-ChildrenName">Children</span> / <span id="jornadas-JuniorName">Junior</span></label>
+                <label for="jornadas-Children" style="text-align:left;width:150px" ><span id="jornadas-ChildrenName">Children</span></label>
+                <input id="jornadas-Children" name="Children" class="easyui-checkbox"
+                       type="checkbox" value="1" onClick="checkPrueba('#jornadas-Children',0x10000)"/>
+                <span style="width:25px">&nbsp;</span>
+                <label for="jornadas-Junior" style="text-align:left;width:110px" ><span id="jornadas-JuniorName">Junior</span></label>
                 <input id="jornadas-Junior" name="Junior" class="easyui-checkbox"
                        type="checkbox" value="1" onClick="checkPrueba('#jornadas-Junior',0x4000)"/>
-                <span style="width:25px">&nbsp;</span>
-                <label for="jornadas-Senior" style="text-align:right;width:110px" ><span id="jornadas-SeniorName">Senior</span></label>
-                <input id="jornadas-Senior" name="Senior" class="easyui-checkbox"
-                       type="checkbox" value="1" onClick="checkPrueba('#jornadas-Senior',0x8000)"/>
             </div>
 
+            <div class="fitem">
+                <label for="jornadas-Senior" style="text-align:left;width:150px" ><span id="jornadas-SeniorName">Senior</span></label>
+                <input id="jornadas-Senior" name="Senior" class="easyui-checkbox"
+                       type="checkbox" value="1" onClick="checkPrueba('#jornadas-Senior',0x8000)"/>
+                <span style="width:25px">&nbsp;</span>
+                <label for="jornadas-ParaAgility" style="text-align:left;width:110px" ><span id="jornadasParaAgilityName">ParaAgility</span></label>
+                <input id="jornadas-ParaAgility" name="ParaAgility" class="easyui-checkbox"
+                       type="checkbox" value="1" onClick="checkPrueba('#jornadas-ParaAgility',0x20000)"/>
+            </div>
             <div class="fitem">
                 <label for="jornadas-Grado1" style="width:150px" ><span id="jornadas-Grado1Name">Grade I</span></label>
                 <input type="hidden" id="jornadas-Grado1" name="Grado1" value="1">

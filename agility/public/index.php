@@ -236,8 +236,10 @@ $('#public-Jornada').combogrid({
 		{ field:'Equipos4',		hidden:true }, // since 4.2.x Equipos3/equipos4 becomes mindogs/maxdogs
 		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'PreAg. ', formatter:formatOk },
         { field:'PreAgility2',	hidden:true }, /* not used since 3.4 */
-		{ field:'Junior',	    width:8, sortable:false,	align:'center', title: 'Junior ' },
-        { field:'Senior',   	hidden:true }, // not used yet
+        { field:'Children',	    width:8, sortable:false,	align:'center', title: 'Childrn' },
+        { field:'Junior',	    width:8, sortable:false,	align:'center', title: 'Junior ' },
+        { field:'Senior',   	width:8, sortable:false,	align:'center', title: 'Senior ' },
+        { field:'ParaAgility', 	width:8, sortable:false,	align:'center', title: 'ParaAg.' },
 		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
 		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' }
 	]],

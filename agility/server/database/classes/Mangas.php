@@ -585,12 +585,12 @@ class Mangas extends DBObject {
 
         /* 36,'Infantil Agility', 'Ch' */
         /* 37,'Infantil Jumping', 'Ch' */
-        if ($senior!=0) { $this->insert(36,'Ch'); $this->insert(37,'Ch'); }
+        if ($children!=0) { $this->insert(36,'Ch'); $this->insert(37,'Ch'); }
         else { $this->delete(36); $this->delete(37); }
 
         /* 38,'ParaAgility Agility', 'Par' */
         /* 39,'ParaAgility Jumping', 'Par' */
-        if ($senior!=0) { $this->insert(38,'Par'); $this->insert(39,'Par'); }
+        if ($paraagility!=0) { $this->insert(38,'Par'); $this->insert(39,'Par'); }
         else { $this->delete(38); $this->delete(39); }
 
 		/* 3, 'Agility Grado I Manga 1', 'GI' */
