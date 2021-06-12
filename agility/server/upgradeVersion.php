@@ -662,8 +662,8 @@ class Updater {
             "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(35,'Senior 2','Sr')",
             "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(36,'Children 1','Ch')",
             "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(37,'Children 2','Ch')",
-            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(38,'ParaAgility 1','Pa')",
-            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(39,'ParaAgility 2','Pa')"
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(38,'ParaAgility 1','Par')",
+            "INSERT IGNORE INTO tipo_manga (ID,Descripcion,Grado) VALUES(39,'ParaAgility 2','Par')"
         );
         foreach ($cmds as $query) { $this->myDBObject->query($query); }
         return 0;
@@ -694,8 +694,10 @@ class Updater {
             // temporary hack for Junior and Senior grades
             // this sucks: Jr and Sr are handler categories, not dog ones, but...
             // also children runs together with junior. so use same "grade"
-            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('Jr','Children / Young')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('Ch','Children')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('Jr','Junior')",
             "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('Sr','Senior')",
+            "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('Par','ParaAgility')",
             // new model for module based competitions and federations
             // use numeric strings to allow easy int-to-string conversion
             "INSERT IGNORE INTO grados_perro (Grado,Comentarios) VALUES('0','Grade 0')", // old Pre-Agility

@@ -164,9 +164,9 @@ $config =Config::getInstance();
         onBeforeOpen: function() {
             // fix names for PreAgility, Grade 1,II and III
             $('#jornadas-PreAgilityName').html(workingData.datosFederation.ListaGrados['P.A.']);
-            // Children/Junior share course and calification
             $('#jornadas-ChildrenName').html(workingData.datosFederation.ListaCatGuias['I']);
             $('#jornadas-JuniorName').html(workingData.datosFederation.ListaCatGuias['J']);
+            $('#jornadas-ParaAgilityName').html(workingData.datosFederation.ListaCatGuias['P']);
             $('#jornadas-SeniorName').html(workingData.datosFederation.ListaGrados['Sr']);
             $('#jornadas-Grado1Name').html(workingData.datosFederation.ListaGrados['GI']);
             $('#jornadas-Grado2Name').html(workingData.datosFederation.ListaGrados['GII']);

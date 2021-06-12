@@ -32,7 +32,9 @@ class RFEC extends Federations {
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 'Jr' => 'Junr',
-                //'Sr' => 'Sr.',
+                'Sr' => 'Sr.',
+                'Ch' => 'Ch.',
+                'Par' => 'Par.',
                 'GI' => 'Prom',
                 'GII'=> 'Comp',
                 // 'GIII' => 'G3',
@@ -42,7 +44,9 @@ class RFEC extends Federations {
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
                 'Jr' => 'Junior',
-                // 'Sr' => 'Senior',
+                'Sr' => 'Senior',
+                'Ch' => 'Infantil',
+                'Par' => 'ParaAgility',
                 'GI' => 'Promocion (G1)',
                 'GII'=> 'Competicion (G2)',
                 // 'GIII' => '(G3) no disponible',

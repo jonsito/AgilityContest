@@ -27,6 +27,8 @@ class INTL4 extends Federations {
                 '-' => 'Sin especificar',
                 'Jr' => 'Jr.',
                 'Sr' => 'Sr.',
+                'Ch' => 'Ch.',
+                'Par' => 'Par.',
                 'GI' => 'A1',
                 'GII'=> 'A2',
                 'GIII' => 'A3', //  invalid for 2-grades contests
@@ -35,8 +37,10 @@ class INTL4 extends Federations {
             ),
             'ListaGrados'    => array (
                 '-' => 'Not specified ',
-                'Jr' => 'Junior', // includes children
+                'Jr' => 'Junior',
                 'Sr' => 'Senior',
+                'Ch' => 'Children',
+                'Par' => 'ParaAgility',
                 'GI' => 'Grade I',
                 'GII'=> 'Grade II',
                 'GIII' => 'Grade III', // no existe
