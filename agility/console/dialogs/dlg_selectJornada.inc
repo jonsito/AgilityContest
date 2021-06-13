@@ -122,7 +122,7 @@ $('#seljornada-Jornada').combogrid({
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba
 	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-		{ field:'Nombre',		width:30, sortable:false,   align:'left',  title: '<?php _e('Name'); ?>' },
+		{ field:'Nombre',		width:25, sortable:false,   align:'left',  title: '<?php _e('Name'); ?>' },
         { field:'Nombre_Competicion',hidden:true },
         { field:'Tipo_Competicion',	hidden:true},
 		{ field:'Fecha',		hidden:true},
@@ -134,8 +134,10 @@ $('#seljornada-Jornada').combogrid({
 		{ field:'Equipos3',		width:12, sortable:false,	align:'center', title: 'Teams  ', formatter:formatTeamDogs },
 		{ field:'Equipos4',		hidden:true }, // since 4.2.x Equipos3/Equipos4 becomes mindogs/maxdogs
 		{ field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'PreAg. ', formatter: formatPreAgility },
+        { field:'Children',	    width:7, sortable:false,	align:'center', title: 'Childre', formatter:formatOk },
         { field:'Junior',	    width:7, sortable:false,	align:'center', title: 'Junior ', formatter:formatOk },
         { field:'Senior',	    width:7, sortable:false,	align:'center', title: 'Senior ', formatter:formatOk },
+        { field:'ParaAgility',  width:7, sortable:false,	align:'center', title: 'Para Ag', formatter:formatOk },
 		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.   ', formatter:formatOk },
         { field:'Especial',		width:7, sortable:false,	align:'center', title: '<?php _e('Special');?>', formatter:formatOk },
         { field:'Cerrada',		width:6, sortable:false,	align:'center', title: '<?php _e('Closed');?>', formatter: formatCerrada }
