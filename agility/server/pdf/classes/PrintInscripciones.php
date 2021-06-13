@@ -436,18 +436,32 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 			$this->paintData($data,$name,$width,$heights,'GIII');
 		}
 
-        // Junior
-		if ($this->federation->hasJunior()) {
-            $this->ac_header(2,9);
-            $this->cell(30,6,$this->federation->getGrade('Jr'),'LRB',0,'L',true);
-			$this->paintData($data,$name,$width,$heights,'Jr');
-        }
+		// Children
+		if ($this->federation->hasChildren()) {
+			$this->ac_header(2,9);
+			$this->cell(30,6,$this->federation->getGrade('Ch'),'LRB',0,'L',true);
+			$this->paintData($data,$name,$width,$heights,'Ch');
+		}
 
-        // Senior
+		// Junior
+		if ($this->federation->hasJunior()) {
+			$this->ac_header(2,9);
+			$this->cell(30,6,$this->federation->getGrade('Jr'),'LRB',0,'L',true);
+			$this->paintData($data,$name,$width,$heights,'Jr');
+		}
+
+		// Senior
 		if ($this->federation->hasSenior()) {
-            $this->ac_header(2,9);
-            $this->cell(30,6,$this->federation->getGrade('Sr'),'LRB',0,'L',true);
+			$this->ac_header(2,9);
+			$this->cell(30,6,$this->federation->getGrade('Sr'),'LRB',0,'L',true);
 			$this->paintData($data,$name,$width,$heights,'Sr');
+		}
+
+		// ParaAgility
+		if ($this->federation->hasParaAgility()) {
+			$this->ac_header(2,9);
+			$this->cell(30,6,$this->federation->getGrade('Par'),'LRB',0,'L',true);
+			$this->paintData($data,$name,$width,$heights,'Par');
 		}
 
         // Total

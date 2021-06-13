@@ -86,12 +86,12 @@ class RSCE extends Federations {
             ),
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
-                'I' => 'Infantil',
-                'J' => 'Junior',
+                // 'I' => 'Infantil',
+                // 'J' => 'Junior',
                 'A' => 'Adulto',
-                'S' => 'Senior',
+                // 'S' => 'Senior',
                 'R' => 'Retirado',
-                'P' => 'Para-Agility',
+                // 'P' => 'Para-Agility',
             ),
             'InfoManga3' => array( // 3 alturas
                 array('L' => 'Large',   'M' => 'Medium',      'S' => 'Small',       'T' => '',    'X' => ''), // separate courses

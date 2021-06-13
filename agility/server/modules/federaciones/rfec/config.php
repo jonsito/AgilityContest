@@ -31,10 +31,10 @@ class RFEC extends Federations {
             ),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
-                'Jr' => 'Junr',
-                'Sr' => 'Sr.',
-                'Ch' => 'Inf.',
-                'Par' => 'Par.',
+                // 'Jr' => 'Junr',
+                // 'Sr' => 'Sr.',
+                // 'Ch' => 'Inf.',
+                // 'Par' => 'Par.',
                 'GI' => 'Prom',
                 'GII'=> 'Comp',
                 // 'GIII' => 'G3',
@@ -43,10 +43,10 @@ class RFEC extends Federations {
             ),
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
-                'Jr' => 'Junior',
-                'Sr' => 'Senior',
-                'Ch' => 'Infantil',
-                'Par' => 'ParaAgility',
+                // 'Jr' => 'Junior',
+                // 'Sr' => 'Senior',
+                // 'Ch' => 'Infantil',
+                //'Par' => 'ParaAgility',
                 'GI' => 'Promocion (G1)',
                 'GII'=> 'Competicion (G2)',
                 // 'GIII' => '(G3) no disponible',
@@ -327,7 +327,7 @@ class RFEC extends Federations {
                 /* 2 */ array(2,	_('Iniciacion') ), // 2-round preagility. no longer use since 3.4.X
                 /* 3 */ array(4,	_('Promocion') ),
                 /* 4 */ array(8,	_('Competicion') ),
-                /* 5 */ array(16,	_('Grade III') ),   // not used in RFEC
+                /* 5 */ array(16,	_('Grade').' III' ),   // not used in RFEC
                 /* 6 */ array(32,	_('Individual') ), // Open
                 /* 7 */ array(64,	_('Teams Best') ),
                 /* 8 */ array(128,	_('Teams All') ),

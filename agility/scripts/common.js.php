@@ -318,12 +318,15 @@ function hasChildren(fed) {
 }
 function hasJunior(fed) {
     if (typeof(fed)==="undefined") fed=workingData.federation;
-    return typeof(ac_fedInfo[fed].ListaGrados.Jr)!=="undefined";
+    return typeof(ac_fedInfo[fed].ListaCatGuias.J)!=="undefined";
 }
-
 function hasSenior(fed) {
     if (typeof(fed)==="undefined") fed=workingData.federation;
-    return typeof(ac_fedInfo[fed].ListaGrados.Sr)!=="undefined";
+    return typeof(ac_fedInfo[fed].ListaCatGuias.S)!=="undefined";
+}
+function hasParaAgility(fed) {
+    if (typeof(fed)==="undefined") fed=workingData.federation;
+    return typeof(ac_fedInfo[fed].ListaCatGuias.P)!=="undefined";
 }
 
 function hasGames(fed) {

@@ -62,7 +62,7 @@ $config =Config::getInstance();
                 <input id="jornadas-Children" name="Children" class="easyui-checkbox"
                        type="checkbox" value="1" onClick="checkPrueba('#jornadas-Children',0x10000)"/>
                 <span style="width:25px">&nbsp;</span>
-                <label for="jornadas-Junior" style="text-align:left;width:110px" ><span id="jornadas-JuniorName">Junior</span></label>
+                <label for="jornadas-Junior" style="text-align:right;width:110px" ><span id="jornadas-JuniorName">Junior</span></label>
                 <input id="jornadas-Junior" name="Junior" class="easyui-checkbox"
                        type="checkbox" value="1" onClick="checkPrueba('#jornadas-Junior',0x4000)"/>
             </div>
@@ -72,7 +72,7 @@ $config =Config::getInstance();
                 <input id="jornadas-Senior" name="Senior" class="easyui-checkbox"
                        type="checkbox" value="1" onClick="checkPrueba('#jornadas-Senior',0x8000)"/>
                 <span style="width:25px">&nbsp;</span>
-                <label for="jornadas-ParaAgility" style="text-align:left;width:110px" ><span id="jornadasParaAgilityName">ParaAgility</span></label>
+                <label for="jornadas-ParaAgility" style="text-align:right;width:110px" ><span id="jornadasParaAgilityName">ParaAgility</span></label>
                 <input id="jornadas-ParaAgility" name="ParaAgility" class="easyui-checkbox"
                        type="checkbox" value="1" onClick="checkPrueba('#jornadas-ParaAgility',0x20000)"/>
             </div>
@@ -221,6 +221,20 @@ $config =Config::getInstance();
                 $('#jornadas-Junior').prop('disabled',false).prop('checked',(parseInt(data.Junior) === 1));
             } else {
                 $('#jornadas-Junior').prop('disabled',true).prop('checked',false);
+            }
+
+            // (des)habilitar Mangas Children
+            if (hasChildren(workingData.datosPrueba.RSCE)) {
+                $('#jornadas-Children').prop('disabled',false).prop('checked',(parseInt(data.Children) === 1));
+            } else {
+                $('#jornadas-Children').prop('disabled',true).prop('checked',false);
+            }
+
+            // (des)habilitar Mangas ParaAgility
+            if (hasParaAgility(workingData.datosPrueba.RSCE)) {
+                $('#jornadas-ParaAgility').prop('disabled',false).prop('checked',(parseInt(data.ParaAgility) === 1));
+            } else {
+                $('#jornadas-ParaAgility').prop('disabled',true).prop('checked',false);
             }
 
             // (des)habilitar Mangas Senior
