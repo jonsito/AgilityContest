@@ -25,26 +25,26 @@ class INTL4 extends Federations {
             'Recorridos' => array(_('Common course'),_('Standard + Medium / Small + Toy'),_("Separate courses"),/*5heigths*/""),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
-                'Jr' => 'Jr.',
-                'Sr' => 'Sr.',
-                'Ch' => 'Ch.',
-                'Par' => 'Par.',
+                // 'Jr' => 'Jr.',
+                // 'Sr' => 'Sr.',
+                // 'Ch' => 'Ch.',
+                // 'Par' => 'Par.',
                 'GI' => 'A1',
                 'GII'=> 'A2',
                 'GIII' => 'A3', //  invalid for 2-grades contests
-                'P.A.' => 'A0',
+                // 'P.A.' => 'A0',
                 'P.B.' => 'T.d.' // "Test dog"
             ),
             'ListaGrados'    => array (
                 '-' => 'Not specified ',
-                'Jr' => 'Junior',
-                'Sr' => 'Senior',
-                'Ch' => 'Children',
-                'Par' => 'ParaAgility',
+                // 'Jr' => 'Junior',
+                // 'Sr' => 'Senior',
+                // 'Ch' => 'Children',
+                // 'Par' => 'ParaAgility',
                 'GI' => 'Grade I',
                 'GII'=> 'Grade II',
                 'GIII' => 'Grade III', // no existe
-                'P.A.' => 'Grade 0',
+                // 'P.A.' => 'Grade 0',
                 'P.B.' => 'Test dog'
             ),
             'ListaCategoriasShort' => array (

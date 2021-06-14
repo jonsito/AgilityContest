@@ -310,7 +310,28 @@ class RSCE extends Federations {
                 127	=> 'Ag. Eq. XLarge/Large', // team combined
                 128	=> 'Jp. Eq. XLarge/Large', // team combined
                 129	=> 'Ag. Eq. Medium/Small/XSmall',  // team combined
-                130	=> 'Jp. Eq. Medium/Small/XSmall'// team combined
+                130	=> 'Jp. Eq. Medium/Small/XSmall', // team combined
+                // JAMC 2021-06-11 add children and para-agility rounds
+                131	=> 'Children Agility XLarge',
+                132	=> 'Children Jumping XLarge',
+                133	=> 'Children Agility Large',
+                134	=> 'Children Jumping Large',
+                135	=> 'Children Agility Medium',
+                136	=> 'Children Jumping Medium',
+                137	=> 'Children Agility Small',
+                138	=> 'Children Jumping Small',
+                139	=> 'Children Agility Toy',
+                140	=> 'Children Jumping Toy',
+                141	=> 'ParaAgility Agility XLarge',
+                142	=> 'ParaAgility Jumping XLarge',
+                143	=> 'ParaAgility Agility Large',
+                144	=> 'ParaAgility Jumping Large',
+                145	=> 'ParaAgility Agility Medium',
+                146	=> 'ParaAgility Jumping Medium',
+                147	=> 'ParaAgility Agility Small',
+                148	=> 'ParaAgility Jumping Small',
+                149	=> 'ParaAgility Agility Toy',
+                150	=> 'ParaAgility Jumping Toy'
             ),
             'TipoMangas' => array(
                 0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo',  'IsAgility'),

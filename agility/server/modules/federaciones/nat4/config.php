@@ -29,13 +29,13 @@ class NAT4 extends Federations {
             ),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
-                'Jr' => 'Jr.',
-                'Sr' => 'Sr.',
-                'Ch' => 'Ch.',
-                'Par' => 'Par.',
+                //'Jr' => 'Jr.',
+                // 'Sr' => 'Sr.',
+                // 'Ch' => 'Ch.',
+                // 'Par' => 'Par.',
                 'GI' => 'G1',
                 'GII'=> 'G2',
-                'GIII' => 'G3',
+                // 'GIII' => 'G3',
                 'P.A.' => 'G0',
                 'P.B.' => 'P.B.' // "perro en blanco"
             ),

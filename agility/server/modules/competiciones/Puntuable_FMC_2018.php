@@ -65,7 +65,7 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
             Competitions::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
-        $ptsmanga=array("7","5","3","2","1"); // puntos por manga y puesto
+        $ptsmanga=array(7,5,3,2,1); // puntos por manga y puesto
         $pt1=0;
         if ($penal<6.0) $pt1++; // 1 punto por excelente
         if ($penal==0.0) $pt1+=2; // 3 puntos por cero
@@ -73,7 +73,7 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
         // en madrid se permite que los perros NC puntuen
         $puesto=$puestocat[$cat]-$this->poffset[$cat];
         if ( ($puestocat[$cat]>0) && ($penal<16) ) {
-            if ($puesto<=5) $pt1+= $ptsmanga[$puesto-1];
+            if ($puesto<=5) $pt1 += $ptsmanga[$puesto-1];
         } else { // no points or not qualified; discard
             Competitions::evalPartialCalification($m,$perro,$puestocat);
             return;
