@@ -101,7 +101,8 @@ function editInscribedDog(){
 				$('#edit_inscripcion-Licencia').val(data.Licencia);
 				$('#edit_inscripcion-Categoria').val(data.Categoria);
 				$('#edit_inscripcion-Grado').val(data.Grado);
-				$('#edit_inscripcion-NombreGuia').val(data.NombreGuia);
+                $('#edit_inscripcion-NombreGuia').val(data.NombreGuia);
+                $('#edit_inscripcion-CatGuia').val(formatCatGuia(data.CatGuia,0,0));
 				$('#edit_inscripcion-NombreClub').val(data.NombreClub);
 			}
 		});

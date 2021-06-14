@@ -38,10 +38,10 @@ $config =Config::getInstance();
 		</div> <!-- contenido -->
 		<div data-options="region:'center'"></div>
 		<div id="selprueba-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
+            <a id="selprueba-cancelBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-cancel'" onclick="cancelSelectPrueba()"><?php _e('Cancel'); ?></a>
     	    <a id="selprueba-okBtn" href="#" class="easyui-linkbutton" 
     	    	data-options="iconCls:'icon-ok'" onclick="acceptSelectPrueba()"><?php _e('Accept'); ?></a>
-    	    <a id="selprueba-cancelBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-cancel'" onclick="cancelSelectPrueba()"><?php _e('Cancel'); ?></a>
 		</div>	<!-- botones -->
 	</div> <!-- Layout -->
 </div> <!-- Window -->

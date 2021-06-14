@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-<div id="edit_inscripcion-dialog" style="width:550px;height:475px;padding:5px">
+<div id="edit_inscripcion-dialog" style="width:525px;height:350px;padding:2px">
 	<div class="easyui-panel" data-options="fit:true">
 		<div class="dialog_forms">
         <form id="edit_inscripcion-form" method="get" novalidate="novalidate">
@@ -45,6 +45,7 @@ $config =Config::getInstance();
             <input id="edit_inscripcion-Grado" 		name="Grado" type="text" class="easyui-textbox" style="text-align:center" disabled="disabled" />
             <label id="edit_inscripcion-NombreGuialbl"	for="edit_inscripcion-NombreGuia"><?php _e('Handler'); ?>: </label>
             <input id="edit_inscripcion-NombreGuia" name="NombreGuia" type="text" class="easyui-textbox" disabled="disabled"/>
+            <input id="edit_inscripcion-CatGuia" name="CatGuia" type="text" class="easyui-textbox" disabled="disabled"/>
             <label id="edit_inscripcion-NombreClublbl" for="edit_inscripcion-NombreClub"><?php _e('Club'); ?>: </label>
            	<input id="edit_inscripcion-NombreClub" name="NombreClub" type="text" class="easyui-textbox" disabled="disabled" />
 			<input type="hidden" name="J1" value="0"/> <!-- stupid form handling of val==0 -->
@@ -154,6 +155,8 @@ $config =Config::getInstance();
         	$('#edit_inscripcion-J6').prop('disabled', ! canInscribe(jornadas[5]) );
         	$('#edit_inscripcion-J7').prop('disabled', ! canInscribe(jornadas[6]) );
         	$('#edit_inscripcion-J8').prop('disabled', ! canInscribe(jornadas[7]) );
+        	// fix handler category name
+            $('#edit_inscripcion-CatGuia').val(formatCatGuia(data.CatGuia,0,0));
         }
     });
     
@@ -185,40 +188,41 @@ $config =Config::getInstance();
     // layout
     var dg= {'cols':8, 'rows':16}; // declare base datagrid
 	doLayout(dg,'#edit_inscripcion-dogInfo',		0,	0,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-inscInfo",		3,	0,	4,	1	);
+	doLayout(dg,"#edit_inscripcion-inscInfo",		4,	0,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-Nombrelbl",		0,	1,	2,	1	);
-	doLayout(dg,"#edit_inscripcion-Nombre",			0,	2,	3,	1	);
+	doLayout(dg,"#edit_inscripcion-Nombre",			0,	2,	4,	1	);
 	doLayout(dg,"#edit_inscripcion-Licencialbl",	0,	3,	2,	1	);
-	doLayout(dg,"#edit_inscripcion-Licencia",		0,	4,	3,	1	);
+	doLayout(dg,"#edit_inscripcion-Licencia",		0,	4,	4,	1	);
 	doLayout(dg,"#edit_inscripcion-Categorialbl",	0,	5,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-Categoria",		0,	6,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-Gradolbl",		2,	5,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-Grado",			2,	6,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-NombreGuialbl",	0,	7,	2,	1	);
-	doLayout(dg,"#edit_inscripcion-NombreGuia",		0,	8,	3,	1	);
+    doLayout(dg,"#edit_inscripcion-NombreGuia",		0,	8,	3,	1	);
+    doLayout(dg,"#edit_inscripcion-CatGuia",		3,	8,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-NombreClublbl",	0,	9,	2,	1	);
-	doLayout(dg,"#edit_inscripcion-NombreClub",		0,	10,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-J1",				3,	1,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J1lbl",			4,	1,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-J2",				3,	2,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J2lbl",			4,	2,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-J3",				3,	3,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J3lbl",			4,	3,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-J4",				3,	4,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J4lbl",			4,	4,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-J5",				3,	5,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J5lbl" ,			4,	5,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-J6",				3,	6,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J6lbl",			4,	6,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-J7" ,			3,	7,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J7lbl",			4,	7,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-J8",				3,	8,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J8lbl",			4,	8,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-Celolbl",		4,	10,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-Celo2",			5,	10,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-Pagadolbl",		4,	11,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-Pagado",			5,	11,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-PagadoEuro",		6,	11,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-NombreClub",		0,	10,	4,	1	);
+	doLayout(dg,"#edit_inscripcion-J1",				4,	1,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-J1lbl",			5,	1,	3,	1	);
+	doLayout(dg,"#edit_inscripcion-J2",				4,	2,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-J2lbl",			5,	2,	3,	1	);
+	doLayout(dg,"#edit_inscripcion-J3",				4,	3,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-J3lbl",			5,	3,	3,	1	);
+	doLayout(dg,"#edit_inscripcion-J4",				4,	4,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-J4lbl",			5,	4,	3,	1	);
+	doLayout(dg,"#edit_inscripcion-J5",				4,	5,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-J5lbl" ,			5,	5,	3,	1	);
+	doLayout(dg,"#edit_inscripcion-J6",				4,	6,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-J6lbl",			5,	6,	3,	1	);
+	doLayout(dg,"#edit_inscripcion-J7" ,			4,	7,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-J7lbl",			5,	7,	3,	1	);
+	doLayout(dg,"#edit_inscripcion-J8",				4,	8,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-J8lbl",			5,	8,	3,	1	);
+	doLayout(dg,"#edit_inscripcion-Celolbl",		5,	10,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-Celo2",			6,	10,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-Pagadolbl",		5,	11,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-Pagado",			6,	11,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-PagadoEuro",		7,	11,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-Observacioneslbl",0,	11,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-Observaciones",	0,	12,	7,	1	);
     </script>
