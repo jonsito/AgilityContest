@@ -842,17 +842,17 @@ class Tandas extends DBObject {
                 continue;
             }
             if( (!$this->federation->hasSenior()) && ($item['Grado']==='Sr') ) {
-                // remove every Junior Rounds in RSCE contests
+                // remove every Senior Rounds in RSCE contests
                 $this->removeFromList($tipo);
                 continue;
             }
             if( (!$this->federation->hasChildren()) && ($item['Grado']==='Ch') ) {
-                // remove every Junior Rounds in RSCE contests
+                // remove every Children Rounds in RSCE contests
                 $this->removeFromList($tipo);
                 continue;
             }
             if( (!$this->federation->hasParaAgility()) && ($item['Grado']==='Par') ) {
-                // remove every Junior Rounds in RSCE contests
+                // remove every ParaAgility Rounds in RSCE contests
                 $this->removeFromList($tipo);
                 continue;
             }

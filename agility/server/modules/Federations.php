@@ -476,7 +476,20 @@ class Federations {
      * @return bool
      */
     public function hasRoundsOf($grade) {
-        return array_key_exists($grade,$this->config['ListaGrados']);
+       switch ($grade) {
+            // dog dependent categories
+            case 'P.A.':
+            case 'GI':
+            case 'GII':
+            case 'GIII':
+                return array_key_exists($grade,$this->config['ListaGrados']);
+            // next categories depends on handler not on dog
+            case 'Ch': return array_key_exists('I',$this->config['ListaCatGuias']);
+            case 'Jr': return array_key_exists('J',$this->config['ListaCatGuias']);
+            case 'Sr': return array_key_exists('S',$this->config['ListaCatGuias']);
+            case 'Par': return array_key_exists('P',$this->config['ListaCatGuias']);
+        }
+        return false; // default
     }
 
     public function hasPreAgility() { return $this->hasRoundsOf('P.A.'); }
