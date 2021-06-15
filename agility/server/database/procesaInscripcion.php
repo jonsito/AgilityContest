@@ -123,7 +123,8 @@ function canInscribeIn($listamangas,$gradmanga,$gradperro,$catguia) {
             if ($catguia === 'J') return true;
             // si el guia es infantil pero NO HAY manga de infantil se le inscribe
             if (($catguia === 'I') && empty(array_intersect([36, 37], $listamangas))) return true; // mangas infantil
-        // else do not inscribe
+            // else do not inscribe
+            break;
         case 'Sr':
             // solo se inscribe si el guia es senior
             return ($catguia === 'S');
@@ -133,6 +134,7 @@ function canInscribeIn($listamangas,$gradmanga,$gradperro,$catguia) {
         default: // default is not inscribe
             return false;
     }
+    return false; // should never arrive here, just for yes the flies
 }
 
 /**
@@ -156,7 +158,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 	$mangas=$mobj->selectByJornada();
 	if (!$mangas) throw new Exception("No hay mangas definidas para la jornada $j de la prueba $p");
 	// extraemos la lista de tipos de manga que hay en la jornada
-    $listamangas=array_column($mangas,'Tipo');
+    $listamangas=array_column($mangas['rows'],'Tipo');
 	foreach($mangas['rows'] as $manga) {
 		$mid=$manga['ID'];
 		$mtype=$manga['Tipo'];
@@ -166,17 +168,21 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		switch ($mtype) {
 			case 1: // 'Pre Agility Manga 1', 'P.A.'
 			case 2: // 'Pre Agility Manga 2', 'P.A.'
-                $inscribir=canInscribeIn($listamangas,'P.A.',$g,$c); break;
+                $inscribir=canInscribeIn($listamangas,'P.A.',$g,$c);
+                break;
 			case 3: // 'Agility Grado I Manga 1', 'GI'
 		 	case 4: // 'Agility Grado I Manga 2', 'GI'
             case 17: // 'Agility Grado I Manga 3', 'GI'
-                $inscribir=canInscribeIn($listamangas,'GI',$g,$c); break;
+                $inscribir=canInscribeIn($listamangas,'GI',$g,$c);
+                break;
 			case 5: // 'Agility Grado II', 'GII'
             case 10:// 'Jumping Grado II', 'GII'
-                $inscribir=canInscribeIn($listamangas,'GII.',$g,$c); break;
+                $inscribir=canInscribeIn($listamangas,'GII',$g,$c);
+                break;
 			case 6: // 'Agility Grado III', 'GIII'
             case 11:// 'Jumping Grado III', 'GIII'
-                $inscribir=canInscribeIn($listamangas,'GIII',$g,$c); break;
+                $inscribir=canInscribeIn($listamangas,'GIII',$g,$c);
+                break;
 			case 7: // 'Agility Abierta', '-'
 			case 8: // 'Agility Equipos (3 mejores)', '-'
 			case 9: // 'Agility Equipos (Conjunta)', '-'
@@ -191,9 +197,8 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
                 if($g==='P.A.') $inscribir=false;
                 break;
 			case 16:// 'Manga especial', '-'
-				$inscribir=true;
                 // los perros de pre-agility no se pueden inscribir en ningun caso
-                if($g==='P.A.') $inscribir=false;
+                if($g!=='P.A.') $inscribir=true;
 				break;
             case 15:// 'Ronda K.O. 1', '-'
             case 18:// 'Ronda K.O. 2', '-'
@@ -203,9 +208,8 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
             case 22:// 'Ronda K.O. 6', '-'
             case 23:// 'Ronda K.O. 7', '-'
             case 24:// 'Ronda K.O. 8', '-'
-                $inscribir=true;
                 // los perros de pre-agility no se pueden inscribir en ningun caso
-                if($g==='P.A.') $inscribir=false;
+                if($g!=='P.A.') $inscribir=false;
                 break;
             case 25:// WAO Agility A
             case 26:// WAO Agility B
@@ -215,8 +219,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
             case 30:// Gambler
             case 31:// SpeedSTakes
                 // los perros de pre-agility no se pueden inscribir en ningun caso
-                if($g==='P.A.') $inscribir=false;
-                $inscribir=true;
+                if($g!=='P.A.') $inscribir=true;
                 break;
             case 32: // Junior Agility
             case 33: // Junior Jumping
@@ -232,11 +235,10 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
                 break;
             case 38: // ParaAgility Agility
             case 39: // ParaAgility Jumping
-                $inscribir=canInscribeIn($listamangas,'P.A.',$g,$c);
+                $inscribir=canInscribeIn($listamangas,'Par',$g,$c);
                 break;
 			default: 
 				throw new Exception("Tipo de manga $mtype desconocido. Manga:$mid Jornada:$j Prueba:$p");
-				break;
 		}
 		
 		// Verificamos el orden de salida de la manga	
