@@ -87,9 +87,9 @@ class RSCE extends Federations {
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
                 // 'I' => 'Infantil',
-                // 'J' => 'Junior',
+                'J' => 'Junior',
                 'A' => 'Adulto',
-                // 'S' => 'Senior',
+                'S' => 'Senior',
                 'R' => 'Retirado',
                 // 'P' => 'Para-Agility',
             ),

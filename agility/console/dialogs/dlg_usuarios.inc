@@ -41,10 +41,10 @@ $config =Config::getInstance();
 	
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE CAMBIO DE CONTRASENYA -->
    	<div id="password-dlg-buttons">
+        <a id="password-cancelBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-cancel'" onclick="$('#password-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	    <a id="password-okBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-ok'" onclick="savePassword()"><?php _e('Save'); ?></a>
-   	    <a id="password-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="$('#password-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	</div>
    	
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE Usuarios -->
@@ -89,10 +89,10 @@ $config =Config::getInstance();
     
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
    	<div id="usuarios-dlg-buttons">
+        <a id="usuarios-cancelBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-cancel'" onclick="$('#usuarios-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	    <a id="usuarios-okBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-ok'" onclick="saveUser()"><?php _e('Save'); ?></a>
-   	    <a id="usuarios-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="$('#usuarios-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	</div>
 
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE USUARIOS -->

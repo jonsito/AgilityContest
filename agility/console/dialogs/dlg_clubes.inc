@@ -35,10 +35,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 <div id="clubes-logo-buttons">
+    <a id="clubes-logo-cancelBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-cancel'" onclick="$('#clubes-logo-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
     <a id="clubes-logo-okBtn" href="#" class="easyui-linkbutton" 
       	data-options="iconCls: 'icon-ok'" onclick="acceptLogoPreview()"><?php _e('Update'); ?></a>
-    <a id="clubes-logo-cancelBtn" href="#" class="easyui-linkbutton" 
-       	data-options="iconCls: 'icon-cancel'" onclick="$('#clubes-logo-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
 </div>
 
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE CLUBES -->
@@ -139,10 +139,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 <div id="clubes-dlg-buttons">
+    <a id="clubes-cancelBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls:'icon-cancel'" onclick="$('#clubes-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
     <a id="clubes-okBtn" href="#" class="easyui-linkbutton" 
       	data-options="iconCls: 'icon-ok'" onclick="saveClub()"><?php _e('Accept'); ?></a>
-    <a id="clubes-cancelBtn" href="#" class="easyui-linkbutton" 
-       	data-options="iconCls:'icon-cancel'" onclick="$('#clubes-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
 </div>
     
 <script type="text/javascript">

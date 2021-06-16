@@ -73,10 +73,10 @@ $config =Config::getInstance();
         		data-options="iconCls:'icon-users'"><?php _e('New'); ?></a>
         </span>
         <span style="float:right">
+   	    	<a id="chguias-cancelBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-cancel'" onclick="$('#chguias-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	    	<a id="chguias-okBtn" href="#" class="easyui-linkbutton" 
    	    		data-options="iconCls:'icon-ok'" onclick="assignGuia()"><?php _e('Reassign'); ?></a>
-   	    	<a id="chguias-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    		data-options="iconCls:'icon-cancel'" onclick="$('#chguias-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	    </span>
    	</div>
    	

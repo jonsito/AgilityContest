@@ -26,10 +26,10 @@ $config =Config::getInstance();
 </div>
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->
 <div id="ordensalida-excel-buttons">
-    <a id="ordensalida-excel-okBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls: 'icon-ok'" onclick="ordensalida_excelImport()"><?php _e('Import'); ?></a>
     <a id="ordensalida-excel-cancelBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls: 'icon-cancel'" onclick="$('#ordensalida-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+    <a id="ordensalida-excel-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-ok'" onclick="ordensalida_excelImport()"><?php _e('Import'); ?></a>
 </div>
 
 <!--  dialogo de ajuste manual del orden de equipos en competiciones modalidad eq3 -->
@@ -57,10 +57,10 @@ $config =Config::getInstance();
 </div>
 <!-- botones de aceptar/cancelar del ajuste del orden de salida de perros seleccionados -->
 <div id="ordensalida-reorder-buttons">
-    <a id="ordensalida-reorder-okBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls: 'icon-ok'" onclick="ordensalida_reorder()"><?php _e('Reorder'); ?></a>
     <a id="ordensalida-reorder-cancelBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls: 'icon-cancel'" onclick="$('#ordensalida-reorder-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+    <a id="ordensalida-reorder-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-ok'" onclick="ordensalida_reorder()"><?php _e('Reorder'); ?></a>
 </div>
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->

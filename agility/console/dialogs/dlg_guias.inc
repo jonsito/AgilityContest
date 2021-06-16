@@ -63,10 +63,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     <div id="guias-dlg-buttons">
+        <a id="guias-cancelBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-cancel'" onclick="$('#guias-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
         <a id="guias-okBtn" href="#" class="easyui-linkbutton" 
         	data-options="iconCls:'icon-ok'" onclick="saveGuia()"><?php _e('Save'); ?></a>
-        <a id="guias-cancelBtn" href="#" class="easyui-linkbutton" 
-        	data-options="iconCls:'icon-cancel'" onclick="$('#guias-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
     </div>
     
     <script type="text/javascript">

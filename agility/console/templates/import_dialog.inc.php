@@ -66,10 +66,10 @@ $config =Config::getInstance();
 
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->
 <div id="import-excel-buttons">
-    <a id="import-excel-okBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls: 'icon-ok'" onclick="do_excelImport()"><?php _e('Import'); ?></a>
     <a id="import-excel-cancelBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls: 'icon-cancel'" onclick="$('#importdialog').dialog('close')"><?php _e('Cancel'); ?></a>
+    <a id="import-excel-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-ok'" onclick="do_excelImport()"><?php _e('Import'); ?></a>
 </div>
 
 <script type="text/javascript">

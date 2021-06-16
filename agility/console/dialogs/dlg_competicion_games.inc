@@ -91,10 +91,10 @@ $config =Config::getInstance();
 
 <!-- botones del dialogo de snooker-->
 <div id="competicion-snooker-dialog-Buttons" data-options="border:false" style="text-align:right;padding:5px 0 0;">
-    <a id="cds-okBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls: 'icon-db_backup'" onclick="saveSnooker()"><?php _e('Accept'); ?></a>
     <a id="cds-cancelBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls: 'icon-cancel'" onclick="$('#competicion-snooker-dialog').dialog('close');"><?php _e('Cancel'); ?></a>
+    <a id="cds-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-db_backup'" onclick="saveSnooker()"><?php _e('Accept'); ?></a>
 </div>
 
 <!-- dialogo de entrada de datos para gambler -->
@@ -213,10 +213,10 @@ $config =Config::getInstance();
 
 <!-- botones del dialogo de gambler-->
 <div id="competicion-gambler-dialog-Buttons" data-options="border:false" style="text-align:right;padding:5px 0 0;">
-    <a id="cdg-okBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls: 'icon-db_backup'" onclick="saveGambler()"><?php _e('Accept'); ?></a>
     <a id="cdg-cancelBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls: 'icon-cancel'" onclick="$('#competicion-gambler-dialog').dialog('close');"><?php _e('Cancel'); ?></a>
+    <a id="cdg-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-db_backup'" onclick="saveGambler()"><?php _e('Accept'); ?></a>
 </div>
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->

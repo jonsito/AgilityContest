@@ -81,12 +81,12 @@ $config =Config::getInstance();
                data-options="iconCls:'icon-notes'" onclick="$('#scores_email-editor').dialog('open');"><?php _e('Message'); ?></a>
         </span>
     <span style="float:right">
-            <a id="scores_email-okBtn" href="#" class="easyui-linkbutton"
-               data-options="iconCls:'icon-mail'" onclick="perform_emailScores();"><?php _e('Send'); ?></a>
-            <a id="scores_email-zipBtn" href="#" class="easyui-linkbutton"
-               data-options="iconCls:'icon-zipfile'" onclick="perform_downloadZip();"><?php _e('Get Zip'); ?></a>
             <a id="scores_email-cancelBtn" href="#" class="easyui-linkbutton"
                data-options="iconCls:'icon-cancel'" onclick="$('#scores_email-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+            <a id="scores_email-zipBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-zipfile'" onclick="perform_downloadZip();"><?php _e('Get Zip'); ?></a>
+            <a id="scores_email-okBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-mail'" onclick="perform_emailScores();"><?php _e('Send'); ?></a>
         </span>
 </div>
 

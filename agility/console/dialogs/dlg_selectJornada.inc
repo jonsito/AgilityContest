@@ -38,10 +38,10 @@ $config =Config::getInstance();
 		</form>
 		<div data-options="region:'center'"></div>
 		<div id="seljornada-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
+            <a id="seljornada-cancelBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls: 'icon-cancel'" onclick="cancelSelectJornada()"><?php _e('Cancel'); ?></a>
     	    <a id="seljornada-okBtn" href="#" class="easyui-linkbutton" 
     	    	data-options="iconCls: 'icon-ok'" onclick="acceptSelectJornada()"><?php _e('Accept'); ?></a>
-    	    <a id="seljornada-cancelBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls: 'icon-cancel'" onclick="cancelSelectJornada()"><?php _e('Cancel'); ?></a>
 		</div>	<!-- botones -->
 	</div> <!-- Layout -->
 </div> <!-- Window -->

@@ -71,10 +71,10 @@ $config =Config::getInstance();
 </div>
 
 <div id="printer_dialog-buttons">
-    <a id="printer_dialog-okBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls:'icon-print'" onclick="print_performCommonDesarollo()" ><?php _e('Print'); ?></a>
     <a id="printer_dialog-cancelBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls:'icon-cancel'" onclick="$('#printer_dialog-dialog').dialog('close')" ><?php _e('Cancel'); ?></a>
+    <a id="printer_dialog-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls:'icon-print'" onclick="print_performCommonDesarollo()" ><?php _e('Print'); ?></a>
 </div>
 
 <script type="text/javascript">

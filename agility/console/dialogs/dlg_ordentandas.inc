@@ -75,10 +75,10 @@ $config =Config::getInstance();
 </div>
 
 <div id="ordentandas_newtanda-buttons">
-	   	<a id="ordentandas-okBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-ok'" onclick="saveTanda('#ordentandas-datagrid')" ><?php _e('Accept'); ?></a>
-   		<a id="ordentandas-cancelBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-cancel'" onclick="$('#ordentandas_newtanda-dialog').dialog('close')" ><?php _e('Cancel'); ?></a>
+    <a id="ordentandas-cancelBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls:'icon-cancel'" onclick="$('#ordentandas_newtanda-dialog').dialog('close')" ><?php _e('Cancel'); ?></a>
+    <a id="ordentandas-okBtn" href="#" class="easyui-linkbutton"
+		data-options="iconCls:'icon-ok'" onclick="saveTanda('#ordentandas-datagrid')" ><?php _e('Accept'); ?></a>
 </div>
 
 <script type="text/javascript">

@@ -86,10 +86,10 @@ $config =Config::getInstance();
 		</div> <!-- contenido -->
 		<div data-options="region:'center'"></div>
 		<div id="selteam-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
+            <a id="selteam-cancelBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-cancel'" onclick="$('#selteam-window').window('close');"><?php _e('Cancel');?></a>
 			<a id="selteam-okBtn" href="#" class="easyui-linkbutton" 
 				data-options="iconCls:'icon-ok'" onclick="changeTeam()"><?php _e('Accept');?></a>
-			<a id="selteam-cancelBtn" href="#" class="easyui-linkbutton" 
-				data-options="iconCls:'icon-cancel'" onclick="$('#selteam-window').window('close');"><?php _e('Cancel');?></a>
 		</div>	<!-- botones -->
 	</div> <!-- Layout -->
 </div> <!-- Window -->

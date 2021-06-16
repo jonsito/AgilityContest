@@ -144,10 +144,10 @@ $config =Config::getInstance();
     
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 <div id="jornadas-dlg-buttons" style="padding:5px">
+    <a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls:'icon-cancel'" onclick="$('#jornadas-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
 	<a id="jornadas-okBtn" href="#" class="easyui-linkbutton" 
 		data-options="iconCls:'icon-ok'" onclick="saveJornada()"><?php _e('Save'); ?></a>
-	<a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton" 
-		data-options="iconCls:'icon-cancel'" onclick="$('#jornadas-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
 </div>
 	
 <script type="text/javascript">

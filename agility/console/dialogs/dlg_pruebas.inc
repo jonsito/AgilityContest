@@ -112,10 +112,10 @@ $config =Config::getInstance();
                data-options="iconCls:'icon-brush'" onclick="prueba_clearSentMark();"><?php _e('Clear'); ?></a>
         </span>
         <span style="float:right">
+            <a id="pruebas_email-cancelBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls:'icon-cancel'" onclick="$('#pruebas_email-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
             <a id="pruebas_email-okBtn" href="#" class="easyui-linkbutton"
                 data-options="iconCls:'icon-mail'" onclick="perform_emailPrueba();"><?php _e('Send'); ?></a>
-            <a id="pruebas_email-cancelBtn" href="#" class="easyui-linkbutton"
-                data-options="iconCls:'icon-cancel'" onclick="$('#pruebas_email-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
         </span>
     </div>
 
@@ -173,10 +173,10 @@ $config =Config::getInstance();
     
 	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO de CREACION DE PRUEBAS-->
 	<div id="pruebas-dlg-buttons">
+        <a id="pruebas-cancelBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-cancel'" onclick="$('#pruebas-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
        	<a id="pruebas-okBtn" href="#" class="easyui-linkbutton" 
        		data-options="iconCls:'icon-ok'" onclick="savePrueba()"><?php _e('Save'); ?></a>
-       	<a id="pruebas-cancelBtn" href="#" class="easyui-linkbutton" 
-       		data-options="iconCls:'icon-cancel'" onclick="$('#pruebas-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
     </div>
     
     <script type="text/javascript">

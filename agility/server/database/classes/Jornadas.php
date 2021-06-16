@@ -206,7 +206,7 @@ class Jornadas extends DBObject {
         // do not remove "TipoCompeticion" as needed for evaluate tandas
         $sql = "UPDATE jornadas
 				SET Nombre='-- Sin asignar --', Fecha='{$fecha}', Hora='{$hora}', SlaveOf=0, Grado1=0, Grado2=0, Grado3=0, Junior=0,
-					Senior=0, Children=0, ParaAgility=0, Open=0, Equipos3=0, Equipos4=0, PreAgility=0, KO=0, Games=0, Especial=0, Observaciones='', Cerrada=0
+					Senior=0, Children=0, ParaAgility=0, Open=0, Equipos3=0, Equipos4=0, PreAgility=0, KO=0, Games=0, Especial=0, Observaciones='', Tipo_Competicion=0, Cerrada=0
 				WHERE ( ID={$jornadaid} );";
         $res = $this->query($sql);
         if (!$res) return $this->error($this->conn->error);

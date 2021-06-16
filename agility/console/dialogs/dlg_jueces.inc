@@ -78,10 +78,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
    	<div id="jueces-dlg-buttons">
+        <a id="jueces-cancelBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-cancel'" onclick="$('#jueces-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	    <a id="jueces-okBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-ok'" onclick="saveJuez()"><?php _e('Save'); ?></a>
-   	    <a id="jueces-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="$('#jueces-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	</div>
    	
 	<script type="text/javascript">

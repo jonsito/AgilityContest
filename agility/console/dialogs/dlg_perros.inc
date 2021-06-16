@@ -108,10 +108,10 @@ $config =Config::getInstance();
 
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     <div id="perros-dlg-buttons">
+        <a id="perros-cancelBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-cancel'" onclick="$('#perros-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
         <a id="perros-okBtn" href="#" class="easyui-linkbutton" 
         	data-options="iconCls:'icon-ok'" onclick="saveDog()"><?php _e('Save'); ?></a>
-        <a id="perros-cancelBtn" href="#" class="easyui-linkbutton" 
-        	data-options="iconCls:'icon-cancel'" onclick="$('#perros-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
     </div>
     
     <script type="text/javascript">

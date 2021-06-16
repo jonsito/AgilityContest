@@ -31,10 +31,10 @@ $config =Config::getInstance();
 			<?php _e('Confirm logout on current session'); ?>: <span id="logout-Username"><?php _e('User'); ?></span>
 		</div><!-- botones del menu de logout-->
 		<div id="logout-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
+            <a id="logout-cancelBtn" href="#" class="easyui-linkbutton"
+               data-options="iconCls: 'icon-cancel'" onclick="cancelLogout()"><?php _e('Cancel'); ?></a>
 		   	<a id="logout-okBtn" href="#" class="easyui-linkbutton" 
 		    	data-options="iconCls: 'icon-ok'" onclick="acceptLogout()"><?php _e('Accept'); ?></a>
-		   	<a id="logout-cancelBtn" href="#" class="easyui-linkbutton" 
-		    	data-options="iconCls: 'icon-cancel'" onclick="cancelLogout()"><?php _e('Cancel'); ?></a>
 		</div>
 	</div>
 </div> <!-- Dialog -->

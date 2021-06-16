@@ -64,10 +64,10 @@ $config =Config::getInstance();
 
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO de edicion de sesiones -->
 <div id="sesiones-dlg-buttons">
-    <a id="sesiones-okBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls:'icon-ok'" onclick="saveSession()"><?php _e('Save'); ?></a>
     <a id="sesiones-cancelBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls:'icon-cancel'" onclick="$('#sesiones-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+    <a id="sesiones-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls:'icon-ok'" onclick="saveSession()"><?php _e('Save'); ?></a>
 </div>
 
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE SESIONES -->

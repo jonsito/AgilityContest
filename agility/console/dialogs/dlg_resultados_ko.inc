@@ -28,10 +28,10 @@ $config =Config::getInstance();
 
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO DE IMPORTACION -->
 <div id="resultadosmanga-excel-buttons">
-    <a id="resultadosmanga-excel-okBtn" href="#" class="easyui-linkbutton"
-       data-options="iconCls: 'icon-ok'" onclick="resultadosmanga_excelImport()"><?php _e('Import'); ?></a>
     <a id="resultadosmanga-excel-cancelBtn" href="#" class="easyui-linkbutton"
        data-options="iconCls: 'icon-cancel'" onclick="$('#resultadosmanga-excel-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
+    <a id="resultadosmanga-excel-okBtn" href="#" class="easyui-linkbutton"
+       data-options="iconCls: 'icon-ok'" onclick="resultadosmanga_excelImport()"><?php _e('Import'); ?></a>
 </div>
 
 <!-- TABLA DE DATOS DE TRS Y TRM DE LA MANGA -->

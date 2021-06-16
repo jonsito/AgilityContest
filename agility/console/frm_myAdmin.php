@@ -59,10 +59,10 @@ $config =Config::getInstance();
 	
 	<!-- botones del menu de myAdmin-->
 	<div id="myAdmin-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
+        <a id="myAdmin-cancelBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls: 'icon-cancel'" onclick="cancelMyAdmin()"><?php _e('Cancel'); ?></a>
 		<a id="myAdmin-okBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls: 'icon-ok'" onclick="acceptMyAdmin()"><?php _e('Accept'); ?></a>
-		<a id="myAdmin-cancelBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls: 'icon-cancel'" onclick="cancelMyAdmin()"><?php _e('Cancel'); ?></a>
 	</div>
 	</div>
 </div> <!-- Dialog -->

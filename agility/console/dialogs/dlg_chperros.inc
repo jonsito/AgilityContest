@@ -103,11 +103,11 @@ $config =Config::getInstance();
         		data-options="iconCls:'icon-dog'"><?php _e('New'); ?></a>
         </span>
         <span style="float:right">
+        	<a id="chperros-cancelBtn" href="#" class="easyui-linkbutton"
+               onclick="$('#chperros-dialog').dialog('close')"
+               data-options="iconCls:'icon-cancel'"><?php _e('Cancel'); ?></a>
         	<a id="chperros-okBtn" href="#" class="easyui-linkbutton" onclick="assignDog()"
         		data-options="iconCls:'icon-ok'"><?php _e('Re-assign'); ?></a>
-        	<a id="chperros-cancelBtn" href="#" class="easyui-linkbutton"  
-        		onclick="$('#chperros-dialog').dialog('close')"
-        		data-options="iconCls:'icon-cancel'"><?php _e('Cancel'); ?></a>
         </span>
     </div>
     
