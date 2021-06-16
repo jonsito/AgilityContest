@@ -123,6 +123,22 @@ $config =Config::getInstance();
 $('#import-excelFederation').html(workingData.datosFederation.LongName);
 ac_import.type='inscripciones';
 $('#inscripciones-pruebas').form('load','../ajax/database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
+
+// salto directo desde inscripciones al desarrollo de la jornada seleccionada
+var menuDesarrollo;
+function createMenuDesarrollo() {
+    menuDesarrollo = $('<div/>').appendTo('body');
+    menuDesarrollo.menu({
+        align:'right',
+        onClick: function(item){
+            var row=$('#inscripciones-jornadas').datagrid('getSelected');
+            if(row==null) return false;
+            if (item.name==='ok') jumpToSelectedJourney(row);
+        }
+    });
+    menuDesarrollo.menu('appendItem',{name:'ok', text: "<?php _e('Open Journey development window on selected journey')?>",iconCls:'icon-ok' });
+}
+
 $('#inscripciones-jornadas').datagrid({
 	// propiedades del panel asociado
 	fit: true,
@@ -169,6 +185,15 @@ $('#inscripciones-jornadas').datagrid({
 		setJornada(row);
     	editJornadaFromPrueba(workingData.prueba,row);
 	},
+    onRowContextMenu: function(e,index,row){
+	    e.preventDefault();
+	    $('#inscripciones-jornadas').datagrid('selectRow',index);
+        if (!menuDesarrollo)  createMenuDesarrollo();
+        menuDesarrollo.menu('show', {
+            left:e.pageX,
+            top:e.pageY+15
+        });
+    },
     onLoadSuccess:function(data) {
 	    var count=0;
 	    for (var n=0; n<8 ;n++) {

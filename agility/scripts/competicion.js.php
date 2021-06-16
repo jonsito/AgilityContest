@@ -165,6 +165,15 @@ function loadCompetitionWindow() {
     }
 }
 
+/************************** acceso directo desde el menu de inscripciones a una jornada determinada */
+
+function jumpToSelectedJourney(row) {
+    // alert(JSON.stringify(row));
+    setJornada(row);
+    var page="../console/frm_competicion2.php";
+    loadContents(page,"");
+}
+
 /************************** Gestion de datos de la ventana de manga activa */
 
 /**
