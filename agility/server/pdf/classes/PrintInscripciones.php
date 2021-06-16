@@ -312,17 +312,24 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 	
 	function evalItem($jornada,&$data,$item) {
 		// do not account when undefined catetory or grade
+		$grado=$item['Grado'];
 		if ($item['Categoria']==='-') return;
 		if ($item['Grado']==='-') return;
         if ($item['Grado']==='P.B.') return; // perro en blanco no se toma en cuenta
-        // if ($item['Grado']==='Jr') return; // PENDING: procesar perros Junior
-        // if ($item['Grado']==='Sr') return; // PENDING: procesar perros Senior
-		if ($item['Grado']==='Baja') return; // PENDING: no se deberia admitir la inscripcion
-		if ($item['Grado']==='Ret.') return; // PENDING: no se deberia admitir la inscripcion
+		if ($item['Grado']==='Baja') return;
+		if ($item['Grado']==='Ret.') return;
+		// en caza tenemos que indicar infantil, Junior y Senior
+		// en canina nos fiamos del grado
+		if ($this->federation->get('Name')==='RFEC') {
+			if ($item['CatGuia']==='J') $grado='Jr';
+			if ($item['CatGuia']==='S') $grado='Sr';
+			if ($item['CatGuia']==='I') $grado='Ch';
+			if ($item['CatGuia']==='P') $grado='Par';
+		}
 		$data[$jornada]['G']['C']++;
 		$data[$jornada]['G'][$item['Categoria']]++;
-		$data[$jornada][$item['Grado']]['C']++;
-		$data[$jornada][$item['Grado']][$item['Categoria']]++;
+		$data[$jornada][$grado]['C']++;
+		$data[$jornada][$grado][$item['Categoria']]++;
 	}
 	
 	function evalData() {
@@ -330,8 +337,10 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 		// datos globales
 		$est['Prueba']=array(
 			'G' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'Ch' =>  array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 			'Jr' =>  array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 			'Sr' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'Par' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 			'P.A.' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 			'GI' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 			'GII' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
@@ -343,8 +352,10 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
             // Jornada 1
             $est['J'.$j]=array(
 				'G' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'Ch' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 				'Jr' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 				'Sr' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'Par' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 				'P.A.' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 				'GI' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 				'GII' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
@@ -439,28 +450,28 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 		// Children
 		if ($this->federation->hasChildren()) {
 			$this->ac_header(2,9);
-			$this->cell(30,6,$this->federation->getGrade('Ch'),'LRB',0,'L',true);
+			$this->cell(30,6,$this->federation->get('ListaCatGuias')['I'],'LRB',0,'L',true);
 			$this->paintData($data,$name,$width,$heights,'Ch');
 		}
 
-		// Junior
-		if ($this->federation->hasJunior()) {
+		// Junior. Notice that Junior is valid en RSCE but runs same course than their same grade counterparts
+		if ($this->federation->hasJunior() && $this->federation->get('Name')!=='RSCE') {
 			$this->ac_header(2,9);
-			$this->cell(30,6,$this->federation->getGrade('Jr'),'LRB',0,'L',true);
+			$this->cell(30,6,$this->federation->get('ListaCatGuias')['J'],'LRB',0,'L',true);
 			$this->paintData($data,$name,$width,$heights,'Jr');
 		}
 
-		// Senior
-		if ($this->federation->hasSenior()) {
+		// Senior  Notice that Senior is valid en RSCE but runs same course than their same grade counterparts
+		if ($this->federation->hasSenior()  && $this->federation->get('Name')!=='RSCE') {
 			$this->ac_header(2,9);
-			$this->cell(30,6,$this->federation->getGrade('Sr'),'LRB',0,'L',true);
+			$this->cell(30,6,$this->federation->get('ListaCatGuias')['S'],'LRB',0,'L',true);
 			$this->paintData($data,$name,$width,$heights,'Sr');
 		}
 
 		// ParaAgility
 		if ($this->federation->hasParaAgility()) {
 			$this->ac_header(2,9);
-			$this->cell(30,6,$this->federation->getGrade('Par'),'LRB',0,'L',true);
+			$this->cell(30,6,$this->federation->get('ListaCatGuias')['P'],'LRB',0,'L',true);
 			$this->paintData($data,$name,$width,$heights,'Par');
 		}
 
