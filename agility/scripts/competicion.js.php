@@ -123,7 +123,7 @@ function loadCompetitionWindow() {
     // since 4.2.x Equipos3/Equipos4 becomes mindogs/maxdogs
     var minmax=getTeamDogs();
     if (minmax[0]>1) {
-        if (minmax[0]!=minmax[1]) {
+        if (minmax[0]!==minmax[1]) {
             page="../console/frm_competicion2.php?tipo=eq3";
             extra=" ( <?php _e('Teams');?> ) "+minmax[0]+"/"+minmax[1];
         } else {
@@ -168,10 +168,8 @@ function loadCompetitionWindow() {
 /************************** acceso directo desde el menu de inscripciones a una jornada determinada */
 
 function jumpToSelectedJourney(row) {
-    // alert(JSON.stringify(row));
     setJornada(row);
-    var page="../console/frm_competicion2.php";
-    loadContents(page,"");
+    loadCompetitionWindow();
 }
 
 /************************** Gestion de datos de la ventana de manga activa */
@@ -862,8 +860,13 @@ function reload_manga(id) {
 // acceso directo a la ventana de inscripciones desde la ventana de desarrollo de prueba
 function open_inscripciones() {
     var page="../console/frm_inscripciones2.php";
+    var extradlgs={
+        'inscripciones':'#new_inscripcion-dialog',
+        'equipos':'#team_datagrid-dialog',
+        'newdog':'#perros-dialog'
+    };
     $('#competicion_info').panel('close');
-    loadContents(page,'<?php _e('Inscriptions');?>');
+    loadContents(page,'<?php _e('Inscriptions');?>',extradlgs);
     return false;
 }
 

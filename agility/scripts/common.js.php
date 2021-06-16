@@ -637,6 +637,7 @@ function loadContents(page,title,slaves) {
 	cont.panel('refresh',page);
 	setHeader(title);
 }
+
 /**
  * Same as above, but warn when session is not initialized
  * @param page URL where to retrieve HTML data

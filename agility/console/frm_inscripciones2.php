@@ -134,9 +134,11 @@ function createMenuDesarrollo() {
             var row=$('#inscripciones-jornadas').datagrid('getSelected');
             if(row==null) return false;
             if (item.name==='ok') jumpToSelectedJourney(row);
+            if (item.name==='edit') editJornadaFromPrueba(workingData.prueba,row);
         }
     });
-    menuDesarrollo.menu('appendItem',{name:'ok', text: "<?php _e('Open Journey development window on selected journey')?>",iconCls:'icon-ok' });
+    menuDesarrollo.menu('appendItem',{name:'edit', text: "<?php _e('Open dialog editor for selected journey')?>",iconCls:'icon-edit' });
+    menuDesarrollo.menu('appendItem',{name:'ok', text: "<?php _e('Open Journey development window on selected journey')?>",iconCls:'icon-table' });
 }
 
 $('#inscripciones-jornadas').datagrid({
