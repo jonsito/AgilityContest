@@ -47,10 +47,10 @@ class RFEC extends Federations {
                 // 'Sr' => 'Senior',
                 // 'Ch' => 'Infantil',
                 //'Par' => 'ParaAgility',
-                'GI' => 'Promocion (G1)',
-                'GII'=> 'Competicion (G2)',
+                'GI' => 'Promocion',
+                'GII'=> 'Competicion',
                 // 'GIII' => '(G3) no disponible',
-                'P.A.' => 'Iniciacion (G0)',
+                'P.A.' => 'Iniciacion',
                 'P.B.' => 'Perro en Blanco'
             ),
             'ListaCategoriasShort' => array (

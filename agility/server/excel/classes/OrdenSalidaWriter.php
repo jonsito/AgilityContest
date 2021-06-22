@@ -169,6 +169,8 @@ class OrdenSalidaWriter extends XLSX_Writer {
                     $val=$perro[$this->fields[$n]];
                     // some fields require federation specific translations
                     switch($this->fields[$n]) {
+                        case 'CatGuia': $val=$this->federation->getHandlerCategory($perro['CatGuia']);
+                            break;
                         case 'Categoria':
                             $val=$this->federation->getCategory($perro['Categoria']);
                             break;

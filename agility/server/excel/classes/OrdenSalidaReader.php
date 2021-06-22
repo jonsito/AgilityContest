@@ -62,8 +62,8 @@ class OrdenSalidaReader extends DogReader {
         // PENDING: future implementation will take care on "Order" value.
         // in the meanwhile, just set orden to be just excel rows order
         $inscList= array(
-            'Order'=>     array (  -17,-1, "i", "Orden",    " `Orden` int(4) NOT NULL DEFAULT 0, "),
-            'Dorsal'=>    array (  -18, 1, "i", "Dorsal",    " `Dorsal` int(4) NOT NULL DEFAULT 0, ")
+            'Order'=>     array (  -18,-1, "i", "Orden",    " `Orden` int(4) NOT NULL DEFAULT 0, "),
+            'Dorsal'=>    array (  -19, 1, "i", "Dorsal",    " `Dorsal` int(4) NOT NULL DEFAULT 0, ")
         );
         foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;
         // fix fields according contest type

@@ -55,13 +55,13 @@ class PartialScoresReader extends DogReader {
         // name => index, required (1:true 0:false-to-evaluate -1:optional), default
         // add additional fields required to handle inscriptions
         $inscList= array(
-            'Games'=>     array (  -17,-1, "i", "Games",    " `Games` int(4) NOT NULL DEFAULT 0, "), // required on games rounds
-            'Faults' =>   array (  -18, 1, "i", "Faltas",   " `Faltas` int(4) NOT NULL DEFAULT 0, "), // faltas, requerido
-            'Touchs' =>   array (  -19,-1, "i", "Tocados",  " `Tocados` int(4) NOT NULL DEFAULT 0, "), // tocados, opcional
-            'Refusals' => array (  -20, 1, "i", "Rehuses",  " `Rehuses` int(4) NOT NULL DEFAULT 0, "), // rehuses, requerido
-            'Eliminated'=>array (  -21, 1, "i", "Eliminado"," `Eliminado` int(4) NOT NULL DEFAULT 0, "), // eliminado, requerido
-            'NotPresent'=>array (  -22, 1, "i", "NoPresentado", " `NoPresentado` int(4) NOT NULL DEFAULT 0, "), // nopresentado, requerido
-            'Tiempo' =>   array (  -23, 1, "f", "Tiempo",   " `Tiempo` double NOT NULL DEFAULT 0, "), // tiempo, requerido
+            'Games'=>     array (  -18,-1, "i", "Games",    " `Games` int(4) NOT NULL DEFAULT 0, "), // required on games rounds
+            'Faults' =>   array (  -19, 1, "i", "Faltas",   " `Faltas` int(4) NOT NULL DEFAULT 0, "), // faltas, requerido
+            'Touchs' =>   array (  -20,-1, "i", "Tocados",  " `Tocados` int(4) NOT NULL DEFAULT 0, "), // tocados, opcional
+            'Refusals' => array (  -21, 1, "i", "Rehuses",  " `Rehuses` int(4) NOT NULL DEFAULT 0, "), // rehuses, requerido
+            'Eliminated'=>array (  -22, 1, "i", "Eliminado"," `Eliminado` int(4) NOT NULL DEFAULT 0, "), // eliminado, requerido
+            'NotPresent'=>array (  -23, 1, "i", "NoPresentado", " `NoPresentado` int(4) NOT NULL DEFAULT 0, "), // nopresentado, requerido
+            'Tiempo' =>   array (  -24, 1, "f", "Tiempo",   " `Tiempo` double NOT NULL DEFAULT 0, "), // tiempo, requerido
             // los campos penalizacion, calificacion, puntos, y estrellas se calculan en runtime, no se importan
         );
         foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;

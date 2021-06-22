@@ -460,6 +460,7 @@ class Federations {
     public function getGrade($key) { return $this->getI18nCatGrade($key,'ListaGrados');  }
     // Translate requested category key to federation dependent i18n'd one (long format)
     public function getCategory($key) { return $this->getI18nCatGrade($key,'ListaCategorias');  }
+    public function getHandlerCategory($key) { return $this->getI18nCatGrade($key,'ListaCatGuias');  }
     // Translate requested grade key to federation dependent i18n'd one (short name)
     public function getGradeShort($key) { return $this->getI18nCatGrade($key,'ListaGradosShort');  }
     // Translate requested category key to federation dependent i18n'd one (short name)

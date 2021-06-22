@@ -45,12 +45,12 @@ class InscriptionReader extends DogReader {
 
         // add additional fields required to handle inscriptions
         $inscList= array(
-            'Heat' =>    array (  -17,  -1, "b", "Celo", " `Celo` tinyint(1) NOT NULL DEFAULT 0, "), // celo, opcional
-            'Comments' =>array (  -18,  -1, "s", "Observaciones", " `Observaciones` varchar(255) NOT NULL DEFAULT '', "), // comentarios, opcional
-            'Pay' =>     array (  -19,  -1, "i", "Pagado", " `Pagado` int(4) NOT NULL DEFAULT 0, "), // pagadol, opcional
-            'Journeys' =>array (  -20,   0, "i", "Jornadas", " `Jornadas` int(4) NOT NULL DEFAULT 0, "), // jornadas. to evaluate
-            'Order' =>   array (  -21,   0, "i", "Orden", " `Orden` int(4) NOT NULL DEFAULT 0, "), // orden, to evaluate
-            'Dorsal' =>  array (  -22,  -1, "i", "Dorsal", " `Dorsal` int(4) NOT NULL DEFAULT 0, ") // dorsal, opcional
+            'Heat' =>    array (  -18,  -1, "b", "Celo", " `Celo` tinyint(1) NOT NULL DEFAULT 0, "), // celo, opcional
+            'Comments' =>array (  -19,  -1, "s", "Observaciones", " `Observaciones` varchar(255) NOT NULL DEFAULT '', "), // comentarios, opcional
+            'Pay' =>     array (  -20,  -1, "i", "Pagado", " `Pagado` int(4) NOT NULL DEFAULT 0, "), // pagadol, opcional
+            'Journeys' =>array (  -21,   0, "i", "Jornadas", " `Jornadas` int(4) NOT NULL DEFAULT 0, "), // jornadas. to evaluate
+            'Order' =>   array (  -22,   0, "i", "Orden", " `Orden` int(4) NOT NULL DEFAULT 0, "), // orden, to evaluate
+            'Dorsal' =>  array (  -23,  -1, "i", "Dorsal", " `Dorsal` int(4) NOT NULL DEFAULT 0, ") // dorsal, opcional
         );
         foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;
 

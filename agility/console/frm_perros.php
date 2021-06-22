@@ -104,18 +104,19 @@ $config =Config::getInstance();
             { field:'ID',   hidden:true },
             { field:'Federation', hidden:true },
           	{ field:'Nombre',   width:18, sortable:true,  align: 'left', title: '<?php _e('Name'); ?>', formatter:formatBoldDog },
-			{ field:'NombreLargo', width:35, sortable:true,  align: 'left', title: '<?php _e('Pedigree'); ?>', formatter:formatBold },
+			{ field:'NombreLargo', width:30, sortable:true,  align: 'left', title: '<?php _e('Pedigree'); ?>', formatter:formatBold },
            	{ field:'Raza',     width:25,                align: 'right', title: '<?php _e('Breed'); ?>' },
-			{ field:'Genero', 	width:10, sortable:true, align: 'center', title: '<?php _e('Gender'); ?>.' },
+			{ field:'Genero', 	width:8, sortable:true, align: 'center', title: '<?php _e('Gender'); ?>.' },
            	{ field:'LOE_RRC',  width:16, sortable:true, align: 'right', title: '<?php _e('KC id'); ?>' },
            	{ field:'Licencia', width:10, sortable:true, align: 'right', title: '<?php _e('Lic'); ?>.' },
            	{ field:'Categoria',width:8, sortable:true,  align:'center', title: '<?php _e('Cat'); ?>.',formatter:formatCategoria },
            	{ field:'Grado',    width:8, sortable:true,  align:'center', title: '<?php _e('Grade'); ?>', formatter:formatGrado },
             { field:'Baja',   hidden:true },
             { field:'Guia',   hidden:true },
-            { field:'NombreGuia',     width:40, sortable:true, title: '<?php _e('Handler name'); ?>'},
+            { field:'NombreGuia', width:35, sortable:true, title: '<?php _e('Handler name'); ?>'},
+            { field:'CatGuia',     width:10, sortable:true, title: '<?php _e('Cat'); ?>.', formatter:formatCatGuia },
           	{ field:'Club',   hidden:true },
-            { field:'NombreClub',     width:25, sortable:true, title: '<?php _e('Club name'); ?>'}
+            { field:'NombreClub',     width:25, sortable:true, align: 'right', title: '<?php _e('Club name'); ?>'}
         ]],
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         rowStyler:myRowStyler,

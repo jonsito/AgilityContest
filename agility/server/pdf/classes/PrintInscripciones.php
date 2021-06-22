@@ -450,28 +450,28 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 		// Children
 		if ($this->federation->hasChildren()) {
 			$this->ac_header(2,9);
-			$this->cell(30,6,$this->federation->get('ListaCatGuias')['I'],'LRB',0,'L',true);
+			$this->cell(30,6,$this->federation->getHandlerCategory('I'),'LRB',0,'L',true);
 			$this->paintData($data,$name,$width,$heights,'Ch');
 		}
 
 		// Junior. Notice that Junior is valid en RSCE but runs same course than their same grade counterparts
 		if ($this->federation->hasJunior() && $this->federation->get('Name')!=='RSCE') {
 			$this->ac_header(2,9);
-			$this->cell(30,6,$this->federation->get('ListaCatGuias')['J'],'LRB',0,'L',true);
+			$this->cell(30,6,$this->federation->getHandlerCategory('J'),'LRB',0,'L',true);
 			$this->paintData($data,$name,$width,$heights,'Jr');
 		}
 
 		// Senior  Notice that Senior is valid en RSCE but runs same course than their same grade counterparts
 		if ($this->federation->hasSenior()  && $this->federation->get('Name')!=='RSCE') {
 			$this->ac_header(2,9);
-			$this->cell(30,6,$this->federation->get('ListaCatGuias')['S'],'LRB',0,'L',true);
+			$this->cell(30,6,$this->federation->getHandlerCategory('S'),'LRB',0,'L',true);
 			$this->paintData($data,$name,$width,$heights,'Sr');
 		}
 
 		// ParaAgility
 		if ($this->federation->hasParaAgility()) {
 			$this->ac_header(2,9);
-			$this->cell(30,6,$this->federation->get('ListaCatGuias')['P'],'LRB',0,'L',true);
+			$this->cell(30,6,$this->federation->getHandlerCategory('P'),'LRB',0,'L',true);
 			$this->paintData($data,$name,$width,$heights,'Par');
 		}
 

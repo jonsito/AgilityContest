@@ -65,7 +65,7 @@ class DogReader {
         'LongName' =>   array (  -4,  -1, "s", "NombreLargo"," `NombreLargo` varchar(255) DEFAULT '', "), // dog pedigree long name
         'Gender' =>     array (  -5,  -1, "s", "Genero",    " `Genero` varchar(16) DEFAULT '', "), // M, F, Male/Female
         'Breed' =>      array (  -6,  -1, "s", "Raza",      " `Raza` varchar(255) DEFAULT '', "), // dog breed, optional
-        'Chip' =>       array (  -16, -1, "s", "Chip",      " `Chip` varchar(255) DEFAULT '', "), // dog pedigree long name
+        'Chip' =>       array (  -17, -1, "s", "Chip",      " `Chip` varchar(255) DEFAULT '', "), // dog pedigree long name
         'License' =>    array (  -7,  -1, "s", "Licencia",  " `Licencia` varchar(255) DEFAULT '', "), // dog license. required for A2-A3;
         'KC id' =>      array (  -8,  -1, "s", "LOE_RRC",   " `LOE_RRC` varchar(255) DEFAULT '', "), // LOE_RRC kennel club dog id
         'Category' =>   array (  -9,   1, "s", "Categoria", " `Categoria` varchar(1) NOT NULL DEFAULT '-', "), // required
@@ -73,11 +73,12 @@ class DogReader {
          // handler related data
         'HandlerID' =>  array (  -11,  0, "i", "HandlerID", " `HandlerID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
         'Handler' =>    array (  -12,  1, "s", "NombreGuia"," `NombreGuia` varchar(255) NOT NULL, "), // Handler's name. Required
+        'CatHandler' => array (  -13, -1, "s", "CatGuia",   " `CatGuia` varchar(1) NOT NULL DEFAULT 'A', "), // Handler's category. Optional
         // club related data
         // in international contests user can provide ISO country name either in "Club" or in "Country" field
-        'ClubID' =>     array (  -13,  0, "i", "ClubID",    " `ClubID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
-        'Club' =>       array (  -14,  1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',"),  // Club's Name. required
-        'Country' =>    array (  -15, -1, "s", "Pais",      " `Pais` varchar(255) NOT NULL DEFAULT '-- Sin asignar --', ")  // Country. optional
+        'ClubID' =>     array (  -14,  0, "i", "ClubID",    " `ClubID` int(4) NOT NULL DEFAULT 0, "),  // to be evaluated by importer
+        'Club' =>       array (  -15,  1, "s", "NombreClub"," `NombreClub` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',"),  // Club's Name. required
+        'Country' =>    array (  -16, -1, "s", "Pais",      " `Pais` varchar(255) NOT NULL DEFAULT '-- Sin asignar --', ")  // Country. optional
     );
 
     public function __construct($name,$options) {
@@ -240,6 +241,7 @@ class DogReader {
             if ($key==='Grade') $item=parseGrade($item);
             if ($key==='Category') $item=parseCategory($item);
             if ($key==='Gender') $item=parseGender($item);
+            if ($key==='CatHandler') $item=parseHandlerCat($item);
             if ($this->isInternational) {
                 // in international contests when no club store country as club value
                 // retrieve index for country field
@@ -504,6 +506,7 @@ class DogReader {
         $this->myLogger->enter();
         $t=TABLE_NAME;
         $c=$item['ClubID'];
+        $cat=$item['CatGuia'];
         // notice that arriving here means all clubs has been parsed and analyzed
         $a=$this->myDBObject->conn->real_escape_string($item['NombreGuia']);
         $this->saveStatus("Analyzing handler '$a'");
@@ -526,13 +529,14 @@ class DogReader {
             // Replace all instances in tmptable with found data and return to continue import
             $id=$search['rows'][$index]['ID']; // id del guia en la base de datos
             $nombre= $this->myDBObject->conn->real_escape_string($search['rows'][$index]['Nombre']); // nombre del guia (DB)
+            $dbcat=$search['rows'][$index]['Categoria'];
             // handle name according excelname rules
             $exname=$this->myDBObject->conn->real_escape_string($item['NombreGuia']);
             $nombre=($this->myOptions['UseExcelNames']==0)?$nombre:$exname;
             if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
-
+            $cat=$this->import_mixData($dbcat,$cat);
             // fix handler's name in temporary table according importing rules
-            $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre' WHERE (NombreGuia = '$a')  AND (ClubID=$c)"; // exact match
+            $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre', Categoria='{$cat}' WHERE (NombreGuia = '$a')  AND (ClubID=$c)"; // exact match
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
             return true; // tell parent item found. proceed with next
@@ -544,12 +548,12 @@ class DogReader {
         // so blindly create new item with data from excel
         $nombre=$a;
         if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($a);
-        $str="INSERT INTO guias (Nombre,Club,Federation) VALUES ( '{$nombre}',{$c},{$f})";
+        $str="INSERT INTO guias (Nombre,Categoria,Club,Federation) VALUES ( '{$nombre}','{$cat}',{$c},{$f})";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetHandler(): blindInsertGuia '$a' error:".$this->myDBObject->conn->error;
         $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
         $this->myDBObject->setServerID("guias",$id); // on server add ServerID
-        $str="UPDATE {$t} SET HandlerID={$id}, NombreGuia='{$nombre}' WHERE (NombreGuia = '{$a}') AND (ClubID={$c})";
+        $str="UPDATE {$t} SET HandlerID={$id}, NombreGuia='{$nombre}', Categoria='{$cat}' WHERE (NombreGuia = '{$a}') AND (ClubID={$c})";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetHandler(): update guia '{$a}' error:".$this->myDBObject->conn->error; // invalid update; mark error
         $this->myLogger->leave();
@@ -616,7 +620,7 @@ class DogReader {
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetDog(): update dog '$a' error:".$this->myDBObject->conn->error; // invalid search. mark error
 
-            // tell parent item found. proceed with next
+            // tell parent item found. proceed with next$search['rows'][$index]['Nombre']
             return true;
         }
 
@@ -709,13 +713,14 @@ class DogReader {
         } else if ($options['Object']=="Guia") {
             $nombre=$this->myDBObject->conn->real_escape_string($obj->NombreGuia);
             $c=$obj->ClubID;
+            $cat=$obj->CatGuia;
             if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
-            $str="INSERT INTO guias (Nombre,Club,Federation) VALUES ( '{$nombre}',{$c},{$f})";
+            $str="INSERT INTO guias (Nombre,Categoria,Club,Federation) VALUES ( '{$nombre}','{$cat}',{$c},{$f})";
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEntry(): Insert Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
             $this->myDBObject->setServerID("guias",$id); // on master server set ServerID
-            $str="UPDATE $t SET HandlerID=$id, NombreGuia='{$nombre}' WHERE (NombreGuia = '{$nombre}') AND (ClubID={$c})";
+            $str="UPDATE $t SET HandlerID=$id, NombreGuia='{$nombre}', Categoria='{$cat}' WHERE (NombreGuia = '{$nombre}') AND (ClubID={$c})";
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEnrty(): Temporary table update Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error; // invalid update; mark error
         } else if ($options['Object']=="Perro") {
@@ -791,12 +796,16 @@ class DogReader {
             $n=($this->myOptions['UseExcelNames']==0)?$dbname:$name;
             if ($this->myOptions['WordUpperCase']!=0) $n=toUpperCaseWords($n);
 
+            // update handle category according database and/or excel
+            $dbcat=$dbobj->Categoria;
+            $cat=$this->import_mixData($dbcat,isset($obj->CatGuia)?$obj->CatGuia:"A"); // adult if not defined
+
             // actualizamos nombre en la tabla temporal
-            $str="UPDATE $t SET HandlerID={$dbobj->ID}, NombreGuia='$n' WHERE (NombreGuia = '$name')";
+            $str="UPDATE $t SET HandlerID={$dbobj->ID}, NombreGuia='$n', Categoria='${cat}' WHERE (NombreGuia = '$name')";
             $res=$this->myDBObject->query($str);
             if (!$res) return "UpdateEntry(): update handler '$name' Set Name/ID error:".$this->myDBObject->conn->error;
             // ajustamos nombre del guia y el club en la base de datos
-            $str="UPDATE guias SET Nombre='{$n}' , Club={$obj->ClubID} WHERE (ID={$dbobj->ID})";
+            $str="UPDATE guias SET Nombre='{$n}', Categoria='{$cat}', Club={$obj->ClubID} WHERE (ID={$dbobj->ID})";
             $res=$this->myDBObject->query($str);
             if (!$res) return "UpdateEntry(): update handler '$name' Set Club error:".$this->myDBObject->conn->error;
         }

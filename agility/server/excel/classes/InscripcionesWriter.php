@@ -34,12 +34,12 @@ class InscripcionesWriter extends XLSX_Writer {
 
     protected $cols = array(
 		'Dorsal',
-		'Name','LongName','Gender','Breed','Chip','License','KC id','Category','Grade','Handler','Club','Country', // datos del perro
+		'Name','LongName','Gender','Breed','Chip','License','KC id','Category','Grade','Handler','CatGuia','Club','Country', // datos del perro
 		'Heat','Comments' // Jornada1, Jornada2, // datos de la inscripcion en la jornada
 	);
     protected $fields = array(
 		'Dorsal',
-		'Nombre','NombreLargo','Genero','Raza','Chip','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Pais', // datos del perro
+		'Nombre','NombreLargo','Genero','Raza','Chip','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','CatGuia','NombreClub','Pais', // datos del perro
 		'Celo','Observaciones' //, Equipo1, Equipo2 .... // datos de la inscripcion en la jornada
 	);
 
@@ -137,9 +137,12 @@ class InscripcionesWriter extends XLSX_Writer {
             $row[]=$perro['Chip'];
 			$row[]=$perro['Licencia'];
 			$row[]=$perro['LOE_RRC'];
-			$row[]=$perro['Categoria'];
-			$row[]=$perro['Grado'];
-			$row[]=$perro['NombreGuia'];
+            // $row[]=$this->federation->getCategory($perro['Categoria']);
+            // $row[]=$this->federation->getGrade($perro['Grado']);
+            $row[]=$perro['Categoria'];
+            $row[]=$perro['Grado'];
+            $row[]=$perro['NombreGuia'];
+            $row[]=$this->federation->getHandlerCategory($perro['CatGuia']);
 			$row[]=$perro['NombreClub'];
 			$row[]=$perro['Pais'];
 			$row[]=($this->club>0)? "" : ($perro['Celo']==1)?"X":"";
