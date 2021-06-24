@@ -536,7 +536,7 @@ class DogReader {
             if ($this->myOptions['WordUpperCase']!=0) $nombre=toUpperCaseWords($nombre);
             $cat=$this->import_mixData($dbcat,$cat);
             // fix handler's name in temporary table according importing rules
-            $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre', Categoria='{$cat}' WHERE (NombreGuia = '$a')  AND (ClubID=$c)"; // exact match
+            $str="UPDATE $t SET HandlerID=$id, NombreGuia='$nombre', CatGuia='{$cat}' WHERE (NombreGuia = '$a')  AND (ClubID=$c)"; // exact match
             $res=$this->myDBObject->query($str);
             if (!$res) return "findAndSetHandler(): update guia '$a' error:".$this->myDBObject->conn->error; // invalid update; mark error
             return true; // tell parent item found. proceed with next
@@ -553,7 +553,7 @@ class DogReader {
         if (!$res) return "findAndSetHandler(): blindInsertGuia '$a' error:".$this->myDBObject->conn->error;
         $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
         $this->myDBObject->setServerID("guias",$id); // on server add ServerID
-        $str="UPDATE {$t} SET HandlerID={$id}, NombreGuia='{$nombre}', Categoria='{$cat}' WHERE (NombreGuia = '{$a}') AND (ClubID={$c})";
+        $str="UPDATE {$t} SET HandlerID={$id}, NombreGuia='{$nombre}', CatGuia='{$cat}' WHERE (NombreGuia = '{$a}') AND (ClubID={$c})";
         $res=$this->myDBObject->query($str);
         if (!$res) return "findAndSetHandler(): update guia '{$a}' error:".$this->myDBObject->conn->error; // invalid update; mark error
         $this->myLogger->leave();
@@ -720,7 +720,7 @@ class DogReader {
             if (!$res) return "CreateEntry(): Insert Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error;
             $id=$this->myDBObject->conn->insert_id; // retrieve insertID and update temporary table
             $this->myDBObject->setServerID("guias",$id); // on master server set ServerID
-            $str="UPDATE $t SET HandlerID=$id, NombreGuia='{$nombre}', Categoria='{$cat}' WHERE (NombreGuia = '{$nombre}') AND (ClubID={$c})";
+            $str="UPDATE $t SET HandlerID=$id, NombreGuia='{$nombre}', CatGuia='{$cat}' WHERE (NombreGuia = '{$nombre}') AND (ClubID={$c})";
             $res=$this->myDBObject->query($str);
             if (!$res) return "CreateEnrty(): Temporary table update Guia '{$obj->NombreGuia}' error:".$this->myDBObject->conn->error; // invalid update; mark error
         } else if ($options['Object']=="Perro") {
@@ -801,7 +801,7 @@ class DogReader {
             $cat=$this->import_mixData($dbcat,isset($obj->CatGuia)?$obj->CatGuia:"A"); // adult if not defined
 
             // actualizamos nombre en la tabla temporal
-            $str="UPDATE $t SET HandlerID={$dbobj->ID}, NombreGuia='$n', Categoria='${cat}' WHERE (NombreGuia = '$name')";
+            $str="UPDATE $t SET HandlerID={$dbobj->ID}, NombreGuia='$n', CatGuia='${cat}' WHERE (NombreGuia = '$name')";
             $res=$this->myDBObject->query($str);
             if (!$res) return "UpdateEntry(): update handler '$name' Set Name/ID error:".$this->myDBObject->conn->error;
             // ajustamos nombre del guia y el club en la base de datos
