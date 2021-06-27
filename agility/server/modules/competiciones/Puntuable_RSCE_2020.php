@@ -100,6 +100,9 @@ class Puntuable_RSCE_2020 extends Puntuable_RSCE_2018 {
             return;
         }
         // si no estamos en grado 2 o 3 procedemos como siempre
+        // NOTA: a lo mejor se deberia comprobar el grado de la manga y no el del perro
+        // pues se supone que no se ha debido inscribir en la manga ningun perro que no cumpla
+        // las condiciones de categoria/grado
         if ( ($perro['Grado']!=='GII') && ($perro['Grado']!=='GIII')) {
             parent::evalPartialPenalization($manga,$perro,$tdata);
             return;

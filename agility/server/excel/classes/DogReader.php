@@ -334,7 +334,7 @@ class DogReader {
             $reader->open($newname);
             $ok=true;
         } catch (Exception $e) {
-            $this->myLogger->error("Cannot open file {$newname} as .xlsx Excel. Trying pdf");
+            $this->myLogger->notice("Cannot open file {$newname} as .xlsx Excel. Trying pdf");
         }
         if ($ok===false) {
             $newname=str_replace(".xlsx",".pdf",$filename);

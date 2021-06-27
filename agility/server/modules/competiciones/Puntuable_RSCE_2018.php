@@ -95,17 +95,9 @@ class Puntuable_RSCE_2018 extends Competitions {
     public function evalPartialCalification($m,&$perro,$puestocat) {
 
         // comprueba que las mangas sean puntuables
-        $flag=false;
-        $tipo=$m->Tipo;
-        if ($tipo==3) $flag=true; // agility G1 primera manga
-        if ($tipo==4) $flag=true; // jumping G1
-        if ($tipo==5) $flag=true; // agility G2
-        if ($tipo==6) $flag=true; // agility G3
-        if ($tipo==10) $flag=true;// jumping G2
-        if ($tipo==11) $flag=true;// jumping G3
-        if ($tipo==17) $flag=true; // agility G1 segunda manga
-        if (!$flag) {
-            parent::evalPartialCalification($m,$perro,$puestocat); return;
+        if (! in_array($m->Tipo, array(3 /*GI-1*/, 4/*GI*/, 5/*A2*/,6/*A3*/,10/*J2*/,11/*J3*/,17/*GI-3*/))) {
+            parent::evalPartialCalification($m,$perro,$puestocat);
+            return;
         }
 
         // si estamos en preagility, grado 1 o no tiene cero puntos de penalizacion, utiliza la puntuacion estandard

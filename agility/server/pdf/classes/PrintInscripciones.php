@@ -51,6 +51,8 @@ class PrintInscripciones extends PrintCommon {
 		$data->Licencia=$row['Licencia'];
 		$data->Categoria=$row['Categoria'];
 		$data->Grado=$row['Grado'];
+		$data->NombreGuia=$row['NombreGuia'];
+		$data->CatGuia=$row['CatGuia'];
 		$data->NombreGuia=$this->getHandlerName($row);
 		$data->Club=$row['NombreClub'];
 		$str=json_encode($data);
