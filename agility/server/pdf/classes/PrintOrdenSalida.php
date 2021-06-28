@@ -156,7 +156,42 @@ class PrintOrdenSalida extends PrintCommon {
 		$this->ac_row(2,9);
 		$this->Ln();
 	}
-	
+    /*
+     * Insert a json hidden text into pdf to allow easy data recovery from PDF
+    * this is a little help to let "pdf2txt --layout" to generate something available to be parsed and
+    * compose a csv table to be imported: just write a hidden text key for each value in row
+     *
+     * usage ( suggestion. need to be revised after command execution, as some data may be missing ) :
+     * pdftotext --layout Catalogo_inscripciones.pdf - | awk '/NombreLargo/ {print;}'
+    */
+    private function printHiddenRowData($count,$row) {
+        $data = new stdClass();
+        $data->Dorsal=$row['Dorsal'];
+        $data->Nombre=$row['Nombre'];
+        $data->NombreLargo=$row['NombreLargo'];
+        $data->Raza=$row['Raza'];
+        $data->Licencia=$row['Licencia'];
+        $data->Categoria=$row['Categoria'];
+        $data->Grado=$row['Grado'];
+        $data->NombreGuia=$row['NombreGuia'];
+        $data->CatGuia=$row['CatGuia'];
+        $data->NombreGuia=$this->getHandlerName($row);
+        $data->Club=$row['NombreClub'];
+        $str=json_encode($data);
+        // preserve current X coordinate and evaluate where to put hidden data
+        $x=$this->GetX(); $y=$this->GetY();
+        $this->SetX($x+10);
+        // set foregroud and background to white to let text trasparent
+        // notice that hidden data should be printed _before_ real data, otherwise real data printout will be overriden
+        $this->SetTextColor(255,255,255);
+        $this->SetFillColor( 255,255,255);
+        $this->SetFont($this->getFontName(),'',1); // tiny size, wont be visible
+        $this->myLogger->trace("hidden line:\n{$str}");
+        $this->Cell(140,7,$str,'',0,'L',true);
+        $this->ac_row($count,10); // set proper row background
+        $this->SetTextColor(0,0,0); // negro
+        $this->SetXY($x,$y); // restore cursor position
+    }
 	// Tabla coloreada
 	function composeTable() {
         $rowsperpage=38;
@@ -220,6 +255,10 @@ class PrintOrdenSalida extends PrintCommon {
 				$this->printTeamInformation($lastTeam);
 				$rowcount++;
 			}
+
+			// "print" hidden data to allow importing as Excel-like file
+            $this->printHiddenRowData($order,$row);
+			// now start real printing :-)
             $this->ac_row($order,9);
 			$this->SetFont($this->getFontName(),'B',11); // bold 9px
             // if dog has already run, use "*" instead of "-"
