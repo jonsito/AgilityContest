@@ -342,5 +342,20 @@ $.extend($.fn.validatebox.defaults.rules, {
             return (value!=='-- Sin asignar --');
         },
         message: 'Must provide a valid Journey name'
+    },
+    inComboGrid:{
+        // ignore value, cause is just shown text
+        // param[0] combogrid id
+        validator:function(value,param){
+            var c = $(param[0]);
+            var key = c.combogrid('options').idField;
+            var val = c.combogrid('getValue');
+            var rows = c.combogrid('grid').datagrid('getRows');
+            for(var i=0; i<rows.length; i++){
+                if (val === rows[i][key])  return true;
+            }
+            return false;
+        },
+        message:'Must select a value from combo'
     }
 });

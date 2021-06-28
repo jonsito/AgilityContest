@@ -177,6 +177,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             ]],
             multiple: false,
             fitColumns: true,
+            validType: 'inComboGrid["#clubes-Pais"]',
             selectOnNavigation: false,
             onChange: function(newvalue,oldvalue) {
                 $('#clubes-Provincia').combogrid('grid').datagrid('load',{Operation: 'select', Country: newvalue});
@@ -197,6 +198,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			method: 'get',
 			mode: 'remote',
 			required: true,
+            validType: 'inComboGrid["#clubes-Provincia"]',
 			columns: [[
     			{field:'Provincia',title:'<?php _e('Province'); ?>',width:20,align:'right'},
     			{field:'Comunidad',title:'<?php _e('Region/State'); ?>',width:40,align:'right'}
