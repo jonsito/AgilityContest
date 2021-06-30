@@ -38,7 +38,7 @@ class DBConnection {
     public static function getConnection($host,$name,$user,$pass) {
         $key="$host:$name:$user";
         if (!array_key_exists($key,self::$connections)) {
-            $conn = new mysqli($host,$user,$pass,$name);
+            $conn = @new mysqli($host,$user,$pass,$name);
             if ($conn->connect_error) return null;
             // not recommended in manual as doesn't properly handle real_escape_string
             // $conn->query("SET NAMES 'utf8'");

@@ -64,15 +64,15 @@ class Updater {
 
         // connect database with proper permissions
         $this->conn = DBConnection::getRootConnection();
-        if ($this->conn->connect_error) {
+        if (is_null($this->conn)) {
             $str="Cannot perform upgrade check process: database::dbConnect() error. Retrying....";
             $this->install_log("$str <br/>");
 
             // wait 5 seconds and retry
             sleep(5);
             $this->conn = DBConnection::getRootConnection();
-            if ($this->conn->connect_error) {
-                $str="Cannot perform upgrade check process: database::dbConnect() error. Exiting";
+            if (is_null($this->conn)) {
+                $str="Cannot perform upgrade check process: database::dbConnect() Unrecoverable error.";
                 $this->install_log("$str <br/>");
                 throw new Exception($str);
             }
@@ -806,8 +806,16 @@ class Updater {
         return 0;
     }
 }
+try {
+    $upg=new Updater();
+} catch (Exception $e) {
+    $str="<br/>AgilityContest starting process aborted";
+    // as constructor has failed, just invoke install_log() "by hand"
+    $f=fopen(INSTALL_LOG,"a"); // open for append-only
+    if ($f) { fwrite($f,$str."\n"); fclose($f); }
+    die($str);
+}
 
-$upg=new Updater();
 if ($upg->slaveMode()==true) return; // slave server mode. do not try to update database anyway
 // allow only localhost access
 $white_list= array ("localhost","127.0.0.1","::1",$_SERVER['SERVER_ADDR'],"138.4.4.108");
