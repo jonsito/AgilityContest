@@ -61,18 +61,23 @@ class Updater {
         $this->bckVersion=$this->myConfig->getEnv('version_name'); // extracted from sql file on restore. defaults to current
         $this->bckRevision=$this->myConfig->getEnv('version_date'); // extracted from sql file on restore. defaults to current
         $this->current_version=$this->myConfig->getEnv("version_date");
-
+        // check for database running
+        $errormsg=DBConnection::isDataBaseRunning();
+        if ($errormsg!=="" ) {
+            $str="ERROR unrecoverable: {$errormsg}";
+            $this->install_log("$str <br/>");
+            throw new Exception($str);
+        }
         // connect database with proper permissions
         $this->conn = DBConnection::getRootConnection();
         if (is_null($this->conn)) {
-            $str="Cannot perform upgrade check process: database::dbConnect() error. Retrying....";
+            $str="Checking database consistency: database::dbConnect() error. Retrying....";
             $this->install_log("$str <br/>");
-
             // wait 5 seconds and retry
             sleep(5);
             $this->conn = DBConnection::getRootConnection();
             if (is_null($this->conn)) {
-                $str="Cannot perform upgrade check process: database::dbConnect() Unrecoverable error.";
+                $str="Cannot perform database check process: database::dbConnect() Unrecoverable error.";
                 $this->install_log("$str <br/>");
                 throw new Exception($str);
             }

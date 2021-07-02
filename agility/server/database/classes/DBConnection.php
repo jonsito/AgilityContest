@@ -27,6 +27,38 @@ class DBConnection {
 
 	private static $connections=array();
 
+	/*
+	 * Check for running mysql daemon
+	 * @return string
+	 */
+	public static function isDatabaseRunning() {
+        $osName = strtoupper(PHP_OS);
+        /* buscamos la lista de procesos */
+        switch ($osName) {
+            case 'WINDOWS':
+            case 'WIN32':
+            case 'WINNT':
+               // la linea buscada empezara por mysqld.exe
+                $exec_string = 'tasklist /FO TABLE /NH 2>NUL';
+                break;
+            case 'LINUX':
+            case 'DARWIN':
+                // en ubuntu el servicio es "mysqld"; en fedora "mariadb"
+                // por eso, en lugar de buscar el programa, tenemos en cuenta que
+                // la linea buscada empieza por mysql que es el nombre del usuario
+                $exec_string = 'ps -aux';
+                break;
+            default: return "Unknown operating system";
+        }
+        $task_list = array();
+        $return=0;
+        exec($exec_string, $task_list,$return);
+        foreach ($task_list AS $task_line)        {
+            if (preg_match('/^mysql(d.exe)*/', $task_line, $out)) return "";
+        }
+	    return "Database server is not running";
+    }
+
     /**
      * Singleton static method to create database connection
      * @param $host
