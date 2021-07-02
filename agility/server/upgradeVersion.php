@@ -811,14 +811,17 @@ class Updater {
         return 0;
     }
 }
+
 try {
     $upg=new Updater();
+    $upgradeVersionSuccess=true;
 } catch (Exception $e) {
     $str="<br/>AgilityContest starting process aborted";
     // as constructor has failed, just invoke install_log() "by hand"
     $f=fopen(INSTALL_LOG,"a"); // open for append-only
     if ($f) { fwrite($f,$str."\n"); fclose($f); }
-    die($str);
+    $upgradeVersionSuccess=false;
+    return;
 }
 
 if ($upg->slaveMode()==true) return; // slave server mode. do not try to update database anyway
@@ -930,6 +933,7 @@ try {
     $upg->addMailList();
     $upg->updateDefaultJuezClub();
 } catch (Exception $e) {
-    syslog(LOG_ERR,$e);
+    syslog(LOG_ERR,$e->getMessage());
+    die($e->getMessage());
 }
 ?>

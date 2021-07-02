@@ -116,7 +116,10 @@ var ac_clientOpts = {
     SessionName: ''
 };
 
+var ac_upgradeVersionSuccess=true;
+
 function initialize() {
+    if (ac_upgradeVersionSuccess===false) return; // hard crash
     ac_clientOpts.SessionName=composeClientSessionName(ac_clientOpts);
     $('.window').css('background-color','rgba(0,0,0,255,1)');
     // expand/collapse menu on mouse enter/exit
@@ -344,11 +347,15 @@ body {
 
 <body onload="initialize();">
 <div id="upgradeVersion" style="color:#fff;display:block;">
-	<h1>Installing database... please wait</h1>
+	<h1>Checking database... please wait</h1>
     <p>
 		    <?php
             // perform automatic upgrades in database when needed
             require_once(__DIR__ . "/../server/upgradeVersion.php");
+            if ($upgradeVersionSuccess===false ) {
+                include_once(__DIR__."/unrecoverable.html");
+                die("Cannot continue");
+            }
             ?>
         <script type="text/javascript">
             var ac_installdb=true;

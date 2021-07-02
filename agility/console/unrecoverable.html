@@ -1,0 +1,38 @@
+<p>AgilityContest no puede ejecutarse<br/>
+    Posibles Motivos:</p>
+<ul>
+    <li> El servidor de base de datos no está activo</li>
+    <li> El firewall está bloqueando acceso al puerto local 3306</li>
+    <li> La base de datos está corrompida. Posibles causas:<br/>
+    <ul>
+        <li>Errores de tiempos de conexión ( equipo demasiado lento o firewall inspeccionando tráfico de red )</li>
+        <li>Apagado accidental del equipo con AgilityContest en funcionamiento</li>
+        <li>Carpetas del servidor de bases de datos borradas o modificadas accidentalmente</li>
+    </ul>
+    </li>
+</ul>
+<p>
+la aplicación no puede continuar mientras el servidor de bases de datos no esté activo y accesible
+</p>
+<p>
+Procedimiento a seguir:
+</p>
+<ul>
+    <li>Eliminar bloqueos del antivirus: En el caso de <em>Avast o Esset</em>, es incluso preferible <br/>
+        desinstalar totalmente dicho programa, dejando como único antivirus <em>"Windows Defender"</em></li>
+    <li>Recuperar la última copia de seguridad de la capeta <em>c:\AgilityContest\logs</em> . <br/>
+        Las copias de seguridad son ficheros con el nombre <em>"agility-YYYYMMDD_hhmm.sql"</em><br/>
+        siendo YYYYMMDD_hhmm la fecha en que se realizó dicha copia de seguridad</li>
+    <li>Reinstalar desde cero la aplicación</li>
+    <li>Reiniciar la aplicación una vez reinstalada y recuperar el contenido de la base de datos</li>
+    <li> En el caso de que el operador tenga conocimientos de mysql puede intentar utilizar <br/>
+        las herramientas de recuperación del servidor de bases de datos. <br/>
+        En caso de no tener éxito tendrá que proceder a la reinstalación</li>
+</ul>
+
+</p>
+</div>
+<script type="text/javascript">
+    ac_upgradeVersionSuccess=false;
+</script>
+</body></html>
