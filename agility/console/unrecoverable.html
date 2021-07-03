@@ -1,33 +1,53 @@
-<p>AgilityContest no puede ejecutarse<br/>
-    Posibles Motivos:</p>
-<ul>
-    <li> El servidor de base de datos no está activo</li>
-    <li> El firewall está bloqueando acceso al puerto local 3306</li>
+<h2>AgilityContest no puede ejecutarse</h2>
+<div style="float:right;width:30%">
+    <img src="/agility/images/sad_dog.png" alt="sad_dog"/>
+</div>
+<h3>Posibles Motivos:</h3>
+<ol>
+    <li> El servidor de base de datos no está activo
+        <ul>
+            <li>
+                En equipos lentos, o con poca memoria, el servidor de bases de datos<br/>
+                puede tardar más tiempo de lo normal en arrancar.
+            </li>
+        </ul>
+    </li>
+    <li> El firewall está bloqueando acceso al puerto local 3306.
+        <ul>
+            <li>Compruebe que en la barra de tareas no tiene ningún aviso de seguridad.</li>
+            <li>Compruebe asímismo que en el escritorio no hay ninguna ventana pidiendo<br/>
+            permiso para ejecutar algún programa.</li>
+        </ul>
+    </li>
     <li> La base de datos está corrompida. Posibles causas:<br/>
     <ul>
-        <li>Errores de tiempos de conexión ( equipo demasiado lento o firewall inspeccionando tráfico de red )</li>
-        <li>Apagado accidental del equipo con AgilityContest en funcionamiento</li>
-        <li>Carpetas del servidor de bases de datos borradas o modificadas accidentalmente</li>
+        <li>Errores de tiempos de conexión ( equipo demasiado lento o firewall inspeccionando tráfico de red ).</li>
+        <li>Apagado accidental del equipo con AgilityContest en funcionamiento.</li>
+        <li>Carpetas del servidor de bases de datos borradas o modificadas accidentalmente.</li>
+        <li>Version demasiado antigua de la base de datos que el programa no puede actualizar.</li>
     </ul>
     </li>
-</ul>
+</ol>
 <p>
-la aplicación no puede continuar mientras el servidor de bases de datos no esté activo y accesible
+La aplicación no puede continuar mientras el servidor de bases de datos no esté activo y accesible.
 </p>
-<p>
-Procedimiento a seguir:
-</p>
+<h3>Procedimiento a seguir:</h3>
 <ul>
-    <li>Eliminar bloqueos del antivirus: En el caso de <em>Avast o Esset</em>, es incluso preferible <br/>
-        desinstalar totalmente dicho programa, dejando como único antivirus <em>"Windows Defender"</em></li>
-    <li>Recuperar la última copia de seguridad de la capeta <em>c:\AgilityContest\logs</em> . <br/>
+    <li>Por si se tratara de un problema de tiempo de arranque pruebe a esperar unos segundos y<br/>
+        recargar nuevamente la página web pulsando <strong>F5</strong>.</li>
+    <li>Elimine bloqueos del antivirus: En el caso de <em>Avast o Esset</em>, es incluso preferible <br/>
+        desinstalar totalmente dicho programa, dejando como único antivirus <em>"Windows Defender"</em>.</li>
+    <li>Recupere la última copia de seguridad de la capeta <strong>c:\AgilityContest\logs</strong>. <br/>
         Las copias de seguridad son ficheros con el nombre <em>"agility-YYYYMMDD_hhmm.sql"</em><br/>
-        siendo YYYYMMDD_hhmm la fecha en que se realizó dicha copia de seguridad</li>
-    <li>Reinstalar desde cero la aplicación</li>
-    <li>Reiniciar la aplicación una vez reinstalada y recuperar el contenido de la base de datos</li>
+        siendo YYYYMMDD_hhmm la fecha en que se realizó dicha copia de seguridad.</li>
+    <li>Reinstale desde cero la aplicación. La última versión está siempre disponible en
+        <a href="https://www.agilitycontest.es/downloads" style="color:#fff;">https://wwww.agilitycontest.es/downloads</a>.</li>
+    <li>Reinice la aplicación una vez reinstalada y recuperar el contenido de la base de datos.</li>
     <li> En el caso de que el operador tenga conocimientos de mysql puede intentar utilizar <br/>
         las herramientas de recuperación del servidor de bases de datos. <br/>
-        En caso de no tener éxito tendrá que proceder a la reinstalación</li>
+        Esto puede ser necesario en el caso de que la versión anteriormente instalada de AgilityContest,<br/>
+        o la copia de la base de datos de AgilityContest fueran demasiado antiguas.<br/>
+        En caso de no tener éxito tendrá que proceder a la reinstalación.</li>
 </ul>
 
 </p>
