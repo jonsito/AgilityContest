@@ -351,7 +351,9 @@ function updateInscriptionsByJourney($jornada) {
     // obtenemos las inscripciones de la jornada
     $inscripciones=$iobj->__select("*","inscripciones","prueba={$jornada['Prueba']}" );
     $pobj=new Dogs("procesaInscripcion()"/* no need to include federation info */ );
+    $timeout=ini_get('max_execution_time');
     foreach($inscripciones['rows'] as $inscripcion) {
+        set_time_limit($timeout);
         // actualizamos inscripcion del perro segune este inscrito o no
         if ( ($inscripcion['Jornadas'] & $mask ) != 0)  {
             $perro=$pobj->selectByID($inscripcion['Perro']);

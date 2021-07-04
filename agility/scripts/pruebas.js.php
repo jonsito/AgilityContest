@@ -585,7 +585,7 @@ function saveJornada(){
 
     $('#jornadas-okBtn').linkbutton('disable');
     $.messager.progress({
-        msg:'<?php _e("Update journey");?> & <?php _e("checking inscriptions");?> <br/> <?php _e("Please wait");?>...',
+        msg:'<?php _e("Updating journey");?> & <?php _e("Checking inscriptions");?> <br/> <?php _e("Please wait");?>...',
         text:''
     });
     $.ajax({
