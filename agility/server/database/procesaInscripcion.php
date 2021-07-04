@@ -329,4 +329,36 @@ function procesaInscripcion($p,$i) {
 	}
 }
 
+/**
+ * revisa y actualiza las inscripciones de la jornada dada
+ * Este proceso puede ser muy lento. posiblemente haya que revisarlo
+ * Se necesita porque hay gente que se empeña en cambiar las propiedades
+ * de una jornada cuando ya tiene inscripciones realizadas
+ *
+ * @param {array} $jornada datos de la jornada
+ */
+function updateInscriptionsByJourney($jornada) {
+    $myConfig=Config::getInstance();
+    $myLogger=new Logger("updateInscriptionsByJourney",$myConfig->getEnv("debug_level"));
+    // si la jornada esta cerrada emite warning y no haz nada
+    if ($jornada['Cerrada']==="1") {
+        $myLogger->notice("Journey {$jornada['ID']} is closed. Skipping check/update inscriptions");
+        return;
+    }
+    $myLogger->enter();
+    $iobj=new Inscripciones("updateInscriptionsByJourney",$jornada['Prueba']);
+    $mask=1<<($jornada['Numero']-1);
+    // obtenemos las inscripciones de la jornada
+    $inscripciones=$iobj->__select("*","inscripciones","prueba={$jornada['Prueba']}" );
+    $pobj=new Dogs("procesaInscripcion()"/* no need to include federation info */ );
+    foreach($inscripciones['rows'] as $inscripcion) {
+        // actualizamos inscripcion del perro segune este inscrito o no
+        if ( ($inscripcion['Jornadas'] & $mask ) != 0)  {
+            $perro=$pobj->selectByID($inscripcion['Perro']);
+            inscribePerroEnJornada($inscripcion,$jornada,$perro);
+        } else {
+            borraPerroDeJornada($inscripcion,$jornada);
+        }
+    }
+}
 ?>

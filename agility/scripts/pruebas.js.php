@@ -584,6 +584,10 @@ function saveJornada(){
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
 
     $('#jornadas-okBtn').linkbutton('disable');
+    $.messager.progress({
+        msg:'<?php _e("Update journey");?> & <?php _e("checking inscriptions");?> <br/> <?php _e("Please wait");?>...',
+        text:''
+    });
     $.ajax({
         type: 'GET',
         url: '../ajax/database/jornadaFunctions.php',
@@ -605,6 +609,7 @@ function saveJornada(){
             $.messager.alert("Save Jornada","Error:"+XMLHttpRequest.status+" - "+XMLHttpRequest.responseText+" - "+textStatus+" - "+errorThrown,'error' );
         }
     }).then(function(){
+        $.messager.progress('close');
         $('#jornadas-okBtn').linkbutton('enable');
     });
 }

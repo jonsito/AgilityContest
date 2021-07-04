@@ -143,10 +143,15 @@ class Jornadas extends DBObject {
 		if (!$res) return $this->error($stmt->error);
 		$stmt->close();
 		if (!$cerrada) {
+		    // verificamos que las mangas estan correctamente creadas acorde a la definicion de la jornada
 			$mangas =new Mangas("jornadaFunctions",$id);
 			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$junior,$senior,$children,$paraagility,$open,$equipos3,$equipos4,$preagility,$ko,$games,$especial,$observaciones);
+			// comprobamos las diversas tandas
 			$ot= new Tandas("jornadas::update",$this->prueba,$id);
 			$ot->populateJornada();
+			// finalmente actualizamos los datos de inscripciones de la jornada
+            $jornada=$this->selectByID($id);
+            updateInscriptionsByJourney($jornada);
         }
 		$this->myLogger->leave();
 		return "";
@@ -266,7 +271,6 @@ class Jornadas extends DBObject {
 	function selectByID($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Jornada ID");
-		
 		// make query
 		$obj=$this->__getObject("jornadas",$id);
 		if (!is_object($obj))	return $this->error("No Jornada found with ID=$id");
