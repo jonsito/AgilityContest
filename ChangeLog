@@ -1,4 +1,32 @@
 Version 4.4.1 20210324_1800
+    - Fix: Solve some problems in non-utf8 excel imports
+    - Fix: Support for 5-heights in team rounds
+    - Fix: Proper round names in RFEC
+    - Fix: check already inscribed dogs on journey changes
+    - Fix: RSCE statistics PDF with junior/senior/etc handlers
+    - Fix: Global result printouts when no TRS in some heights
+    - Fix: Replace grade with word "Open" in open round labels
+    - Change: Many logos and database updates
+    - Change: Fixed several duplicates ID in DOM
+    - Change: Force select options values from comboboxes
+    - Change: Hall of Fame: allow journey selection
+    - Change: Uniformize accept/cancel button positions across dialogs
+    - Change: Ask to save on changes in round data handling
+    - Change: Auto close news dialog when no new news
+    - Change: Optimized eval calification in partial scores
+    - Change: Blog updates
+    - New: Dog importer now supports inscriptions and starting order generated PDF's
+    - New: Enable children, senior, and para-agility rounds.
+    - New: Add handler's category support ( listings, importers, dialogs, and so )
+    - New: Add multiple warnings on invalid round data
+    - New: Include chronometer software into distribution
+    - New: Labels for RFEC
+    - New: Replace json errors in startup with more clear and descriptive text
+    - New: Allow Jump from inscriptions to competition by selecting journey
+    - New: Check for running mysql/mariadb before allow starting
+    - New: downlad updates from releases Github page instead of "master" branch
+    - New: On license expired, show a button with renovation instructions
+Version 4.4.1 20210324_1800
     - Extend json hidden data to every inscription pdf
     - Fix warn when non-existent competitor in Team listing
 Version 4.4.1 20210308_1150
