@@ -34,47 +34,58 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
 <?php } ?>
 
 <?php if ( strcmp($from,"blog_2021-05-01_00:00:00")<0) { ?>
-    <strong>2021-Jul-6</strong><br/>
+    <strong>2021-Jul-06</strong><br/>
     <p>
         Versión 4.5.0
     </p>
+    <p>
+        A destacar tres aspectos:<br/>
+        Los principales cambios de esta versión son sobre todo de usabilidad, y como respuesta a las múltiples consultas
+        y llamadas recibidas desde la última revisión<br/>
+        El otro cambio fundamental es el de poder manejar categorías del guía: Infantil/Juvenil (Junior) Senior y ParaAgility
+        ahora tienen mangas propias<br/>
+        Y finalmente: ahora se pueden importar perros desde los PDF's de inscripciones y ordenes de salida que publican
+        los diversos clubes, sin necesidad de solicitarles el excel o la base de datos, simplemente partiendo de las publicaciones
+        en Telegram
+    </p>
+    <p>A continuación la lista detallada de cambios</p>
     <dl>
-        <dt> Errores corregidos</dt>
-        <dd>Problemas con importación de ficheros Excel con caracteres no UTF-8</dd>
-        <dd>Errores en pruebas por equipos a cinco alturas</dd>
-        <dd>Nombres de las mangas de Promoción en RFEC</dd>
-        <dd>Al cambiar las mangas de una jornada ahora se re-calculan las inscripcione</dd>
-        <dd>Corregidos problemas en estadisticas RSCE cuando hay guías junior/senior/para-agility</dd>
-        <dd>Ahora no falla la generación de PDF's con resultados cuando la categoría XL no tiene TRS (todos eliminados)</dd>
-        <dd>En las etiquetas RSCE se cambia el grado por "Open" en las pruebas no puntuables</dd>
-        <dd>Corregidos errores de ID's duplicadas en Chrome</dd>
-        <dd>Corregidos errores de asignación de puntos en pruebas RFEC con perros participando en modo "open"</dd>
-        <dd>Eliminación de mensajes de error json en pantalla cuando falla el arranque</dd>
+        <dt> Errores corregidos:</dt>
+        <dd>- Problemas con importación de ficheros Excel con caracteres no UTF-8</dd>
+        <dd>- Errores en pruebas por equipos a cinco alturas</dd>
+        <dd>- Nombres de las mangas de Promoción en RFEC</dd>
+        <dd>- Al cambiar las mangas de una jornada ahora se re-calculan las inscripcione</dd>
+        <dd>- Corregidos problemas en estadisticas RSCE cuando hay guías junior/senior/para-agility</dd>
+        <dd>- Ahora no falla la generación de PDF's con resultados cuando la categoría XL no tiene TRS (todos eliminados)</dd>
+        <dd>- En las etiquetas RSCE se cambia el grado por "Open" en las pruebas no puntuables</dd>
+        <dd>- Corregidos errores de ID's duplicadas en Chrome</dd>
+        <dd>- Corregidos errores de asignación de puntos en pruebas RFEC con perros participando en modo "open"</dd>
+        <dd>- Eliminación de mensajes de error json en pantalla cuando falla el arranque</dd>
     </dl>
     <dl>
-        <dt>Mejoras de funcionamiento</dt>
-        <dd>Actualización bastante completa de logos y base de datos</dd>
-        <dd>En los combos no editables ahora se exige que la selección corresponda a uno de los valores posibles</dd>
-        <dd>En "mejores perros de la prueba": posibilidad de seleccionar las jornadas</dd>
-        <dd>Usabilidad: uniformizado el orden de los botones "Aceptar"/"Cancelar"</dd>
-        <dd>En inicio de sesión: especificar claramente que el botón de "invitado" es justamente eso</dd>
-        <dd>Auto-cierre de la ventana de noticias si no hay nuevas noticias</dd>
-        <dd>Optimizaciones en la evaluación de resultados parciales</dd>
-        <dd>Actualización del blog :-) </dd>
+        <dt>Mejoras de funcionamiento:</dt>
+        <dd>- Actualización bastante extensa de logos y base de datos</dd>
+        <dd>- En los combos no editables ahora se exige que la selección corresponda a uno de los valores posibles</dd>
+        <dd>- En "mejores perros de la prueba": posibilidad de seleccionar las jornadas</dd>
+        <dd>- Usabilidad: uniformizado el orden de los botones "Aceptar"/"Cancelar"</dd>
+        <dd>- En inicio de sesión: especificar claramente que el botón de "invitado" es justamente eso</dd>
+        <dd>- Auto-cierre de la ventana de noticias si no hay nuevas noticias</dd>
+        <dd>- Optimizaciones en la evaluación de resultados parciales</dd>
+        <dd>- Actualización del blog :-) </dd>
     </dl>
     <dl>
-        <dt>Novedades en esta versión</dt>
-        <dd>La importación de perros se puede realizar tambien desde los pdf de inscripción y orden de salida
+        <dt>Novedades en esta versión:</dt>
+        <dd>- La importación de perros se puede realizar tambien desde los pdf de inscripción y orden de salida
         que genera la aplicación</dd>
-        <dd>Creación de mangas Infantil/Senior/ParaAgility en RFEC</dd>
-        <dd>Adaptación del programa al manejo de las categorías del guía ( listados, dialogos, editores, etc)</dd>
-        <dd>Añadir multiples avisos cuando el operador realiza operaciones incorrectas o no válidas según reglamento</dd>
-        <dd>Inclusión del software de cronometro serie. Pendiente la integración en el programa</dd>
-        <dd>Etiquetas de Excelentes para RFEC</dd>
-        <dd>Permitir, seleccionando jornada con el botón derecho saltar del menú de inscripciones al de competición</dd>
-        <dd>Comprobación preliminar de que la base de datos está funcionando correctamente. Ventana informativa en caso de error</dd>
-        <dd>Descarga de actualizaciones desde la sección "releases" de GitHub, en lugar de desde la rama "master"</dd>
-        <dd>En caso de expiración de licencia, botón auxiliar para ver un enlace informativo sobre qué hacer</dd>
+        <dd>- Creación de mangas Infantil/Senior/ParaAgility en RFEC</dd>
+        <dd>- Adaptación del programa al manejo de las categorías del guía ( listados, dialogos, editores, etc)</dd>
+        <dd>- Añadir multiples avisos cuando el operador realiza operaciones incorrectas o no válidas según reglamento</dd>
+        <dd>- Inclusión del software de cronometro serie. Pendiente la integración en el programa</dd>
+        <dd>- Etiquetas de Excelentes para RFEC</dd>
+        <dd>- Permitir, seleccionando jornada con el botón derecho saltar del menú de inscripciones al de competición</dd>
+        <dd>- Comprobación preliminar de que la base de datos está funcionando correctamente. Ventana informativa en caso de error</dd>
+        <dd>- Descarga de actualizaciones desde la sección "releases" de GitHub, en lugar de desde la rama "master"</dd>
+        <dd>- En caso de expiración de licencia, botón auxiliar para ver un enlace informativo sobre qué hacer</dd>
     </dl>
 <?php } ?>
 
