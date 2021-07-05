@@ -40,11 +40,11 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     </p>
     <p>
         A destacar tres aspectos:<br/>
-        Los principales cambios de esta versión son sobre todo de usabilidad, y como respuesta a las múltiples consultas
+        - Los principales cambios de esta versión son sobre todo de usabilidad, y como respuesta a las múltiples consultas
         y llamadas recibidas desde la última revisión<br/>
-        El otro cambio fundamental es el de poder manejar categorías del guía: Infantil/Juvenil (Junior) Senior y ParaAgility
+        - El otro cambio fundamental es el de poder manejar categorías del guía: Infantil/Juvenil (Junior) Senior y ParaAgility
         ahora tienen mangas propias<br/>
-        Y finalmente: ahora se pueden importar perros desde los PDF's de inscripciones y ordenes de salida que publican
+        - Finalmente: ahora se pueden importar perros desde los PDF's de inscripciones y ordenes de salida que publican
         los diversos clubes, sin necesidad de solicitarles el excel o la base de datos, simplemente partiendo de las publicaciones
         en Telegram
     </p>
