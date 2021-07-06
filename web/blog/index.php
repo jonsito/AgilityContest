@@ -33,7 +33,7 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <!--- comienzo del changelog -->
 <?php } ?>
 
-<?php if ( strcmp($from,"blog_2021-05-01_00:00:00")<0) { ?>
+<?php if ( strcmp($from,"blog_2021-07-06_00:00:00")<0) { ?>
     <strong>2021-Jul-06</strong><br/>
     <p>
         Versión 4.5.0
