@@ -1,4 +1,4 @@
-Version 4.4.1 20210324_1800
+Version 4.5.0 20210707_1920
     - Fix: Solve some problems in non-utf8 excel imports
     - Fix: Support for 5-heights in team rounds
     - Fix: Proper round names in RFEC
