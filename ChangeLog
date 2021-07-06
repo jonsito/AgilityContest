@@ -14,6 +14,7 @@ Version 4.4.1 20210324_1800
     - Change: Ask to save on changes in round data handling
     - Change: Auto close news dialog when no new news
     - Change: Optimized eval calification in partial scores
+    - Change: (configurable option) print only labels with "excelent"
     - Change: Blog updates
     - New: Dog importer now supports inscriptions and starting order generated PDF's
     - New: Enable children, senior, and para-agility rounds.

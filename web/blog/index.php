@@ -71,6 +71,8 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
         <dd>- En inicio de sesión: especificar claramente que el botón de "invitado" es justamente eso</dd>
         <dd>- Auto-cierre de la ventana de noticias si no hay nuevas noticias</dd>
         <dd>- Optimizaciones en la evaluación de resultados parciales</dd>
+        <dd>- En preferencias se puede configurar la impresión de etiquetas para imprimir solo las que tengan excelente</dd>
+        <dd>- Actualización del modelo de plantilla para los resultados de la CNEAC</dd>
         <dd>- Actualización del blog :-) </dd>
     </dl>
     <dl>
