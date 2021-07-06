@@ -128,7 +128,7 @@ function acceptLogin() {
                 }
 				if (data.Expired==="1")  {
 					str = str+'<br/><strong><span class="blink">'+'<?php _e("License expired");?>'+'</span></strong>';
-					str = str+'<input type="button" onclick="windows.open(\'https://www.agilitycontest.es/blog/license_update.html\');"/>'
+					str = str+' <input type="button" value="Info..." onclick="window.open(\'https://www.agilitycontest.es/blog/license_update.html\');"/>'
 				}
                 if (data.Cancelled==="1")  {
                     str = str+'<br/><strong><span class="blink">'+'<?php _e("License cancelled");?>'+'</span></strong>';
