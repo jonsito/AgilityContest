@@ -680,7 +680,7 @@ class DogReader {
             else if ($item['HandlerID']==0) $found=$this->findAndSetHandler($item);
             // if dog == 0 try to locate dog ID. On fail or misssmatch ask user
             else $found=$this->findAndSetDog($item);
-            if (is_string($found)) throw new Exception("import parse: $found");
+            if (is_string($found)) throw new Exception("import parseDog: $found");
             if (is_bool($found)) {
                 if ($found===true) // item found and match: notify and return
                     return array('operation'=> 'parse', 'success'=> 'ok', 'search' => $item, 'found' => array());

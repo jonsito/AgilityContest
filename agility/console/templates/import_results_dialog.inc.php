@@ -19,7 +19,7 @@ $config =Config::getInstance();
             <br />&nbsp;<br />
             <input type="file" name="import-excel-fileSelect" value="" id="resultados-import-excel-fileSelect"
                    class="icon_button icon-search"
-                   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this,'')">
+                   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="read_excelFile(this,'resultados-')">
             <br />
             <input id="resultados-import-excelData" type="hidden" name="excelData" value="">
 

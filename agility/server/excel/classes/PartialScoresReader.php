@@ -42,7 +42,7 @@ class PartialScoresReader extends DogReader {
     public function __construct($name,$options) {
         $this->myDBObject = new DBObject($name);
         $this->prueba=$this->myDBObject->__selectAsArray("*","pruebas","ID={$options['Prueba']}");
-        $this->jornada=$this->myDBObject->__selectAsArray("*","jornada","ID={$options['Jornada']}");
+        $this->jornada=$this->myDBObject->__selectAsArray("*","jornadas","ID={$options['Jornada']}");
         $this->manga=$this->myDBObject->__selectAsArray("*","mangas","ID={$options['Manga']}");
         $this->equipos=$this->myDBObject->__selectAsArray("*","equipos","Jornada={$options['Jornada']}");
         if (!is_array($this->manga)) // realmente prueba no es necesaria, pero por consistencia se pone
@@ -165,10 +165,10 @@ class PartialScoresReader extends DogReader {
         foreach ($res['rows'] as $item ) {
             $found=$this->findAndSetResult($item); // overriden to just find entry in results database
             if (is_null($found)) continue; // cannot detect whose results belongs to: ignore and continue
-            if (is_string($found)) throw new Exception("import parse: $found");
+            if (is_string($found)) throw new Exception("import parseResult: $found");
             if (is_bool($found)) {
                 if ($found===true) // item found and match: notify and return
-                    return array('operation'=> 'parse', 'success'=> 'ok', 'search' => $item, 'found' => $found['rows']);
+                    return array('operation'=> 'parse', 'success'=> 'ok', 'search' => $item, 'found' => array());
                 else // item not found: create a default item
                     return array('operation'=> 'parse', 'success'=> 'fail', 'search' => $item, 'found' => array());
             }

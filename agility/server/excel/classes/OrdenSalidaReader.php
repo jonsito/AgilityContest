@@ -151,7 +151,7 @@ class OrdenSalidaReader extends DogReader {
             if (is_string($found)) throw new Exception("import parse: $found");
             if (is_bool($found)) {
                 if ($found===true) // item found and match: notify and return
-                    return array('operation'=> 'parse', 'success'=> 'ok', 'search' => $item, 'found' => $found['rows']);
+                    return array('operation'=> 'parse', 'success'=> 'ok', 'search' => $item, 'found' => array());
                 else // item not found: create a default item
                     return array('operation'=> 'parse', 'success'=> 'fail', 'search' => $item, 'found' => array());
             }
