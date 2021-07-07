@@ -33,7 +33,7 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <!--- comienzo del changelog -->
 <?php } ?>
 
-<?php if ( strcmp($from,"blog_2021-07-06_00:00:00")<0) { ?>
+<?php if ( strcmp($from,"blog_2021-07-07_00:00:00")<0) { ?>
     <strong>2021-Jul-06</strong><br/>
     <p>
         Versión 4.5.0
@@ -61,6 +61,7 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
         <dd>- Corregidos errores de ID's duplicadas en Chrome</dd>
         <dd>- Corregidos errores de asignación de puntos en pruebas RFEC con perros participando en modo "open"</dd>
         <dd>- Eliminación de mensajes de error json en pantalla cuando falla el arranque</dd>
+        <dd>- Correcciones en importación de orden de salida, resultados y sesiones de entrenamiento</dd>
     </dl>
     <dl>
         <dt>Mejoras de funcionamiento:</dt>
