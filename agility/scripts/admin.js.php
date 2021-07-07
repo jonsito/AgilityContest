@@ -452,7 +452,7 @@ function askForUpgrade(msg,name,release){
                     dataType:'json',
                     data: {
                         Operation: 'download',
-                        Version: release,
+                        Version: name+'-'+release,
                         Mode:1,
                         Suffix: suffix
                     },

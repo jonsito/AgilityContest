@@ -677,10 +677,11 @@ class Admin extends DBObject {
 	}
 
 	public function downloadUpgrades($version) {
-	    $this->myLogger->enter();
+	    $this->myLogger->enter($version);
 	    // versions greater than 4.4.1 download updates from github releases
         // instead of "master" tree, to avoid download working copy
         // so remember: must add new tag in github when new release is published
+        // https://github.com/jonsito/AgilityContest/archive/refs/tags/4.5.0-20210707_1745.zip
         $source="https://github.com/jonsito/AgilityContest/archive/refs/tags/${version}.zip";
         //$source='https://codeload.github.com/jonsito/AgilityContest/zip/master';
         $dest=__DIR__."/../../../../logs/AgilityContest-{$version}.zip";

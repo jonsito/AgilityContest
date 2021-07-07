@@ -159,7 +159,7 @@ Class AgilityContestUpdater {
 
         $this->logProgress("Version name: {$this->version_name}");
         $this->logProgress("Version date: {$this->version_date}");
-        $this->temp_file=TEMP_FILE . $this->version_date . ".zip";
+        $this->temp_file=TEMP_FILE . "{$this->version_name}-{$this->version_date}.zip";
         $this->user_files = array (
             "config.ini" => __DIR__."/../config/config.ini",
             // > 3.8.X also need to preserve system.ini for db info. After restore must update version info
