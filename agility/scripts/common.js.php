@@ -499,7 +499,7 @@ function loadConfiguration(callback) {
                 $('#mylogo_release').html(ac_config.version_date);
 
 				// extra configuration data to speedup
-				ac_config.numdecs=(ac_config.crono_milliseconds=="0")?2:3;
+				ac_config.numdecs=(parseInt(ac_config.crono_milliseconds)===0)?2:3;
 				ac_config.dogInRing=false; // to be used in videowall and livestream to show dog info and timings
 
                 // auto-backup related variables

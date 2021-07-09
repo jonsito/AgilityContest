@@ -259,9 +259,9 @@ $.extend($.fn.datagrid.methods, {
 		return win;
 	};
     $.messager.password =function(title,msg,fn){
-        var content="<div class=\"messager-icon messager-warning\"></div>"+
-            "<div>"+msg+"</div>"+"<br />"+"<div style=\"clear:both;\"/>"+
-            "<div><input class=\"messager-input\" type=\"password\"/></div>";
+        var content='<div class="messager-icon messager-warning"></div>'+
+            '<div>'+msg+'</div><br /><div style="clear:both;"/>'+
+            '<div><input class="messager-input" type="password" style="width:50%"/></div>';
         var buttons={};
         buttons[$.messager.defaults.ok]=function(){
             win.window('close');
@@ -273,14 +273,15 @@ $.extend($.fn.datagrid.methods, {
             return false;
         };
         var win=createDialog(title,content,buttons);
+        // seems that onchange is also fired when focus lost, so comment it
         // when enter is pressed in input box, assume "Accept" button
-        $(".messager-input",win).change(
-            function(){
-                win.window('close');
-                if (fn) { fn($(".messager-input",win).val()); }
-                return false;
-            }
-        );
+        // $(".messager-input",win).change(
+        //    function(){
+        //        win.window('close');
+        //        if (fn) { fn($(".messager-input",win).val()); }
+        //        return false;
+        //    }
+        // );
         win.find("input.messager-input").focus();
         return win;
     }

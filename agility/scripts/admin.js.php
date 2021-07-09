@@ -250,19 +250,21 @@ function restoreDatabase(fromClient){
     var l2='<?php _e("This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>. before trying restore<br/>"); ?>';
     var l3='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
     var l4='<?php _e("To continue enter administrator password and press <em>Accept</em>"); ?>';
-    var title='<?php _e('DataBase restore'); ?>';
+    var titl='<?php _e('DataBase restore'); ?>';
     if (fromClient) {
         // use file selected from user
-        if ($('#tools-restoreFile').val()=="") {
+        if ($('#tools-restoreFile').val()==="") {
             $.messager.alert("Restore",'<?php _e("You should specify an <em>.sql</em> file with a previous backup"); ?>',"error");
             return false;
         }
     } else {
-        title='<?php _e('DataBase update'); ?>';
+        titl='<?php _e('DataBase update'); ?>';
     }
-    $.messager.password(title,l1+l2+l3+l4 , function(pass){
-        if (pass){
-            // comprobamos si el password es correcto
+    $.messager.password(
+        titl,
+        l1+l2+l3+l4,
+        function(pass){
+            if (!pass) return false;// comprobamos si el password es correcto
             checkPassword(ac_authInfo.Login,pass,function(data) {
                 if (data.errorMsg) {
                     // error  en comprobación de password
@@ -346,9 +348,10 @@ function restoreDatabase(fromClient){
                     });
 
                     if (fromClient) {
+                        let tupl=$('#tools-uploader');
                         // upload local database file
                         // incicializamos el uploader
-                        $('#tools-uploader').fileUploader( {
+                        tupl.fileUploader( {
                             selector: '#tools-restoreFile', // ID of "file" input field
                             button: null, // ID of submit button
                             progress: setProgressValue, // ID or function to send upload progress info to
@@ -367,7 +370,7 @@ function restoreDatabase(fromClient){
                         });
 
                         // arrancamos el proceso de restore
-                        $('#tools-uploader').fileUploader('upload');
+                        tupl.fileUploader('upload');
                     } else {
                         // download database from master server
                         doRestore();
@@ -377,7 +380,7 @@ function restoreDatabase(fromClient){
                 }
             });
         }
-    }).window('resize',{width:640});
+    ).window('resize',{width:450});
 }
 
 function clearDatabase(){
