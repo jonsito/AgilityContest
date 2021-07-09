@@ -320,6 +320,8 @@ body {
 
 /***** Datos de la cabecera ******/
 #mylogo {
+    color: #ffffff;
+    font-size: 1.1vw;
     position: fixed;
     top: 0;
     right: 10px;
@@ -373,6 +375,10 @@ body {
 
 <!-- LOGO -->
 <div id="mylogo">
+    <p>
+        Version: <span id="mylogo_version">1.0.0</span><br/>
+        Release: <span id="mylogo_release">19900101_1234</span>
+    </p>
 	<p><img id="logo_AgilityContest" src="../images/AgilityContest.png" alt="AgilityContest" width="200" height="160"/></p>
 	<p><img id="logo_Federation" src="../images/logos/null.png" alt="Federation" width="200" height="160"/></p>
 </div>

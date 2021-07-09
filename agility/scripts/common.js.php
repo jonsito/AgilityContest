@@ -494,6 +494,9 @@ function loadConfiguration(callback) {
 		    // check and initialize extra runtime variables
 			if ( typeof (config.program_name) !== "undefined") { // check for successfull server call
 				ac_config=config;
+                // set up version and revision in screen
+                $('#mylogo_version').html(ac_config.version_name);
+                $('#mylogo_release').html(ac_config.version_date);
 
 				// extra configuration data to speedup
 				ac_config.numdecs=(ac_config.crono_milliseconds=="0")?2:3;
