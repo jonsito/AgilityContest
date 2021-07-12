@@ -1,6 +1,7 @@
 Version 4.5.1 20210712_1930
     - Fix: messager.password behavior ( do not fire onchange when focus lost )
     - Fix: updater should handle new naming convention from github
+    - Change: new text for RSCE competitions to clarify modules (¿?)
     - New: show version and release on top right of screen
     - New: ctrl-upgrade to force release upgrade regardless version
 Version 4.5.0 20210707_1745

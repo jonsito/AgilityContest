@@ -21,7 +21,7 @@ class Puntuable_RSCE_2018 extends Competitions {
 
    protected $puntos;
 
-    function __construct($name="Puntuable temporada 2018") {
+    function __construct($name="Punt. temporada 2018 (CE 2019)") {
         parent::__construct($name);
         $this->federationID=0;
         $this->federationDefault=1;

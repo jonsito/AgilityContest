@@ -9,7 +9,7 @@
 require_once(__DIR__ . "/Puntuable_RSCE_2020.php");
 
 class Puntuable_RSCE_2020 extends Puntuable_RSCE_2018 {
-    function __construct($name="Puntuable Temporada 2020") {
+    function __construct($name="Punt. Temporada 2020 (CE 2021)") {
         parent::__construct($name);
         $this->federationID=0;
         $this->competitionID=19;
