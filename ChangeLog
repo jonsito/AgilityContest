@@ -1,3 +1,8 @@
+Version 4.5.1 20210712_1930
+    - Fix: messager.password behavior ( do not fire onchange when focus lost )
+    - Fix: updater should handle new naming convention from github
+    - New: show version and release on top right of screen
+    - New: ctrl-upgrade to force release upgrade regardless version
 Version 4.5.0 20210707_1745
     - Fix: Bugs in OrdenSalida,Results, and Training excel imports
 Version 4.5.0 20210706_1920

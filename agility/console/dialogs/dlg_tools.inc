@@ -34,8 +34,9 @@
 	</p>
 	<p>
 		<span style="display:inline-block;width:350px"><?php _e('Search for updates'); ?></span>
+        <!-- onclick event added later to track ctrl-meta keys -->
 		<a id="tools-upgradeBtn" href="#" class="easyui-linkbutton" style="width:85px"
-		   data-options="iconCls:'icon-reload'" onclick="checkForUpgrades()"><?php _e('Upgrade')?></a>
+           data-options="iconCls:'icon-reload'"><?php _e('Upgrade')?></a>
 	</p>
     <p>
         <span style="display:inline-block;width:350px"><?php _e('Synchronize database with server'); ?></span>
@@ -105,6 +106,8 @@ addTooltip($('#tools-logResetBtn').linkbutton(),'<?php _e("Clear debugging and t
 addTooltip($('#tools-logViewBtn').linkbutton(),'<?php _e("Download debug and trace file"); ?>');
 addTooltip($('#tools-emptyTrashBtn').linkbutton(),'<?php _e("Remove every unneeded files from temporary directory"); ?>');
 
+// bind click button to track ctrl and meta keys
+$('#tools-upgradeBtn').bind('click',function(e){checkForUpgrades(e);});
 // disable some buttons when running in server
 if (checkForServer()) {
     $('#tools-restoreBtn').linkbutton('disable'); // disable restore from app. use mysqldump'ed files to force reindexes

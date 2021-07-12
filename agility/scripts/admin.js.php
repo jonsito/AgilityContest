@@ -723,7 +723,8 @@ function synchronizeDocumentation() {
     setTimeout(getProgress,2000);
 }
 
-function checkForUpgrades() {
+// e: click event. Ctrl-key means force update
+function checkForUpgrades(e) {
     var msg="<p>"+'<?php _e("Current Version"); ?>'+": "+ac_config.version_name+"<br />"+'<?php _e("Current Release"); ?>'+": "+ac_config.version_date+"</p>";
     $.ajax({
         url:"../ajax/adminFunctions.php",
@@ -736,12 +737,14 @@ function checkForUpgrades() {
                 $.messager.alert('<?php _e("Check for Upgrades"); ?>',data.errorMsg,"error");
                 return;
             }
-            if (data.version_date==ac_config.version_date) {
+            if (data.version_date===ac_config.version_date) {
                 msg = msg +'<p style="text-align:center;">'+"<?php _e('AgilityContest is up to date'); ?>"+"</p>";
                 $.messager.alert("Version Info",msg,"info");
             }
             msg = msg +"<p>"+'<?php _e("Last Version"); ?>'+": "+data.version_name+"<br />"+'<?php _e('Last Release');?>'+": "+data.version_date+"</p>";
-            if (data.version_date>ac_config.version_date) askForUpgrade(msg,data.version_name,data.version_date);
+            if (data.version_date>ac_config.version_date) { askForUpgrade(msg,data.version_name,data.version_date); return; }
+            // also, on ctrl/meta key force askforupgrade
+            if (e.ctrlKey || e.metaKey) askForUpgrade(msg,data.version_name,data.version_date);
         }
     });
 }
