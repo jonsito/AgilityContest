@@ -551,7 +551,7 @@ class AuthManager {
 		$serial=$this->getRegistrationInfo()['Serial'];
 		$club=$this->getRegistrationInfo()['Club'];
 		$eclub=base64_encode($club);
-		if (!file_exists(AC_CONFIG_DIR."/registration.info_{$serial}_{$club}")) {
+		if (!file_exists(AC_CONFIG_DIR."/registration.info_{$serial}_{$eclub}")) {
 			$this->myLogger->info("Current license Serial:{$serial} Club:'{$club}' is not indexed. Proceed");
 			@copy(AC_REGINFO_FILE,AC_CONFIG_DIR."/registration.info_{$serial}_{$eclub}");
 		}
@@ -565,15 +565,15 @@ class AuthManager {
 			$n=count($a);
 			if ($n<3) continue; // invalid filename; must be ".../registration.info_serial_base64(club)"
 			if (! is_numeric($a[$n-2])) continue; // invalid filename; must be a numeric value
-			if (intval($a[$n-2]) !== intval($serial)) continue; // not the serial number we are looking for
 			// found. Set as active reset license data, recheck and return new data
 			$serial=$a[$n-2];
-			$club=base64_decode($a[$n-1]);
+			$club=base64_decode($a[$n-1],true);
+			if ($club==false) continue; // invalid encoded club name (not base64 )
 			$this->myLogger->trace("Found license Serial:{$serial} Club:{$club}" );
 			array_push($rows,array("Serial"=>$serial,"Club"=>$club));
 		}
-		// retornamos los datos en formato array("total","rows(serial,club)" ) apto para datagrid
-		return array("total"=>count($rows),"rows"=>$rows);
+		// retornamos los datos en formato array para combobox
+		return $rows;
 	}
 
 	/**

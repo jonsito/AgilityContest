@@ -318,11 +318,76 @@ function read_regFile(input) {
 	}
 }
 
+function activateLicense(serial) {
+    // check for admin privileges
+    if (ac_authInfo.Perms>1) {
+        $.messager.alert('Error',
+            '<?php _e("Please: to activate license");?>'+'<br/>'+
+            '<?php _e("re-init session with a user with admin privileges");?>',
+            'error');
+        return false;
+    }
+    // check for invalid or empty serialnumber selected
+    if(!serial || serial.trim()==="") {
+        $.messager.alert('Error',
+            '<?php _e("Please: to activate license");?>'+'<br/>'+
+            '<?php _e("must select a value from available ones");?>',
+            'error');
+        return false;
+    }
+    // ok, make the call
+    $.ajax({
+        type: 'GET',
+        url: '../ajax/adminFunctions.php',
+        dataType: 'json',
+        data: {
+            Operation: 'activateLicense',
+            Serial: serial
+        },
+        contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+        success: function(data) {
+            if (data.errorMsg){
+                $.messager.show({ width:300, height:150, title: 'Error', msg: data.errorMsg });
+            } else {
+                var dok=$.messager.defaults.ok;
+                var dcancel=$.messager.defaults.cancel;
+                $.messager.defaults.ok="<?php _e('Restart');?>";
+                $.messager.defaults.cancel="<?php _e('Back');?>";
+                $('#registration_data').form('load',data); // update registration info form
+                // reload logo. note the trick to bypass image catching
+                $('#rd_Logo').attr("src","../ajax/images/getLicenseLogo.php?t="+new Date().getTime());
+                $.messager.confirm({
+                    title:"<?php _e('Activate');?>",
+                    msg:'<?php _e("License successfully activated");?>'+'<br/>&nbsp;<br/>'+
+                        '<?php _e("Restart app to make changes to take effect");?>',
+                    top:150,
+                    width:450,
+                    height:'auto',
+                    icon:'info',
+                    fn: function(r) {
+                        // restore text
+                        $.messager.defaults.ok=dok;
+                        $.messager.defaults.cancel=dcancel;
+                        // on request call save
+                        if (r) window.location.reload();
+                    }
+                });
+            }
+        },
+        error: function() {
+            $.messager.show({ width:350, height:150, title: 'Error', msg: "Error in request for license activation" });
+        }
+    });
+}
+
 function send_regFile() {
     // check for registration form properly filled
     var ok=true;
     if (ac_authInfo.Perms>1) {
-        $.messager.alert('Error','<?php _e("Please: to register license<br/>re-init session with a user with admin privileges");?>','error');
+        $.messager.alert('Error',
+            '<?php _e("Please: to register license");?>'+'<br/>'+
+            '<?php _e("re-init session with a user with admin privileges");?>',
+            'error');
         return false;
     }
     if ( ! $('#registration-Email').textbox('isValid') ) ok=false;

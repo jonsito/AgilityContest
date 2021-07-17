@@ -37,7 +37,7 @@ try {
 	$fed=http_request("Federation","i",-1); // default for erase is "All federations"
     $suffix=http_request("Suffix","s","");
     $version=http_request("Version","s","");
-    $serial=http_request("Serial");
+    $serial=http_request("Serial","s","00000000");
     $directory=http_request("Directory","s",""); // where to store user backup or null to use defaults
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
 	if ($operation==="progress") {
@@ -79,7 +79,7 @@ try {
             break;
 		case "listLicenses":
 			$result=$am->listRegisteredLicenses(); break;
-		case "selectLicense":
+		case "activateLicense":
 			$am->access(PERMS_ADMIN); $result=$am->selectRegisteredLicenses($serial); break;
 		case "reginfo": 
 			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg="Cannot retrieve license information"; break;

@@ -45,12 +45,32 @@ $config =Config::getInstance();
 	<form id="registration_data">
 	<table width="100%">
 		<tr>
-			<td><strong><?php _e('Licensing information'); ?>:</strong></td>
-			<td><strong><?php _e('Current License Capabilities'); ?>:</strong><br/></td>
+			<td style="width:50%">
+                <div class="fitem" style="width:100%;display:inline-block">
+                    <label for="avail_lic"><?php _e('Available licenses'); ?>:</label><br/>
+                    <span style="float:left">
+                        <select id="avail_lic" name="avail_lic" class="easyui-combobox"></select>
+                    </span>
+                    <span style="float:right;padding-right:60px;">
+                        <a id="avail_licBtn" href="#" class="easyui-linkbutton"
+                            data-options="iconCls:'icon-setup'"
+                            onclick="activateLicense($('#avail_lic').combobox('getValue'))"><?php _e('Activate'); ?></a>
+                    </span>
+                </div>
+            </td>
+			<td>
+                <strong><?php _e('Current License Capabilities'); ?>:</strong><br/>
+            </td>
 		</tr>
 		<tr>
-		<td><div class="fitem" style="text-align:right;padding-right:50px;">
-                <img id="rd_Logo" alt="logo" src="../ajax/images/getLicenseLogo.php" width="50" height="50"/><br/>
+		<td>
+            <div class="fitem" style="width:100%;display:inline-block">
+                <span style="float:left;vertical-align:middle;">
+                    <br/><br/><strong><?php _e('Current License Info'); ?>:</strong>
+                </span>
+                <span style="float:right;padding-right:60px;">
+                    <img id="rd_Logo" alt="logo" src="../ajax/images/getLicenseLogo.php" width="50" height="50"/>
+                </span>
             </div>
 			<div class="fitem">
 				<label for="rd_User"><?php _e('Name'); ?>:</label>
@@ -121,6 +141,21 @@ $config =Config::getInstance();
 </div>
 
 <script type="text/javascript">
+    $('#avail_lic').combobox({
+        width: 150,
+        panelWidth: 220,
+        panelHeight: '50',
+        valueField: 'Serial',
+        textField: 'Club',
+        url: '../ajax/adminFunctions.php',
+        queryParams: { Operation: 'listLicenses' },
+        method: 'get',
+        multiple: false,
+        fitColumns: true,
+        singleSelect: true,
+        editable: false,
+        onLoadSuccess: function() { $('#avail_lic').combobox('setValue',ac_regInfo.Serial); }
+    });
     $('#rd_User').textbox();
     $('#rd_Email').textbox();
     $('#rd_Club').textbox();
@@ -173,6 +208,7 @@ $config =Config::getInstance();
     });
 
     // addTooltip(fb.next().find('.textbox-button'),'<?php _e("Select license file to import"); ?>');
+    addTooltip($('#avail_licBtn').linkbutton(),'<?php _e("Mark select license as active"); ?>');
     addTooltip($('#registration-okButton').linkbutton(),'<?php _e("Import license file into application"); ?>');
 	addTooltip($('#registration-cancelButton').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 </script>

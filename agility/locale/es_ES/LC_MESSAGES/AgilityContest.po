@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2021-07-04 13:01+0200\n"
-"PO-Revision-Date: 2021-07-04 13:01+0200\n"
+"POT-Creation-Date: 2021-07-17 17:43+0200\n"
+"PO-Revision-Date: 2021-07-17 17:45+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -332,7 +332,7 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/import_results.inc.php:92 console/frm_equipos.php:131
 #: console/frm_equipos.php:260 console/frm_guias.php:99
 #: console/frm_inscripciones.php:80 console/frm_inscripciones2.php:279
-#: console/frm_ligas.php:42 console/frm_registration.php:64
+#: console/frm_ligas.php:42 console/frm_registration.php:84
 #: console/templates/entrenamientos.inc.php:17
 #: console/templates/final_games.inc.php:29
 #: console/templates/final_individual.inc.php:23
@@ -495,15 +495,15 @@ msgstr "Eliminado"
 #: console/frm_clasificaciones2.php:211
 #: console/frm_clasificaciones_equipos.php:211 qrcode/index.php:372
 #: qrcode/index.php:373 scripts/admin.js.php:47 scripts/admin.js.php:66
-#: scripts/admin.js.php:91 scripts/admin.js.php:469 scripts/admin.js.php:525
-#: scripts/admin.js.php:577 scripts/admin.js.php:594 scripts/admin.js.php:595
-#: scripts/admin.js.php:663 scripts/admin.js.php:680 scripts/admin.js.php:681
-#: scripts/auth.js.php:116 scripts/auth.js.php:127 scripts/auth.js.php:209
-#: scripts/auth.js.php:210 scripts/common.js.php:517 scripts/common.js.php:542
-#: scripts/common.js.php:589 scripts/common.js.php:849
-#: scripts/common.js.php:860 scripts/common.js.php:867
-#: scripts/common.js.php:877 scripts/common.js.php:889
-#: scripts/common.js.php:899 scripts/common.js.php:910
+#: scripts/admin.js.php:91 scripts/admin.js.php:472 scripts/admin.js.php:528
+#: scripts/admin.js.php:580 scripts/admin.js.php:597 scripts/admin.js.php:598
+#: scripts/admin.js.php:666 scripts/admin.js.php:683 scripts/admin.js.php:684
+#: scripts/auth.js.php:116 scripts/auth.js.php:127 scripts/auth.js.php:210
+#: scripts/auth.js.php:211 scripts/common.js.php:520 scripts/common.js.php:545
+#: scripts/common.js.php:592 scripts/common.js.php:852
+#: scripts/common.js.php:863 scripts/common.js.php:870
+#: scripts/common.js.php:880 scripts/common.js.php:892
+#: scripts/common.js.php:902 scripts/common.js.php:913
 #: scripts/competicion.js.php:677 scripts/competicion.js.php:705
 #: scripts/competicion.js.php:1039 scripts/competicion.js.php:1046
 #: scripts/competicion.js.php:1058 scripts/competicion.js.php:1161
@@ -544,7 +544,7 @@ msgstr "Error"
 
 #: chrono/chrono.inc.php:102 console/dialogs/dlg_competicion.inc:46
 #: console/dialogs/dlg_competicion_games.inc:244
-#: console/dialogs/dlg_entrenamientos.inc:104 console/dialogs/dlg_tools.inc:54
+#: console/dialogs/dlg_entrenamientos.inc:104 console/dialogs/dlg_tools.inc:55
 msgid "Reset"
 msgstr "Reset"
 
@@ -671,7 +671,7 @@ msgstr "Dors"
 #: console/dialogs/dlg_selectJornada.inc:84
 #: console/dialogs/dlg_selectJornada.inc:125
 #: console/dialogs/dlg_sesiones.inc:28 console/dialogs/dlg_sesiones.inc:159
-#: console/dialogs/dlg_tools.inc:85 console/dialogs/dlg_usuarios.inc:55
+#: console/dialogs/dlg_tools.inc:86 console/dialogs/dlg_usuarios.inc:55
 #: console/dialogs/import_handlers.inc.php:89
 #: console/frm_clasificaciones2.php:185 console/frm_clasificaciones2.php:245
 #: console/frm_clasificaciones_equipos.php:174 console/frm_clubes.php:99
@@ -683,7 +683,7 @@ msgstr "Dors"
 #: console/frm_jueces.php:87 console/frm_ligas.php:37 console/frm_login.php:152
 #: console/frm_paises.php:82 console/frm_paises.php:140
 #: console/frm_paises.php:225 console/frm_perros.php:106
-#: console/frm_pruebas.php:160 console/frm_registration.php:56
+#: console/frm_pruebas.php:160 console/frm_registration.php:76
 #: console/templates/final_games.inc.php:22
 #: console/templates/final_individual.inc.php:19
 #: console/templates/final_last_individual.inc.php:28
@@ -1059,7 +1059,7 @@ msgstr "Limpiar formulario"
 #: console/dialogs/dlg_usuarios.inc:146 console/frm_clasificaciones2.php:274
 #: console/frm_clasificaciones_equipos.php:221
 #: console/frm_inscripciones2.php:331 console/frm_myAdmin.php:101
-#: console/frm_registration.php:177 console/templates/import_dialog.inc.php:100
+#: console/frm_registration.php:213 console/templates/import_dialog.inc.php:100
 #: console/templates/scores_mail.inc.php:98
 msgid "Cancel operation. Close window"
 msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
@@ -1153,7 +1153,7 @@ msgstr "Reasignar el perro seleccionado al gu&iacute;a"
 #: console/dialogs/dlg_resultados_ko.inc:54 console/frm_clubes.php:231
 #: console/frm_clubes.php:311 console/frm_guias.php:201
 #: console/frm_paises.php:190 console/frm_paises.php:269
-#: console/frm_pruebas.php:219 scripts/auth.js.php:148
+#: console/frm_pruebas.php:219 scripts/auth.js.php:149
 msgid "Update"
 msgstr "Actualizar"
 
@@ -1652,7 +1652,7 @@ msgstr "Alerta de proximidad en el orden de salida"
 #: console/dialogs/dlg_entrenamientos.inc:205
 #: console/dialogs/dlg_entrenamientos.inc:211
 #: console/dialogs/dlg_entrenamientos.inc:217
-#: console/dialogs/dlg_entrenamientos.inc:223 console/index.php:423
+#: console/dialogs/dlg_entrenamientos.inc:223 console/index.php:429
 #: public/pb_programa.php:101 public/pbmenu_programa.php:105
 #: server/excel/classes/DogsWriter.php:69
 #: server/pdf/classes/PrintEstadisticas.php:104
@@ -2211,7 +2211,7 @@ msgstr "Color de la fila del dorsal seleccionado"
 
 #: console/dialogs/dlg_configuracion.inc:444 console/dialogs/infomanga.php:561
 #: console/dialogs/infomanga.php:591 console/frm_guias.php:101
-#: console/frm_registration.php:60
+#: console/frm_registration.php:80
 msgid "E-mail"
 msgstr "Correo Electr&oacute;nico"
 
@@ -2245,7 +2245,7 @@ msgstr "M&eacute;todo de cifrado"
 #: console/dialogs/dlg_remotecontrol.inc:44
 #: console/dialogs/dlg_remotecontrol.inc:86
 #: console/dialogs/dlg_remotecontrol.inc:183
-#: console/dialogs/dlg_remotecontrol.inc:246 server/auth/AuthManager.php:239
+#: console/dialogs/dlg_remotecontrol.inc:246 server/auth/AuthManager.php:240
 msgid "None"
 msgstr "Ninguno"
 
@@ -2264,7 +2264,7 @@ msgstr "M&eacute;todo de autenticaci&oacute;n"
 #: console/dialogs/dlg_configuracion.inc:469
 #: console/dialogs/dlg_sesiones.inc:35 console/dialogs/dlg_sesiones.inc:162
 #: console/frm_logout.php:31 console/index.php:226 qrcode/index.php:196
-#: qrcode/index.php:358 scripts/auth.js.php:152 scripts/auth.js.php:239
+#: qrcode/index.php:358 scripts/auth.js.php:153 scripts/auth.js.php:240
 #: tablet/index.php:159 tablet/index.php:404
 msgid "User"
 msgstr "Usuario"
@@ -2880,7 +2880,7 @@ msgstr "Datos del equipo"
 msgid "Categories"
 msgstr "Categor&iacute;as"
 
-#: console/dialogs/dlg_equipos.inc:66 console/frm_registration.php:117
+#: console/dialogs/dlg_equipos.inc:66 console/frm_registration.php:137
 msgid "Close"
 msgstr "Cerrar"
 
@@ -3036,9 +3036,9 @@ msgstr "Registrar informaci&oacute;n del juez en la base de datos"
 #: console/frm_guias.php:45 console/frm_inscripciones2.php:96
 #: console/frm_jueces.php:42 console/frm_paises.php:35
 #: console/frm_perros.php:48 console/frm_pruebas.php:42
-#: scripts/clubes.js.php:125 scripts/common.js.php:1250
-#: scripts/common.js.php:1251 scripts/common.js.php:1272
-#: scripts/common.js.php:1284 scripts/equipos.js.php:29
+#: scripts/clubes.js.php:125 scripts/common.js.php:1253
+#: scripts/common.js.php:1254 scripts/common.js.php:1275
+#: scripts/common.js.php:1287 scripts/equipos.js.php:29
 #: scripts/equipos.js.php:99 scripts/equipos.js.php:206 scripts/guias.js.php:98
 #: scripts/guias.js.php:112 scripts/inscripciones.js.php:622
 #: scripts/jueces.js.php:46 scripts/perros.js.php:29 scripts/perros.js.php:42
@@ -3076,7 +3076,7 @@ msgstr "Inscribir"
 
 #: console/dialogs/dlg_newInscripcion.inc:105
 #: console/dialogs/dlg_remotecontrol.inc:318 console/frm_equipos.php:58
-#: scripts/admin.js.php:587 scripts/admin.js.php:673 scripts/auth.js.php:75
+#: scripts/admin.js.php:590 scripts/admin.js.php:676 scripts/auth.js.php:75
 #: scripts/results_and_scores.js.php:164 scripts/webhost.js.php:121
 msgid "Done."
 msgstr "Hecho."
@@ -3419,8 +3419,8 @@ msgstr "Editar gu&iacute;a"
 
 #: console/dialogs/dlg_perros.inc:102 console/frm_competicion2.php:167
 #: console/frm_inscripciones2.php:209 console/frm_myAdmin.php:31
-#: console/index.php:233 scripts/admin.js.php:249 scripts/admin.js.php:554
-#: scripts/admin.js.php:639 scripts/auth.js.php:154
+#: console/index.php:233 scripts/admin.js.php:249 scripts/admin.js.php:557
+#: scripts/admin.js.php:642 scripts/auth.js.php:155
 #: scripts/competicion.js.php:154 scripts/inscripciones.js.php:139
 #: scripts/inscripciones.js.php:243 scripts/pruebas.js.php:191
 #: scripts/pruebas.js.php:476 server/pdf/classes/PrintOrdenTandas.php:78
@@ -3460,8 +3460,8 @@ msgstr "Nombre del gu&iacute;a"
 msgid "New plugin"
 msgstr "Nuevo m&oacute;dulo"
 
-#: console/dialogs/dlg_plugins.inc:11 console/dialogs/dlg_tools.inc:38
-#: scripts/admin.js.php:464
+#: console/dialogs/dlg_plugins.inc:11 console/dialogs/dlg_tools.inc:39
+#: scripts/admin.js.php:467
 msgid "Upgrade"
 msgstr "Actualizar"
 
@@ -3485,7 +3485,7 @@ msgid "Email"
 msgstr "Correo Electr&oacute;nico"
 
 #: console/dialogs/dlg_plugins.inc:55 console/dialogs/dlg_pruebas.inc:360
-#: console/dialogs/dlg_tools.inc:83 console/frm_login.php:150
+#: console/dialogs/dlg_tools.inc:84 console/frm_login.php:150
 msgid "ID"
 msgstr "ID"
 
@@ -3638,7 +3638,7 @@ msgstr "Forzar re-envio si ya se ha enviado el correo"
 #: console/dialogs/import_handlers.inc.php:57
 #: console/dialogs/import_ordensalida.inc.php:53
 #: console/dialogs/import_perros.inc.php:56
-#: console/dialogs/import_results.inc.php:53 console/frm_registration.php:148
+#: console/dialogs/import_results.inc.php:53 console/frm_registration.php:183
 #: console/templates/resultados-toolbar.inc.php:47 index.php:280
 msgid "Select"
 msgstr "Seleccionar"
@@ -4303,73 +4303,73 @@ msgstr "Borrar pruebas almacenadas"
 msgid "Search for updates"
 msgstr "Buscar actualizaciones"
 
-#: console/dialogs/dlg_tools.inc:41
+#: console/dialogs/dlg_tools.inc:42
 msgid "Synchronize database with server"
 msgstr "Sincronizar base de datos con el servidor"
 
-#: console/dialogs/dlg_tools.inc:43
+#: console/dialogs/dlg_tools.inc:44
 msgid "Sync"
 msgstr "Sync"
 
-#: console/dialogs/dlg_tools.inc:47
+#: console/dialogs/dlg_tools.inc:48
 msgid "Download/Update on-line documentation"
 msgstr "Descargar/Actualizar documentaci&oacute;n en l&iacute;nea"
 
-#: console/dialogs/dlg_tools.inc:49
+#: console/dialogs/dlg_tools.inc:50
 msgid "SyncDoc"
 msgstr "SyncDoc"
 
-#: console/dialogs/dlg_tools.inc:52
+#: console/dialogs/dlg_tools.inc:53
 msgid "Debug and log trace file"
 msgstr "Fichero de depuraci&oacute;n y registro (log) de ejecuci&oacute;n"
 
-#: console/dialogs/dlg_tools.inc:56
+#: console/dialogs/dlg_tools.inc:57
 msgid "View"
 msgstr "Vista"
 
-#: console/dialogs/dlg_tools.inc:59
+#: console/dialogs/dlg_tools.inc:60
 msgid "Clear temporary directory"
 msgstr "Limpiar carpeta de ficheros temporales"
 
-#: console/dialogs/dlg_tools.inc:61
+#: console/dialogs/dlg_tools.inc:62
 msgid "Trash"
 msgstr "Papelera"
 
-#: console/dialogs/dlg_tools.inc:91
+#: console/dialogs/dlg_tools.inc:92
 msgid "All federations"
 msgstr "Todas las federaciones"
 
-#: console/dialogs/dlg_tools.inc:97
+#: console/dialogs/dlg_tools.inc:98
 msgid "Create and download a database backup copy"
 msgstr "Generar y descargar una copia de seguridad de la base de datos"
 
-#: console/dialogs/dlg_tools.inc:98
+#: console/dialogs/dlg_tools.inc:99
 msgid "Restore database contents from previous backup"
 msgstr "Restaurar la base de datos desde un backup previo"
 
-#: console/dialogs/dlg_tools.inc:99
+#: console/dialogs/dlg_tools.inc:100
 msgid "Download and install latest database update from internet"
 msgstr ""
 "Descargar e instalar la &uacute;ltima actualizaci&oacute;n de la BBDD desde "
 "internet"
 
-#: console/dialogs/dlg_tools.inc:100
+#: console/dialogs/dlg_tools.inc:101
 msgid "Clear EVERY database content for selected federation"
 msgstr "Borrar TODOS los datos de la BBDD de la federaci&oacute;n seleccionada"
 
-#: console/dialogs/dlg_tools.inc:101
+#: console/dialogs/dlg_tools.inc:102
 msgid "Clear all contests from database"
 msgstr "Borrar todas las pruebas de la base de datos"
 
-#: console/dialogs/dlg_tools.inc:101
+#: console/dialogs/dlg_tools.inc:102
 msgid "leaving only dogs/handlers/judges/clubs information"
 msgstr "dejando solo datos sobre perros, gu&iacute;as, clubes y jueces"
 
-#: console/dialogs/dlg_tools.inc:102
+#: console/dialogs/dlg_tools.inc:103
 msgid "Search and install AgilityContest updates"
 msgstr "Buscar e instalar actualizaciones de AgilityContest"
 
-#: console/dialogs/dlg_tools.inc:103
+#: console/dialogs/dlg_tools.inc:104
 msgid ""
 "Synchronize current database content with<br/>stored data from "
 "AgilityContest server"
@@ -4377,15 +4377,15 @@ msgstr ""
 "Sincronizar el contenido de la base de datos local<br/>con los datos "
 "almacenados en el servidor AgilityContest"
 
-#: console/dialogs/dlg_tools.inc:104
+#: console/dialogs/dlg_tools.inc:105
 msgid "Clear debugging and trace file"
 msgstr "Borrar fichero de errores y registro (log) de ejecuci&oacute;n"
 
-#: console/dialogs/dlg_tools.inc:105
+#: console/dialogs/dlg_tools.inc:106
 msgid "Download debug and trace file"
 msgstr "Descargar fichero de errores y trazas de ejecuci&oacute;n"
 
-#: console/dialogs/dlg_tools.inc:106
+#: console/dialogs/dlg_tools.inc:107
 msgid "Remove every unneeded files from temporary directory"
 msgstr ""
 "Borrar todos los ficheros que ya no son necesarios de la carpeta temporal"
@@ -4415,22 +4415,22 @@ msgstr "Informaci&oacute;n del usuario"
 msgid "Information"
 msgstr "Informaci&oacute;n"
 
-#: console/dialogs/dlg_usuarios.inc:81 server/auth/AuthManager.php:239
+#: console/dialogs/dlg_usuarios.inc:81 server/auth/AuthManager.php:240
 msgid "Admin"
 msgstr "Administrador"
 
 #: console/dialogs/dlg_usuarios.inc:82 scripts/usuarios.js.php:31
-#: server/auth/AuthManager.php:239
+#: server/auth/AuthManager.php:240
 msgid "Operator"
 msgstr "Operador"
 
 #: console/dialogs/dlg_usuarios.inc:83 scripts/usuarios.js.php:32
-#: server/auth/AuthManager.php:239
+#: server/auth/AuthManager.php:240
 msgid "Assistant"
 msgstr "Asistente"
 
 #: console/dialogs/dlg_usuarios.inc:84 console/frm_login.php:82
-#: scripts/usuarios.js.php:34 server/auth/AuthManager.php:239
+#: scripts/usuarios.js.php:34 server/auth/AuthManager.php:240
 msgid "Guest"
 msgstr "Invitado"
 
@@ -4775,7 +4775,7 @@ msgid "Inscriptions"
 msgstr "Inscripciones"
 
 #: console/dialogs/infomanga.php:447 console/frm_clasificaciones.php:51
-#: console/index.php:466 server/excel/classes/ClasificacionesWriter.php:241
+#: console/index.php:472 server/excel/classes/ClasificacionesWriter.php:241
 #: server/pdf/classes/PrintClasificacion.php:229
 #: server/pdf/classes/PrintClasificacionExcel.php:154
 msgid "Scores"
@@ -4905,7 +4905,7 @@ msgstr "Alturas"
 msgid "Round"
 msgstr "Manga"
 
-#: console/dialogs/inforesultados.inc:36 console/index.php:431
+#: console/dialogs/inforesultados.inc:36 console/index.php:437
 #: server/excel/classes/PartialScoresWriter.php:85
 msgid "Judges"
 msgstr "Jueces"
@@ -5028,7 +5028,7 @@ msgstr "Esta nota de CopyRight debe ser inclu&iacute;da en toda copia"
 msgid "Registered in"
 msgstr "Inscrito en"
 
-#: console/frm_about.php:71 console/index.php:510
+#: console/frm_about.php:71 console/index.php:516
 msgid "About AgilityContest"
 msgstr "Acerca de AgilityContest"
 
@@ -5964,7 +5964,7 @@ msgstr ""
 msgid "Admin user"
 msgstr "Usuario administrador"
 
-#: console/frm_myAdmin.php:84 console/index.php:486
+#: console/frm_myAdmin.php:84 console/index.php:492
 msgid "Direct DB Access"
 msgstr "Acceso directo a BBDD"
 
@@ -6184,91 +6184,107 @@ msgstr "Licencia General P&uacute;blica de GNU versi&oacute;n 2"
 msgid "Registered at"
 msgstr "Inscrito en el"
 
-#: console/frm_registration.php:48 console/frm_registration.php:158
-msgid "Licensing information"
-msgstr "Informaci&oacute;n de registro"
+#: console/frm_registration.php:50
+msgid "Available licenses"
+msgstr "Licencias disponibles"
 
-#: console/frm_registration.php:49
+#: console/frm_registration.php:57 scripts/auth.js.php:360
+msgid "Activate"
+msgstr "Activar"
+
+#: console/frm_registration.php:62
 msgid "Current License Capabilities"
 msgstr "Permisos de la licencia actual"
 
-#: console/frm_registration.php:68
+#: console/frm_registration.php:69
+msgid "Current License Info"
+msgstr "Informaci&oacute;n de la licencia activa"
+
+#: console/frm_registration.php:88
 msgid "Serial num"
 msgstr "Num. serie"
 
-#: console/frm_registration.php:72
+#: console/frm_registration.php:92
 msgid "Expiration date"
 msgstr "Fecha de expiraci&oacute;n"
 
-#: console/frm_registration.php:76
+#: console/frm_registration.php:96
 msgid "Status"
 msgstr "Estado"
 
-#: console/frm_registration.php:81
+#: console/frm_registration.php:101
 msgid "Import from Excel files"
 msgstr "Importar desde ficheros Excel"
 
-#: console/frm_registration.php:82
+#: console/frm_registration.php:102
 msgid "Team contests"
 msgstr "Pruebas por Equipos"
 
-#: console/frm_registration.php:83
+#: console/frm_registration.php:103
 msgid "KO and Games rounds"
 msgstr "Rondas K.O. y Juegos"
 
-#: console/frm_registration.php:84
+#: console/frm_registration.php:104
 msgid "Series with more than 2 rounds"
 msgstr "Series multiples (m&aacute;s de 2 rondas)"
 
-#: console/frm_registration.php:85
+#: console/frm_registration.php:105
 msgid "VideoWall and ScoreBoard"
 msgstr "Paneles informativos - Marcador"
 
-#: console/frm_registration.php:86
+#: console/frm_registration.php:106
 msgid "Internet/Wifi public Access"
 msgstr "Acceso p&uacute;blico por Internet/WiFi"
 
-#: console/frm_registration.php:87
+#: console/frm_registration.php:107
 msgid "Chronometer connection"
 msgstr "Conexi&oacute;n con cron&oacute;metro"
 
-#: console/frm_registration.php:88
+#: console/frm_registration.php:108
 msgid "Unlimited inscriptions in a contest"
 msgstr "Pruebas sin l&iacute;mite de inscripciones"
 
-#: console/frm_registration.php:89
+#: console/frm_registration.php:109
 msgid "LiveStream OnScreenDisplay signal"
 msgstr "Se&ntilde;al OnScreenDisplay para Streaming"
 
-#: console/frm_registration.php:90
+#: console/frm_registration.php:110
 msgid "Trainning sessions handling"
 msgstr "Gesti&oacute;n de sesiones de entrenamiento"
 
-#: console/frm_registration.php:91
+#: console/frm_registration.php:111
 msgid "Federation leagues scoring"
 msgstr "Gesti&oacute;n de ligas federativas"
 
-#: console/frm_registration.php:92
+#: console/frm_registration.php:112
 msgid "Standalone run of serial chronometer app"
 msgstr "Ejecución autónoma para App de cronometro serie"
 
-#: console/frm_registration.php:101
+#: console/frm_registration.php:121
 msgid "Register new license"
 msgstr "Registrar nueva licencia"
 
-#: console/frm_registration.php:104
+#: console/frm_registration.php:124
 msgid "Register"
 msgstr "Registrar"
 
-#: console/frm_registration.php:109
+#: console/frm_registration.php:129
 msgid "Registration data"
 msgstr "Datos de registro"
 
-#: console/frm_registration.php:175
+#: console/frm_registration.php:193
+msgid "Licensing information"
+msgstr "Informaci&oacute;n de registro"
+
+#: console/frm_registration.php:210
 msgid "Select license file to import"
 msgstr "Selecciona fichero de licencia a importar"
 
-#: console/frm_registration.php:176
+#: console/frm_registration.php:211
+msgid "Mark select license as active"
+msgstr "Activar la licencia seleccionada"
+
+#: console/frm_registration.php:212
 msgid "Import license file into application"
 msgstr "Importar fichero de licencia en la aplicaci&oacute;n"
 
@@ -6292,108 +6308,108 @@ msgstr "Consola"
 msgid "Please, confirm that you want to reinstall database from scratch"
 msgstr "Por favor, confirme que quiere reinstalar la base de datos desde cero"
 
-#: console/index.php:383
+#: console/index.php:389
 msgid "Operations Menu"
 msgstr "Men&uacute; de operaciones"
 
-#: console/index.php:398
+#: console/index.php:404
 msgid "Init Session"
 msgstr "Iniciar Sesi&oacute;n"
 
-#: console/index.php:402
+#: console/index.php:408
 msgid "DATABASE"
 msgstr "BASE DE DATOS"
 
-#: console/index.php:406 scripts/common.js.php:952
+#: console/index.php:412 scripts/common.js.php:955
 #: server/excel/classes/ClubesWriter.php:77
 msgid "Clubs"
 msgstr "Clubes"
 
-#: console/index.php:412
+#: console/index.php:418
 msgid "Handlers Database Management"
 msgstr "Gesti&oacute;n de datos de Gu&iacute;as"
 
-#: console/index.php:414
+#: console/index.php:420
 msgid "Handlers"
 msgstr "Gu&iacute;as"
 
-#: console/index.php:420
+#: console/index.php:426
 msgid "Dogs Database Management"
 msgstr "Gesti&oacute;n de datos de Perros"
 
-#: console/index.php:429
+#: console/index.php:435
 msgid "Judges Database Management"
 msgstr "Gesti&oacute;n de datos de Jueces"
 
-#: console/index.php:436
+#: console/index.php:442
 msgid "CONTESTS"
 msgstr "PRUEBAS"
 
-#: console/index.php:441
+#: console/index.php:447
 msgid "Create and Edit Contests"
 msgstr "Creaci&oacute;n y Edici&oacute;n de Pruebas"
 
-#: console/index.php:443
+#: console/index.php:449
 msgid "Create Contests"
 msgstr "Creaci&oacute;n de pruebas"
 
-#: console/index.php:448
+#: console/index.php:454
 msgid "Inscriptions - Contest selection"
 msgstr "Inscripciones registradas en el equipo"
 
-#: console/index.php:450
+#: console/index.php:456
 msgid "Handle Inscriptions"
 msgstr "Gesti&oacute;n de Inscripciones"
 
-#: console/index.php:455
+#: console/index.php:461
 msgid "Competition - Contest and Journey selection"
 msgstr "Competici&oacute;n - Selecci&oacute;n de Prueba y Jornada"
 
-#: console/index.php:456
+#: console/index.php:462
 msgid "Running Contests"
 msgstr "Desarrollo de la prueba"
 
-#: console/index.php:461
+#: console/index.php:467
 msgid "REPORTS"
 msgstr "CLASIFICACIONES"
 
-#: console/index.php:465
+#: console/index.php:471
 msgid "Scores - Contest and Journey selection"
 msgstr "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
 
-#: console/index.php:471
+#: console/index.php:477
 msgid "League Results for selected federation"
 msgstr "Resultados de liga para la federaci&oacute;n activa"
 
-#: console/index.php:472 server/pdf/classes/PrintLigas.php:66
+#: console/index.php:478 server/pdf/classes/PrintLigas.php:66
 msgid "League Results"
 msgstr "Resultados de Liga"
 
-#: console/index.php:477
+#: console/index.php:483
 msgid "TOOLS"
 msgstr "HERRAMIENTAS"
 
-#: console/index.php:481 console/index.php:483
+#: console/index.php:487 console/index.php:489
 msgid "Configuration"
 msgstr "Administraci&oacute;n"
 
-#: console/index.php:489
+#: console/index.php:495
 msgid "DOCUMENTATION"
 msgstr "DOCUMENTACION"
 
-#: console/index.php:491
+#: console/index.php:497
 msgid "OnLine Manual"
 msgstr "Manual en L&iacute;nea"
 
-#: console/index.php:494 console/index.php:495
+#: console/index.php:500 console/index.php:501
 msgid "License information"
 msgstr "Informaci&oacute;n de registro"
 
-#: console/index.php:499
+#: console/index.php:505
 msgid "External Links"
 msgstr "Enlaces externos"
 
-#: console/index.php:511
+#: console/index.php:517
 msgid "About"
 msgstr "Acerca de"
 
@@ -7338,11 +7354,11 @@ msgstr ""
 "Esta operaci&oacute;n <strong>BORRARA <em>TODOS</em> LOS DATOS </"
 "strong>antes de restaurar <br/>"
 
-#: scripts/admin.js.php:251 scripts/admin.js.php:388 scripts/admin.js.php:432
+#: scripts/admin.js.php:251 scripts/admin.js.php:391 scripts/admin.js.php:435
 msgid "Be aware of making a backup copy before continue<br/><br/>"
 msgstr "Asegurese de hacer una copia de seguridad antes de seguir<br/><br/>"
 
-#: scripts/admin.js.php:252 scripts/admin.js.php:389 scripts/admin.js.php:409
+#: scripts/admin.js.php:252 scripts/admin.js.php:392 scripts/admin.js.php:412
 msgid "To continue enter administrator password and press <em>Accept</em>"
 msgstr ""
 "Para proceder, introduzca la contrase&ntilde;a del usuario administrador y "
@@ -7360,29 +7376,29 @@ msgstr "Debe especificar un fichero <em>.sql</em> con un backup anterior"
 msgid "DataBase update"
 msgstr "Actualizar Base de Datos"
 
-#: scripts/admin.js.php:288
+#: scripts/admin.js.php:290
 msgid "Database Restore Error"
 msgstr "Error en recuperacion de base de datos"
 
-#: scripts/admin.js.php:291
+#: scripts/admin.js.php:293
 msgid "Restore Database"
 msgstr "Restaurar base de datos"
 
-#: scripts/admin.js.php:292
+#: scripts/admin.js.php:294
 msgid "Database restore success<br />Press Accept to re-init application"
 msgstr ""
 "Recuperaci&oacute;n de base de datos completa<br /> pulse Aceptar para "
 "reiniciar aplicaci&oacute;n"
 
-#: scripts/admin.js.php:344
+#: scripts/admin.js.php:346
 msgid "Restoreing database"
 msgstr "Recuperando base de datos"
 
-#: scripts/admin.js.php:384 scripts/admin.js.php:406 scripts/admin.js.php:425
+#: scripts/admin.js.php:387 scripts/admin.js.php:409 scripts/admin.js.php:428
 msgid "<strong>Notice:</strong><br/>"
 msgstr "<strong>Aviso:</strong><br/>"
 
-#: scripts/admin.js.php:385
+#: scripts/admin.js.php:388
 msgid ""
 "This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA on selected "
 "federation</strong>.<br/>"
@@ -7390,14 +7406,14 @@ msgstr ""
 "Esta operaci&oacute;n<strong>BORRAR&Aacute; <em>TODOS</em> LOS DATOS de la "
 "federaci&oacute;n seleccionada</strong>.<br/>"
 
-#: scripts/admin.js.php:386
+#: scripts/admin.js.php:389
 msgid ""
 "Including contests, inscriptions, scores, judges, dogs and handlers<br/>"
 msgstr ""
 "Incluyendo pruebas, inscripciones, puntuaciones, jueces, perros y gu&iacute;"
 "as<br/>"
 
-#: scripts/admin.js.php:387
+#: scripts/admin.js.php:390
 msgid ""
 "This is intended to be used ONLY as a previous step from importing new data "
 "from Excel file<br/> "
@@ -7405,50 +7421,50 @@ msgstr ""
 "SOLO debe ser usada como paso previo a una importaci&oacute;n de datos desde "
 "un fichero Excel<br/> "
 
-#: scripts/admin.js.php:391 scripts/admin.js.php:398
+#: scripts/admin.js.php:394 scripts/admin.js.php:401
 msgid "Reset Federation"
 msgstr "Limpiar federaci&oacute;n"
 
-#: scripts/admin.js.php:396
+#: scripts/admin.js.php:399
 msgid "Database Reset Federation Error"
 msgstr "BBDD error en borrado de datos de federaci&oacute;n"
 
-#: scripts/admin.js.php:398
+#: scripts/admin.js.php:401
 msgid "Data base cleared<br />Please reinit application"
 msgstr ""
 "Base de datos vac&iacute;a<br />Por favor, reinicie la aplicaci&oacute;n"
 
-#: scripts/admin.js.php:407
+#: scripts/admin.js.php:410
 msgid "This operation WILL ERASE every contests,"
 msgstr "Esta operaci&oacute;n BORRARA todas las pruebas,"
 
-#: scripts/admin.js.php:408
+#: scripts/admin.js.php:411
 msgid "inscriptions and scores from data base<br/><br/>"
 msgstr "inscripciones y resultados de la base de datos<br/><br/>"
 
-#: scripts/admin.js.php:411 scripts/admin.js.php:417
+#: scripts/admin.js.php:414 scripts/admin.js.php:420
 msgid "Erase contests"
 msgstr "Borrar pruebas"
 
-#: scripts/admin.js.php:415
+#: scripts/admin.js.php:418
 msgid "Contests clear Error"
 msgstr "Error en borrado de pruebas"
 
-#: scripts/admin.js.php:417
+#: scripts/admin.js.php:420
 msgid "Every contests have been erased<br />Please, reinit application"
 msgstr ""
 "Todas las pruebas han sido borradas<br />Por favor, reinicie la "
 "aplicaci&oacute;n"
 
-#: scripts/admin.js.php:427 scripts/admin.js.php:436
+#: scripts/admin.js.php:430 scripts/admin.js.php:439
 msgid "Update AgilityContest"
 msgstr "Actualizar AgilityContest"
 
-#: scripts/admin.js.php:428
+#: scripts/admin.js.php:431
 msgid "Auto-Update is not allowed for unregistered installs"
 msgstr "No se permite actualizar una versi&oacute;n sin licencia registrada"
 
-#: scripts/admin.js.php:433
+#: scripts/admin.js.php:436
 msgid ""
 "To proceed with AgilityContest update, enter administrator password and "
 "press <em>Accept</em>"
@@ -7456,106 +7472,106 @@ msgstr ""
 "Para proceder con la actualizaci&oacute;n, introduzca la contrase&ntilde;a "
 "del usuario administrador y pulse <em>Aceptar</em>"
 
-#: scripts/admin.js.php:445
+#: scripts/admin.js.php:448
 msgid "Downloading"
 msgstr "Descargando"
 
-#: scripts/admin.js.php:446
+#: scripts/admin.js.php:449
 msgid "Downloading new version into server"
 msgstr "Descargando actualizaci&oacute;n en el servidor"
 
-#: scripts/admin.js.php:461
+#: scripts/admin.js.php:464
 msgid "Download update failed"
 msgstr "Descarga de actualizaci&oacute;n fallida"
 
-#: scripts/admin.js.php:464
+#: scripts/admin.js.php:467
 msgid "Download complete. Press Acccept to start upgrade"
 msgstr "Descarga completada. Pulse Aceptar para iniciar actualizaci&oacute;n"
 
-#: scripts/admin.js.php:526
+#: scripts/admin.js.php:529
 msgid "Check for DB Updates"
 msgstr "Comprobar actualizaciones de la BBDD"
 
-#: scripts/admin.js.php:534
+#: scripts/admin.js.php:537
 msgid "No Database updates available"
 msgstr "No hay actualizaciones de la BBDD"
 
-#: scripts/admin.js.php:535
+#: scripts/admin.js.php:538
 msgid "New entries available in database"
 msgstr "Nuevas entradas disponibles en la BBDD"
 
-#: scripts/admin.js.php:546
+#: scripts/admin.js.php:549
 msgid "You need to enable sharing data in configuration menu"
 msgstr ""
 "Necesita habilitar compartir datos en el men&uacute; de configuraci&oacute;n"
 
-#: scripts/admin.js.php:549
+#: scripts/admin.js.php:552
 msgid "This app is not registered. Please use a valid license"
 msgstr ""
 "La aplicaci&oacute;n no est&aacute; registrada. Por favor, use una licencia "
 "v&aacute;lida"
 
-#: scripts/admin.js.php:552 scripts/admin.js.php:638
+#: scripts/admin.js.php:555 scripts/admin.js.php:641
 msgid "This operation requires admin privileges"
 msgstr "Esta operaci&oacute;n requiere permisos de administrador"
 
-#: scripts/admin.js.php:561 scripts/admin.js.php:578
+#: scripts/admin.js.php:564 scripts/admin.js.php:581
 msgid "Synchronize DB"
 msgstr "Sincronizar BBDD"
 
-#: scripts/admin.js.php:562
+#: scripts/admin.js.php:565
 msgid "Updating database with new server data"
 msgstr "Actualizando BBDD con los datos del servidor"
 
-#: scripts/admin.js.php:586
+#: scripts/admin.js.php:589
 msgid "Database is synced with server"
 msgstr "La base de datos est&aacute; sincronizada con el servidor"
 
-#: scripts/admin.js.php:646
+#: scripts/admin.js.php:649
 msgid "Download Documentation"
 msgstr "Descargar documentaci&oacute;n"
 
-#: scripts/admin.js.php:647
+#: scripts/admin.js.php:650
 msgid "Updating documentation from AgiltiyContest web server"
 msgstr "Actualizando manuales desde el servidor web AgilityContest"
 
-#: scripts/admin.js.php:664
+#: scripts/admin.js.php:667
 msgid "Synchronize Doc"
 msgstr "Sincronizar Documentacion"
 
-#: scripts/admin.js.php:672
+#: scripts/admin.js.php:675
 msgid "Documentation is synced with server"
 msgstr "La documentaci&oacute;n est&aacute; actualizada"
 
-#: scripts/admin.js.php:724
+#: scripts/admin.js.php:728
 msgid "Current Version"
 msgstr "Versi&oacute;n actual"
 
-#: scripts/admin.js.php:724
+#: scripts/admin.js.php:728
 msgid "Current Release"
 msgstr "Revisi&oacute;n actual"
 
-#: scripts/admin.js.php:733
+#: scripts/admin.js.php:737
 msgid "Check for Upgrades"
 msgstr "Buscar actualizaciones"
 
-#: scripts/admin.js.php:737
+#: scripts/admin.js.php:741
 msgid "AgilityContest is up to date"
 msgstr "AgilityContest est&aacute; actualizado"
 
-#: scripts/admin.js.php:740
+#: scripts/admin.js.php:744
 msgid "Last Version"
 msgstr "Nueva Versi&oacute;n"
 
-#: scripts/admin.js.php:740
+#: scripts/admin.js.php:744
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
-#: scripts/auth.js.php:35 scripts/auth.js.php:240
+#: scripts/auth.js.php:35 scripts/auth.js.php:241
 msgid "Init session"
 msgstr "Iniciar Sesi&oacute;n"
 
-#: scripts/auth.js.php:38 scripts/auth.js.php:171
+#: scripts/auth.js.php:38 scripts/auth.js.php:172
 msgid "End session"
 msgstr "Finalizar Sesi&oacute;n"
 
@@ -7616,92 +7632,105 @@ msgstr "Utilizando valores por defecto ( licencia no registrada)"
 msgid "License expired"
 msgstr "La licencia ha caducado"
 
-#: scripts/auth.js.php:133
+#: scripts/auth.js.php:134
 msgid "License cancelled"
 msgstr "Licencia anulada"
 
-#: scripts/auth.js.php:136
+#: scripts/auth.js.php:137
 msgid "Automatic backup is disabled"
 msgstr "Copia de seguridad autom&aacute;tica desactivada"
 
-#: scripts/auth.js.php:139 tablet/index.php:399
+#: scripts/auth.js.php:140 tablet/index.php:399
 msgid "Last login"
 msgstr "Ultimo acceso"
 
-#: scripts/auth.js.php:142
+#: scripts/auth.js.php:143
 msgid "New version available"
 msgstr "Nueva versi&oacute;n disponible"
 
-#: scripts/auth.js.php:146
+#: scripts/auth.js.php:147
 msgid "new/updated entries from server Database"
 msgstr "entradas nuevas/actualizadas en base de datos maestra"
 
-#: scripts/auth.js.php:152
+#: scripts/auth.js.php:153
 msgid "session login success"
 msgstr "sesi&oacute;n iniciada correctamente"
 
-#: scripts/auth.js.php:166
+#: scripts/auth.js.php:167
 msgid "Latest news"
 msgstr "Ultimas noticias"
 
-#: scripts/auth.js.php:239
+#: scripts/auth.js.php:240
 msgid "Session has been closed by user"
 msgstr "El usuario ha finalizado la sesi&oacute;n"
 
-#: scripts/auth.js.php:276
+#: scripts/auth.js.php:277
 msgid "No user specified"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:284
+#: scripts/auth.js.php:285
 msgid "Current user has no <em>admin</em> privileges"
 msgstr "El usuario actual no tiene privilegios de administrador"
 
-#: scripts/auth.js.php:294
+#: scripts/auth.js.php:295
 msgid "No user provided"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:294
+#: scripts/auth.js.php:295
 msgid "Starting session read-only (guest)"
 msgstr "Iniciando sesi&oacute;n en modo solo consulta (invitado)"
 
-#: scripts/auth.js.php:324
-msgid ""
-"Please: to register license<br/>re-init session with a user with admin "
-"privileges"
+#: scripts/auth.js.php:325 scripts/auth.js.php:333
+msgid "Please: to activate license"
+msgstr "Por favor: para activar la licencia"
+
+#: scripts/auth.js.php:326 scripts/auth.js.php:389
+msgid "re-init session with a user with admin privileges"
 msgstr ""
-"Por favor: para registrar la licencia<br/>re-inicie sesión con un usuario "
-"con rol de administrador"
+"re-inicie sesi&oacute;n con un usuario con privilegios de administrador"
 
-#: scripts/auth.js.php:330
-msgid "Please fill registration form with valid data"
-msgstr "Por favor, complete el formulario con datos válidos"
+#: scripts/auth.js.php:334
+msgid "must select a value from available ones"
+msgstr "Debe seleccionar un valor de los disponibles"
 
-#: scripts/auth.js.php:351
+#: scripts/auth.js.php:354 scripts/auth.js.php:417
 msgid "Restart"
 msgstr "Reiniciar"
 
-#: scripts/auth.js.php:352 scripts/competicion.js.php:826
-#: scripts/pruebas.js.php:151
+#: scripts/auth.js.php:355 scripts/auth.js.php:418
+#: scripts/competicion.js.php:826 scripts/pruebas.js.php:151
 msgid "Back"
 msgstr "Volver"
 
-#: scripts/auth.js.php:357
-msgid "Licensing"
-msgstr "Licencia"
+#: scripts/auth.js.php:361
+msgid "License successfully activated"
+msgstr "Licencia activada con &eacute;xito"
 
-#: scripts/auth.js.php:358
-msgid "Licensing data successfully loaded"
-msgstr "Datos de la licencia actualizados correctamente"
-
-#: scripts/auth.js.php:359
+#: scripts/auth.js.php:362 scripts/auth.js.php:425
 msgid "Restart app to make changes to take effect"
 msgstr "Reinicie la aplicaci&oacute;n para activar los cambios"
 
-#: scripts/auth.js.php:413
+#: scripts/auth.js.php:388
+msgid "Please: to register license"
+msgstr "Por favor: para registrar la licencia"
+
+#: scripts/auth.js.php:396
+msgid "Please fill registration form with valid data"
+msgstr "Por favor, complete el formulario con datos válidos"
+
+#: scripts/auth.js.php:423
+msgid "Licensing"
+msgstr "Licencia"
+
+#: scripts/auth.js.php:424
+msgid "Licensing data successfully loaded"
+msgstr "Datos de la licencia actualizados correctamente"
+
+#: scripts/auth.js.php:479
 msgid "User level"
 msgstr "Nivel de usuario"
 
-#: scripts/auth.js.php:414
+#: scripts/auth.js.php:480
 msgid ""
 "Current user has not enought level to make changes <br/>Read-only access "
 "enabled"
@@ -7812,52 +7841,52 @@ msgstr "Conjunta"
 msgid "Best of "
 msgstr "Mejores de"
 
-#: scripts/common.js.php:517
+#: scripts/common.js.php:520
 msgid "loadConfiguration(): cannot retrieve configuration from server"
 msgstr ""
 "loadConfiguration(); no puedo recuperar la configuraci&oacute;n desde el "
 "servidor"
 
-#: scripts/common.js.php:542
+#: scripts/common.js.php:545
 msgid "getLicenseInfo(): cannot retrieve License info from server"
 msgstr "getLicenseInfo() no se puede leer la informaci&oacute;n de registro"
 
-#: scripts/common.js.php:566
+#: scripts/common.js.php:569
 msgid "getLicensedClubInfo(): cannot retrieve License info from server"
 msgstr ""
 "getLicensedClubInfo(): no puedo leer la informacion de licencia del servidor"
 
-#: scripts/common.js.php:589
+#: scripts/common.js.php:592
 msgid "getFederationsInfo(): cannot retrieve federations info from server"
 msgstr ""
 "getFederationsInfo() no se puede obtener la lista de federaciones del "
 "servidor"
 
-#: scripts/common.js.php:618
+#: scripts/common.js.php:621
 msgid "Clubs Database Management"
 msgstr "Gesti&oacute;n de datos de Clubes"
 
-#: scripts/common.js.php:619
+#: scripts/common.js.php:622
 msgid "Countries Database Info"
 msgstr "Informaci&oacute;n de pa&iacute;ses en la BBDD"
 
-#: scripts/common.js.php:648
+#: scripts/common.js.php:651
 msgid "There is no registered user logged in"
 msgstr "Se ha iniciado sesi&oacute;n sin indicar un usuario v&aacute;lido"
 
-#: scripts/common.js.php:649
+#: scripts/common.js.php:652
 msgid "Read-Only mode active"
 msgstr "Modo solo-consulta activo"
 
-#: scripts/common.js.php:650
+#: scripts/common.js.php:653
 msgid "You cannot change current configuration"
 msgstr "No se podr&aacute; modificar la configuraci&oacute;n actual"
 
-#: scripts/common.js.php:655
+#: scripts/common.js.php:658
 msgid "Anonymous session"
 msgstr "Sesi&oacute;n sin inciar"
 
-#: scripts/common.js.php:949
+#: scripts/common.js.php:952
 msgid "Countries"
 msgstr "Pa&iacute;ses"
 
@@ -9327,31 +9356,31 @@ msgstr "Inicialiaci&oacute;n completada. Pulse OK para primer arranque"
 msgid "Waiting for progress info..."
 msgstr "Esperando informaci&oacute;n del proceso..."
 
-#: server/auth/AuthManager.php:239
+#: server/auth/AuthManager.php:240
 msgid "Root"
 msgstr "Root"
 
-#: server/auth/AuthManager.php:456
+#: server/auth/AuthManager.php:457
 msgid "Expired"
 msgstr "Expirada"
 
-#: server/auth/AuthManager.php:457
+#: server/auth/AuthManager.php:458
 msgid "Cancelled"
 msgstr "Cancelada"
 
-#: server/auth/AuthManager.php:605
+#: server/auth/AuthManager.php:681
 msgid "A valid Digital Certificate is required"
 msgstr "Se requiere un Certificado Digital valido"
 
-#: server/auth/AuthManager.php:609
+#: server/auth/AuthManager.php:685
 msgid "Your provided certificate is not in access control list"
 msgstr "El certificado no esta en la lista de control de acceso"
 
-#: server/auth/AuthManager.php:848
+#: server/auth/AuthManager.php:924
 msgid "Insufficient credentials"
 msgstr "Permisos insuficientes"
 
-#: server/auth/AuthManager.php:848
+#: server/auth/AuthManager.php:924
 msgid "Required level is"
 msgstr "El nivel requerido es"
 
@@ -10881,6 +10910,13 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid ""
+#~ "Please: to register license<br/>re-init session with a user with admin "
+#~ "privileges"
+#~ msgstr ""
+#~ "Por favor: para registrar la licencia<br/>re-inicie sesión con un usuario "
+#~ "con rol de administrador"
 
 #~ msgid "Children / Young"
 #~ msgstr "Infantil / Juvenil"
