@@ -256,7 +256,7 @@ SectionEnd
 ;; recuperamos ficheros de configuracion tras la instalacion
 Function .onInstSuccess
   ; recuperamos ficheros de configuracion de la desinstalacion previa
-  CopyFiles $TEMP\registration.info $INSTDIR\config
+  CopyFiles $TEMP\registration.* $INSTDIR\config
   CopyFiles $TEMP\config.ini $INSTDIR\config
   CopyFiles $TEMP\system.ini $INSTDIR\config
 
@@ -282,11 +282,11 @@ Function .onInit
   Delete $TEMP\config.ini
   Delete $TEMP\system.ini
   ; backward compatibility to <3.7.3
-  ; CopyFiles $INSTDIR\agility\server\auth\registration.info $TEMP
+  ; CopyFiles $INSTDIR\agility\server\auth\registration.* $TEMP
   ; CopyFiles $INSTDIR\agility\server\auth\config.ini $TEMP
   ; CopyFiles $INSTDIR\agility\server\auth\system.ini $TEMP
   ; new config data location
-  CopyFiles $INSTDIR\config\registration.info $TEMP
+  CopyFiles $INSTDIR\config\registration.* $TEMP
   CopyFiles $INSTDIR\config\config.ini $TEMP
   CopyFiles $INSTDIR\config\system.ini $TEMP
   ; save sql database backups

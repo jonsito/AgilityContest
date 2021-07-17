@@ -122,17 +122,13 @@ mkdir -p ${INSTDIR}/config
 [ -f ${INSTDIR}.old/agility/images/supporters/supporters.csv ] && \
     cp ${INSTDIR}.old/agility/images/supporters/supporters.csv ${INSTDIR}/agility/images/supporters
 
-# backward compatibility with pre-3.8 versions
-[ -f ${INSTDIR}.old/agility/server/auth/config.ini ] && [ ! -f ${INSTDIR}.old/config/config.ini ] && \
-    cp ${INSTDIR}.old/agility/server/auth/config.ini ${INSTDIR}/config
-[ -f ${INSTDIR}.old/agility/server/auth/registration.info ] && [ ! -f ${INSTDIR}.old/config/registration.info ] && \
-    cp ${INSTDIR}.old/agility/server/auth/registration.info ${INSTDIR}/config
-
-# new location for configuration files.
+# location for configuration files. ( after version 3.8.1 )
 [ -f ${INSTDIR}.old/config/config.ini ] && \
     cp ${INSTDIR}.old/config/config.ini ${INSTDIR}/config
 [ -f ${INSTDIR}.old/config/registration.info ] && \
     cp ${INSTDIR}.old/config/registration.info ${INSTDIR}/config
+# multilicense support (4.5.2+)
+cp ${INSTDIR}.old/config/registration.info_* ${INSTDIR}/config 2>/dev/null
 
 # pending update requests
 [ -d ${INSTDIR}.old/logs/updateRequests ] && \
