@@ -48,6 +48,7 @@ define ("ENABLE_LEAGUES",1024); // permite gestion de ligas de competicion
 define ("ENABLE_SERCHRONO",2048); // permite ejecucion de cronometro de puerto serie
 
 // datos de registro
+define('AC_CONFIG_DIR' , __DIR__ . "/../../../config");
 define('AC_BLACKLIST_FILE' , __DIR__ . "/../../../config/blacklist.info");
 define('AC_REGINFO_FILE' , __DIR__ . "/../../../config/registration.info");
 define('AC_REGINFO_FILE_BACKUP' , __DIR__ . "/../../../config/registration.info.old");
@@ -521,14 +522,89 @@ class AuthManager {
 		umask(002);
 		// ok: fichero de registro correcto. copiamos a su ubicacion final
 		@copy(AC_REGINFO_FILE,AC_REGINFO_FILE_BACKUP);
-		// in some linux deployments, this works, but fails on change file owner, so protect against warning
-		@rename($tmpname,AC_REGINFO_FILE);
+		// 4.5.2 multilicense support
+		// copy to registration.info_serial_club
+		$regfile=AC_REGINFO_FILE ."_".$info['serial']."_".base64_encode($info['club']);
+		@copy($tmpname,$regfile);
+		// copy to registration.info
+		@copy($tmpname,AC_REGINFO_FILE);
+		// remove temporary file
+		@unlink($tmpname);
 		// guardamos como "activos" y retornamos datos del nuevo registro
 		$this->registrationInfo=$info;
 		$result=$this->getRegistrationInfo();
 		// $result['filename']=$tmpname;
 		$this->myLogger->leave();
 		return $result;
+	}
+
+	/**
+	 * 4.5.2+ retrieve list of available registered licenses
+	 *
+	 * Buscamos en la carpeta de configuracion los ficheros con el formato
+	 * registration.info_serial_club ( club está codificado en base64 )
+	 * return {array} ['total','rows']
+	 */
+	function listRegisteredLicenses() {
+		// vemos si la licencia actual tiene fichero asociado.
+		// si no es el caso lo creamos
+		$serial=$this->getRegistrationInfo()['Serial'];
+		$club=$this->getRegistrationInfo()['Club'];
+		$eclub=base64_encode($club);
+		if (!file_exists(AC_CONFIG_DIR."/registration.info_{$serial}_{$club}")) {
+			$this->myLogger->info("Current license Serial:{$serial} Club:'{$club}' is not indexed. Proceed");
+			@copy(AC_REGINFO_FILE,AC_CONFIG_DIR."/registration.info_{$serial}_{$eclub}");
+		}
+		//listamos todos los ficheros de licencia disponibles
+		$path = AC_CONFIG_DIR.'/registration.info_*';
+		$filenames = glob($path);
+		$rows=array();
+		foreach ($filenames as $filename) {
+			$this->myLogger->trace("Parsing file {$filename}");
+			$a=explode("_",$filename);
+			$n=count($a);
+			if ($n<3) continue; // invalid filename; must be ".../registration.info_serial_base64(club)"
+			if (! is_numeric($a[$n-2])) continue; // invalid filename; must be a numeric value
+			if (intval($a[$n-2]) !== intval($serial)) continue; // not the serial number we are looking for
+			// found. Set as active reset license data, recheck and return new data
+			$serial=$a[$n-2];
+			$club=base64_decode($a[$n-1]);
+			$this->myLogger->trace("Found license Serial:{$serial} Club:{$club}" );
+			array_push($rows,array("Serial"=>$serial,"Club"=>$club));
+		}
+		// retornamos los datos en formato array("total","rows(serial,club)" ) apto para datagrid
+		return array("total"=>count($rows),"rows"=>$rows);
+	}
+
+	/**
+	 * 4.5.2+ select a given registered license
+	 * @param {string} $serial serial number
+	 * @return {array} selected license data
+	 * @throws exception on error
+	 */
+	function selectRegisteredLicenses($serial) {
+		// find license with requested serial number
+		$path = AC_CONFIG_DIR.'/registration.info_*';
+		$filenames = glob($path);
+		foreach ($filenames as $filename) {
+			$this->myLogger->trace("Searching license serial:{$serial} in file {$filename}");
+			$a=explode("_",$filename);
+			$n=count($a);
+			if ($n<3) continue; // invalid filename; must be ".../registration.info_serial_base64(club)"
+			if (! is_numeric($a[$n-2])) continue; // invalid filename; must be a numeric value
+			if (intval($a[$n-2]) !== intval($serial)) continue; // not the serial number we are looking for
+			// found. Set as active reset license data, recheck and return new data
+			$club=base64_decode($a[$n-1]);
+			$this->myLogger->trace("Found requested license Serial:{$a[$n-2]} Club:{$club}" );
+			@copy($filename,AC_REGINFO_FILE);
+			$this->registrationInfo=null;
+			return $this->getRegistrationInfo();
+		}
+		// arriving here means license serialnumber not found
+		$msg="Cannot locate license with provided serial number: {$serial}";
+		// keep current license and mreturn error
+		$this->myLogger->error($msg);
+		throw new Exception($msg);
 	}
 
     /**
