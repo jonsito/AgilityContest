@@ -141,7 +141,7 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
             <label id="r_prfirstLbl" for="first"><?php _e('Initial label'); ?>:&nbsp;</label>
 			<input id="r_prfirst" style="width:45px" type="text" value="1" disabled="disabled" name="first"/>
             <br />
-            <label id="r_globalLbl" for="r_global"><?php _e('All series'); ?>:</label>
+            <label id="r_globalLbl" for="r_global"><?php _e('All Heights'); ?>:</label>
             <input id="r_global" style="width:78px" name="r_global" class="easyui-checkbox" type="checkbox" value="1"/>
             <br />
             <label id="r_discriminateLbl" for="r_discriminate"><?php _e('Filter country'); ?>:</label>

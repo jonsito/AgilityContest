@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2021-07-17 17:43+0200\n"
-"PO-Revision-Date: 2021-07-17 17:45+0200\n"
+"POT-Creation-Date: 2021-07-17 22:04+0200\n"
+"PO-Revision-Date: 2021-07-17 22:05+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -5176,8 +5176,8 @@ msgid "Initial label"
 msgstr "Etiqueta inicial"
 
 #: console/frm_clasificaciones2.php:144
-msgid "All series"
-msgstr "Todas las categor&iacute;as"
+msgid "All Heights"
+msgstr "Todas las alturas"
 
 #: console/frm_clasificaciones2.php:147
 msgid "Filter country"
@@ -10910,6 +10910,9 @@ msgstr "PTim"
 #: videowall/vws_parcial_individual.php:56
 msgid "Tim"
 msgstr "Tmp"
+
+#~ msgid "All series"
+#~ msgstr "Todas las categor&iacute;as"
 
 #~ msgid ""
 #~ "Please: to register license<br/>re-init session with a user with admin "
