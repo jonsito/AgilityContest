@@ -19,13 +19,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * Analize received data and populate html form
  * @param {string} data received json decoded data
  */
-function parseEvent(data) {
-	// var response= JSON.parse(data);
+function parseEvent(entry) {
 	// ignore every events but 'llamada' as we only want running dog data
-	if(response.Type!=='llamada') return;
+	if(entry.Type!=='llamada') return;
+	let data=JSON.parse(entry.Data);
 	// rellenamos formulario
-	$.each(response.Data, function(key, value){
-		if (key==='TimeStamp') value=response.Timestamp; // use gmtime format instead of epoch integer
+	$.each(data, function(key, value){
+		if (key==='TimeStamp') value=entry.Timestamp; // use gmtime format instead of epoch integer
 		$('[name='+key+']', '#eventData').val(value);
 	});
 }
@@ -46,14 +46,13 @@ function parseEvent(data) {
 		var fcall=firstcall;
 
 		function handleSuccess(received,status,jqXHR){
-			var data=JSON.parse(received);
 			var row=null;
-            mark=data.TimeStamp; // store last event timestamp
-			for (var n=0;n<parseInt(data.total);n++) {
+            mark=received.TimeStamp; // store last event timestamp
+			for (var n=0;n<parseInt(received.total);n++) {
 				var parse=true;
-				row=data.rows[n];
+				row=received.rows[n];
                 lastID=row.ID; // update last id
-				parseEvent(data);
+				parseEvent(row);
 			}
 			// re-queue event
 			setTimeout(function(){ waitForEvents(lastID,mark,false);},1000);
@@ -81,7 +80,7 @@ function parseEvent(data) {
 			data: {
 				Operation:	'getEvents',
 				ID: 		evtID,
-				Session:	workingData.session,
+				Session:	ac_config.SessionID,
 				TimeStamp:	mark,
 				Source:		ac_config.Source,
 				Destination: ac_config.Destination,
@@ -155,6 +154,7 @@ function findSessionID() {
 		cache: false,
 		dataType: 'json',
 		success: function(response) {
+			var str="success";
 			var timeout=5000;
 			if (typeof(response['errorMsg'])!=="undefined") { // response indicates error, warn and try again
 				console.log(response['errorMsg']);
@@ -162,7 +162,7 @@ function findSessionID() {
 				return;
 			}
 			if ( parseInt(response['total'])===0) {
-				let str="Server '"+ac_config.Host+"' does not have any rings defined";
+				str="Server '"+ac_config.Host+"' does not have any rings defined";
 				console.log(str);
 				alert(str);
 				return
@@ -170,14 +170,15 @@ function findSessionID() {
 			// OK find ring
 			str="Ring "+ac_config.Ring;
 			for (n=0;n<response['total'];n++) {
-				if (response['Nombre']!==str) continue;
-				ac_config.SessionID=response['ID'];
-				console.log("Found AgilityContest server:'"+ac_config.Host+"' Ring:"+ac_config.Ring+" SessionID:"+response['ID']);
+				let ses=response['rows'][n];
+				if (ses['Nombre']!==str) continue;
+				ac_config.SessionID=ses['ID'];
+				console.log("Found AgilityContest server:'"+ac_config.Host+"' Ring:"+ac_config.Ring+" SessionID:"+ses['ID']);
 				setTimeout(function(){startEventMgr()},2000);
 				return
 			}
 			// arriving here means ring id not found
-			let str="AgilityContest server at host:'"+ac_config.Host+"' has not ring "+ac_config.Ring+" declared";
+			str="AgilityContest server at host:'"+ac_config.Host+"' has not ring "+ac_config.Ring+" declared";
 			console.log(str);
 			alert(str);
 		},
