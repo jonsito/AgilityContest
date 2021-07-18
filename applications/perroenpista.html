@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Perro en pista</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="./perroenpista.js"></script>
+    <script type="text/javascript">
+
+    // global data, must be filled on initialization process
+    var ac_config = {
+        Ring: 0,
+        SessionID: 0,
+        Host: "localhost",
+        LasEvent: 0,
+        Timestamp: 0,
+        Source: 'videowall',
+        Name: 'perroenpista',
+        Destination: '', // empty
+        Sname: 'perroenpista:0:0:0:videowall@1.2.3.4'
+    };
+
+    // extract arguments from query
+    function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    function initialize() {
+        // obtenemos los datos de server y ring
+        ac_config.Host= getParameterByName('host');
+        ac_config.Ring= getParameterByName('ring');
+        if ( !ac_config.Host || ac_config.Host==='') ac_config.Host='localhost';
+        if ( !ac_config.Ring || ac_config.Ring==='') ac_config.Ring=1;
+        // alert("host:"+ac_config.Host+" Ring:"+ac_config.Ring);
+        findSessionID()
+    }
+
+    </script>
+</head>
+<!--
+Este código hace polling cada diez segundos del servidor donde se está ejecutando
+AgilityContest, y va obteniendo los datos del último perro en pista
+
+Usage: file:///perroenpista.html?server=xxxxxx&ring=x
+
+Los parámetros server y ring son opcionales. valores por defecto "localhost" y "1" respectivamente
+
+Ejemplo del json devuelto en la llamada "listEvents()"
+
+{"ID":"19237",
+"Session":"2",
+"Source":"tablet",
+"Type":"llamada",
+"Timestamp":"2021-07-17 19:58:49",
+"Data":"{
+\"ID\":0,
+\"Session\":2,
+\"SessionName\":\"tablet:2:0:0:tablet_k20Ish85@1\",
+\"TimeStamp\":1626544729,
+\"Type\":\"llamada\",
+\"Source\":\"tablet\",
+\"Pru\":70,
+\"Jor\":545,
+\"Mng\":808,
+\"Tnd\":2527,
+\"Dog\":4737,
+\"Drs\":29,
+\"Hot\":0,
+\"Eqp\":1060,
+\"Flt\":0,
+\"Toc\":0,
+\"Reh\":0,
+\"NPr\":0,
+\"Eli\":0,
+\"Tim\":0,
+\"Value\":\"0\",
+\"stop\":0,
+\"start\":0,
+\"Name\":\"tablet_k20Ish85@1\",
+\"Oper\":0,
+\"Numero\":3,
+\"Nombre\":\"Pep\\\\'s Gunly\",
+\"NombreLargo\":\"de Loustalarie des Bourdalats\",
+\"NombreGuia\":\"Emilie Sales\",
+\"NombreClub\":\"Cu et D\\\\'EC St. Cyprien\",
+\"NombreEquipo\":\"-- Sin asignar --\",
+\"Categoria\":\"X\",
+\"Grado\":\"GI\"
+}"
+}
+-->
+<body onload="initialize();">
+<h1>Perro en pista</h1>
+<form id="eventData">
+  <input type="hidden" id="ID" name="ID"/>
+  <input type="hidden" id="Session" name="Session"/>
+  <input type="hidden" id="Source" name="Source"/>
+  <input type="hidden" id="Type" name="Type"/>
+  <label for="TimeStamp">Marca de tiempo:</label>
+  <input type="text" id="Timestamp" name="TimeStamp" readonly="readonly"/><br/>
+  <label for="Nombre">Nombre:</label>
+  <input type="text" id="Nombre" name="Nombre" readonly="readonly"/><br/>
+  <label for="NombreLargo">Nombre Pedigree:</label>
+  <input type="text" id="NombreLargo" name="NombreLargo" readonly="readonly"/><br/>
+  <label for="NombreGuia">Guía:</label>
+  <input type="text" id="NombreGuia" name="NombreGuia" readonly="readonly"/><br/>
+  <label for="NombreClub">Club:</label>
+  <input type="text" id="NombreClub" name="NombreClub" readonly="readonly"/><br/>
+  <label for="NombreEquipo">Equipo:</label>
+  <input type="text" id="NombreEquipo" name="NombreEquipo" readonly="readonly"/><br/>
+  <label for="Categoria">Categoria:</label>
+  <input type="text" id="Categoria" name="Categoria" readonly="readonly"/><br/>
+  <label for="Grado">Grado:</label>
+  <input type="text" id="Grado" name="Grado" readonly="readonly"/><br/>
+</form>
+</body>
+</html>

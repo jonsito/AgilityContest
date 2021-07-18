@@ -339,7 +339,7 @@ class Eventos extends DBObject {
 
         // check for search specific event type
 		$extra="";
-		if ($data['Type']!=="") $extra=" AND ( Type = {$data['Type']} )";
+		if ($data['Type']!=="") $extra=" AND ( Type = '".$data['Type']."' )";
 
 		// perform query
 		$result=$this->__select(
