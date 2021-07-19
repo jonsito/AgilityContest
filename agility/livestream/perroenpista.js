@@ -67,14 +67,24 @@ Ejemplo del json devuelto en la llamada "listEvents()"
  * @param {string} data received json decoded data
  */
 function parseEvent(entry) {
-	// ignore every events but 'llamada' as we only want running dog data
-	if(entry.Type!=='llamada') return;
+	let lista=[];
 	let data=JSON.parse(entry.Data);
+	switch (entry.Type) {
+		case "open":
+			lista=['NombrePrueba','NombreJornada','NombreManga','NombreRing'];
+			break;
+		case "llamada":
+			// ajustamos logo y timestamp
+			$('#pp_Timestamp').html(entry.Timestamp);
+			ac_config.myImage.src="../ajax/database/clubFunctions.php?Operation=getLogoByPerro&Federation=0&Perro="+data['Dog'];
+			lista=['Drs','Nombre','NombreLargo','NombreGuia','NombreClub','NombreEquipo',"Categoria",'Grado'];
+			// no break;
+		case "aceptar":
+			lista=lista.concat(['Flt','Toc','Reh','Eli','NPr']);
+			break;
+	}
 	// rellenamos pagina
-	$.each(data, function(key, value){
-		if (key==='TimeStamp') value=entry.Timestamp; // use gmtime format instead of epoch integer
-		$('#pp_'+key).html(value);
-	});
+	$.each(lista, function(key, value){ $('#pp_'+value).html(data[value]);	});
 }
 
 	// wait for new events

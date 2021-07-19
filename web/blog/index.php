@@ -33,6 +33,20 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <!--- comienzo del changelog -->
 <?php } ?>
 
+<?php if ( strcmp($from,"blog_2021-07-19_00:00:00")<0) { ?>
+    <strong>2021-Jul-19</strong><br/>
+    <p>
+        Versión 4.5.2
+    </p>
+    <p>
+        La nueva versión incluye soporte para registrar múltiples licencias<br/>
+        No obstante, se recuerda que en todo momento solo estará activa la última licencia seleccionada
+    </p>
+    <p>
+        Nueva opción para livestream: utilidad para mostrar el perro en pista
+    </p>
+<?php } ?>
+
 <?php if ( strcmp($from,"blog_2021-07-07_00:00:00")<0) { ?>
     <strong>2021-Jul-06</strong><br/>
     <p>

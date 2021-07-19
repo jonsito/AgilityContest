@@ -287,13 +287,13 @@ class Clubes extends DBObject {
     /**
      * Retorna el logo asociado al club de id indicado
      * NOTA: esto no retorna una respuesta json, sino una imagen
-     * @param $id
+     * @param $id id club
      * @return null|string {string} "" on success; else error string
      */
-	function getLogo($id) {
+	function getLogo($id,$perro=0) {
 		$this->myLogger->enter();
-		if ($id==0) $id=1; // on insert, select default logo
-		$row=$this->__selectObject("Logo","clubes","ID=$id");
+		if ($id==0) $id=1;
+        $row=$this->__selectObject("Logo","clubes","ID={$id}");
 		if (!$row) return $this->error($this->conn->error);
 		$name=$row->Logo;
 		$fname=getIconPath($this->curFederation->get('Name'),$name);
@@ -302,6 +302,7 @@ class Clubes extends DBObject {
 			$fname=getIconPath($this->curFederation->get('Name'),$this->curFederation->get('Logo')); // use default name
 		}
 		$size = getimagesize($fname);
+        header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}",false);
 		header('Content-Type: '.$size['mime']);
 		readfile($fname);
         return "";
@@ -316,7 +317,7 @@ class Clubes extends DBObject {
 	function getLogoByPerro($id) {
 		$this->myLogger->enter();
 		if ($id==0) $id=1; // on insert, select default logo
-		$row=$this->__selectObject("Logo","perros,guias,clubes","(perros.Guia=guias.ID ) AND (guias.Club=clubes.ID) AND (perros.ID=$id)");
+		$row=$this->__selectObject("LogoClub AS Logo","perroguiaclub","(ID=$id)");
 		if (!$row) return $this->error($this->conn->error);
 		$name=$row->Logo;
 		$fname=getIconPath($this->curFederation->get('Name'),$name);
@@ -325,6 +326,7 @@ class Clubes extends DBObject {
 			$fname=getIconPath($this->curFederation->get('Name'),$this->curFederation->get('Logo')); // use default name
 		}
 		$size = getimagesize($fname);
+        header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}",false);
 		header('Content-Type: '.$size['mime']);
 		readfile($fname);
         return "";
@@ -348,6 +350,7 @@ class Clubes extends DBObject {
 			$fname=getIconPath($this->curFederation->get('Name'),$this->curFederation->get('Logo')); // use default name
 		}
 		$size = getimagesize($fname);
+        header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}",false);
 		header('Content-Type: '.$size['mime']);
 		readfile($fname);
         return "";

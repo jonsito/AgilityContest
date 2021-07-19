@@ -1,3 +1,7 @@
+Version 4.5.2 20210719_1000
+    - Multilicense handling support
+    - New "livestream" webapp "perroenpista"
+    - Typos and strings fixes
 Version 4.5.1 20210712_1930
     - Fix: messager.password behavior ( do not fire onchange when focus lost )
     - Fix: updater should handle new naming convention from github

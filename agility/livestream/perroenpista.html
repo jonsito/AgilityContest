@@ -30,24 +30,41 @@ El parámetro "ring" es opcional. si se omite, el valor por defecto es "1"
         Source: 'videowall',
         Name: 'perroenpista',
         Destination: '', // empty
-        Sname: 'perroenpista:0:0:0:videowall@1.2.3.4'
+        Sname: 'perroenpista:0:0:0:videowall@1.2.3.4',
+        myImage: null
     };
 
     function initialize() {
+        // initialize logo canvas
+        var c = document.getElementById("pp_Logo");
+        var ctx = c.getContext("2d");
+        ac_config.myImage = new Image(150,150);
+        ac_config.myImage.onload = function() { ctx.drawImage(ac_config.myImage, 0, 0); };
+
+        // extract ring and server host name
         ac_config.Host= new URL(window.location).hostname; // AgilityContest server name
         ac_config.Ring= new URL(window.location).searchParams.get('ring'); // ring to parse
         if ( !ac_config.Host || ac_config.Host==='') ac_config.Host='localhost';
         if ( !ac_config.Ring || ac_config.Ring==='') ac_config.Ring=1;
+
+        // and fire up event manager
         findSessionID()
     }
 
     </script>
 </head>
-
+<!-- do not change id names !! -->
 <body onload="initialize();">
 <h1>Perro en pista</h1>
+<h2>Prueba: <span id="pp_NombrePrueba">Esperando a que tablet esté activo...</span><br/></h2>
+<h3>Jornada: <span id="pp_NombreJornada"></span><br/></h3>
+<h4>Manga: <span id="pp_NombreManga"></span><br/></h4>
+<h4><span id="pp_NombreRing"></span><br/></h4>
 <p>
-    <!-- do not change id names !! -->
+    <canvas id="pp_Logo" width="150" height="150" style="border:1px solid #000000"></canvas><br>
+    <span style="display:none" id="pp_Pru"></span>
+    <span style="display:none" id="pp_Jor"></span>
+    <span style="display:none" id="pp_Mng"></span>
     <span style="display:none" id="pp_ID"></span>
     <span style="display:none" id="pp_Session"></span>
     <span style="display:none" id="pp_Source"></span>
@@ -61,6 +78,14 @@ El parámetro "ring" es opcional. si se omite, el valor por defecto es "1"
     Equipo: <span id="pp_NombreEquipo"></span><br/>
     Categor&iacute;a: <span id="pp_Categoria"></span><br/>
     Grado: <span id="pp_Grado"></span><br/>
+</p>
+Faltas: <span id="pp_Flt"></span><br/>
+Rehuses: <span id="pp_Reh"></span><br/>
+Tocados: <span id="pp_Toc"></span><br/>
+Eliminado: <span id="pp_Eli"></span><br/>
+No Presentado: <span id="pp_NPr"></span><br/>
+<p>
+
 </p>
 </body>
 </html>

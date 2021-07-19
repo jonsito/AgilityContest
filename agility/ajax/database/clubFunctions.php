@@ -28,6 +28,8 @@ require_once(__DIR__ . "/../../server/database/classes/Clubes.php");
 		$operation=http_request("Operation","s",null);
 		$federation=http_request("Federation","i",-1); // force exception if undefined
 		$idclub=http_request("ID","i",0);
+		$perro=http_request("Perro","i",0);
+		$guia=http_request("Guia","i",0);
 		if ($operation===null)
 			throw new Exception("Call to clubFunctions without 'Operation' requested");
 		$clubes= new Clubes("clubFunctions",$federation);
@@ -41,8 +43,14 @@ require_once(__DIR__ . "/../../server/database/classes/Clubes.php");
 			case "enumerate": $result=$clubes->enumerate(); break;
             case "countries": $c=new Country(); $result=$c->enumerate(); break;
 			case "getlogo": // not a json function; just return an image 
-				$result=$clubes->getLogo($idclub);
+				$result=$clubes->getLogo($idclub,$perro);
 				return;
+            case "getLogoByPerro": // not a json function; just return an image
+                $result=$clubes->getLogoByPerro($perro);
+                return;
+            case "getLogoByGuia": // not a json function; just return an image
+                $result=$clubes->getLogoByGuia($guia);
+                return;
 			case "setlogo":
 				$am->access(PERMS_OPERATOR);
 				// this call provides an image in base64 encoded format. Needs special handling
