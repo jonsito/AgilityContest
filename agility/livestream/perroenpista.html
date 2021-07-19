@@ -36,8 +36,8 @@ El parámetro "ring" es opcional. si se omite, el valor por defecto es "1"
 
     function initialize() {
         // initialize logo canvas
-        var c = document.getElementById("pp_Logo");
-        var ctx = c.getContext("2d");
+        var canvas = document.getElementById("pp_Logo");
+        var ctx = canvas.getContext("2d");
         ac_config.myImage = new Image(150,150);
         ac_config.myImage.onload = function() { ctx.drawImage(ac_config.myImage, 0, 0); };
 
@@ -84,6 +84,7 @@ Rehuses: <span id="pp_Reh"></span><br/>
 Tocados: <span id="pp_Toc"></span><br/>
 Eliminado: <span id="pp_Eli"></span><br/>
 No Presentado: <span id="pp_NPr"></span><br/>
+Tiempo final: <span id="pp_Tim"></span><br/>
 <p>
 
 </p>

@@ -76,11 +76,21 @@ function parseEvent(entry) {
 		case "llamada":
 			// ajustamos logo y timestamp
 			$('#pp_Timestamp').html(entry.Timestamp);
+			var canvas = document.getElementById("pp_Logo");
+			ctx = canvas.getContext("2d");
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			ac_config.myImage.src="../ajax/database/clubFunctions.php?Operation=getLogoByPerro&Federation=0&Perro="+data['Dog'];
 			lista=['Drs','Nombre','NombreLargo','NombreGuia','NombreClub','NombreEquipo',"Categoria",'Grado'];
-			// no break;
+			// no break
 		case "aceptar":
-			lista=lista.concat(['Flt','Toc','Reh','Eli','NPr']);
+			lista=lista.concat(['Flt','Toc','Reh','Eli','NPr','Tim']);
+			break;
+		case "datos": // -1: no change; else data
+			if (data['Flt']>=0 ) lista=lista.concat(['Flt']);
+			if (data['Toc']>=0 ) lista=lista.concat(['Toc']);
+			if (data['Reh']>=0 ) lista=lista.concat(['Reh']);
+			if (data['Eli']>=0 ) lista=lista.concat(['Eli']);
+			if (data['NPr']>=0 ) lista=lista.concat(['NPr']);
 			break;
 	}
 	// rellenamos pagina
