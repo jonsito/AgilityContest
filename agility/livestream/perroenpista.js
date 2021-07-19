@@ -15,6 +15,53 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+
+/*
+Ejemplo del json devuelto en la llamada "listEvents()"
+
+{"ID":"19237",
+    "Session":"2",
+    "Source":"tablet",
+    "Type":"llamada",
+    "Timestamp":"2021-07-17 19:58:49",
+    "Data":"{
+\"ID\":0,
+\"Session\":2,
+\"SessionName\":\"tablet:2:0:0:tablet_k20Ish85@1\",
+\"TimeStamp\":1626544729,
+\"Type\":\"llamada\",
+\"Source\":\"tablet\",
+\"Pru\":70,
+\"Jor\":545,
+\"Mng\":808,
+\"Tnd\":2527,
+\"Dog\":4737,
+\"Drs\":29,
+\"Hot\":0,
+\"Eqp\":1060,
+\"Flt\":0,
+\"Toc\":0,
+\"Reh\":0,
+\"NPr\":0,
+\"Eli\":0,
+\"Tim\":0,
+\"Value\":\"0\",
+\"stop\":0,
+\"start\":0,
+\"Name\":\"tablet_k20Ish85@1\",
+\"Oper\":0,
+\"Numero\":3,
+\"Nombre\":\"Pep\\\\'s Gunly\",
+\"NombreLargo\":\"de Loustalarie des Bourdalats\",
+\"NombreGuia\":\"Emilie Sales\",
+\"NombreClub\":\"Cu et D\\\\'EC St. Cyprien\",
+\"NombreEquipo\":\"-- Sin asignar --\",
+\"Categoria\":\"X\",
+\"Grado\":\"GI\"
+}"
+}
+*/
+
 /**
  * Analize received data and populate html form
  * @param {string} data received json decoded data
@@ -23,10 +70,10 @@ function parseEvent(entry) {
 	// ignore every events but 'llamada' as we only want running dog data
 	if(entry.Type!=='llamada') return;
 	let data=JSON.parse(entry.Data);
-	// rellenamos formulario
+	// rellenamos pagina
 	$.each(data, function(key, value){
 		if (key==='TimeStamp') value=entry.Timestamp; // use gmtime format instead of epoch integer
-		$('[name='+key+']', '#eventData').val(value);
+		$('#pp_'+key).html(value);
 	});
 }
 
@@ -107,7 +154,7 @@ function startEventMgr() {
     var sname=ac_config.Sname;
 	$.ajax({
 		type: "GET",
-		url: "https://"+ac_config.Host+"/agility/ajax/database/eventFunctions.php",
+		url: "../ajax/database/eventFunctions.php",
 		data: {
 			Operation:	'connect',
 			Session:	ac_config.SessionID,
@@ -148,7 +195,7 @@ function startEventMgr() {
 function findSessionID() {
 	$.ajax({
 		type: "GET",
-		url: "https://"+ac_config.Host+"/agility/ajax/database/sessionFunctions.php",
+		url: "../ajax/database/sessionFunctions.php",
 		data: { Operation:	'selectring' },
 		async: true,
 		cache: false,
