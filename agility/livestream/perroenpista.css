@@ -16,7 +16,8 @@ p .datos_crono {}
 
 /* informacion de la prueba */
 #pp_header_label {
-    font: 2vw bold italic Arial, SansSerif
+    /* display:none; */
+    font: 2vw bold italic Arial, SansSerif;
 }
 #pp_NombrePrueba_label {}
 #pp_NombrePrueba {}
@@ -27,7 +28,9 @@ p .datos_crono {}
 #pp_NombreRing {}
 
 /* informacion del perro */
-#pp_Logo {}
+#pp_Logo {
+    border:1px solid #000000;
+}
 #pp_Timestamp_label {}
 #pp_Timestamp {}
 #pp_Drs_label {}
