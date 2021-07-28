@@ -17,7 +17,9 @@ El parámetro "ring" es opcional. si se omite, el valor por defecto es "1"
     <meta charset="UTF-8">
     <title>Perro en pista</title>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./perroenpista.css" />
     <script type="text/javascript" src="./perroenpista.js"></script>
+    <script type="text/javascript" src="./perroenpista_layout.js"></script>
     <script type="text/javascript">
 
     // global data, must be filled on initialization process
@@ -47,6 +49,8 @@ El parámetro "ring" es opcional. si se omite, el valor por defecto es "1"
         if ( !ac_config.Host || ac_config.Host==='') ac_config.Host='localhost';
         if ( !ac_config.Ring || ac_config.Ring==='') ac_config.Ring=1;
 
+        // layout page components
+        renderPage();
         // and fire up event manager
         findSessionID()
     }
@@ -55,12 +59,14 @@ El parámetro "ring" es opcional. si se omite, el valor por defecto es "1"
 </head>
 <!-- do not change id names !! -->
 <body onload="initialize();">
-<h1>Perro en pista</h1>
-<h2>Prueba: <span id="pp_NombrePrueba">Esperando a que tablet esté activo...</span><br/></h2>
-<h3>Jornada: <span id="pp_NombreJornada"></span><br/></h3>
-<h4>Manga: <span id="pp_NombreManga"></span><br/></h4>
-<h4><span id="pp_NombreRing"></span><br/></h4>
-<p>
+<p class="datos_prueba">
+<span id="pp_header_label">Perro en pista</span><br/>
+<span id="pp_NombrePrueba_label">Prueba: </span><span id="pp_NombrePrueba">Esperando a que tablet esté activo...</span><br/>
+<span id="pp_NombreJornada_label">Jornada: </span><span id="pp_NombreJornada">_jornada_</span><br/>
+<span id="pp_NombreManga_label">Manga: </span><span id="pp_NombreManga">_manga_</span><br/>
+<span id="pp_NombreRing">_ring_</span>
+</p>
+<p class="datos_perro">
     <canvas id="pp_Logo" width="150" height="150" style="border:1px solid #000000"></canvas><br>
     <span style="display:none" id="pp_Pru"></span>
     <span style="display:none" id="pp_Jor"></span>
@@ -69,23 +75,23 @@ El parámetro "ring" es opcional. si se omite, el valor por defecto es "1"
     <span style="display:none" id="pp_Session"></span>
     <span style="display:none" id="pp_Source"></span>
     <span style="display:none" id="pp_Type"></span>
-    Marca de tiempo: <span id="pp_Timestamp"></span><br/>
-    Dorsal: <span id="pp_Drs"></span><br/>
-    Nombre: <span id="pp_Nombre"></span><br/>
-    Nombre Pedigree: <span id="pp_NombreLargo"></span><br/>
-    Gu&iacute;a: <span id="pp_NombreGuia"></span><br/>
-    Club: <span id="pp_NombreClub"></span><br/>
-    Equipo: <span id="pp_NombreEquipo"></span><br/>
-    Categor&iacute;a: <span id="pp_Categoria"></span><br/>
-    Grado: <span id="pp_Grado"></span><br/>
+    <span id="pp_Timestamp_label">Hora: </span><span id="pp_Timestamp">_timestamp_</span><br/>
+    <span id="pp_Drs_label">Dorsal:</span><span id="pp_Drs">_drs_</span><br/>
+    <span id="pp_Nombre_label">Nombre: </span><span id="pp_Nombre">_nombre_</span><br/>
+    <span id="pp_NombreLargo_label">Pedigree: </span><span id="pp_NombreLargo">_nombrelargo_</span><br/>
+    <span id="pp_NombreGuia_label">Gu&iacute;a: </span><span id="pp_NombreGuia">_nombreguia_</span><br/>
+    <span id="pp_NombreClub_label">Club: </span><span id="pp_NombreClub">_nombreclub_</span><br/>
+    <span id="pp_NombreEquipo_label">Equipo: </span><span id="pp_NombreEquipo">_nombreequipo_</span><br/>
+    <span id="pp_Categoria_label">Categor&iacute;a: </span><span id="pp_Categoria">_categoria_</span><br/>
+    <span id="pp_Grado_label">Grado: </span><span id="pp_Grado">_grado_</span><br/>
 </p>
-Faltas: <span id="pp_Flt"></span><br/>
-Rehuses: <span id="pp_Reh"></span><br/>
-Tocados: <span id="pp_Toc"></span><br/>
-Eliminado: <span id="pp_Eli"></span><br/>
-No Presentado: <span id="pp_NPr"></span><br/>
-Tiempo final: <span id="pp_Tim"></span><br/>
-<p>
+<p class="datos_crono">
+    <span id="pp_Flt_label">Faltas: </span><span id="pp_Flt">_flt_</span><br/>
+    <span id="pp_Reh_label">Rehuses:</span><span id="pp_Reh">_reh_</span><br/>
+    <span id="pp_Toc_label">Tocados: </span><span id="pp_Toc">_toc_</span><br/>
+    <span id="pp_Eli_label">Eliminado: </span><span id="pp_Eli">_eli_</span><br/>
+    <span id="pp_NPr_label">No present.: </span><span id="pp_NPr">_npr_</span><br/>
+    <span id="pp_Tim_label">Tiempo:</span><span id="pp_Tim">_tim_</span>
 
 </p>
 </body>

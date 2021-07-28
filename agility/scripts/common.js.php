@@ -1134,14 +1134,14 @@ function initAuthInfo(id) {
 /**
  * Used to evaluate position, width and heigh on an element to be 
  * layed out in a grid
- * @param dg datagrid { cols, rows }
+ * @param g grid size { cols, rows }
  * @param id id of element to be layed out
  * @param x start col
  * @param y start row
  * @param w nuber of cols
  * @param h number of rows
  */
-function doLayout(dg,id,x,y,w,h) {
+function doLayout(g,id,x,y,w,h) {
 	var elem=$(id);
 	elem.css('display','inline-block');
 	elem.css('position','absolute');
@@ -1150,10 +1150,10 @@ function doLayout(dg,id,x,y,w,h) {
 	elem.css('-webkit-box-sizing','border-box');
 	elem.css('-moz-box-sizing','border-box');
 	elem.css('box-sizing','border-box');
-	elem.css('left',  ((25+x*100)/dg.cols)+'%');
-	elem.css('top',   ((100+y*100)/dg.rows)+'%');
-	elem.css('width', ((w*100)/dg.cols)+'%');
-    elem.css('height',((h*100)/dg.rows)+'%');
+	elem.css('left',  ((25+x*100)/g.cols)+'%');
+	elem.css('top',   ((100+y*100)/g.rows)+'%');
+	elem.css('width', ((w*100)/g.cols)+'%');
+    elem.css('height',((h*100)/g.rows)+'%');
     // elem.css('line-height',((h*100)/dg.rows)+'%');
     // elem.css('vertical-align','bottom');
 }

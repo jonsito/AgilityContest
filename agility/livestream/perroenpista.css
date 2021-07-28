@@ -1,0 +1,62 @@
+/**
+En este fichero definimos los datos de cada elemento del html: color fondo, tamaño, fuente de letras, etc
+*/
+
+/* donde se define el fondo, tamaño, etc */
+body {
+    background: blue url(./perroenpista.png) no-repeat;
+    background-size: cover;
+    color: black;
+}
+
+/* marcos generales */
+p .datos_prueba {}
+p .datos_perro {}
+p .datos_crono {}
+
+/* informacion de la prueba */
+#pp_header_label {
+    font: 2vw bold italic Arial, SansSerif
+}
+#pp_NombrePrueba_label {}
+#pp_NombrePrueba {}
+#pp_NombreJornada_label {}
+#pp_NombreJornada {}
+#pp_NombreManga_label {}
+#pp_NombreManga {}
+#pp_NombreRing {}
+
+/* informacion del perro */
+#pp_Logo {}
+#pp_Timestamp_label {}
+#pp_Timestamp {}
+#pp_Drs_label {}
+#pp_Drs {}
+#pp_Nombre_label {}
+#pp_Nombre {}
+#pp_NombreLargo_label {}
+#pp_NombreLargo {}
+#pp_NombreGuia_label {}
+#pp_NombreGuia {}
+#pp_NombreClub_label {}
+#pp_NombreClub {}
+#pp_NombreEquipo_label {}
+#pp_NombreEquipo {}
+#pp_Categoria_label {}
+#pp_Categoria {}
+#pp_Grado_label {}
+#pp_Grado {}
+
+/* informacion del cronometro */
+#pp_Flt_label {}
+#pp_Flt {}
+#pp_Reh_label {}
+#pp_Reh {}
+#pp_Toc_label {}
+#pp_Toc {}
+#pp_Eli_label {}
+#pp_Eli {}
+#pp_NPr_label {}
+#pp_NPr {}
+#pp_Tim_label {}
+#pp_Tim {}
