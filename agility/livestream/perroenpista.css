@@ -16,7 +16,8 @@ p .datos_crono {}
 
 /* informacion de la prueba */
 #pp_header_label {
-    /* display:none; */
+    // use "visibility" instead of "display", as doLayout() uses last one to declare "boxes"
+    visibility:hidden;
     font: 2vw bold italic Arial, SansSerif;
 }
 #pp_NombrePrueba_label {}
