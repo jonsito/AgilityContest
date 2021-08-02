@@ -55,9 +55,12 @@ class DBConnection {
         exec($exec_string, $task_list,$return);
         $p1='/^mysql(d.exe)*/';
         $p2='/mariadbd/';
-        foreach ($task_list AS $task_line)        {
+        $p3='/mysqld/';
+        foreach ($task_list as $task_line)        {
+            // echo "{$task_line}<br/>";
             if (preg_match($p1, $task_line, $out)) return "";
             if (preg_match($p2, $task_line, $out)) return "";
+            if (preg_match($p3, $task_line, $out)) return "";
         }
 	    return "Database server is not running";
     }
