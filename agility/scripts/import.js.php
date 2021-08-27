@@ -361,19 +361,19 @@ function excel_importHandleResult(data) {
             setTimeout(function() { excel_importSendTask({ Operation: 'parse'})},0);
             break;
         case "parse": // analyze next line
-            if (data.success=='ok') { // if success==true parse again
+            if (data.success==='ok') { // if success==true parse again
                 import_setProgressStatus("running");
                 setTimeout(function(){excel_importSendTask({ Operation: 'parse'})},0);
             }
-            if (data.success=='fail') { // user action required. study cases
+            if (data.success==='fail') { // user action required. study cases
                 var funcs = {};
                 import_setProgressStatus('paused'); // tell progress monitor to pause progress bar refresh
                 if (ac_import.type === "resultados") {
                     funcs = {'notf': resultNotFound, 'miss': resultMissmatch, 'multi': resultMustChoose};
                 } else  if (ac_import.type === "ordensalida") {
                     funcs = {'notf': ordensalidaNotFound, 'miss': ordensalidaMissmatch, 'multi': ordensalidaMustChoose};
-                } else if (parseInt(data.search.ClubID)==0) {
-                    if (ac_import.blind==1) {
+                } else if (parseInt(data.search.ClubID)===0) {
+                    if (parseInt(ac_import.blind)===1) {
                         var str1='<?php _e("Club/Country not found or missmatch");?>: '+data.search.NombreClub;
                         var str2='<?php _e("This is not allowed when importing in blind mode");?>';
                         var str3='<?php _e("Import aborted.");?>';
@@ -387,18 +387,18 @@ function excel_importHandleResult(data) {
                         break;
                     }
                     funcs= {'notf': clubNotFound,'miss':clubMissmatch,'multi':clubMustChoose};
-                } else if (parseInt(data.search.HandlerID)==0) {
+                } else if (parseInt(data.search.HandlerID)===0) {
                     funcs= {'notf':handlerNotFound,'miss':handlerMissmatch,'multi':handlerMustChoose};
                 } else { // arriving here means need to handle with perros
                     funcs= {'notf':dogNotFound,'miss':dogMissmatch,'multi':dogMustChoose};
                 }
 
-                var len=data.found.length;
-                if (len==0) funcs.notf(data.search);         // item not found: ask user to select existing or create new one
-                else if (len==1) funcs.miss(data.search);    // item found, but data missmatch. ask user to fix
+                var len=parseInt(data.found.length);
+                if (len===0) funcs.notf(data.search);         // item not found: ask user to select existing or create new one
+                else if (len===1) funcs.miss(data.search);    // item found, but data missmatch. ask user to fix
                 else funcs.multi(data.search);                // several compatible items found. ask user to decide
             }
-            if (data.success=='done') { // file parsed: start real import procedure
+            if (data.success==='done') { // file parsed: start real import procedure
                 import_setProgressStatus("running");
                 setTimeout(function() { excel_importSendTask({ Operation: 'import'})},0);
             }
