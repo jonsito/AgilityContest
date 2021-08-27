@@ -5,26 +5,26 @@ function renderPage() {
     /* informacion de la prueba */
     doLayout(g,'#pp_header_label',      10,     10,     200,    25);
     doLayout(g,'#pp_NombrePrueba_label',10,     150,     140,     25);
-    doLayout(g,'#pp_NombrePrueba',      150,    150,     600,    25);
+    doLayout(g,'#pp_NombrePrueba',      220,    645,     600,    25);
     doLayout(g,'#pp_NombreJornada_label',10,    180,    140,     25);
-    doLayout(g,'#pp_NombreJornada',     150,    180,    600,    25);
+    doLayout(g,'#pp_NombreJornada',     1100,    10,    600,    25);
     doLayout(g,'#pp_NombreManga_label', 10,     210,    140,     25);
-    doLayout(g,'#pp_NombreManga',       150,    210,    600,    25);
+    doLayout(g,'#pp_NombreManga',       300,    580,    600,    25);
     doLayout(g,'#pp_NombreRing',        10,     240,    200,    25);
 
     /* logotipo del club */
-    doLayout(g,'#pp_Logo',              800,     50,    150,    150);
+    doLayout(g,'#pp_Logo',              52,     542,    150,    150);
     /* informacion del perro */
     doLayout(g,'#pp_Timestamp_label',   10,     370,    140,     25);
     doLayout(g,'#pp_Timestamp' ,        150,    370,    600,    25);
     doLayout(g,'#pp_Drs_label',         10,     400,    140,     25);
     doLayout(g,'#pp_Drs',               150,    400,    600,    25);
     doLayout(g,'#pp_Nombre_label',      10,     430,    140,     25);
-    doLayout(g,'#pp_Nombre',            150,    430,    600,    25);
+    doLayout(g,'#pp_Nombre',            550,    595,    600,    25);
     doLayout(g,'#pp_NombreLargo_label', 10,     460,    140,     25);
     doLayout(g,'#pp_NombreLargo',       150,    460,    600,    25);
     doLayout(g,'#pp_NombreGuia_label',  10,     490,    140,     25);
-    doLayout(g,'#pp_NombreGuia',        150,    490,    600,    25);
+    doLayout(g,'#pp_NombreGuia',        250,    610,    600,    25);
     doLayout(g,'#pp_NombreClub_label',  10,     520,    140,     25);
     doLayout(g,'#pp_NombreClub',        150,    520,    600,    25);
     doLayout(g,'#pp_NombreEquipo_label',10,     550,    140,     25);

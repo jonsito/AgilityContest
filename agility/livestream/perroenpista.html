@@ -15,11 +15,14 @@ El parámetro "ring" es opcional. si se omite, el valor por defecto es "1"
 -->
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
     <title>Perro en pista</title>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+    <!--
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    -->
+    <script type="text/javascript" src="../lib/jquery-2.2.4.js"></script>
     <link rel="stylesheet" type="text/css" href="./perroenpista.css" />
     <script type="text/javascript" src="./perroenpista.js"></script>
     <script type="text/javascript" src="./perroenpista_layout.js"></script>
@@ -70,7 +73,7 @@ El parámetro "ring" es opcional. si se omite, el valor por defecto es "1"
 <span id="pp_NombreRing">_ring_</span>
 </p>
 <p class="datos_perro">
-    <canvas id="pp_Logo" width="150" height="150" style="border:1px solid #000000"></canvas><br>
+    <canvas id="pp_Logo" width="150" height="150"></canvas><br>
     <span style="display:none" id="pp_Pru"></span>
     <span style="display:none" id="pp_Jor"></span>
     <span style="display:none" id="pp_Mng"></span>

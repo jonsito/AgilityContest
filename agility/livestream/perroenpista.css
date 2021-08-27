@@ -18,49 +18,47 @@ p .datos_crono {}
 #pp_header_label {
     /* use "visibility" instead of "display", as doLayout() uses last one to declare "boxes" */
     visibility: hidden;
-    font: 2vw bold italic Arial, SansSerif;
+    font: 2vw bold italic Arial, SansSerif
 }
-#pp_NombrePrueba_label {}
-#pp_NombrePrueba {}
-#pp_NombreJornada_label {}
-#pp_NombreJornada {}
-#pp_NombreManga_label {}
-#pp_NombreManga {}
-#pp_NombreRing {}
+#pp_NombrePrueba_label {visibility: hidden}
+#pp_NombrePrueba { font-family: Helvetica, serif; font-weight:bold; font-size:14px; color: white}
+#pp_NombreJornada_label {visibility: hidden}
+#pp_NombreJornada {font-family: Helvetica, serif; font-weight:bold; font-size:21px; color: white}
+#pp_NombreManga_label {visibility: hidden}
+#pp_NombreManga {font-family: Helvetica, serif; font-weight:bold; font-size:15px; color: white}
+#pp_NombreRing {visibility: hidden}
 
 /* informacion del perro */
-#pp_Logo {
-    border:1px solid #000000;
-}
-#pp_Timestamp_label {}
-#pp_Timestamp {}
-#pp_Drs_label {}
-#pp_Drs {}
-#pp_Nombre_label {}
-#pp_Nombre {}
-#pp_NombreLargo_label {}
-#pp_NombreLargo {}
-#pp_NombreGuia_label {}
-#pp_NombreGuia {}
-#pp_NombreClub_label {}
-#pp_NombreClub {}
-#pp_NombreEquipo_label {}
-#pp_NombreEquipo {}
-#pp_Categoria_label {}
-#pp_Categoria {}
-#pp_Grado_label {}
-#pp_Grado {}
+#pp_Logo {}
+#pp_Timestamp_label {visibility: hidden}
+#pp_Timestamp {visibility: hidden}
+#pp_Drs_label {visibility: hidden}
+#pp_Drs {visibility: hidden}
+#pp_Nombre_label {visibility: hidden}
+#pp_Nombre {font-family: Helvetica, serif; font-weight:bold; font-size:35px}
+#pp_NombreLargo_label {visibility: hidden}
+#pp_NombreLargo {visibility: hidden}
+#pp_NombreGuia_label {visibility: hidden}
+#pp_NombreGuia {font-family: Helvetica, serif;font-weight:bold}
+#pp_NombreClub_label {visibility: hidden}
+#pp_NombreClub {visibility: hidden}
+#pp_NombreEquipo_label {visibility: hidden}
+#pp_NombreEquipo {visibility: hidden}
+#pp_Categoria_label {visibility: hidden}
+#pp_Categoria {visibility: hidden}
+#pp_Grado_label {visibility: hidden}
+#pp_Grado {visibility: hidden}
 
 /* informacion del cronometro */
-#pp_Flt_label {}
-#pp_Flt {}
-#pp_Reh_label {}
-#pp_Reh {}
-#pp_Toc_label {}
-#pp_Toc {}
-#pp_Eli_label {}
-#pp_Eli {}
-#pp_NPr_label {}
-#pp_NPr {}
-#pp_Tim_label {}
-#pp_Tim {}
+#pp_Flt_label {visibility: hidden}
+#pp_Flt {visibility: hidden}
+#pp_Reh_label {visibility: hidden}
+#pp_Reh {visibility: hidden}
+#pp_Toc_label { visibility: hidden;}
+#pp_Toc {visibility: hidden}
+#pp_Eli_label {visibility: hidden}
+#pp_Eli {visibility: hidden}
+#pp_NPr_label {visibility: hidden}
+#pp_NPr {visibility: hidden}
+#pp_Tim_label {visibility: hidden}
+#pp_Tim {visibility: hidden}
