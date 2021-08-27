@@ -231,7 +231,7 @@ function insertInscripcion(dg) {
 	            // si el perro no esta inscrito en la jornada, skip
                 if ( (mask & (1<<n)) ==0 ) continue;
                 // si se quiere inscribir comprueba si es posible
-	            if (!canInscribe(jornadas[n],rows[index].Grado)) {
+	            if (!canInscribe(jornadas[n],rows[index].Grado,rows[index].CatGuia)) {
 	                mask &= ~(1<<n); // borramos mascara de inscripcion en la jornada en que no se puede
                     msg += "<br/>"+(n+1)+" - "+jornadas[n].Nombre;
                     showmsg=true;
@@ -529,14 +529,14 @@ function setDorsal() {
  * Comprueba si una jornada admite inscripciones
  * @param {object} jornada, datos de la jornada
  * @param {string} grado, (opcional) grado del perro
+ * @param {string} catguia, (opcional) categoria del guia I(nfantil) J(uvenil) A(dulto) S(senior) P(araagility)
  */
-function canInscribe(jornada,grado) {
-	var result=true;
+function canInscribe(jornada,grado,catguia) {
 	// jornada no definida
     if (jornada.Nombre === '-- Sin asignar --') return false;
     // jornada cerrada
 	if (jornada.Cerrada==1) return false;
-	if ( (grado===null) || typeof(grado)==="undefined") return result;
+	if ( (grado===null) || typeof(grado)==="undefined") return true;
     if (grado==='Baja') return false;
     if (grado==='Ret.') return false;
     // preagility solo compite en pre-agility
@@ -548,13 +548,44 @@ function canInscribe(jornada,grado) {
     if (jornada.Especial!=0) return true;
     // PENDING: can Grade 1 participate in teams ?
     if (isJornadaEquipos(jornada)) return true;
-    // En demas pruebas se comprueba la el grado del perro
-    if ( (grado==="Jr") && (jornada.Junior==0) ) return false;
-    if ( (grado==="Sr") && (jornada.Senior==0) ) return false;
-    if ( (grado==="GI") && (jornada.Grado1==0) ) return false;
-    if ( (grado==="GII") && (jornada.Grado2==0) ) return false;
-    if ( (grado==="GIII") && (jornada.Grado3==0) ) return false;
-	return result;
+    // En demas pruebas se comprueba la el grado del perro y -si esta definido- el del guia
+    if ( (catguia===null) || typeof(catguia)==="undefined") {
+        // en versiones anteriores a 4.5.2 no había categorias para el guia
+        if ( (grado==="ch") && (jornada.Children==0) ) return false;
+        if ( (grado==="Jr") && (jornada.Junior==0) ) return false;
+        if ( (grado==="Sr") && (jornada.Senior==0) ) return false;
+        if ( (grado==="GI") && (jornada.Grado1==0) ) return false;
+        if ( (grado==="GII") && (jornada.Grado2==0) ) return false;
+        if ( (grado==="GIII") && (jornada.Grado3==0) ) return false;
+        return true;
+    }
+    // a partir de la version 4.5.2 tenemos que tener en cuenta la categoria del guia
+    if (jornada.Children!=0) { // hay manga infantil
+        if (catguia==='I') return true; // si el guia es infantil se puede inscribir
+    }
+    if (jornada.Junior!=0) { // hay manga juvenil
+        if (catguia==='J') return true; // si el guia es juvenil se puede inscribir
+        if (catguia==='I') return true; // si el guia es infantil y NO hay manga infantil se puede inscribir
+    }
+    if (jornada.Senior!=0) { // hay manga senior
+        if (catguia==='S') return true;
+    }
+    if (jornada.ParaAgility!=0) { // manga para-agility
+        if (catguia==='P') return true;
+    }
+    // si guia adulto y perro y grado coinciden, se puede inscribir
+    if ( (catguia==='A') && (grado==="GI") && (jornada.Grado1!=0) ) return true;
+    if ( (catguia==='A') && (grado==="GII") && (jornada.Grado2!=0) ) return true;
+    if ( (catguia==='A') && (grado==="GIII") && (jornada.Grado3!=0) ) return true;
+    // si guia infantil o juvenil o senior cuando no hay dichas mangas pero si hay grado 2 (o 3 en senior /pa)
+    if ( (catguia==='I') && (grado==="GII") && (jornada.Grado2!=0) ) return true;
+    if ( (catguia==='J') && (grado==="GII") && (jornada.Grado2!=0) ) return true;
+    if ( (catguia==='S') && (grado==="GII") && (jornada.Grado2!=0) ) return true;
+    if ( (catguia==='S') && (grado==="GIII") && (jornada.Grado3!=0) ) return true;
+    if ( (catguia==='P') && (grado==="GII") && (jornada.Grado2!=0) ) return true;
+    if ( (catguia==='P') && (grado==="GIII") && (jornada.Grado3!=0) ) return true;
+    // arriving here means cannot inscribe
+    return false;
 }
 
 function importExportInscripciones() {
