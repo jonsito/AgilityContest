@@ -415,7 +415,7 @@ class Mangas extends DBObject {
      * @throws Exception when invalid parameter provided
      */
 	static function getMangaInfo($id) {
-	    do_log("getMangaInfo id:".json_encode($id));
+	    // do_log("getMangaInfo id:".json_encode($id));
 	    $mid=null;
 	    if (is_object(($id))) $mid=$id->ID;
 	    if (is_numeric($id)) $mid=intval($id);

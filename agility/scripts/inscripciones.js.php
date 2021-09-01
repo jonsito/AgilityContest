@@ -574,6 +574,7 @@ function canInscribe(jornada,grado,catguia) {
         if (catguia==='P') return true;
     }
     // si guia adulto y perro y grado coinciden, se puede inscribir
+    if ( (catguia==='A') && (grado==="P.A.") && (jornada.PreAgility!=0) ) return true;
     if ( (catguia==='A') && (grado==="GI") && (jornada.Grado1!=0) ) return true;
     if ( (catguia==='A') && (grado==="GII") && (jornada.Grado2!=0) ) return true;
     if ( (catguia==='A') && (grado==="GIII") && (jornada.Grado3!=0) ) return true;
