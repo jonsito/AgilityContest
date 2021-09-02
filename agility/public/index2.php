@@ -334,11 +334,11 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
             foreach ($ptree['Jornadas'] as $jornada) {
                 if ($jornada['Nombre']==='-- Sin asignar --') continue;
                 if (count($jornada['Mangas'])==0) continue; // no rounds, no print
-                echon( "<dt>{$jornada['Nombre']}</dt>");
+                echon( "<dt>{$jornada['Nombre']}<br/>&nbsp;<br/></dt>");
                 echon("<dd>");
                     echon("<ol>");
-                        echon('<li><a class="easyui-linkbutton" href="javascript:pbmenu_loadTimeTable('.$pruebaID.','.$jornada['ID'].')">'._("Timetable")."</a> </li>");
-                        echon('<li><a class="easyui-linkbutton" href="javascript:pbmenu_loadInscriptions('.$pruebaID.','.$jornada['ID'].')">'._("Inscriptions")."</a> </li>");
+                        echon('<li><a class="easyui-linkbutton" href="javascript:pbmenu_loadTimeTable('.$pruebaID.','.$jornada['ID'].')">'._("Timetable")."</a><br/>&nbsp;<br/></li>");
+                        echon('<li><a class="easyui-linkbutton" href="javascript:pbmenu_loadInscriptions('.$pruebaID.','.$jornada['ID'].')">'._("Inscriptions")."</a><br/>&nbsp;<br/></li>");
                         echon('<li>'._("Starting order").'<br/>');
                             echon('<table>');
                             $tipo=0;
@@ -349,7 +349,7 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
                                 echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadStartingOrder('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$tanda['Nombre']."</a> </td>");
                             }
                             echon("</tr></table");
-                        echon("</li>");
+                        echon("<br/>&nbsp;<br/></li>");
                         // skipping single round series may lead in empty partial scores section.
                         // so detect and avoid
 
@@ -369,14 +369,19 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
                             echon("<li>"._("Partial scores").'<br>'); echon('<table>'); echo $roundstr; echon('</table>'); echon("</li>");
                         }
 
-                        echon("<li>"._("Final scores").'<br/>');
+                        echon("<br/>&nbsp;<br/><li>"._("Final scores").'<br/>');
                             echon('<table><tr>');
+                            $lastmanga1=0;
                             for ($n=0;$n<count($jornada['Series']);$n++) {
                                 $serie=$jornada['Series'][$n];
+                                if ($serie['Manga1']!=$lastmanga1) {
+                                    $lastmanga1=$serie['Manga1'];
+                                    echon('</tr><tr>');
+                                }
                                 echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$n.')">'.$serie['Nombre']."</a> </td>");
                             }
                             echon('</tr></table>');
-                        echon("</li>");
+                        echon("<br/>&nbsp;<br/></li>");
                     echon("</ol>");
                 echon("</dd>");
             }

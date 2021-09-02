@@ -45,13 +45,14 @@ class PublicWeb
         $this->session = null;
         $this->sessionid = 0;
         $this->prueba = $this->myDBObject->__getArray("pruebas", $pruebaid);
-        $this->jornada = $this->myDBObject->__getArray("jornadas", $jornadaid);
+        $this->jornada = null;
+        if ($jornadaid != 0 ) $this->jornada = $this->myDBObject->__getArray("jornadas", $jornadaid);
         $this->manga = null;
         $this->mangaid = $mangaid;
         if ($mangaid != 0) $this->manga = $this->myDBObject->__getArray("mangas", $mangaid);
         $this->mode = $mode;
         $this->club = $this->myDBObject->__getArray("clubes", $this->prueba['Club']);
-        $this->myLogger->info("prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} mode:$mode");
+        $this->myLogger->info("prueba:{$this->prueba['ID']} jornada:{$jornadaid} manga:{$mangaid} mode:$mode");
     }
 
     function publicweb_infodata() {
