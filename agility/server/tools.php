@@ -817,8 +817,8 @@ function sqlFilterCategoryByMode($mode,$heights,$prefix=""){
 }
 
 // comodity functions from Mangas.php
-function isMangaAgility($tipo) { return in_array($tipo,array(1,3,5,6,7,8,9,16,17,25,26,32)); }
-function isMangaJumping($tipo) { return in_array($tipo,array(2,4,10,11,12,13,14,27,28,29,33)); }
+function isMangaAgility($tipo) { return in_array($tipo,array(1,3,5,6,7,8,9,16,17,25,26,32,34,36,38)); }
+function isMangaJumping($tipo) { return in_array($tipo,array(2,4,10,11,12,13,14,27,28,29,33,35,37,39)); }
 function isMangaKO($tipo) { return in_array($tipo,array(15,18,19,20,21,22,23,24)); }
 function isMangaGames($tipo) { return in_array($tipo,array(29,30)); }
 function isMangaWAO($tipo) { return in_array($tipo,array(25,26,27,28,29,30,31)); }
