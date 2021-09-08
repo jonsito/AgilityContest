@@ -1,4 +1,9 @@
 Version 4.5.2 20210719_1900
+    - Livestream "perroenpista" enhancements
+    - Update database
+    - Fix multiple issues and copypasge bugs with Children/Junior/Senior rounds
+    - Fix warnings in excel import and upgrade code
+Version 4.5.2 20210719_1900
     - Multilicense handling support
     - New "livestream" webapp "perroenpista"
     - Typos and strings fixes

@@ -33,6 +33,23 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <!--- comienzo del changelog -->
 <?php } ?>
 
+<?php if ( strcmp($from,"blog_2021-09-08_00:00:00")<0) { ?>
+    <strong>2021-Sept-08</strong><br/>
+    <p>
+        Versión 4.5.3
+    </p>
+    <p>
+        Actualización de la base de datos
+    </p>
+    <p>
+        Nueva opción para livestream: utilidad para mostrar el perro en pista
+    </p>
+    <p>
+        Resolución de diversos errores relacionados con categorias infantil/senior en RFEC<br/>
+        Se recomienda la actualizaci&oacute;n a esta versi&oacute;n si se van a realizar pruebas de RFEC
+    </p>
+<?php } ?>
+
 <?php if ( strcmp($from,"blog_2021-07-19_00:00:00")<0) { ?>
     <strong>2021-Jul-19</strong><br/>
     <p>
