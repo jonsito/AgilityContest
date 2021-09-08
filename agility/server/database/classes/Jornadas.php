@@ -476,8 +476,8 @@ class Jornadas extends DBObject {
             $manga1= $this->fetchManga($mangas['rows'],$jornadaid,36); // Children Agility
             $manga2= $this->fetchManga($mangas['rows'],$jornadaid,37); // Children Jumping
             array_push($data,array(
-                "Rondas" => $this->federation->getTipoRondas()[17][0],
-                "Nombre" => $this->federation->getTipoRondas()[17][1],
+                "Rondas" => $this->federation->getTipoRondas()[18][0],
+                "Nombre" => $this->federation->getTipoRondas()[18][1],
                 "Manga1" => $manga1['ID'],
                 "Manga2" => $manga2['ID'],
                 "Manga3" => 0,"Manga4" => 0,"Manga5" => 0,"Manga6" => 0,"Manga7" => 0,"Manga8" => 0,

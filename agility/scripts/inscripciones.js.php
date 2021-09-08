@@ -578,11 +578,21 @@ function canInscribe(jornada,grado,catguia) {
     if ( (catguia==='A') && (grado==="GI") && (jornada.Grado1!=0) ) return true;
     if ( (catguia==='A') && (grado==="GII") && (jornada.Grado2!=0) ) return true;
     if ( (catguia==='A') && (grado==="GIII") && (jornada.Grado3!=0) ) return true;
-    // si guia infantil o juvenil o senior cuando no hay dichas mangas pero si hay grado 2 (o 3 en senior /pa)
+
+    // si guia infantil o juvenil cuando no hay dichas mangas pero si hay grado 2 (o 3 en senior /pa)
+    if ( (catguia==='I') && (grado==="GI") && (jornada.Grado1!=0) ) return true;
     if ( (catguia==='I') && (grado==="GII") && (jornada.Grado2!=0) ) return true;
+    if ( (catguia==='J') && (grado==="GI") && (jornada.Grado1!=0) ) return true;
     if ( (catguia==='J') && (grado==="GII") && (jornada.Grado2!=0) ) return true;
+
+    // en senior y para-agility si no tienen manga propia se pueden inscribir en la correspondiente
+    if ( (catguia==='S') && (grado==="P.A.") && (jornada.PreAgility!=0) ) return true;
+    if ( (catguia==='S') && (grado==="GI") && (jornada.Grado1!=0) ) return true;
     if ( (catguia==='S') && (grado==="GII") && (jornada.Grado2!=0) ) return true;
     if ( (catguia==='S') && (grado==="GIII") && (jornada.Grado3!=0) ) return true;
+
+    if ( (catguia==='P') && (grado==="P.A.") && (jornada.PreAgility!=0) ) return true;
+    if ( (catguia==='P') && (grado==="GI") && (jornada.Grado1!=0) ) return true;
     if ( (catguia==='P') && (grado==="GII") && (jornada.Grado2!=0) ) return true;
     if ( (catguia==='P') && (grado==="GIII") && (jornada.Grado3!=0) ) return true;
     // arriving here means cannot inscribe
