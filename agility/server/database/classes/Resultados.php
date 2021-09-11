@@ -478,6 +478,10 @@ class Resultados extends DBObject {
                 if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
             }
 		}
+        // in some php versions seems that LC_NUMERIC does not work as expected
+        // so make sure that float variables uses dot as decimal separator to conform mysql
+        $tiempo=str_replace(",",".",$tiempo);
+        $tintermedio=str_replace(",",".",$tintermedio);
 		// efectuamos el update, marcando "pendiente" como false
 		$sql="UPDATE resultados 
 			SET $entrada $comienzo 
