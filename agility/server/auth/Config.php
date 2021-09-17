@@ -44,6 +44,7 @@ define('AC_CRYPT_DB',"0"); // do not crypt database backup contents
 /** logging **/
 define('AC_DEBUG_LEVEL','0');
 define('AC_REGISTER_EVENTS',"0"); // write events into file
+define('AC_REMOTE_EVENTS_URL',""); // URL to send events outside server. format: http(s)://{host}:{port}/{baseurl}
 define('AC_CONSOLE_EVENTS',"0"); // track and show events in cosole
 define('AC_CONSOLE_NEWS',"1"); // ask server for news on startup
 define('AC_RESET_EVENTS',"1"); // clear event registry on login
@@ -196,6 +197,7 @@ Class Config {
 		// version, logging y depuracion
 		'debug_level' 		=> array(	'i',	false,	AC_DEBUG_LEVEL),
 		'register_events'	=> array(	'b',	false,	AC_REGISTER_EVENTS),
+		'remote_events_url'=> array(	's',	false,	AC_REMOTE_EVENTS_URL),
         'reset_events'		=> array(	'b',	false,	AC_RESET_EVENTS),
 		'console_events'	=> array(	'b',	false,	AC_CONSOLE_EVENTS),
 		'console_news'		=> array(	'i',	false,	AC_CONSOLE_NEWS),

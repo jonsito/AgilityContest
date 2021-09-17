@@ -506,6 +506,9 @@ $config =Config::getInstance();
             <input type="hidden" name="register_events" value="0"/> <!-- trick for checkboxes -->
             <input type="checkbox" name="register_events" id="register_events" value="1"/><br />
 
+            <label for="remote_events_url"> <?php _e('Remote events listener URL'); ?> </label>
+            <input id="remote_events_url" name="remote_events_url" type="text" size="48" value=""/>
+
 			<label for="event_printer"><?php _e('Printer device name to write tablet reports'); ?></label>
 			<input id="event_printer" name="event_printer" type="text" size="10" value=""/> <?php _e('Paper size'); ?>:
 			<label for="wide_printer58" style="width:70px;">
@@ -617,6 +620,7 @@ $config =Config::getInstance();
     $('#email_realm').textbox();
     $('#email_workstation').textbox();
     $('#ip_address').textbox().textbox('setValue','<?php $a=new networkInterfaces(); echo implode(" - ",$a->get_interfaces());?>');
+    $('#remote_events_url').textbox();
     $('#event_printer').textbox();
     $('#backup_dir').textbox();
 
@@ -628,7 +632,8 @@ $config =Config::getInstance();
         textField:'Name'
     });
 
-	addTooltip($('#event_printer').linkbutton(),'<?php _e("Enter printer name/device or leave empty to disable"); ?>');
+    addTooltip($('#remote_events_url').textbox('textbox'),'<?php _e("Enter (optional) URL to send events to (or leave empty)"); ?>');
+    addTooltip($('#event_printer').textbox('textbox'),'<?php _e("Enter printer name/device or leave empty to disable"); ?>');
 	addTooltip($('#config-resetBtn').linkbutton(),'<?php _e("Cancel changes. Restore information from server"); ?>');
 	addTooltip($('#config-defaultBtn').linkbutton(),'<?php _e("Factory reset. Configure with default data"); ?>');
 	addTooltip($('#config-okBtn').linkbutton(),'<?php _e("Accept changes. Save as new configuration"); ?>');

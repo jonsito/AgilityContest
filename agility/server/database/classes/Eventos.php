@@ -222,8 +222,7 @@ class Eventos extends DBObject {
 		$data['TimeStamp']=$timestamp;
 		$data['ID']=$this->conn->insert_id;
 		$stmt->close();
-		
-		// and save content to event file
+		// if saving event file is requested, handle it
 		$flag=$this->myConfig->getEnv("register_events");
 		$str=json_encode($data);
 		if (boolval($flag)) {
@@ -234,8 +233,14 @@ class Eventos extends DBObject {
 			// just overwrite event file with last event
 			file_put_contents($this->sessionFile,$str."\n",LOCK_EX);
 		}
-		// if printer is enabled, send every "accept" events
-		if ($data['Type']=='aceptar') {
+        // if a remote server to send events is declared, try also to send data
+        $revents_url=$this->myConfig->getEnv("remote_events_url");
+        if (! is_null($revents_url) &&  trim($revents_url) != "") {
+            $this->uploadEvent($revents_url,$str);
+        }
+		// if raw printer is enabled, send every "accept" events
+        $printerName=$this->myConfig->getEnv("event_printer");
+        if ( (! is_null($printerName)) &&  (trim($printerName) != "") && ($data['Type']=='aceptar') ) {
 			$p=new RawPrinter();
 			$p->rawprinter_Print($data);
 		}
@@ -243,6 +248,47 @@ class Eventos extends DBObject {
 		$this->myLogger->leave();
 		return ""; 
 	}
+
+    /**
+     * Send event to server as json data. Ignore response
+     * and receive answer
+     * @param {string} $host
+     * @param {int} $port
+     * @throws Exception
+     */
+    function uploadEvent($url,$data) {
+        // first of all, check internet conectivity
+        if (isNetworkAlive()<0) {
+            throw new Exception("updater::SendJSONRequest(): No internet access available");
+        }
+        // do not verify cert on localhost
+        $checkcert=true;
+        if (strpos($url,"localhost")!=false)  $checkcert=false;
+        if (strpos($url,"127.0.0.1")!=false)  $checkcert=false;
+        $hdata=array(
+            "Operation" => 'putEvent'
+        );
+        $pdata=array(
+            'Data' => $data
+        );
+        // prepare and execute json request
+        $curl = curl_init($url."?".http_build_query($hdata) );
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1); // allow server redirection
+        curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4); // try to fix some slowness issues in windozes
+        curl_setopt($curl, CURLOPT_POSTREDIR, 1); // do not change from post to get on "301 redirect"
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $pdata );
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $checkcert); // set to false when using "localhost" url
+        curl_setopt($curl,CURLOPT_CONNECTTIMEOUT, 5); // wait 5 secs to attemp connect
+
+        $json_response = @curl_exec($curl); // supress stdout warning
+        if ( curl_error($curl) ) {
+            $this->myLogger->error("event::uploadEvent() call to URL $url failed: " . curl_error($curl) );
+        }
+        // close curl stream
+        curl_close($curl);
+    }
 
 	/**
 	 * send 'reconfig' event to every sessions
