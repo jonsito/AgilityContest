@@ -16,7 +16,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-require_once (__DIR__."/../../auth/Config.php");
 /**
  * DB connection handler
  * This class should only be used from DBConnection objects
