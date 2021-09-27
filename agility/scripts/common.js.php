@@ -898,8 +898,8 @@ function setupWorkingData(prueba,jornada,manga,callback) {
                 }
             }).always(function() {
                 // obtenemos datos de la manga
-                if (manga<=0) {
-                    $.messager.alert('<?php _e("Error"); ?>', "No round information", "error");
+                if (manga<=1) { // round:1 means not initialized yet; do not call server
+                    if(manga<=0) $.messager.alert('<?php _e("Error"); ?>', "No round id provided", "error");
                     setManga(null);
                     return false;
                 }
