@@ -1,3 +1,7 @@
+Version 4.5.4 20210927_1050
+    - Fixes on inscriptions ( let inscription/rounds work for special cases )
+    - Database updates
+    - Some fixes for 5-heights VideoWall
 Version 4.5.3 20210908_2030
     - Livestream "perroenpista" enhancements
     - Update database
