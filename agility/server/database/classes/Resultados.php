@@ -758,7 +758,7 @@ class Resultados extends DBObject {
 			$comp->evalPartialPenalization($this->mangaInfo->Manga,$table[$idx],$tdata);
 			// evaluamos velocidad 
 			if ($table[$idx]['Tiempo']==0)	$table[$idx]['Velocidad'] = 0;
-			else 	$table[$idx]['Velocidad'] =  $tdata['dist'] / $table[$idx]['Tiempo'];
+			else 	$table[$idx]['Velocidad'] =  $tdata['dist'] / str_replace(",",".",$table[$idx]['Tiempo']);
 
             // anyadimos nombre del equipo
             $dequipos=$this->getDatosEquipos();
