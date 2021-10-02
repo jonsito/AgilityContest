@@ -177,7 +177,7 @@ Class AgilityContestUpdater {
      * Clear tmp files
      */
     public function prepare() {
-        mkdir(TEMP_DIR);
+        @mkdir(TEMP_DIR);
         // clear old config files from tmpdir
         foreach ($this->user_files as $temp => $file) {
             if (file_exists(TEMP_DIR.$temp)) unlink(TEMP_DIR.$temp);
@@ -206,7 +206,7 @@ Class AgilityContestUpdater {
                 continue;
             };
             // else try to copy. We can use copy() cause both files are local
-            $res=copy($from,$to);
+            $res=@copy($from,$to);
             if ($res===FALSE) {
                 $this->logProgress("WARNING: $str $temp");
                 $res = false;
@@ -215,7 +215,7 @@ Class AgilityContestUpdater {
             $this->logProgress($str.$temp);
         }
         // on restore system.ini take care on update version and revision number
-        if ($oper==false) {
+        if ($oper===false) {
             $sysini=file(__DIR__."/../config/system.ini",FILE_IGNORE_NEW_LINES);
             $version='version_name = "'.$this->version_name.'"';
             $date='version_date = "'.$this->version_date.'"';
