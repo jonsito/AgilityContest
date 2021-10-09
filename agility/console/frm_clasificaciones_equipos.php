@@ -90,7 +90,12 @@ include_once(__DIR__ . "/../console/templates/scores_mail.inc.php");
             <input type="radio" id="r_prformat7" name="r_prformat" value="7" onclick="r_selectOption(7);"/>
                 <label for="r_prformat7"><?php _e('Individual Scores'); ?> (PDF)<br /></label>
         </span>
-
+        <!-- en equipos no se usa, pero es necesario para print_ClasificacionGeneral() -->
+        <span style="display:none">
+            <br/>&nbsp;<br/>
+            <label id="r_journeysLbl" for="r_journeys"><?php _e('Select journeys'); ?></label>
+            <select id="r_journeys" style="width:125px" name="r_journeys" class="easyui-combogrid"></select>
+        </span>
         <span  style="display:inline-block;width:100%">
 		    <span style="float:left">
 	            <input type="radio" id="r_prformat4" name="r_prformat" value="4" checked="checked" onclick="r_selectOption(4);"/>
@@ -136,6 +141,27 @@ $('#r_prfirst').numberspinner({
         max: 16,
         min: 1,
         value: 1
+});
+
+/* this element is not used in team contests, but needed to avoid "undefined symbol" in print_clasificacionGeneral() */
+$('#r_journeys').combogrid({
+    panelHeight:'auto',
+    panelWidth: 150,
+    url: '../ajax/database/jornadaFunctions.php',
+    idField:'ID',
+    textField:'Nombre',
+    multiple: true,
+    mode: 'remote',
+    queryParams: {
+        Operation:'enumerate',
+        Prueba:workingData.prueba,
+        AllowClosed:1,
+        HideUnassigned:1
+    },
+    columns: [[
+        {field:'ID',			hidden:true},
+        {field:'Nombre',		title:'<?php _e('Name'); ?>',			width:150,	align:'left'}
+    ]]
 });
 
 /* this element is not used in team contests, but needed to avoid "undefined symbol" in print_clasificacionGeneral() */
