@@ -416,7 +416,7 @@ function print_parcial(mode) {
         0: '*<?php _e("Create PDF (teams) Report");?>',
         1: '<?php _e("Create PDF (individual) Report");?>',
         2: '<?php _e("Print filled assistant sheets 10 dogs/pages"); ?>',
-        3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>'+title
+        3: '<?php _e("Print filled assistant sheets 15 dogs/pages"); ?>'+merge+title
     }
     $.messager.radio(
         '<?php _e("Partial scores"); ?>',
@@ -847,9 +847,9 @@ function r_selectOption(val) {
 	    prfirst.numberspinner('disable'); prlist.textbox('enable');
 	    break;
 	}
-	if ( (show_mergecats==true) && (howManyHeights()=="5") ){
+	if ( (show_mergecats===true) && (howManyHeights()==="5") ){
         var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
-        $('#r_mergecats_span').css('display',(ronda.Recorrido1=="0")?'inherit':'none');
+        $('#r_mergecats_span').css('display',(ronda.Recorrido1==="0")?'inherit':'none');
     }
     else {
         $('#r_mergecats_span').css('display','none');
