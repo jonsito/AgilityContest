@@ -79,6 +79,7 @@ class Eventos extends DBObject {
 	protected $sessionID;
 	protected $sessionFile;
 	protected $myAuth;
+    protected $runmode;
 	
 	/**
 	 * Constructor
@@ -99,6 +100,7 @@ class Eventos extends DBObject {
 		$this->myConfig=Config::getInstance();
 		// nos aseguramos de quere el fichero de sesion exista
 		if ( ! file_exists($this->sessionFile) ) touch($this->sessionFile);
+        $this->runmode=intval($this->myConfig->getEnv('running_mode'));
 	}
 	
 	/**
@@ -331,8 +333,11 @@ class Eventos extends DBObject {
 		set_time_limit(EVENT_TIMEOUT_SECONDS+EVENT_TIMEOUT_SECONDS_BUFFER);
 		
 		// retrieve timestamp from file and request
-		$current=filemtime($this->sessionFile);
-		$last=$data['TimeStamp'];
+        // notice that in master server there aren't putEvents() calls and sessionFile wont be updated
+        // so need to look for another way of detecting that new events have arrived
+        $last=$data['TimeStamp'];
+        $current=$last;
+        if ($this->runmode !== AC_RUNMODE_MASTER ) $current=filemtime($this->sessionFile);
         $res=null;
 
 		// Counter to manually keep track of time elapsed 
@@ -343,8 +348,12 @@ class Eventos extends DBObject {
 		while($counter < EVENT_TIMEOUT_SECONDS )	{
             // clear stat cache to ask for real mtime
             clearstatcache();
-            $current =filemtime($this->sessionFile); // get session file mtime
+
+            // PENDING: this should be reworked to call db only on new data. ¿what about db trigger?
+            if ($this->runmode !== AC_RUNMODE_MASTER ) $current =filemtime($this->sessionFile); // get session file mtime
+            else $current=$last+1; // dirty trick to force call database every 0.5 seconds.
 			// $this->myLogger->info("counter:{$counter} filemtime:{$current} lastquery:{$last}" );
+
 			// compare with received timestamp . Notice that last may be zero ( canometer )
 			if ( $current > $last ) {
 				// new data has arrived: get it
@@ -413,8 +422,7 @@ class Eventos extends DBObject {
         // $this->myLogger->enter();
 
         // in non-standalone nor shared installs do not allow "connect" operations
-        $runmode=intval($this->myConfig->getEnv('running_mode'));
-        if ( ( $runmode & AC_RUNMODE_EVTSOURCE) === 0 ) {
+        if ( ( $this->runmode & AC_RUNMODE_EVTSOURCE) === 0 ) {
             header('HTTP/1.0 403 Forbidden');
             die("You cannot use this server as event source");
         }

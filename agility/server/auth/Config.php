@@ -28,7 +28,7 @@ define('AC_RUNMODE_STANDALONE',1);	// normal (pc/mac/linux) client installation
 define('AC_RUNMODE_SHARED',2);		// shared (webhost) client install
 define('AC_RUNMODE_SLAVE',4);			// slave (replicated) database server mode
 define('AC_RUNMODE_MASTER',8);		// master server installation
-define('AC_RUNMODE_EVTSOURCE', AC_RUNMODE_STANDALONE | AC_RUNMODE_SHARED ); // can be used as event source
+define('AC_RUNMODE_EVTSOURCE', AC_RUNMODE_STANDALONE | AC_RUNMODE_SHARED | AC_RUNMODE_MASTER ); // can be used as event source
 
 /** Internacionalizacion. Idiomas **/
 define('AC_LANG','es_ES');
