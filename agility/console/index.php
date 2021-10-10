@@ -43,9 +43,9 @@ if ( $runmode === AC_RUNMODE_MASTER) {
     if (!inMasterServer($config)) die("Access other than public directory is not allowed");
     // in master server access to console is controlled by mean of SSL certificates
     $cm=new CertManager();
-    if ("" !== $cm->hasValidCert()) die("Public access to master console is not allowed");
+    if ("" !== $cm->hasValidCert()) die("Access to console in this server requires valid certificate");
     // ok, valid certificate, so check ACL
-    if ($cm->checkCertACL() === "") die("You are not allowed to access into master console");
+    if ($cm->checkCertACL() === "") die("Provided certificate has no rights to access into console display");
 }
 ?>
 

@@ -19,6 +19,7 @@
 header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}",false);
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/auth/CertManager.php");
 
 define("SYSTEM_INI",__DIR__ . "/../../config/system.ini");
 if (!file_exists(SYSTEM_INI)) {
@@ -43,6 +44,18 @@ if( ! function_exists('password_verify')) {
 $runmode=intval($config->getEnv('running_mode'));
 if ( $runmode === AC_RUNMODE_SLAVE ) { // in slave mode restrict access to public directory
     die("Access other than public directory is not allowed");
+}
+
+// access to console is forbidden in master mode unless master server with valid certificate
+if ( $runmode === AC_RUNMODE_MASTER) {
+    // if not in master server drop connection
+    // PENDING: master mode, but not in master server really means configuration error
+    if (!inMasterServer($config)) die("Access other than public directory is not allowed in this server");
+    // in master server access to console is controlled by mean of SSL certificates
+    $cm=new CertManager();
+    if ("" !== $cm->hasValidCert()) die("Access to tablet in this server requires valid certificate");
+    // ok, valid certificate, so check ACL
+    if ($cm->checkCertACL() === "") die("Provided certificate has no rights to access into tablet display");
 }
 ?>
 <!DOCTYPE html>
