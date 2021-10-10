@@ -101,7 +101,8 @@ class PrintOrdenSalidaEquipos4 extends PrintCommon {
 
         // pintamos tipo y categoria de la manga
         $tmanga= _(Mangas::getTipoManga($this->manga->Tipo,1,$this->federation));
-        $categoria=$this->getCatString($this->categoria);
+        // $categoria=$this->getCatString($this->categoria);
+        $categoria=$this->categoria;
         $str2 = "$tmanga - $categoria";
         $this->Cell(100,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
         $this->Ln(12);

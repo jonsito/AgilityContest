@@ -149,8 +149,8 @@ class Clasificaciones_EO_Team_Qualifications extends Clasificaciones {
 		});
 		// calculamos campo "Puesto", "Calificacion" y Puntos
         $puestocat=array( 'C'=>1, 'X' => 1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
-        $lastcat=array( 'C'=>0, 'X' => 1, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
-        $countcat=array( 'C'=>0, 'X' => 1, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
+        $lastcat=array( 'C'=>0, 'X' => 0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
+        $countcat=array( 'C'=>0, 'X' => 0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
 		$size=count($final);
         // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
         $comp=Competitions::getCompetition($this->prueba,$this->jornada);
