@@ -668,13 +668,12 @@ class AuthManager {
      * Authenticate user from certificates
      * On Login success create session and if needed send login event
      * @param {string} $login user name
-     * @param {string} $password user password
-     * @param {integer} $sid requested session id to join to
      * @param {boolean} $nossesion true: emit session event
      * @throws Exception if something goes wrong
      * @return {array} errorMessage or result data
      */
     private function certLogin($sid,$nosession) {
+		$this->myLogger->enter();
         $cm=new CertManager();
         $res=$cm->hasValidCert();
         if ($res !== "")
@@ -683,6 +682,7 @@ class AuthManager {
 		$login=$cm->checkCertACL(); // try to retrieve login name from Cert Access Control List
         if ( $login === "")
         	throw new Exception(_("Your provided certificate is not in access control list"));
+		$this->myLogger->leave();
 	    return $this->handleLogin($login,$sid,$nosession);
     }
 
@@ -690,8 +690,7 @@ class AuthManager {
      * Authenticate user from database
      *@throws Exception
      */
-    private function dbLogin($login,$password,$sid,$nosession)
-    {
+    private function dbLogin($login,$password,$sid,$nosession) {
         /* access database to check user credentials */
         $this->myLogger->enter();
         $obj = $this->mySessionMgr->__selectObject("*", "usuarios", "(Login='$login')");
@@ -708,6 +707,7 @@ class AuthManager {
                 throw new Exception("Login: invalid password for account '$login'");
         }
         /* Arriving here means login success */
+		$this->myLogger->leave();
         return $this->handleLogin($obj, $sid, $nosession);
     }
 
