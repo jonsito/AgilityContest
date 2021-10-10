@@ -47,6 +47,8 @@ if ( $runmode === AC_RUNMODE_SLAVE ) { // in slave mode restrict access to publi
 }
 
 // access to console is forbidden in master mode unless master server with valid certificate
+$cm_user="";
+$cm_password="";
 if ( $runmode === AC_RUNMODE_MASTER) {
     // if not in master server drop connection
     // PENDING: master mode, but not in master server really means configuration error
@@ -56,6 +58,9 @@ if ( $runmode === AC_RUNMODE_MASTER) {
     if ("" !== $cm->hasValidCert()) die("Access to tablet in this server requires valid certificate");
     // ok, valid certificate, so check ACL
     if ($cm->checkCertACL() === "") die("Provided certificate has no rights to access into tablet display");
+    // acl ok: retrieve credentials
+    $cm_user=$cm->getCertCN();
+    $cm_password="CERTIFICATE";
 }
 ?>
 <!DOCTYPE html>
@@ -469,14 +474,25 @@ function tablet_acceptSelectJornada() {
 	}); // ajax call
 }
 
-//on Enter key on login field focus on password
-$('#seltablet-Username').bind('keypress', function (evt) {
+$('#seltablet-Username').textbox({
+    required:true,
+    value:'<?php echo $cm_user;?>',
+    validType:'length[1,255]',
+    iconCls:'icon-man'
+}).bind('keypress', function (evt) {
+    //on Enter key on login field focus on password
     if (evt.keyCode !== 13) return true;
     $('#seltablet-Password').focus();
     return false;
 });
+
+$('#seltablet-Password').textbox({
+    required:true,
+    value:'<?php echo $cm_password;?>',
+    validType:'length[1,255]',
+    iconCls:'icon-lock'
+}).bind('keypress', function (evt) {
 //on Enter key on password field jump to Session selection
-$('#seltablet-Password').bind('keypress', function (evt) {
     if (evt.keyCode !== 13) return true;
     $('#seltablet-Sesion').next().find('input').focus();
     return false;

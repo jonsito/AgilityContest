@@ -229,9 +229,9 @@ class Clasificaciones_SelWAO extends Clasificaciones {
         $this->sortFinal($final,$c1,$c2,$c3,$c4,$c5,$c6,$c7,$c8);
 
         // calculamos campo "Puesto", "Calificacion" y Puntos
-        $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
-        $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
-        $countcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
+        $puestocat=array( 'C'=>1, 'X' => 1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
+        $lastcat=array( 'C'=>0, 'X' => 0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
+        $countcat=array( 'C'=>0, 'X' => 0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
         $size=count($final);
         // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
         $comp=Competitions::getCompetition($this->prueba,$this->jornada);
