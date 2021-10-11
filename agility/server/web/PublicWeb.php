@@ -75,11 +75,16 @@ class PublicWeb
         foreach($result['Jornadas'] as &$jornada) {
             // retrieve rounds for each series
             $jornada['Mangas']=Jornadas::enumerateMangasByJornada($jornada['ID'])['rows'];
+            usort($jornada['Mangas'], function($a, $b) {return strcmp($a['Nombre'], $b['Nombre']);});
+
             // retrieve series for each journey
             $tnd=new Tandas("publicweb_deploy",$this->prueba['ID'],$jornada['ID']);
             $jornada['Tandas']=$tnd->getTandas(0)['rows']; // incluye user defined rounds ( to display timetable )
+            // do no sort tandas as they are already sorted by "orden"
+
             // retrieve final results index for each series
             $jornada['Series']=Jornadas::enumerateRondasByJornada($jornada['ID'])['rows'];
+            usort($jornada['Series'], function($a, $b) {return strcmp($a['Nombre'], $b['Nombre']);});
         }
         // obtenemos finalmente la sesion activa
         $res=$this->myDBObject->__select(

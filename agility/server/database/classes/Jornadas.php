@@ -1100,13 +1100,15 @@ class Jornadas extends DBObject {
             Jornadas::__compose($data, $prueba, $jornada, 17, $m1, $m2);
         }
         // children
-        if ($jornada['Children']!=0) {  // Jornadas::tiporonda=18
+        // need to add extra check for compatibility with older contests
+        if (array_key_exists('Children',$jornada) && $jornada['Children']!=0) {  // Jornadas::tiporonda=18
             $m1 = Jornadas::__searchManga(36, $mangas); // Children Manga 1
             $m2 = Jornadas::__searchManga(37, $mangas); // Children Manga 2
             Jornadas::__compose($data, $prueba, $jornada, 18, $m1, $m2);
         }
         // para-agility
-        if ($jornada['ParaAgility']!=0) {  // Jornadas::tiporonda=18
+        // need to add extra check for compatibility with older contests
+        if (array_key_exists('ParaAgility',$jornada) && $jornada['ParaAgility']!=0) {  // Jornadas::tiporonda=18
             $m1 = Jornadas::__searchManga(38, $mangas); // ParaAgility Manga 1
             $m2 = Jornadas::__searchManga(39, $mangas); // ParaAgility Manga 2
             Jornadas::__compose($data, $prueba, $jornada, 19, $m1, $m2);

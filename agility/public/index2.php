@@ -234,7 +234,7 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
 
     </script>
 
-    <style type="text/css">
+    <style>
         html, body {
             margin:0;
             padding:0;
@@ -340,7 +340,7 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
                         echon('<li><a class="easyui-linkbutton" href="javascript:pbmenu_loadTimeTable('.$pruebaID.','.$jornada['ID'].')">'._("Timetable")."</a><br/>&nbsp;<br/></li>");
                         echon('<li><a class="easyui-linkbutton" href="javascript:pbmenu_loadInscriptions('.$pruebaID.','.$jornada['ID'].')">'._("Inscriptions")."</a><br/>&nbsp;<br/></li>");
                         echon('<li>'._("Starting order").'<br/>');
-                            echon('<table>');
+                            echon('<table style="table-layout:fixed">');
                             $tipo=0;
                             foreach ($jornada['Tandas'] as $tanda ){
                                 if ($tanda['TipoManga']==0) continue; // skip user defined tandas
@@ -348,7 +348,7 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
                                 $tipo=$tanda['TipoManga'];
                                 echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadStartingOrder('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$tanda['Nombre']."</a> </td>");
                             }
-                            echon("</tr></table");
+                            echon("</tr></table>");
                         echon("<br/>&nbsp;<br/></li>");
                         // skipping single round series may lead in empty partial scores section.
                         // so detect and avoid
@@ -370,7 +370,7 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
                         }
 
                         echon("<br/>&nbsp;<br/><li>"._("Final scores").'<br/>');
-                            echon('<table><tr>');
+                            echon('<table style="table-layout:fixed"><tr>');
                             $lastmanga1=0;
                             for ($n=0;$n<count($jornada['Series']);$n++) {
                                 $serie=$jornada['Series'][$n];
