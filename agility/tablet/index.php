@@ -478,6 +478,7 @@ $('#seltablet-Username').textbox({
     required:true,
     value:'<?php echo $cm_user;?>',
     validType:'length[1,255]',
+    disabled: <?php echo ($cm_user!=="")? 'true':'false';?>,
     iconCls:'icon-man'
 }).bind('keypress', function (evt) {
     //on Enter key on login field focus on password
@@ -490,6 +491,7 @@ $('#seltablet-Password').textbox({
     required:true,
     value:'<?php echo $cm_password;?>',
     validType:'length[1,255]',
+    disabled: <?php echo ($cm_password!=="")? 'true':'false';?>,
     iconCls:'icon-lock'
 }).bind('keypress', function (evt) {
 //on Enter key on password field jump to Session selection

@@ -93,6 +93,7 @@ if ( intval($config->getEnv('running_mode')) === AC_RUNMODE_MASTER ) {
 $('#login-Password').textbox({
     required:true,
     value:'<?php echo $cm_password;?>',
+    disabled: <?php echo ($cm_password!=="")? 'true':'false';?>,
     validType:'length[1,255]',
     iconCls:'icon-lock'
 }).textbox('textbox').bind('keypress', function (evt) {
@@ -105,6 +106,7 @@ $('#login-Password').textbox({
 $('#login-Username').textbox({
     required:true,
     value:'<?php echo $cm_user;?>',
+    disabled: <?php echo ($cm_user!=="")? 'true':'false';?>,
     validType:'length[1,255]',
     iconCls:'icon-man'
 }).textbox('textbox').bind('keypress', function (evt) {
