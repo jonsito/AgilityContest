@@ -122,6 +122,7 @@ $('#pb_inscripciones-datagrid').datagrid({
         return true;
     },
     onLoadSuccess: function(data) {
+        if (data.total==="0") return;
         $(this).datagrid('autoSizeColumn','Nombre');
         $(this).datagrid('fitColumns');
     }

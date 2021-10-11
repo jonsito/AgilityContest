@@ -166,7 +166,8 @@ function showInscripcionesByTeam(index,team){
         onResize:function(){
             $('#pb_inscripciones_eq3-datagrid').datagrid('fixDetailRowHeight',index);
         },
-        onLoadSuccess:function(){
+        onLoadSuccess:function(data){
+            if (data.total==="0") return;
             // on some competitions mode hide license, and enlarge name to allow pedigree name
             if (useLongNames()) {
                 $(this).datagrid('hideColumn','Licencia');
