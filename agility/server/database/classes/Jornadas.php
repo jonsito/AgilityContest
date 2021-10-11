@@ -1184,6 +1184,7 @@ class Jornadas extends DBObject {
             Jornadas::__compose($data, $prueba, $jornada, 15, $m1, $m2,$m3,$m4,$m5,$m6,$m7);
         }
 		// TODO: evaluate conjuntas Grado II y III
+        usort($data, function($a, $b) {return strcmp($a['Nombre'], $b['Nombre']);});
 		$result=array('total'=>count($data),'rows'=>$data);
 		return $result;
 	}
