@@ -532,19 +532,19 @@ function vwcf_configureScreenLayout() {
     // on intl move country to right of country flag
     if (intl && !team) {
         resdg.datagrid('moveField',{idxHead:1,idxFrom:'NombreClub', idxTo:'Dorsal'});
-        lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+        if (lastdg.length) lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
     }
     // individual or team view
     resdg.datagrid('getPanel').panel((team)?'close':'open');
-    lastdg.datagrid('getPanel').panel((team)?'close':'open');
-    restdg.datagrid('getPanel').panel((team)?'open':'close');
-    lasttdg.datagrid('getPanel').panel((team)?'open':'close');
-    calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
-    calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
+    if (lastdg.length) lastdg.datagrid('getPanel').panel((team)?'close':'open');
+    if (restdg.length) restdg.datagrid('getPanel').panel((team)?'open':'close');
+    if (lasttdg.length) lasttdg.datagrid('getPanel').panel((team)?'open':'close');
+    if (calldg.length) calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
+    if (calldg.length) calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
 
     // show hide license and califications according national or international
     resdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
-    lastdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    if (lastdg.length) lastdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
     $('#finales_individual_teaminfo').parents('td').attr('colspan',(intl)?6:7);
     $('#finales_individual-ClubOrCountry').html(clubOrCountry());
     $('#finales_last_individual-ClubOrCountry').html(clubOrCountry());
@@ -553,10 +553,10 @@ function vwcf_configureScreenLayout() {
 
     // reload datagrid with new options and fill with empty data and expand to max width
     resetDatagrid(resdg);
-    resetDatagrid(lastdg);
-    resetDatagrid(restdg);
-    resetDatagrid(lasttdg);
-    calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
+    if (lastdg.lenght) resetDatagrid(lastdg);
+    if (restdg.length) resetDatagrid(restdg);
+    if (lasttdg.length) resetDatagrid(lasttdg);
+    if (calldg.length) calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
 }
 
 // called on init or open
@@ -575,21 +575,21 @@ function vwcp_configureScreenLayout() {
     // on intl move country to right of country flag
     if (intl && !team) {
         resdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
-        lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
+        if (lastdg.lenght) lastdg.datagrid('moveField',{idxHead:0,idxFrom:'NombreClub', idxTo:'Dorsal'});
     }
     // individual or team view
 
     resdg.datagrid('getPanel').panel((team)?'close':'open');
-    lastdg.datagrid('getPanel').panel((team)?'close':'open');
-    restdg.datagrid('getPanel').panel((team)?'open':'close');
-    lasttdg.datagrid('getPanel').panel((team)?'open':'close');
-    calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
-    calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
+    if (lastdg.lenght) lastdg.datagrid('getPanel').panel((team)?'close':'open');
+    if (restdg.lenght) restdg.datagrid('getPanel').panel((team)?'open':'close');
+    if (lasttdg.lenght) lasttdg.datagrid('getPanel').panel((team)?'open':'close');
+    if (calldg.lenght) calldg.datagrid((team)?'hideColumn':'showColumn','NombreClub');
+    if (calldg.lenght) calldg.datagrid((team)?'showColumn':'hideColumn','NombreEquipo');
     // show hide license according national or international
     resdg.datagrid((intl||games)?'hideColumn':'showColumn','Licencia');
-    lastdg.datagrid((intl||games)?'hideColumn':'showColumn','Licencia');
-    // restdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
-    // lasttdg.datagrid((intl)?'hideColumn':'showColumn','Licencia'); // no existe campo 'Licencia' en resultados  equipos
+    if (lastdg.lenght) lastdg.datagrid((intl||games)?'hideColumn':'showColumn','Licencia');
+    // if (restdg.lenght) restdg.datagrid((intl)?'hideColumn':'showColumn','Licencia');
+    // if (lasttdg.lenght) lasttdg.datagrid((intl)?'hideColumn':'showColumn','Licencia'); // no existe campo 'Licencia' en resultados  equipos
 
     $('#parciales_individual-ClubOrCountry').html(clubOrCountry());
     $('#parciales_last_individual-ClubOrCountry').html(clubOrCountry());
@@ -598,10 +598,10 @@ function vwcp_configureScreenLayout() {
 
     // reload datagrid with new options and fill with empty data and expand to max width
     resetDatagrid(resdg);
-    resetDatagrid(lastdg);
-    resetDatagrid(restdg);
-    resetDatagrid(lasttdg);
-    calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
+    if (lastdg.lenght) resetDatagrid(lastdg);
+    if (restdg.lenght) resetDatagrid(restdg);
+    if (lasttdg.lenght) resetDatagrid(lasttdg);
+    if (calldg.lenght) calldg.datagrid('fitColumns'); // do not load empty data as 'open' will do
 }
 
 function ordenSalida_configureScreenLayout(dg) {
