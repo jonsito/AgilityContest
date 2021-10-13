@@ -1,3 +1,11 @@
+Version 4.5.5 20211013_1815
+    - Fixes on printouts with some Team contests due to 5-height issues
+    - Fix several warnings in upgrade process
+    - Allow tablet/console in master server, but restrict by certificate
+    - Several layout and elements enable/disable related issues
+    - Fix LC_NUMERIC to be en_US.UTF-8 in linux/mac to properly handle floats
+    - Fix several javascript errors in videowall/public dialogs
+    - New file to handle "special rounds" and single round team finals in public access
 Version 4.5.4 20210927_1050
     - Fixes on inscriptions ( let inscription/rounds work for special cases )
     - Database updates

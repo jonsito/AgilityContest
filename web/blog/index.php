@@ -33,6 +33,22 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <!--- comienzo del changelog -->
 <?php } ?>
 
+<?php if ( strcmp($from,"blog_2021-10-13_00:00:00")<0) { ?>
+    <strong>2021-Oct-13</strong><br/>
+    <p>
+        Versión 4.5.5
+    </p>
+    <p>
+       Mejora de la gestión de certificados en servidor maestro
+    </p>
+    <p>
+        Numerosas correcciones y mejoras en páginas de acceso público
+    </p>
+    <p>
+        Corregidos diversos errores en la gestión de listados en pruebas por equipos
+    </p>
+<?php } ?>
+
 <?php if ( strcmp($from,"blog_2021-09-08_00:00:00")<0) { ?>
     <strong>2021-Sept-08</strong><br/>
     <p>
