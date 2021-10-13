@@ -422,7 +422,7 @@ class PrintCommon extends FPDF {
 	// Identificacion de la Manga
 	function print_identificacionManga($manga,$categoria) {
 		// pintamos "identificacion de la manga"
-		$this->SetFont($this->getFontName(),'B',12); // bold 15
+		$this->SetFont($this->getFontName(),'B',10); // bold 15
 		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
 		$tmanga= _(Mangas::getTipoManga($manga->Tipo,1,$this->federation));
 		// JAMC agosto 2020: on Grade 1, add agility or jumping according "Observaciones"
