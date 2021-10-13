@@ -351,7 +351,12 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
                                 if ( in_array($tanda['TipoManga'],array(13,14)) && strpos($jornada['Nombre'],"Final")!==FALSE) continue;
                                 if ($tanda['TipoManga']!=$tipo) echon( ($tipo==0)? '<tr>' : '</tr><tr>');
                                 $tipo=$tanda['TipoManga'];
-                                echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadStartingOrder('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$tanda['Nombre']."</a> </td>");
+                                $nombre=$tanda['Nombre'];
+                                if ( $tipo==16 ) { // manga especial
+                                    if ($jornada['Observaciones']!="")
+                                        $nombre=$jornada['Observaciones'] ." ". substr($nombre,strpos($nombre,"-"));
+                                }
+                                echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadStartingOrder('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$nombre."</a> </td>");
                             }
                             echon("</tr></table>");
                         echon("<br/>&nbsp;<br/></li>");
@@ -387,7 +392,12 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
                                     $lastmanga1=$serie['Manga1'];
                                     echon('</tr><tr>');
                                 }
-                                echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$n.')">'.$serie['Nombre']."</a> </td>");
+                                $nombre=$serie['Nombre'];
+                                if ( $tipo==16 ) { // manga especial
+                                    if ($jornada['Observaciones']!="")
+                                        $nombre=$jornada['Observaciones'] ." ". substr($nombre,strpos($nombre,"-"));
+                                }
+                                echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadFinalScores('.$pruebaID .','.$jornada['ID'].','.$n.')">'.$nombre."</a> </td>");
                             }
                             echon('</tr></table>');
                         }

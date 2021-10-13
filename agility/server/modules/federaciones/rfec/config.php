@@ -175,9 +175,9 @@ class RFEC extends Federations {
                 36	=> 'Jp. Equipos 40/30', // team combined
                 // en las rondas KO, los perros compiten todos contra todos
                 37	=> 'K.O. Manga 1',
-                38	=> 'Manga Especial 50',
-                39	=> 'Manga Especial 40',
-                40	=> 'Manga Especial 30',
+                38	=> 'Manga Especial - 50',
+                39	=> 'Manga Especial - 40',
+                40	=> 'Manga Especial - 30',
                 // "Tiny" support for Pruebas de cuatro alturas. EN RFEC 5 alturas ahora pasa a clase 20
                 41	=> 'Promocion Manga 1 20',
                 42	=> 'Promocion Manga 2 20',
@@ -194,7 +194,7 @@ class RFEC extends Federations {
                 52	=> 'Jumping Equipos 20',	 // team best
                 53	=> 'Jp. Equipos 50/40',  // team combined
                 54	=> 'Jp. Equipos 30/20',// team combined
-                55	=> 'Manga Especial 20',
+                55	=> 'Manga Especial - 20',
                 56	=> 'Promocion Manga 3 50',	 // extra rounds for GI RFEC
                 57	=> 'Promocion Manga 3 40',
                 58	=> 'Promocion Manga 3 30',
@@ -268,7 +268,7 @@ class RFEC extends Federations {
                 123	=> 'Jumping Clase 60',
                 124	=> 'Agility Equipos 60',
                 125	=> 'Jumping Equipos 60',
-                126	=> 'Manga especial 60',
+                126	=> 'Manga especial - 60',
                 // jornadas team mixtas extras para cinco alturas
                 127	=> 'Ag. Equipos 60/50', // team combined
                 128	=> 'Jp. Equipos 60/50', // team combined
