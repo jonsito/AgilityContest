@@ -1,4 +1,4 @@
-Version 4.5.5 20211013_1815
+Version 4.5.5 20211013_1845
     - Fixes on printouts with some Team contests due to 5-height issues
     - Fix several warnings in upgrade process
     - Allow tablet/console in master server, but restrict by certificate
