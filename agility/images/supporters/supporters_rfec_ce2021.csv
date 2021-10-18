@@ -1,0 +1,10 @@
+#esta linea se ignora
+# debe haber al menos tres gold y cinco silver, aunque sea null
+"GaliCan":"awc/awc-galican.png":"http://www.galican.com/es/":"gold"
+"Cadarma":"rfec_2021/cadarma.png":"http://cadarma.es":"gold"
+"extragold":"null.png":"http://www.agilitycontest.es":"gold"
+"El Nogueral":"rfec_2021/el_nogueral.png.png":"http://www.artesaniaelnogueral.es":"silver"
+"Dibaq":"rfec_2021/dibaq.png":"http://dibaq.com":"silver"
+"extraSilver1":"null.png":"http://www.agilitycontest.es":"silver"
+"extraSilver2":"null.png":"http://www.agilitycontest.es":"silver"
+"extraSilver3":"null.png":"http://www.agilitycontest.es":"silver"

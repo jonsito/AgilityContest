@@ -22,7 +22,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /* el fichero "supporters,csv" tiene el formato CSV: "patrocinador":"logo":"url"[:"categoria"] */
 $sponsors_g=array();    $logos_g=array();    $urls_g=array();
 
-$file=fopen(__DIR__."/../images/supporters/supporters.csv","r");
+$file=fopen(__DIR__ . "/../images/supporters/supporters.csv","r");
 if ($file) {
     while (($datos = fgetcsv($file, 0, ':','"')) !== FALSE) {
         $nitems=count($datos);

@@ -1,0 +1,11 @@
+#esta linea se ignora
+# debe haber al menos tres gold y cinco silver, aunque sea null
+"Arion":"awc/awc-arion.png":"http://www.arion-petfood.es/productos/arion-titanium-pro-2/":"gold"
+"GaliCan":"awc/awc-galican.png":"http://www.galican.com/es/":"gold"
+"IFEMA":"rsce_2017/ifema.png":"http://www.ifema.es":"gold"
+"100x100mascota":"rsce_2017/100x100mascota.png":"http://100x100mascota.com":"gold"
+"debe":"null.png":"http://www.agilitycontest.es":"silver"
+"haber":"null.png":"http://www.agilitycontest.es":"silver"
+"minimo":"null.png":"http://www.agilitycontest.es":"silver"
+"cinco":"null.png":"http://www.agilitycontest.es":"silver"
+"silver":"null.png":"http://www.agilitycontest.es":"silver"

@@ -35,7 +35,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     <table><tr><td>
 <?php
 /* el fichero "supporters,csv" tiene el formato CSV: "patrocinador":"logo":"url"[:"categoria"] */
-$file=fopen(__DIR__."/../images/supporters/supporters.csv","r");
+$file=fopen(__DIR__ . "/../images/supporters/supporters.csv","r");
 if ($file) {
     $odd=false;
 

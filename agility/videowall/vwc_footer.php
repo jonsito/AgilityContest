@@ -24,7 +24,7 @@ $sponsors_g=array();    $logos_g=array();    $urls_g=array();
 $sponsors_s=array();    $logos_s=array();    $urls_s=array();
 $sponsors_b=array();    $logos_b=array();    $urls_b=array();
 
-$file=fopen(__DIR__."/../images/supporters/supporters.csv","r");
+$file=fopen(__DIR__ . "/../images/supporters/supporters.csv","r");
 if ($file) {
     while (($datos = fgetcsv($file, 0, ':','"')) !== FALSE) {
         $nitems=count($datos);
