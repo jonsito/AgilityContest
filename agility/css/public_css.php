@@ -75,4 +75,24 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         text-align:right;
         font-size: 1.3vw;
     }
+    .pb_icon_gold {
+        width:40px;
+    }
+    .pb_icon_silver {
+        width:30px;
+    }
+    .pb_icon_bronze {
+        width:20px;
+    }
+}
+@media only screen and (max-width: 760px) {
+    .pb_icon_gold {
+        width:25px;
+    }
+    .pb_icon_silver {
+        width:20px;
+    }
+    .pb_icon_bronze {
+        width:15px;
+    }
 }
