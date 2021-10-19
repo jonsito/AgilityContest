@@ -66,7 +66,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 /* tip for fix data size in smartphones ----------- */
-@media only screen and (max-width: 760px) {
+@media only screen and (min-width: 760px) {
     .pb_trs th {
         text-align:left;
         font-size: 1.4vw;
