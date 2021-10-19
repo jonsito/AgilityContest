@@ -79,10 +79,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         width:40px;
     }
     .pb_icon_silver {
-        width:30px;
+        width:35px;
     }
     .pb_icon_bronze {
-        width:20px;
+        width:30px;
     }
 }
 @media only screen and (max-width: 760px) {
