@@ -43,7 +43,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 $cat=($nitems==3)?"bronze":strtolower($datos[3]); // "gold","silver","bronze"
                 $height=10;
                 if ($cat=="gold") $height=40;
-                if ($cat=="silver") $height=20;
+                if ($cat=="silver") $height=30;
                 echo '<a  target="'.$datos[0].'" href="'.$datos[2].'" style="text-decoration:none;">';
                 echo '<img id="vw_footer-'.$datos[0].'" src="../images/supporters/'.$datos[1].'" alt="'.$cat." ".$datos[0].'" height="'.$height.'"/>';
                 echo '</a>&nbsp;';

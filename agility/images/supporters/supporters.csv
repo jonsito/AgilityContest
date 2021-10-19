@@ -1,6 +1,5 @@
 #esta linea se ignora
 # debe haber al menos tres gold y cinco silver, aunque sea null
-"extragold1":"null.png":"http://www.agilitycontest.es":"gold"
 "extragold2":"null.png":"http://www.agilitycontest.es":"gold"
 "extragold3":"null.png":"http://www.agilitycontest.es":"gold"
 "El Nogueral":"rfec_2021/elnogueral.png":"http://www.artesaniaelnogueral.es":"silver"
@@ -9,4 +8,4 @@
 "Ayuntamiento de Oviedo":"rfec_2021/oviedo.png":"http://www.oviedo.es":"silver"
 "Cadarma":"rfec_2021/cadarma.png":"http://cadarma.es":"silver"
 "zonecron":"rfec_2021/zonecron.png":"https://www.facebook.com/ZonEcron":"silver"
-"pozuelo":"../logos/pozuelo.png":"https://www.adagilitypozuelo.es/":"silver"
+"pozuelo":"rfec_2021/pozuelo.png":"https://www.adagilitypozuelo.es/":"gold"
