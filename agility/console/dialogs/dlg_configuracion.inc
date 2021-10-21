@@ -357,7 +357,11 @@ $config =Config::getInstance();
 
             <label for="pdf_skippa"><?php _e('Skip Dorsal labels for pre-agility dogs'); ?></label>
             <input type="hidden" name="pdf_skippa" value="0"/>
-            <input id="pdf_skippa" name="pdf_skippa" type="checkbox" value="1"/><br />&nbsp;<br/>
+            <input id="pdf_skippa" name="pdf_skippa" type="checkbox" value="1"/><br />
+
+            <label for="pdf_skipnex"><?php _e('Print only double excelents in podium'); ?></label>
+            <input type="hidden" name="pdf_skipnex" value="0"/>
+            <input id="pdf_skipnex" name="pdf_skipnex" type="checkbox" value="1"/><br />&nbsp;<br/>
 
 			<label for="pdf_hdrbg1"><?php _e('Background color for main header'); ?></label>
 			<input id="pdf_hdrbg1" name="pdf_hdrbg1" type="color" value="#ff8020"/>

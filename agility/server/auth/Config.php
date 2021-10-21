@@ -123,6 +123,7 @@ define('AC_VWS_LINECOLOR','#ffffff');
 /** generacion de PDF's **/
 define('AC_PDF_SKIPNPEL', "1"); // which labels to print 0:All 1:Skip Elim-NP 2:Only Excelents
 define('AC_PDF_SKIPPA', "1"); // skip print dorsal labels for pre-agility competitors (default)
+define('AC_PDF_SKIPNEX', "0"); // print only double excelents in podium (default)
 define('AC_PDF_TOPMARGIN', 10.0); // margen superior etiquetas
 define('AC_PDF_LEFTMARGIN', 10.0); // margen izquierdo etiquetas
 define('AC_PDF_LABELHEIGHT', 17.0); // Altura de las pegatinas mmts
@@ -302,7 +303,8 @@ Class Config {
 		'vws_linecolor'		=> array(	'c',	false,	AC_VWS_LINECOLOR),
 		// generacion de PDF's
         'pdf_skipnpel'		=> array(	'i',	false,	AC_PDF_SKIPNPEL),
-        'pdf_skippa'		=> array(	'i',	false,	AC_PDF_SKIPPA),
+		'pdf_skippa'		=> array(	'i',	false,	AC_PDF_SKIPPA),
+		'pdf_skipnex'		=> array(	'i',	false,	AC_PDF_SKIPNEX),
         'pdf_topmargin'		=> array(	'i',	false,	AC_PDF_TOPMARGIN),
 		'pdf_leftmargin'	=> array(	'i',	false,	AC_PDF_LEFTMARGIN),
 		'pdf_labelheight'	=> array(	'i',	false,	AC_PDF_LABELHEIGHT),

@@ -69,7 +69,14 @@ class PrintPodium extends PrintClasificacionGeneral {
 				if($rowcount==0) $this->writeTableHeader($strcats);
 				if($rowcount>2) break; // only print 3 first results
 				$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-				$this->writeCell( $rowcount,$row);
+                // check config for non-double excelents
+                $skip=true;
+				if ($this->config->getEnv('pdf_skipnex') !== 0) {
+                    if (!is_null($this->manga1) && ($row['P1']>=6)) $skip=false;
+                    if (!is_null($this->manga2) && ($row['P2']>=6)) $skip=false;
+                    if (!is_null($this->manga3) && ($row['P3']>=6)) $skip=false;
+                } else $skip=false;
+                if ($skip) $this->writeCell( $rowcount,$row); else $this->writeEmptyCell($rowcount,$row);
 				$rowcount++;
 			}
 			// pintamos linea de cierre final
@@ -80,6 +87,7 @@ class PrintPodium extends PrintClasificacionGeneral {
 		}
 		$this->myLogger->leave();
 	}
+
     /**
      * imprime agrupando categorias segun el argumento solicitado
      * Se asume que la manga está configurada como recorridos separados

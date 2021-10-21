@@ -283,7 +283,62 @@ class PrintClasificacionGeneral extends PrintCommon {
 		$this->SetTextColor(0,0,0); // negro
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 	}
-	
+
+    function writeEmptyCell($idx,$row) {
+        // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+        $y=$this->getY();
+        $this->SetX(10 ); // first page has 3 extra header lines
+        $this->ac_row($idx,9);
+        // fomateamos datos
+        $fired=0; // count to remove "puesto" when eliminated in all rounds
+        $factor=1;
+        $v1="";$t1="";$p1="";
+        $v2="";$t2="";$p2="";
+        $v3="";$t3="";$p3="";
+        $puesto= ($row['Penalizacion']>=$fired)? "-":"{$row['Puesto']}º";
+        $penal=number_format2($row['Penalizacion'],$this->timeResolution);
+        $tiempo=number_format2($row['Tiempo'],$this->timeResolution);
+        if (!is_null($this->manga3)) $factor=0.75;
+        $this->Cell(10,6,"",0,0,'R',true); 	// dorsal
+        $this->SetFont($this->getFontName(),'',7); //
+
+        if ($this->useLongNames) {
+            $this->Cell(40,6,"",0,0,'L',true);	// nombrelargo
+            $this->SetFont($this->getFontName(),'',9); // default font
+        } else {
+            $this->Cell(25,6,"",0,0,'L',true);	// nombre
+            $this->SetFont($this->getFontName(),'',9); // default font
+            $this->Cell(15,6,"",0,0,'C',true);	// licencia
+        }
+        $this->Cell(14,6,"",0,0,'C',true);	// categoria/grado
+        $this->Cell(32,6,"",0,0,'R',true);	// nombreGuia
+        $this->Cell(18,6,"",0,0,'R',true);	// nombreClub
+        $this->Cell(59*$factor,6,'',0,0,'C',true);	// manga 1
+        $this->Cell(59*$factor,6,'',0,0,'C',true);	// manga 2
+        if (!is_null($this->manga3)) $this->Cell(59*$factor,6,'',0,0,'C',true);	// manga 3
+
+        // global
+        $this->Cell(22*$factor,6,"",0,0,'C',true);	// Tiempo / Penalización
+        $this->SetFont($this->getFontName(),'B',6); // default font
+        $this->Cell(12*$factor,6,"-",0,0,'C',true);	// Calificacion
+        $this->SetFont($this->getFontName(),'B',10); // default font
+        $this->Cell(8*$factor,6,$puesto,0,0,'R',true);	// Puesto
+
+        // lineas verticales
+        $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
+        $this->Line(10    ,$y,10,    $y+6);
+        $this->Line(10+114,$y,10+114,$y+6);
+        $this->Line(10+114+59*$factor,$y,10+114+59*$factor,$y+6);
+        $this->Line(10+114+59*2*$factor,$y,10+114+59*2*$factor,$y+6);
+        if(!is_null($this->manga3)) {
+            $this->Line(10+114+59*3*$factor,$y,10+114+59*3*$factor,$y+6);
+            $this->Line(10+115+(59*3+42)*$factor,$y,10+115+(59*3+42)*$factor,$y+6);
+        } else {
+            $this->Line(10+114+(59*2+42)*$factor,$y,10+114+(59*2+42)*$factor,$y+6);
+        }
+        $this->Ln(6);
+    }
+
 	function writeCell($idx,$row) {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		$y=$this->getY();
