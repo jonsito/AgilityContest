@@ -314,7 +314,6 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 	
 	function evalItem($jornada,&$data,$item) {
 		// do not account when undefined catetory or grade
-		$grado=$item['Grado'];
 		if ($item['Categoria']==='-') return;
 		if ($item['Grado']==='-') return;
         if ($item['Grado']==='P.B.') return; // perro en blanco no se toma en cuenta
@@ -323,41 +322,47 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 		// en caza tenemos que indicar infantil, Junior y Senior
 		// en canina nos fiamos del grado
 		if ($this->federation->get('Name')==='RFEC') {
-			if ($item['CatGuia']==='J') $grado='Jr';
-			if ($item['CatGuia']==='S') $grado='Sr';
-			if ($item['CatGuia']==='I') $grado='Ch';
-			if ($item['CatGuia']==='P') $grado='Par';
+			$data[$jornada][$item['CatGuia']]['C']++;
+			$data[$jornada][$item['CatGuia']][$item['Categoria']]++;
 		}
 		$data[$jornada]['G']['C']++;
 		$data[$jornada]['G'][$item['Categoria']]++;
-		$data[$jornada][$grado]['C']++;
-		$data[$jornada][$grado][$item['Categoria']]++;
+		$data[$jornada][$item['Grado']]['C']++;
+		$data[$jornada][$item['Grado']][$item['Categoria']]++;
 	}
 	
 	function evalData() {
 		$est=array();
 		// datos globales
 		$est['Prueba']=array(
+			// global
 			'G' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
-			'Ch' =>  array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
-			'Jr' =>  array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
-			'Sr' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
-			'Par' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			// categorias del guia
+			'A' =>  array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'I' =>  array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'J' =>  array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'S' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			'P' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+			// categorias del perro
 			'P.A.' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 			'GI' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 			'GII' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 			'GIII' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
-			'' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0)
+			'-' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0)
 		);
 		// creamos arrays para las ocho posibles jornadas
 		foreach (array('1','2','3','4','5','6','7','8') as $j) {
             // Jornada 1
             $est['J'.$j]=array(
+				// global
 				'G' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
-				'Ch' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
-				'Jr' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
-				'Sr' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
-				'Par' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				// categorias del guia
+				'A' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'I' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'J' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'S' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				'P' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
+				// categorias del perro
 				'P.A.' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 				'GI' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
 				'GII' => array( 'C'=>0,'X' =>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0),
@@ -390,8 +395,7 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 	}
 
 	private function paintData($data,$name,$width,$heights,$cat) {
-		$this->ac_row(0,9);
-		if ($cat=='G') $this->ac_row(3,9);
+		if ($cat=='G') $this->ac_header(4,10);
 		if ($heights==5) {
 			$this->cell($width,6,$data[$name][$cat]['X'],'RB',0,'C',true);
 			$this->cell($width,6,$data[$name][$cat]['L'],'RB',0,'C',true);
@@ -410,7 +414,7 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 	}
 
     // $this->cell( width, height, data, borders, where, align, fill)
-	function printTableData($data,$name,$heights) {
+	function printTableData($data,$name,$heights,&$rowcount) {
 		$this->ac_header(2,9);
 		$this->SetX(10);
 		$width=($heights===5)?25:(($heights===4)?30:35);
@@ -427,68 +431,88 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
             $this->cell($width,6,$this->federation->getCategory('T'),'TRB',0,'C',true);
         $this->cell($width,6,'Total','TRB',0,'C',true);
         $this->Ln(6);
+		$rowcount+=2;
 
 		// Pre Agility
-        $this->ac_header(2,9); // pre-agility
+        $this->ac_row(2,9);
         $this->cell(30,6,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
 		$this->paintData($data,$name,$width,$heights,'P.A.');
+		$rowcount++;
 
         // grado 1
-        $this->ac_header(2,9);
-        $this->cell(30,6,$this->federation->getGrade('GI'),'LRB',0,'L',true);
+		$this->ac_row(2,9);
+		$this->cell(30,6,$this->federation->getGrade('GI'),'LRB',0,'L',true);
 		$this->paintData($data,$name,$width,$heights,'GI');
+		$rowcount++;
 
         // grado II
-        $this->ac_header(2,9);
-        $this->cell(30,6,$this->federation->getGrade('GII'),'LRB',0,'L',true);
+		$this->ac_row(2,9);
+		$this->cell(30,6,$this->federation->getGrade('GII'),'LRB',0,'L',true);
 		$this->paintData($data,$name,$width,$heights,'GII');
+		$rowcount++;
 
+		// grado III
         if ($this->federation->hasGrade3()) {
-            $this->ac_header(2,9); // grado III
-            $this->cell(30,6,$this->federation->getGrade('GIII'),'LRB',0,'L',true);
+			$this->ac_row(2,9);
+			$this->cell(30,6,$this->federation->getGrade('GIII'),'LRB',0,'L',true);
 			$this->paintData($data,$name,$width,$heights,'GIII');
+			$rowcount++;
+		}
+
+		// Total
+		$this->ac_header(2,9);
+		$this->cell(30,6,_('Total'),'LRB',0,'R',true);
+		$this->ac_row(4,9);
+		$this->paintData($data,$name,$width,$heights,'G');
+		$rowcount++;
+
+		// Adult. Skip handlerCategori on RSCE
+		if ($this->federation->get('Name')==='RFEC') {
+			$this->ac_row(1,9);
+			$this->cell(30,6,$this->federation->getHandlerCategory('A'),'LRB',0,'L',true);
+			$this->paintData($data,$name,$width,$heights,'A');
+			$rowcount++;
 		}
 
 		// Children
 		if ($this->federation->hasChildren()) {
-			$this->ac_header(2,9);
+			$this->ac_row(1,9);
 			$this->cell(30,6,$this->federation->getHandlerCategory('I'),'LRB',0,'L',true);
-			$this->paintData($data,$name,$width,$heights,'Ch');
+			$this->paintData($data,$name,$width,$heights,'I');
+			$rowcount++;
 		}
 
 		// Junior. Notice that Junior is valid en RSCE but runs same course than their same grade counterparts
 		if ($this->federation->hasJunior() && $this->federation->get('Name')!=='RSCE') {
-			$this->ac_header(2,9);
+			$this->ac_row(1,9);
 			$this->cell(30,6,$this->federation->getHandlerCategory('J'),'LRB',0,'L',true);
-			$this->paintData($data,$name,$width,$heights,'Jr');
+			$this->paintData($data,$name,$width,$heights,'J');
+			$rowcount++;
 		}
 
 		// Senior  Notice that Senior is valid en RSCE but runs same course than their same grade counterparts
 		if ($this->federation->hasSenior()  && $this->federation->get('Name')!=='RSCE') {
-			$this->ac_header(2,9);
+			$this->ac_row(1,9);
 			$this->cell(30,6,$this->federation->getHandlerCategory('S'),'LRB',0,'L',true);
-			$this->paintData($data,$name,$width,$heights,'Sr');
+			$this->paintData($data,$name,$width,$heights,'S');
+			$rowcount++;
 		}
 
 		// ParaAgility
 		if ($this->federation->hasParaAgility()) {
-			$this->ac_header(2,9);
+			$this->ac_row(1,9);
 			$this->cell(30,6,$this->federation->getHandlerCategory('P'),'LRB',0,'L',true);
-			$this->paintData($data,$name,$width,$heights,'Par');
+			$this->paintData($data,$name,$width,$heights,'P');
+			$rowcount++;
 		}
 
-        // Total
-        $this->ac_header(2,9);
-        $this->cell(30,6,_('Total'),'LRB',0,'L',true);
-        $this->ac_row(4,9);
-		$this->paintData($data,$name,$width,$heights,'G');
         $this->Ln(2); // extra space
 	}
 
 	/**
 	 * En mangas especiales ( ko,games, equipos, etc ) no hay categorias. solo globales
 	 */
-	function printTableDataSpecial($data,$name,$heights,$flag) {
+	function printTableDataSpecial($data,$name,$heights,$flag,&$rowcount) {
 		$this->ac_header(2,9);
 		$this->SetX(10);
 		$width=($heights===5)?25:(($heights===4)?30:35);
@@ -517,6 +541,7 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 			$this->cell($width,6,$data[$name]['G']['T'],'RB',0,'C',true);
 		$this->cell($width,6,$data[$name]['G']['C'],'RB',0,'C',true);
 		$this->Ln(8);
+		$rowcount+=3;
 	}
 
 	function composeTable() {
@@ -525,14 +550,17 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 		$this->AddPage();
 		$count=0;
 		$this->printTableHeader($est,'Prueba',_('Participation global data'));
-		$this->printTableData($est,'Prueba',$heights);
-		$count+=2;
+		$this->printTableData($est,'Prueba',$heights,$count);
 		foreach($this->jornadas as $jornada) {
+			if ($count>43) {
+				$count=0;
+				$this->AddPage();
+			}
 			// re-evaluate heights according journey
 			$heights=Competitions::getHeights($this->prueba->ID,$jornada['ID'],0);
 			if ($jornada['Nombre']==='-- Sin asignar --') continue;
 			$name="J{$jornada['Numero']}";
-			$this->printTableHeader($est,$name,$jornada['Nombre']);
+			$this->printTableHeader($est,$name,_("Contest").": ".$jornada['Nombre']);
 			// check for Open/Team/Ko
 			$flag="";
 			$teams=Jornadas::getTeamDogs($jornada);
@@ -541,7 +569,9 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 				else $flag=_("Team")." {$teams[0]}/{$teams[0]}"; // team Best ( x mejores de y )
 			}
 			if ($jornada['Open']!=0) /* $flag=_("Individual"); */ $flag="Open";
-            if ($jornada['KO']!=0) $flag=_("K.O.");
+			if ($jornada['KO']!=0) $flag=_("K.O.");
+			if ($jornada['KO']!=0) $flag=_("K.O.");
+			if ($jornada['Especial']!=0) $flag=_("Especial");
             if ($jornada['Games']!=0) {
             	$flag=_("Games");
                 if ($jornada['Tipo_Competicion']==1) $flag=_("Pentathlon");
@@ -549,16 +579,12 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
                 if ($jornada['Tipo_Competicion']==3) $flag=_("Games");
             }
 			if ($flag===""){
-                $this->printTableData($est,$name,$heights);
-                $count+=2;
+                $this->printTableData($est,$name,$heights,$count);
+                $count+=11;
 			} else {
-                $this->printTableDataSpecial($est,$name,$heights,$flag);
-                $count++;
+                $this->printTableDataSpecial($est,$name,$heights,$flag,$count);
+                $count+=4;
 			}
-			if ($count>8) {
-            	$count=0;
-            	$this->AddPage();
-            }
 		}
 	}
 }
