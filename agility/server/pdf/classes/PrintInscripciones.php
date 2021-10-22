@@ -568,7 +568,7 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 				if ($teams[0]==$teams[1] ) $flag=_("Team")." {$teams[0]}"; // team All ( conjunta )
 				else $flag=_("Team")." {$teams[0]}/{$teams[0]}"; // team Best ( x mejores de y )
 			}
-			if ($jornada['Open']!=0) /* $flag=_("Individual"); */ $flag="Open";
+			// if ($jornada['Open']!=0) /* $flag=_("Individual"); */ $flag="Open";
 			if ($jornada['KO']!=0) $flag=_("K.O.");
 			if ($jornada['KO']!=0) $flag=_("K.O.");
 			if ($jornada['Especial']!=0) $flag=_("Especial");
