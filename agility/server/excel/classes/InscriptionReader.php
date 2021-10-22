@@ -97,7 +97,7 @@ class InscriptionReader extends DogReader {
 
             $this->saveStatus("Creating teams for Journey: $jname");
             // select distinct jornadaname from temporary tabla where jornadaname!="" group by jornadaname
-            $res=$this->myDBObject->__select("DISTINCT Categoria , $jname AS NombreEquipo",TABLE_NAME,"($jname<>'')","NombreEquipo ASC, Categoria ASC","");
+            $res=$this->myDBObject->__select("DISTINCT Categoria , '$jname' AS NombreEquipo",TABLE_NAME,"('$jname'<>'')","NombreEquipo ASC, Categoria ASC","");
             // parse result to join categories on same team
             $teams=array();
             foreach ($res['rows']as $team) {
