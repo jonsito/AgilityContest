@@ -211,6 +211,11 @@ $('#inscripciones-jornadas').datagrid({
                 icon: 'warning',
                 width: 450
             });
+        } else {
+            workingData.datosPrueba.jornadas=data['rows'];
+            for (i=1;i<9;i++) {
+                $('#idg_j'+i).tooltip('update',workingData.datosPrueba.jornadas[i-1].Nombre);
+            }
         }
     }
 
@@ -278,14 +283,22 @@ $('#inscripciones-datagrid').datagrid({
         { field:'CatGuia',	width:6, sortable:true, align: 'right',	title: '<?php _e('Cat');?>',formatter:formatCatGuia },
     	{ field:'NombreClub',	width:15, sortable:true, align: 'right',	title: '<?php _e('Club');?>' },
     	{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	 title: '<?php _e('Heat');?>' },
-        { field:'J1',		width:2, align:'center', formatter: formatJ1,	 title: 'J1'},
-        { field:'J2',		width:2, align:'center', formatter: formatJ2,	 title: 'J2'},
-        { field:'J3',		width:2, align:'center', formatter: formatJ3,	 title: 'J3'},
-        { field:'J4',		width:2, align:'center', formatter: formatJ4,	 title: 'J4'},
-        { field:'J5',		width:2, align:'center', formatter: formatJ5,	 title: 'J5'},
-        { field:'J6',		width:2, align:'center', formatter: formatJ6,	 title: 'J6'},
-        { field:'J7',		width:2, align:'center', formatter: formatJ7,	 title: 'J7'},
-        { field:'J8',		width:2, align:'center', formatter: formatJ8,	 title: 'J8'}
+        { field:'J1',		width:2, align:'center', formatter: formatJ1,
+            title: '<span id="idg_j1" class="easyui-tooltip" title="' + workingData.datosPrueba.jornadas[0].Nombre + '">J1</span>'},
+        { field:'J2',		width:2, align:'center', formatter: formatJ2,
+            title: '<span id="idg_j2" class="easyui-tooltip" title="' + workingData.datosPrueba.jornadas[1].Nombre + '">J2</span>'},
+        { field:'J3',		width:2, align:'center', formatter: formatJ3,
+            title: '<span id="idg_j3" class="easyui-tooltip" title="' + workingData.datosPrueba.jornadas[2].Nombre + '">J3</span>'},
+        { field:'J4',		width:2, align:'center', formatter: formatJ4,
+            title: '<span id="idg_j4" class="easyui-tooltip" title="' + workingData.datosPrueba.jornadas[3].Nombre + '">J4</span>'},
+        { field:'J5',		width:2, align:'center', formatter: formatJ5,
+            title: '<span id="idg_j5" class="easyui-tooltip" title="' + workingData.datosPrueba.jornadas[4].Nombre + '">J5</span>'},
+        { field:'J6',		width:2, align:'center', formatter: formatJ6,
+            title: '<span id="idg_j6" class="easyui-tooltip" title="' + workingData.datosPrueba.jornadas[5].Nombre + '">J6</span>'},
+        { field:'J7',		width:2, align:'center', formatter: formatJ7,
+            title: '<span id="idg_j7" class="easyui-tooltip" title="' + workingData.datosPrueba.jornadas[6].Nombre + '">J7</span>'},
+        { field:'J8',		width:2, align:'center', formatter: formatJ8,
+            title: '<span id="idg_j8" class="easyui-tooltip" title="' + workingData.datosPrueba.jornadas[7].Nombre + '">J8</span>'},
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,

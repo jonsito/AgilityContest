@@ -966,6 +966,9 @@ function setPrueba(data) {
 	workingData.prueba=parseInt(data.ID);
 	workingData.nombrePrueba=data.Nombre;
 	workingData.datosPrueba=data;
+    workingData.datosPrueba.jornadas=
+        [ {'Nombre':'J1'},{'Nombre':'J2'},{'Nombre':'J3'},{'Nombre':'J4'}, +
+          {'Nombre':'J5'},{'Nombre':'J6'},{'Nombre':'J7'},{'Nombre':'J8'} ];
 	setFederation(data.RSCE);
 	setJornada(null);
 	setManga(null);
