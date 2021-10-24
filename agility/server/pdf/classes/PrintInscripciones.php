@@ -571,7 +571,7 @@ class PrintEstadisticasInscripciones extends PrintInscripciones {
 			// if ($jornada['Open']!=0) /* $flag=_("Individual"); */ $flag="Open";
 			if ($jornada['KO']!=0) $flag=_("K.O.");
 			if ($jornada['KO']!=0) $flag=_("K.O.");
-			if ($jornada['Especial']!=0) $flag=_("Especial");
+			// if ($jornada['Especial']!=0) $flag=_("Especial");
             if ($jornada['Games']!=0) {
             	$flag=_("Games");
                 if ($jornada['Tipo_Competicion']==1) $flag=_("Pentathlon");
