@@ -126,13 +126,13 @@ class Entrenamientos extends DBObject {
         // to speedup, use prepared statements
         // componemos un prepared statement (para evitar sql injection)
         $sql ="INSERT INTO entrenamientos (Prueba,Orden,Club,Fecha,Firma,Veterinario,Comienzo,Duracion,Key1,Value1,Key2,Value2,Key3,Value3,Key4,Value4,key5,Value5,Observaciones,Estado)
-			   VALUES({$this->pruebaID},?,?,?,?,?,?,?,'{$large}',?,'{$medium}',?,'{$small}',?,'{$toy}','{xlarge}',?,?,?,?)";
+			   VALUES({$this->pruebaID},?,?,?,?,?,?,?,'{$xlarge}',?,'{$large}',?,'{$medium}',?,'{$small}',?,'{$toy}',?,?,?)";
         $this->myLogger->trace("SQL: $sql");
         $this->myLogger->trace("SQL: before prepare");
         $stmt=$this->conn->prepare($sql);
         if (!$stmt) return $this->error($this->conn->error);
         $this->myLogger->trace("SQL: before bind");
-        $res=$stmt->bind_param('iissssiiiiiisi',$idx,$clb,$fecha,$firma,$vet,$ent,$dur,$l,$m,$s,$t,$x,$obs,$st);
+        $res=$stmt->bind_param('iissssiiiiiisi',$idx,$clb,$fecha,$firma,$vet,$ent,$dur,$x,$l,$m,$s,$t,$obs,$st);
         if (!$res) return $this->error($stmt->error);
         foreach($clubes as $elem) {
             $idx=$elem['Orden'];

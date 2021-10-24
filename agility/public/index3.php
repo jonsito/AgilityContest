@@ -37,7 +37,8 @@ if (!$am->allowed(ENABLE_PUBLIC)) {
 require_once(__DIR__ . "/../server/web/PublicWeb.php");
 
 $pruebaID=http_request("Prueba","i",18);
-$pb=new PublicWeb($pruebaID);
+$offset=http_request("Offset","i",0);
+$pb=new PublicWeb($pruebaID+$offset);
 $ptree=$pb->publicweb_deploy();
 $poster=$ptree['Prueba']['Cartel'];
 if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
@@ -325,10 +326,19 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
                 }
             }
 
+            // el campeonato de espanya RFEC 2021 consta realmente de dos pruebas: individual (PruebaID) y equipos ( PruebaID+1);
+            echon('<h2>Contenido:</h2>');
+            echon('<ul>');
+            echon('<li style="width:100%"><span style="width:40%;display:inline-block">Competiciones individuales</span>');
+            echon('<a class="easyui-linkbutton" style="width:20%" href="index3.php?Offset=0&Prueba='.$pruebaID.'">Individuales</a></li>');
+            echon('<li style="width:100%"><span style="width:40%;display:inline-block">Competici&oacute;n por equipos</span>');
+            echon('<a class="easyui-linkbutton" style="width:20%" href="index3.php?Offset=1&Prueba='.$pruebaID.'">Equipos</a></li>');
+            echon('</ul>');
+
             // si la licencia permite sesiones de entrenamiento las mostramos
-            if ( $am->allowed(ENABLE_TRAINING)) {
-                echon( '<dt><a class="easyui-linkbutton" href="javascript:pbmenu_loadTrainingSession('.$pruebaID.');">'._("Training session").'</a></dt><br/>');
-            }
+            // if ( $am->allowed(ENABLE_TRAINING)) {
+            //    echon( '<dt><a class="easyui-linkbutton" href="javascript:pbmenu_loadTrainingSession('.$pruebaID.');">'._("Training session").'</a></dt><br/>');
+            // }
 
             // enumeramos jornadas
             foreach ($ptree['Jornadas'] as $jornada) {
