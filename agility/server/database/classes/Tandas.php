@@ -352,6 +352,7 @@ class Tandas extends DBObject {
 		$data['Sesion']=http_request("Sesion","i",2); // defaults to Ring 1
 		$data['Horario']=http_request("Horario","s","");
         $data['Comentario']=http_request("Comentario","s","");
+        $data['Cerrada']=http_request("Cerrada","i",0);
         // type 0 (user defined ) has no category nor grade declared
         if ($data['Tipo']==0) {
             $data['Categoria']=http_request("Categoria","s","-");
@@ -378,6 +379,7 @@ class Tandas extends DBObject {
         $c=$data['Comentario'];
         $ct=$data['Categoria'];
         $g=$data['Grado'];
+        // default tanda is open (Cerrada=0). User must explicitly restrict public access to starting order
 		$str="INSERT INTO tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Horario,Categoria,Grado,Comentario) ".
             "VALUES (0,$p,$j,$s,$o,'{$n}','{$h}','{$ct}','{$g}','{$c}')";
 		$rs=$this->query($str);
@@ -413,7 +415,8 @@ class Tandas extends DBObject {
 		$n=$data['Nombre'];
 		$h=$data['Horario'];
 		$c=$data['Comentario'];
-        $str= "UPDATE tandas SET Sesion=$s, Horario='$h', Comentario='$c' WHERE (ID=$id)";
+        $closed=$data['Cerrada'];
+        $str= "UPDATE tandas SET Sesion={$s}, Horario='$h', Comentario='$c', Cerrada={$closed} WHERE (ID={$id})";
         $rs=$this->query($str);
         if (!$rs) return $this->error($this->conn->error);
         // if tipo!=0 cannot change name
@@ -422,7 +425,19 @@ class Tandas extends DBObject {
         if (!$rs) return $this->error($this->conn->error);
 		return "";
 	}
-	
+
+    /**
+     * Update public access to starting order flag
+     * @param $id tanda ID
+     * @param $flag 0:public 1:protected
+     */
+    function openclose($id,$flag) {
+        $str= "UPDATE tandas SET Cerrada={$flag} WHERE (ID={$id}) AND (Tipo!=0)";
+        $rs=$this->query($str);
+        if (!$rs) return $this->error($this->conn->error);
+        return "";
+    }
+
 	function delete($id){
         assertClosedJourney($this->jornada); // throw exception on closed journeys
 		// only remove those tandas with "Tipo"=0

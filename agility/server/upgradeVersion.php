@@ -888,6 +888,8 @@ try {
     $upg->addColumnUnlessExists("jornadas", "Children", "tinyint(1)", "0");
     $upg->addColumnUnlessExists("jornadas", "ParaAgility", "tinyint(1)", "0");
     $upg->addColumnUnlessExists("jornadas", "Tipo_Competicion", "int(4)", "0");
+    // Version 4.5.5 and up: add flag to allow publish starting order in public web
+    $upg->addColumnUnlessExists("tandas", "Cerrada", "tinyint(1)", "0");
 
     // on server edition need to track modification time and unique id set on server
     // additionally add password and capabilities to handlers

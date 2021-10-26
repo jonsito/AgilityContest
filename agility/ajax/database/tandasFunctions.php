@@ -41,7 +41,8 @@ try {
 	$id = http_request("ID","i",0); // tanda ID
 	$d = http_request("Dorsal","i",0);
 	$s = http_request("Sesion","i",0); // default is no session
-	$a = http_request("Pendientes","i",0);
+    $a = http_request("Pendientes","i",0);
+    $c = http_request("Cerrada","i",0);
 	
 	// los siguiente campos se usan para drag and drop
 	$f = http_request("From","i",0);
@@ -53,7 +54,8 @@ try {
 	switch ($operation) {
 		case "insert":	$am->access(PERMS_OPERATOR); $result = $ot->insert($ot->getHttpData()); break;
 		case "update":	$am->access(PERMS_ASSISTANT); $result = $ot->update($id,$ot->getHttpData()); break;
-		case "delete":	$am->access(PERMS_OPERATOR); $result = $ot->delete($id); break;
+        case "delete":	$am->access(PERMS_OPERATOR); $result = $ot->delete($id); break;
+        case "openclose":	$am->access(PERMS_OPERATOR); $result = $ot->openclose($id,$c); break;
 		/* DO NOT CALL These functions from client side
 		case "populateJornada":
 		case "deleteJornada":

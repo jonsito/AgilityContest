@@ -212,7 +212,7 @@ function formatJourneyInscription(journey,val,row,idx) {
     var jornada=$('#inscripciones-jornadas').datagrid('getRows')[journey];
     if ( jornada.Nombre === "-- Sin asignar --") return ""; // undefined journey
     if (!canInscribe(jornada,row['Grado'],row['CatGuia'])) return ""; // journey doesn't match grade
-    var checked=(val==0)?'':'checked="checked"';
+    var checked=(parseInt(val)===0)?'':'checked="checked"';
     var fn="changeInscription("+idx+","+row.Prueba+","+row.Perro+","+journey+",this);"
     return '<input type="checkbox" value="1" '+checked+' onchange="'+fn+'">';
 }
@@ -225,6 +225,14 @@ function formatJ5(val,row,idx) { return formatJourneyInscription(4,val,row,idx);
 function formatJ6(val,row,idx) { return formatJourneyInscription(5,val,row,idx); }
 function formatJ7(val,row,idx) { return formatJourneyInscription(6,val,row,idx); }
 function formatJ8(val,row,idx) { return formatJourneyInscription(7,val,row,idx); }
+
+function formatOpenCloseTanda(val,row,idx) {
+    if ( typeof (val) === "undefined" ) return ""; // not yet loaded datagrid
+    if ( parseInt(row.Tipo) === 0 ) return ""; // user defined tandas cannot be opened/closed
+    var checked = (parseInt(val)===0)?'':'checked="checked"';
+    var fn="openCloseTanda("+row.Prueba+","+row.Jornada+","+row.ID+",this);"
+    return '<input type="checkbox" value="1" '+checked+' onchange="'+fn+'">';
+}
 
 /* formatters para datagrid de resultados */
 function formatFaltasTocados(val,row,idx) { return parseInt(row.Faltas)+parseInt(row.Tocados); }

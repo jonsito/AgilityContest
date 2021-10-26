@@ -119,13 +119,28 @@ function saveTanda(dg){
     });
 }
 
+function openCloseTanda(prueba,jornada,id,obj) {
+    $.get(
+        '../ajax/database/tandasFunctions.php',
+        {   Operation: 'openclose',  Prueba: prueba,  Jornada: jornada, ID: id, Cerrada: (obj.checked===true)?1:0 },
+        function(result){
+            if (result.success){
+                reloadOrdenTandas();
+            } else { // show error message
+                $.messager.show({width:300,height:200,title: '<?php _e('Error'); ?>',msg: result.errorMsg});
+            }
+        },
+        'json'
+    );
+}
+
 /**
  * Delete actividad data in bbdd
  * @param {string} dg datagrid ID de donde se obtiene la actividad
  */
 function deleteTanda(dg){
     var rows = $(dg).datagrid('getSelections');
-    if (rows.length==0) {
+    if (parseInt(rows.length)===0) {
         $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no activity selected"); ?>',"warning");
         return; // no way to know which dog is selected
     }
@@ -134,7 +149,7 @@ function deleteTanda(dg){
         return; // no way to know which dog is selected
     }
     var row=rows[0];
-    if (row.Tipo!=0) {
+    if (parseInt(row.Tipo)!==0) {
     	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
     	return; // cannot delete default session
     }
