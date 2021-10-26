@@ -366,7 +366,8 @@ if (($poster==null) || ($poster=="")) $poster="../default_poster.png";
                                     if ($jornada['Observaciones']!="")
                                         $nombre=$jornada['Observaciones'] ." ". substr($nombre,strpos($nombre,"-"));
                                 }
-                                echon ('<td><a class="easyui-linkbutton" href="javascript:pbmenu_loadStartingOrder('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$nombre."</a> </td>");
+                                $cerrada=(intval($tanda['Cerrada'])==0)?'':'data-options="disabled:true"';
+                                echon ('<td><a class="easyui-linkbutton" '.$cerrada.' href="javascript:pbmenu_loadStartingOrder('.$pruebaID.','.$jornada['ID'].','.$tanda['ID'].')">'.$nombre."</a> </td>");
                             }
                             echon("</tr></table>");
                         echon("<br/>&nbsp;<br/></li>");
