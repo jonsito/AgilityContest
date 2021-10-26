@@ -682,8 +682,8 @@ class Tandas extends DBObject {
                     if ($manga['Observaciones'] !== "" )$res['rows'][$key]['Comentario'] .= " ( {$manga['Observaciones']} )";
                 }
                 // and finally add number of participants
-                $str="(PerroGuiaClub.ID=Resultados.Perro) && ( Prueba={$this->prueba->ID} ) AND ( Jornada={$this->jornada->ID} ) AND (Manga={$res['rows'][$key]['Manga']})";
-                $result=$this->__select("resultados.*,PerroguiaClub.CatGuia AS CatGuia","resultados,perroguiaclub",$str,"","");
+                $str="(perroguiaclub.ID=resultados.Perro) && ( Prueba={$this->prueba->ID} ) AND ( Jornada={$this->jornada->ID} ) AND (Manga={$res['rows'][$key]['Manga']})";
+                $result=$this->__select("resultados.*,perroguiaclub.CatGuia AS CatGuia","resultados,perroguiaclub",$str,"","");
                 if (!is_array($result)) {
                     $this->myLogger->error($result); return $result;
                 }
