@@ -682,18 +682,44 @@ class Tandas extends DBObject {
                     if ($manga['Observaciones'] !== "" )$res['rows'][$key]['Comentario'] .= " ( {$manga['Observaciones']} )";
                 }
                 // and finally add number of participants
-                $str="( Prueba={$this->prueba->ID} ) AND ( Jornada={$this->jornada->ID} ) AND (Manga={$res['rows'][$key]['Manga']})";
-                $result=$this->__select("*","resultados",$str,"","");
+                $str="(PerroGuiaClub.ID=Resultados.Perro) && ( Prueba={$this->prueba->ID} ) AND ( Jornada={$this->jornada->ID} ) AND (Manga={$res['rows'][$key]['Manga']})";
+                $result=$this->__select("resultados.*,PerroguiaClub.CatGuia AS CatGuia","resultados,perroguiaclub",$str,"","");
                 if (!is_array($result)) {
                     $this->myLogger->error($result); return $result;
                 }
                 $count=0;
                 foreach($result['rows'] as $itm) { // comparamos categoria y grado
-                    // si el grado es '-' se contabiliza. else si coincide grado se contabiliza
-                    if (($res['rows'][$key]['Grado']!=='-') && ($itm['Grado']!==$res['rows'][$key]['Grado']) ) continue;
-                    // comparamos categorias
-                    if ( strstr($res['rows'][$key]['Categoria'],$itm['Categoria'])===false ) continue;
-                    $count++;
+                    // si el grado es '-' (any) se contabiliza si coincide altura
+                    if ($res['rows'][$key]['Grado']==='-') {
+                        if ( strstr($res['rows'][$key]['Categoria'],$itm['Categoria'])===false ) continue;
+                        $count++;
+                    }
+                    // en tandas infantil, junior, senior y para agility comprobamos ademas la categoria del guía
+                    if ($res['rows'][$key]['Grado']==='Ch') {
+                        if ($itm['CatGuia']!=='I') continue;
+                        if ( strstr($res['rows'][$key]['Categoria'],$itm['Categoria'])===false ) continue;
+                        $count++;
+                    }
+                    else if ($res['rows'][$key]['Grado']==='Jr') {
+                        if ($itm['CatGuia']!=='J') continue;
+                        if ( strstr($res['rows'][$key]['Categoria'],$itm['Categoria'])===false ) continue;
+                        $count++;
+                    }
+                    else if ($res['rows'][$key]['Grado']==='Sr') {
+                        if ($itm['CatGuia']!=='S') continue;
+                        if ( strstr($res['rows'][$key]['Categoria'],$itm['Categoria'])===false ) continue;
+                        $count++;
+                    }
+                    else if ($res['rows'][$key]['Grado']==='Par') {
+                        if ($itm['CatGuia']!=='P') continue;
+                        if ( strstr($res['rows'][$key]['Categoria'],$itm['Categoria'])===false ) continue;
+                        $count++;
+                    }
+                    // si no estamos en -/I/J/S/P comparamos grados y luego alturas
+                    else if ($itm['Grado']===$res['rows'][$key]['Grado']){
+                        if ( strstr($res['rows'][$key]['Categoria'],$itm['Categoria'])===false ) continue;
+                        $count++;
+                    }
                 }
                 $res['rows'][$key]['Participantes']=strval($count);// datos del participacion
 			}
