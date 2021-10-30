@@ -216,6 +216,8 @@ class PrintOrdenSalida extends PrintCommon {
 		foreach($this->orden as $row) {
 		    // elimina todos los perros que no entran en las categorias a imprimir
 			if (!category_match($row['Categoria'],$this->heights,$this->validcats)) continue;
+            // in team best min/max, there can be more dogs than max, so if dog is marked as "Not Presented" skip
+            if(intval($row['NoPresentado'])===1) continue;
 
 			$newTeam=intval($row['Equipo']);
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
