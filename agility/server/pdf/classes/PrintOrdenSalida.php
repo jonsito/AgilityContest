@@ -210,14 +210,13 @@ class PrintOrdenSalida extends PrintCommon {
             $this->myLogger->trace("from:$fromItem to:$toItem");
         }
 		// Datos
-		$rowcount=0;
-		$order=0;
+		$rowcount=0; // contador de filas en la hoja
+		$order=0; // contador de perros existentes en orden de salida
 		$lastTeam=0;
+        $printed=1; // contador de perros realmente impresos
 		foreach($this->orden as $row) {
 		    // elimina todos los perros que no entran en las categorias a imprimir
 			if (!category_match($row['Categoria'],$this->heights,$this->validcats)) continue;
-            // in team best min/max, there can be more dogs than max, so if dog is marked as "Not Presented" skip
-            if(intval($row['NoPresentado'])===1) continue;
 
 			$newTeam=intval($row['Equipo']);
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
@@ -240,7 +239,10 @@ class PrintOrdenSalida extends PrintCommon {
 				$order=0;
 				$lastTeam=0;
 			}
-            if ( (($order+1)<$fromItem) || (($order+1)>$toItem) ) { $order++; continue; } // not in range; skip
+            // dog not in range to print: count and  skip
+            if ( (($order+1)<$fromItem) || (($order+1)>$toItem) ) { $order++; continue; }
+            // in team best min/max, there can be more dogs than max, so if dog is marked as "Not Presented" skip
+            if(intval($row['NoPresentado'])===1) { $order++; continue; } ;
 			// on team, if team change, make sure that new team fits in page. Else force new page
 			if ( $this->isTeam() && ($newTeam!=$lastTeam) && ($rowcount>=32) ) $rowcount=$rowsperpage;
 
@@ -265,7 +267,7 @@ class PrintOrdenSalida extends PrintCommon {
 			$this->SetFont($this->getFontName(),'B',11); // bold 9px
             // if dog has already run, use "*" instead of "-"
             $ordersep=($row['Pendiente']==0)?" * ":" - ";
-			$this->Cell($this->pos[0],6,($order+1).$ordersep,'LR',0,$this->align[0],true); // display order
+			$this->Cell($this->pos[0],6,($printed).$ordersep,'LR',0,$this->align[0],true); // display order
 			$this->SetFont($this->getFontName(),'',9); // remove bold 9px
             if ($this->federation->isInternational()) {
                 $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
@@ -288,6 +290,7 @@ class PrintOrdenSalida extends PrintCommon {
 			$this->Ln();
 			$rowcount++;
 			$order++;
+            $printed++;
 		}
 		// Línea de cierre
 		$this->Cell(array_sum($this->pos),0,'','T');

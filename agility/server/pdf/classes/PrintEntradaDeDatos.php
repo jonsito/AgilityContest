@@ -615,10 +615,13 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$numentries=count($this->orden);
 		$orden=1;
 		$rowcount=0;
+		$printed=1;
 		foreach($this->orden as $row) {
 			// elimina todos los perros que no entran en las categorias a imprimir
 			if (!category_match($row['Categoria'],$this->heights,$this->validcats)) continue;
 			if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
+			// in team best min/max, there can be more dogs than max, so if dog is marked as "Not Presented" skip
+			if(intval($row['NoPresentado'])===1) { $orden++; continue; } ;
 			// if number of entries is lower than rows per page, print every entries in just one page
 			$page=true; // check for need to page categories
 			if ($numentries <= $this->numrows) $page=false; // every dogs fits in one sheet
@@ -647,13 +650,14 @@ class PrintEntradaDeDatos extends PrintCommon {
 				}
 			}
 			switch($this->numrows) {
-				case 1: $this->writeTableCell_1($row,$orden);break;
-				case 5: $this->writeTableCell_5($row,$orden);break;
-                case 10: $this->writeTableCell_10($row,$orden);break;
-                case 15: $this->writeTableCell_15($row,$orden);break;
+				case 1: $this->writeTableCell_1($row,$printed);break;
+				case 5: $this->writeTableCell_5($row,$printed);break;
+                case 10: $this->writeTableCell_10($row,$printed);break;
+                case 15: $this->writeTableCell_15($row,$printed);break;
 			}
 			$rowcount++;
 			$orden++;
+			$printed++;
 		}
 		// Línea de cierre
 		$this->Cell(array_sum($this->pos),0,'','T');
