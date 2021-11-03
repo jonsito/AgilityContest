@@ -356,6 +356,9 @@ function activateLicense(serial) {
                 $('#registration_data').form('load',data); // update registration info form
                 // reload logo. note the trick to bypass image catching
                 $('#rd_Logo').attr("src","../ajax/images/getLicenseLogo.php?t="+new Date().getTime());
+                ac_regInfo=data; // store received data as new registration info
+                $('#avail_lic').combobox('reload'); // also reload list of available licenses
+
                 $.messager.confirm({
                     title:"<?php _e('Activate');?>",
                     msg:'<?php _e("License successfully activated");?>'+'<br/>&nbsp;<br/>'+
@@ -419,6 +422,8 @@ function send_regFile() {
                 $('#registration_data').form('load',data); // update registration info form
                 // reload logo. note the trick to bypass image catching
                 $('#rd_Logo').attr("src","../ajax/images/getLicenseLogo.php?t="+new Date().getTime());
+                ac_regInfo=data; // store received data as new registration info
+                $('#avail_lic').combobox('reload'); // also reload list of available licenses
                 $.messager.confirm({
                     title:"<?php _e('Licensing');?>",
                     msg:'<?php _e("Licensing data successfully loaded");?>'+'<br/>&nbsp;<br/>'+

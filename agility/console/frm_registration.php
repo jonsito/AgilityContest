@@ -43,7 +43,7 @@ $config =Config::getInstance();
 	</p>
 	<hr />
 	<form id="registration_data">
-	<table width="100%">
+	<table style="width:100%">
 		<tr>
 			<td style="width:50%">
                 <div class="fitem" style="width:100%;display:inline-block">
