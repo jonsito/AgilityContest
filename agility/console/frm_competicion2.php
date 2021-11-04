@@ -70,6 +70,61 @@ switch(http_request("tipo","s","std")) {
 <!-- PANEL INFORMATIVO SOBRE LA MANGAS DE ESTA JORNADA -->
 <div id="competicion_info" style="width:100%">
 
+    <header style="width:100%">
+        <span id="competicion_info_title" style="font-weight:bold;text-align:left;display:inline-block;width:50%">Titulo</span>
+        <span style="text-align:right;display:inline-block;width:47%">
+            <label for="competicion_journeyList"><?php _e("Select journey");?></label>&nbsp;
+            <select id="competicion_journeyList" name="competicion_journeyList" style="width:125px" class="easyui-combogrid"
+                data-options="
+                    panelWidth: 200,
+                    panelHeight: 'auto',
+                    idField: 'ID',
+                    textField: 'Nombre',
+                    value: workingData.datosJornada.ID,
+                    method: 'get',
+                    mode: 'remote',
+                    required: true,
+                    multiple: false,
+                    fitColumns: true,
+                    singleSelect: true,
+                    editable: false,
+                    rownumbers: true,
+                    noheader: true,
+                    url: '../ajax/database/jornadaFunctions.php',
+                    queryParams: { Operation: 'enumerate', Prueba: workingData.prueba, AllowClosed:false, HideUnassigned:1 },
+                    columns: [[
+                        { field:'ID',			hidden:true }, // ID de la jornada
+                        { field:'Numero',		hidden:true }, // numero de orden de la jornada
+                        { field:'Prueba',		hidden:true }, // ID de la prueba
+                        { field:'Nombre',		width:25, sortable:false,   align:'left',  title: '<?php _e('Journey'); ?>' },
+                        { field:'Nombre_Competicion',hidden:true },
+                        { field:'Tipo_Competicion',	hidden:true},
+		                { field:'Fecha',		hidden:true},
+		                { field:'Hora',			hidden:true},
+		                { field:'Grado1',		hidden:true},
+		                { field:'Grado2',		hidden:true},
+		                { field:'Grado3',		hidden:true},
+		                { field:'Open',		    hidden:true},
+		                { field:'Equipos3',		hidden:true},
+		                { field:'Equipos4',		hidden:true},
+		                { field:'PreAgility',	hidden:true},
+                        { field:'Children',	    hidden:true},
+                        { field:'Junior',	    hidden:true},
+                        { field:'Senior',	    hidden:true},
+                        { field:'ParaAgility',  hidden:true},
+		                { field:'KO',			hidden:true},
+                        { field:'Especial',		hidden:true},
+                        { field:'Cerrada',		hidden:true}
+                    ]],
+                    onLoadSuccess: function(data){ $('#competicion_journeyList').combogrid('setValue',workingData.datosJornada.ID); },
+                    onChange: function(newval,oldval) {
+                        jumpToSelectedJourney( $('#competicion_journeyList').combogrid('grid').datagrid('getSelected'));
+                    }
+
+                ">
+            </select>
+        </span>
+    </header>
 	<!-- paneles de lista de mangas y datos de cada manga -->
 	<div id="competicion_infolayout" class="easyui-layout" style="height:450px">
 		<div data-options="region:'west',title:'<?php _e('Journey rounds');?>',split:true,collapsed:false" style="width:20%">
@@ -102,12 +157,11 @@ switch(http_request("tipo","s","std")) {
 			onclick="competicionDialog('resultadosmanga');"><?php _e('Round results');?></a>
 	</span>
 </div>
-
 <script type="text/javascript">
 
 // declaracion de cada elemento grafico
+$('#competicion_info_title').html(workingData.nombrePrueba+' -- '+workingData.nombreJornada);
 $('#competicion_info').panel({
-	title:workingData.nombrePrueba+' -- '+workingData.nombreJornada,
 	border:true,
 	closable:false,
 	collapsible:false,

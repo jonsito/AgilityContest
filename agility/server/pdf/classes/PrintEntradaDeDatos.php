@@ -611,34 +611,44 @@ class PrintEntradaDeDatos extends PrintCommon {
             $fromItem=intval($a[0]);
             $toItem=intval($a[1]);
         }
-		// Datos
-		$numentries=count($this->orden);
-		$orden=1;
-		$rowcount=0;
-		$printed=1;
+		// OrdenSalida::getData() nos da _todos_ los perros de una manga que cumplen con el modo de recorrido dado
+		// como aquí fromItem y toItem se refieren al puesto en que aparecen en la consola, sera preciso hacer
+		// una criba inicial, excluyendo a los que no coincidan con las categorias pedidas (validCats)
+		$items=array();
 		foreach($this->orden as $row) {
-			// elimina todos los perros que no entran en las categorias a imprimir
-			if (!category_match($row['Categoria'],$this->heights,$this->validcats)) continue;
-			if (($orden<$fromItem) || ($orden>$toItem) ) { $orden++; continue; } // not in range; skip
-			// in team best min/max, there can be more dogs than max, so if dog is marked as "Not Presented" skip
-			if(intval($row['NoPresentado'])===1) { $orden++; continue; } ;
-			// if number of entries is lower than rows per page, print every entries in just one page
-			$page=true; // check for need to page categories
-			if ($numentries <= $this->numrows) $page=false; // every dogs fits in one sheet
-			if ( isMangaPreAgility($this->manga->Tipo)) $page=false; // pre-agility rounds does not page heights
-			// if ($this->validcats=="XLMST") $page=false; // any height is allowed: do not page
+			// pending: trying to optimize when "validcats" matches "recorrido"
+			if (category_match($row['Categoria'],$this->heights,$this->validcats)) array_push($items,$row);
+		}
+		// ahora que hemos filtrado, vamos a imprimir solo los que esten entre fromItem y toItem
+		$orden=0; // numero de orden en la consola
+		$rowcount=0; // numero de columna en la hoja (5,10,15)
+		$printed=1; // numero de orden que aparecera en el listado
+		for($orden=0;$orden<count($items);$orden++) {
+			if ($orden+1<$fromItem) continue;
+			if ($orden+1>$toItem) continue;
+			// also skip items marked as "No Presentado"
+			$row=$items[$orden];
+			if(intval($row['NoPresentado'])===1) continue;
+
+			// ok. tenemos elemento a imprimir. Vamos a ver si hay que hacer salto de pagina
+			$page=true;
+			// si el numero de entradas cabe en una paquina omitimos saltos de pagina
+			if (count($items) <= $this->numrows) $page=false;
+			// en pre-agility tambien saltan todos juntos, y omitimos salto de pagina en el listado
+			if ( isMangaPreAgility($this->manga->Tipo)) $page=false;
+			// en caso de que se permita salto de pagina, comprobamos si hay cambio de categoria
+			// y en caso afirmativo, reseteamos el contador de fila y actualizamos ultima categoria activa
 			if ( $page ) {
 				// if change in categoria, reset orden counter and force page change
 				$ccats=compatible_categories($this->heights,$this->categoria);
 				if (!category_match($row['Categoria'],$this->heights,$ccats)) {
 					$rowcount=0;
-					$orden=1;
 					$this->categoria = $row['Categoria'];
 				}
 			}
-
+			// ahora vemos si hay que cambiar de pagina
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount % $this->numrows) == 0 ) { // assume $numrows entries per page 
+			if( ($rowcount % $this->numrows) == 0 ) { // assume $numrows entries per page
 				$this->AddPage();
 				if($this->numrows!=1) {
 					// indicamos nombre del operador que rellena la hoja
@@ -649,14 +659,14 @@ class PrintEntradaDeDatos extends PrintCommon {
 					$this->Ln(15);
 				}
 			}
+			// y finalmente imprimimos la celda en cuestion
 			switch($this->numrows) {
 				case 1: $this->writeTableCell_1($row,$printed);break;
 				case 5: $this->writeTableCell_5($row,$printed);break;
-                case 10: $this->writeTableCell_10($row,$printed);break;
-                case 15: $this->writeTableCell_15($row,$printed);break;
+				case 10: $this->writeTableCell_10($row,$printed);break;
+				case 15: $this->writeTableCell_15($row,$printed);break;
 			}
 			$rowcount++;
-			$orden++;
 			$printed++;
 		}
 		// Línea de cierre
