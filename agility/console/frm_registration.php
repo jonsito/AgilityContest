@@ -53,8 +53,7 @@ $config =Config::getInstance();
                     </span>
                     <span style="float:right;padding-right:60px;">
                         <a id="avail_licBtn" href="#" class="easyui-linkbutton"
-                            data-options="iconCls:'icon-setup'"
-                            onclick="activateLicense($('#avail_lic').combobox('getValue'))"><?php _e('Activate'); ?></a>
+                            data-options="iconCls:'icon-setup'"><?php _e('Activate'); ?></a>
                     </span>
                 </div>
             </td>
@@ -208,7 +207,10 @@ $config =Config::getInstance();
     });
 
     // addTooltip(fb.next().find('.textbox-button'),'<?php _e("Select license file to import"); ?>');
-    addTooltip($('#avail_licBtn').linkbutton(),'<?php _e("Mark select license as active"); ?>');
+    addTooltip($('#avail_licBtn').linkbutton(),'<?php _e("Mark select license as active"); ?><br/><?php _e("Press Ctrl+Button to remove license");?>');
     addTooltip($('#registration-okButton').linkbutton(),'<?php _e("Import license file into application"); ?>');
 	addTooltip($('#registration-cancelButton').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+
+    // bind click on "activate" button to track ctrl and meta keys
+    $('#avail_licBtn').bind('click',function(e){activateLicense(e);});
 </script>

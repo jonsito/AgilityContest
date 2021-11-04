@@ -577,12 +577,12 @@ class AuthManager {
 	}
 
 	/**
-	 * 4.5.2+ select a given registered license
-	 * @param {string} $serial serial number
-	 * @return {array} selected license data
+	 * 4.5.5+ remove selected license from list of available licenses
+	 * @param $serial Serial number of license to be removed
+	 * @return {string} empty string on success, else error msg
 	 * @throws exception on error
 	 */
-	function selectRegisteredLicenses($serial) {
+	function removeSelectedLicense($serial) {
 		// find license with requested serial number
 		$path = AC_CONFIG_DIR.'/registration.info_*';
 		$filenames = glob($path);
@@ -595,7 +595,37 @@ class AuthManager {
 			if (intval($a[$n-2]) !== intval($serial)) continue; // not the serial number we are looking for
 			// found. Set as active reset license data, recheck and return new data
 			$club=base64_decode($a[$n-1]);
-			$this->myLogger->trace("Found requested license Serial:{$a[$n-2]} Club:{$club}" );
+			$this->myLogger->trace("Found requested license to be removed Serial:{$a[$n-2]} Club:{$club}" );
+			@unlink($filename);
+			return "";
+		}
+		// arriving here means license serialnumber not found
+		$msg="Cannot locate license with provided serial number: {$serial}";
+		// keep current license and mreturn error
+		$this->myLogger->error($msg);
+		throw new Exception($msg);
+	}
+
+	/**
+	 * 4.5.2+ select a given registered license
+	 * @param {string} $serial serial number
+	 * @return {array} selected license data
+	 * @throws exception on error
+	 */
+	function activateSelectedLicense($serial) {
+		// find license with requested serial number
+		$path = AC_CONFIG_DIR.'/registration.info_*';
+		$filenames = glob($path);
+		foreach ($filenames as $filename) {
+			$this->myLogger->trace("Searching license serial:{$serial} in file {$filename}");
+			$a=explode("_",$filename);
+			$n=count($a);
+			if ($n<3) continue; // invalid filename; must be ".../registration.info_serial_base64(club)"
+			if (! is_numeric($a[$n-2])) continue; // invalid filename; must be a numeric value
+			if (intval($a[$n-2]) !== intval($serial)) continue; // not the serial number we are looking for
+			// found. Set as active reset license data, recheck and return new data
+			$club=base64_decode($a[$n-1]);
+			$this->myLogger->trace("Found requested license to activate Serial:{$a[$n-2]} Club:{$club}" );
 			@copy($filename,AC_REGINFO_FILE);
 			$this->registrationInfo=null;
 			return $this->getRegistrationInfo();

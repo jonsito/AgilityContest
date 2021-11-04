@@ -80,7 +80,10 @@ try {
 		case "listLicenses":
 			$result=$am->listRegisteredLicenses(); break;
 		case "activateLicense":
-			$am->access(PERMS_ADMIN); $result=$am->selectRegisteredLicenses($serial); break;
+			$am->access(PERMS_ADMIN);
+			if ($mode==0) $result=$am->activateSelectedLicense($serial);
+			else $result=$am->removeSelectedLicense($serial);
+			break;
 		case "reginfo": 
 			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg="Cannot retrieve license information"; break;
 		case "register":

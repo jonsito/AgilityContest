@@ -318,11 +318,68 @@ function read_regFile(input) {
 	}
 }
 
-function activateLicense(serial) {
+/**
+ * @param event key event
+ * @returns {boolean}
+ */
+function activateLicense(event) {
+
+    // do the ajax call
+    function handleActivateRemove(serial,remove) {
+        $.ajax({
+            type: 'GET',
+            url: '../ajax/adminFunctions.php',
+            dataType: 'json',
+            data: {
+                Operation: 'activateLicense',
+                Serial: serial,
+                Mode: remove // 0:activate; 1:remove
+            },
+            contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+            success: function(data) {
+                if (data.errorMsg){
+                    $.messager.show({ width:300, height:150, title: 'Error', msg: data.errorMsg });
+                } else {
+                    var dok=$.messager.defaults.ok;
+                    var dcancel=$.messager.defaults.cancel;
+                    $.messager.defaults.ok="<?php _e('Restart');?>";
+                    $.messager.defaults.cancel="<?php _e('Back');?>";
+                    $('#registration_data').form('load',data); // update registration info form
+                    // reload logo. note the trick to bypass image catching
+                    $('#rd_Logo').attr("src","../ajax/images/getLicenseLogo.php?t="+new Date().getTime());
+                    ac_regInfo=data; // store received data as new registration info
+                    $('#avail_lic').combobox('reload'); // also reload list of available licenses
+
+                    $.messager.confirm({
+                        title:"<?php _e('Activate/Remove');?>",
+                        msg:'<?php _e("Process completed");?>'+'<br/>&nbsp;<br/>'+
+                            '<?php _e("Restart app to make changes to take effect");?>',
+                        top:150,
+                        width:450,
+                        height:'auto',
+                        icon:'info',
+                        fn: function(r) {
+                            // restore text
+                            $.messager.defaults.ok=dok;
+                            $.messager.defaults.cancel=dcancel;
+                            // on request call save
+                            if (r) window.location.reload();
+                        }
+                    });
+                }
+            },
+            error: function() {
+                $.messager.show({ width:350, height:150, title: 'Error', msg: "Error in request for license activation" });
+            }
+        });
+    }
+
+    let remove = (event.ctrlKey || event.metaKey)?1:0;
+    let serial=$('#avail_lic').combobox('getValue')
     // check for admin privileges
     if (ac_authInfo.Perms>1) {
         $.messager.alert('Error',
-            '<?php _e("Please: to activate license");?>'+'<br/>'+
+            '<?php _e("Please: to activate/remove license");?>'+'<br/>'+
             '<?php _e("re-init session with a user with admin privileges");?>',
             'error');
         return false;
@@ -330,57 +387,32 @@ function activateLicense(serial) {
     // check for invalid or empty serialnumber selected
     if(!serial || serial.trim()==="") {
         $.messager.alert('Error',
-            '<?php _e("Please: to activate license");?>'+'<br/>'+
+            '<?php _e("Please: to activate/remove license");?>'+'<br/>'+
             '<?php _e("must select a value from available ones");?>',
             'error');
         return false;
     }
-    // ok, make the call
-    $.ajax({
-        type: 'GET',
-        url: '../ajax/adminFunctions.php',
-        dataType: 'json',
-        data: {
-            Operation: 'activateLicense',
-            Serial: serial
-        },
-        contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
-        success: function(data) {
-            if (data.errorMsg){
-                $.messager.show({ width:300, height:150, title: 'Error', msg: data.errorMsg });
-            } else {
-                var dok=$.messager.defaults.ok;
-                var dcancel=$.messager.defaults.cancel;
-                $.messager.defaults.ok="<?php _e('Restart');?>";
-                $.messager.defaults.cancel="<?php _e('Back');?>";
-                $('#registration_data').form('load',data); // update registration info form
-                // reload logo. note the trick to bypass image catching
-                $('#rd_Logo').attr("src","../ajax/images/getLicenseLogo.php?t="+new Date().getTime());
-                ac_regInfo=data; // store received data as new registration info
-                $('#avail_lic').combobox('reload'); // also reload list of available licenses
-
-                $.messager.confirm({
-                    title:"<?php _e('Activate');?>",
-                    msg:'<?php _e("License successfully activated");?>'+'<br/>&nbsp;<br/>'+
-                        '<?php _e("Restart app to make changes to take effect");?>',
-                    top:150,
-                    width:450,
-                    height:'auto',
-                    icon:'info',
-                    fn: function(r) {
-                        // restore text
-                        $.messager.defaults.ok=dok;
-                        $.messager.defaults.cancel=dcancel;
-                        // on request call save
-                        if (r) window.location.reload();
-                    }
-                });
-            }
-        },
-        error: function() {
-            $.messager.show({ width:350, height:150, title: 'Error', msg: "Error in request for license activation" });
+    // en el caso de borrar licencia, verificar que no está activa
+    if (remove===0) {
+        handleActivateRemove(serial,remove);
+        return false;
+    } else {
+        if (ac_regInfo.Serial===serial) {
+            $.messager.alert('Error',
+                '<?php _e("Cannot remove current active license");?>',
+                'error');
+            return false;
         }
-    });
+        $.messager.confirm(
+            '<?php _e("Delete");?>',
+            '<?php _e("Please confirm remove license from list");?>',
+            function (r) {
+                if (r) handleActivateRemove(serial,remove);
+                return false;
+            }
+        );
+        return false;
+    }
 }
 
 function send_regFile() {

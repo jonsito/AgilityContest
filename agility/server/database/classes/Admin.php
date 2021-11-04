@@ -629,6 +629,7 @@ class Admin extends DBObject {
 
         // finally clear also named backup files, but preserve autobackups
         array_map('unlink',glob("{$this->restore_dir}agility-*.sql"));
+        return "";
 	}
 
     /**
