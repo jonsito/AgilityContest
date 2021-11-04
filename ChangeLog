@@ -1,3 +1,9 @@
+Version 4.6.0 20211104_2300
+    - Multiple fixes in teams competitions
+    - OrdenSalida,Asistente PDF's: skip teams with "NotPresented" marked. Usefull for RFEC Teams
+    - Fixes on multilicense handling. Now Ctrl+Activate deletes selected licence
+    - Add Combo to change journey directly from competition window
+    - Multiple improvements in public and livestream dialogs
 Version 4.5.5 20211013_1845
     - Fixes on printouts with some Team contests due to 5-height issues
     - Fix several warnings in upgrade process
