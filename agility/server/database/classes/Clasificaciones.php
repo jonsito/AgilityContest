@@ -266,14 +266,14 @@ class Clasificaciones extends DBObject {
                 $fp=floatval($first['P2']);
                 $ft=($fp>=100)?0:floatval($first['T2']);
                 $cp=($this->current===null)? 0 : floatval($this->current['P2']);
-                $ct=($this->current===null)? 0 : ($cp>=100)?0:floatval($this->current['T2']);
+                $ct=($this->current===null)? 0 : (($cp>=100)?0:floatval($this->current['T2']));
                 $trs=$result['trs2']['trs'];
                 $trm=$result['trs2']['trm'];
             } else { // current tanda is agility
                 $fp=floatval($first['P1']);
                 $ft=($fp>=100)?0:floatval($first['T1']);
                 $cp=($this->current===null)? 0 : floatval($this->current['P1']);
-                $ct=($this->current===null)? 0 : ($cp>=100)?0:floatval($this->current['T1']);
+                $ct=($this->current===null)? 0 : (($cp>=100)?0:floatval($this->current['T1']));
                 $trs=$result['trs1']['trs'];
                 $trm=$result['trs1']['trm'];
             }
