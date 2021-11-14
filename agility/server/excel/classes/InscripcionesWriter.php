@@ -145,7 +145,7 @@ class InscripcionesWriter extends XLSX_Writer {
             $row[]=$this->federation->getHandlerCategory($perro['CatGuia']);
 			$row[]=$perro['NombreClub'];
 			$row[]=$perro['Pais'];
-			$row[]=($this->club>0)? "" : ($perro['Celo']==1)?"X":"";
+			$row[]=($this->club>0)? "" : ( ($perro['Celo']==1)?"X":"");
 			$row[]=($this->club>0)? "" : $perro['Observaciones'];
 			// aniadimos info de jornadas (inscrito/equipo
 			foreach ($this->jornadas as $jornada) {

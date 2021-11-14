@@ -200,7 +200,7 @@ class PartialScoresReader extends DogReader {
             'Faltas'    =>  $item['Faltas'],
             'Tocados'   => (array_key_exists('Tocados',$item))?$item['Tocados']:0,
             'Rehuses'   => $item['Rehuses'],
-            'Games'     => (isMangaKO($this->manga['Tipo']) )? 1:(array_key_exists('Tocados',$item))?$item['Tocados']:0,
+            'Games'     => (isMangaKO($this->manga['Tipo']) )? 1:((array_key_exists('Tocados',$item))?$item['Tocados']:0),
             'Eliminado' => $item['Eliminado'],
             'NoPresentado' => $item['NoPresentado'],
             'Tiempo'    => $item['Tiempo'],

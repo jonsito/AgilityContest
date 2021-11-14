@@ -42,7 +42,6 @@
     define('QRCAP_EC',           3);
     
     /** @addtogroup CoreGroup */
-    /** @{ */
 
     /** QR-Code specification and Code Frame handling.
     Contains code specifications, calculates base frame, code structure 
@@ -672,7 +671,6 @@
         /** @name Reed-Solomon related shorthand getters.
         Syntax-sugar to access code speciffication by getter name, not by spec array field.
         */
-        /** @{*/
         public static function rsBlockNum($spec)     { return $spec[0] + $spec[3]; }
         public static function rsBlockNum1($spec)    { return $spec[0]; }
         public static function rsDataCodes1($spec)   { return $spec[1]; }
