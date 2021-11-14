@@ -111,8 +111,9 @@ class Resultados_Games extends Resultados {
         $countcat=array( 'C'=>0, 'X' => 0,'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
 
         for($idx=0;$idx<$size;$idx++) {
+            // starting 2021 wao have 5 heights
+            // if ($table[$idx]['Categoria']=='X') $table[$idx]['Categoria']='L';
             // vemos la categoria y actualizamos contadores de categoria
-            if ($table[$idx]['Categoria']=='X') $table[$idx]['Categoria']='L'; // WAO has 4-heights
             $cat=$table[$idx]['Categoria'];
             $countcat['C']++; // Conjunta
             $countcat[$cat]++; // Por categoria

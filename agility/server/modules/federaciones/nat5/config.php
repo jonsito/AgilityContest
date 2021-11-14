@@ -18,7 +18,7 @@ class NAT5 extends Federations {
             'Email' => '',
             'Heights' => 5,
             'Grades' => 3,
-            'Games' => 0,
+            'Games' => 1,
             'International' => 0,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'RoundsG1' => 2, // on rfec may be 3

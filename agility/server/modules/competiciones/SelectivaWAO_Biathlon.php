@@ -9,7 +9,7 @@ require_once(__DIR__ . "/../competiciones/lib/clasificaciones/Clasificaciones_Se
  */
 class SelectivaWAO_Biathlon extends Competitions {
 
-    // notice 'X' is not used in wao (yet)
+    // starting 2021 5 heights are used
     protected $poffset=array('X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip wildcard competitors (partial scores)
 
     function __construct() {

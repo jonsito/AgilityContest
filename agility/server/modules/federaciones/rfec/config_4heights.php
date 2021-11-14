@@ -206,7 +206,7 @@ class RFEC extends Federations {
                 64	=> 'K.O. Manga 6',
                 65	=> 'K.O. Manga 7',
                 66	=> 'K.O. Manga 8',
-                // tandas para games/wao ( cuatro categorias, siete mangas distintas )
+                // tandas para games/wao hasta 2021 ( cuatro categorias, siete mangas distintas )
                 67	=> 'Agility A 650',
                 68	=> 'Agility A 525',
                 69	=> 'Agility A 400',

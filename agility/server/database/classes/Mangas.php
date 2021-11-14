@@ -58,7 +58,7 @@ class Mangas extends DBObject {
         28 =>	array( 28,'Jumping B',			        '-',	'Jumping B',	'Jp. B',        4,          'JpB'),
         29 =>	array( 29,'Snooker',			        '-',	'Snooker',	    'Snkr',         5,          'Snk'),
         30 =>	array( 30,'Gambler',			        '-',	'Gambler',	    'Gmblr',        6,          'Gmb'),
-        31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       7,          'SpAgd'), // single round
+        31 =>	array( 31,'SpeedStakes',			    '-',	'SpeedStakes',	'SpdStk',       7,          'SpStk'), // single round
         // junior ( really should be a separate journey with every cats and grades, but people doesn't follow rules... )
         32 =>	array( 32,'Agility Junior',	            'Jr',	'Junior Ag',	    'Ag. Jr.',   1,          'AgJ'),
         33 => 	array( 33,'Jumping Junior',	            'Jr',	'Junior Jp',	    'Jp. Jr.',   2,          'JpJ'),

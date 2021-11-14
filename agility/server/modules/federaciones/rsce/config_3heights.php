@@ -207,7 +207,7 @@ class RSCE extends Federations {
                 66	=> 'Manga K.O. - 8',
 
                 // las siguientes mangas no tienen sentido en RSCE, pero las dejamos por compatibilidad
-                // tandas para games/wao ( cuatro categorias, siete mangas distintas )
+                // tandas para games/wao ( cuatro categorias hasta 2021, siete mangas distintas )
                 67	=> 'Agility A 650',
                 68	=> 'Agility A 525',
                 69	=> 'Agility A 400',
