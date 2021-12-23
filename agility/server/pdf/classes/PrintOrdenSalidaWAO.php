@@ -73,7 +73,7 @@ class PrintOrdenSalidaWAO extends PrintCommon {
          //                0            1       2         3        4           5           6           7              8          9
                 array(_('Order'),_('Dorsal'),_('Name'),_('Breed'),_('Gender'),_('Handler'),_('Cat'),$this->strClub,_('Heat'),_('Comments'));
         //                  orden    dorsal  nombre   raza Genero               guia  catGuia club   celo   observaciones
-        $this->pos	=array(  12,      10,     25,    22,    10,                43,   15,    24,     9,    20);
+        $this->pos	=array(  12,      10,     30,    22,    10,                38,   15,    24,     9,    20);
         $this->align=array(  'R',    'R',    'L',    'R',   'C',               'R',  'C',   'R',    'C',   'R');
         // obtenemos los datos de equipos de la jornada indexados por el ID del equipo
 		$eq=new Equipos("print_ordenDeSalida",$data['prueba'],$data['jornada']);
@@ -253,20 +253,17 @@ class PrintOrdenSalidaWAO extends PrintCommon {
             $this->printHiddenRowData($order,$row);
 			// now start real printing :-)
             $this->ac_row($order,9);
-			$this->SetFont($this->getFontName(),'B',11); // bold 9px
+			$this->SetFont($this->getFontName(),'B',11); // bold 11px
             // if dog has already run, use "*" instead of "-"
             $ordersep=($row['Pendiente']==0)?" * ":" - ";
 			$this->Cell($this->pos[0],6,($printed).$ordersep,'LR',0,$this->align[0],true); // display order
-			$this->SetFont($this->getFontName(),'',9); // remove bold 9px
+			$this->SetFont($this->getFontName(),'',9); // remove bold 11px
             if ($this->federation->isInternational()) {
                 $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
             }
 			$this->Cell($this->pos[1],6,$row['Dorsal'],		'LR',0,$this->align[1],true);
-            // not enought space for long name in international contests
-            $this->SetFont($this->getFontName(),'B',($this->useLongNames)?7:11); // bold 9px
             $n=($this->useLongNames)? $row['Nombre']." - ".$row['NombreLargo']:$row['Nombre'];
             $this->Cell($this->pos[2],6,$n,		'LR',0,$this->align[2],true);
-            $this->SetFont($this->getFontName(),'',9); // remove bold 9px
             $this->Cell($this->pos[3],6,$row['Raza'],		'LR',0,$this->align[3],true);
             $this->Cell($this->pos[4],6,$row['Genero'],		'LR',0,$this->align[4],true);
             $this->Cell($this->pos[5],6,$row['NombreGuia'],	'LR',0,$this->align[5],true);
