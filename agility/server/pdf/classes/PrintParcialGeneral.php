@@ -41,8 +41,8 @@ class PrintParcialGeneral extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos	=array(  8,		17,		15,		30,		20,		15,		   6,      6,    6,       12,     7,    12,      24,			10 );
-	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
+    protected $pos;
+    protected $align;
 
 	/**
 	 * Constructor
@@ -62,8 +62,19 @@ class PrintParcialGeneral extends PrintCommon {
 		$this->headertitle=$title;
         $this->hasGrades=Jornadas::hasGrades($this->jornada);
 		$catgrad=($this->hasGrades)?_('Cat').'/'._('Grade'):_('Cat').".";
-		$this->cellHeader=
-			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Pos'));
+        if (!isMangaWAO($this->manga->Tipo)) {
+            $this->cellHeader=
+                array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Pos'));
+            $this->pos=
+                array(  8,		17,		15,		30,		20,		15,		   6,      6,    6,       12,     7,    12,      24,			10 );
+            $this->align=
+                array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
+        } else {
+            $this->cellHeader=
+                array(_('Dorsal'),_('Name'),_('Handler'),_('Cat'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Pos'));
+            $this->pos	=array(  8,		27,		   35,		   10,		20,		       15,		   6,      6,    6,       12,     7,    12,      15,			9 );
+            $this->align=array(  'L',   'L',       'R',        'C',     'R',           'C',       'C',    'C',   'C',     'R',    'R',  'R',     'L',			'C');
+        }
         // set file name
         $grad=$this->federation->getTipoManga($this->manga->Tipo,3); // nombre de la manga
         $res=normalize_filename($grad);
@@ -155,8 +166,13 @@ class PrintParcialGeneral extends PrintCommon {
         if ($this->useLongNames) $nombre .= " - " . $row['NombreLargo'];
         $this->Cell($this->pos[1],6,$nombre,			'LR',	0,		$this->align[1],	true);
         $this->SetFont($this->getFontName(),'',8); // set data font size
-        if ($this->pos[2]!=0) $this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	true);
-        $this->Cell($this->pos[3],6,$this->getHandlerName($row),		'LR',	0,		$this->align[3],	true);
+        if ( !isMangaWAO($this->manga->Tipo)) {
+            if ($this->pos[2]!=0) $this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	true);
+            $this->Cell($this->pos[3],6,$this->getHandlerName($row),		'LR',	0,		$this->align[3],	true);
+        } else { // en wao se substituye la licencia por la categoria del guia
+            $this->Cell($this->pos[2],6,$row['NombreGuia'],		'LR',	0,		$this->align[2],	true);
+            $this->Cell($this->pos[3],6,$this->getHandlerCategory($row),		'LR',	0,		$this->align[3],	true);
+        }
         $this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	true);
         if ($this->hasGrades) {
             $cat=$this->federation->getCategoryShort($row['Categoria']);
@@ -188,13 +204,15 @@ class PrintParcialGeneral extends PrintCommon {
 		
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
-		if ($this->federation->get('WideLicense')) {
-            $this->pos[1]+=5;$this->pos[2]=0;$this->pos[3]+=5;$this->pos[4]+=5;
-        } else if ($this->useLongNames) {
-            $this->pos[1]+=20;$this->pos[2]=0;$this->pos[4]-=5; // remove license. leave space for LongName
+        if ( !isMangaWAO($this->manga->Tipo)) {
+            if ($this->federation->get('WideLicense')) {
+                $this->pos[1]+=5;$this->pos[2]=0;$this->pos[3]+=5;$this->pos[4]+=5;
+            } else if ($this->useLongNames) {
+                $this->pos[1]+=20;$this->pos[2]=0;$this->pos[4]-=5; // remove license. leave space for LongName
+            }
         }
-		// Datos
 
+		// Datos
         // iteramos sobre cada ronda disponible en la manga
         $this->AddPage();
         foreach ($this->resultados as $index => $result) {

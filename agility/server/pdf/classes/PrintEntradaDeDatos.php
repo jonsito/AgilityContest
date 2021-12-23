@@ -213,7 +213,7 @@ class PrintEntradaDeDatos extends PrintCommon {
         if ($wide) {
             $this->Cell(50,5,'',	'TR',0,'L',true); // perro
         } else {
-            $this->Cell(20, 5, '', 'TR', 0, 'L', true); // licencia
+            $this->Cell(20, 5, '', 'TR', 0, 'L', true); // licencia-CatPerro
             $this->Cell(30,5,'',	'TR',0,'L',true); // perro
         }
 		$this->Cell(60,5,'',	'TR',0,'L',true); // guia
@@ -225,7 +225,12 @@ class PrintEntradaDeDatos extends PrintCommon {
         if ($wide) {
             $this->Cell(50,4,"{$row['Nombre']} - {$row['Categoria']}",		'',0,'R',false);
         } else {
-            $this->Cell(20,4,"{$row['Licencia']} - {$row['Categoria']}",'',0,'R',false);
+			if (!isMangaWAO($this->manga->Tipo)) {
+				$this->Cell(20,4,"{$row['Licencia']} - {$row['Categoria']}",'',0,'R',false);
+			} else {
+				$cat=$this->getCatString($row['Categoria']);
+				$this->Cell(20,4,$cat,'',0,'R',false);
+			}
             $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
         }
 		$this->Cell(60,4,$this->getHandlerName($row),	'',0,'R',false);
@@ -324,12 +329,17 @@ class PrintEntradaDeDatos extends PrintCommon {
         $this->SetXY($x+15,$y+2); // restore cursor position
         $this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
         $this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
-        if ($wide) {
-            $this->Cell(50,4,"{$row['Nombre']} - {$row['Categoria']}",		'',0,'R',false);
-        } else {
-            $this->Cell(20,4,"{$row['Licencia']} - {$row['Categoria']}",'',0,'R',false);
-            $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
-        }
+		if ($wide) {
+			$this->Cell(50,4,"{$row['Nombre']} - {$row['Categoria']}",		'',0,'R',false);
+		} else {
+			if (!isMangaWAO($this->manga->Tipo)) {
+				$this->Cell(20,4,"{$row['Licencia']} - {$row['Categoria']}",'',0,'R',false);
+			} else {
+				$cat=$this->getCatString($row['Categoria']);
+				$this->Cell(20,4,$cat,'',0,'R',false);
+			}
+			$this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
+		}
         $this->Cell(60,4,$this->getHandlerName($row),	'',0,'R',false);
         $this->Cell(40,4,$row['NombreClub'],	'',0,'R',false);
 
@@ -416,7 +426,14 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$this->SetXY($x+$this->pos[0],$y+3); // restore cursor position
 		$this->SetFont($this->getFontName(),'B',12); // bold 9px
 		$this->Cell($this->pos[1],10-3,$row['Nombre'],		'',0,$this->align[1],false);
-        if ($this->pos[2]!=0) $this->Cell($this->pos[2],10-3,$row['Licencia'],		'',0,$this->align[2],false);
+        if ($this->pos[2]!=0) {
+			if(!isMangaWAO($this->manga->Tipo)) {
+				$lic=$row['Licencia']." - ".$row['Categoria'];
+				$this->Cell($this->pos[2],10-3,$lic,		'',0,$this->align[2],false);
+			} else  {
+				$this->Cell($this->pos[2],10-3,$this->getCatString($row['Categoria']),		'',0,$this->align[2],false);
+			}
+		}
 		$this->Cell($this->pos[3],10-3,$this->getHandlerName($row),	'',0,$this->align[3],false);
 		$this->Cell($this->pos[4],10-3,$row['NombreClub'],	'',0,$this->align[4],false);
 		$this->Cell($this->pos[5],10-3,($row['Celo']!=0)?"Celo":"",'',0,$this->align[5],false);
@@ -500,9 +517,9 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$this->SetFont($this->getFontName(),'B',12); // bold 9px
         $this->Cell($this->pos[1],30-3,$row['Nombre'],		'',0,$this->align[1],false);
         $this->SetXY($x+$this->pos[0]+$this->pos[1],$y+3); // restore cursor position
-        $this->Cell($this->pos[2]+$this->pos[3],30-3,$row['NombreGuia'],	'',0,$this->align[3],false);
+        $this->Cell($this->pos[2]+$this->pos[3],30-3,$this->getHandlerName($row),	'',0,$this->align[3],false);
         $this->SetXY($x+$this->pos[0]+$this->pos[1],$y+15); // restore cursor position
-        $this->Cell($this->pos[2]+$this->pos[3],30-15,$row['Licencia'],	'',0,$this->align[3],false);
+        $this->Cell($this->pos[2]+$this->pos[3],30-15,$row['Licencia'].' - '.$this->getCatString($row['Categoria']),	'',0,$this->align[3],false);
         $this->SetXY($x+$this->pos[0]+$this->pos[1]+$this->pos[2]+$this->pos[3],$y+3); // restore cursor position
  		$this->Cell($this->pos[4],30-3,$row['NombreClub'],	'',0,$this->align[4],false);
 		$this->Cell($this->pos[5],30-3,($row['Celo']!=0)?"Celo":"",'',0,$this->align[5],false);
@@ -514,7 +531,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 		$this->SetFont($this->getFontName(),'I',8); // italic 8px
 		$this->Cell($this->pos[0],5,_('Dorsal'),	'',	0,'L',false); // Dorsal
 		$this->Cell($this->pos[1],5,_('Name'),	'',	0,'L',false);
-        $this->Cell($this->pos[2]+$this->pos[3],5,_('Handler').' - '._('License'),	'',	0,'L',false); // unify license and guia
+        $this->Cell($this->pos[2]+$this->pos[3],5,_('Handler').' - '._('License').' - '._('Category'),	'',	0,'L',false); // unify license and guia
 		$this->Cell($this->pos[4],5,$this->strClub,	'',	0,'L',false);
 		$this->Cell($this->pos[5],5,('Heat'),	'',	0,'L',false);
 		$this->Cell($this->pos[6],5,_('Comments'),'',0,'L',false);
@@ -588,10 +605,14 @@ class PrintEntradaDeDatos extends PrintCommon {
 
 		// Asistentes de pista
 		$this->ac_header(2,12);
-		if($this->manga!==null) 	$this->ac_Cell(10,200,90,10,_("Record by").":","LTBR","L",true);
-		if($this->manga2!==null)	$this->ac_Cell(110,200,90,10,_("Record by").":","LTBR","L",true);
-		if($this->manga!==null) 	$this->ac_Cell(10,215,90,10,_("Review by").":","LTBR","L",true);
-		if($this->manga2!==null)	$this->ac_Cell(110,215,90,10,_("Review by").":","LTBR","L",true);
+		if($this->manga!==null) 	{
+			$this->ac_Cell(10,200,90,10,_("Record by").":","LTBR","L",true);
+			$this->ac_Cell(10,212,90,10,_("Review by").":","LTBR","L",true);
+		}
+		if($this->manga2!==null)	{ // en 1 dog/sheet there are 2 rounds
+			$this->ac_Cell(110,200,90,10,_("Record by").":","LTBR","L",true);
+			$this->ac_Cell(110,212,90,10,_("Review by").":","LTBR","L",true);
+		}
 		
 		$this->SetTextColor(0,0,0); // restore color on footer
 	}
@@ -654,7 +675,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 					// indicamos nombre del operador que rellena la hoja
 					$this->ac_header(2,12);
 					$this->Cell(90,7,_('Record by').':','LTBR',0,'L',true);
-					$this->Cell(5,7,'',0,'L',false);
+					$this->Cell(10,7,' ',0,0,'L',false);
 					$this->Cell(90,7,_('Review by').':','LTBR',0,'L',true);
 					$this->Ln(15);
 				}
