@@ -116,6 +116,7 @@ class VideoWall {
         if (Jornadas::isJornadaEquipos($this->jornada)) return false;
         if (intval($this->jornada['Open'])!=0) return false;
         if (intval($this->jornada['KO'])!=0) return false;
+        if (intval($this->jornada['Games'])!=0) return false;
         return true;
     }
 

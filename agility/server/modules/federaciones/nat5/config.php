@@ -10,9 +10,9 @@ class NAT5 extends Federations {
             'Name'  => 'Nat-5',
             'LongName' => 'Competiciones nacionales - 5 alturas',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => 'agilitycontest.png',
-            'Logo'     => 'agilitycontest.png',
-            'ParentLogo'   => 'agilitycontest.png',
+            'OrganizerLogo'     => 'wao.png',
+            'Logo'     => 'wao.png',
+            'ParentLogo'   => 'wao.png',
             'WebURL' => 'http://www.agilitycontest.es/index.html',
             'ParentWebURL' => 'http://www.agilitycontest.com/index.html',
             'Email' => '',
@@ -71,7 +71,7 @@ class NAT5 extends Federations {
             'ListaCatGuias' => array (
                 '-' => 'Sin especificar',
                 // 'I' => 'Infantil',
-                // 'J' => 'Junior',
+                'J' => 'Junior',
                 'A' => 'Adulto',
                 // 'S' => 'Senior',
                 'R' => 'Retirado',

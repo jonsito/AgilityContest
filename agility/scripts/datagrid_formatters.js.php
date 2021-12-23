@@ -152,6 +152,7 @@ function formatCatGrad(val,row,idx) {
     if (isJornadaEquipos(null)) hasGrade=false;
     if (isJornadaOpen()) hasGrade=false;
     if (isJornadaKO()) hasGrade=false;
+    if (isJornadaGames()) hasGrade=false;
     if (!hasGrade) return formatCategoria(val,row,idx);
     // return formatCategoria(row.Categoria,row.idx)+"/"+formatGrado(row.Grado,row,idx);
     return row.Categoria+"-"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(

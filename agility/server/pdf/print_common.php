@@ -204,6 +204,11 @@ class PrintCommon extends FPDF {
 		return "{$row['NombreGuia']} ({$row['CatGuia']})";
 	}
 
+	function getHandlerCategory($row) {
+		$cat='A';
+		if (!array_key_exists('CatGuia',$row)) $cat=$row['CatGuia'];
+		return $this->federation->getHandlerCategory($cat);
+	}
 	/**
 	 * Set icons properly according competition
 	 * @param $fedobj Federation object

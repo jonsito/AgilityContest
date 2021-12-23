@@ -16,6 +16,7 @@ class SelectivaWAO_Pentathlon extends Competitions {
     }
 
     function useLongNames() { return true; }
+    function hasGrade() { return false; }
 
     /**
      * Gets Course penalization, Time, and SCT data and compose penalization

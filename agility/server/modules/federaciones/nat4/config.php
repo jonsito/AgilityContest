@@ -10,8 +10,8 @@ class NAT4 extends Federations {
             'Name'  => 'Nat-4',
             'LongName' => 'Competiciones nacionales - 4 alturas',
             // use basename http absolute path for icons, as need to be used in client side
-            'OrganizerLogo'     => 'wao.png',
-            'Logo'     => 'wao.png',
+            'OrganizerLogo'     => 'agilitycontest.png',
+            'Logo'     => 'agilitycontest.png',
             'ParentLogo'   => 'wao.png',
             'WebURL' => 'http://formadog.com/club-agilty/selectiva%20wao%202017.html',
             'ParentWebURL' => 'http://www.worldagilityopen.com/',

@@ -29,6 +29,7 @@ require_once(__DIR__ . "/../../server/logging.php");
 require_once(__DIR__ . '/../../server/pdf/classes/PrintOrdenSalida.php');
 require_once(__DIR__ . '/../../server/pdf/classes/PrintOrdenSalidaEquipos4.php');
 require_once(__DIR__ . '/../../server/pdf/classes/PrintOrdenSalidaKO.php');
+require_once(__DIR__ . '/../../server/pdf/classes/PrintOrdenSalidaWAO.php');
 
 // Consultamos la base de datos
 try {
@@ -40,12 +41,14 @@ try {
         'rango' =>      http_request("Rango","s","1-99999"),
         'comentarios' =>http_request("Comentarios","s","-"),
         'equipos4' =>   http_request("EqConjunta","i",0),
-        'ko' =>         http_request("JornadaKO","i",0)
+        'ko' =>         http_request("JornadaKO","i",0),
+        'wao' =>         http_request("JornadaGames","i",0)
     );
 	// 	Creamos generador de documento
     $pdf = new PrintOrdenSalida($data);
     if($data['equipos4']!=0) $pdf= new PrintOrdenSalidaEquipos4($data);
     if($data['ko']!=0)      $pdf= new PrintOrdenSalidaKO($data);
+    if($data['wao']!=0)      $pdf= new PrintOrdenSalidaWAO($data);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output($pdf->get_FileName(),"D"); // "D" means open download dialog
