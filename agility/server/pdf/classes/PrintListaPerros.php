@@ -57,7 +57,7 @@ class PrintListaPerros extends PrintCommon {
         $this->icon=getIconPath($this->federation->get('Name'),"agilitycontest.png");
         $this->icon=getIconPath($this->federation->get('Name'),"null.png");
 		$this->cols[8]=$this->strClub; // use "country" or "club" according federation
-		if ($this->federation->get('WideLicense')==true) { // on wide license hide loe/rrc
+		if ($this->federation->hasWideLicense()==true) { // on wide license hide loe/rrc
 			$this->pos[3]+=$this->pos[4];
 			$this->pos[4]=0;
 			$this->pos[3]+=5; // decrease handler name

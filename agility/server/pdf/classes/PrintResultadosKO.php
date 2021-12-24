@@ -136,7 +136,7 @@ class PrintResultadosKO extends PrintCommon {
         //  old    0     1    2    3      4      5
         //  pair  dorsal name lic handler club  cat  fault touch refs time speed penal  pos calification
         //   0     1     2    3    4      5      6     7     8     9    10   11    12    13    14
-        if ($this->federation->get('WideLicense')) { // on wide license, remove it enlarge name,handler, & club
+        if ($this->federation->hasWideLicense()) { // on wide license, remove it enlarge name,handler, & club
             $this->pos[2]+=5;$this->pos[3]=0;$this->pos[4]+=5;$this->pos[5]+=5;
         } else if ($this->useLongNames) { // else if long name remove license and shorten club
             $this->pos[2]+=20;$this->pos[3]=0;$this->pos[5]-=5; // remove license shorten club.leave space for LongName

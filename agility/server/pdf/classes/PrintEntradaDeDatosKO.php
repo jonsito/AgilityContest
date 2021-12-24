@@ -113,7 +113,7 @@ class PrintEntradaDeDatosKO extends PrintCommon {
      * @param {integer} $orden . Starting order in their category
      */
     function writeTableCell_16($row,$orden) {
-        $wide=$this->federation->get('WideLicense'); // if required use long cell for license
+        $wide=$this->federation->hasWideLicense();; // if required use long cell for license
         // save cursor position
         $x=$this->getX();
         $y=$this->GetY();

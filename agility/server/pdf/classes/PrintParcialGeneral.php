@@ -204,12 +204,15 @@ class PrintParcialGeneral extends PrintCommon {
 		
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
-        if ( !isMangaWAO($this->manga->Tipo)) {
-            if ($this->federation->get('WideLicense')) {
+        switch($this->federation->getLicenseType()) {
+            case Federations::$LICENSE_REQUIRED_SHORT:
                 $this->pos[1]+=5;$this->pos[2]=0;$this->pos[3]+=5;$this->pos[4]+=5;
-            } else if ($this->useLongNames) {
+                break;
+            case Federations::$LICENSE_REQUIRED_WIDE:
                 $this->pos[1]+=20;$this->pos[2]=0;$this->pos[4]-=5; // remove license. leave space for LongName
-            }
+                break;
+            case Federations::$LICENSE_REQUIRED_WIDE:
+                break;
         }
 
 		// Datos
@@ -298,7 +301,7 @@ class PrintParcialGeneral extends PrintCommon {
         // ajustamos tamaño de las celdas
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
         $this->SetLineWidth(.3);
-        if ($this->federation->get('WideLicense')) {
+        if ($this->federation->hasWideLicense()) {
             $this->pos[1]+=5;$this->pos[2]=0;$this->pos[3]+=5;$this->pos[4]+=5;
         } else if ($this->useLongNames) {
             $this->pos[1]+=20;$this->pos[2]=0;$this->pos[4]-=5; // remove license. leave space for LongName

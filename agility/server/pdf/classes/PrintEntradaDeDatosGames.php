@@ -128,7 +128,7 @@ class PrintEntradaDeDatosGames extends PrintCommon {
 	}
 
 	private function writeTableCell_common($row,$orden) {
-        $wide=$this->federation->get('WideLicense'); // if required use long cell for license
+        $wide=$this->federation->hasWideLicense(); // if required use long cell for license
         if (intval($row['Perro'])!==0) $logo=$this->getLogoName($row['Perro']);
         else $logo= getIconPath('rsce','agilitycontest.png');
         $this->ac_header(1,20);

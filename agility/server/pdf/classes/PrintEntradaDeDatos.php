@@ -186,7 +186,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 	 * @param {integer} $orden . Starting order in their category
      */
 	function writeTableCell_15($row,$orden) {
-		$wide=$this->federation->get('WideLicense'); // if required use long cell for license
+		$wide=$this->federation->hasWideLicense(); // if required use long cell for license
 		$logo=$this->getLogoName($row['Perro']);
 		$this->ac_header(1,20);
 		// save cursor position
@@ -292,7 +292,7 @@ class PrintEntradaDeDatos extends PrintCommon {
      * @param {integer} $orden . Starting order in their category
      */
     function writeTableCell_10($row,$orden) {
-        $wide=$this->federation->get('WideLicense'); // if required use long cell for license
+        $wide=$this->federation->hasWideLicense(); // if required use long cell for license
         $logo=$this->getLogoName($row['Perro']);
         $this->ac_header(1,20);
         // save cursor position
@@ -401,7 +401,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 	 */
 	function writeTableCell_5($row,$orden) {
         // remember that this method is called iteratively ... so make sure first time license goes to zero
-        if ($this->federation->get('WideLicense')) {
+        if ($this->federation->hasWideLicense()) {
             $this->pos[1]+=$this->pos[2]; $this->pos[2]=0; // on wide license ID skip license info
         }
 		// cada celda tiene una cabecera con los datos del participante

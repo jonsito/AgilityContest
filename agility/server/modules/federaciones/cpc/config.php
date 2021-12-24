@@ -19,7 +19,7 @@ class CPC extends Federations {
             'Heights' => 3,
             'Grades' => 3,
             'International' => 0,
-            'WideLicense' => false, // some federations need extra print space to show license ID
+            'LicenseType' => Federations::$LICENSE_REQUIRED_SHORT, // short license numbers
             'RoundsG1' => 2, // on rfec may be 3
             'Recorridos' => array(
                 _('Common course'),

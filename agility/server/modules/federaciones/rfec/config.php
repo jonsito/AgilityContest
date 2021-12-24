@@ -20,7 +20,7 @@ class RFEC extends Federations {
             'Grades' => 2,
             'Games' => 0,
             'International' => 0,
-            'WideLicense' => true, // some federations need extra print space to show license ID
+            'LicenseType' => Federations::$LICENSE_REQUIRED_WIDE, // license long numbers
             'RoundsG1' => 3,
             'ReverseXLMST' => true, // default order is TSMLX instead of XLMST
             'Recorridos' => array(

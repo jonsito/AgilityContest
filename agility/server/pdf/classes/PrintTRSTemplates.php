@@ -228,7 +228,7 @@ class PrintTRSTemplates extends PrintCommon {
         $this->Cell(10,7,'',0,'L',false);
         $this->Cell(90,7,_('Review by').':','LTBR',0,'L',true);
         $this->Ln(15);
-        $wide=$this->federation->get('WideLicense'); // use long cell for license when required
+        $wide=$this->federation->hasWideLicense(); // use long cell for license when required
         for ($rowcount=0; $rowcount<10;$rowcount++) {
 
             $this->ac_header(1,20);

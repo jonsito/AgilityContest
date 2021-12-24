@@ -20,7 +20,7 @@ class NAT4 extends Federations {
             'Grades' => 2,
             'Games' => 1,
             'International' => 0,
-            'WideLicense' => false, // some federations need extra print space to show license ID
+            'LicenseType' => Federations::$LICENSE_REQUIRED_NONE, // no license required
             'RoundsG1' => 2, // on rfec may be 3
             'Recorridos' => array(
                 _('Common course'),

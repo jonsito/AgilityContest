@@ -20,7 +20,7 @@ class INTL3 extends Federations {
             'Grades' => 3,
             'Games' => 0,
             'International' => 1,
-            'WideLicense' => false, // some federations need extra print space to show license ID
+            'LicenseType' => Federations::$LICENSE_REQUIRED_SHORT, // short license numbers
             'RoundsG1' => 2,
             'Recorridos' => array(_('Common course'),_("Large / Med + Small"),_("Separate courses"), /*5heights*/""),
             'ListaGradosShort' => array(

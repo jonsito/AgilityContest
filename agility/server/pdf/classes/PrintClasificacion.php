@@ -208,7 +208,7 @@ class PrintClasificacion extends PrintCommon {
     }
 
 	function writeTableHeader($cat) {
-		$wide=$this->federation->get('WideLicense'); // some federations need extra space to show license id
+		$wide=$this->federation->hasWideLicense(); // some federations need extra space to show license id
         $tm1=($this->manga1!==null)?_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation)):"";
         $tm2=($this->manga2!==null)?_(Mangas::getTipoManga($this->manga2->Tipo,3,$this->federation)):"";
         $tm3=($this->manga3!==null)?_(Mangas::getTipoManga($this->manga3->Tipo,3,$this->federation)):"";
@@ -302,7 +302,7 @@ class PrintClasificacion extends PrintCommon {
 	}
 	
 	function writeCell($idx,$row) {
-		$wide=$this->federation->get('WideLicense'); // use extra space for wide license id
+		$wide=$this->federation->hasWideLicense(); // use extra space for wide license id
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		$offset=($this->PageNo()==1)?80:55;
 		$this->SetXY(10, $offset + 6*$idx ); // first page has 3 extra header lines

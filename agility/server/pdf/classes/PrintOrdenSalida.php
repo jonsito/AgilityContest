@@ -95,7 +95,7 @@ class PrintOrdenSalida extends PrintCommon {
             $this->pos[9]-=10; // decrease comments
         }
         // on wide license federations or long name required contests suppress license information
-        if ($this->federation->get('WideLicense') || $this->federation->isInternational()) {
+        if ($this->federation->hasWideLicense() || $this->federation->isInternational()) {
             $this->pos[9]+=$this->pos[3]; $this->pos[3]=0;
         }
         // do not show fed icon in pre-agility, special, or ko

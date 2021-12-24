@@ -25,6 +25,11 @@ $dummy= _('Separate courses');
 $dummy= _('LongName');
 
 class Federations {
+
+    static $LICENSE_REQUIRED_NONE=0;
+    static $LICENSE_REQUIRED_SHORT=1;
+    static $LICENSE_REQUIRED_WIDE=2;
+
     protected $config=null;
 
     function __construct() {
@@ -43,7 +48,7 @@ class Federations {
             'Grades' => 3,
             'Games' => 0,
             'International' => 0,
-            'WideLicense' => false, // some federations need extra print space to show license ID
+            'LicenseType' => Federations::$LICENSE_REQUIRED_NONE, // indicates license type required on this federation
             'RoundsG1' => 2, // on rfec may be 3
             'ReverseXLMST' => false, // default order is XLMST
             'Recorridos' => array(_('Common course'), _('Standard / Midi + Mini'), _('Separate courses')),
@@ -450,6 +455,21 @@ class Federations {
     public function getRecorrido($idx) {
         $a= $this->config['Recorridos'][$idx];
         return _($a);
+    }
+
+    /**
+     * retrieve license mode
+     */
+    public function getLicenseType() {
+        if (array_key_exists('LicenseType',$this->config))  return $this->get('LicenseType');
+        else return Federations::$LICENSE_REQUIRED_NONE;
+    }
+
+    /**
+     * shortland to check wide license
+     */
+    public function hasWideLicense() {
+        return ($this->getLicenseType()===Federations::$LICENSE_REQUIRED_WIDE)?true:false;
     }
 
     /**

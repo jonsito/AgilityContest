@@ -251,7 +251,7 @@ class PrintClasificacionTeam extends PrintCommon {
     }
 
     function writeTableHeader() {
-		$wide=$this->federation->get('WideLicense');
+		$wide=$this->federation->hasWideLicense();
         if ($this->useLongNames) $wide=false;
 		$tm1=_(Mangas::getTipoManga($this->manga1->Tipo,3,$this->federation));
 		$tm2=null;
@@ -315,7 +315,7 @@ class PrintClasificacionTeam extends PrintCommon {
 	
 	function writeCell($idx,$row,$team,$last) {
 	    // $this->myLogger->trace("row: ".json_encode($row));
-		$wide=$this->federation->get('WideLicense');
+		$wide=$this->federation->hasWideLicense();
 		if ($this->useLongNames) $wide=false;
         $this->ac_row($idx,8);
         $border=($idx==$last)?'B':'';

@@ -236,7 +236,7 @@ class PrintResultadosByEquipos3 extends PrintCommon {
 	function composeTable() {
 		$this->myLogger->enter();
         // en la cabecera texto siempre centrado. Si caza or internacional skip licencia
-		if ($this->federation->get('WideLicense') ) {
+		if ($this->federation->hasWideLicense() ) {
             $this->pos[1]+=5; $this->pos[2]=0; $this->pos[3]+=5;$this->pos[4]+=5;
         } else if ( $this->useLongNames) {
             $this->pos[1]+=20; $this->pos[2]=0; $this->pos[4]-=5;

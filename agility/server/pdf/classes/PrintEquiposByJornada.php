@@ -158,7 +158,7 @@ class PrintEquiposByJornada extends PrintCommon {
 		$this->SetLineWidth(.3);
 
         // take care on wide license federations
-        if ($this->federation->get('WideLicense')) {
+        if ($this->federation->hasWideLicense()) {
             $this->pos[1]-=2; $this->pos[2]+=20; $this->pos[3]-=3; $this->pos[8]-=15;
         }
         $order=0;
@@ -181,7 +181,7 @@ class PrintEquiposByJornada extends PrintCommon {
                 } else { // short name, include license
                     $this->SetFont($this->getFontName(),'B',10); // bold 9px
                     $this->Cell($this->pos[1],5,$row['Nombre'],		'LR',0,$this->align[1],true);
-                    if ($this->federation->get('WideLicense')) $this->SetFont($this->getFontName(),'',7);
+                    if ($this->federation->hasWideLicense()) $this->SetFont($this->getFontName(),'',7);
                     $this->Cell($this->pos[2],5,$row['Licencia'],	'LR',0,$this->align[2],true);
                 }
                 $this->SetFont($this->getFontName(),'',8); // restore normal font

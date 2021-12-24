@@ -157,7 +157,7 @@ class PrintResultadosByManga extends PrintCommon {
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
         if ( !isMangaWAO($this->manga->Tipo)) {
-            if ($this->federation->get('WideLicense')) {
+            if ($this->federation->hasWideLicense()) {
                 $this->pos[1] += 5;
                 $this->pos[2] = 0;
                 $this->pos[3] += 5;
