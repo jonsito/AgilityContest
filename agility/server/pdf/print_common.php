@@ -194,6 +194,7 @@ class PrintCommon extends FPDF {
 	 * Add ( or not ) handler category to handler's name according configuration
 	 * probably need some improvements (i18n and so), but ok for now
 	 * @param $row
+	 * @return {string}
 	 */
 	function getHandlerName($row) {
 		$ch=$this->config->getEnv('pdf_cathandlers');

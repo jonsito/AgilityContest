@@ -630,7 +630,7 @@ class PrintInscritos extends PrintInscripciones {
 			case Federations::$LICENSE_REQUIRED_WIDE: // en pruebas de caza la licencia es larga , el nombre corto y la categoria del guia se junta con el nombre
 									//  0         1         2         3          4         5         6            7        8             9        10        11  12  13  14  15  16  17  18
 									// dorsal   name   license      Breed     catDog     grade     handler    catGuia     club/pais      heat    comments   J1  J2  J3  J4  J5  J6  J7  J8
-				$this->pos =array(      7,       20,        21,      14,        10,       10,          31,       0,         24,          9,        0,        6,  6,  6,  6,  6,  6,  6,  6 );
+				$this->pos =array(      7,       20,        27,      14,        8,       9,          33,       0,         22,           6,        0,        6,  6,  6,  6,  6,  6,  6,  6 );
 				break;
 			default:				//  0         1         2         3          4         5         6            7        8             9        10        11  12  13  14  15  16  17  18
 									// dorsal   name   license      Breed     catDog     grade     handler    catGuia     club/pais      heat    comments   J1  J2  J3  J4  J5  J6  J7  J8
@@ -661,11 +661,16 @@ class PrintInscritos extends PrintInscripciones {
             $this->pos[3]+=$this->pos[9]; // remove heat and add to breed
             $this->pos[9]=0;
         }
-        else if ($this->useLongNames) { // enlarge name, enshort license and comments
-            $this->pos[1]+=15;
-            $this->pos[2]-=6;
-            $this->pos[10]-=9;
+        else if ($this->useLongNames) { // enlarge name, enshort comments
+			$delta=min($this->pos[10],15);
+            $this->pos[1]+=$delta;
+            $this->pos[10]-=$delta;
         }
+		// finalmente, si el campo comentarios es pequeño, lo eliminamos
+		if ($this->pos[10]<=6) {
+			if ($this->pos[5]>0) { $this->pos[5]+=$this->pos[10]; $this->pos[10]=0; } // si esta definido grado se lo damos al grado
+			else { $this->pos[6]+=$this->pos[10]; $this->pos[10]=0; } // si no esta definido grado, se lo damos al nombre
+		}
         // set file name
 		if ($header==="") {
             $this->set_FileName("Listado_Participantes.pdf");
@@ -704,7 +709,7 @@ class PrintInscritos extends PrintInscripciones {
 		$this->Cell($this->pos[0],6,$this->cellHeader[0],1,0,$this->align[0],true); // dorsal
 		// en competicion international ponemos primero el pais
 		if ($this->federation->isInternational()) // if intl insert country
-			$this->Cell($this->pos[7],6,$this->cellHeader[7],1,0,$this->align[7],true);
+			$this->Cell($this->pos[8],6,$this->cellHeader[8],1,0,$this->align[8],true);
 		// nombre del perro
 		$this->Cell($this->pos[1],6,$this->cellHeader[1],1,0,$this->align[1],true); // name
 		// licencia
@@ -714,18 +719,18 @@ class PrintInscritos extends PrintInscripciones {
 		// categoria
 		$this->Cell($this->pos[4],6,$this->cellHeader[4],1,0,$this->align[4],true); // cat
 		// grado
-		if ($this->pos[5]!=0) // skip grade when required
+		if ($this->pos[5]>0) // skip grade when required
 			$this->Cell($this->pos[5],6,$this->cellHeader[5],1,0,$this->align[5],true); // grade
 		// nombre del guia
 		$this->Cell($this->pos[6],6,$this->cellHeader[6],1,0,$this->align[6],true); // handler
 		// categoria del guia ( si procede )
-		if ($this->pos[7]!=0)
+		if ($this->pos[7]>0)
 			$this->Cell($this->pos[7],6,$this->cellHeader[7],1,0,$this->align[7],true); // catHandler
 		// si no es internacional ponemos ahora el club
 		if (! $this->federation->isInternational()) // if not intl here comes club
 			$this->Cell($this->pos[8],6,$this->cellHeader[8],1,0,$this->align[8],true);
 		// celo ( si procede )
-		if ($this->pos[9]!=0) $this->Cell($this->pos[9],6,$this->cellHeader[9],1,0,$this->align[9],true); // heat
+		if ($this->pos[9]>0) $this->Cell($this->pos[9],6,$this->cellHeader[9],1,0,$this->align[9],true); // heat
 		// comentarios ( si procede )
 		if ($this->pos[10]>0) $this->Cell($this->pos[10],6,$this->cellHeader[10],1,0,$this->align[10],true); // comments
 		for($i=11;$i<count($this->cellHeader);$i++) {
@@ -752,13 +757,6 @@ class PrintInscritos extends PrintInscripciones {
 			$index=10+intval($jornada['Numero']);
 			if ($jornada['Nombre']!=='-- Sin asignar --') $this->cellHeader[$index]=$jornada['Nombre'];
 		}
-		if (!$this->useLongNames) {
-            // si estamos en caza ajustamos para que quepa la licencia
-            if ($this->federation->hasWideLicense()) {
-				// dorsal         nombre          	licencia           categoria         grado             observaciones
-                $this->pos[0]-=1; $this->pos[1]-=2; $this->pos[2]+=15; $this->pos[4]-=3; $this->pos[5]-=2; $this->pos[10]-=7;
-            }
-        }
 		// Datos
 		$fill = false;
 		$rowcount=0;
@@ -783,13 +781,13 @@ class PrintInscritos extends PrintInscripciones {
 			// en competiciones internacionales ponemos aquí el pais
 			if ($this->federation->isInternational()) { // on intl here comes country
 				$this->SetFont($this->getFontName(),'',8); // bold8px
-				$this->Cell($this->pos[7],5,$row['NombreClub'],	'LR',	0,		$this->align[7],	$fill); // club
+				$this->Cell($this->pos[8],5,$row['NombreClub'],	'LR',	0,		$this->align[8],	$fill); // club
 			}
 
 			// dog name
 			$this->SetFont($this->getFontName(),'B',8); // bold 8px
 			$n=$row['Nombre'];
-			if ($this->useLongNames) $n= $n=$row['Nombre']." - ".$row['NombreLargo'];
+			if ($this->useLongNames) $n=$row['Nombre']." - ".$row['NombreLargo'];
 			$this->Cell($this->pos[1],5,$n,		'LR',	0,		$this->align[1],	$fill);
 
 			// licencia (if required)
