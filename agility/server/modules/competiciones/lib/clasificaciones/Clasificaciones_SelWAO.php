@@ -263,9 +263,9 @@ class Clasificaciones_SelWAO extends Clasificaciones {
         $result=array();
         $result['total']=$size;
         $result['rows']=$final;
-        $result['trs1']=$c1['trs'];
-        $result['trs2']=$c2['trs'];
-        $result['trs3']=$c3['trs'];
+        if (!is_null($c1)) $result['trs1']=$c1['trs'];
+        if (!is_null($c2)) $result['trs2']=$c2['trs'];
+        if (!is_null($c3)) $result['trs3']=$c3['trs'];
         // assume same juez in every mangas
         $result['jueces']=array($c1['manga']->NombreJuez1,$c1['manga']->NombreJuez2);
 
