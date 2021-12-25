@@ -64,7 +64,7 @@ class PrintInscripciones extends PrintCommon {
 		$this->SetTextColor(255,255,255);
 		$this->SetFillColor( 255,255,255);
 		$this->SetFont($this->getFontName(),'',1); // tiny size, wont be visible
-		$this->myLogger->trace("hidden line:\n{$str}");
+		// $this->myLogger->trace("hidden line:\n{$str}");
 		$this->Cell(140,7,$str,'',0,'L',true);
 		$this->ac_row($count,10); // set proper row background
 		$this->SetTextColor(0,0,0); // negro
@@ -619,13 +619,13 @@ class PrintInscritos extends PrintInscripciones {
 
 									//  0         1         2         3          4         5         6            7        8             9        10        11  12  13  14  15  16  17  18
 									// dorsal   name   license      Breed     catDog     grade     handler    catGuia     club/pais      heat    comments   J1  J2  J3  J4  J5  J6  J7  J8
-		$this->cellHeader=	array(_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Cat'),_('Grado'),_('Handler'),_('Cat'), $this->strClub,_('Heat'),_('Comments'));
-		$this->align=		array(    'C',     'L',       'C',     'R',       'C',      'C',         'R',      0,         'R',          'C',      'L',    'C','C','C','C','C','C','C','C');
+		$this->cellHeader=	array(_('Dorsal'),_('Name'),_('Lic'),_('Breed'),_('Cat'),_('Grado'),_('Handler'),_('Cat'), $this->strClub,_('Heat'),_('Comments'),'J1','J2','J3','J4','J5','J6','J7','J8');
+		$this->align=		array(    'C',     'L',       'C',     'R',       'C',      'C',         'R',      0,         'R',          'C',      'L',     'C','C','C','C','C','C','C','C');
 		switch ($this->federation->getLicenseType()) {
 			case Federations::$LICENSE_REQUIRED_NONE: // en pruebas no federacion no hay ni licencia ni grado del parro, pero si categoria del guia
 									//  0         1         2         3          4         5         6            7        8             9        10        11  12  13  14  15  16  17  18
 									// dorsal   name   license      Breed     catDog     grade     handler    catGuia     club/pais      heat    comments   J1  J2  J3  J4  J5  J6  J7  J8
-				$this->pos =array(      7,       31,        0,      14,         0,       10,          41,       10,         24,          9,        0,       6,  6,  6,  6,  6,  6,  6,  6 );
+				$this->pos =array(      7,       25,        0,      20,         10,       0,          41,       10,         24,          9,        0,       6,  6,  6,  6,  6,  6,  6,  6 );
 				break;
 			case Federations::$LICENSE_REQUIRED_WIDE: // en pruebas de caza la licencia es larga , el nombre corto y la categoria del guia se junta con el nombre
 									//  0         1         2         3          4         5         6            7        8             9        10        11  12  13  14  15  16  17  18
@@ -634,7 +634,7 @@ class PrintInscritos extends PrintInscripciones {
 				break;
 			default:				//  0         1         2         3          4         5         6            7        8             9        10        11  12  13  14  15  16  17  18
 									// dorsal   name   license      Breed     catDog     grade     handler    catGuia     club/pais      heat    comments   J1  J2  J3  J4  J5  J6  J7  J8
-				$this->pos =array(      7,       25,        16,      14,        10,       10,          31,       0,         24,          9,        0,        6,  6,  6,  6,  6,  6,  6,  6 );
+				$this->pos =array(      7,       23,        13,      14,        10,       11,          30,       10,        20,          9,        0,        6,  6,  6,  6,  6,  6,  6,  6 );
 				break;
 		}
         // si en la configuracion dice que no pongamos grados, le añadimos el campo del grado al de la categoria
@@ -645,13 +645,12 @@ class PrintInscritos extends PrintInscripciones {
             $this->pos[5]=0;
         }
         // si alguna jornada tiene definido el uso de nombre largo, sobreescribimos el valor de esta variable
-		$row=11;
 		foreach ($this->jornadas as $jornada) {
+			// $this->myLogger->trace("Jornada: {$jornada['Numero']} Nombre: {$jornada['Nombre']}");
         	if ($jornada['Nombre']==='-- Sin asignar --') {
-				$this->pos[10]+=$this->pos[$row];
-				$this->pos[$row]=0;
-				$row++;
-				continue;
+				$index=10+intval($jornada['Numero']);
+				$this->pos[10]+=$this->pos[$index];
+				$this->pos[$index]=0;
 			}
         	if (Competitions::getCompetition($this->prueba,json_decode(json_encode($jornada)) )->useLongNames() )$this->useLongNames=true;
 		}
@@ -724,7 +723,7 @@ class PrintInscritos extends PrintInscripciones {
 			$this->Cell($this->pos[7],6,$this->cellHeader[7],1,0,$this->align[7],true); // catHandler
 		// si no es internacional ponemos ahora el club
 		if (! $this->federation->isInternational()) // if not intl here comes club
-			$this->Cell($this->pos[8],6,$this->cellHeader[8],1,0,$this->align[7],true);
+			$this->Cell($this->pos[8],6,$this->cellHeader[8],1,0,$this->align[8],true);
 		// celo ( si procede )
 		if ($this->pos[9]!=0) $this->Cell($this->pos[9],6,$this->cellHeader[9],1,0,$this->align[9],true); // heat
 		// comentarios ( si procede )
@@ -748,21 +747,16 @@ class PrintInscritos extends PrintInscripciones {
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 		$this->SetLineWidth(.3);
 		
-		// contamos las jornadas sin asignar y ponemos el nombre de la jornada en la cabecera
-		foreach($this->jornadas as $row => $jornada) {
-			if ($jornada['Nombre']==='-- Sin asignar --') {
-				$this->pos[10]+=6;
-				$this->pos[11+$row]=0;
-				continue;
-			} else {
-				$this->cellHeader[11+$row]=$jornada['Nombre'];
-			}
+		// miramos las jornadas sin asignar y ponemos el nombre de la jornada en la cabecera
+		foreach($this->jornadas as $jornada) {
+			$index=10+intval($jornada['Numero']);
+			if ($jornada['Nombre']!=='-- Sin asignar --') $this->cellHeader[$index]=$jornada['Nombre'];
 		}
 		if (!$this->useLongNames) {
             // si estamos en caza ajustamos para que quepa la licencia
             if ($this->federation->hasWideLicense()) {
 				// dorsal         nombre          	licencia           categoria         grado             observaciones
-                $this->pos[0]-=1; $this->pos[1]-=2; $this->pos[2]+=15; $this->pos[4]-=3; $this->pos[5]-=2; $this->pos[9]-=7;
+                $this->pos[0]-=1; $this->pos[1]-=2; $this->pos[2]+=15; $this->pos[4]-=3; $this->pos[5]-=2; $this->pos[10]-=7;
             }
         }
 		// Datos
@@ -788,7 +782,7 @@ class PrintInscritos extends PrintInscripciones {
 
 			// en competiciones internacionales ponemos aquí el pais
 			if ($this->federation->isInternational()) { // on intl here comes country
-				$this->SetFont($this->getFontName(),'',7); // bold 7px
+				$this->SetFont($this->getFontName(),'',8); // bold8px
 				$this->Cell($this->pos[7],5,$row['NombreClub'],	'LR',	0,		$this->align[7],	$fill); // club
 			}
 
@@ -799,12 +793,12 @@ class PrintInscritos extends PrintInscripciones {
 			$this->Cell($this->pos[1],5,$n,		'LR',	0,		$this->align[1],	$fill);
 
 			// licencia (if required)
-			if ($this->pos[2]!=0) {
-				if ($this->federation->hasWideLicense()) $this->SetFont($this->getFontName(),'',7); // normal 7px
-				else $this->SetFont($this->getFontName(),'',8); // normal 8px
+			$this->SetFont($this->getFontName(),'',8); // normal 7px
+			if ($this->pos[2]>0) {
+				if ($this->federation->hasWideLicense()) $this->SetFont($this->getFontName(),'',7); // normal 8px
 				$this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
-				$this->SetFont($this->getFontName(),'',7); // normal 7px
 			}
+			$this->SetFont($this->getFontName(),'',8); // normal 8px
 
 			// raza ( if required)
 			if ($this->pos[3]!=0) $this->Cell($this->pos[3],5,$row['Raza'],	'LR',0,	$this->align[3],	$fill); // breed
@@ -823,7 +817,6 @@ class PrintInscritos extends PrintInscripciones {
 			}
 
 			// nombre del guia y categoria
-
 			$name=$row['NombreGuia'];
 			if ($this->pos[7]==0) { // si el campo categoria del guia es nulo se añade la categoria al nombre
 				$name=$this->getHandlerName($row);
@@ -842,7 +835,7 @@ class PrintInscritos extends PrintInscripciones {
             if ($this->pos[9]!=0) // special handling of heat for intl contests
 				$this->Cell($this->pos[9],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[9],	$fill); // heat
 			// observaciones (si procede )
-			if ($this->pos[10]!=0)
+			if ($this->pos[10]>0)
 				$this->Cell($this->pos[10],5,$row['Observaciones'],'LR',	0,			$this->align[10],	$fill); // comments
 
 			// iteramos en las diversas jornadas
