@@ -29,6 +29,7 @@ require_once(__DIR__ . "/../../server/logging.php");
 require_once(__DIR__ . '/../../server/database/classes/Jornadas.php');
 require_once(__DIR__ . '/../../server/database/classes/Inscripciones.php');
 require_once(__DIR__ . "/../../server/pdf/classes/PrintInscripciones.php");
+require_once(__DIR__ . "/../../server/pdf/classes/PrintCatalogo.php");
 
 // Consultamos la base de datos
 try {
