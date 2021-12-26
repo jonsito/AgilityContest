@@ -1,3 +1,7 @@
+Version 4.6.1 20211226_1200
+    - Add support for WAO 5-heights
+    - Reworked print inscriptions / catalogue to allow omit license/grade when federation does not require them
+    - Fixes on OrdenSalida and Assistant sheets. Now "not presented" indexing/splitting are properly handled
 Version 4.6.0 20211104_2300
     - Multiple fixes in teams competitions
     - OrdenSalida,Asistente PDF's: skip teams with "NotPresented" marked. Usefull for RFEC Teams
