@@ -330,10 +330,10 @@ function parseGender($gender) {
 function parseCategory($cat) {
     $cats= array (
         'X' => array('x','extra','xlarge','xl','x-large','extra-large','600','60','6'),
-        'L' => array('l','large','standard','estandar','std','500','50','5'),
+        'L' => array('l','large','standard','estandar','std','intermediate','intermedia','int','500','50','5'),
 	    'M' => array('m','medium','midi','mid','med','400','40','4'),
 	    'S' => array('s','small','mini','min','300','30','3'),
-	    'T' => array('t','enano','tiny','toy','xs','x-small','x-short','extra-short','25','20','2'),
+	    'T' => array('t','enano','tiny','toy','xs','x-small','x-short','extra-short','250','200','25','20','2'),
     );
 	if (is_null($cat)) return '-';
     $str = preg_replace("/[^A-Za-z0-9]/u", '', strtolower(iconv('UTF-8','ASCII//TRANSLIT',$cat)));
