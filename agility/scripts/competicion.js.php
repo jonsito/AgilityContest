@@ -467,6 +467,10 @@ function dmanga_setAgilityOrJumping(data) {
             break;
         default: // mark "Other" radiobutton and set textfield
             $('#dmanga_grado1_other').prop('checked',true);
+            if (data.Observaciones.trim().isEmpty()) { // this should not happen. register data
+                console.log("Round is neither Agility nor Jumping, but no name declared. use default");
+                data.Observaciones="Special Round";
+            }
             $('#dmanga_grado1_other').val(data.Observaciones); // value of third radiobutton
             $('#dmanga_grado1_other_value').textbox('setValue',data.Observaciones); // value inside textbox
             break;
