@@ -31,7 +31,7 @@ class RSCE extends Federations {
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
                 // 'Jr' => 'Jr.',
-                // 'Sr' => 'Sr.',
+                'Sr' => 'Sr.',
                 // 'Ch' => 'Ch.',
                 // 'Par' => 'Par.',
                 'GI' => 'GI',
