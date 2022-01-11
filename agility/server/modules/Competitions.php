@@ -53,6 +53,7 @@ class Competitions {
         protected $jornada=null;
         protected $federationLogoAllowed=false; // RSCE rules: only allowed in authorized events
         protected $federationObj=null;
+        protected $accessControlList=array();
 
         /* protected */ function __construct($name) {
             $this->competitionName=$name;
@@ -459,6 +460,7 @@ class Competitions {
                 if (!$comp) continue; // cannot instantiate class. should report error
                 if ($comp->federationID!=$data['Federation']) continue;
                 if ($comp->competitionID!=$data['Modalidad']) continue;
+                if (!AuthManager::getInstance("getHeights")->checkAccessControlList($comp->accessControlList)) continue; // module access control list check failed
                 $heights= $comp->getRoundHeights($manga);
                 return $heights;
             } catch (\Throwable $e) {
@@ -490,6 +492,7 @@ class Competitions {
                 require_once($filename);
                 $comp=new $name;
                 if (($fed >= 0) && ($comp->federationID != $fed) ) continue;
+                if (!AuthManager::getInstance("getAvailableCompetitions")->checkAccessControlList($comp->accessControlList)) continue; // module access control list check failed
                 $competitionList[]=$comp->getModuleInfo();
             } catch (\Throwable $e) {
                 do_log("Cannot create instance of class '{$name}': ".$e->getMessage());
@@ -539,6 +542,7 @@ class Competitions {
                 $comp=new $name;
                 if ($comp->federationID!=$fed) continue;
                 if ($comp->federationDefault==0) continue; // not default
+                if (!AuthManager::getInstance("getDefaultCompetition")->checkAccessControlList($comp->accessControlList)) continue; // module access control list check failed
                 // notice that prueba nor jornada nor selective variables are initialized
                 return $comp; // found competition
             } catch (\Throwable $e) {
@@ -570,6 +574,7 @@ class Competitions {
                 $comp=new $name;
                 if ($comp->federationID!=$fed) continue;
                 if ($comp->competitionID!=$type) continue;
+                if (!AuthManager::getInstance("getCompetition")->checkAccessControlList($comp->accessControlList)) continue; // module access control list check failed
                 // competition found: set flag and return
                 // notice that $comp->selectiva is set on each module when required
                 // $comp->selectiva=$sel;
@@ -600,6 +605,7 @@ class Competitions {
                 $comp=new $name;
                 if ($comp->federationID!=$fed) continue;
                 if ($comp->competitionID!=$type) continue;
+                if (!AuthManager::getInstance("moduleInfo")->checkAccessControlList($comp->accessControlList)) continue; // module access control list check failed
                 // competition found: assign selective flag and return
                 return $comp->getModuleInfo();
             } catch (\Throwable $e) {

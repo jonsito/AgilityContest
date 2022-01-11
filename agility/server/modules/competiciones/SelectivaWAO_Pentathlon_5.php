@@ -9,6 +9,7 @@ class SelectivaWAO_Pentathlon_5 extends SelectivaWAO_Pentathlon {
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20170506_1929";
         $this->federationLogoAllowed=true;
+        // licencias que pueden utilizar este modulo
+        $this->accessControlList=array("00000021");
     }
-
 }

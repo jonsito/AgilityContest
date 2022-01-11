@@ -9,5 +9,7 @@ class SelectivaWAO_Games_5 extends SelectivaWAO_Games {
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20211114_2137";
         $this->federationLogoAllowed=true;
+        // licencias que pueden utilizar este modulo
+        $this->accessControlList=array("00000021");
     }
 }

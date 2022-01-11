@@ -996,6 +996,26 @@ class AuthManager {
         if (bindec($res['Options']) & ENABLE_ULIMIT ) return 99999; // "unlimited"
         return 200; // registered app, but no "unlimited" flag
     }
+
+	/**
+	 * Used in modules to check private access to competition module for a given license
+	 * @param $list
+	 * @return bool
+	 */
+	function checkAccessControlList($list){
+		if (count($list)===0) return true;
+		// retrieve registration data
+		$res=$this->getRegistrationInfo();
+		$serial=$res['Serial'];
+		if ($serial==="00000000") return false; // unregistered :-)
+		if ($serial==="00000001") return true; // me :-)
+		foreach($list as $item) {
+			if (strcasecmp("any",$item)===0) return true;
+			if (strcasecmp("none",$item)===0) return false;
+			if ($serial===$item) return true;
+		}
+		return false;
+	}
 }
 
 ?>

@@ -11,6 +11,7 @@ class SelectivaWAO_Biathlon extends Competitions {
 
     // starting 2021 5 heights are used
     protected $poffset=array('X'=>0,'L'=>0,'M'=>0,'S'=>0,'T'=>0); // to skip wildcard competitors (partial scores)
+    protected $ptsmanga=array();
 
     function __construct() {
         parent::__construct("Selectiva WAO - Biathlon");
@@ -19,8 +20,13 @@ class SelectivaWAO_Biathlon extends Competitions {
         $this->moduleVersion="1.0.0";
         $this->moduleRevision="20170506_1929";
         $this->federationLogoAllowed=true;
+        // puntos por manga y puesto a los 10 mejores de cada categoria si tienen excelente o muy bien
+        $this->ptsmanga=array("15","12","10","8","7","6","5","4","3","2");
     }
 
+    /**
+     * @return bool
+     */
     function useLongNames() { return true; }
 
     /**
@@ -44,8 +50,6 @@ class SelectivaWAO_Biathlon extends Competitions {
      */
     public function evalPartialCalification($m,&$perro,$puestocat) {
         $cat=$perro['Categoria']; // cogemos la categoria
-        // puntos por manga y puesto a los 10 mejores de cada categoria si tienen excelente o muy bien
-        $ptsmanga=array("15","12","10","8","7","6","5","4","3","2");
         $pt1=0;
 
         if (trim(strtolower($perro['Observaciones']))==="wildcard") { // wildcard competitor: do not compute points
@@ -57,7 +61,7 @@ class SelectivaWAO_Biathlon extends Competitions {
         $puesto=$puestocat[$cat]-$this->poffset[$cat];
         if ( ($puesto>0) && ($perro['Penalizacion']<16) ) {
             // puntos a los 10 primeros manga/categoria si tienen excelente o muy bien
-            if ($puesto<=count($ptsmanga)) $pt1= $ptsmanga[$puesto-1];
+            if ($puesto<=count($this->ptsmanga)) $pt1= $this->ptsmanga[$puesto-1];
         }
         if ($perro['Penalizacion']>=400)  {
             $perro['Penalizacion']=400.0;

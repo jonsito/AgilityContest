@@ -6,9 +6,10 @@
  * Date: 16/11/16
  * Time: 10:58
  */
-require_once(__DIR__ . "/Puntuable_RSCE_2020.php");
+require_once(__DIR__ . "/Puntuable_RSCE_2018.php");
 
 class Puntuable_RSCE_2020 extends Puntuable_RSCE_2018 {
+    protected $trms;
     function __construct($name="Punt. Temporada 2020 (CE 2021)") {
         parent::__construct($name);
         $this->federationID=0;
@@ -24,6 +25,7 @@ class Puntuable_RSCE_2020 extends Puntuable_RSCE_2018 {
             array("GIII",   "Pm",  4.0,    3.8,   3.8,   4.2,    4.0,    4.0,   0,  1,      0 ), // same as pvG2
             array("GIII",   "Pv",  4.7,    4.5,   4.5,   4.9,    4.7,    4.7,   0,  1,      0 )
         );
+        $this->trms=array( 2.0 /*agility*/, 2.5 /*jumping*/ );
     }
 
     function getRoundHeights($mangaid) {
@@ -45,7 +47,7 @@ class Puntuable_RSCE_2020 extends Puntuable_RSCE_2018 {
         // El  “TIEMPO  MAXIMO  DE  RECORRIDO”  (TMR)  se  determinará  dividiendo  la  longitud  del recorrido
         // por 2.0 m/s en Agility, y por 2.5 m/s en Jumping.
         $manga['Recorrido']=1; // 0:separados 1:mixto(2 grupos) 2:conjunto 3:mixto(tres grupos)
-        $trmfactor=(in_array($tipo,array(3,17,5,6)))? 2.0 : 2.5; // Agility: 2%; Jumping: 2.5%
+        $trmfactor=(in_array($tipo,array(3,17,5,6)))? $this->trms[0] : $this->trms[1]; // Agility: 2%; Jumping: 2.5%
         $manga['TRM_X_Tipo']=6; $manga['TRM_X_Factor']=$trmfactor; $manga['TRM_X_Unit']='m';
         $manga['TRM_L_Tipo']=6; $manga['TRM_L_Factor']=$trmfactor; $manga['TRM_L_Unit']='m'; // 2 or 2.5 m/s
         $manga['TRM_M_Tipo']=6; $manga['TRM_M_Factor']=$trmfactor; $manga['TRM_M_Unit']='m';
