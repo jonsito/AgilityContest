@@ -50,7 +50,8 @@ class InscriptionReader extends DogReader {
             'Pay' =>     array (  -20,  -1, "i", "Pagado", " `Pagado` int(4) NOT NULL DEFAULT 0, "), // pagadol, opcional
             'Journeys' =>array (  -21,   0, "i", "Jornadas", " `Jornadas` int(4) NOT NULL DEFAULT 0, "), // jornadas. to evaluate
             'Order' =>   array (  -22,   0, "i", "Orden", " `Orden` int(4) NOT NULL DEFAULT 0, "), // orden, to evaluate
-            'Dorsal' =>  array (  -23,  -1, "i", "Dorsal", " `Dorsal` int(4) NOT NULL DEFAULT 0, ") // dorsal, opcional
+            'Dorsal' =>  array (  -23,  -1, "i", "Dorsal", " `Dorsal` int(4) NOT NULL DEFAULT 0, "), // dorsal, opcional
+            'NC'    =>   array (  -24,  -1, "i", "NoCalifica", " `NC` int(4) NOT NULL DEFAULT 0, ") // excluido de calificacion ( senior/distinta altura )
         );
         foreach ($inscList as $key => $data) $this->fieldList[$key]=$data;
 
@@ -58,7 +59,7 @@ class InscriptionReader extends DogReader {
         $res=$this->myDBObject->__select("*","jornadas","(Prueba={$options['Prueba']})","","");
         if (!$res) throw new Exception("InscriptionReader::construct(): cannot retrieve list of journeys for prueba: {$options['Prueba']}");
         $this->jornadas=$res['rows'];
-        $index=-23; // notice negative index, as stored in fieldList ( to be _decremented_ )
+        $index=-24; // notice negative index, as stored in fieldList ( to be _decremented_ )
         foreach ($this->jornadas as $jornada) {
             $name=$jornada['Nombre'];
             if ($name==="-- Sin asignar --") continue;
@@ -148,7 +149,8 @@ class InscriptionReader extends DogReader {
                 // make inscription
                 $idperro=$item['DogID'];
                 $pagado=intval($item['Pagado']);
-                $celo = intval(trim($item['Celo']));
+                // on 2022 rsce rules we must take care on dogs that jumps in lower height and thus do not qualifies
+                $celo = intval(trim($item['Celo'])) +  (intval(trim($item['NC']))<<1) ;
                 $obs=$this->myDBObject->conn->real_escape_string($item['Observaciones']);
                 $newdorsal=intval($item['Dorsal']);
                 $insc=new Inscripciones("excelImport",$this->prueba['ID']);

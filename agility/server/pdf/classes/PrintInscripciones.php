@@ -626,7 +626,7 @@ class PrintInscritos extends PrintInscripciones {
 
 			// Celo ( si procede )
             if ($this->pos[9]!=0) // special handling of heat for intl contests
-				$this->Cell($this->pos[9],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[9],	$fill); // heat
+				$this->Cell($this->pos[9],5,((1&intval($row['Celo']))===0)?"":"X",'LR',0,	$this->align[9],	$fill); // heat
 			// observaciones (si procede )
 			if ($this->pos[10]>0)
 				$this->Cell($this->pos[10],5,$row['Observaciones'],'LR',	0,			$this->align[10],	$fill); // comments
@@ -803,7 +803,7 @@ class PrintInscritosByJornada extends PrintInscripciones {
 				$this->Cell($this->pos[6],5,$cat,	'LR',	0,		$this->align[6],	$fill);
 				$this->Cell($this->pos[7],5,$grad,		'LR',	0,		$this->align[7],	$fill);
 			}
-			$this->Cell($this->pos[8],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[8],	$fill);
+			$this->Cell($this->pos[8],5,((1&intval($row['Celo']))===0)?"":"X",'LR',0,	$this->align[8],	$fill);
 			$this->Cell($this->pos[9],5,$row['Observaciones'],'LR',	0,		$this->align[9],	$fill);
 			$this->Ln();
 			$fill = ! $fill;

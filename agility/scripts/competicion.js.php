@@ -1444,7 +1444,7 @@ function saveCompeticionData(idx,data) {
             Perro:	    evtdata['Perro'],
             Dorsal:	    evtdata['Dorsal'],
             Equipo:	    evtdata['Equipo'],
-            Celo:		evtdata['Celo'],
+            Celo:		1 & parseInt(evtdata['Celo']), // celo includes "Celo" and "NoCalifica"
             Value:	    evtdata['Value'],
             Licencia:	evtdata['Licencia'],
             Nombre:		evtdata['Nombre'],

@@ -221,7 +221,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 		// datos cabecera de celda
 		$this->SetXY($x+15,$y+1); // restore cursor position
 		$this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
-		$this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
+		$this->Cell(10,4,( (1&intval($row['Celo']))!==0)?"Celo":"",'',0,'R',false);
         if ($wide) {
             $this->Cell(50,4,"{$row['Nombre']} - {$row['Categoria']}",		'',0,'R',false);
         } else {
@@ -328,7 +328,7 @@ class PrintEntradaDeDatos extends PrintCommon {
         // datos cabecera de celda
         $this->SetXY($x+15,$y+2); // restore cursor position
         $this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
-        $this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
+        $this->Cell(10,4,((1&intval($row['Celo']))!==0)?"Celo":"",'',0,'R',false);
 		if ($wide) {
 			$this->Cell(50,4,"{$row['Nombre']} - {$row['Categoria']}",		'',0,'R',false);
 		} else {
@@ -436,7 +436,7 @@ class PrintEntradaDeDatos extends PrintCommon {
 		}
 		$this->Cell($this->pos[3],10-3,$this->getHandlerName($row),	'',0,$this->align[3],false);
 		$this->Cell($this->pos[4],10-3,$row['NombreClub'],	'',0,$this->align[4],false);
-		$this->Cell($this->pos[5],10-3,($row['Celo']!=0)?"Celo":"",'',0,$this->align[5],false);
+		$this->Cell($this->pos[5],10-3,((1&intval($row['Celo']))!==0)?"Celo":"",'',0,$this->align[5],false);
 		$this->Cell($this->pos[6],10-3,$row['Observaciones'],	'',0,$this->align[6],false);
 		
 		// nombre nombre de cada celda de la cabecera
@@ -522,7 +522,7 @@ class PrintEntradaDeDatos extends PrintCommon {
         $this->Cell($this->pos[2]+$this->pos[3],30-15,$row['Licencia'].' - '.$this->getCatString($row['Categoria']),	'',0,$this->align[3],false);
         $this->SetXY($x+$this->pos[0]+$this->pos[1]+$this->pos[2]+$this->pos[3],$y+3); // restore cursor position
  		$this->Cell($this->pos[4],30-3,$row['NombreClub'],	'',0,$this->align[4],false);
-		$this->Cell($this->pos[5],30-3,($row['Celo']!=0)?"Celo":"",'',0,$this->align[5],false);
+		$this->Cell($this->pos[5],30-3,((1&intval($row['Celo']))!==0)?"Celo":"",'',0,$this->align[5],false);
 		$this->Cell($this->pos[6],30-3,$row['Observaciones'],	'',0,$this->align[6],false);
 		
 		// nombre nombre de cada celda de la cabecera

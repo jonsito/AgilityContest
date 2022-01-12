@@ -308,7 +308,7 @@ class OrdenSalida extends DBObject {
         $p3=array();
         foreach(array(0,1) as $celo) {
             foreach ($p2 as $perro) {
-                if ($perro['Celo']==$celo) array_push($p3,$perro);
+                if ( (1&intval($perro['Celo']))===$celo) array_push($p3,$perro);
             }
         }
 
@@ -510,7 +510,7 @@ class OrdenSalida extends DBObject {
             $p4=array();
             foreach(array(0,1) as $celo) {
                 foreach ($p3 as $perro) {
-                    if ($perro['Celo']==$celo) array_push($p4,$perro);
+                    if ((1&intval($perro['Celo']))===$celo) array_push($p4,$perro);
                 }
             }
 

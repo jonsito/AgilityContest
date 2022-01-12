@@ -340,13 +340,14 @@ function formatTeamCount(val,row,idx) { // val is in format BEGIN,id,id,END
     return val.toString().split(",").length-2;
 }
 
-function formatOk(val,row,idx) { return (parseInt(val)==0)?"":"&#x2714;"; }
-function formatNotOk(val,row,idx) { return (parseInt(val)!=0)?"":"&#x2714;"; }
-function formatCerrada(val,row,idx) { return (parseInt(val)==0)?"":"&#x26D4;"; }
+function formatOk(val,row,idx) { return (parseInt(val)===0)?"":"&#x2714;"; }
+function formatNotOk(val,row,idx) { return (parseInt(val)!==0)?"":"&#x2714;"; }
+function formatCerrada(val,row,idx) { return (parseInt(val)===0)?"":"&#x26D4;"; }
 function formatRing(val,row,idx) { return (val==='-- Sin asignar --')?"":val; }
-function formatCelo(val,row,idx) { return (parseInt(val)==0)?" ":"&#x2665;"; }
-function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!=0 )? 'color: #f00;': ''; }
-function competicionRowStyler(idx,row) { return (row.Dorsal=='*')? myRowStyler(-1,row) : myRowStyler(idx,row); }
+function formatCelo(val,row,idx) { return ( (1 & parseInt(val))===0)?" ":"&#x2665;"; }
+function formatNC(val,row,idx) { return ( (2 & parseInt(val))===0)?" ":"&#x2665;"; }
+function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!==0 )? 'color: #f00;': ''; }
+function competicionRowStyler(idx,row) { return (row.Dorsal==='*')? myRowStyler(-1,row) : myRowStyler(idx,row); }
 function formatOrdenSalida(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:40px;line-height:40px">'+(1+idx)+'</span>'; }
 function formatDorsal(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:40px;line-height:40px">'+val+'</span>'; }
 
@@ -354,9 +355,9 @@ function formatOrdenLlamadaPista(val,row,idx) { if (val<=0) return ""; return '<
 function formatLlamadaGuia(val,row,idx) { if (row.Orden>0) return val; return '<span style="font-weight:bold;font-size:1.4em;">'+val+'</span>'; }
 
 function formatTrainingState(val,row,idx) {
-    if (row.Estado<0) return '<span style="font-weight:bold;color:#0000FF">'+(idx+1).toString()+'</span>';
-    if (row.Estado==0) return '<span style="font-weight:bold;color:#FF0000">'+(idx+1).toString()+'</span>';
-    if (row.Estado>0) return '<span style="font-weight:bold;color:#00FF00">'+(idx+1).toString()+'</span>';
+    if (parseInt(row.Estado)<0) return '<span style="font-weight:bold;color:#0000FF">'+(idx+1).toString()+'</span>';
+    if (parseInt(row.Estado)===0) return '<span style="font-weight:bold;color:#FF0000">'+(idx+1).toString()+'</span>';
+    if (parseInt(row.Estado)>0) return '<span style="font-weight:bold;color:#00FF00">'+(idx+1).toString()+'</span>';
 }
 function formatTrainingTime(val,row,idx) { return toHMS(val * ac_config.training_time); }
 
