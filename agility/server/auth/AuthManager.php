@@ -1010,9 +1010,10 @@ class AuthManager {
 		if ($serial==="00000000") return false; // unregistered :-)
 		if ($serial==="00000001") return true; // me :-)
 		foreach($list as $item) {
-			if (strcasecmp("any",$item)===0) return true;
-			if (strcasecmp("none",$item)===0) return false;
-			if ($serial===$item) return true;
+			// nota: codificar con: "echo -n serial | md5sum" importante el "-n"
+			if (strcasecmp(hash('md5',"any",false),$item)===0) return true;
+			if (strcasecmp(hash('md5',"none",false),$item)===0) return false;
+			if (hash('md5',$serial,false)===$item) return true;
 		}
 		return false;
 	}
