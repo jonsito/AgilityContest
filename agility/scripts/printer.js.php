@@ -847,7 +847,7 @@ function r_selectOption(val) {
 	    prfirst.numberspinner('disable'); prlist.textbox('enable');
 	    break;
 	}
-	if ( (show_mergecats===true) && (howManyHeights()==="5") ){
+	if ( (show_mergecats===true) && (howManyHeights()===5) ){
         var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
         $('#r_mergecats_span').css('display',(ronda.Recorrido1==="0")?'inherit':'none');
     }
