@@ -476,6 +476,13 @@ function inscribeSelectedIntoJourney(current){
     return false;
 }
 
+// ajusta el valor del campo NoCompite/Celo
+function evalCelo(id,mask, obj) {
+    let curval=$('#'+id).val();
+    if ($('#'+obj).prop('checked') ) $('#'+id).val(curval | mask);
+    else $('#'+id).val( curval & ~mask);
+}
+
 /**
  * cambia el dorsal
  * @param idprueba ID de la prueba

@@ -73,10 +73,15 @@ $config =Config::getInstance();
        		<label id="new_inscripcion-J8lbl" 		for="new_inscripcion-J8">8</label>
         </span>
         <span style="float:right;padding:5px">
-        	<label id="new_inscripcion-Celolbl"	for="new_inscripcion-Celo"><?php _e('Heat'); ?>:</label>
+        	<label id="new_inscripcion-nclbl"	for="new_inscripcion-nc"><?php _e('N.Clasif'); ?>:</label>
+        	<input id="new_inscripcion-nc"		name="nc" class="easyui-checkbox" type="checkbox" value="2"
+                   onclick="evalCelo('new_inscripcion-celo',0x02,'new_inscripcion-nc');"/>
+        	<input id="new_inscripcion-Jornadas"	type="hidden" name="Jornadas" value="0" />
+            &nbsp;
+        	<label id="new_inscripcion-Celolbl"	for="new_inscripcion-Celo2"><?php _e('Heat'); ?>:</label>
    			<input id="new_inscripcion-Celo" type="hidden" name="Celo" value="0"/>
         	<input id="new_inscripcion-Celo2"		name="Celo2" class="easyui-checkbox" type="checkbox" value="1" 
-        		onclick="$('#new_inscripcion-Celo').val( $('#new_inscripcion-Celo2').is(':checked')?'1':'0');"/>
+        		onclick="evalCelo('new_inscripcion-Celo',0x01,'new_inscripcion-Celo2');"/>
         	<input id="new_inscripcion-Jornadas"	type="hidden" name="Jornadas" value="0" />
         </span>
    	</form>
@@ -244,7 +249,9 @@ function newInscripcion_onOpenSuccess() {
 	addTooltip(j5,'Jornada 5: '+jornadas[4].Nombre);
 	addTooltip(j6,'Jornada 6: '+jornadas[5].Nombre);
 	addTooltip(j7,'Jornada 7: '+jornadas[6].Nombre);
-	addTooltip(j8,'Jornada 8: '+jornadas[7].Nombre);
+    addTooltip(j8,'Jornada 8: '+jornadas[7].Nombre);
+    addTooltip($('#new_inscripcion-Celo2'),'<?php _e("Bitch in heat");?>');
+    addTooltip($('#new_inscripcion-nc'),'<?php _e("Out of competition");?>');
 	// evaluate initial state for "Jornadas" field
 	if ( canInscribe(jornadas[0]) ) val+=1;
 	if ( canInscribe(jornadas[1]) ) val+=2;
