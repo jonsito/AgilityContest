@@ -52,7 +52,11 @@ class Puntuable_RSCE_2022 extends Puntuable_RSCE_2020 {
             parent::evalPartialCalification($m,$perro,$puestocat);
             $perro['Estrellas']=0;
             $perro['Extras']=0;
-            if($perro['Penalizacion']==0) $perro['Puntos']=1;
+            // en la temporada 2022 si compite fuera de altura no puntua
+            $perro['Puntos']=0;
+            if ((0x02& intval($perro['Celo']))===0) {
+                if($perro['Penalizacion']==0) $perro['Puntos']=1;
+            }
             return;
         }
         if ($perro['Penalizacion']>0) {
@@ -94,6 +98,18 @@ class Puntuable_RSCE_2022 extends Puntuable_RSCE_2020 {
         }
     }
 
+    /**
+     * Evalua la calificacion final del perro
+     * @param {array} $mangas informacion {object} de las diversas mangas
+     * @param {array} $resultados informacion {array} de los resultados de cada manga
+     * @param {array} $perro datos de puntuacion del perro. Passed by reference
+     * @param {array} $puestocat puesto en funcion de la categoria
+     */
+    public function evalFinalCalification($mangas,$resultados,&$perro,$puestocat) {
+        parent::evalFinalCalification($mangas,$resultados,$perro,$puestocat);
+        // si el perro no esta en su altura, no califica.
+        if ((0x02 & intval($perro['Celo'])) !== 0)  $perro['Calificacion']= "- No Calif -";
+    }
 }
 
 ?>

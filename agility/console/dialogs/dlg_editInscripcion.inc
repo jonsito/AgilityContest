@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-<div id="edit_inscripcion-dialog" style="width:525px;height:450px;padding:2px">
+<div id="edit_inscripcion-dialog" style="width:525px;height:425px;padding:2px">
 	<div class="easyui-panel" data-options="fit:true">
 		<div class="dialog_forms">
         <form id="edit_inscripcion-form" method="get" novalidate="novalidate">
@@ -73,7 +73,7 @@ $config =Config::getInstance();
             <input id="edit_inscripcion-J8" 		name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J8lbl" 		for="edit_inscripcion-J8">J8</label>
             <!-- no clasifica -->
-            <label id="edit_inscripcion-nclbl"	    for="edit_inscripcion-nc"><?php _e('N. Clasif.'); ?>:</label>
+            <label id="edit_inscripcion-nclbl"	    for="edit_inscripcion-nc"><?php _e('Not Classify'); ?>:</label>
             <input id="edit_inscripcion-nc"		    name="nc" class="easyui-checkbox" type="checkbox" value="2" />
             <!-- celo -->
             <label id="edit_inscripcion-Celolbl"	for="edit_inscripcion-Celo2"><?php _e('Heat'); ?>:</label>
@@ -84,7 +84,7 @@ $config =Config::getInstance();
 	        <input id="edit_inscripcion-Observaciones" type="text" class="easyui-textbox" name="Observaciones"/>
 	        <label id="edit_inscripcion-Pagadolbl"	for="edit_inscripcion-Pagado"><?php _e('Paid out'); ?>: </label>
  	  		<input id="edit_inscripcion-Pagado" 	name="Pagado" type="text" class="easyui-textbox" style="text-align:right;padding-right:5px"/>
- 	  		<span id="edit_inscripcion-PagadoEuro">&euro;</span>
+ 	  		<span id="edit_inscripcion-PagadoEuro">&nbsp;&euro;</span>
         </form> 
     	</div>
 	</div>
@@ -195,7 +195,7 @@ $config =Config::getInstance();
     }
 
     // layout
-    var dg= {'cols':8, 'rows':150}; // declare base datagrid
+    var dg= {'cols':8, 'rows':160}; // declare base datagrid
 	doLayout(dg,'#edit_inscripcion-dogInfo',		0,	10,	3,	10	);
 	doLayout(dg,"#edit_inscripcion-inscInfo",		4,	10,	3,	10	);
 	doLayout(dg,"#edit_inscripcion-Nombrelbl",		0,	20,	2,	10	);
@@ -227,9 +227,9 @@ $config =Config::getInstance();
 	doLayout(dg,"#edit_inscripcion-J7lbl",			5,	80,	3,	10	);
 	doLayout(dg,"#edit_inscripcion-J8",				4,	91,	1,	8	);
 	doLayout(dg,"#edit_inscripcion-J8lbl",			5,	90,	3,	10	);
-    doLayout(dg,"#edit_inscripcion-nclbl",	    	5,	100,1,	10	);
+    doLayout(dg,"#edit_inscripcion-nclbl",	    	5,	100,2,	10	);
     doLayout(dg,"#edit_inscripcion-nc",	    		6,	100,1,	8	);
-    doLayout(dg,"#edit_inscripcion-Celolbl",		5,	110,1,	10	);
+    doLayout(dg,"#edit_inscripcion-Celolbl",		5,	110,2,	10	);
     doLayout(dg,"#edit_inscripcion-Celo2",			6,	111,1,	8	);
 	doLayout(dg,"#edit_inscripcion-Pagadolbl",		5,	120,1,	10	);
 	doLayout(dg,"#edit_inscripcion-Pagado",			6,	121,1,	8	);

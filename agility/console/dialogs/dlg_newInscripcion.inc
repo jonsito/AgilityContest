@@ -73,7 +73,7 @@ $config =Config::getInstance();
        		<label id="new_inscripcion-J8lbl" 		for="new_inscripcion-J8">8</label>
         </span>
         <span style="float:right;padding:5px">
-        	<label id="new_inscripcion-nclbl"	for="new_inscripcion-nc"><?php _e('N.Clasif'); ?>:</label>
+        	<label id="new_inscripcion-nclbl"	for="new_inscripcion-nc"><?php _e('Not Classify'); ?>:</label>
         	<input id="new_inscripcion-nc"		name="nc" class="easyui-checkbox" type="checkbox" value="2"
                    onclick="evalCelo('new_inscripcion-Celo',0x02,'new_inscripcion-nc');"/>
         	<input id="new_inscripcion-Jornadas"	type="hidden" name="Jornadas" value="0" />

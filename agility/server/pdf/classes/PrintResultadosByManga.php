@@ -65,8 +65,8 @@ class PrintResultadosByManga extends PrintCommon {
         if (!isMangaWAO($this->manga->Tipo)) {
             $this->cellHeader=
                     array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Pos'));
-            $this->pos	=array(  8,		 17,		15,		30,		      20,		  15,		   6,      6,    6,       12,     7,    12,      12,			10 );
-            $this->align=array(  'L',    'L',       'C',    'R',          'R',        'C',        'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
+            $this->pos	=array(  8,		 22,		15,		30,		      20,		  15,		   6,      6,    6,         12,     7,          12,         17,			10 );
+            $this->align=array(  'L',    'L',       'C',    'R',          'R',        'C',        'C',   'C',   'C',        'R',    'R',        'R',        'L',		'C');
         } else {
             $this->cellHeader=
                     array(_('Dorsal'),_('Name'),_('Handler'),_('Cat'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Pos'));

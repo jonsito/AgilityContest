@@ -123,6 +123,7 @@ class Clasificaciones extends DBObject {
                         'NombreClub' => $item['NombreClub'],
                         'LogoClub' => $item['LogoClub'],
                         'Pais' => $item['Pais'],
+                        'Celo' => $item['Celo'], // needed for RSCE 2022
                         // global data to be evaluated
                         'Tiempo' => 0,
                         'Penalizacion' => 0,
