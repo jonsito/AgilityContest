@@ -96,8 +96,10 @@ function editInscripcion() {
  * if (done) close dialog, else reload
  */
 function saveInscripcion(close) {
-	// make sure that "Celo" field has correct value
-	$('#edit_inscripcion-Celo').val( $('#edit_inscripcion-Celo2').is(':checked')?'1':'0');
+	// make sure that "Celo" field has correct value ( celo + nclasif )
+    let celo= ($('#edit_inscripcion-Celo2').is(':checked')?0x01:0x00 )+
+            ($('#edit_inscripcion-nc').is(':checked')?0x02:0x00);
+	$('#edit_inscripcion-Celo').val(celo);
     var frm = $('#edit_inscripcion-form');
     if (!frm.form('validate')) return;
 

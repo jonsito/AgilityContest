@@ -345,7 +345,7 @@ function formatNotOk(val,row,idx) { return (parseInt(val)!==0)?"":"&#x2714;"; }
 function formatCerrada(val,row,idx) { return (parseInt(val)===0)?"":"&#x26D4;"; }
 function formatRing(val,row,idx) { return (val==='-- Sin asignar --')?"":val; }
 function formatCelo(val,row,idx) { return ( (1 & parseInt(val))===0)?" ":"&#x2665;"; }
-function formatNC(val,row,idx) { return ( (2 & parseInt(val))===0)?" ":"&#x2665;"; }
+function formatNC(val,row,idx) { return ( (2 & parseInt(val))===0)?" ":"&#x2716;"; }
 function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!==0 )? 'color: #f00;': ''; }
 function competicionRowStyler(idx,row) { return (row.Dorsal==='*')? myRowStyler(-1,row) : myRowStyler(idx,row); }
 function formatOrdenSalida(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:40px;line-height:40px">'+(1+idx)+'</span>'; }

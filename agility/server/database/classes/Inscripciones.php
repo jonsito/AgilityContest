@@ -340,6 +340,8 @@ class Inscripciones extends DBObject {
 			$row['J6']=($row['Jornadas']&0x0020)?1:0;
 			$row['J7']=($row['Jornadas']&0x0040)?1:0;
 			$row['J8']=($row['Jornadas']&0x0080)?1:0;
+            // stupid datagrid that must have non-empty fields to allow displaying data
+            $row['N.C.']=$row['Celo']; // N.C. -> not competing, just run NC:0x02 Celo:0x01 mask
 			array_push($data,$row);
 		}
 		$rs->free();
@@ -452,6 +454,8 @@ class Inscripciones extends DBObject {
 			$row['J6']=($row['Jornadas']&0x0020)?1:0;
 			$row['J7']=($row['Jornadas']&0x0040)?1:0;
 			$row['J8']=($row['Jornadas']&0x0080)?1:0;
+            // stupid datagrid that must have non-empty fields to allow displaying data
+            $row['N.C.']=$row['Celo']; // N.C. -> not competing, just run NC:0x02 Celo:0x01 mask
 			array_push($data,$row);
 		}
 		$rs->free();

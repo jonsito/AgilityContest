@@ -75,7 +75,7 @@ $config =Config::getInstance();
         <span style="float:right;padding:5px">
         	<label id="new_inscripcion-nclbl"	for="new_inscripcion-nc"><?php _e('N.Clasif'); ?>:</label>
         	<input id="new_inscripcion-nc"		name="nc" class="easyui-checkbox" type="checkbox" value="2"
-                   onclick="evalCelo('new_inscripcion-celo',0x02,'new_inscripcion-nc');"/>
+                   onclick="evalCelo('new_inscripcion-Celo',0x02,'new_inscripcion-nc');"/>
         	<input id="new_inscripcion-Jornadas"	type="hidden" name="Jornadas" value="0" />
             &nbsp;
         	<label id="new_inscripcion-Celolbl"	for="new_inscripcion-Celo2"><?php _e('Heat'); ?>:</label>
@@ -250,8 +250,11 @@ function newInscripcion_onOpenSuccess() {
 	addTooltip(j6,'Jornada 6: '+jornadas[5].Nombre);
 	addTooltip(j7,'Jornada 7: '+jornadas[6].Nombre);
     addTooltip(j8,'Jornada 8: '+jornadas[7].Nombre);
-    addTooltip($('#new_inscripcion-Celo2'),'<?php _e("Bitch in heat");?>');
+    // solo el reglamento RSCE contempla perros fuera de categoria/altura/competicion
+    let flag= (parseInt(workingData.datosFederation.ID)!==0);
+    $('#new_inscripcion-nc').prop('disabled',flag);
     addTooltip($('#new_inscripcion-nc'),'<?php _e("Out of competition");?>');
+    addTooltip($('#new_inscripcion-Celo2'),'<?php _e("Bitch in heat");?>');
 	// evaluate initial state for "Jornadas" field
 	if ( canInscribe(jornadas[0]) ) val+=1;
 	if ( canInscribe(jornadas[1]) ) val+=2;

@@ -333,7 +333,6 @@ function hasGames(fed) {
     if (typeof(fed)==="undefined") fed=workingData.federation;
     return (parseInt(ac_fedInfo[fed].Games)!==0);
 }
-
 function isJornadaOpen() { return (workingData.datosJornada.Open!=0); }
 function isJornadaKO() { return (workingData.datosJornada.KO!=0); }
 function isJornadaGames() { return (workingData.datosJornada.Games!=0); }

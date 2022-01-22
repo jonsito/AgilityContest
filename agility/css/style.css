@@ -159,6 +159,8 @@ img.mainpage{
 	padding-left:20px;
 }
 
+#edit_inscripcion-form > *:not(:last-child) { padding: 5px }
+
 /****** Efectos especiales ****/
 /* espacio adicional delante de un tag <label> */
 .space {
