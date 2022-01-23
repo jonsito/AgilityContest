@@ -37,7 +37,7 @@ function parseEvent(data) {
 		response.Tanda=response.Tnd;
 		response.Perro=response.Dog;
 		response.Dorsal=response.Drs;
-		response.Celo=response.Hot;
+		response.Celo= 1 & esponse.Hot;
 		response.Faltas=response.Flt;
 		response.Tocados=response.Toc;
 		response.Rehuses=response.Reh;

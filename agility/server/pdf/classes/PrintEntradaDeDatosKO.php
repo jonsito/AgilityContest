@@ -159,7 +159,7 @@ class PrintEntradaDeDatosKO extends PrintCommon {
         $this->Cell(13,4,$row['Dorsal'],		'',0,'R',false); // display order
         $cat=$this->federation->getCategoryShort($row['Categoria']);
         $this->Cell(12,4,$cat,	'',0,'R',false); // display order
-        $this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
+        $this->Cell(10,4,((0x01&intval($row['Celo']))!==0)?"Celo":"",'',0,'R',false);
         if ($wide) {
             $this->Cell(50,4,$row['Nombre'],		'',0,'R',false);
         } else {

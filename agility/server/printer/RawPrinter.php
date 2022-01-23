@@ -119,7 +119,7 @@ class RawPrinter {
         $cat=$data['Resultados']['Categoria'];
         $grd=$data['Resultados']['Grado'];
         $lic=$data['Resultados']['Licencia'];
-        $cel=(($data['Resultados']['Celo'])!=0)?"Celo":"";
+        $cel=((0x01&$data['Resultados']['Celo'])!=0)?"Celo":"";
         $l2=sprintf("%03d - % -18s % 4s %1s-% -4s %4s",$drs,substr(toASCII($dog),0,24),substr($lic,-5),$cat,$grd,$cel);
         $printer->text($l2);
         $printer->feed(1);

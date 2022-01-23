@@ -283,7 +283,7 @@ $('#inscripciones-datagrid').datagrid({
         { field:'CatGuia',	width:6, sortable:true, align: 'right',	title: '<?php _e('Cat');?>',formatter:formatCatGuia },
     	{ field:'NombreClub',	width:13, sortable:true, align: 'right',	title: '<?php _e('Club');?>' },
         { field:'Celo',		width:3, align:'center', formatter: formatCelo,	 title: '<?php _e('Heat');?>' },
-        { field:'N.C.',	    width:3, align:'center', formatter: formatNC,	 title: '<?php _e('N.C.');?>' },
+        { field:'NC',	    width:3, align:'center', formatter: formatNC,	 title: '<?php _e('N.C.');?>' },
         { field:'J1',		width:2, align:'center', formatter: formatJ1,
             title: '<span id="idg_j1" class="easyui-tooltip" title="' + workingData.datosPrueba.jornadas[0].Nombre + '">J1</span>'},
         { field:'J2',		width:2, align:'center', formatter: formatJ2,

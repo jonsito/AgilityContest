@@ -157,7 +157,7 @@ class VideoWall {
                 "Grado" => $participante['Grado'],
                 "NombreGuia" => $participante['NombreGuia'],
                 "NombreClub" => $participante['NombreClub'],
-                "Celo" => $participante['Celo'],
+                "Celo" => 1&intval($participante['Celo']),
                 "Observaciones" => $participante['Observaciones'],);
             array_push($data,$item);
         }
@@ -173,7 +173,7 @@ class VideoWall {
 		$id= http_request("Perro","i",0);
 		$pmgr= new Dogs("VideoWall_LiveSTream",$this->prueba['RSCE']);
 		$data=$pmgr->selectByID($id);
-		$data["Celo"]=$celo;
+		$data['Celo']=$celo;
 		return $data;
 	}
 

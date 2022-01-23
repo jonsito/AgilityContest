@@ -461,7 +461,7 @@ function vwcp_updateLlamada(evt,data) {
 			if (evt.Nombre==="<?php _e('Test dog');?>") perro= "<?php _e('Test dog');?>";
 			else perro= useLongNames()? perro+" - "+current['NombreLargo'] : perro;
 			$("#vwls_Nombre").html(perro.substr(0,40));
-			var celo=(current['Celo']!=0)?'<span class="blink"><?php _e("Heat");?></span>':"&nbsp";
+			var celo=((1&parseInt(current['Celo']))!==0)?'<span class="blink"><?php _e("Heat");?></span>':"&nbsp";
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);
             $("#vwls_NombreClub").html(isJornadaEquipos(null)?current['NombreEquipo']:current['NombreClub']);
@@ -568,7 +568,7 @@ function vwcf_updateLlamada(evt,data) {
 			if (evt.Nombre==="<?php _e('Test dog');?>") perro= "<?php _e('Test dog');?>";
 			else perro=useLongNames()? perro+" - "+current['NombreLargo'] : perro;
 			$("#vwls_Nombre").html(perro);
-			var celo = (current['Celo'] != 0) ? '<span class="blink"><?php _e("Heat");?></span>' : "&nbsp";
+			var celo = ((1&parseInt(current['Celo'])) !== 0) ? '<span class="blink"><?php _e("Heat");?></span>' : "&nbsp";
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(current['NombreGuia']);
 			$("#vwls_NombreClub").html(isJornadaEquipos(null)?current['NombreEquipo']:current['NombreClub']);

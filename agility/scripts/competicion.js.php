@@ -950,8 +950,8 @@ function reorder_check(current,obj) {
         obj.value=current; // restore old value
         return false;
     }
-    var from=":"+src.Equipo+":"+fcat+":"+src.Celo+":";
-    var to=":"+dst.Equipo+":"+tcat+":"+dst.Celo+":";
+    var from=":"+src.Equipo+":"+fcat+":"+(1&parseInt(src.Celo))+":";
+    var to=":"+dst.Equipo+":"+tcat+":"+(1&parseInt(dst.Celo))+":";
     if (isJornadaEqConjunta()) {
         // en jornadas por equipos conjunta, no hay que tener en cuenta ni categoria ni celo
         from=":"+src.Equipo+":";
@@ -1051,8 +1051,8 @@ function copyPasteOrdenSalida2(data) {
             return;
         }
         // check if move order is possible
-        var from=":"+data.Row.Equipo+":"+data.Row.Categoria+":"+data.Row.Celo+":";
-        var to=":"+row.Equipo+":"+row.Categoria+":"+row.Celo+":";
+        var from=":"+data.Row.Equipo+":"+data.Row.Categoria+":"+(1&parseInt(data.Row.Celo))+":";
+        var to=":"+row.Equipo+":"+row.Categoria+":"+(1&parseInt(row.Celo))+":";
         if (isJornadaEqConjunta()) {
             // en jornadas por equipos conjunta, no hay que tener en cuenta ni categoria ni celo
             from=":"+data.Row.Equipo+":";
@@ -1564,9 +1564,9 @@ function evalOrdenSalida(oper) {
 // poniendo el idperro "from" delante (where==0) o detras (where==1) del idperro "to"
 // al retornar la funcion se invoca whenDone, que normalmente recargara el formulario padre
 function dragAndDropOrdenSalida(from,to,where,whenDone) {
-	if (workingData.prueba==0) return;
-	if (workingData.jornada==0) return;
-	if (workingData.manga==0) return;
+	if (parseInt(workingData.prueba)===0) return;
+	if (parseInt(workingData.jornada)===0) return;
+	if (parseInt(workingData.manga)===0) return;
 	$.ajax({
 		type: 'GET',
 		url: '../ajax/database/ordenSalidaFunctions.php',

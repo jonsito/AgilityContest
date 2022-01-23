@@ -228,7 +228,7 @@ function c_displayPuesto(flag,time) {
 function c_showData(data) {
 	var perro=$('#chrono_Perro').html();
 	var dorsal=data['Dorsal'];
-	var celo=data['Celo'];
+	var celo=1&parseInt(data['Celo']);
 	if (perro!==data['Perro']) {
 		// if datos del participante han cambiado actualiza
 		$.ajax({

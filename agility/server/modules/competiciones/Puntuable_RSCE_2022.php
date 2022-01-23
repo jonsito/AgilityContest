@@ -18,9 +18,10 @@ class Puntuable_RSCE_2022 extends Puntuable_RSCE_2020 {
         $this->trms=array( 2.5 /*agility*/, 3.0 /*jumping*/ );
     }
 
+    // in 2022, you can declare a dog "out of competition
+    // internally they are stored in "Celo" field with mask 0x02
+    // so remove these dogs from list of dogs used to evaulate TRS
     public function checkAndFixTRSData(&$manga,$data,$mode,&$roundUp) {
-        // in 2022, you can declare a dog "out of competition
-        // internally they are stored in "Celo" field with mask 0x02
         $res=array();
         for($n=0;$n<count($data);$n++) {
             if ( (0x02 & intval($data[$n]['Celo']))!==0 ) continue;

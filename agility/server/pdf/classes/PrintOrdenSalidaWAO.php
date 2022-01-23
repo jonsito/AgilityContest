@@ -271,7 +271,7 @@ class PrintOrdenSalidaWAO extends PrintCommon {
             if (! $this->federation->isInternational()) {
                 $this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
             }
-			$this->Cell($this->pos[8],6,($row['Celo']==0)?"":_("Heat"),	'LR',0,$this->align[8],true);
+			$this->Cell($this->pos[8],6,((0x01&intval($row['Celo']))===0)?"":_("Heat"),	'LR',0,$this->align[8],true);
 			$this->Cell($this->pos[9],6,$row['Observaciones'],'LR',0,$this->align[9],true);
 			$this->Ln();
 			$rowcount++;

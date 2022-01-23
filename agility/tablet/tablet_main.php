@@ -347,7 +347,7 @@ $config =Config::getInstance();
                 if (dst.Manga!=src.Manga) return false;
                 if (dst.Categoria!=src.Categoria) return false;
                 if (dst.Grado!=src.Grado) return false;
-                if (dst.Celo!=src.Celo) return false;
+                if ((1&parseInt(dst.Celo))!==(1&parseInt(src.Celo))) return false;
                 return true;
             },
             onDrop: function(dst,src,updown) {

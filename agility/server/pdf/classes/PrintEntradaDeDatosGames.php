@@ -165,7 +165,7 @@ class PrintEntradaDeDatosGames extends PrintCommon {
         // datos cabecera de celda
         $this->SetXY($x+15,$y+2); // restore cursor position
         $this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
-        $this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
+        $this->Cell(10,4,((0x01&intval($row['Celo']))!==0)?"Celo":"",'',0,'R',false);
         if ($wide) {
             $this->Cell(50,4,$row['Nombre'],		'',0,'R',false);
         } else {

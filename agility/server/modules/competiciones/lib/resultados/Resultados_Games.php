@@ -66,7 +66,7 @@ class Resultados_Games extends Resultados {
         $res=$this->__select(
             "resultados.Dorsal,resultados.Perro,resultados.Nombre,NombreLargo,resultados.Raza,Equipo,resultados.Licencia,resultados.Categoria,resultados.Grado,
 				    resultados.NombreGuia,resultados.NombreClub,perroguiaclub.LOE_RRC,perroguiaclub.CatGuia,
-				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,resultados.Celo, resultados.Games,
+				    Faltas,Tocados,Rehuses,Tiempo,Eliminado,NoPresentado,(1&resultados.Celo)AS Celo, resultados.Games,
 					0 AS PRecorrido, 0 AS PTiempo, Faltas+Tocados AS Penalizacion, '' AS Calificacion, 0 AS Velocidad",
             "resultados,perroguiaclub",
             "$where $cat",

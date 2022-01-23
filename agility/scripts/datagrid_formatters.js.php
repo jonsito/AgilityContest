@@ -346,6 +346,17 @@ function formatCerrada(val,row,idx) { return (parseInt(val)===0)?"":"&#x26D4;"; 
 function formatRing(val,row,idx) { return (val==='-- Sin asignar --')?"":val; }
 function formatCelo(val,row,idx) { return ( (1 & parseInt(val))===0)?" ":"&#x2665;"; }
 function formatNC(val,row,idx) { return ( (2 & parseInt(val))===0)?" ":"&#x2716;"; }
+function formatCeloAndNC(val,row,idx) { // shortland para orden salida dialog
+    switch (parseInt(val)) {
+        case 0: return "&nbsp;&nbsp;"; // normal
+        case 1: return "&#x2665;&nbsp;"; // celo
+        case 2: return "&nbsp;&#x2716;"; // no compite
+        case 3: return "&#x2665;&#x2716;"; // celo + no compite
+        default: // error
+            console.log("invalid celo value: "+val);
+            return "&nbsp;&nbsp;";
+    }
+}
 function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!==0 )? 'color: #f00;': ''; }
 function competicionRowStyler(idx,row) { return (row.Dorsal==='*')? myRowStyler(-1,row) : myRowStyler(idx,row); }
 function formatOrdenSalida(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:40px;line-height:40px">'+(1+idx)+'</span>'; }

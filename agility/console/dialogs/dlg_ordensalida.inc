@@ -315,7 +315,7 @@ $('#ordensalida-datagrid').datagrid({
 		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: '<?php _e('Cat'); ?>.' ,formatter:formatCategoria},
 		{ field:'NombreGuia',	width:50, sortable:false,   align:'right', title: '<?php _e('Handler'); ?>' },
 		{ field:'NombreClub',	width:30, sortable:false,   align:'right', title: '<?php _e('Club'); ?>' },
-		{ field:'Celo',		    width:10, sortable:false, formatter: formatCelo,	align:'center', title:'<?php _e('Heat'); ?>'}
+		{ field:'Celo',		    width:10, sortable:false, formatter: formatCeloAndNC,	align:'center', title:'<?php _e('Heat'); ?>'}
     ]],
     rowStyler:function(index,row) { // colorize rows. Mark handlers with multiple dogs
         if (row.PerrosPorGuia>1) {
@@ -366,8 +366,8 @@ $('#ordensalida-datagrid').datagrid({
         if ( (heights===3) && (tcat==='T') ) tcat='S';
         if ( (heights===4) && (fcat==='X') ) fcat='L';
         if ( (heights===4) && (tcat==='X') ) tcat='L';
-        var from=":"+src.Equipo+":"+fcat+":"+src.Celo+":";
-        var to=":"+dst.Equipo+":"+tcat+":"+dst.Celo+":";
+        var from=":"+src.Equipo+":"+fcat+":"+(0x01&parseInt(src.Celo))+":";
+        var to=":"+dst.Equipo+":"+tcat+":"+(0x01&parseInt(dst.Celo))+":";
         if (isJornadaEqConjunta()) {
             // en jornadas por equipos conjunta, no hay que tener en cuenta ni categoria ni celo
             from=":"+src.Equipo+":";

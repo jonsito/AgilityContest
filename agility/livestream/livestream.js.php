@@ -188,7 +188,7 @@ function vwls_showData(data) {
 	var vwls_tiempo=$('#vwls_Tiempo');
 	var dorsal=data['Dorsal'];
 	var numero=data['Numero'];
-	var celo=parseInt(data['Celo']);
+	var celo=1&parseInt(data['Celo']);
 
 	function fillForm(res) {
 		$('#vwls_Numero').html(numero);

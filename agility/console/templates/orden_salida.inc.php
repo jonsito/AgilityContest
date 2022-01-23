@@ -31,7 +31,7 @@ $config =Config::getInstance();
         -->
         <th width="17%" data-options="field:'NombreGuia',align:'right'"><?php _e('Handler'); ?></th>
         <th width="12%" data-options="field:'NombreClub',align:'right'"><?php _e('Club'); ?></th>
-        <th width="4%" data-options="field:'Celo',		align:'center', formatter:formatCelo"><?php _e('Heat'); ?></th>
+        <th width="4%" data-options="field:'Celo',		align:'center', formatter:formatCeloAndNC"><?php _e('Heat'); ?></th>
         <th width="10%" data-options="field:'Observaciones',align:'left'"><?php _e('Comments'); ?></th>
     </tr>
     </thead>
