@@ -1,3 +1,8 @@
+Version 4.6.2 20220124_2100
+    - Support for AccessControlList on competition modules
+    - Add support for RSCE Seaseon 2022
+    - Fixes from 4.6.1 (default hidden value for Grado I "/Agility/Jumping/Oder", error on group categories on print )
+    - Fixes for php-7/8
 Version 4.6.1 20211226_1200
     - Add support for WAO 5-heights
     - Reworked print inscriptions / catalogue to allow omit license/grade when federation does not require them

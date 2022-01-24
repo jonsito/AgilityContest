@@ -32,6 +32,50 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
     <a id="top"></a>
     <!--- comienzo del changelog -->
 <?php } ?>
+<?php if ( strcmp($from,"blog_2022-01-24_00:00:00")<0) { ?>
+    <strong>2021-Oct-13</strong><br/>
+    <p>
+        Versión 4.6.2
+    </p>
+    <p>
+        Hace tiempo que la idea me venía rondando por la cabeza,
+        pero hasta estas últimas semanas no la he podido terminar de perfilar; y este fin de semana me han terminado de convencer.<br/>
+        Resumen corto:
+    </p>
+        <ol>
+        <li>Dejo la práctica agility</li>
+        <li>Abandono el desarrollo y mantenimiento de AgilityContest</li>
+        </ol>
+    <p>
+        Muchisimas razones por las que no me voy a ponerme a llorar ahora, y menos aquí.
+        me han llevado a tomar esta decisión. He intentado buscar soluciones intermedia,
+        pero dada mi forma de ser, lo único que puedo hacer es cortar por lo sano.<br/>
+        En cuanto al programa:
+    </p>
+        <ul>
+        <li> Esta es la que espero será la que será la última versión de AgilityContest,
+        y que contendrá todas las correcciones que he ido añadiendo tras el último intercubes,
+        el ce. RFEC de este año y selectiva WAO.<br/>
+        Contiene tambien la actualización del reglamento para la temporada RSCE2022
+        </li>
+        <li> Todos los que hayan renovado o solicitado licencia este año o el año pasado,
+        podrán renovarla de manera gratuita con las mismas claves que ya tienen.
+        </li>
+        <li> La nueva licencia tendrá validez hasta 2025. Si para entonces las nuevas plataformas
+            y aplicaciones que ya están surgiendo no están en marcha, es que algo muy serio
+            está pasando en este mundillo
+        </li>
+        <li>El dominio "www.agilitycontest.es" caduca en febrero del 2022, y no lo voy a renovar.<br/>
+            Esto significa que a partir de dicha fecha ya no se podrán solicitar o renovar licencias de AgilityContest
+        </li>
+        <li> Si alguien es tan osado como querer mantener el relevo, el código fuente está disponible
+            -como siempre lo ha estado- en GitHub.com
+        </li>
+    </ul>
+        Empiezo una nueva aventura. Mis perros lo agradecerán, y yo espero encontrar algo de paz.<br/>
+        Un saludo y gracias<br/>
+    <em>Juan Antonio</em>
+<?php } ?>
 
 <?php if ( strcmp($from,"blog_2021-10-13_00:00:00")<0) { ?>
     <strong>2021-Oct-13</strong><br/>
@@ -171,11 +215,13 @@ if (array_key_exists("TimeStamp",$_REQUEST)) {
         <li>Módulos para las competiciones de la temporada 2021 RFEC y RSCE. Si alguna regional ha cambiado su reglamento y no me ha avisado... se siente</li
         <li>Código fuente de referencia para un cronómetro basado en Arduino UNO</li>
         <li>Automatización de la entrada a pista desde el pre-ring ( ver comentarios anteriores en el foro )</li>
-        <ol>
-            <li>Tablet adaptado para manejar listas de perros pendientes de entrar a pista. Entrada manual de dorsal</li>
-            <li>Nueva webapp para poder leer dorsales desde la entrada a pre-ring y mandarlos al tablet con un teléfono móvil</li>
-            <li>App de crono modificada para poder leer dorsales con una pistola  lectora de códigos QR</li>
-        </ol>
+        <li>
+            <ol>
+                <li>Tablet adaptado para manejar listas de perros pendientes de entrar a pista. Entrada manual de dorsal</li>
+                <li>Nueva webapp para poder leer dorsales desde la entrada a pre-ring y mandarlos al tablet con un teléfono móvil</li>
+                <li>App de crono modificada para poder leer dorsales con una pistola  lectora de códigos QR</li>
+            </ol>
+        </li>
         <li>La app de cronómetro soporta nuevos modelos, incluyendo las últimas versiones de firmware del Canómetro de Galican, ( ya !por fin! no se necesita "parchearlos"... hasta que lo vuelvan a cambiar )</li>
     </ul>
 <?php } ?>
