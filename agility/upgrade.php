@@ -242,8 +242,12 @@ Class AgilityContestUpdater {
         if (! is_resource($zip) ) { $this->logProgress("ERROR: zipfile failed errno: $zip"); return false; }
         while ($aF = zip_read($zip) ) {
             set_time_limit(ini_get('max_execution_time'));
-            // get file name and their directory
-            $file_name = str_replace("AgilityContest-master/","",zip_entry_name($aF));
+            // get file name and their directory old style
+            $ext="master";
+            $file_name = str_replace("AgilityContest-{$ext}/","",zip_entry_name($aF));
+            // get file name and their directory new style (from github releases)
+            $ext=$this->getVersionName()."-".$this->getVersionDate();
+            $file_name = str_replace("AgilityContest-{$ext}/","",zip_entry_name($aF));
             $file_size = zip_entry_filesize($aF);
             $dir_name = dirname($file_name);
             // skip directories in zip file
