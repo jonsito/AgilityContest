@@ -779,7 +779,12 @@ class Tandas extends DBObject {
 				$perrosmanga=$os->getData(false); // false: do not include extra team information row
 			}
 			// OK ya tenemos la lista ordenada de los perros de cada manga
-			// Ahora vamos a sacar la lista por cada tanda
+            // en selectiva RSCE se salta en 3 alturas, pero hay perros de cinco, con lo que hay que "hacer trampas"
+            $heights=Competitions::getHeights($this->prueba->ID,$this->jornada->ID,$tanda['Manga']);
+            if( ($heights==3) && ($tanda['Categoria']==='L')) $tanda['Categoria']='XL';
+            if( ($heights==3) && ($tanda['Categoria']==='S')) $tanda['Categoria']='ST';
+            if( ($heights==4) && ($tanda['Categoria']==='L')) $tanda['Categoria']='XL'; // idem para 4 alturas
+            // Ahora vamos a sacar la lista por cada tanda
             foreach($perrosmanga['rows'] as &$perro) {
                 // si hay categoria distinta de "-" hay que comprobar si el perro pertenece a la tanda
                 if ($tanda['Categoria']!="-") {
@@ -819,7 +824,13 @@ class Tandas extends DBObject {
 	function getData($s,$t,$p) {
 		return $this->getListaPerros($s,-($t),$p);
 	}
-	
+
+    /**
+     * @param {integer} $s id de session
+     * @param {integer} $t id de tanda
+     * @return array
+     * @throws Exception
+     */
 	function getDataByTanda($s,$t) {
 		$page=http_request("page","i",0);
 		$rows=http_request("rows","i",0);
