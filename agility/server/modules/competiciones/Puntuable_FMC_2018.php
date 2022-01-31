@@ -22,14 +22,19 @@ require_once(__DIR__."/lib/ligas/Liga_RFEC_2018.php");
 
 class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
 
-    function __construct() {
-        parent::__construct("Puntuable Liga FMC");
+    protected $ptsmanga;
+    protected $ptsglobal;
+
+    function __construct($name="Puntuable Liga FMC 2018") {
+        parent::__construct($name);
         $this->federationID=1;
         $this->federationDefault=1;
         $this->competitionID=2;
         $this->moduleVersion="1.2.0";
         $this->moduleRevision="20180125_1113";
         $this->federationLogoAllowed=true;
+        $this->ptsmanga=array(7,5,3,2,1); // puntos por manga y puesto
+        $this->ptsglobal = array("15", "12", "9", "7", "6", "5", "4", "3", "2", "1"); //puestos por general
     }
 
     function getModuleInfo($contact = null)  {
@@ -65,15 +70,14 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
             Competitions::evalPartialCalification($m,$perro,$puestocat);
             return;
         }
-        $ptsmanga=array(7,5,3,2,1); // puntos por manga y puesto
+
         $pt1=0;
         if ($penal<6.0) $pt1++; // 1 punto por excelente
         if ($penal==0.0) $pt1+=2; // 3 puntos por cero
-        // puntos a los 5 primeros de la zona liguera por manga/categoria tienen excelente o muy bueno
-        // en madrid se permite que los perros NC puntuen
+        // calculamos puntos para los que tienen
         $puesto=$puestocat[$cat]-$this->poffset[$cat];
         if ( ($puestocat[$cat]>0) && ($penal<16) ) {
-            if ($puesto<=5) $pt1 += $ptsmanga[$puesto-1];
+            if ($puesto<=count($this->ptsmanga)) $pt1 += $this->ptsmanga[$puesto-1];
         } else { // no points or not qualified; discard
             Competitions::evalPartialCalification($m,$perro,$puestocat);
             return;
@@ -97,7 +101,7 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
             $perro['Calificacion'] = _("Not Clasified");
             $perro['CShort'] = _("N.C.");
         }
-        else if ($penal>=16)	{ // en el 2018 solo puntuan excelentes y muy buenos
+        else if ($penal>=16)	{
             $perro['Calificacion'] = _("Good");
             $perro['CShort'] = _("Good");
         }
@@ -156,8 +160,6 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
             return;
         }
 
-        $ptsglobal = array("15", "12", "9", "7", "6", "5", "4", "3", "2", "1"); //puestos por general si tiene excelente o muy bueno
-
         // manga 1
         $pt1 = "0";
         if ($resultados[0] !== null) { // extraemos los puntos de la primera manga
@@ -181,7 +183,7 @@ class Puntuable_FMC_2018 extends Puntuable_RFEC_2018 {
         // evaluamos puesto real una vez eliminados los "extranjeros"
         $puesto=$puestocat[$cat]-$this->pfoffset[$cat];
         // si esta entre los 10 primeros cogemos los puntos
-        if ($puesto<11) $pfin=$ptsglobal[$puesto-1];
+        if ($puesto<=count($this->ptsglobal)) $pfin=$this->ptsglobal[$puesto-1];
         // y asignamos la calificacion final
         $perro['Calificacion']="$pt1 - $pt2 - $pfin";
         $perro['Puntos']=intval($pt1)+intval($pt2)+intval($pfin);
