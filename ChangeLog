@@ -1,3 +1,6 @@
+Version 4.6.3 20220131_1030
+    - Add support for RFEC Season 2022
+    - Fixes from previous version. replace obsolete php functions
 Version 4.6.2 20220127_2100
     - Fix tandas categories in Selectivas RSCE
     - Fix zipfile name on upgrade process to properly handle releases download from github
