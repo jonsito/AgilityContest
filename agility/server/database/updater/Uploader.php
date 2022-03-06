@@ -88,7 +88,7 @@ class Uploader {
         // $this->myLogger->trace("Uploader::sendJSONRequest() sending ".json_encode($pdata));
         $response = @curl_exec($curl); // supress stdout warning
         if ( curl_error($curl) ) {
-            throw new Exception("updater::SendJSONRequest() call to URL $url failed: " . curl_error($curl) );
+            throw new Exception("updater::doGetNews() call to URL $url failed: " . curl_error($curl) );
         }
         // close curl stream
         curl_close($curl);
@@ -165,7 +165,7 @@ class Uploader {
     function sendJSONRequest($data,$serial) {
         // first of all, check internet conectivity
         if (isNetworkAlive()<0) {
-            throw new Exception("updater::SendJSONRequest(): No internet access available");
+            throw new Exception("updater::isNetworkAlive(): No internet access available");
         }
         $server=$this->myConfig->getEnv("master_server");
         $baseurl=$this->myConfig->getEnv("master_baseurl");

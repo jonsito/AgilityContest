@@ -887,7 +887,7 @@ class Eventos extends DBObject {
     function uploadEvent($data) {
         // first of all, check internet conectivity
         if (isNetworkAlive()<0) {
-            throw new Exception("updater::SendJSONRequest(): No internet access available");
+            throw new Exception("event_sender::uploadEvent(): No internet access available");
         }
         $url=$this->myConfig->getEnv("remote_events_url");
         // do not verify cert on localhost
