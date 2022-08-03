@@ -429,7 +429,7 @@ class PrintInscritos extends PrintInscripciones {
 				break;
 			default:				//  0         1         2         3          4         5         6            7        8             9        10        11  12  13  14  15  16  17  18
 									// dorsal   name   license      Breed     catDog     grade     handler    catGuia     club/pais      heat    comments   J1  J2  J3  J4  J5  J6  J7  J8
-				$this->pos =array(      7,       23,        13,      14,        10,       11,          30,       10,        20,          9,        0,        6,  6,  6,  6,  6,  6,  6,  6 );
+				$this->pos =array(      7,       23,        13,      14,        9,       13,          28,       10,        20,          9,        0,        6,  6,  6,  6,  6,  6,  6,  6 );
 				break;
 		}
         // si en la configuracion dice que no pongamos grados, le añadimos el campo del grado al de la categoria
