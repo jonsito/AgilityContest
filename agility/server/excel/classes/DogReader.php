@@ -239,7 +239,7 @@ class DogReader {
             $str1 .= "{$val[3]}, "; // add field name
             $item=(array_key_exists($val[0],$row))? $row[$val[0]]:""; // trick to avoid empty fields at the end of row
             if ($key==='Grade') $item=parseGrade($item);
-            if ($key==='Category') $item=parseCategory($item);
+            if ($key==='Category') $item=parseCategory($item,$this->federation);
             if ($key==='Gender') $item=parseGender($item);
             if ($key==='CatHandler') $item=parseHandlerCat($item);
             if ($this->isInternational) {

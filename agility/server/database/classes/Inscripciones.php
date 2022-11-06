@@ -24,6 +24,7 @@ require_once(__DIR__."/../procesaInscripcion.php"); // to insert/remove inscript
 class Inscripciones extends DBObject {
 	
 	protected $pruebaID;
+    protected $PruebaObj;
 	public $insertid;
 	
 	/**
@@ -38,6 +39,7 @@ class Inscripciones extends DBObject {
 			$this->errormsg="$file::construct() invalid prueba:$prueba ID";
 			throw new Exception($this->errormsg);
 		}
+        $this->pruebaObj=$this->__selectObject("*","Pruebas","Pruebas.ID={$prueba}");
 		$this->pruebaID=$prueba;
 		$this->insertid=0; // initial value
 	}
@@ -273,7 +275,7 @@ class Inscripciones extends DBObject {
 		        OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') 
 		        OR ( NombreClub LIKE '%$search%') )";
             $g=parseGrade($search); $grad=($g==="-")? "":" AND ( Grado='{$g}' ) ";
-            $c=parseCategory($search); $cat=($c==="-")? "":" AND ( Categoria='{$c}' ) ";
+            $c=parseCategory($search,$fed); $cat=($c==="-")? "":" AND ( Categoria='{$c}' ) ";
             if ($g!=="-" ) $extra.=$grad;
             else if ($c!=="-" ) $extra.=$cat;
             else $extra.=$e;
@@ -398,7 +400,7 @@ class Inscripciones extends DBObject {
 		        OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') 
 		        OR ( NombreClub LIKE '%$search%') )";
             $g=parseGrade($search); $grad=($g==="-")? "":" AND ( Grado='{$g}' ) ";
-            $c=parseCategory($search); $cat=($c==="-")? "":" AND ( Categoria='{$c}' ) ";
+            $c=parseCategory($search,$this->pruebaObj->RSCE); $cat=($c==="-")? "":" AND ( Categoria='{$c}' ) ";
             if ($g!=="-" ) $extra=$grad;
             if ($c!=="-" ) $extra=$cat;
         }

@@ -41,7 +41,7 @@ class Dogs extends DBObject {
         $chip =	http_request("Chip","s","",false);
         $loe_rrc =	http_request("LOE_RRC","s",null,false);
         $licencia = http_request("Licencia","s",null,false);
-        $categoria= parseCategory(http_request("Categoria","s",null,false));
+        $categoria= parseCategory(http_request("Categoria","s",null,false),$this->federation);
         $grado =	parseGrade(http_request("Grado","s",null,false));
         $baja =	    http_request("Baja","i",0);
         $guia =		http_request("Guia","i",0);
@@ -100,7 +100,7 @@ class Dogs extends DBObject {
         $chip =	    http_request("Chip","s","",false);
         $loe_rrc =	http_request("LOE_RRC","s",null,false);
         $licencia = http_request("Licencia","s",null,false);
-        $categoria= parseCategory(http_request("Categoria","s",null,false));
+        $categoria= parseCategory(http_request("Categoria","s",null,false),$this->federation);
         $grado =	parseGrade(http_request("Grado","s",null,false));
         $baja =		http_request("Baja","i",0);
         $guia =		http_request("Guia","i",0);
@@ -251,7 +251,7 @@ class Dogs extends DBObject {
 		        OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') 
 		        OR ( NombreClub LIKE '%$search%') )";
             $g=parseGrade($search); $grad=($g==="-")? "":" ( Grado='{$g}' ) ";
-            $c=parseCategory($search); $cat=($c==="-")? "":" ( Categoria='{$c}' ) ";
+            $c=parseCategory($search,$this->federation); $cat=($c==="-")? "":" ( Categoria='{$c}' ) ";
             if ($g!=="-" ) $where=$grad;
             if ($c!=="-" ) $where=$cat;
         }

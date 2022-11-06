@@ -325,16 +325,22 @@ function parseGender($gender) {
 /**
  * Try to obtain dog grade according provided string
  * @param {string} $cat user provided category
+ * @param {integer} $int federation (RSCE>=2023 changes XL and L names)
  * @return {string} X,L,M,S,T,- detected category
  */
-function parseCategory($cat) {
+function parseCategory($cat,$fed=0) {
     $cats= array (
-        'X' => array('x','extra','xlarge','xl','x-large','extra-large','600','60','6'),
-        'L' => array('l','large','standard','estandar','std','intermediate','intermedia','int','500','50','5'),
 	    'M' => array('m','medium','midi','mid','med','400','40','4'),
 	    'S' => array('s','small','mini','min','300','30','3'),
-	    'T' => array('t','enano','tiny','toy','xs','x-small','x-short','extra-short','250','200','25','20','2'),
+	    'T' => array('t','enano','tiny','toy','xs','x-small','x-short','extra-short','250','200','25','20','2')
     );
+    if ($fed!=0) {
+        $cats['X'] = array('x','extra','xlarge','xl','x-large','extra-large','600','60','6');
+        $cats['L'] = array('l','large','standard','estandar','std','i','intermediate','intermedia','inter','int','500','50','5');
+    } else {
+        $cats['X'] = array('x','extra','xlarge','xl','x-large','l','large','standard','estandar','std','extra-large','600','60','6');
+        $cats['L'] = array('i','intermediate','intermedia','inter','int','500','50','5');
+    }
 	if (is_null($cat)) return '-';
     $str = preg_replace("/[^A-Za-z0-9]/u", '', strtolower(iconv('UTF-8','ASCII//TRANSLIT',$cat)));
     $str = preg_replace('/\D+(\d+)/i','${1}',$str); // try to resolve "Clase XX" RFEC patterns

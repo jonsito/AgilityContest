@@ -163,7 +163,14 @@ class Eventos extends DBObject {
                 $data['NombreGuia']	= http_request('NombreGuia',"s","");
                 $data['NombreClub']	= http_request('NombreClub',"s","");
                 $data['NombreEquipo']=http_request('NombreEquipo',"s","");
-                $data['Categoria']	= parseCategory(http_request('Categoria',"s","-"));
+                // retrieve federation id from session info
+                $res=$this->__select(
+                    'Pruebas.RSCE',
+                    'Sesiones,Pruebas',
+                    "(Pruebas.ID = Sesiones.Prueba ) AND  (Sesiones.ID = {$this->sessionID})"
+                );
+                $fed=($res['total']==0)?0:intval($res['rows'][0]['RSCE']);
+                $data['Categoria']	= parseCategory(http_request('Categoria',"s","-"),$fed);
                 $data['Grado']		= parseGrade(http_request('Grado',"s","-"));
 				break;
 			case 'datos':			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)

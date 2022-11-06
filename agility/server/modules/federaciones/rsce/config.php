@@ -24,9 +24,9 @@ class RSCE extends Federations {
             'RoundsG1' => 3, // on rfec may be 3
             'Recorridos' => array(
                 _('Common course'),
-                _('XL+L / M+S+XS'),
+                _('L+I / M+S+XS'),
                 _('Separate courses'),
-                _('XL+L / M / S+XS')
+                _('L+I / M / S+XS')
             ),
             'ListaGradosShort' => array(
                 '-' => 'Sin especificar',
