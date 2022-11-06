@@ -54,16 +54,16 @@ class RSCE extends Federations {
             ),
             'ListaCategoriasShort' => array (
                 '-' => '-',
-                'X' => 'Lrg',
-                'L' => 'Int',
+                'X' => 'XL',
+                'L' => 'Lrg',
                 'M' => 'Med',
                 'S' => 'Sml',
-                'T' => 'Xsm'
+                'T' => 'XS'
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',
-                'X' => 'Large',
-                'L' => 'Intermediate',
+                'X' => 'Extra Large',
+                'L' => 'Large',
                 'M' => 'Medium',
                 'S' => 'Small',
                 'T' => 'Extra Small'
@@ -101,10 +101,10 @@ class RSCE extends Federations {
             ),
             // RSCE no tiene recorridos a cuatro alturas
             'InfoManga5' => array( // 5 alturas
-                array('L' => 'Intermediate',   'M' => 'Medium', 'S' => 'Small',     'T' => 'XSmall',    'X' => 'Large'), // separate courses
-                array('L' => '',        'M' => 'Med+Sml+XSml','S' => '',            'T' => '',          'X' => 'Large+Inter'), // mixed 2 courses
-                array('L' => '',        'M' => '',            'S' => '',            'T' => '',          'X' => 'L+I+M+S+XS'), // common
-                array('L' => '',        'M' => 'Medium',      'S' => 'Small+XSmall','T' => '',          'X' => 'Large+Inter') // mixed 3 courses
+                array('L' => 'Large',   'M' => 'Medium',      'S' => 'Small',       'T' => 'XSmall',    'X' => 'XLarge'), // separate courses
+                array('L' => '',        'M' => 'Med+Sml+XSml','S' => '',            'T' => '',          'X' => 'XLarge+Large'), // mixed 2 courses
+                array('L' => '',        'M' => '',            'S' => '',            'T' => '',          'X' => 'XL+L+M+S+XS'), // common
+                array('L' => '',        'M' => 'Medium',      'S' => 'Small+XSmall','T' => '',          'X' => 'XLarge+Large') // mixed 3 courses
             ),
             'Modes3' => array(
                 //  categorias            L   M   S   T   X
@@ -127,88 +127,88 @@ class RSCE extends Federations {
                 array(/* 3 grupos */ "Invalid", "Medium", "Small+XS", "Invalid","XL+Large") // not used in 3 heights
             ),
             'ModeStrings' => array( // text to be shown on each category
-                array(/* separado */ "Intermediate", "Medium", "Small", "XSmall","Large"),
-                array(/* mixto */    "Large+Inter", "Med+Small+XSmall", "Med+Small+XSmall", "Med+Small+XSmall","Large+Inter"),
+                array(/* separado */ "Large", "Medium", "Small", "XSmall","XLarge"),
+                array(/* mixto */    "XLarge+Large", "Med+Small+XSmall", "Med+Small+XSmall", "Med+Small+XSmall","XLarge+Large"),
                 array(/* conjunto */ "Conjunta", "Conjunta", "Conjunta", "Conjunta","Conjunta"),
-                array(/* conjunto */ "Large+Interm", "Medium", "Small+XSmall", "Small+XSmall","Large+Interm")
+                array(/* conjunto */ "XLarge+Large", "Medium", "Small+XSmall", "Small+XSmall","XLarge+Large")
             ),
             'IndexedModes' => array (
-                /* 0 - L    */ "Interm",
+                /* 0 - L    */ "Large",
                 /* 1 - M    */ "Medium",
                 /* 2 - S    */ "Small",
                 /* 3 - MS   */ "Medium+Small",
-                /* 4 - LMS  */ "Conjunta I/M/S",
+                /* 4 - LMS  */ "Conjunta L/M/S",
                 /* 5 - T    */ "XSmall",
-                /* 6 - LM   */ "Interm+Medium",
+                /* 6 - LM   */ "Large+Medium",
                 /* 7 - ST   */ "Small+XSmall",
-                /* 8 - LMST */ "Conjunta I/M/S/XS",
-                /* 9 - X    */ "Large",
-                /*10 - XL   */ "Large + Interm",
+                /* 8 - LMST */ "Conjunta L/M/S/XS",
+                /* 9 - X    */ "Extra Large",
+                /*10 - XL   */ "Extra Large + Large",
                 /*11 - MST  */ "Med+Small + XSmall",
-                /*12 - XLMST*/ "Conjunta L/I/M/S/XS"
+                /*12 - XLMST*/ "Conjunta XL/L/M/S/XS"
             ),
             'IndexedModeStrings' => array(
                 "-" => "",
-                "L"=>"Interm",
+                "L"=>"Large",
                 "M"=>"Medium",
                 "S"=>"Small",
                 "T"=>"XSmall",
-                "LM"=>"Interm/Medium",
+                "LM"=>"Large/Medium",
                 "ST"=>"Small/XSmall",
                 "MS"=>"Medium/Small",
-                "LMS" => 'Conjunta IMS',
-                "-LMS" => 'Conjunta IMS',
-                "LMST" => 'Conjunta IMST',
-                "-LMST" => 'Conjunta IMST',
-                "X" => 'Large',
-                "XL" => 'Large/Interm',
+                "LMS" => 'Conjunta LMS',
+                "-LMS" => 'Conjunta LMS',
+                "LMST" => 'Conjunta LMST',
+                "-LMST" => 'Conjunta LMST',
+                "X" => 'XLarge',
+                "XL" => 'XLarge/Large',
                 "MST" => 'Medium/Small/XSmall',
-                "XLMST" => 'L/I/M/S/XS',
-                "-XLMST" => 'L/I/M/S/XS'
+                "XLMST" => 'XL/L/M/S/XS',
+                "-XLMST" => 'XL/L/M/S/XS'
             ),
             'NombreTandas' => array(
                 0	=> '-- Sin especificar --',
                 1	=> 'Pre-Agility 1',
                 2	=> 'Pre-Agility 2',
-                3	=> 'Grado 1 Manga 1 Interm',
+                3	=> 'Grado 1 Manga 1 Large',
                 4	=> 'Grado 1 Manga 1 Medium',
                 5	=> 'Grado 1 Manga 1 Small',
-                6	=> 'Grado 1 Manga 2 Interm',
+                6	=> 'Grado 1 Manga 2 Large',
                 7	=> 'Grado 1 Manga 2 Medium',
                 8	=> 'Grado 1 Manga 2 Small',
-                9	=> 'Agility GII Interm',
+                9	=> 'Agility GII Large',
                 10	=> 'Agility GII Medium',
                 11	=> 'Agility GII Small',
-                12	=> 'Agility GIII Interm',
+                12	=> 'Agility GIII Large',
                 13	=> 'Agility GIII Medium',
                 14	=> 'Agility GIII Small',
-                15	=> 'Agility Interm', //  Individual-Open
+                15	=> 'Agility Large', //  Individual-Open
                 16	=> 'Agility Medium',	//  Individual-Open
                 17	=> 'Agility Small', //  Individual-Open
-                18	=> 'Agility Equipos Interm', // team best
+                18	=> 'Agility Equipos Large', // team best
                 19	=> 'Agility Equipos Medium',// team best
                 20	=> 'Agility Equipos Small',	 // team best
                 // en jornadas por equipos conjunta tres alturas se mezclan categorias M y S
-                21	=> 'Ag. Equipos L / I',// team combined
+                21	=> 'Ag. Equipos XL / L',// team combined
                 22	=> 'Ag. Equipos M / S / XS', // team combined
-                23	=> 'Jumping GII Interm',
+                23	=> 'Jumping GII Large',
                 24	=> 'Jumping GII Medium',
                 25	=> 'Jumping GII Small',
-                26	=> 'Jumping GIII Interm',
+                26	=> 'Jumping GIII Large',
                 27	=> 'Jumping GIII Medium',
                 28	=> 'Jumping GIII Small',
-                29	=> 'Jumping Interm',//  Individual-Open
+                29	=> 'Jumping Large',//  Individual-Open
                 30	=> 'Jumping Medium',	//  Individual-Open
                 31	=> 'Jumping Small', //  Individual-Open
-                32	=> 'Jumping Equipos Interm',	// team best
+                32	=> 'Jumping Equipos Large',	// team best
                 33	=> 'Jumping Equipos Medium',// team best
                 34	=> 'Jumping Equipos Small',	// team best
                 // en jornadas por equipos conjunta 3 alturas se mezclan categorias X,L y M,S,T
-                35	=> 'Jp. Equipos L / I ',// team combined
+                35	=> 'Jp. Equipos XL / L ',// team combined
                 36	=> 'Jp. Equipos M / S / XS', // team combined
                 // en las rondas KO, los perros compiten todos contra todos
                 37	=> 'Manga K.O. - 1',
-                38	=> 'Manga Especial Interm',
+                38	=> 'Manga Especial Large',
                 39	=> 'Manga Especial Medium',
                 40	=> 'Manga Especial Small',
                 // "XSmall" support for Pruebas de cuatro alturas
@@ -220,16 +220,16 @@ class RSCE extends Federations {
                 46	=> 'Agility Equipos XSmall',// team best
 
                 // en equipos4  cuatro alturas  agrupamos por LM y ST
-                47	=> 'Ag. Equipos Interm/Medium', // team combined
+                47	=> 'Ag. Equipos Large/Medium', // team combined
                 48	=> 'Ag. Equipos Small/XSmall', // team combined
                 49	=> 'Jumping GII XSmall',
                 50	=> 'Jumping GIII XSmall',
                 51	=> 'Jumping XSmall', //  Individual-Open
                 52	=> 'Jumping team XSmall',	 // team best
-                53	=> 'Jp. teams Interm/Medium',  // team combined
+                53	=> 'Jp. teams Large/Medium',  // team combined
                 54	=> 'Jp. teams Small/XSmall',// team combined
                 55	=> 'Special round XSmall',
-                56	=> 'Grado 1 Manga 3 Interm',	 // extra rounds for GI temporada 2020
+                56	=> 'Grado 1 Manga 3 Large',	 // extra rounds for GI temporada 2020
                 57	=> 'Grado 1 Manga 3 Medium',
                 58	=> 'Grado 1 Manga 3 Small',
                 59	=> 'Grado 1 Manga 3 XSmall',
@@ -273,65 +273,65 @@ class RSCE extends Federations {
                 93	=> 'SpeedStakes 400',
                 94	=> 'SpeedStakes 300',
                 // mangas para junior
-                95  => 'Junior 1 Interm',
+                95  => 'Junior 1 Large',
                 96  => 'Junior 1 Medium',
                 97  => 'Junior 1 Small',
                 98  => 'Junior 1 XSmall',
-                99  => 'Junior 2 Interm',
+                99  => 'Junior 2 Large',
                 100  => 'Junior 2 Medium',
                 101  => 'Junior 2 Small',
                 102  => 'Junior 2 XSmall',
-                103 => 'Senior 1 Interm',
+                103 => 'Senior 1 Large',
                 104 => 'Senior 1 Medium',
                 105 => 'Senior 1 Small',
                 106 => 'Senior 1 XSmall',
-                107 => 'Senior 2 Interm',
+                107 => 'Senior 2 Large',
                 108 => 'Senior 2 Medium',
                 109 => 'Senior 2 Small',
                 110 => 'Senior 2 XSmall',
                 // tandas nuevas para xl y XSmall en rfec 5 alturas
-                111	=> 'Junior 1 Large',
-                112	=> 'Junior 2 Large',
-                113	=> 'Senior 1 Large',
-                114	=> 'Senior 2 Large',
-                115	=> 'Grado 1 Manga 1 Large',
-                116	=> 'Grado 1 Manga 2 Large',
-                117	=> 'Grado 1 Manga 3 Large',
-                118	=> 'Agility GII Large',
-                119	=> 'Jumping GII Large',
-                120	=> 'Agility GIII Large',
-                121	=> 'Jumping GIII Large',
-                122	=> 'Agility Large', // open X
-                123	=> 'Jumping Large', // open X
-                124	=> 'Agility Equipos Large', // team X
-                125	=> 'Jumping Equipos Large',
-                126	=> 'Manga especial Large',
+                111	=> 'Junior 1 XLarge',
+                112	=> 'Junior 2 XLarge',
+                113	=> 'Senior 1 XLarge',
+                114	=> 'Senior 2 XLarge',
+                115	=> 'Grado 1 Manga 1 XLarge',
+                116	=> 'Grado 1 Manga 2 XLarge',
+                117	=> 'Grado 1 Manga 3 XLarge',
+                118	=> 'Agility GII XLarge',
+                119	=> 'Jumping GII XLarge',
+                120	=> 'Agility GIII XLarge',
+                121	=> 'Jumping GIII XLarge',
+                122	=> 'Agility XLarge', // open X
+                123	=> 'Jumping XLarge', // open X
+                124	=> 'Agility Equipos XLarge', // team X
+                125	=> 'Jumping Equipos XLarge',
+                126	=> 'Manga especial XLarge',
                 // jornadas team mixtas extras para cinco alturas
-                127	=> 'Ag. Eq. Large/Interm', // team combined
-                128	=> 'Jp. Eq. Large/Interm', // team combined
+                127	=> 'Ag. Eq. XLarge/Large', // team combined
+                128	=> 'Jp. Eq. XLarge/Large', // team combined
                 129	=> 'Ag. Eq. Medium/Small/XSmall',  // team combined
                 130	=> 'Jp. Eq. Medium/Small/XSmall', // team combined
                 // JAMC 2021-06-11 add children and para-agility rounds
-                131	=> 'Children Agility Large',
-                132	=> 'Children Jumping Large',
-                133	=> 'Children Agility Interm',
-                134	=> 'Children Jumping Interm',
+                131	=> 'Children Agility XLarge',
+                132	=> 'Children Jumping XLarge',
+                133	=> 'Children Agility Large',
+                134	=> 'Children Jumping Large',
                 135	=> 'Children Agility Medium',
                 136	=> 'Children Jumping Medium',
                 137	=> 'Children Agility Small',
                 138	=> 'Children Jumping Small',
-                139	=> 'Children Agility Xsmall',
-                140	=> 'Children Jumping Xsmall',
-                141	=> 'ParaAgility Agility Large',
-                142	=> 'ParaAgility Jumping Large',
-                143	=> 'ParaAgility Agility Interm',
-                144	=> 'ParaAgility Jumping Interm',
+                139	=> 'Children Agility Toy',
+                140	=> 'Children Jumping Toy',
+                141	=> 'ParaAgility Agility XLarge',
+                142	=> 'ParaAgility Jumping XLarge',
+                143	=> 'ParaAgility Agility Large',
+                144	=> 'ParaAgility Jumping Large',
                 145	=> 'ParaAgility Agility Medium',
                 146	=> 'ParaAgility Jumping Medium',
                 147	=> 'ParaAgility Agility Small',
                 148	=> 'ParaAgility Jumping Small',
-                149	=> 'ParaAgility Agility Xsmall',
-                150	=> 'ParaAgility Jumping Xsmall'
+                149	=> 'ParaAgility Agility Toy',
+                150	=> 'ParaAgility Jumping Toy'
             ),
             'TipoMangas' => array(
                 0 =>	array( 0, 'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo',  'IsAgility'),
