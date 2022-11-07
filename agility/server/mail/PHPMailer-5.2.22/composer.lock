@@ -597,7 +597,7 @@
                 "phpcollection/phpcollection": "~0.1"
             },
             "conflict": {
-                "twig/twig": "<1.12"
+                "twig/twig": "<1.38"
             },
             "require-dev": {
                 "doctrine/orm": "~2.1",
@@ -1029,7 +1029,7 @@
             },
             "require": {
                 "cilex/cilex": "~1.0",
-                "erusev/parsedown": "~1.0",
+                "erusev/parsedown": "1.7.2",
                 "herrera-io/phar-update": "1.0.3",
                 "jms/serializer": ">=0.12",
                 "monolog/monolog": "~1.6",
