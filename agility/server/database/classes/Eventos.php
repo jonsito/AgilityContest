@@ -167,7 +167,7 @@ class Eventos extends DBObject {
                 $res=$this->__select(
                     'Pruebas.RSCE',
                     'Sesiones,Pruebas',
-                    "(Pruebas.ID = Sesiones.Prueba ) AND  (Sesiones.ID = {$this->sessionID})"
+                    "(pruebas.ID = Sesiones.Prueba ) AND  (Sesiones.ID = {$this->sessionID})"
                 );
                 $fed=($res['total']==0)?0:intval($res['rows'][0]['RSCE']);
                 $data['Categoria']	= parseCategory(http_request('Categoria',"s","-"),$fed);

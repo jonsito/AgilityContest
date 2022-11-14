@@ -39,7 +39,7 @@ class Inscripciones extends DBObject {
 			$this->errormsg="$file::construct() invalid prueba:$prueba ID";
 			throw new Exception($this->errormsg);
 		}
-        $this->pruebaObj=$this->__selectObject("*","Pruebas","Pruebas.ID={$prueba}");
+        $this->pruebaObj=$this->__selectObject("*","pruebas","pruebas.ID={$prueba}");
 		$this->pruebaID=$prueba;
 		$this->insertid=0; // initial value
 	}
