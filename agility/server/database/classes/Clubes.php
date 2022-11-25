@@ -99,11 +99,12 @@ class Clubes extends DBObject {
 	}
 
 	function updateInscripciones($id) {
+        set_time_limit(0);
 		// miramos las pruebas en las que el perro esta inscrito
 		$res=$this->__select(
 		/* SELECT */"inscripciones.*",
 			/* FROM */	"inscripciones,pruebas,perroguiaclub",
-			/* WHERE */	"(pruebas.ID=inscripciones.Prueba) AND (pruebas.Cerrada=0) AND (inscripciones.Perro=perroguiaclub.ID) AND (Club=$id)",
+			/* WHERE */	"(pruebas.ID=inscripciones.Prueba) AND (pruebas.Cerrada=0) AND (inscripciones.Perro=perroguiaclub.ID) AND (perroguiaclub.Club=$id)",
 			/* ORDER BY */	"",
 			/* LIMIT*/	""
 		);
