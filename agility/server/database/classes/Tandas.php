@@ -254,11 +254,13 @@ class Tandas extends DBObject {
     // usado para evaluar el orden de las categorias segun el programa de la jornada
     static function getTandasByTipoManga($tipo,$heights){
 	    $cats=array('X','L','M','S','T','-');
+        /*
 	    switch ($heights) {
             case 3: $cats=array('L','M','S','-'); break;
-            case 4: $cats=array('L','M','S','T','-'); break;
+            case 4: $cats=array('X','L','M','S','T','-'); break;
             case 5: $cats=array('X','L','M','S','T','-'); break;
         }
+        */
         $res=array();
         // ordenamos segun la categoria conforme a la secuencia xlmst-
         foreach( $cats as $cat) {
