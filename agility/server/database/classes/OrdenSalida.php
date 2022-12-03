@@ -348,7 +348,7 @@ class OrdenSalida extends DBObject {
 		// ajustamos el rango de dorsales a evaluar
         $fromItem=1;
         $toItem=99999;
-        if (preg_match('/^\d+-\d+$/',$range)!==FALSE) {
+        if (preg_match('/^\d+-\d+$/',$range)) {
             $a=explode("-",$range);
             $fromItem=( intval($a[0]) <= 0 )? 1 : intval($a[0]);
             $toItem=( intval($a[1]) > 99999)? 99999 : intval($a[1]);
