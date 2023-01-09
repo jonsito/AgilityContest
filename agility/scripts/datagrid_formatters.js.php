@@ -141,6 +141,19 @@ function formatCategoria(val,row,idx) {
     if (typeof (ac_fedInfo[fed].ListaCategoriasShort[val]) === "undefined") return val;
     return ac_fedInfo[fed].ListaCategoriasShort[val];
 }
+function formatCategoriaShort(val,row,idx) {
+    var fed=workingData.federation;
+    if (typeof (ac_fedInfo[fed]) === "undefined") return val;
+    if (typeof (ac_fedInfo[fed].ListaCategoriasShort[val]) === "undefined") return val;
+    if (fed!==0) return ac_fedInfo[fed].ListaCategoriasShort[val];
+    // en el caso de RSCE las letras a devolver son L,I,M,S,T
+    switch (val) {
+        case 'X': return 'L';
+        case 'L': return 'I';
+        default: return val;
+    }
+}
+
 function formatCatGuia(val,row,idx) {
     var fed=workingData.federation;
     if (typeof (ac_fedInfo[fed]) === "undefined") return val;
@@ -154,8 +167,8 @@ function formatCatGrad(val,row,idx) {
     if (isJornadaKO()) hasGrade=false;
     if (isJornadaGames()) hasGrade=false;
     if (!hasGrade) return formatCategoria(val,row,idx);
-    // return formatCategoria(row.Categoria,row.idx)+"/"+formatGrado(row.Grado,row,idx);
-    return row.Categoria+"-"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
+    return formatCategoriaShort(row.Categoria,row.idx)+"-"+formatGrado(row.Grado,row,idx);
+    // return row.Categoria+"-"+formatGrado(row.Grado,row,idx); // not enoght space in column :-(
 }
 
 function formatGrado1(val,row,idx) {
