@@ -225,7 +225,7 @@ class PrintTRSTemplates extends PrintCommon {
         // indicamos nombre del operador que rellena la hoja
         $this->ac_header(2,12);
         $this->Cell(90,7,_('Record by').':','LTBR',0,'L',true);
-        $this->Cell(10,7,'',0,'L',false);
+        $this->Cell(10,7,'','',0,'L',false);
         $this->Cell(90,7,_('Review by').':','LTBR',0,'L',true);
         $this->Ln(15);
         $wide=$this->federation->hasWideLicense(); // use long cell for license when required
