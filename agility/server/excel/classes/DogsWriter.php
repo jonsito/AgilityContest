@@ -49,6 +49,7 @@ class DogsWriter extends XLSX_Writer {
 			throw new Exception($this->errormsg);
 		}
         $this->lista=$res['rows'];
+        $this->federation=Federations::getFederation($fed);
 	}
 
 	private function writeTableHeader() {
@@ -73,7 +74,13 @@ class DogsWriter extends XLSX_Writer {
 		foreach($this->lista as $perro) {
 			$row=array();
 			// extract relevant information from database received dog
-			for($n=0;$n<count($this->fields);$n++) array_push($row,$perro[$this->fields[$n]]);
+            foreach ($this->fields as $item) {
+                if ($item=== 'Categoria' ) {
+                    array_push($row,$this->federation->getCategoryShort($perro[$item]));
+                } else {
+                    array_push($row,$perro[$item]);
+                }
+            }
 			$this->myWriter->addRow($row);
 		}
 		$this->myLogger->leave();

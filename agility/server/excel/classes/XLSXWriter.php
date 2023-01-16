@@ -19,9 +19,9 @@ class XLSX_Writer {
     protected $myLogger;
     protected $myWriter;
     protected $myFile;
-    protected $prueba=null;
-    protected $jornada=null;
-    protected $federation=null;
+    protected $prueba; // array
+    protected $jornada; // array
+    protected $federation; // object
 
     protected $titleStyle;
     protected $rowHeaderStyle;

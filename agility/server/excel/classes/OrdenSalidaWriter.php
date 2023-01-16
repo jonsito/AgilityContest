@@ -29,9 +29,6 @@ require_once(__DIR__ . "/XLSXWriter.php");
 
 class OrdenSalidaWriter extends XLSX_Writer {
     protected $errormsg;
-    protected $prueba;
-    protected $jornada;
-    protected $federation;
     protected $manga; // datos de la manga
     protected $orden; // orden de salida
     protected $validcats; // categorias que nos han pedido listar
@@ -172,7 +169,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
                         case 'CatGuia': $val=$this->federation->getHandlerCategory($perro['CatGuia']);
                             break;
                         case 'Categoria':
-                            $val=$this->federation->getCategory($perro['Categoria']);
+                            $val=$this->federation->getCategoryShort($perro['Categoria']);
                             break;
                         case 'Grado':
                             $val=$this->federation->getGrade($val);
@@ -211,7 +208,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
                 $index=1;
                 $categoria=$perro['Categoria'];
                 array_push($row,_utf('Category') . ':');
-                array_push($row,$this->federation->get('ListaCategorias')[$categoria]);
+                array_push($row,$this->federation->getCategoryShort($categoria));
                 $this->myWriter->addRow($row);
             }
             if($equipo!=$perro['NombreEquipo']) {
@@ -229,7 +226,7 @@ class OrdenSalidaWriter extends XLSX_Writer {
                 // some fields require federation specific translations
                 switch($this->fields[$n]) {
                     case 'Categoria':
-                        $val=$this->federation->getCategory($categoria);
+                        $val=$this->federation->getCategoryShort($categoria);
                         break;
                     case 'Grado':
                         $val=$this->federation->getGrade($val);

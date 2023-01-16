@@ -28,8 +28,6 @@ require_once(__DIR__ . "/XLSXWriter.php");
 class PartialScoresWriter extends XLSX_Writer {
 
     protected $myDBObject;
-    protected $prueba;
-    protected $jornada;
 	protected $manga;
 	protected $resultados;
 	protected $mode;
@@ -51,6 +49,7 @@ class PartialScoresWriter extends XLSX_Writer {
         setcookie('fileDownload', 'true', time() + 30, "/"); // tell browser to hide "downloading" message box
         $this->myDBObject = new DBObject("partial_scores.xlsx");
         $this->prueba = $this->myDBObject->__getObject("pruebas", $idprueba);
+        $this->federation=Federations::getFederation(intval($this->prueba->RSCE));
         $this->jornada = $this->myDBObject->__getObject("jornadas", $idjornada);
         $this->manga = $manga;
         $this->resultados = $resultados;
@@ -72,8 +71,7 @@ class PartialScoresWriter extends XLSX_Writer {
     // Cabecera de página
     function writeCourseData() {
         // evaluate needed data from parameters
-        $federation=Federations::getFederation(intval($this->prueba->RSCE));
-        $modestr=$federation->get('IndexedModes')[intval($this->mode)];
+        $modestr=$this->federation->get('IndexedModes')[intval($this->mode)];
         $juez1=$this->myDBObject->__getObject("jueces",$this->manga->Juez1);
         $juez2=$this->myDBObject->__getObject("jueces",$this->manga->Juez2);
         $j1=($juez1->Nombre==="-- Sin asignar --")?"":$juez1->Nombre;
@@ -81,7 +79,7 @@ class PartialScoresWriter extends XLSX_Writer {
         // dump excel rows
 	    $row=array(_("Contest"),$this->prueba->Nombre);  $this->myWriter->addRow($row);
 	    $row=array(_("Journey"),$this->jornada->Nombre,$this->jornada->Fecha); $this->myWriter->addRow($row);
-	    $row=array(_("Round"),_(Mangas::getTipoManga($this->manga->Tipo,1,$federation)),$modestr); $this->myWriter->addRow($row);
+	    $row=array(_("Round"),_(Mangas::getTipoManga($this->manga->Tipo,1,$this->federation)),$modestr); $this->myWriter->addRow($row);
 	    $row=array(_("Judges"),$j1,$j2); $this->myWriter->addRow($row);
         $row=array(_('Dist'),$this->resultados['trs']['dist']." mts"); $this->myWriter->addRow($row);
         $row=array(_('Obst'),$this->resultados['trs']['obst']." obs"); $this->myWriter->addRow($row);
@@ -121,7 +119,13 @@ class PartialScoresWriter extends XLSX_Writer {
             $row['Faltas']=$row['Faltas']+$row['Tocados'];
             // extract relevant information from database received dog
 			$line=array();
-			for($n=0;$n<count($this->fields);$n++) array_push($line,$row[$this->fields[$n]]);
+            foreach ($this->fields as $item) {
+                if ($item==='Categoria' ) {
+                    array_push($line,$this->federation->getCategoryShort($row[$item]));
+                } else {
+                    array_push($line,$row[$item]);
+                }
+            }
 			$this->myWriter->addRow($line); // add row to excel table
 		}
 		$this->myLogger->leave();

@@ -59,6 +59,7 @@ class InscripcionesWriter extends XLSX_Writer {
 			throw new Exception($this->errormsg);
 		}
         $this->prueba=$res;
+        $this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
 		$j=new Jornadas("excel_Inscripciones",$prueba);
 		$res=$j->selectByPrueba();
 		if (!is_array($res)){
@@ -139,7 +140,7 @@ class InscripcionesWriter extends XLSX_Writer {
 			$row[]=$perro['LOE_RRC'];
             // $row[]=$this->federation->getCategory($perro['Categoria']);
             // $row[]=$this->federation->getGrade($perro['Grado']);
-            $row[]=$perro['Categoria'];
+            $row[]=$this->federation->getCategoryShort($perro['Categoria']);
             $row[]=$perro['Grado'];
             $row[]=$perro['NombreGuia'];
             $row[]=$this->federation->getHandlerCategory($perro['CatGuia']);

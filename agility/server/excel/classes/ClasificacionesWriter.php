@@ -34,7 +34,6 @@ require_once(__DIR__ . "/XLSXWriter.php");
 
 class ClasificacionesWriter extends XLSX_Writer {
 
-    protected $federation;
 	protected $jornadas=array(); // lista de jornadas de la prueba
     protected $jdbObject; // gestion de jueces
 
@@ -55,6 +54,7 @@ class ClasificacionesWriter extends XLSX_Writer {
 			throw new Exception($this->errormsg);
 		}
         $this->prueba=$res;
+        $this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
 		$j=new Jornadas("ClasificacionesWriter",$prueba);
 		$res=$j->selectByPrueba();
 		if (!is_array($res)){
@@ -63,7 +63,6 @@ class ClasificacionesWriter extends XLSX_Writer {
 		}
 		$this->jornadas=$res['rows'];
         // to get mode in trs evaluation
-        $this->federation=Federations::getFederation($this->prueba['RSCE']);
         $this->jdbObject=new Jueces("excelClasification");
 	}
 
@@ -186,7 +185,8 @@ class ClasificacionesWriter extends XLSX_Writer {
             $row[]=$pdata['Chip'];
 			$row[]=$pdata['Licencia'];
 			$row[]=$pdata['LOE_RRC'];
-			$row[]=$pdata['Categoria'];
+            $row[]=$this->federation->getCategoryShort($perro['Categoria']);
+			// $row[]=$pdata['Categoria'];
 			$row[]=$perro['Grado']; // use grade info from result, cause inscription data may change (closed journeys)
 			$row[]=$pdata['NombreGuia'];
 			$row[]=$pdata['NombreClub'];
@@ -226,7 +226,8 @@ class ClasificacionesWriter extends XLSX_Writer {
             $row[]=$pdata['Chip'];
             $row[]=$pdata['Licencia'];
             $row[]=$pdata['LOE_RRC'];
-            $row[]=$pdata['Categoria'];
+            $row[]=$this->federation->getCategoryShort($perro['Categoria']);
+            // $row[]=$pdata['Categoria'];
             $row[]=$pdata['Grado'];
             $row[]=$pdata['NombreGuia'];
             $row[]=$pdata['NombreClub'];
