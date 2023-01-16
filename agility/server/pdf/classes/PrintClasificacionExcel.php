@@ -200,7 +200,7 @@ class PrintClasificacionExcel {
 		$this->xlsNumber($base,0,$row['Dorsal']);
 		$this->xlsLabel($base,1,iconv( "UTF-8", "ISO-8859-1",$row['Nombre']));
 		$this->xlsLabel($base,2,$row['Licencia']);
-		$this->xlsLabel($base,3,$row['Categoria']);
+		$this->xlsLabel($base,3,$this->federation->getCategoryShort($row['Categoria']));
 		$this->xlsLabel($base,4,$row['Grado']);
 		$this->xlsLabel($base,5,iconv( "UTF-8", "ISO-8859-1",$row['NombreGuia']));
 		$this->xlsLabel($base,6,iconv( "UTF-8", "ISO-8859-1",$row['NombreClub']));
