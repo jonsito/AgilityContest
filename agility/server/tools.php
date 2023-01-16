@@ -331,26 +331,29 @@ function parseGender($gender) {
 function parseCategory($cat,$fed=0) {
     if ( ($fed==2) || ($fed==8) ) { // 4 alturas (nat-4 o int-4)
         $cats= array (
-            'L' => array('l','large','standard','estandar','std','int','600','60','6'),
-            'M' => array('m','medium','midi','mid','med','500','50','5'),
-            'S' => array('s','small','mini','min','400','40','4'),
-            'T' => array('t','enano','tiny','toy','xs','x-small','x-short','extra-short','300','30','3')
+            'L' => array('large','standard','estandar','std','int','600','60','6'),
+            'M' => array('medium','midi','mid','med','500','50','5'),
+            'S' => array('small','mini','min','400','40','4'),
+            'T' => array('enano','tiny','toy','xs','x-small','x-short','extra-short','300','30','3')
         );
     } else { // 5-3 alturas
         $cats= array (
-            'M' => array('m','medium','midi','mid','med','400','40','4'),
-            'S' => array('s','small','mini','min','300','30','3'),
-            'T' => array('t','enano','tiny','toy','xs','x-small','x-short','extra-short','250','200','25','20','2')
+            'M' => array('medium','midi','mid','med','400','40','4'),
+            'S' => array('small','mini','min','300','30','3'),
+            'T' => array('enano','tiny','toy','xs','x-small','x-short','extra-short','250','200','25','20','2')
         );
         if ($fed!=0) {
-            $cats['X'] = array('x','extra','xlarge','xl','x-large','extra-large','600','60','6');
-            $cats['L'] = array('l','large','standard','estandar','std','i','intermediate','intermedia','inter','int','500','50','5');
+            $cats['X'] = array('extra','xlarge','xl','x-large','extra-large','600','60','6');
+            $cats['L'] = array('large','standard','estandar','std','i','intermediate','intermedia','inter','int','500','50','5');
         } else {
-            $cats['X'] = array('x','extra','xlarge','xl','x-large','l','large','standard','estandar','std','extra-large','600','60','6');
+            $cats['X'] = array('extra','xlarge','xl','x-large','large','standard','estandar','std','extra-large','600','60','6');
             $cats['L'] = array('i','intermediate','intermedia','inter','int','500','50','5');
         }
     }
 	if (is_null($cat)) return '-';
+    // when database value is provided, do not perform any parsing
+    if (in_array($cat,array('-','X','L','M','S','T'))) return $cat;
+    // else search across available values on each category
     $str = preg_replace("/[^A-Za-z0-9]/u", '', strtolower(iconv('UTF-8','ASCII//TRANSLIT',$cat)));
     $str = preg_replace('/\D+(\d+)/i','${1}',$str); // try to resolve "Clase XX" RFEC patterns
     foreach ( $cats as $key => $values) {
