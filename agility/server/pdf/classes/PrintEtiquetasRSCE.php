@@ -178,7 +178,8 @@ class PrintEtiquetasRSCE extends PrintCommon {
 		$this->SetFont($this->getFontName(),'',12); // font size for results data
 		//Cat (105,y,12,8) center
 		$this->SetXY($left+95,$y1);
-		$this->Cell(12,8,$row['Categoria'],'L',0,'C',false);
+		$cat=$this->federation->getCategoryShort($row['Categoria']);
+		$this->Cell(12,8,$cat,'L',0,'C',false);
 		//Grado (105,y+8,12,9) center
 		$this->SetXY($left+95,$y7);
 		$this->Cell(12,9,$grado,'L',0,'C',false);
