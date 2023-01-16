@@ -163,6 +163,7 @@ $config =Config::getInstance();
         	$('#edit_inscripcion-J8').prop('disabled', ! canInscribe(jornadas[7]) );
         	// fix handler category name
             $('#edit_inscripcion-CatGuia').val(formatCatGuia(data.CatGuia,0,0));
+            $('#edit_inscripcion-Categoria').val(formatCategoria(data.Categoria,0,0));
             // solo el reglamento RSCE contempla perros fuera de categoria/altura/competicion
             let flag=(parseInt(workingData.datosFederation.ID)!==0);
             $('#edit_inscripcion-nc').prop('disabled',flag);

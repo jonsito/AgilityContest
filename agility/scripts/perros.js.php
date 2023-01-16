@@ -92,20 +92,24 @@ function editInscribedDog(){
 		// leave inscripcion dialog open
 		saveInscripcion(false);
 		// and refill dog changes with new data
-		$.ajax({
-			url: '../ajax/database/dogFunctions.php',
-			data: { Operation: 'getbyidperro', ID: id },
-			dataType: 'json',
-			success: function(data) {
-				$('#edit_inscripcion-Nombre').val(data.Nombre);
-				$('#edit_inscripcion-Licencia').val(data.Licencia);
-				$('#edit_inscripcion-Categoria').val(data.Categoria);
-				$('#edit_inscripcion-Grado').val(data.Grado);
-                $('#edit_inscripcion-NombreGuia').val(data.NombreGuia);
-                $('#edit_inscripcion-CatGuia').val(formatCatGuia(data.CatGuia,0,0));
-				$('#edit_inscripcion-NombreClub').val(data.NombreClub);
-			}
-		});
+        // esto es una chapuza para garantizar que la llamada ajax se ejecuta despues
+        // de que saveInscripcion se haya ejecutado; pero el caso es que funciona
+        setTimeout(function() {
+            $.ajax({
+                url: '../ajax/database/dogFunctions.php',
+                data: { Operation: 'getbyidperro', ID: id },
+                dataType: 'json',
+                success: function(data) {
+                    $('#edit_inscripcion-Nombre').val(data.Nombre);
+                    $('#edit_inscripcion-Licencia').val(data.Licencia);
+                    $('#edit_inscripcion-Categoria').val(formatCategoria(data.Categoria,0,0));
+                    $('#edit_inscripcion-Grado').val(data.Grado);
+                    $('#edit_inscripcion-NombreGuia').val(data.NombreGuia);
+                    $('#edit_inscripcion-CatGuia').val(formatCatGuia(data.CatGuia,0,0));
+                    $('#edit_inscripcion-NombreClub').val(data.NombreClub);
+                }
+            });
+        },500);
 	});
 }
 
