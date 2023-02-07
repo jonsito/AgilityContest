@@ -329,6 +329,7 @@ function parseGender($gender) {
  * @return {string} X,L,M,S,T,- detected category
  */
 function parseCategory($cat,$fed=0) {
+    if (is_null($cat)) return '-';
     if ( ($fed==2) || ($fed==8) ) { // 4 alturas (nat-4 o int-4)
         $cats= array (
             'L' => array('large','standard','estandar','std','int','600','60','6'),
@@ -346,13 +347,16 @@ function parseCategory($cat,$fed=0) {
             $cats['X'] = array('extra','xlarge','xl','x-large','extra-large','600','60','6');
             $cats['L'] = array('large','standard','estandar','std','i','intermediate','intermedia','inter','int','500','50','5');
         } else {
+            // en rsce 2023 las categorías son "LIMST", que en la base de datos se traducen a 'XLMST'
+            if ( $cat=='L' || $cat=='l' ) return 'X';
+            if ( $cat=='I' || $cat=='i' ) return 'L';
             $cats['X'] = array('extra','xlarge','xl','x-large','large','standard','estandar','std','extra-large','600','60','6');
             $cats['L'] = array('i','intermediate','intermedia','inter','int','500','50','5');
         }
     }
-	if (is_null($cat)) return '-';
     // when database value is provided, do not perform any parsing
     if (in_array($cat,array('-','X','L','M','S','T'))) return $cat;
+    if (in_array($cat,    array('x','l','m','s','t'))) return strtoupper($cat);
     // else search across available values on each category
     $str = preg_replace("/[^A-Za-z0-9]/u", '', strtolower(iconv('UTF-8','ASCII//TRANSLIT',$cat)));
     $str = preg_replace('/\D+(\d+)/i','${1}',$str); // try to resolve "Clase XX" RFEC patterns
