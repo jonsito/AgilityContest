@@ -348,8 +348,8 @@ function parseCategory($cat,$fed=0) {
             $cats['L'] = array('large','standard','estandar','std','i','intermediate','intermedia','inter','int','500','50','5');
         } else {
             // en rsce 2023 las categorías son "LIMST", que en la base de datos se traducen a 'XLMST'
-            if ( $cat=='L' || $cat=='l' ) return 'X';
-            if ( $cat=='I' || $cat=='i' ) return 'L';
+            // if ( $cat=='L' || $cat=='l' ) return 'X';
+            // if ( $cat=='I' || $cat=='i' ) return 'L';
             $cats['X'] = array('extra','xlarge','xl','x-large','large','standard','estandar','std','extra-large','600','60','6');
             $cats['L'] = array('i','intermediate','intermedia','inter','int','500','50','5');
         }
