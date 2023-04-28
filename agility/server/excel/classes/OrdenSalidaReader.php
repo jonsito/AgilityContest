@@ -71,7 +71,7 @@ class OrdenSalidaReader extends DogReader {
         if ($fedobj->isInternational()) { $this->fieldList['Club'][1]=0; $this->fieldList['Country'][1]=1; } // country/club
         $this->validPageNames=array("StartingOrder",_("StartingOrder"),"Starting order",_("Starting order"));
         $this->heights=Competitions::getHeights($this->prueba['ID'],$this->jornada['ID'],$this->manga['ID']);
-        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']), $this->heihgts,"resultados.");
+        $this->sqlcats=sqlFilterCategoryByMode(intval($this->myOptions['Mode']), $this->heights,"resultados.");
     }
 
     private function removeTmpEntry($item) {
